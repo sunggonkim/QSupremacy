@@ -17,6 +17,8 @@ The core comparison is not simulator vs simulator. The comparison is:
 - cuStateVec binding path: `cuquantum.bindings.custatevec`
 - Login-node smoke suite passes.
 - Perlmutter GPU Slurm smoke jobs completed successfully.
+- First `sklearn digits` shared-GPU sweep completed:
+  job `55414571`, 18 cases, 221 seconds elapsed, about 0.061 GPU-hours.
 
 ## Login Smoke Gate
 
@@ -73,6 +75,17 @@ sbatch jobs/perlmutter/digits_supremacy_1gpu_shared.sbatch
 The shared-GPU job runs native ML, quantum kernel, and QNN/VQC paths over a
 small sweep. Do not use the full GPU-node script for this workload until the
 code can use all requested GPUs.
+
+Recent shared-GPU result:
+
+```text
+job_id: 55414571
+state: COMPLETED
+elapsed: 00:03:41
+queue: 00:02:08
+results: data/raw/perlmutter/digits_shared/digits_55414571_*.json
+summary: data/processed/perlmutter/digits_55414571_summary.json
+```
 
 ## First Full Workloads
 

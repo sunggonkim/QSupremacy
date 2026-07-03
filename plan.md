@@ -948,8 +948,8 @@ shared 1-GPU job 55412749:
 - [x] quantum circuit 생성 코드 작성
 - [x] cuQuantum backend 연결
 - [x] runtime logging 포맷 정의
-- [ ] `sacct` metadata 수집
-- [ ] charged node-hour 계산
+- [x] `sacct` metadata 수집
+- [x] charged node-hour 계산
 - [x] break-even 모델 구현
 - [ ] sensitivity analysis 구현
 - [ ] 결과 figure template 작성
@@ -989,3 +989,46 @@ Submission readiness gate:
   - QNN/VQC classifier
 - Do not submit until Perlmutter result sweeps include repeated trials, variance, warmup policy, and charged node-hour accounting.
 - Replace the lightweight local LaTeX scaffold with the official target venue template before submission.
+
+## 15. First Digits Shared-GPU Sweep
+
+`sklearn digits` 기반 첫 shared-GPU sweep를 완료했다.
+
+Job:
+
+- job id: `55414571`
+- partition: `shared_gpu_ss11`
+- QOS: `gpu_shared`
+- account: `m1248_g`
+- node: `nid001324`
+- resources: 1 A100 GPU, 32 CPUs
+- state: `COMPLETED`
+- elapsed: `00:03:41`
+- queue time: 128 seconds
+- GPU-hours: 0.0614
+- Slurm billing core-hours: 1.9644
+
+실험 구성:
+
+- classes: digits `0` vs `1`
+- paths: native logistic/MLP, quantum kernel, QNN/VQC
+- sweep: sample count 64/96/128, PCA dimension 4/8/12, feature depth 1/2, seed 11/13
+- output JSON files: `data/raw/perlmutter/digits_shared/digits_55414571_*.json`
+- processed summary: `data/processed/perlmutter/digits_55414571_summary.json`
+- accounting: `data/raw/perlmutter/accounting/sacct_55414571.txt`
+
+요약 결과:
+
+- 18/18 cases completed.
+- native best accuracy: 1.0 for all cases.
+- quantum kernel test accuracy: 0.875 to 1.0, median 1.0.
+- QNN/VQC test accuracy: 0.5833 to 0.9583, median 0.8281.
+- quantum kernel required simulation-to-native speedup median: 907.7x.
+- QNN/VQC required simulation-to-native speedup median: 25.5x.
+
+해석:
+
+- 본실험 pipeline은 세 트랙 모두 Perlmutter shared GPU에서 동작한다.
+- 현재 native baseline은 binary digits에서 너무 강하고 빠르므로, quantum path가 같은 quality를 만족하는지 먼저 걸러야 한다.
+- QNN/VQC는 일부 seed/config에서 accuracy가 낮다. optimizer iteration, ansatz, target accuracy policy를 정해야 논문 결과로 쓸 수 있다.
+- quantum kernel runtime에는 CUDA/cuQuantum initialization overhead가 크게 포함된다. 다음 sweep에서는 warmup과 repeated trials를 분리해야 한다.
