@@ -8,13 +8,13 @@ The key systems implication is repetition. A single circuit execution is rarely 
 
 \subsection{Native HPC Baselines}
 
-Native HPC/ML baselines execute the same task directly on CPUs or GPUs. For the first \SystemName workload, the native path uses \texttt{sklearn digits} with PCA and classical classifiers such as logistic regression, MLP, and optionally SVM/RBF. These baselines are intentionally strong and simple: if a quantum-circuit model cannot beat a well-optimized native baseline at the same target quality, it does not demonstrate practical advantage.
+Native HPC/ML baselines execute the same task directly on CPUs or GPUs. For the first \SystemName workload, the native path uses \texttt{sklearn digits} with PCA and classical classifiers such as logistic regression, MLP, and optionally SVM/RBF. These baselines are intentionally strong and simple: if a quantum-circuit model cannot beat a well-optimized native baseline at the same target quality, it does not satisfy the practical supremacy threshold.
 
 \subsection{Perlmutter and cuQuantum}
 
 \Perlmutter provides GPU nodes suitable for quantum-circuit simulation with \cuQuantum and cuStateVec~\cite{nerscperlmutter,cuquantum}. Our current environment uses an existing \cuQuantum installation and validates it through login-node smoke tests before any allocation-consuming job. Login-node tests are used only for correctness and pipeline validation. Performance experiments must run through Slurm and record queue time, elapsed time, allocation resources, and charged node-hours~\cite{nerscslurm}.
 
-\subsection{Definition of Application-Level Advantage}
+\subsection{Definition of Quantum Supremacy Threshold}
 
 For a fixed task, dataset split, target quality, and system budget, the native application path is:
 
@@ -45,7 +45,7 @@ T_{\mathrm{input}} + T_{\mathrm{encoding}}
 + T_{\mathrm{error}} + T_{\mathrm{postprocess}}.
 \end{align}
 
-The condition for projected quantum advantage is:
+The condition for projected quantum supremacy is:
 
 \begin{align}
 T_{\mathrm{qhw}} < T_{\mathrm{native}}

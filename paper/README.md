@@ -1,6 +1,6 @@
 # Paper Draft
 
-Target: ATC-style systems paper.
+Target: ATC-style quantum supremacy modeling and analysis paper.
 
 Status: scaffold only. Do not submit this draft as-is. The current draft contains methodology, workload design, and result placeholders, but not enough experimental evidence for an ATC submission.
 
@@ -58,7 +58,7 @@ paper/PreviousPapers/
 
 ## Paper Thesis
 
-Quantum advantage should be evaluated at the application level, not by comparing a CPU state-vector simulator against cuQuantum. This paper studies the end-to-end gap between native HPC/ML applications and quantum-circuit versions of the same workloads, then projects the quantum hardware requirements needed to beat the native path.
+Quantum supremacy should be modeled as an application-level break-even condition, not by comparing a CPU state-vector simulator against cuQuantum. This paper studies the end-to-end gap between native HPC/ML applications and quantum-circuit versions of the same workloads, then analyzes the quantum hardware requirements needed to beat the native path.
 
 ## Required Results Before Submission
 

@@ -1,6 +1,6 @@
 # QSupremacy
 
-QSupremacy models when quantum-circuit applications can outperform native HPC/ML applications on Perlmutter.
+QSupremacy is a quantum supremacy modeling and analysis project. It models when quantum-circuit applications can outperform native HPC/ML applications on Perlmutter.
 
 The core comparison is not simulator vs simulator. The comparison is:
 
@@ -81,11 +81,11 @@ Use the login smoke gate first, then shared 1-GPU jobs, then full-node or multi-
 
 ## Paper Draft
 
-The ATC-style paper scaffold is in `paper/`.
+The ATC-style quantum supremacy modeling and analysis paper scaffold is in `paper/`.
 
 ```bash
 cd paper
 make
 ```
 
-The current draft is not submission-ready. It contains the thesis, methodology, workload matrix, and result placeholders. The first full evaluation must complete all three tracks: `sklearn digits` native ML, quantum kernel classification, and QNN/VQC classification.
+The current draft is not submission-ready. It contains the thesis, modeling method, workload matrix, analysis plan, and result placeholders. The first full evaluation must complete all three tracks: `sklearn digits` native ML, quantum kernel classification, and QNN/VQC classification.

@@ -1,7 +1,7 @@
 \section{\SystemName Design}
 
 \noindent\textbf{Overview of \SystemName's Design.}
-\SystemName is designed to answer one question: when does a quantum-circuit application beat the native HPC/ML application for the same task? Figure~\ref{fig:design-overview} summarizes the key components. First, \SystemName uses \textit{Shared Workload Control} to ensure that all paths use the same data split and preprocessing. Second, it uses \textit{Native Path Execution} to establish a strong classical baseline. Third, it uses \textit{Quantum Path Execution} to run quantum kernel and QNN/VQC models with \cuQuantum. Finally, it uses \textit{Hardware Projection} to estimate the future quantum hardware requirements.
+\SystemName is designed to answer one question: what quantum hardware speed is required for a quantum-circuit application to beat the native HPC/ML application for the same task? Figure~\ref{fig:design-overview} summarizes the key components. First, \SystemName uses \textit{Shared Workload Control} to ensure that all paths use the same data split and preprocessing. Second, it uses \textit{Native Path Execution} to establish a strong classical baseline. Third, it uses \textit{Quantum Path Execution} to run quantum kernel and QNN/VQC models with \cuQuantum. Finally, it uses \textit{Supremacy Threshold Analysis} to estimate the future quantum hardware requirements.
 
 \begin{figure}[t]
     \centering
@@ -13,12 +13,12 @@
 
 \subsection{Overall Procedure}
 
-Figure~\ref{fig:design-overview} shows the overall procedure. \SystemName has two main phases: \textit{Measurement} and \textit{Projection}.
+Figure~\ref{fig:design-overview} shows the overall procedure. \SystemName has two main phases: \textit{Measurement} and \textit{Supremacy Analysis}.
 
 \noindent\textbf{Measurement.}
 When an experiment starts, \SystemName reads the workload configuration. The configuration includes the dataset, train/test split, feature dimension, model type, circuit type, shots, and target quality. \SystemName then runs the native path and the quantum-circuit path using the same input data. This prevents unfair comparisons caused by different preprocessing or different quality targets.
 
-\noindent\textbf{Projection.}
+\noindent\textbf{Supremacy Analysis.}
 After measurement, \SystemName reads the circuit metadata and runtime breakdown. It extracts the number of qubits, circuit depth, one-qubit gates, two-qubit gates, shots, and optimizer iterations. Using this information, \SystemName computes the quantum hardware speed required to make the projected quantum path faster than the measured native path.
 
 \subsection{Shared Workload Control}
@@ -70,7 +70,7 @@ Every run emits a JSON record. The record includes dataset metadata, model metad
 \noindent\textbf{Allocation Accounting.}
 \SystemName separates login-node smoke tests from Slurm performance runs. Login-node tests are only for correctness. Slurm runs must record elapsed time, queue time, requested walltime, allocated GPUs, and charged node-hours. This prevents short sanity checks from being mistaken for valid performance experiments.
 
-\subsection{Hardware Projection}
+\subsection{Supremacy Threshold Analysis}
 
 \noindent\textbf{Execution Model.}
 Given circuit metadata, \SystemName estimates projected quantum execution time:
@@ -91,4 +91,4 @@ where $N_s$ is the shot count, $D_1$ and $D_2$ are one- and two-qubit gate depth
 T_{\mathrm{qhw}} < T_{\mathrm{native}}.
 \end{align}
 
-This gives a hardware requirement rather than a vague claim of advantage.
+This gives a hardware requirement rather than a vague claim of supremacy.

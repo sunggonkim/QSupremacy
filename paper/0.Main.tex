@@ -20,7 +20,7 @@
 \newcommand{\Perlmutter}{\texttt{Perlmutter}\xspace}
 \newcommand{\todo}[1]{\textbf{TODO: #1}}
 
-\title{\SystemName: Modeling Application-Level Quantum Advantage over Native HPC}
+\title{\SystemName: Quantum Supremacy Modeling and Analysis over Native HPC}
 
 \author{Anonymous Authors}
 \date{}
@@ -29,11 +29,11 @@
 \maketitle
 
 \begin{abstract}
-\textbf{Problem.} Quantum advantage is often discussed using algorithmic speedups or simulator performance. This is not enough for HPC users. The real question is whether a quantum-circuit application can beat a native HPC/ML application on the same task and at the same quality.
+\textbf{Problem.} Quantum supremacy is often discussed using algorithmic speedups or simulator performance. This is not enough for HPC users. The real question is when a quantum-circuit application can beat a native HPC/ML application on the same task and at the same quality.
 
-\textbf{Approach.} This paper presents \SystemName, a Perlmutter-based framework for modeling application-level quantum advantage. \SystemName runs three paths with the same data split: native ML baselines, quantum kernel classifiers, and QNN/VQC classifiers executed with \cuQuantum. It then uses the measured circuit cost to project the quantum hardware speed needed to beat the native path.
+\textbf{Approach.} This paper presents a quantum supremacy modeling and analysis methodology. \SystemName runs three paths with the same data split: native ML baselines, quantum kernel classifiers, and QNN/VQC classifiers executed with \cuQuantum. It then uses the measured circuit cost to model the supremacy threshold, i.e., the quantum hardware speed needed to beat the native path.
 
-\textbf{Status.} Results are not ready yet. This draft follows the structure of our accepted ScaleQsim and AURORA-Q papers: problem, limitation, prior-work gap, design, evaluation plan, and hardware projection. The first full workload suite targets \texttt{sklearn digits} with PCA, quantum kernels, and QNN/VQC models.
+\textbf{Status.} Results are not ready yet. This draft follows the structure of our accepted ScaleQsim and AURORA-Q papers: problem, limitation, prior-work gap, modeling design, evaluation plan, and analysis. The first full workload suite targets \texttt{sklearn digits} with PCA, quantum kernels, and QNN/VQC models.
 \end{abstract}
 
 \input{1.Introduction}

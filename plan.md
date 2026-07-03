@@ -1,8 +1,8 @@
-# Quantum Advantage Modeling Plan
+# Quantum Supremacy Modeling and Analysis Plan
 
 ## 1. 목표
 
-양자컴퓨터가 실제 응용에서 HPC 대비 어느 정도 빨라져야 "양자 이득"으로 볼 수 있는지 정량화한다.
+양자컴퓨터가 실제 응용에서 HPC 대비 어느 정도 빨라져야 "quantum supremacy/양자 이득"으로 볼 수 있는지 모델링하고 분석한다.
 
 비교 대상은 다음 두 축이다. 핵심은 시뮬레이터끼리 비교하는 것이 아니라, 같은 응용 문제를 서로 다른 계산 패러다임으로 푸는 end-to-end 비교이다.
 
@@ -69,7 +69,7 @@ T_projected_quantum_hardware =
 + T_queue
 ```
 
-양자 이득 조건은 기본적으로 다음과 같이 둔다.
+quantum supremacy threshold 조건은 기본적으로 다음과 같이 둔다.
 
 ```text
 T_projected_quantum_hardware < T_native_app
@@ -78,9 +78,9 @@ T_projected_quantum_hardware < T_native_app
 확장 지표도 함께 본다.
 
 ```text
-Speedup = T_native_app / T_projected_quantum_hardware
-Cost advantage = Cost_native_app / Cost_projected_quantum_hardware
-Energy advantage = Energy_native_app / Energy_projected_quantum_hardware
+Speedup ratio = T_native_app / T_projected_quantum_hardware
+Cost ratio = Cost_native_app / Cost_projected_quantum_hardware
+Energy ratio = Energy_native_app / Energy_projected_quantum_hardware
 ```
 
 ### 4.2 양자 하드웨어 요구 성능 역산
@@ -93,7 +93,7 @@ T_quantum_execute =
   / parallel_shot_factor
 ```
 
-여기서 양자 이득 조건을 만족하는 `t_1q`, `t_2q`, `parallel_shot_factor`, logical error rate의 범위를 역산한다.
+여기서 quantum supremacy threshold 조건을 만족하는 `t_1q`, `t_2q`, `parallel_shot_factor`, logical error rate의 범위를 역산한다.
 
 ```text
 Required quantum speed =
@@ -906,16 +906,16 @@ shared 1-GPU job 55412749:
 
 제목 후보:
 
-- Modeling the Hardware Requirements for Practical Quantum Advantage over Native HPC
-- When Does Quantum Win? A Cross-Stack Performance Model for Quantum Applications and Native HPC
-- Quantifying Quantum Advantage Thresholds through HPC-based Quantum Simulation and Native Baselines
+- Modeling Quantum Supremacy Thresholds over Native HPC
+- When Does Quantum Win? A Cross-Stack Supremacy Model for Quantum Applications and Native HPC
+- Quantifying Quantum Supremacy Requirements through HPC-based Quantum Simulation and Native Baselines
 
 핵심 주장:
 
-- 단순히 양자 알고리즘의 asymptotic speedup만으로는 양자 이득을 판단할 수 없다.
+- 단순히 양자 알고리즘의 asymptotic speedup만으로는 quantum supremacy를 판단할 수 없다.
 - 데이터 encoding, shot count, error correction, queue/resource overhead를 포함하면 break-even point가 크게 이동한다.
 - 기존 HPC 기반 양자 시뮬레이션 성능을 이용하면, 미래 양자 하드웨어가 달성해야 할 구체적인 gate speed/fidelity/parallelism 요구사항을 역산할 수 있다.
-- ScaleQsim/SWIFTN/AURORA-Q의 결과를 연결하면 양자 시뮬레이션 baseline과 자원 최적화 모델을 포함한 end-to-end quantum advantage framework를 만들 수 있다.
+- ScaleQsim/SWIFTN/AURORA-Q의 결과를 연결하면 양자 시뮬레이션 baseline과 자원 최적화 모델을 포함한 end-to-end quantum supremacy modeling framework를 만들 수 있다.
 
 ## 11. 첫 번째 마일스톤
 
@@ -966,7 +966,7 @@ shared 1-GPU job 55412749:
 
 ## 14. Paper Target
 
-`paper/` contains an ATC-style manuscript scaffold.
+`paper/` contains an ATC-style quantum supremacy modeling and analysis manuscript scaffold.
 
 Current status:
 
