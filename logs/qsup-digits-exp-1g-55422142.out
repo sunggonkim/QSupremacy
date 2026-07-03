@@ -1,0 +1,149 @@
+job_id=55422142
+host=nid003609
+date_start=2026-07-03T01:10:22-07:00
+cuda_visible_devices=0
+chunk_id=7
+chunk_count=8
+GPU 0: NVIDIA A100-SXM4-40GB (UUID: GPU-9f105c52-3ccc-8a85-f9db-9e37d5eed657)
+case_start=c0v1_128s_16p_d1_i2_seed11 2026-07-03T01:10:22-07:00
+case_end=c0v1_128s_16p_d1_i2_seed11 2026-07-03T01:10:34-07:00
+case_start=c0v1_256s_8p_d3_i4_seed11 2026-07-03T01:10:34-07:00
+case_end=c0v1_256s_8p_d3_i4_seed11 2026-07-03T01:10:44-07:00
+case_start=c0v1_128s_8p_d2_i4_seed13 2026-07-03T01:10:44-07:00
+case_end=c0v1_128s_8p_d2_i4_seed13 2026-07-03T01:10:52-07:00
+case_start=c0v1_256s_8p_d1_i4_seed13 2026-07-03T01:10:52-07:00
+case_end=c0v1_256s_8p_d1_i4_seed13 2026-07-03T01:11:00-07:00
+case_start=c0v1_256s_16p_d2_i2_seed13 2026-07-03T01:11:00-07:00
+case_end=c0v1_256s_16p_d2_i2_seed13 2026-07-03T01:11:11-07:00
+case_start=c3v8_128s_16p_d1_i2_seed11 2026-07-03T01:11:11-07:00
+case_end=c3v8_128s_16p_d1_i2_seed11 2026-07-03T01:11:19-07:00
+case_start=c3v8_256s_8p_d3_i4_seed11 2026-07-03T01:11:19-07:00
+case_end=c3v8_256s_8p_d3_i4_seed11 2026-07-03T01:11:28-07:00
+case_start=c3v8_128s_8p_d2_i4_seed13 2026-07-03T01:11:28-07:00
+case_end=c3v8_128s_8p_d2_i4_seed13 2026-07-03T01:11:36-07:00
+case_start=c3v8_256s_8p_d1_i4_seed13 2026-07-03T01:11:36-07:00
+case_end=c3v8_256s_8p_d1_i4_seed13 2026-07-03T01:11:44-07:00
+case_start=c3v8_256s_16p_d2_i2_seed13 2026-07-03T01:11:44-07:00
+case_end=c3v8_256s_16p_d2_i2_seed13 2026-07-03T01:11:54-07:00
+case_start=c4v9_128s_16p_d1_i2_seed11 2026-07-03T01:11:54-07:00
+case_end=c4v9_128s_16p_d1_i2_seed11 2026-07-03T01:12:02-07:00
+case_start=c4v9_256s_8p_d3_i4_seed11 2026-07-03T01:12:02-07:00
+case_end=c4v9_256s_8p_d3_i4_seed11 2026-07-03T01:12:12-07:00
+case_start=c4v9_128s_8p_d2_i4_seed13 2026-07-03T01:12:12-07:00
+case_end=c4v9_128s_8p_d2_i4_seed13 2026-07-03T01:12:19-07:00
+case_start=c4v9_256s_8p_d1_i4_seed13 2026-07-03T01:12:19-07:00
+case_end=c4v9_256s_8p_d1_i4_seed13 2026-07-03T01:12:27-07:00
+case_start=c4v9_256s_16p_d2_i2_seed13 2026-07-03T01:12:27-07:00
+case_end=c4v9_256s_16p_d2_i2_seed13 2026-07-03T01:12:37-07:00
+case_start=c5v8_128s_16p_d1_i2_seed11 2026-07-03T01:12:37-07:00
+case_end=c5v8_128s_16p_d1_i2_seed11 2026-07-03T01:12:46-07:00
+case_start=c5v8_256s_8p_d3_i4_seed11 2026-07-03T01:12:46-07:00
+case_end=c5v8_256s_8p_d3_i4_seed11 2026-07-03T01:12:55-07:00
+case_start=c5v8_128s_8p_d2_i4_seed13 2026-07-03T01:12:55-07:00
+case_end=c5v8_128s_8p_d2_i4_seed13 2026-07-03T01:13:04-07:00
+case_start=c5v8_256s_8p_d1_i4_seed13 2026-07-03T01:13:04-07:00
+case_end=c5v8_256s_8p_d1_i4_seed13 2026-07-03T01:13:14-07:00
+case_start=c5v8_256s_16p_d2_i2_seed13 2026-07-03T01:13:14-07:00
+case_end=c5v8_256s_16p_d2_i2_seed13 2026-07-03T01:13:24-07:00
+total_case_templates=160
+digits_55422142_c0v1_128s_16p_d1_i2_seed11.json
+  samples=128 pca=16 depth=1 vqc_iter=2
+  native best: acc=1.0000 runtime=0.015075s
+  qkernel: acc=0.9375 total=9.145s required_speedup=606.6x
+  qnn/vqc: acc=0.6875 total=1.114s required_speedup=73.9x
+digits_55422142_c0v1_128s_8p_d2_i4_seed13.json
+  samples=128 pca=8 depth=2 vqc_iter=4
+  native best: acc=1.0000 runtime=0.014104s
+  qkernel: acc=0.9688 total=6.278s required_speedup=445.1x
+  qnn/vqc: acc=0.8438 total=0.832s required_speedup=59.0x
+digits_55422142_c0v1_256s_16p_d2_i2_seed13.json
+  samples=256 pca=16 depth=2 vqc_iter=2
+  native best: acc=1.0000 runtime=0.016882s
+  qkernel: acc=0.8594 total=6.992s required_speedup=414.1x
+  qnn/vqc: acc=0.8594 total=2.898s required_speedup=171.7x
+digits_55422142_c0v1_256s_8p_d1_i4_seed13.json
+  samples=256 pca=8 depth=1 vqc_iter=4
+  native best: acc=1.0000 runtime=0.016360s
+  qkernel: acc=1.0000 total=6.172s required_speedup=377.2x
+  qnn/vqc: acc=0.8125 total=1.070s required_speedup=65.4x
+digits_55422142_c0v1_256s_8p_d3_i4_seed11.json
+  samples=256 pca=8 depth=3 vqc_iter=4
+  native best: acc=1.0000 runtime=0.016491s
+  qkernel: acc=0.9688 total=6.441s required_speedup=390.6x
+  qnn/vqc: acc=0.9531 total=2.024s required_speedup=122.7x
+digits_55422142_c3v8_128s_16p_d1_i2_seed11.json
+  samples=128 pca=16 depth=1 vqc_iter=2
+  native best: acc=1.0000 runtime=0.014167s
+  qkernel: acc=0.9688 total=6.124s required_speedup=432.3x
+  qnn/vqc: acc=0.6875 total=1.095s required_speedup=77.3x
+digits_55422142_c3v8_128s_8p_d2_i4_seed13.json
+  samples=128 pca=8 depth=2 vqc_iter=4
+  native best: acc=1.0000 runtime=0.014052s
+  qkernel: acc=0.7188 total=5.990s required_speedup=426.3x
+  qnn/vqc: acc=0.5312 total=0.754s required_speedup=53.6x
+digits_55422142_c3v8_256s_16p_d2_i2_seed13.json
+  samples=256 pca=16 depth=2 vqc_iter=2
+  native best: acc=1.0000 runtime=0.016913s
+  qkernel: acc=0.8125 total=6.431s required_speedup=380.2x
+  qnn/vqc: acc=0.7500 total=2.784s required_speedup=164.6x
+digits_55422142_c3v8_256s_8p_d1_i4_seed13.json
+  samples=256 pca=8 depth=1 vqc_iter=4
+  native best: acc=0.9844 runtime=0.016345s
+  qkernel: acc=0.8750 total=5.889s required_speedup=360.3x
+  qnn/vqc: acc=0.7812 total=1.073s required_speedup=65.7x
+digits_55422142_c3v8_256s_8p_d3_i4_seed11.json
+  samples=256 pca=8 depth=3 vqc_iter=4
+  native best: acc=0.9688 runtime=0.016421s
+  qkernel: acc=0.7812 total=6.037s required_speedup=367.6x
+  qnn/vqc: acc=0.7344 total=2.069s required_speedup=126.0x
+digits_55422142_c4v9_128s_16p_d1_i2_seed11.json
+  samples=128 pca=16 depth=1 vqc_iter=2
+  native best: acc=1.0000 runtime=0.014222s
+  qkernel: acc=0.9375 total=6.371s required_speedup=448.0x
+  qnn/vqc: acc=0.7500 total=1.103s required_speedup=77.6x
+digits_55422142_c4v9_128s_8p_d2_i4_seed13.json
+  samples=128 pca=8 depth=2 vqc_iter=4
+  native best: acc=0.9688 runtime=0.013993s
+  qkernel: acc=0.9688 total=5.673s required_speedup=405.4x
+  qnn/vqc: acc=0.8750 total=0.795s required_speedup=56.8x
+digits_55422142_c4v9_256s_16p_d2_i2_seed13.json
+  samples=256 pca=16 depth=2 vqc_iter=2
+  native best: acc=1.0000 runtime=0.016789s
+  qkernel: acc=0.9375 total=6.333s required_speedup=377.2x
+  qnn/vqc: acc=0.7969 total=2.863s required_speedup=170.5x
+digits_55422142_c4v9_256s_8p_d1_i4_seed13.json
+  samples=256 pca=8 depth=1 vqc_iter=4
+  native best: acc=0.9844 runtime=0.016474s
+  qkernel: acc=1.0000 total=5.889s required_speedup=357.5x
+  qnn/vqc: acc=0.6719 total=1.089s required_speedup=66.1x
+digits_55422142_c4v9_256s_8p_d3_i4_seed11.json
+  samples=256 pca=8 depth=3 vqc_iter=4
+  native best: acc=1.0000 runtime=0.016582s
+  qkernel: acc=0.8594 total=6.383s required_speedup=385.0x
+  qnn/vqc: acc=0.7188 total=2.073s required_speedup=125.0x
+digits_55422142_c5v8_128s_16p_d1_i2_seed11.json
+  samples=128 pca=16 depth=1 vqc_iter=2
+  native best: acc=0.9375 runtime=0.014232s
+  qkernel: acc=0.7500 total=6.374s required_speedup=447.8x
+  qnn/vqc: acc=0.5938 total=1.100s required_speedup=77.3x
+digits_55422142_c5v8_128s_8p_d2_i4_seed13.json
+  samples=128 pca=8 depth=2 vqc_iter=4
+  native best: acc=1.0000 runtime=0.014060s
+  qkernel: acc=0.8125 total=6.910s required_speedup=491.4x
+  qnn/vqc: acc=0.6562 total=0.777s required_speedup=55.3x
+digits_55422142_c5v8_256s_16p_d2_i2_seed13.json
+  samples=256 pca=16 depth=2 vqc_iter=2
+  native best: acc=0.9844 runtime=0.016767s
+  qkernel: acc=0.7812 total=7.162s required_speedup=427.1x
+  qnn/vqc: acc=0.6719 total=2.823s required_speedup=168.4x
+digits_55422142_c5v8_256s_8p_d1_i4_seed13.json
+  samples=256 pca=8 depth=1 vqc_iter=4
+  native best: acc=0.9844 runtime=0.016305s
+  qkernel: acc=0.9062 total=7.514s required_speedup=460.9x
+  qnn/vqc: acc=0.6250 total=1.042s required_speedup=63.9x
+digits_55422142_c5v8_256s_8p_d3_i4_seed11.json
+  samples=256 pca=8 depth=3 vqc_iter=4
+  native best: acc=0.9844 runtime=0.016634s
+  qkernel: acc=0.7656 total=6.855s required_speedup=412.1x
+  qnn/vqc: acc=0.6250 total=2.004s required_speedup=120.5x
+date_end=2026-07-03T01:13:25-07:00

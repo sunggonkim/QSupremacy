@@ -19,6 +19,8 @@ The core comparison is not simulator vs simulator. The comparison is:
 - Perlmutter GPU Slurm smoke jobs completed successfully.
 - First `sklearn digits` shared-GPU sweep completed:
   job `55414571`, 18 cases, 221 seconds elapsed, about 0.061 GPU-hours.
+- Expanded `sklearn digits` sweep completed:
+  8 shared-GPU chunks, 160 cases, about 0.409 GPU-hours total.
 
 ## Login Smoke Gate
 
@@ -85,6 +87,17 @@ elapsed: 00:03:41
 queue: 00:02:08
 results: data/raw/perlmutter/digits_shared/digits_55414571_*.json
 summary: data/processed/perlmutter/digits_55414571_summary.json
+```
+
+Expanded sweep:
+
+```text
+job_ids: 55421321, 55421323, 55422136, 55422137, 55422138, 55422139, 55422141, 55422142
+cases: 160
+class pairs: 0-vs-1, 3-vs-8, 4-vs-9, 5-vs-8
+PCA/qubits: 4, 8, 12, 16
+GPU-hours: 0.409
+summary: data/processed/perlmutter/digits_expanded_55421321_55422142_summary.json
 ```
 
 ## First Full Workloads

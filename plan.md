@@ -1032,3 +1032,67 @@ Job:
 - 현재 native baseline은 binary digits에서 너무 강하고 빠르므로, quantum path가 같은 quality를 만족하는지 먼저 걸러야 한다.
 - QNN/VQC는 일부 seed/config에서 accuracy가 낮다. optimizer iteration, ansatz, target accuracy policy를 정해야 논문 결과로 쓸 수 있다.
 - quantum kernel runtime에는 CUDA/cuQuantum initialization overhead가 크게 포함된다. 다음 sweep에서는 warmup과 repeated trials를 분리해야 한다.
+
+## 16. Expanded Digits Sweep
+
+첫 18-case sweep가 너무 작고 쉬운 `0 vs 1` 중심이었기 때문에 expanded sweep를 추가로 수행했다.
+
+실험 의도:
+
+- 지금 양자 이득을 보이는 것이 목적이 아니다.
+- 양자 이득 주장이 얼마나 workload, quality, encoding, circuit depth, shot/iteration, native baseline에 민감한지 HPC 기반 양자 시뮬레이션으로 모델링하는 것이 목적이다.
+- 따라서 easy pair와 harder pair를 같이 넣어 threshold 변화를 본다.
+
+실행 방식:
+
+- 전체 160 cases.
+- `gpu_shared` 1-GPU chunks로 실행.
+- 처음 2 chunks는 먼저 완료됐고, 남은 pending chunks는 취소 후 15분 chunk로 재제출했다.
+- `gpu_debug` full-node도 test-only로 확인했지만 예상 시작 시간이 더 늦어 실제 제출하지 않았다.
+- full-node를 쓸 경우 4 GPU를 모두 사용하는 fallback script를 작성했다: `jobs/perlmutter/digits_supremacy_expanded_4gpu_debug_remaining.sbatch`.
+
+Job ids:
+
+- completed chunks: `55421321`, `55421323`, `55422136`, `55422137`, `55422138`, `55422139`, `55422141`, `55422142`
+- cancelled before allocation: `55421074`, `55421133`, `55421201`, `55421202`, `55421203`, `55421204`, `55421324`, `55421327`, `55421332`, `55421334`, `55421335`, `55421338`
+
+Sweep:
+
+- class pairs: `0,1`, `3,8`, `4,9`, `5,8`
+- sample count: 128, 256
+- PCA/qubit dimension: 4, 8, 12, 16
+- feature depth: 1, 2, 3
+- seeds: 11, 13
+- paths: native logistic/MLP, quantum kernel, QNN/VQC
+
+Accounting:
+
+- completed jobs: 8
+- total GPU-hours: 0.4089
+- Slurm billing core-hours: 13.0844
+- all stderr files: 0 bytes
+- output JSON files: `data/raw/perlmutter/digits_expanded/digits_*.json`
+- processed summary: `data/processed/perlmutter/digits_expanded_55421321_55422142_summary.json`
+- accounting: `data/raw/perlmutter/accounting/sacct_digits_expanded_55421321_55422142.txt`
+
+Key results:
+
+- result count: 160/160
+- quantum kernel accuracy: min 0.5312, median 0.8750, max 1.0
+- QNN/VQC accuracy: min 0.4688, median 0.7500, max 0.9531
+- quantum kernel required speedup: min 338.6x, median 421.9x, max 1038.7x
+- QNN/VQC required speedup: min 21.1x, median 64.9x, max 171.7x
+
+Class-pair sensitivity:
+
+- `0 vs 1`: quantum kernel median accuracy 0.9688, QNN/VQC median accuracy 0.8750
+- `3 vs 8`: quantum kernel median accuracy 0.8125, QNN/VQC median accuracy 0.7266
+- `4 vs 9`: quantum kernel median accuracy 0.9375, QNN/VQC median accuracy 0.7812
+- `5 vs 8`: quantum kernel median accuracy 0.8125, QNN/VQC median accuracy 0.6562
+
+Interpretation:
+
+- Native ML remains extremely strong on this dataset.
+- Quantum kernel sometimes reaches high quality, but still needs hundreds of times faster projected execution to match native runtime.
+- QNN/VQC has lower required speedup than quantum kernel in many cases, but quality is usually below native.
+- This is exactly the modeling target: not "quantum wins today", but "what hardware/quality/runtime threshold would be required for quantum to win?"

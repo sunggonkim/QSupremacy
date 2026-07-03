@@ -1,0 +1,190 @@
+{
+  "break_even_projection": {
+    "qnn_vqc": {
+      "circuit_evaluations": 2560,
+      "measurement_ops": 20480,
+      "one_qubit_gates": 102400,
+      "required_uniform_op_time_sec_for_native_parity": 9.225521969289032e-08,
+      "sim_to_native_speedup_required": 96.61327734878688,
+      "two_qubit_gates": 53760
+    },
+    "quantum_kernel": {
+      "circuit_evaluations": 256,
+      "measurement_ops": 2048,
+      "one_qubit_gates": 8192,
+      "required_uniform_op_time_sec_for_native_parity": 1.1788166960758207e-06,
+      "sim_to_native_speedup_required": 684.9168102196746,
+      "two_qubit_gates": 3584
+    }
+  },
+  "config": {
+    "classes": "5,8",
+    "dataset": "data/datasets/sklearn_digits.npz",
+    "entangle": true,
+    "feature_depth": 2,
+    "kernel_ridge": 0.001,
+    "login_safe": false,
+    "max_samples": 256,
+    "mlp_hidden": 16,
+    "mlp_lr": 0.05,
+    "mlp_steps": 800,
+    "native_lr": 0.35,
+    "native_steps": 800,
+    "output": "data/raw/perlmutter/digits_expanded/digits_55422139_c5v8_256s_8p_d2_i4_seed11.json",
+    "pca_dim": 8,
+    "phase": true,
+    "seed": 11,
+    "spsa_epsilon": 0.08,
+    "train_frac": 0.75,
+    "vqc_head_lr": 0.25,
+    "vqc_head_steps": 25,
+    "vqc_iterations": 4,
+    "vqc_layers": 1,
+    "vqc_theta_lr": 0.15
+  },
+  "dataset": {
+    "class_counts": {
+      "5": 128,
+      "8": 128
+    },
+    "classes": [
+      5,
+      8
+    ],
+    "name": "sklearn_digits_npz",
+    "pca": {
+      "input_dim": 64,
+      "pca_dim": 8,
+      "runtime_sec": 0.0050810380053007975
+    },
+    "raw_feature_dim": 64,
+    "samples": 256,
+    "source_metadata": "{\"created_unix\": 1783047024.9884381, \"n_features\": 64, \"n_samples\": 1797, \"platform\": \"Linux-6.4.0-150600.23.103_15.0.24-cray_shasta_c-x86_64-with-glibc2.38\", \"python\": \"3.11.7 | packaged by conda-forge | (main, Dec 23 2023, 14:43:09) [GCC 12.3.0]\", \"source\": \"sklearn.datasets.load_digits\", \"target_names\": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}",
+    "test_samples": 64,
+    "train_samples": 192
+  },
+  "metadata": {
+    "cuda_visible_devices": "0",
+    "cwd": "/pscratch/sd/s/sgkim/Skim-Qsupreme",
+    "hostname": "nid002305",
+    "platform": "Linux-6.4.0-150600.23.103_15.0.24-cray_shasta_c-x86_64-with-glibc2.38",
+    "python": "3.11.14 | packaged by conda-forge | (main, Jan 26 2026, 23:48:32) [GCC 14.3.0]",
+    "python_executable": "/pscratch/sd/s/sgkim/kis_cuquantum/00_env/cutn_conda/bin/python",
+    "slurm_job_id": "55422139",
+    "slurm_job_name": "qsup-digits-exp",
+    "total_runtime_sec": 12.894813282997347
+  },
+  "native_ml_path": {
+    "best_runtime_sec": 0.016295962006552145,
+    "best_test_accuracy": 0.984375,
+    "logistic_regression": {
+      "loss_trace": [
+        0.6183267151684906,
+        0.01265679469664316
+      ],
+      "model": "logistic_regression_numpy",
+      "parameters": 9,
+      "runtime_sec": 0.016295962006552145,
+      "test_accuracy": 0.984375,
+      "train_accuracy": 1.0
+    },
+    "mlp": {
+      "hidden": 16,
+      "loss_trace": [
+        0.7507379762455865,
+        0.01257103132866548
+      ],
+      "model": "mlp_numpy",
+      "parameters": 161,
+      "runtime_sec": 0.10165063699241728,
+      "test_accuracy": 0.984375,
+      "train_accuracy": 1.0
+    },
+    "status": "ok",
+    "total_runtime_sec": 0.118112429001485
+  },
+  "qnn_vqc_path": {
+    "head_steps_per_iteration": 25,
+    "iteration_log": [
+      {
+        "base_loss": 0.6417205447155151,
+        "grad_scale": 0.001774714110804737,
+        "iteration": 0,
+        "loss_minus": 0.6420804339428994,
+        "loss_plus": 0.6423643882006281
+      },
+      {
+        "base_loss": 0.6074468158417284,
+        "grad_scale": 0.00358654542985809,
+        "iteration": 1,
+        "loss_minus": 0.6081069631841086,
+        "loss_plus": 0.6086808104528859
+      },
+      {
+        "base_loss": 0.5836875809025514,
+        "grad_scale": -0.012164423751040432,
+        "iteration": 2,
+        "loss_minus": 0.5854679430410331,
+        "loss_plus": 0.5835216352408666
+      },
+      {
+        "base_loss": 0.5666031323767353,
+        "grad_scale": -0.021982898746854274,
+        "iteration": 3,
+        "loss_minus": 0.5694005966031846,
+        "loss_plus": 0.565883332803688
+      }
+    ],
+    "iterations": 4,
+    "layers": 1,
+    "metadata": {
+      "circuit_evaluations": 2560,
+      "one_qubit_gates": 102400,
+      "runtime_sec": 1.550869350976427,
+      "two_qubit_gates": 53760
+    },
+    "model": "qnn_vqc_spsa_custatevec",
+    "qubits": 8,
+    "simulation_runtime_sec": 1.550869350976427,
+    "status": "ok",
+    "test_accuracy": 0.6875,
+    "test_loss": 0.6008248958472993,
+    "total_runtime_sec": 1.574406297004316,
+    "train_accuracy": 0.7760416666666666,
+    "train_loss": 0.566531748487017
+  },
+  "quantum_kernel_path": {
+    "kernel_entries": 49152,
+    "kernel_solve_runtime_sec": 0.0019163930119248107,
+    "model": "quantum_kernel_ridge_custatevec",
+    "qubits": 8,
+    "ridge": 0.001,
+    "simulation_runtime_sec": 11.158895760003361,
+    "status": "ok",
+    "test_accuracy": 0.859375,
+    "test_metadata": {
+      "circuit_evaluations": 64,
+      "cupy_used_bytes": 8192,
+      "device": 0,
+      "one_qubit_gates": 2048,
+      "qubits": 8,
+      "runtime_sec": 0.03116738000244368,
+      "samples": 64,
+      "state_dim": 256,
+      "two_qubit_gates": 896
+    },
+    "total_runtime_sec": 11.161378316988703,
+    "train_accuracy": 1.0,
+    "train_metadata": {
+      "circuit_evaluations": 192,
+      "cupy_used_bytes": 4096,
+      "device": 0,
+      "one_qubit_gates": 6144,
+      "qubits": 8,
+      "runtime_sec": 11.127728380000917,
+      "samples": 192,
+      "state_dim": 256,
+      "two_qubit_gates": 2688
+    }
+  }
+}
