@@ -26,6 +26,9 @@ After measurement, \SystemName reads the circuit metadata and runtime breakdown.
 \noindent\textbf{Dataset Control.}
 \SystemName first fixes the workload. The first full workload is \texttt{sklearn digits}. \SystemName uses a fixed train/test split and applies PCA to 4, 8, 12, and 16 dimensions. The same reduced features are used by every native and quantum model.
 
+\noindent\textbf{Application Control.}
+\SystemName then extends the same rule to practical workloads. For drug discovery, the native path may be a classical molecular simulation or learned surrogate, while the quantum path may be a VQE-style molecular energy circuit. For optimization, the native path may be a mixed-integer, local-search, or GPU heuristic baseline, while the quantum path may be a QAOA-style circuit. For simulation, the native path may be a classical numerical solver, while the quantum path may be a Hamiltonian simulation circuit. In every case, \SystemName keeps the task, input instance, output metric, and quality target fixed.
+
 \noindent\textbf{Quality Control.}
 \SystemName defines the target quality before execution. The target can be a fixed accuracy threshold or a time-to-best-quality curve. This is important because a quantum path with lower accuracy cannot be claimed faster than a native path with higher accuracy.
 
@@ -92,3 +95,26 @@ T_{\mathrm{qhw}} < T_{\mathrm{native}}.
 \end{align}
 
 This gives a hardware requirement rather than a vague claim of supremacy.
+
+\subsection{Workload Expansion Plan}
+
+Table~\ref{tab:workload-suite} shows the intended workload suite. The current paper has measured the first row. The remaining rows are required before making broad claims about practical quantum supremacy.
+
+\begin{table}[t]
+\caption{Planned practical workload suite.}
+\centering
+\small
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{llll}
+\toprule
+\textbf{Family} & \textbf{Native path} & \textbf{Quantum path} & \textbf{Quality target} \\
+\midrule
+ML classification & Logistic/MLP/SVM & Kernel, QNN/VQC & Accuracy, loss \\
+Drug discovery & Classical energy/surrogate & VQE energy circuit & Energy error, rank quality \\
+Optimization & MILP/heuristic/GPU search & QAOA circuit & Objective gap \\
+Scientific simulation & Classical solver & Hamiltonian simulation & State/error metric \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:workload-suite}
+\end{table}

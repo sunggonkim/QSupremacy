@@ -1,12 +1,12 @@
 \section{Introduction}
 
-Quantum computing provides a different way to compute. Unlike classical computers that use binary bits, quantum computers use qubits. Qubits can represent superposition and entanglement, which makes them useful for quantum simulation, optimization, and machine learning. These properties motivate many claims of future quantum supremacy.
+Quantum computing provides a different way to compute. Unlike classical computers that use binary bits, quantum computers use qubits. Qubits can represent superposition and entanglement, which makes them useful for quantum simulation, optimization, chemistry, and machine learning. These properties motivate many claims of future quantum supremacy.
 
 However, current quantum computers are still limited. They have noise, limited qubit counts, short coherence time, and high access cost. Because of these limits, many quantum applications cannot yet be tested directly on reliable large-scale quantum hardware. As a result, HPC systems and quantum circuit simulators have become the practical platform for studying quantum applications before fault-tolerant quantum hardware is available.
 
 To support this direction, many simulators and frameworks have been developed for HPC systems. Libraries such as \cuQuantum allow users to execute quantum circuits on GPUs, while prior systems such as ScaleQsim and AURORA-Q improve simulation scalability on leadership-scale systems~\cite{scaleqsimtodo,auroraqtodo}. These systems answer an important question: how can we simulate larger quantum circuits faster on HPC?
 
-But this is not the same as quantum supremacy for applications. A simulator can be faster than another simulator, but the quantum-circuit application can still be slower than a native HPC/ML application. For example, a native classifier can train directly on GPU-friendly tensors, while a quantum-circuit classifier must encode data, build circuits, run many circuit evaluations, extract measurements, and run classical postprocessing. These extra stages can dominate total time.
+But this is not the same as quantum supremacy for applications. A simulator can be faster than another simulator, but the quantum-circuit application can still be slower than a native HPC application. For example, a native classifier can train directly on GPU-friendly tensors, while a quantum-circuit classifier must encode data, build circuits, run many circuit evaluations, extract measurements, and run classical postprocessing. Similar gaps appear in chemistry, optimization, and scientific simulation: the quantum part may be promising, but the end-to-end application still includes input preparation, repeated evaluations, error overhead, and classical control. These extra stages can dominate total time.
 
 \begin{figure}[t]
     \centering
@@ -24,6 +24,9 @@ Native HPC/ML applications already use mature software stacks and hardware-effic
 
 \noindent\textbf{Observation 3: Supremacy is a break-even condition.}
 Even if the quantum-circuit path is slower today, it can still be useful if it tells us how fast future quantum hardware must be. Thus, the goal is not only to measure \cuQuantum time. The goal is to invert the measurement and compute the required quantum gate time, shot throughput, and error overhead.
+
+\noindent\textbf{Observation 4: Real applications are diverse.}
+Public claims about quantum computing often move from one successful example to broad expectations such as better AI, faster drug discovery, or better optimization. A systems paper cannot validate such claims with one toy workload. It must cover representative application families and show the threshold for each family.
 
 Many previous studies focus on one part of this stack. Table~\ref{tab:intro-position} summarizes the gap. ScaleQsim and AURORA-Q improve quantum simulation on HPC systems. \cuQuantum provides high-performance GPU primitives. Native ML frameworks provide strong classical baselines. \SystemName connects these pieces into an application-level supremacy threshold model.
 
@@ -50,13 +53,13 @@ Native ML studies &  & \checkmark &  &  \\
 \noindent\textbf{Key idea.}
 \SystemName treats quantum supremacy as a modeling and analysis problem. In this paper, the supremacy threshold is the condition where the projected quantum-circuit path becomes faster than the measured native HPC/ML path under the same workload and quality target. For each workload, \SystemName records the cost of each stage and then projects the quantum hardware region where this condition holds.
 
-In this paper, we present \SystemName, a quantum supremacy modeling and analysis study for HPC systems. \SystemName uses three first workloads: 1) \texttt{sklearn digits} native ML baselines, 2) a quantum kernel classifier, and 3) a QNN/VQC classifier. These workloads share the same preprocessing, train/test split, and time-to-quality policy. This structure follows the logic of our accepted systems papers: first expose the bottleneck, then define the modeling design, then evaluate each component and its sensitivity.
+In this paper, we present \SystemName, a quantum supremacy modeling and analysis study for HPC systems. \SystemName starts with a controlled ML workload: \texttt{sklearn digits} native ML baselines, quantum kernel classifiers, and QNN/VQC classifiers. This first workload is not the final claim. It is the calibration point that validates the measurement pipeline. The full study targets practical application families: quantum ML, molecular energy estimation for drug discovery, combinatorial optimization, and quantum/scientific simulation. This structure follows the logic of our accepted systems papers: first expose the bottleneck, then define the modeling design, then evaluate each component and its sensitivity.
 
 This draft makes the following intended contributions:
 
 \begin{itemize}[leftmargin=*]
     \item \textbf{Supremacy threshold definition.} We define quantum supremacy as a break-even condition between native HPC/ML paths and quantum-circuit application paths at the same target quality.
     \item \textbf{Measurement framework.} We design a Perlmutter measurement pipeline that records runtime breakdowns, quality, circuit metadata, GPU metadata, and Slurm allocation information.
-    \item \textbf{Workload suite.} We define a first suite with \texttt{sklearn digits}, quantum kernel classification, and QNN/VQC classification.
+    \item \textbf{Workload suite.} We define a first measured suite with \texttt{sklearn digits}, quantum kernel classification, and QNN/VQC classification, and we define the next practical suite for ML, chemistry, optimization, and simulation.
     \item \textbf{Modeling and analysis.} We convert measured circuit costs into required logical gate time, shot throughput, and error overhead, then analyze the hardware region where supremacy becomes possible.
 \end{itemize}

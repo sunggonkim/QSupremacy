@@ -6,6 +6,12 @@ A quantum-circuit application maps input data or problem instances into a parame
 
 The key systems implication is repetition. A single circuit execution is rarely the full application. Training and evaluation require many samples, classes, optimizer steps, shots, and circuit variants. Therefore, the cost of a quantum application must include encoding, circuit construction, repeated simulation or execution, measurement, loss computation, and classical postprocessing.
 
+\subsection{Practical Application Families}
+
+\SystemName treats the first ML workload as a calibration workload, not as the whole target. Practical quantum claims usually appear in four application families. First, quantum ML claims include classification, kernel methods, and variational classifiers. Second, chemistry and drug-discovery claims include molecular energy estimation, Hamiltonian simulation, and candidate screening loops. Third, optimization claims include portfolio, routing, scheduling, and QAOA-style objective minimization. Fourth, scientific simulation claims include quantum dynamics and materials workloads.
+
+These families have different native baselines and different quantum costs. A useful supremacy model must therefore report a threshold per workload family, not one global number for all quantum computing.
+
 \subsection{Native HPC Baselines}
 
 Native HPC/ML baselines execute the same task directly on CPUs or GPUs. For the first \SystemName workload, the native path uses \texttt{sklearn digits} with PCA and classical classifiers such as logistic regression, MLP, and optionally SVM/RBF. These baselines are intentionally strong and simple: if a quantum-circuit model cannot beat a well-optimized native baseline at the same target quality, it does not satisfy the practical supremacy threshold.

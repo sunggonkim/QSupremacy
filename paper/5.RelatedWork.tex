@@ -8,6 +8,10 @@ ScaleQsim and AURORA-Q demonstrate that quantum circuit simulation can be scaled
 
 Quantum kernels and variational quantum classifiers are common approaches for quantum machine learning. These methods can express feature spaces differently from native ML models, but they also introduce data encoding, repeated circuit execution, measurement, and optimizer overheads. \SystemName treats these overheads as first-class systems costs and evaluates them through \cuQuantum~\cite{cuquantum}.
 
+\subsection{Quantum Applications Beyond ML}
+
+Quantum computing is also discussed for chemistry, drug discovery, combinatorial optimization, and scientific simulation. These domains are important because they are the applications that motivate many practical claims about future quantum computers. However, each domain has strong native baselines and different quality metrics. \SystemName therefore treats each domain as a separate threshold-modeling problem rather than assuming one generic quantum speedup applies to all workloads.
+
 \subsection{Native HPC and ML Baselines}
 
 Native ML frameworks and classical algorithms are strong baselines. A fair quantum supremacy claim must compare against optimized native paths at the same target quality. \SystemName therefore includes logistic regression, MLP, and optional SVM/RBF baselines for the same \texttt{sklearn digits} workload~\cite{scikit-learn}.
