@@ -1,0 +1,17 @@
+\section{Related Work}
+
+\subsection{Large-Scale Quantum Circuit Simulation}
+
+ScaleQsim and AURORA-Q demonstrate that quantum circuit simulation can be scaled on leadership-class HPC systems~\cite{scaleqsimtodo,auroraqtodo}. ScaleQsim focuses on scalable distributed full state-vector simulation, while AURORA-Q addresses memory capacity limitations with tiered memory and asynchronous offloading. \SystemName builds on this direction but shifts the question from simulator scalability to application-level quantum advantage.
+
+\subsection{Quantum Machine Learning Systems}
+
+Quantum kernels and variational quantum classifiers are common approaches for quantum machine learning. These methods can express feature spaces differently from native ML models, but they also introduce data encoding, repeated circuit execution, measurement, and optimizer overheads. \SystemName treats these overheads as first-class systems costs and evaluates them through \cuQuantum~\cite{cuquantum}.
+
+\subsection{Native HPC and ML Baselines}
+
+Native ML frameworks and classical algorithms are strong baselines. A fair quantum advantage claim must compare against optimized native paths at the same target quality. \SystemName therefore includes logistic regression, MLP, and optional SVM/RBF baselines for the same \texttt{sklearn digits} workload~\cite{scikit-learn}.
+
+\subsection{Hardware Projection and Resource Accounting}
+
+Prior work often discusses quantum speedup at the algorithmic level. \SystemName instead connects measured application costs to hardware requirements: logical gate time, shot throughput, error overhead, and allocation cost. This makes the projection actionable for HPC users and quantum hardware roadmaps.

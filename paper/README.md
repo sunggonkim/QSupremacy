@@ -11,12 +11,50 @@ Note: the ATC 2026 CFP lists June 10, 2026 as the submission deadline. As of Jul
 ```text
 paper/
 ├── README.md
+├── 0.Main.tex
+├── 1.Introduction.tex
+├── 2.Background.tex
+├── 3.Design.tex
+├── 4.Evaluation.tex
+├── 5.RelatedWork.tex
+├── 6.Conclusion.tex
+├── 7.Ack.tex
 ├── main.tex
 ├── references.bib
 ├── Makefile
 ├── figures/
 └── tables/
 ```
+
+The file structure intentionally mirrors the accepted ScaleQsim and AURORA-Q papers in `paper/PreviousPapers/`: a main LaTeX file plus numbered section files. `main.tex` is a compatibility wrapper that inputs `0.Main.tex`.
+
+## Previous Papers
+
+Accepted-paper sources are unpacked locally for structure reference:
+
+```text
+paper/PreviousPapers/
+├── ScaleQsim_SIGMETRICS26/
+│   ├── sample-acmsmall-submission.tex
+│   ├── 1.introduction.tex
+│   ├── 2.Background.tex
+│   ├── 3.Design.tex
+│   ├── 4.Evaluation.tex
+│   ├── 5.Related Work.tex
+│   ├── 6.Conclusion.tex
+│   └── 7.Ack.tex
+└── AURORA_Q_ICDCS26/
+    ├── 0. Main.tex
+    ├── 1.Introduction.tex
+    ├── 2.Background.tex
+    ├── 3.Design.tex
+    ├── 4.Evaluation.tex
+    ├── 5.Related work.tex
+    ├── 6.Conclusion.tex
+    └── 7.Ack.tex
+```
+
+`paper/PreviousPapers/` is intentionally git-ignored to avoid accidentally publishing accepted-paper source archives and extracted materials.
 
 ## Paper Thesis
 
@@ -41,7 +79,7 @@ cd paper
 make
 ```
 
-The current LaTeX file uses a lightweight two-column article scaffold. Replace it with the official target conference template before submission.
+The Makefile loads `texlive/2024` on Perlmutter before running `pdflatex`. The current LaTeX file uses a lightweight two-column article scaffold. Replace it with the official target conference template before submission.
 
 ## Sources To Check Before Submission
 

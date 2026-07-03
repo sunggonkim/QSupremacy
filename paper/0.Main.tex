@@ -1,0 +1,48 @@
+\documentclass[10pt,twocolumn]{article}
+
+\usepackage[letterpaper,margin=0.75in]{geometry}
+\usepackage{times}
+\usepackage{url}
+\usepackage{xurl}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{xspace}
+\usepackage{enumitem}
+
+\newcommand{\SystemName}{\textsc{QSupremacy}\xspace}
+\newcommand{\cuQuantum}{\texttt{cuQuantum}\xspace}
+\newcommand{\Perlmutter}{\texttt{Perlmutter}\xspace}
+\newcommand{\todo}[1]{\textbf{TODO: #1}}
+
+\title{\SystemName: Modeling Application-Level Quantum Advantage over Native HPC}
+
+\author{Anonymous Authors}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Quantum advantage is often discussed through asymptotic algorithmic speedups or through the cost of simulating quantum circuits on classical machines. For HPC users, however, the practical question is application-level: when does a quantum-circuit version of an application outperform the best native HPC implementation of the same task?
+
+This paper presents \SystemName, a Perlmutter-based methodology for modeling application-level quantum advantage. \SystemName compares native ML/HPC application paths against quantum-circuit application paths executed with \cuQuantum, then projects the quantum hardware requirements needed to beat the native path. Following our prior accepted systems papers, the paper is organized around a clear gap: native HPC baselines are strong, quantum-circuit applications incur nontrivial encoding and execution overheads, and the break-even hardware region must be measured rather than assumed. Our first workload suite targets \texttt{sklearn digits}, quantum kernel classification, and QNN/VQC classification under a shared time-to-quality policy. Results are pending; this draft defines the logical structure, system design, and evaluation plan.
+\end{abstract}
+
+\input{1.Introduction}
+\input{2.Background}
+\input{3.Design}
+\input{4.Evaluation}
+\input{5.RelatedWork}
+\input{6.Conclusion}
+\input{7.Ack}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

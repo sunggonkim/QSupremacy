@@ -1,0 +1,49 @@
+\section{Introduction}
+
+Quantum computing offers a computational model distinct from classical computing by operating on qubits rather than binary bits. Superposition and entanglement enable circuit structures that can express computations differently from native CPU/GPU programs. These properties motivate quantum algorithms for simulation, optimization, cryptography, and machine learning. Despite this promise, current devices remain constrained by noise, limited qubit counts, short coherence times, and expensive access. As a result, practical quantum advantage for real applications remains an open systems question rather than a settled hardware fact.
+
+High-performance computing systems have therefore become the practical platform for studying quantum applications before fault-tolerant quantum hardware is available. Libraries such as \cuQuantum allow researchers to execute quantum circuits on GPU clusters, measure circuit-level costs, and prototype hybrid quantum-classical applications. However, using HPC to simulate a quantum circuit does not by itself establish quantum advantage. A simulator can be faster than another simulator while the quantum-circuit application remains slower than a native classical implementation of the same task.
+
+\begin{figure}[t]
+    \centering
+    \fbox{\parbox{0.92\linewidth}{\centering
+    Placeholder: end-to-end comparison of native ML, quantum kernel, and QNN/VQC paths on the same workload.}}
+    \caption{Application-level comparison target. The central comparison is not NumPy state-vector simulation versus \cuQuantum, but native application execution versus quantum-circuit application execution and projected hardware execution.}
+    \label{fig:intro-gap}
+\end{figure}
+
+Figure~\ref{fig:intro-gap} summarizes the gap that motivates this work. Native HPC/ML frameworks execute directly on GPUs and benefit from decades of optimization. Quantum-circuit applications require feature encoding, circuit construction, repeated circuit execution, measurement or observable extraction, and classical postprocessing. These stages can dominate the total time, especially for machine-learning workloads where many samples, shots, and optimizer iterations are required. Thus, quantum advantage should be evaluated as an end-to-end application question: for the same dataset, target quality, and system budget, when does the quantum-circuit path win?
+
+Prior work from our group has studied large-scale quantum simulation systems. ScaleQsim improves distributed full state-vector simulation on leadership-scale GPU systems~\cite{scaleqsimtodo}, while AURORA-Q extends simulation capacity through tiered-memory and asynchronous offloading~\cite{auroraqtodo}. These systems answer how to make quantum circuit simulation scale on HPC resources. \SystemName asks the next question: given these simulation capabilities, what do they imply about application-level quantum advantage over native HPC?
+
+\begin{table}[t]
+\caption{Positioning of \SystemName relative to prior work.}
+\centering
+\small
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lccc}
+\toprule
+System & Simulation scale & Resource model & App-level advantage \\
+\midrule
+ScaleQsim & \checkmark & GPU/node scaling & -- \\
+AURORA-Q & \checkmark & Tiered memory & -- \\
+cuQuantum & \checkmark & GPU kernels & -- \\
+\SystemName & \checkmark & Allocation-aware & \checkmark \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:intro-position}
+\end{table}
+
+Table~\ref{tab:intro-position} shows the intended positioning. \SystemName does not replace simulator optimization work. Instead, it uses simulator measurements as one layer in an application-level model that includes native baselines, quantum encoding overheads, repeated circuit execution, Slurm allocation costs, and projected quantum hardware parameters.
+
+In this paper, we present \SystemName, an application-level quantum advantage modeling framework for HPC systems. \SystemName uses a shared workload definition to execute three paths: native ML baselines, quantum kernel classifiers, and QNN/VQC classifiers. It measures runtime, quality, circuit metadata, and allocation cost on \Perlmutter, then projects the logical quantum hardware speed, shot throughput, and error overhead required for the quantum path to beat the native path. Our goal is to prevent misleading simulator-only comparisons and provide a systems methodology for deciding when quantum hardware would need to be faster.
+
+This draft makes the following intended contributions:
+
+\begin{itemize}[leftmargin=*]
+    \item We define quantum advantage as an end-to-end application-level comparison between native HPC/ML paths and quantum-circuit application paths.
+    \item We design a Perlmutter measurement pipeline that records runtime breakdowns, quality, circuit metadata, GPU metadata, and Slurm allocation information.
+    \item We define a first workload suite consisting of \texttt{sklearn digits} native baselines, a quantum kernel classifier, and a QNN/VQC classifier under the same preprocessing and time-to-quality policy.
+    \item We develop a hardware projection model that inverts the measured workload costs to estimate required logical gate time, shot throughput, and error overhead.
+\end{itemize}

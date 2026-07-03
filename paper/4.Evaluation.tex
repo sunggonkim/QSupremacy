@@ -1,0 +1,52 @@
+\section{Evaluation}
+
+Results are pending. This section is structured to match the accepted-paper flow: setup, comparison with baselines, scalability, breakdown, sensitivity, and stability. Each subsection currently states the required experiment and expected figure/table.
+
+\subsection{Evaluation Setup}
+
+Experiments run on NERSC \Perlmutter. Login-node smoke tests validate correctness, while performance experiments run through Slurm. The setup table must report GPU type, GPU memory, CPUs per task, node count, QOS, software versions, and dataset configuration.
+
+\begin{table}[t]
+\caption{Planned evaluation setup. Values marked TODO must be filled from the final experiment logs.}
+\centering
+\small
+\begin{tabular}{ll}
+\toprule
+Item & Value \\
+\midrule
+System & NERSC Perlmutter \\
+GPU & TODO \\
+cuQuantum & 26.01.0 in current smoke env \\
+Dataset & \texttt{sklearn digits} \\
+PCA dimensions & 4, 8, 12, 16 \\
+Native models & Logistic regression, MLP, SVM/RBF \\
+Quantum models & Quantum kernel, QNN/VQC \\
+Trials & TODO \\
+\bottomrule
+\end{tabular}
+\label{tab:eval-setup}
+\end{table}
+
+\subsection{End-to-End Performance with Native Baselines}
+
+This experiment compares native ML, quantum kernel, and QNN/VQC time-to-quality under the same split and PCA settings. The primary figure should report runtime and accuracy together; a quantum path with lower accuracy cannot be claimed faster.
+
+\subsection{Quantum-Circuit Path Breakdown}
+
+This experiment decomposes the quantum path into encoding, circuit construction, \cuQuantum execution, measurement/observable extraction, optimizer or kernel-head time, and postprocessing. This breakdown is necessary because current smoke results show that initialization and Python dispatch can dominate tiny workloads.
+
+\subsection{Scalability with Samples and Feature Dimensions}
+
+This experiment sweeps sample count and PCA dimension. The quantum kernel path is expected to scale with the number of kernel entries, while QNN/VQC scales with samples, parameters, shots, and optimizer iterations. The experiment should identify when batching and GPU partitioning become necessary.
+
+\subsection{Allocation and Slurm Cost Analysis}
+
+This experiment parses \texttt{sacct} to report elapsed time, queue time, requested walltime, allocated GPUs, and charged node-hours. Full GPU-node jobs are valid only when all requested GPUs are used. Short sanity checks must be labeled separately from performance experiments.
+
+\subsection{Hardware Projection}
+
+This experiment uses measured circuit metadata to compute break-even heatmaps over logical gate time, shot parallelism, shot count, and error overhead. The output should answer how fast quantum hardware must be to beat each native baseline at the same target quality.
+
+\subsection{Sensitivity and Stability}
+
+This experiment repeats runs across seeds, reports variance, and studies sensitivity to shots, circuit depth, ansatz choice, PCA dimension, and error mitigation overhead. Warmup and initialization policy must be explicit.

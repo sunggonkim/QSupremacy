@@ -1,0 +1,48 @@
+\section{\SystemName Design}
+
+\begin{figure}[t]
+    \centering
+    \fbox{\parbox{0.92\linewidth}{\centering
+    Placeholder: \SystemName pipeline from workload specification to native execution, quantum-circuit execution, measurement logging, and hardware projection.}}
+    \caption{Overall \SystemName workflow. The design follows the same systems-paper structure as our prior work: first define the resource bottleneck, then introduce a pipeline that isolates each cost component.}
+    \label{fig:design-overview}
+\end{figure}
+
+\subsection{Overall Procedure}
+
+Figure~\ref{fig:design-overview} shows the planned \SystemName workflow. The system starts from a workload specification containing dataset, preprocessing, target quality, circuit family, and hardware assumptions. \SystemName then executes the native path and quantum-circuit path under the same split and records a comparable time-to-quality trace.
+
+The design has three goals. First, it prevents simulator-only comparisons by requiring a native application baseline for every quantum-circuit workload. Second, it separates the cost of application stages, including preprocessing, encoding, circuit execution, measurement, and optimizer loops. Third, it converts measured circuit metadata into projected quantum hardware requirements.
+
+\subsection{Workload and Dataset Control}
+
+\SystemName uses a shared workload controller. The first controller targets \texttt{sklearn digits}. It fixes train/test splits, applies PCA with 4, 8, 12, and 16 dimensions, and exposes the same features to all native and quantum paths. The target quality policy is defined before experiments begin, using either fixed accuracy thresholds or time-to-best-quality curves.
+
+\subsection{Native Application Path}
+
+The native path trains and evaluates classical models directly on the preprocessed features. The first baselines are logistic regression, MLP, and optionally SVM/RBF. \SystemName records preprocessing time, training time, inference time, accuracy, and model metadata. These results establish the baseline that projected quantum hardware must beat.
+
+\subsection{Quantum Kernel Path}
+
+The quantum kernel path maps PCA features into a quantum feature map and uses \cuQuantum to estimate kernel entries. The path records encoding time, circuit construction time, circuit execution time, kernel matrix construction time, and classifier-head time. The quantum kernel path is important because it separates circuit execution from trainable quantum parameters, making the cost model easier to validate.
+
+\subsection{QNN/VQC Path}
+
+The QNN/VQC path maps the same features into a parameterized circuit and optimizes trainable parameters. This path records ansatz structure, depth, gate counts, optimizer iterations, observable extraction time, and accuracy. It is expected to be more expensive than the quantum kernel path because each optimizer step requires repeated circuit evaluations.
+
+\subsection{Measurement and Logging}
+
+Every run emits a JSON record. The record includes dataset metadata, model metadata, runtime breakdowns, accuracy, circuit qubits, circuit depth, gate counts, shots, GPU metadata, and Slurm metadata where available. This mirrors the structure used by prior ScaleQsim and AURORA-Q papers: the system claim must be tied to measured resource behavior rather than an isolated aggregate runtime.
+
+\subsection{Hardware Projection}
+
+Given circuit metadata, \SystemName estimates the projected quantum execution time:
+
+\begin{align}
+T_{\mathrm{execute}} =
+\frac{N_s(D_1t_1 + D_2t_2 + D_mt_m)}
+{P_{\mathrm{shots}}}
++ T_{\mathrm{error}},
+\end{align}
+
+where $N_s$ is the shot count, $D_1$ and $D_2$ are one- and two-qubit gate depths, $D_m$ is measurement depth, $t_1$, $t_2$, and $t_m$ are logical operation times, and $P_{\mathrm{shots}}$ is shot-level parallelism. The model is inverted to compute the hardware region where the projected quantum path beats the measured native path.
