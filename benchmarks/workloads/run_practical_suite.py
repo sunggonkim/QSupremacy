@@ -92,10 +92,47 @@ def train_softmax(x_train, y_train, x_test, y_test, classes, steps, lr):
     train_probs = softmax(x_train_b @ w)
     test_probs = softmax(x_test_b @ w)
     return {
+        "model": "softmax_regression_numpy",
         "runtime_sec": time.perf_counter() - start,
         "train_accuracy": multiclass_accuracy(train_probs, y_train),
         "test_accuracy": multiclass_accuracy(test_probs, y_test),
         "parameters": int(w.size),
+    }
+
+
+def train_mlp_classifier(x_train, y_train, x_test, y_test, classes, steps, lr, hidden, seed):
+    rng = np.random.default_rng(seed)
+    start = time.perf_counter()
+    d = x_train.shape[1]
+    w1 = rng.normal(scale=1.0 / math.sqrt(max(1, d)), size=(d, hidden))
+    b1 = np.zeros(hidden, dtype=np.float64)
+    w2 = rng.normal(scale=1.0 / math.sqrt(max(1, hidden)), size=(hidden, classes))
+    b2 = np.zeros(classes, dtype=np.float64)
+    y_onehot = np.eye(classes, dtype=np.float64)[y_train]
+
+    for _ in range(steps):
+        h = np.tanh(x_train @ w1 + b1)
+        probs = softmax(h @ w2 + b2)
+        dz = (probs - y_onehot) / x_train.shape[0]
+        grad_w2 = h.T @ dz
+        grad_b2 = dz.sum(axis=0)
+        dh = (dz @ w2.T) * (1.0 - h * h)
+        grad_w1 = x_train.T @ dh
+        grad_b1 = dh.sum(axis=0)
+        w2 -= lr * grad_w2
+        b2 -= lr * grad_b2
+        w1 -= lr * grad_w1
+        b1 -= lr * grad_b1
+
+    train_probs = softmax(np.tanh(x_train @ w1 + b1) @ w2 + b2)
+    test_probs = softmax(np.tanh(x_test @ w1 + b1) @ w2 + b2)
+    return {
+        "model": "one_hidden_layer_mlp_numpy",
+        "runtime_sec": time.perf_counter() - start,
+        "train_accuracy": multiclass_accuracy(train_probs, y_train),
+        "test_accuracy": multiclass_accuracy(test_probs, y_test),
+        "hidden": int(hidden),
+        "parameters": int(w1.size + b1.size + w2.size + b2.size),
     }
 
 
@@ -333,9 +370,40 @@ def quantum_ml_features(x, depth, entangle):
 def run_multiclass_ml(args):
     x, y, classes, dataset_metadata = make_ml_dataset(args)
     x_train, y_train, x_test, y_test = split(x, y, args.train_frac)
-    native = train_softmax(
+    native_start = time.perf_counter()
+    softmax_model = train_softmax(
         x_train, y_train, x_test, y_test, classes, args.ml_steps, args.ml_lr
     )
+    mlp_model = train_mlp_classifier(
+        x_train,
+        y_train,
+        x_test,
+        y_test,
+        classes,
+        args.mlp_steps,
+        args.mlp_lr,
+        args.mlp_hidden,
+        args.seed + 101,
+    )
+    native_models = [softmax_model, mlp_model]
+    best_accuracy = max(model["test_accuracy"] for model in native_models)
+    best_runtime = min(model["runtime_sec"] for model in native_models)
+    best_quality_model = max(
+        native_models, key=lambda model: (model["test_accuracy"], -model["runtime_sec"])
+    )
+    native = {
+        "runtime_sec": best_runtime,
+        "total_runtime_sec": time.perf_counter() - native_start,
+        "train_accuracy": best_quality_model["train_accuracy"],
+        "test_accuracy": best_accuracy,
+        "best_quality_model": best_quality_model["model"],
+        "best_runtime_sec": best_runtime,
+        "best_test_accuracy": best_accuracy,
+        "models": {
+            "softmax_regression": softmax_model,
+            "mlp": mlp_model,
+        },
+    }
     q_start = time.perf_counter()
     q_train, train_meta = quantum_ml_features(x_train, args.ml_depth, args.entangle)
     q_test, test_meta = quantum_ml_features(x_test, args.ml_depth, args.entangle)
@@ -441,12 +509,34 @@ def maxcut_value(bits, edges):
     return value
 
 
+def build_maxcut_edges(n, graph):
+    if graph == "ring":
+        return [(q, (q + 1) % n) for q in range(n)]
+    if graph == "ladder":
+        if n < 4:
+            return [(q, (q + 1) % n) for q in range(n)]
+        split_point = n // 2
+        top = list(range(split_point))
+        bottom = list(range(split_point, n))
+        edges = []
+        for row in (top, bottom):
+            for idx in range(len(row) - 1):
+                edges.append((row[idx], row[idx + 1]))
+        for idx in range(min(len(top), len(bottom))):
+            edges.append((top[idx], bottom[idx]))
+        return edges
+    if graph == "chordal":
+        edges = [(q, (q + 1) % n) for q in range(n)]
+        edges.append((0, n // 2))
+        if n > 4:
+            edges.append((1, n - 1))
+        return sorted(set(tuple(sorted(edge)) for edge in edges))
+    raise ValueError("Unknown graph family: {}".format(graph))
+
+
 def run_optimization(args):
     n = args.opt_nodes
-    edges = [(0, 1), (1, 2), (2, 3), (3, 0), (0, 2)]
-    if n == 5:
-        edges.append((3, 4))
-        edges.append((1, 4))
+    edges = build_maxcut_edges(n, args.opt_graph)
     start = time.perf_counter()
     best_value = -1
     best_bits = None
@@ -513,7 +603,12 @@ def run_optimization(args):
         "quality_metric": "approximation_ratio",
         "native_path": native,
         "quantum_path": quantum,
-        "problem": {"name": "small_maxcut", "nodes": int(n), "edges": edges},
+        "problem": {
+            "name": "small_maxcut",
+            "graph_family": args.opt_graph,
+            "nodes": int(n),
+            "edges": edges,
+        },
     }
 
 
@@ -627,9 +722,13 @@ def main():
     parser.add_argument("--ml-depth", type=int, default=1)
     parser.add_argument("--ml-steps", type=int, default=250)
     parser.add_argument("--ml-lr", type=float, default=0.25)
+    parser.add_argument("--mlp-steps", type=int, default=250)
+    parser.add_argument("--mlp-hidden", type=int, default=16)
+    parser.add_argument("--mlp-lr", type=float, default=0.05)
 
     parser.add_argument("--chem-grid", type=int, default=21)
     parser.add_argument("--opt-nodes", type=int, default=4)
+    parser.add_argument("--opt-graph", choices=["chordal", "ring", "ladder"], default="chordal")
     parser.add_argument("--opt-grid", type=int, default=7)
     parser.add_argument("--sim-qubits", type=int, default=4)
     parser.add_argument("--sim-steps", type=int, default=4)

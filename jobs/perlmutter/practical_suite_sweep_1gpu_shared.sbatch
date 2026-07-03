@@ -75,7 +75,9 @@ for seed in 17 23; do
           --ml-features "${features}" \
           --ml-classes "${class_count}" \
           --ml-depth "${depth}" \
-          --ml-steps 300
+          --ml-steps 300 \
+          --mlp-steps 300 \
+          --mlp-hidden 24
         case_id=$((case_id + 1))
       done
     done
@@ -95,17 +97,20 @@ for seed in 17 23; do
   done
 done
 
-# QAOA-style optimization over small MaxCut instances.
+# QAOA-style optimization over small MaxCut graph families.
 for seed in 17 23; do
   for nodes in 4 5; do
+    for graph in ring chordal ladder; do
     for grid in 7 9 11; do
       maybe_run_case "${case_id}" \
-        "qaoa_${nodes}n_grid${grid}_seed${seed}" \
+        "qaoa_${graph}_${nodes}n_grid${grid}_seed${seed}" \
         --workloads optimization \
         --seed "${seed}" \
         --opt-nodes "${nodes}" \
+        --opt-graph "${graph}" \
         --opt-grid "${grid}"
       case_id=$((case_id + 1))
+    done
     done
   done
 done

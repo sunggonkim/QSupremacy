@@ -12,6 +12,10 @@
     "ml_lr": 0.25,
     "ml_samples": 72,
     "ml_steps": 250,
+    "mlp_hidden": 16,
+    "mlp_lr": 0.05,
+    "mlp_steps": 250,
+    "opt_graph": "chordal",
     "opt_grid": 7,
     "opt_nodes": 4,
     "output": "data/raw/perlmutter/login_suite/practical_suite_smoke.json",
@@ -33,7 +37,7 @@
     "python_executable": "/pscratch/sd/s/sgkim/kis_cuquantum/00_env/cutn_conda/bin/python",
     "slurm_job_id": "",
     "slurm_job_name": "",
-    "total_runtime_sec": 3.505279144999804
+    "total_runtime_sec": 2.5005357560003176
   },
   "workloads": {
     "chemistry": {
@@ -41,15 +45,15 @@
         "circuit_evaluations": 441,
         "measurement_ops": 882,
         "one_qubit_gates": 882,
-        "required_uniform_op_time_sec_for_native_parity": 8.760589542386889e-08,
-        "sim_to_native_speedup_required": 5787.21143144695,
+        "required_uniform_op_time_sec_for_native_parity": 1.5925895845065582e-07,
+        "sim_to_native_speedup_required": 552.0761125585241,
         "two_qubit_gates": 441
       },
       "family": "chemistry_vqe",
       "native_path": {
         "ground_energy": -1.85727503020238,
         "method": "exact_diagonalization_numpy",
-        "runtime_sec": 0.0001931709994096309
+        "runtime_sec": 0.0003511660033836961
       },
       "problem": {
         "hamiltonian_coefficients": {
@@ -77,7 +81,7 @@
           "state_dim": 4,
           "two_qubit_gates": 441
         },
-        "runtime_sec": 1.117921416007448,
+        "runtime_sec": 0.19387036201078445,
         "status": "ok"
       }
     },
@@ -86,8 +90,8 @@
         "circuit_evaluations": 72,
         "measurement_ops": 288,
         "one_qubit_gates": 576,
-        "required_uniform_op_time_sec_for_native_parity": 4.323931460493002e-06,
-        "sim_to_native_speedup_required": 481.4751569798342,
+        "required_uniform_op_time_sec_for_native_parity": 4.329691647500214e-06,
+        "sim_to_native_speedup_required": 471.90712189534077,
         "two_qubit_gates": 216
       },
       "dataset": {
@@ -98,23 +102,43 @@
       },
       "family": "multiclass_ml",
       "native_path": {
-        "parameters": 15,
-        "runtime_sec": 0.004669845977332443,
+        "best_quality_model": "softmax_regression_numpy",
+        "best_runtime_sec": 0.004676066979300231,
+        "best_test_accuracy": 1.0,
+        "models": {
+          "mlp": {
+            "hidden": 16,
+            "model": "one_hidden_layer_mlp_numpy",
+            "parameters": 131,
+            "runtime_sec": 0.05810602699057199,
+            "test_accuracy": 1.0,
+            "train_accuracy": 1.0
+          },
+          "softmax_regression": {
+            "model": "softmax_regression_numpy",
+            "parameters": 15,
+            "runtime_sec": 0.004676066979300231,
+            "test_accuracy": 1.0,
+            "train_accuracy": 1.0
+          }
+        },
+        "runtime_sec": 0.004676066979300231,
         "test_accuracy": 1.0,
+        "total_runtime_sec": 0.06295615900307894,
         "train_accuracy": 1.0
       },
       "quality_metric": "test_accuracy",
       "quantum_path": {
-        "feature_runtime_sec": 2.2438676680030767,
-        "head_runtime_sec": 0.003986227995483205,
-        "runtime_sec": 2.248414825007785,
+        "feature_runtime_sec": 2.2013272490003146,
+        "head_runtime_sec": 0.004645079025067389,
+        "runtime_sec": 2.206669309991412,
         "status": "ok",
         "test_accuracy": 0.6111111111111112,
         "test_metadata": {
           "circuit_evaluations": 18,
           "one_qubit_gates": 144,
           "qubits": 4,
-          "runtime_sec": 0.04789280399563722,
+          "runtime_sec": 0.0476460529898759,
           "state_dim": 16,
           "two_qubit_gates": 54
         },
@@ -123,7 +147,7 @@
           "circuit_evaluations": 54,
           "one_qubit_gates": 432,
           "qubits": 4,
-          "runtime_sec": 2.1959748640074395,
+          "runtime_sec": 2.1536811960104387,
           "state_dim": 16,
           "two_qubit_gates": 162
         }
@@ -134,8 +158,8 @@
         "circuit_evaluations": 49,
         "measurement_ops": 196,
         "one_qubit_gates": 637,
-        "required_uniform_op_time_sec_for_native_parity": 2.9549517233040146e-08,
-        "sim_to_native_speedup_required": 2753.8225525959233,
+        "required_uniform_op_time_sec_for_native_parity": 2.5777018453731557e-08,
+        "sim_to_native_speedup_required": 428.9679783575275,
         "two_qubit_gates": 490
       },
       "family": "optimization_qaoa",
@@ -148,7 +172,7 @@
         ],
         "best_cut": 4,
         "method": "exact_enumeration_numpy",
-        "runtime_sec": 3.9094011299312115e-05
+        "runtime_sec": 3.410299541428685e-05
       },
       "problem": {
         "edges": [
@@ -157,22 +181,23 @@
             1
           ],
           [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
             1,
             2
           ],
           [
             2,
             3
-          ],
-          [
-            3,
-            0
-          ],
-          [
-            0,
-            2
           ]
         ],
+        "graph_family": "chordal",
         "name": "small_maxcut",
         "nodes": 4
       },
@@ -192,7 +217,7 @@
           "state_dim": 16,
           "two_qubit_gates": 490
         },
-        "runtime_sec": 0.10765796998748556,
+        "runtime_sec": 0.014629092998802662,
         "status": "ok"
       }
     },
@@ -201,14 +226,14 @@
         "circuit_evaluations": 1,
         "measurement_ops": 4,
         "one_qubit_gates": 28,
-        "required_uniform_op_time_sec_for_native_parity": 1.4472928471929794e-05,
-        "sim_to_native_speedup_required": 3.3699666166547293,
+        "required_uniform_op_time_sec_for_native_parity": 5.376660867893536e-06,
+        "sim_to_native_speedup_required": 5.747536338827103,
         "two_qubit_gates": 24
       },
       "family": "hamiltonian_simulation",
       "native_path": {
         "method": "exact_dense_eigendecomposition_numpy",
-        "runtime_sec": 0.0008104839944280684,
+        "runtime_sec": 0.000301093008602038,
         "z0_expectation": 0.8218024506329117
       },
       "problem": {
@@ -230,7 +255,7 @@
           "state_dim": 16,
           "two_qubit_gates": 24
         },
-        "runtime_sec": 0.002731304004555568,
+        "runtime_sec": 0.001730543008306995,
         "status": "ok",
         "z0_expectation": 0.820673031863585
       }

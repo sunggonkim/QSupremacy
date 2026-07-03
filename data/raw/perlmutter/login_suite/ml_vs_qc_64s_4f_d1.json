@@ -25,14 +25,14 @@
   },
   "native_ml_path": {
     "parameters": 5,
-    "runtime_sec": 0.004245894000632688,
+    "runtime_sec": 0.05756031698547304,
     "test_accuracy": 0.875,
     "train_accuracy": 0.9166666666666666
   },
   "quantum_circuit_ml_path": {
-    "feature_extraction_sec": 2.2290921509847976,
+    "feature_extraction_sec": 2.280440736009041,
     "head_parameters": 9,
-    "head_training_sec": 0.0038558140222448856,
+    "head_training_sec": 0.004015903978142887,
     "status": "ok",
     "test_accuracy": 0.8125,
     "test_feature_metadata": {
@@ -40,17 +40,17 @@
       "device": 0,
       "feature_dim": 8,
       "gate_count": 64,
-      "runtime_sec": 0.039526331005617976,
+      "runtime_sec": 0.039724842994473875,
       "state_dim": 16
     },
-    "total_runtime_sec": 2.2330176159739494,
+    "total_runtime_sec": 2.2845496630179696,
     "train_accuracy": 0.9166666666666666,
     "train_feature_metadata": {
       "cupy_used_bytes": 512,
       "device": 0,
       "feature_dim": 8,
       "gate_count": 192,
-      "runtime_sec": 0.14912488602567464,
+      "runtime_sec": 0.16504692699527368,
       "state_dim": 16
     }
   }

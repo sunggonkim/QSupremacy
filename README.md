@@ -96,12 +96,14 @@ for chunk in 0 1 2 3 4 5 6 7; do
 done
 ```
 
-The sweep currently expands to 144 case templates:
+The sweep currently expands to 168 case templates:
 
 - ML: real `sklearn_digits` multiclass sets 0/1/2, 3/5/8, and 0/1/2/3;
-  samples 128/192/256, PCA/qubits 4/6/8, depths 1/2, two seeds
+  samples 128/192/256, PCA/qubits 4/6/8, depths 1/2, two seeds, native
+  softmax and MLP baselines
 - chemistry: VQE grid sizes 21/25/31, two seeds
-- optimization: QAOA MaxCut with 4/5 nodes and grid sizes 7/9/11, two seeds
+- optimization: QAOA MaxCut with ring/chordal/ladder graph families, 4/5 nodes,
+  grid sizes 7/9/11, two seeds
 - simulation: TFIM with 4/5/6 qubits and 4/6/8 Trotter steps, two seeds
 
 Each chunk writes raw JSON to `data/raw/perlmutter/practical_suite_sweep/` and
