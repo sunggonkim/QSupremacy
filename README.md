@@ -40,6 +40,40 @@ Recent pass summary:
 PASS: login smoke outputs validated
 ```
 
+## Digits Supremacy Benchmark
+
+The first non-toy workload uses the bundled `sklearn digits` dataset. The GPU
+runner itself uses the existing cuQuantum environment, so materialize the digits
+NPZ once before submitting Slurm jobs:
+
+```bash
+module load python/3.11-24.1.0
+python scripts/materialize_sklearn_digits.py
+```
+
+Allocation-safe launch order:
+
+```bash
+module load cudatoolkit/12.9
+/pscratch/sd/s/sgkim/kis_cuquantum/00_env/cutn_conda/bin/python \
+  benchmarks/digits/run_digits_supremacy.py \
+  --dataset data/datasets/sklearn_digits.npz \
+  --classes 0,1 \
+  --max-samples 32 \
+  --pca-dim 4 \
+  --feature-depth 1 \
+  --entangle \
+  --phase \
+  --vqc-iterations 1 \
+  --login-safe
+
+sbatch jobs/perlmutter/digits_supremacy_1gpu_shared.sbatch
+```
+
+The shared-GPU job runs native ML, quantum kernel, and QNN/VQC paths over a
+small sweep. Do not use the full GPU-node script for this workload until the
+code can use all requested GPUs.
+
 ## First Full Workloads
 
 The first real experiment suite should run all three tracks:
@@ -64,6 +98,7 @@ All tracks must report time-to-quality under the same dataset split and target a
 ## Repository Layout
 
 ```text
+benchmarks/digits/     sklearn digits native/kernel/QNN benchmark
 benchmarks/smoke/      Login-node-safe correctness and application smoke tests
 data/raw/perlmutter/   Small smoke outputs and Perlmutter job outputs
 jobs/perlmutter/       Slurm job scripts

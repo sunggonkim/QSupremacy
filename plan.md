@@ -934,23 +934,23 @@ shared 1-GPU job 55412749:
 ## 12. 체크리스트
 
 - [ ] 대상 HPC 시스템 정보 수집
-- [ ] Perlmutter account/QOS/constraint 확인
-- [ ] `jobs/perlmutter/` Slurm template 작성
-- [ ] cuQuantum 실행 환경 확인
+- [x] Perlmutter account/QOS/constraint 확인
+- [x] `jobs/perlmutter/` Slurm template 작성
+- [x] cuQuantum 실행 환경 확인
 - [ ] ScaleQsim/SWIFTN/AURORA-Q 코드와 재사용 가능한 계측 방식 확인
-- [ ] `sklearn digits` dataset loader 작성
-- [ ] PCA feature dimension sweep 작성
+- [x] `sklearn digits` dataset loader 작성
+- [x] PCA feature dimension sweep 작성
 - [ ] target accuracy/loss policy 선정
-- [ ] native ML baseline 작성: logistic regression, MLP, optional SVM/RBF
-- [ ] quantum kernel classifier 작성
-- [ ] QNN/VQC classifier 작성
-- [ ] quantum feature encoding 코드 작성
-- [ ] quantum circuit 생성 코드 작성
-- [ ] cuQuantum backend 연결
-- [ ] runtime logging 포맷 정의
+- [x] native ML baseline 작성: logistic regression, MLP, optional SVM/RBF
+- [x] quantum kernel classifier 작성
+- [x] QNN/VQC classifier 작성
+- [x] quantum feature encoding 코드 작성
+- [x] quantum circuit 생성 코드 작성
+- [x] cuQuantum backend 연결
+- [x] runtime logging 포맷 정의
 - [ ] `sacct` metadata 수집
 - [ ] charged node-hour 계산
-- [ ] break-even 모델 구현
+- [x] break-even 모델 구현
 - [ ] sensitivity analysis 구현
 - [ ] 결과 figure template 작성
 
