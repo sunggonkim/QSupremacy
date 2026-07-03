@@ -128,19 +128,23 @@ for seed in 17 23; do
   done
 done
 
-# Hamiltonian simulation. Qubit count and Trotter steps control circuit size.
+# Hamiltonian simulation. Qubit count, physical model, and Trotter steps control
+# circuit size.
 for seed in 17 23; do
+  for model in tfim heisenberg; do
   for qubits in 4 5 6; do
     for steps in 4 6 8; do
       maybe_run_case "${case_id}" \
-        "sim_${qubits}q_${steps}steps_seed${seed}" \
+        "sim_${model}_${qubits}q_${steps}steps_seed${seed}" \
         --workloads simulation \
         --seed "${seed}" \
+        --sim-model "${model}" \
         --sim-qubits "${qubits}" \
         --sim-steps "${steps}" \
         --sim-time 0.8
       case_id=$((case_id + 1))
     done
+  done
   done
 done
 

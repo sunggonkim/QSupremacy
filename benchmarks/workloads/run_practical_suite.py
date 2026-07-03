@@ -220,6 +220,20 @@ class CuStateVecSimulator:
         self.apply_gate(rz(theta), [q1])
         self.apply_cnot(q0, q1)
 
+    def apply_xx_rotation(self, q0, q1, theta):
+        self.apply_gate(H_GATE, [q0])
+        self.apply_gate(H_GATE, [q1])
+        self.apply_zz_rotation(q0, q1, theta)
+        self.apply_gate(H_GATE, [q0])
+        self.apply_gate(H_GATE, [q1])
+
+    def apply_yy_rotation(self, q0, q1, theta):
+        self.apply_gate(rx(math.pi / 2.0), [q0])
+        self.apply_gate(rx(math.pi / 2.0), [q1])
+        self.apply_zz_rotation(q0, q1, theta)
+        self.apply_gate(rx(-math.pi / 2.0), [q0])
+        self.apply_gate(rx(-math.pi / 2.0), [q1])
+
     def state_host(self):
         self.cp.cuda.Stream.null.synchronize()
         return self.cp.asnumpy(self.state)
@@ -702,11 +716,76 @@ def tfim_hamiltonian(n_qubits, coupling, field):
     return h
 
 
+def heisenberg_hamiltonian(n_qubits, coupling, field):
+    h = np.zeros((1 << n_qubits, 1 << n_qubits), dtype=np.complex128)
+    for q in range(n_qubits - 1):
+        h += coupling * pauli_string(n_qubits, [(q, X), (q + 1, X)])
+        h += coupling * pauli_string(n_qubits, [(q, Y), (q + 1, Y)])
+        h += coupling * pauli_string(n_qubits, [(q, Z), (q + 1, Z)])
+    for q in range(n_qubits):
+        h += field * pauli_string(n_qubits, [(q, Z)])
+    return h
+
+
+def simulation_hamiltonian(args):
+    if args.sim_model == "tfim":
+        return tfim_hamiltonian(args.sim_qubits, args.sim_coupling, args.sim_field)
+    if args.sim_model == "heisenberg":
+        return heisenberg_hamiltonian(args.sim_qubits, args.sim_coupling, args.sim_field)
+    raise ValueError("Unknown simulation model: {}".format(args.sim_model))
+
+
+def apply_simulation_trotter_step(sim, args, dt):
+    if args.sim_model == "tfim":
+        for q in range(args.sim_qubits - 1):
+            sim.apply_zz_rotation(q, q + 1, float(2.0 * args.sim_coupling * dt))
+        for q in range(args.sim_qubits):
+            sim.apply_gate(rx(float(2.0 * args.sim_field * dt)), [q])
+        return
+    if args.sim_model == "heisenberg":
+        for q in range(args.sim_qubits - 1):
+            angle = float(2.0 * args.sim_coupling * dt)
+            sim.apply_xx_rotation(q, q + 1, angle)
+            sim.apply_yy_rotation(q, q + 1, angle)
+            sim.apply_zz_rotation(q, q + 1, angle)
+        for q in range(args.sim_qubits):
+            sim.apply_gate(rz(float(2.0 * args.sim_field * dt)), [q])
+        return
+    raise ValueError("Unknown simulation model: {}".format(args.sim_model))
+
+
+def simulation_initial_mask(args):
+    if args.sim_initial_state == "zero":
+        return 0
+    if args.sim_initial_state == "neel":
+        mask = 0
+        for q in range(args.sim_qubits):
+            if q % 2 == 1:
+                mask |= 1 << q
+        return mask
+    if args.sim_initial_state == "auto":
+        if args.sim_model == "heisenberg":
+            mask = 0
+            for q in range(args.sim_qubits):
+                if q % 2 == 1:
+                    mask |= 1 << q
+            return mask
+        return 0
+    raise ValueError("Unknown simulation initial state: {}".format(args.sim_initial_state))
+
+
+def prepare_simulation_initial_state(sim, mask):
+    for q in range(sim.n_qubits):
+        if mask & (1 << q):
+            sim.apply_gate(X, [q])
+
+
 def run_simulation(args):
     n = args.sim_qubits
-    h = tfim_hamiltonian(n, args.sim_coupling, args.sim_field)
+    h = simulation_hamiltonian(args)
     init = np.zeros(1 << n, dtype=np.complex128)
-    init[0] = 1.0
+    init_mask = simulation_initial_mask(args)
+    init[init_mask] = 1.0
     start = time.perf_counter()
     evals, evecs = np.linalg.eigh(h)
     evolved = evecs @ (np.exp(-1.0j * evals * args.sim_time) * (evecs.conj().T @ init))
@@ -723,11 +802,9 @@ def run_simulation(args):
     sim = CuStateVecSimulator(n)
     try:
         sim.reset()
+        prepare_simulation_initial_state(sim, init_mask)
         for _ in range(args.sim_steps):
-            for q in range(n - 1):
-                sim.apply_zz_rotation(q, q + 1, float(2.0 * args.sim_coupling * dt))
-            for q in range(n):
-                sim.apply_gate(rx(float(2.0 * args.sim_field * dt)), [q])
+            apply_simulation_trotter_step(sim, args, dt)
         state = sim.state_host()
         q_obs = float(z_expectations_from_state(state, n)[0])
         meta = sim.metadata(evaluations=1)
@@ -737,7 +814,7 @@ def run_simulation(args):
             "z0_expectation": q_obs,
             "absolute_observable_error": float(abs(q_obs - native_obs)),
             "metadata": meta,
-            "ansatz": "first_order_trotter_tfim",
+            "ansatz": "first_order_trotter_{}".format(args.sim_model),
         }
     finally:
         sim.close()
@@ -748,10 +825,14 @@ def run_simulation(args):
         "native_path": native,
         "quantum_path": quantum,
         "problem": {
-            "name": "transverse_field_ising",
+            "name": args.sim_model,
             "qubits": int(n),
             "steps": int(args.sim_steps),
             "time": float(args.sim_time),
+            "coupling": float(args.sim_coupling),
+            "field": float(args.sim_field),
+            "initial_state": args.sim_initial_state,
+            "initial_basis_index": int(init_mask),
         },
     }
 
@@ -813,6 +894,8 @@ def main():
     parser.add_argument("--opt-nodes", type=int, default=4)
     parser.add_argument("--opt-graph", choices=["chordal", "ring", "ladder"], default="chordal")
     parser.add_argument("--opt-grid", type=int, default=7)
+    parser.add_argument("--sim-model", choices=["tfim", "heisenberg"], default="tfim")
+    parser.add_argument("--sim-initial-state", choices=["auto", "zero", "neel"], default="auto")
     parser.add_argument("--sim-qubits", type=int, default=4)
     parser.add_argument("--sim-steps", type=int, default=4)
     parser.add_argument("--sim-time", type=float, default=0.8)

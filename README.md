@@ -68,7 +68,7 @@ Current workload families:
 - multiclass ML: native softmax regression vs quantum feature circuit + softmax head
 - drug discovery / chemistry: exact H2 Hamiltonian diagonalization vs VQE-style circuit
 - optimization: exact small MaxCut vs QAOA-style circuit
-- scientific simulation: exact transverse-field Ising dynamics vs Trotterized circuit
+- scientific simulation: exact TFIM/Heisenberg dynamics vs Trotterized circuit
 
 Chemistry Hamiltonians can be supplied as Pauli-term JSON:
 
@@ -121,7 +121,7 @@ for chunk in 0 1 2 3 4 5 6 7; do
 done
 ```
 
-The sweep currently expands to 172 case templates:
+The sweep currently expands to 190 case templates:
 
 - ML: real `sklearn_digits` multiclass sets 0/1/2, 3/5/8, and 0/1/2/3;
   samples 128/192/256, PCA/qubits 4/6/8, depths 1/2, two seeds, native
@@ -131,7 +131,9 @@ The sweep currently expands to 172 case templates:
   Pauli Hamiltonian JSON through `--chem-hamiltonian-json`.
 - optimization: QAOA MaxCut with ring/chordal/ladder graph families, 4/5 nodes,
   grid sizes 7/9/11, two seeds
-- simulation: TFIM with 4/5/6 qubits and 4/6/8 Trotter steps, two seeds
+- simulation: TFIM and Heisenberg chains with 4/5/6 qubits and 4/6/8 Trotter
+  steps, two seeds. The default `auto` initial state uses `|0...0>` for TFIM
+  and a Neel-like basis state for Heisenberg.
 
 Each chunk writes raw JSON to `data/raw/perlmutter/practical_suite_sweep/` and
 summary JSON/CSV files to `data/processed/perlmutter/`. Combine any finished
