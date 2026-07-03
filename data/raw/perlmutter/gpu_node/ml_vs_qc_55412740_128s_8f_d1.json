@@ -1,0 +1,57 @@
+{
+  "config": {
+    "depth": 1,
+    "entangle": false,
+    "features": 8,
+    "lr": 0.4,
+    "nonlinear": false,
+    "output": "data/raw/perlmutter/gpu_node/ml_vs_qc_55412740_128s_8f_d1.json",
+    "phase": false,
+    "samples": 128,
+    "seed": 7,
+    "steps": 400
+  },
+  "dataset": {
+    "native_feature_dim": 8,
+    "test_samples": 32,
+    "train_samples": 96
+  },
+  "metadata": {
+    "cwd": "/pscratch/sd/s/sgkim/Skim-Qsupreme",
+    "hostname": "nid001365",
+    "platform": "Linux-6.4.0-150600.23.103_15.0.24-cray_shasta_c-x86_64-with-glibc2.38",
+    "python": "3.11.14 | packaged by conda-forge | (main, Jan 26 2026, 23:48:32) [GCC 14.3.0]",
+    "python_executable": "/pscratch/sd/s/sgkim/kis_cuquantum/00_env/cutn_conda/bin/python"
+  },
+  "native_ml_path": {
+    "parameters": 9,
+    "runtime_sec": 0.004506402001425158,
+    "test_accuracy": 0.9375,
+    "train_accuracy": 0.9895833333333334
+  },
+  "quantum_circuit_ml_path": {
+    "feature_extraction_sec": 8.200444565001817,
+    "head_parameters": 17,
+    "head_training_sec": 0.004261818001396023,
+    "status": "ok",
+    "test_accuracy": 0.875,
+    "test_feature_metadata": {
+      "cupy_used_bytes": 4096,
+      "device": 0,
+      "feature_dim": 16,
+      "gate_count": 256,
+      "runtime_sec": 0.03859614500106545,
+      "state_dim": 256
+    },
+    "total_runtime_sec": 8.204791106996709,
+    "train_accuracy": 0.9895833333333334,
+    "train_feature_metadata": {
+      "cupy_used_bytes": 4096,
+      "device": 0,
+      "feature_dim": 16,
+      "gate_count": 768,
+      "runtime_sec": 0.16693591000512242,
+      "state_dim": 256
+    }
+  }
+}

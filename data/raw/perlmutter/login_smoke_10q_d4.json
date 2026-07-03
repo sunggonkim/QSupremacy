@@ -1,0 +1,39 @@
+{
+  "config": {
+    "depth": 4,
+    "qubits": 10
+  },
+  "cupy_import": {
+    "error": "ModuleNotFoundError: No module named 'cupy'",
+    "runtime_sec": 0.0007203920104075223,
+    "status": "missing"
+  },
+  "cuquantum_custatevec_import": {
+    "error": "ModuleNotFoundError: No module named 'cuquantum'",
+    "runtime_sec": 0.00027701999351847917,
+    "status": "missing"
+  },
+  "cuquantum_import": {
+    "error": "ModuleNotFoundError: No module named 'cuquantum'",
+    "runtime_sec": 0.0002893530036089942,
+    "status": "missing"
+  },
+  "metadata": {
+    "cwd": "/pscratch/sd/s/sgkim/Skim-Qsupreme",
+    "hostname": "login39",
+    "platform": "Linux-6.4.0-150600.23.103_15.0.24-cray_shasta_c-x86_64-with-glibc2.3.4",
+    "python": "3.6.15 (default, Apr 27 2026, 16:53:54) [GCC]",
+    "python_executable": "/usr/bin/python3"
+  },
+  "numpy_statevector": {
+    "checksum": {
+      "imag_sum": 0.0,
+      "norm": 0.9999999999999971,
+      "real_sum": 0.0
+    },
+    "gate_count": 58,
+    "runtime_sec": 0.05565108699374832,
+    "state_dim": 1024,
+    "status": "ok"
+  }
+}

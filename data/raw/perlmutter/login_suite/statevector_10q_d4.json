@@ -1,0 +1,63 @@
+{
+  "config": {
+    "depth": 4,
+    "qubits": 10
+  },
+  "cupy_import": {
+    "runtime_sec": 0.5868606140138581,
+    "status": "import_ok",
+    "version": "13.6.0"
+  },
+  "cuquantum_bindings_custatevec_import": {
+    "runtime_sec": 6.952992407605052e-06,
+    "status": "import_ok",
+    "version": "unknown"
+  },
+  "cuquantum_bindings_cutensornet_import": {
+    "runtime_sec": 2.935004886239767e-06,
+    "status": "import_ok",
+    "version": "unknown"
+  },
+  "cuquantum_custatevec_import": {
+    "error": "ModuleNotFoundError: No module named 'cuquantum.custatevec'",
+    "runtime_sec": 8.85760091478005e-05,
+    "status": "missing"
+  },
+  "cuquantum_import": {
+    "runtime_sec": 1.8540975430078106,
+    "status": "import_ok",
+    "version": "26.01.0"
+  },
+  "custatevec_statevector": {
+    "checksum": {
+      "imag_sum": 0.0,
+      "norm": 0.9999999999999969,
+      "real_sum": 0.0
+    },
+    "cupy_used_bytes": 16384,
+    "device": 0,
+    "gate_count": 58,
+    "runtime_sec": 0.006689657995593734,
+    "state_dim": 1024,
+    "status": "ok",
+    "total_runtime_sec": 0.5524854499963112
+  },
+  "metadata": {
+    "cwd": "/pscratch/sd/s/sgkim/Skim-Qsupreme",
+    "hostname": "login39",
+    "platform": "Linux-6.4.0-150600.23.103_15.0.24-cray_shasta_c-x86_64-with-glibc2.38",
+    "python": "3.11.14 | packaged by conda-forge | (main, Jan 26 2026, 23:48:32) [GCC 14.3.0]",
+    "python_executable": "/pscratch/sd/s/sgkim/kis_cuquantum/00_env/cutn_conda/bin/python"
+  },
+  "numpy_statevector": {
+    "checksum": {
+      "imag_sum": 0.0,
+      "norm": 0.9999999999999971,
+      "real_sum": 0.0
+    },
+    "gate_count": 58,
+    "runtime_sec": 0.02427526300016325,
+    "state_dim": 1024,
+    "status": "ok"
+  }
+}
