@@ -15,6 +15,7 @@ speedup a projected quantum path would need for native parity.
 """
 
 import argparse
+import itertools
 import json
 import math
 import os
@@ -67,6 +68,11 @@ def pauli_string(n_qubits, terms):
     for q in range(n_qubits):
         mats.append(term_map.get(q, I2))
     return kron_all(mats)
+
+
+def pauli_word_matrix(word):
+    ops = {"I": I2, "X": X, "Y": Y, "Z": Z}
+    return kron_all([ops[ch] for ch in word])
 
 
 def softmax(logits):
@@ -445,8 +451,89 @@ def h2_hamiltonian():
     return h, coeffs
 
 
-def run_chemistry(args):
+def load_pauli_hamiltonian_json(path):
+    with open(path) as f:
+        data = json.load(f)
+    n_qubits = int(data["n_qubits"])
+    h = np.zeros((1 << n_qubits, 1 << n_qubits), dtype=np.complex128)
+    terms = []
+    for term in data["terms"]:
+        word = term["pauli"].upper()
+        if len(word) != n_qubits:
+            raise ValueError("Pauli word {} does not match {} qubits".format(word, n_qubits))
+        coeff = float(term["coefficient"])
+        h += coeff * pauli_word_matrix(word)
+        terms.append({"pauli": word, "coefficient": coeff})
+    metadata = {
+        "name": data.get("name", os.path.basename(path)),
+        "source": path,
+        "n_qubits": n_qubits,
+        "description": data.get("description", ""),
+        "terms": terms,
+    }
+    return h, metadata
+
+
+def chemistry_hamiltonian(args):
+    if args.chem_hamiltonian_json:
+        return load_pauli_hamiltonian_json(args.chem_hamiltonian_json)
     h, coeffs = h2_hamiltonian()
+    terms = [
+        {"pauli": "II", "coefficient": coeffs["ii"]},
+        {"pauli": "ZI", "coefficient": coeffs["zi"]},
+        {"pauli": "IZ", "coefficient": coeffs["iz"]},
+        {"pauli": "ZZ", "coefficient": coeffs["zz"]},
+        {"pauli": "XX", "coefficient": coeffs["xx"]},
+    ]
+    return h, {
+        "name": "H2_minimal_2qubit",
+        "n_qubits": 2,
+        "description": "Built-in 2-qubit H2 minimal-basis Hamiltonian.",
+        "terms": terms,
+    }
+
+
+def run_vqe_ansatz(sim, theta, layers, entangle):
+    idx = 0
+    for layer in range(layers):
+        for q in range(sim.n_qubits):
+            sim.apply_gate(ry(float(theta[idx])), [q])
+            idx += 1
+        if entangle:
+            for q in range(sim.n_qubits - 1):
+                sim.apply_cnot(q, q + 1)
+        for q in range(sim.n_qubits):
+            sim.apply_gate(rz(float(theta[idx])), [q])
+            idx += 1
+
+
+def vqe_parameter_candidates(n_qubits, layers, grid, seed):
+    rng = np.random.default_rng(seed)
+    param_count = max(1, layers * n_qubits * 2)
+    candidates = [
+        np.zeros(param_count, dtype=np.float64),
+        np.full(param_count, math.pi / 2.0, dtype=np.float64),
+        np.full(param_count, -math.pi / 2.0, dtype=np.float64),
+    ]
+    for value in np.linspace(-math.pi, math.pi, grid):
+        candidates.append(np.full(param_count, float(value), dtype=np.float64))
+    if n_qubits == 2 and layers == 1:
+        for theta0, theta1 in itertools.product(
+            np.linspace(-math.pi, math.pi, grid),
+            np.linspace(-math.pi, math.pi, grid),
+        ):
+            theta = np.zeros(param_count, dtype=np.float64)
+            theta[0] = float(theta0)
+            theta[1] = float(theta1)
+            candidates.append(theta)
+    for _ in range(max(0, grid)):
+        candidates.append(rng.uniform(-math.pi, math.pi, size=param_count))
+    return candidates
+
+
+def run_chemistry(args):
+    h, problem = chemistry_hamiltonian(args)
+    n_qubits = int(problem["n_qubits"])
     start = time.perf_counter()
     evals = np.linalg.eigvalsh(h)
     native = {
@@ -456,39 +543,33 @@ def run_chemistry(args):
     }
 
     start = time.perf_counter()
-    sim = CuStateVecSimulator(2)
-    best = {"energy": float("inf"), "theta0": None, "theta1": None}
+    sim = CuStateVecSimulator(n_qubits)
+    best = {"energy": float("inf"), "theta": None}
     total_g1 = 0
     total_g2 = 0
+    candidates = vqe_parameter_candidates(n_qubits, args.chem_layers, args.chem_grid, args.seed)
     try:
-        for theta0 in np.linspace(-math.pi, math.pi, args.chem_grid):
-            for theta1 in np.linspace(-math.pi, math.pi, args.chem_grid):
-                sim.reset()
-                sim.apply_gate(ry(float(theta0)), [0])
-                sim.apply_gate(ry(float(theta1)), [1])
-                sim.apply_cnot(0, 1)
-                state = sim.state_host()
-                energy = float(np.real(np.vdot(state, h @ state)))
-                if energy < best["energy"]:
-                    best = {
-                        "energy": energy,
-                        "theta0": float(theta0),
-                        "theta1": float(theta1),
-                    }
-                total_g1 += sim.one_qubit_gates
-                total_g2 += sim.two_qubit_gates
-        meta = sim.metadata(evaluations=args.chem_grid * args.chem_grid)
+        for theta in candidates:
+            sim.reset()
+            run_vqe_ansatz(sim, theta, args.chem_layers, args.entangle)
+            state = sim.state_host()
+            energy = float(np.real(np.vdot(state, h @ state)))
+            if energy < best["energy"]:
+                best = {"energy": energy, "theta": [float(x) for x in theta]}
+            total_g1 += sim.one_qubit_gates
+            total_g2 += sim.two_qubit_gates
+        meta = sim.metadata(evaluations=len(candidates))
         meta["one_qubit_gates"] = int(total_g1)
         meta["two_qubit_gates"] = int(total_g2)
         quantum = {
             "status": "ok",
             "runtime_sec": time.perf_counter() - start,
             "estimated_ground_energy": best["energy"],
-            "best_theta0": best["theta0"],
-            "best_theta1": best["theta1"],
+            "best_theta": best["theta"],
             "absolute_energy_error": float(abs(best["energy"] - native["ground_energy"])),
             "metadata": meta,
-            "ansatz": "Ry(theta0)-Ry(theta1)-CNOT",
+            "ansatz": "hardware_efficient_ry_rz_linear_entangler",
+            "layers": int(args.chem_layers),
         }
     finally:
         sim.close()
@@ -498,7 +579,7 @@ def run_chemistry(args):
         "quality_metric": "absolute_energy_error",
         "native_path": native,
         "quantum_path": quantum,
-        "problem": {"molecule": "H2_minimal_2qubit", "hamiltonian_coefficients": coeffs},
+        "problem": problem,
     }
 
 
@@ -727,6 +808,8 @@ def main():
     parser.add_argument("--mlp-lr", type=float, default=0.05)
 
     parser.add_argument("--chem-grid", type=int, default=21)
+    parser.add_argument("--chem-layers", type=int, default=1)
+    parser.add_argument("--chem-hamiltonian-json", default="")
     parser.add_argument("--opt-nodes", type=int, default=4)
     parser.add_argument("--opt-graph", choices=["chordal", "ring", "ladder"], default="chordal")
     parser.add_argument("--opt-grid", type=int, default=7)

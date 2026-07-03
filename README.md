@@ -70,6 +70,31 @@ Current workload families:
 - optimization: exact small MaxCut vs QAOA-style circuit
 - scientific simulation: exact transverse-field Ising dynamics vs Trotterized circuit
 
+Chemistry Hamiltonians can be supplied as Pauli-term JSON:
+
+```json
+{
+  "name": "my_molecule_active_space",
+  "n_qubits": 4,
+  "terms": [
+    {"pauli": "IIII", "coefficient": -0.81},
+    {"pauli": "ZIII", "coefficient": 0.18},
+    {"pauli": "XXII", "coefficient": 0.045}
+  ]
+}
+```
+
+Example:
+
+```bash
+/pscratch/sd/s/sgkim/kis_cuquantum/00_env/cutn_conda/bin/python \
+  benchmarks/workloads/run_practical_suite.py \
+  --workloads chemistry \
+  --chem-hamiltonian-json benchmarks/workloads/hamiltonians/molecular_chain_4q.json \
+  --chem-grid 9 \
+  --entangle
+```
+
 Validate the suite:
 
 ```bash
@@ -96,12 +121,14 @@ for chunk in 0 1 2 3 4 5 6 7; do
 done
 ```
 
-The sweep currently expands to 168 case templates:
+The sweep currently expands to 172 case templates:
 
 - ML: real `sklearn_digits` multiclass sets 0/1/2, 3/5/8, and 0/1/2/3;
   samples 128/192/256, PCA/qubits 4/6/8, depths 1/2, two seeds, native
   softmax and MLP baselines
-- chemistry: VQE grid sizes 21/25/31, two seeds
+- chemistry: H2 VQE grid sizes 17/21/25 plus a 4-qubit Pauli Hamiltonian
+  fixture with grid sizes 9/13, two seeds. The runner also accepts external
+  Pauli Hamiltonian JSON through `--chem-hamiltonian-json`.
 - optimization: QAOA MaxCut with ring/chordal/ladder graph families, 4/5 nodes,
   grid sizes 7/9/11, two seeds
 - simulation: TFIM with 4/5/6 qubits and 4/6/8 Trotter steps, two seeds

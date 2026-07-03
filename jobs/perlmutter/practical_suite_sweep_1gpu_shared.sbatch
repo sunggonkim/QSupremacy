@@ -85,14 +85,27 @@ for seed in 17 23; do
   done
 done
 
-# VQE-style chemistry. Grid size controls optimizer/search work.
+# VQE-style chemistry. Grid size controls optimizer/search work. The built-in
+# H2 case is a quality anchor; the 4-qubit fixture checks the generic Pauli
+# Hamiltonian path that can receive OpenFermion/PySCF-generated inputs.
 for seed in 17 23; do
-  for grid in 21 25 31; do
+  for grid in 17 21 25; do
     maybe_run_case "${case_id}" \
-      "chem_grid${grid}_seed${seed}" \
+      "chem_h2_grid${grid}_seed${seed}" \
       --workloads chemistry \
       --seed "${seed}" \
-      --chem-grid "${grid}"
+      --chem-grid "${grid}" \
+      --chem-layers 1
+    case_id=$((case_id + 1))
+  done
+  for grid in 9 13; do
+    maybe_run_case "${case_id}" \
+      "chem_4q_grid${grid}_seed${seed}" \
+      --workloads chemistry \
+      --seed "${seed}" \
+      --chem-grid "${grid}" \
+      --chem-layers 1 \
+      --chem-hamiltonian-json benchmarks/workloads/hamiltonians/molecular_chain_4q.json
     case_id=$((case_id + 1))
   done
 done

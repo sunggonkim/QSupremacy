@@ -1,0 +1,21 @@
+{
+  "name": "molecular_chain_4q_surrogate",
+  "description": "Small Pauli Hamiltonian fixture for VQE-style chemistry pipeline tests. Replace or extend with OpenFermion/PySCF-generated molecular Hamiltonians for production chemistry studies.",
+  "n_qubits": 4,
+  "terms": [
+    {"pauli": "IIII", "coefficient": -0.8100},
+    {"pauli": "ZIII", "coefficient": 0.1800},
+    {"pauli": "IZII", "coefficient": -0.2200},
+    {"pauli": "IIZI", "coefficient": 0.1600},
+    {"pauli": "IIIZ", "coefficient": -0.1400},
+    {"pauli": "ZZII", "coefficient": 0.0700},
+    {"pauli": "IZZI", "coefficient": 0.0500},
+    {"pauli": "IIZZ", "coefficient": 0.0600},
+    {"pauli": "XXII", "coefficient": 0.0450},
+    {"pauli": "IXXI", "coefficient": 0.0400},
+    {"pauli": "IIXX", "coefficient": 0.0350},
+    {"pauli": "YYII", "coefficient": 0.0300},
+    {"pauli": "IYYI", "coefficient": 0.0280},
+    {"pauli": "IIYY", "coefficient": 0.0250}
+  ]
+}
