@@ -2,7 +2,7 @@
 #SBATCH -A m1248
 #SBATCH -C gpu
 #SBATCH -q shared
-#SBATCH -t 02:00:00
+#SBATCH -t 00:30:00
 #SBATCH -n 1
 #SBATCH -c 32
 #SBATCH --gpus-per-task=1
@@ -28,6 +28,8 @@ echo "job_id=${SLURM_JOB_ID}"
 echo "host=$(hostname)"
 echo "date_start=$(date --iso-8601=seconds)"
 echo "cuda_visible_devices=${CUDA_VISIBLE_DEVICES:-unset}"
+echo "chunk_id=${QS_CHUNK_ID:-0}"
+echo "chunk_count=${QS_CHUNK_COUNT:-1}"
 nvidia-smi -L
 
 if [[ ! -f "${DATASET}" ]]; then
@@ -62,22 +64,39 @@ run_case() {
   echo "case_end=${tag} $(date --iso-8601=seconds)"
 }
 
+maybe_run_case() {
+  local case_id="$1"
+  shift
+  local chunk_id="${QS_CHUNK_ID:-0}"
+  local chunk_count="${QS_CHUNK_COUNT:-1}"
+  if (( case_id % chunk_count == chunk_id )); then
+    run_case "$@"
+  fi
+}
+
+case_id=0
 # Purposefully mix easy and harder binary digit pairs. 0-vs-1 is a sanity
 # anchor; the other pairs are more useful for modeling quality/runtime tradeoffs.
 for classes in 0,1 3,8 4,9 5,8; do
   for seed in 11 13; do
     for samples in 128 256; do
       for depth in 1 2 3; do
-        run_case "${classes}" "${samples}" 4 "${depth}" 4 "${seed}"
-        run_case "${classes}" "${samples}" 8 "${depth}" 4 "${seed}"
+        maybe_run_case "${case_id}" "${classes}" "${samples}" 4 "${depth}" 4 "${seed}"
+        case_id=$((case_id + 1))
+        maybe_run_case "${case_id}" "${classes}" "${samples}" 8 "${depth}" 4 "${seed}"
+        case_id=$((case_id + 1))
       done
       for depth in 1 2; do
-        run_case "${classes}" "${samples}" 12 "${depth}" 3 "${seed}"
-        run_case "${classes}" "${samples}" 16 "${depth}" 2 "${seed}"
+        maybe_run_case "${case_id}" "${classes}" "${samples}" 12 "${depth}" 3 "${seed}"
+        case_id=$((case_id + 1))
+        maybe_run_case "${case_id}" "${classes}" "${samples}" 16 "${depth}" 2 "${seed}"
+        case_id=$((case_id + 1))
       done
     done
   done
 done
+
+echo "total_case_templates=${case_id}"
 
 "${PY}" benchmarks/digits/summarize_digits_results.py \
   "${OUTDIR}/digits_${SLURM_JOB_ID}_*.json"
