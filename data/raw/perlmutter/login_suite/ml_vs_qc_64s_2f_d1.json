@@ -18,21 +18,21 @@
   },
   "metadata": {
     "cwd": "/pscratch/sd/s/sgkim/Skim-Qsupreme",
-    "hostname": "login39",
+    "hostname": "login27",
     "platform": "Linux-6.4.0-150600.23.103_15.0.24-cray_shasta_c-x86_64-with-glibc2.38",
     "python": "3.11.14 | packaged by conda-forge | (main, Jan 26 2026, 23:48:32) [GCC 14.3.0]",
     "python_executable": "/pscratch/sd/s/sgkim/kis_cuquantum/00_env/cutn_conda/bin/python"
   },
   "native_ml_path": {
     "parameters": 3,
-    "runtime_sec": 0.007735241000773385,
+    "runtime_sec": 0.004691775975516066,
     "test_accuracy": 0.9375,
     "train_accuracy": 0.9583333333333334
   },
   "quantum_circuit_ml_path": {
-    "feature_extraction_sec": 3.003223819003324,
+    "feature_extraction_sec": 2.1231177790032234,
     "head_parameters": 5,
-    "head_training_sec": 0.007370778010226786,
+    "head_training_sec": 0.0048447919834870845,
     "status": "ok",
     "test_accuracy": 0.9375,
     "test_feature_metadata": {
@@ -40,17 +40,17 @@
       "device": 0,
       "feature_dim": 4,
       "gate_count": 32,
-      "runtime_sec": 0.04522963099589106,
+      "runtime_sec": 0.0021245399839244783,
       "state_dim": 4
     },
-    "total_runtime_sec": 3.010843563999515,
+    "total_runtime_sec": 2.1280439229740296,
     "train_accuracy": 0.9583333333333334,
     "train_feature_metadata": {
       "cupy_used_bytes": 512,
       "device": 0,
       "feature_dim": 4,
       "gate_count": 96,
-      "runtime_sec": 0.17835527299030218,
+      "runtime_sec": 0.04018720699241385,
       "state_dim": 4
     }
   }

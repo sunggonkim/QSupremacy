@@ -17,6 +17,8 @@ The core comparison is not simulator vs simulator. The comparison is:
 - cuStateVec binding path: `cuquantum.bindings.custatevec`
 - Login-node smoke suite passes.
 - Perlmutter GPU Slurm smoke jobs completed successfully.
+- Practical workload suite added for multiclass ML, VQE-style chemistry,
+  QAOA-style optimization, and Hamiltonian simulation.
 - First `sklearn digits` shared-GPU sweep completed:
   job `55414571`, 18 cases, 221 seconds elapsed, about 0.061 GPU-hours.
 - Expanded `sklearn digits` sweep completed:
@@ -35,6 +37,7 @@ The smoke suite checks:
 - cuQuantum/CuPy/cuStateVec import
 - small state-vector correctness
 - application-level native ML vs quantum-circuit ML pipeline
+- practical native-vs-quantum workloads for ML, chemistry, optimization, and simulation
 - JSON output schema
 - basic accuracy/runtime validation
 
@@ -43,6 +46,46 @@ Recent pass summary:
 ```text
 PASS: login smoke outputs validated
 ```
+
+## Practical Workload Suite
+
+The practical suite is the next step beyond the digits calibration experiment.
+It is still login-safe, but each case represents a real application family and
+keeps native runtime, quantum-circuit runtime, quality, and break-even
+projection together.
+
+```bash
+module load cudatoolkit/12.9
+/pscratch/sd/s/sgkim/kis_cuquantum/00_env/cutn_conda/bin/python \
+  benchmarks/workloads/run_practical_suite.py \
+  --login-safe \
+  --entangle \
+  --output data/raw/perlmutter/login_suite/practical_suite_smoke.json
+```
+
+Current workload families:
+
+- multiclass ML: native softmax regression vs quantum feature circuit + softmax head
+- drug discovery / chemistry: exact H2 Hamiltonian diagonalization vs VQE-style circuit
+- optimization: exact small MaxCut vs QAOA-style circuit
+- scientific simulation: exact transverse-field Ising dynamics vs Trotterized circuit
+
+Validate the suite:
+
+```bash
+/pscratch/sd/s/sgkim/kis_cuquantum/00_env/cutn_conda/bin/python \
+  benchmarks/smoke/validate_login_smoke.py \
+  --practical data/raw/perlmutter/login_suite/practical_suite_smoke.json
+```
+
+Allocation-safe Perlmutter smoke job:
+
+```bash
+sbatch jobs/perlmutter/practical_suite_1gpu_shared.sbatch
+```
+
+Use this job before any larger practical workload sweep. It requests one shared
+GPU for 15 minutes and verifies all four application families.
 
 ## Digits Supremacy Benchmark
 
@@ -126,6 +169,7 @@ All tracks must report time-to-quality under the same dataset split and target a
 ```text
 benchmarks/digits/     sklearn digits native/kernel/QNN benchmark
 benchmarks/smoke/      Login-node-safe correctness and application smoke tests
+benchmarks/workloads/  Practical ML/chemistry/optimization/simulation suite
 data/raw/perlmutter/   Small smoke outputs and Perlmutter job outputs
 jobs/perlmutter/       Slurm job scripts
 logs/                  Small Slurm smoke logs

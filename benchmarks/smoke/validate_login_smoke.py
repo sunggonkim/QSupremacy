@@ -52,10 +52,56 @@ def validate_ml(path, min_native_acc, min_quantum_acc):
     return errors
 
 
+def validate_practical(path):
+    data = load(path)
+    errors = []
+    expected = {"ml", "chemistry", "optimization", "simulation"}
+    workloads = data.get("workloads", {})
+    missing = expected - set(workloads)
+    if missing:
+        errors.append("{}: missing practical workloads {}".format(path, sorted(missing)))
+        return errors
+
+    for name in sorted(expected):
+        workload = workloads.get(name, {})
+        native = workload.get("native_path", {})
+        quantum = workload.get("quantum_path", {})
+        projection = workload.get("break_even_projection", {})
+        if native.get("runtime_sec", 0.0) <= 0.0:
+            errors.append("{}: {} native runtime missing".format(path, name))
+        if quantum.get("status") != "ok":
+            errors.append("{}: {} quantum path not ok".format(path, name))
+        if quantum.get("runtime_sec", 0.0) <= 0.0:
+            errors.append("{}: {} quantum runtime missing".format(path, name))
+        if projection.get("sim_to_native_speedup_required", 0.0) <= 0.0:
+            errors.append("{}: {} break-even projection missing".format(path, name))
+
+    ml = workloads["ml"]
+    if ml["native_path"].get("test_accuracy", 0.0) < 0.7:
+        errors.append("{}: practical ML native accuracy too low".format(path))
+    if ml["quantum_path"].get("test_accuracy", 0.0) < 0.3:
+        errors.append("{}: practical ML quantum accuracy too low".format(path))
+
+    chemistry = workloads["chemistry"]["quantum_path"]
+    if chemistry.get("absolute_energy_error", 999.0) > 0.05:
+        errors.append("{}: chemistry VQE energy error too high".format(path))
+
+    optimization = workloads["optimization"]["quantum_path"]
+    if optimization.get("approximation_ratio", 0.0) <= 0.5:
+        errors.append("{}: optimization approximation ratio too low".format(path))
+
+    simulation = workloads["simulation"]["quantum_path"]
+    if simulation.get("absolute_observable_error", 999.0) > 0.05:
+        errors.append("{}: simulation observable error too high".format(path))
+
+    return errors
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--statevector", action="append", default=[])
     parser.add_argument("--ml", action="append", default=[])
+    parser.add_argument("--practical", action="append", default=[])
     parser.add_argument("--min-native-acc", type=float, default=0.8)
     parser.add_argument("--min-quantum-acc", type=float, default=0.75)
     args = parser.parse_args()
@@ -65,6 +111,8 @@ def main():
         errors.extend(validate_statevector(path))
     for path in args.ml:
         errors.extend(validate_ml(path, args.min_native_acc, args.min_quantum_acc))
+    for path in args.practical:
+        errors.extend(validate_practical(path))
 
     if errors:
         for error in errors:
