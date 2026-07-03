@@ -29,9 +29,11 @@
 \maketitle
 
 \begin{abstract}
-Quantum advantage is often discussed through asymptotic algorithmic speedups or through the cost of simulating quantum circuits on classical machines. For HPC users, however, the practical question is application-level: when does a quantum-circuit version of an application outperform the best native HPC implementation of the same task?
+\textbf{Problem.} Quantum advantage is often discussed using algorithmic speedups or simulator performance. This is not enough for HPC users. The real question is whether a quantum-circuit application can beat a native HPC/ML application on the same task and at the same quality.
 
-This paper presents \SystemName, a Perlmutter-based methodology for modeling application-level quantum advantage. \SystemName compares native ML/HPC application paths against quantum-circuit application paths executed with \cuQuantum, then projects the quantum hardware requirements needed to beat the native path. Following our prior accepted systems papers, the paper is organized around a clear gap: native HPC baselines are strong, quantum-circuit applications incur nontrivial encoding and execution overheads, and the break-even hardware region must be measured rather than assumed. Our first workload suite targets \texttt{sklearn digits}, quantum kernel classification, and QNN/VQC classification under a shared time-to-quality policy. Results are pending; this draft defines the logical structure, system design, and evaluation plan.
+\textbf{Approach.} This paper presents \SystemName, a Perlmutter-based framework for modeling application-level quantum advantage. \SystemName runs three paths with the same data split: native ML baselines, quantum kernel classifiers, and QNN/VQC classifiers executed with \cuQuantum. It then uses the measured circuit cost to project the quantum hardware speed needed to beat the native path.
+
+\textbf{Status.} Results are not ready yet. This draft follows the structure of our accepted ScaleQsim and AURORA-Q papers: problem, limitation, prior-work gap, design, evaluation plan, and hardware projection. The first full workload suite targets \texttt{sklearn digits} with PCA, quantum kernels, and QNN/VQC models.
 \end{abstract}
 
 \input{1.Introduction}

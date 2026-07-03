@@ -1,42 +1,79 @@
 \section{\SystemName Design}
 
+\noindent\textbf{Overview of \SystemName's Design.}
+\SystemName is designed to answer one question: when does a quantum-circuit application beat the native HPC/ML application for the same task? Figure~\ref{fig:design-overview} summarizes the key components. First, \SystemName uses \textit{Shared Workload Control} to ensure that all paths use the same data split and preprocessing. Second, it uses \textit{Native Path Execution} to establish a strong classical baseline. Third, it uses \textit{Quantum Path Execution} to run quantum kernel and QNN/VQC models with \cuQuantum. Finally, it uses \textit{Hardware Projection} to estimate the future quantum hardware requirements.
+
 \begin{figure}[t]
     \centering
     \fbox{\parbox{0.92\linewidth}{\centering
-    Placeholder: \SystemName pipeline from workload specification to native execution, quantum-circuit execution, measurement logging, and hardware projection.}}
-    \caption{Overall \SystemName workflow. The design follows the same systems-paper structure as our prior work: first define the resource bottleneck, then introduce a pipeline that isolates each cost component.}
+    Placeholder: workload control, native path, quantum path, logging, and hardware projection.}}
+    \caption{Architecture and procedure of \SystemName.}
     \label{fig:design-overview}
 \end{figure}
 
 \subsection{Overall Procedure}
 
-Figure~\ref{fig:design-overview} shows the planned \SystemName workflow. The system starts from a workload specification containing dataset, preprocessing, target quality, circuit family, and hardware assumptions. \SystemName then executes the native path and quantum-circuit path under the same split and records a comparable time-to-quality trace.
+Figure~\ref{fig:design-overview} shows the overall procedure. \SystemName has two main phases: \textit{Measurement} and \textit{Projection}.
 
-The design has three goals. First, it prevents simulator-only comparisons by requiring a native application baseline for every quantum-circuit workload. Second, it separates the cost of application stages, including preprocessing, encoding, circuit execution, measurement, and optimizer loops. Third, it converts measured circuit metadata into projected quantum hardware requirements.
+\noindent\textbf{Measurement.}
+When an experiment starts, \SystemName reads the workload configuration. The configuration includes the dataset, train/test split, feature dimension, model type, circuit type, shots, and target quality. \SystemName then runs the native path and the quantum-circuit path using the same input data. This prevents unfair comparisons caused by different preprocessing or different quality targets.
 
-\subsection{Workload and Dataset Control}
+\noindent\textbf{Projection.}
+After measurement, \SystemName reads the circuit metadata and runtime breakdown. It extracts the number of qubits, circuit depth, one-qubit gates, two-qubit gates, shots, and optimizer iterations. Using this information, \SystemName computes the quantum hardware speed required to make the projected quantum path faster than the measured native path.
 
-\SystemName uses a shared workload controller. The first controller targets \texttt{sklearn digits}. It fixes train/test splits, applies PCA with 4, 8, 12, and 16 dimensions, and exposes the same features to all native and quantum paths. The target quality policy is defined before experiments begin, using either fixed accuracy thresholds or time-to-best-quality curves.
+\subsection{Shared Workload Control}
 
-\subsection{Native Application Path}
+\noindent\textbf{Dataset Control.}
+\SystemName first fixes the workload. The first full workload is \texttt{sklearn digits}. \SystemName uses a fixed train/test split and applies PCA to 4, 8, 12, and 16 dimensions. The same reduced features are used by every native and quantum model.
 
-The native path trains and evaluates classical models directly on the preprocessed features. The first baselines are logistic regression, MLP, and optionally SVM/RBF. \SystemName records preprocessing time, training time, inference time, accuracy, and model metadata. These results establish the baseline that projected quantum hardware must beat.
+\noindent\textbf{Quality Control.}
+\SystemName defines the target quality before execution. The target can be a fixed accuracy threshold or a time-to-best-quality curve. This is important because a quantum path with lower accuracy cannot be claimed faster than a native path with higher accuracy.
+
+\noindent\textbf{Why This Matters.}
+Without shared workload control, the comparison becomes ambiguous. A native model may use a different feature dimension or a different split from the quantum model. \SystemName avoids this by making the workload controller the first step in the pipeline.
+
+\subsection{Native Path Execution}
+
+\noindent\textbf{Classical Baselines.}
+The native path trains and evaluates classical models directly on the preprocessed features. The first baselines are logistic regression, MLP, and optionally SVM/RBF. These models are simple but strong for the first workload, and they provide a clear lower bound for time-to-quality.
+
+\noindent\textbf{Runtime Breakdown.}
+\SystemName records preprocessing time, training time, inference time, and total time. It also records accuracy and model metadata. These values define $T_{\mathrm{native}}$, which is the target that the projected quantum hardware path must beat.
 
 \subsection{Quantum Kernel Path}
 
-The quantum kernel path maps PCA features into a quantum feature map and uses \cuQuantum to estimate kernel entries. The path records encoding time, circuit construction time, circuit execution time, kernel matrix construction time, and classifier-head time. The quantum kernel path is important because it separates circuit execution from trainable quantum parameters, making the cost model easier to validate.
+\noindent\textbf{Feature Map Execution.}
+The quantum kernel path maps each PCA feature vector into a quantum feature map. \cuQuantum simulates the circuit and produces state or observable information used to build kernel entries. A classical classifier then consumes the kernel matrix.
+
+\noindent\textbf{Cost Breakdown.}
+\SystemName records encoding time, circuit construction time, \cuQuantum execution time, kernel matrix construction time, and classifier-head time. This path is useful because it separates circuit execution cost from trainable quantum-parameter optimization.
+
+\noindent\textbf{Expected Bottleneck.}
+The kernel path can become expensive because the kernel matrix grows with the number of samples. Therefore, \SystemName must report both sample scaling and feature-dimension scaling.
 
 \subsection{QNN/VQC Path}
 
-The QNN/VQC path maps the same features into a parameterized circuit and optimizes trainable parameters. This path records ansatz structure, depth, gate counts, optimizer iterations, observable extraction time, and accuracy. It is expected to be more expensive than the quantum kernel path because each optimizer step requires repeated circuit evaluations.
+\noindent\textbf{Parameterized Circuit Execution.}
+The QNN/VQC path maps the same PCA features into a parameterized quantum circuit. It then updates trainable parameters through a classical optimizer. Each optimizer step can require many circuit evaluations.
+
+\noindent\textbf{Cost Breakdown.}
+\SystemName records ansatz type, depth, gate count, number of parameters, optimizer iterations, observable extraction time, and accuracy. This path is expected to be more expensive than the quantum kernel path because training repeatedly evaluates the circuit.
+
+\noindent\textbf{Why This Matters.}
+QNN/VQC models are often discussed as quantum machine-learning candidates. However, their systems cost is easy to underestimate. \SystemName makes the repeated circuit evaluations visible.
 
 \subsection{Measurement and Logging}
 
-Every run emits a JSON record. The record includes dataset metadata, model metadata, runtime breakdowns, accuracy, circuit qubits, circuit depth, gate counts, shots, GPU metadata, and Slurm metadata where available. This mirrors the structure used by prior ScaleQsim and AURORA-Q papers: the system claim must be tied to measured resource behavior rather than an isolated aggregate runtime.
+\noindent\textbf{JSON Record.}
+Every run emits a JSON record. The record includes dataset metadata, model metadata, runtime breakdowns, accuracy, circuit qubits, circuit depth, gate counts, shots, GPU metadata, and Slurm metadata where available.
+
+\noindent\textbf{Allocation Accounting.}
+\SystemName separates login-node smoke tests from Slurm performance runs. Login-node tests are only for correctness. Slurm runs must record elapsed time, queue time, requested walltime, allocated GPUs, and charged node-hours. This prevents short sanity checks from being mistaken for valid performance experiments.
 
 \subsection{Hardware Projection}
 
-Given circuit metadata, \SystemName estimates the projected quantum execution time:
+\noindent\textbf{Execution Model.}
+Given circuit metadata, \SystemName estimates projected quantum execution time:
 
 \begin{align}
 T_{\mathrm{execute}} =
@@ -45,4 +82,13 @@ T_{\mathrm{execute}} =
 + T_{\mathrm{error}},
 \end{align}
 
-where $N_s$ is the shot count, $D_1$ and $D_2$ are one- and two-qubit gate depths, $D_m$ is measurement depth, $t_1$, $t_2$, and $t_m$ are logical operation times, and $P_{\mathrm{shots}}$ is shot-level parallelism. The model is inverted to compute the hardware region where the projected quantum path beats the measured native path.
+where $N_s$ is the shot count, $D_1$ and $D_2$ are one- and two-qubit gate depths, $D_m$ is measurement depth, $t_1$, $t_2$, and $t_m$ are logical operation times, and $P_{\mathrm{shots}}$ is shot-level parallelism.
+
+\noindent\textbf{Break-even Search.}
+\SystemName inverts the model. Instead of assuming a quantum speedup, it asks what logical gate time, shot throughput, and error overhead are needed for:
+
+\begin{align}
+T_{\mathrm{qhw}} < T_{\mathrm{native}}.
+\end{align}
+
+This gives a hardware requirement rather than a vague claim of advantage.
