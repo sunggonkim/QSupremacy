@@ -90,15 +90,16 @@ GPU for 15 minutes and verifies all four application families.
 Chunked practical sweep:
 
 ```bash
-for chunk in 0 1 2 3; do
-  QS_CHUNK_ID=${chunk} QS_CHUNK_COUNT=4 \
+for chunk in 0 1 2 3 4 5 6 7; do
+  QS_CHUNK_ID=${chunk} QS_CHUNK_COUNT=8 \
     sbatch jobs/perlmutter/practical_suite_sweep_1gpu_shared.sbatch
 done
 ```
 
-The sweep currently expands to 72 case templates:
+The sweep currently expands to 144 case templates:
 
-- ML: samples 128/192/256, features 4/6/8, depths 1/2, two seeds
+- ML: real `sklearn_digits` multiclass sets 0/1/2, 3/5/8, and 0/1/2/3;
+  samples 128/192/256, PCA/qubits 4/6/8, depths 1/2, two seeds
 - chemistry: VQE grid sizes 21/25/31, two seeds
 - optimization: QAOA MaxCut with 4/5 nodes and grid sizes 7/9/11, two seeds
 - simulation: TFIM with 4/5/6 qubits and 4/6/8 Trotter steps, two seeds

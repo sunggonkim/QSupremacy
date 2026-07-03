@@ -214,6 +214,83 @@ def make_multiclass_data(samples, features, classes, seed):
     return np.clip(x, -3.0, 3.0), labels
 
 
+def parse_int_list(text):
+    return [int(x.strip()) for x in text.split(",") if x.strip()]
+
+
+def fit_pca_transform(x, features):
+    mean = x.mean(axis=0)
+    centered = x - mean
+    _, _, vt = np.linalg.svd(centered, full_matrices=False)
+    reduced = centered @ vt[:features].T
+    scale = reduced.std(axis=0) + 1.0e-12
+    reduced = np.clip(reduced / scale, -3.0, 3.0)
+    return reduced.astype(np.float64), {
+        "raw_feature_dim": int(x.shape[1]),
+        "pca_dim": int(features),
+    }
+
+
+def load_digits_multiclass(path, samples, features, classes_text, seed):
+    classes = parse_int_list(classes_text)
+    if len(classes) < 2:
+        raise ValueError("Digits ML needs at least two classes.")
+    with np.load(path, allow_pickle=False) as data:
+        x_all = data["data"].astype(np.float64) / 16.0
+        y_all = data["target"].astype(np.int64)
+
+    rng = np.random.default_rng(seed)
+    selected = []
+    per_class = samples // len(classes)
+    remainder = samples % len(classes)
+    for idx, cls in enumerate(classes):
+        cls_indices = np.flatnonzero(y_all == cls)
+        rng.shuffle(cls_indices)
+        take = per_class + (1 if idx < remainder else 0)
+        selected.append(cls_indices[:take])
+    indices = np.concatenate(selected)
+    rng.shuffle(indices)
+
+    raw_x = x_all[indices]
+    raw_y = y_all[indices]
+    label_map = {cls: i for i, cls in enumerate(classes)}
+    y = np.array([label_map[int(value)] for value in raw_y], dtype=np.int64)
+    x, pca = fit_pca_transform(raw_x, features)
+    metadata = {
+        "name": "sklearn_digits",
+        "path": path,
+        "classes": classes,
+        "samples": int(x.shape[0]),
+        "class_counts": {str(cls): int(np.sum(raw_y == cls)) for cls in classes},
+        "pca": pca,
+    }
+    return x, y, metadata
+
+
+def make_ml_dataset(args):
+    if args.ml_dataset == "synthetic":
+        x, y = make_multiclass_data(
+            args.ml_samples, args.ml_features, args.ml_classes, args.seed
+        )
+        metadata = {
+            "name": "synthetic_multiclass",
+            "samples": int(x.shape[0]),
+            "features": int(x.shape[1]),
+            "classes": int(args.ml_classes),
+        }
+        return x, y, int(args.ml_classes), metadata
+    if args.ml_dataset == "digits":
+        x, y, metadata = load_digits_multiclass(
+            args.digits_path,
+            args.ml_samples,
+            args.ml_features,
+            args.digits_classes,
+            args.seed,
+        )
+        return x, y, len(metadata["classes"]), metadata
+    raise ValueError("Unknown ML dataset: {}".format(args.ml_dataset))
+
+
 def split(x, y, train_frac):
     n_train = int(round(x.shape[0] * train_frac))
     return x[:n_train], y[:n_train], x[n_train:], y[n_train:]
@@ -254,16 +331,16 @@ def quantum_ml_features(x, depth, entangle):
 
 
 def run_multiclass_ml(args):
-    x, y = make_multiclass_data(args.ml_samples, args.ml_features, args.ml_classes, args.seed)
+    x, y, classes, dataset_metadata = make_ml_dataset(args)
     x_train, y_train, x_test, y_test = split(x, y, args.train_frac)
     native = train_softmax(
-        x_train, y_train, x_test, y_test, args.ml_classes, args.ml_steps, args.ml_lr
+        x_train, y_train, x_test, y_test, classes, args.ml_steps, args.ml_lr
     )
     q_start = time.perf_counter()
     q_train, train_meta = quantum_ml_features(x_train, args.ml_depth, args.entangle)
     q_test, test_meta = quantum_ml_features(x_test, args.ml_depth, args.entangle)
     head = train_softmax(
-        q_train, y_train, q_test, y_test, args.ml_classes, args.ml_steps, args.ml_lr
+        q_train, y_train, q_test, y_test, classes, args.ml_steps, args.ml_lr
     )
     quantum = {
         "status": "ok",
@@ -280,11 +357,7 @@ def run_multiclass_ml(args):
         "quality_metric": "test_accuracy",
         "native_path": native,
         "quantum_path": quantum,
-        "dataset": {
-            "samples": int(x.shape[0]),
-            "features": int(x.shape[1]),
-            "classes": int(args.ml_classes),
-        },
+        "dataset": dataset_metadata,
     }
 
 
@@ -545,6 +618,9 @@ def main():
     parser.add_argument("--login-safe", action="store_true")
     parser.add_argument("--output", default="")
 
+    parser.add_argument("--ml-dataset", choices=["synthetic", "digits"], default="synthetic")
+    parser.add_argument("--digits-path", default="data/datasets/sklearn_digits.npz")
+    parser.add_argument("--digits-classes", default="0,1,2")
     parser.add_argument("--ml-samples", type=int, default=72)
     parser.add_argument("--ml-features", type=int, default=4)
     parser.add_argument("--ml-classes", type=int, default=3)
@@ -565,6 +641,8 @@ def main():
     if args.login_safe:
         if args.ml_samples > 128 or args.ml_features > 8:
             raise SystemExit("Refusing large ML login-safe run.")
+        if args.ml_dataset == "digits" and len(parse_int_list(args.digits_classes)) > 4:
+            raise SystemExit("Refusing too many digits classes in login-safe run.")
         if args.opt_nodes > 5 or args.sim_qubits > 6:
             raise SystemExit("Refusing large optimization/simulation login-safe run.")
         if args.chem_grid > 41 or args.opt_grid > 11:

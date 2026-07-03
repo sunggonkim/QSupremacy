@@ -4,27 +4,27 @@
     "qubits": 12
   },
   "cupy_import": {
-    "runtime_sec": 0.36063088598893955,
+    "runtime_sec": 0.37062378801056184,
     "status": "import_ok",
     "version": "13.6.0"
   },
   "cuquantum_bindings_custatevec_import": {
-    "runtime_sec": 1.9035011064261198e-05,
+    "runtime_sec": 1.2253003660589457e-05,
     "status": "import_ok",
     "version": "unknown"
   },
   "cuquantum_bindings_cutensornet_import": {
-    "runtime_sec": 2.8850045055150986e-06,
+    "runtime_sec": 2.354994649067521e-06,
     "status": "import_ok",
     "version": "unknown"
   },
   "cuquantum_custatevec_import": {
     "error": "ModuleNotFoundError: No module named 'cuquantum.custatevec'",
-    "runtime_sec": 5.9031008277088404e-05,
+    "runtime_sec": 5.214699194766581e-05,
     "status": "missing"
   },
   "cuquantum_import": {
-    "runtime_sec": 1.2016357560059987,
+    "runtime_sec": 1.27019606900285,
     "status": "import_ok",
     "version": "26.01.0"
   },
@@ -37,10 +37,10 @@
     "cupy_used_bytes": 65536,
     "device": 0,
     "gate_count": 70,
-    "runtime_sec": 0.002063174993963912,
+    "runtime_sec": 0.00191673100925982,
     "state_dim": 4096,
     "status": "ok",
-    "total_runtime_sec": 0.4387902999878861
+    "total_runtime_sec": 0.32972893901751377
   },
   "metadata": {
     "cwd": "/pscratch/sd/s/sgkim/Skim-Qsupreme",
@@ -56,7 +56,7 @@
       "real_sum": 0.0
     },
     "gate_count": 70,
-    "runtime_sec": 0.13273445301456377,
+    "runtime_sec": 0.13996330901863985,
     "state_dim": 4096,
     "status": "ok"
   }

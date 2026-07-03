@@ -55,23 +55,30 @@ maybe_run_case() {
 
 case_id=0
 
-# Larger multiclass ML. These are synthetic but multiclass, nonlinear, and
-# wider than the login smoke gate. They are the scalable calibration workload.
+# Larger multiclass ML over the real sklearn digits dataset. Feature count is
+# the PCA/qubit dimension used by the quantum feature circuit.
 for seed in 17 23; do
-  for samples in 128 192 256; do
+  for classes in 0,1,2 3,5,8 0,1,2,3; do
+    class_count=$(awk -F, '{print NF}' <<< "${classes}")
+    class_tag="${classes//,/v}"
+    for samples in 128 192 256; do
     for features in 4 6 8; do
       for depth in 1 2; do
         maybe_run_case "${case_id}" \
-          "ml_${samples}s_${features}f_d${depth}_seed${seed}" \
+          "ml_digits_c${class_tag}_${samples}s_${features}q_d${depth}_seed${seed}" \
           --workloads ml \
           --seed "${seed}" \
+          --ml-dataset digits \
+          --digits-path data/datasets/sklearn_digits.npz \
+          --digits-classes "${classes}" \
           --ml-samples "${samples}" \
           --ml-features "${features}" \
-          --ml-classes 3 \
+          --ml-classes "${class_count}" \
           --ml-depth "${depth}" \
           --ml-steps 300
         case_id=$((case_id + 1))
       done
+    done
     done
   done
 done

@@ -24,6 +24,7 @@ def load_results(patterns):
             native = workload.get("native_path", {})
             quantum = workload.get("quantum_path", {})
             projection = workload.get("break_even_projection", {})
+            dataset = workload.get("dataset", {})
             row = {
                 "path": path,
                 "file": os.path.basename(path),
@@ -47,6 +48,9 @@ def load_results(patterns):
                 "ml_samples": config.get("ml_samples", ""),
                 "ml_features": config.get("ml_features", ""),
                 "ml_classes": config.get("ml_classes", ""),
+                "ml_dataset": config.get("ml_dataset", ""),
+                "digits_classes": config.get("digits_classes", ""),
+                "dataset_name": dataset.get("name", ""),
                 "ml_depth": config.get("ml_depth", ""),
                 "chem_grid": config.get("chem_grid", ""),
                 "opt_nodes": config.get("opt_nodes", ""),
@@ -125,6 +129,9 @@ def write_csv(path, rows):
         "ml_samples",
         "ml_features",
         "ml_classes",
+        "ml_dataset",
+        "digits_classes",
+        "dataset_name",
         "ml_depth",
         "chem_grid",
         "opt_nodes",
