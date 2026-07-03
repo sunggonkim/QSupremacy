@@ -87,6 +87,34 @@ sbatch jobs/perlmutter/practical_suite_1gpu_shared.sbatch
 Use this job before any larger practical workload sweep. It requests one shared
 GPU for 15 minutes and verifies all four application families.
 
+Chunked practical sweep:
+
+```bash
+for chunk in 0 1 2 3; do
+  QS_CHUNK_ID=${chunk} QS_CHUNK_COUNT=4 \
+    sbatch jobs/perlmutter/practical_suite_sweep_1gpu_shared.sbatch
+done
+```
+
+The sweep currently expands to 72 case templates:
+
+- ML: samples 128/192/256, features 4/6/8, depths 1/2, two seeds
+- chemistry: VQE grid sizes 21/25/31, two seeds
+- optimization: QAOA MaxCut with 4/5 nodes and grid sizes 7/9/11, two seeds
+- simulation: TFIM with 4/5/6 qubits and 4/6/8 Trotter steps, two seeds
+
+Each chunk writes raw JSON to `data/raw/perlmutter/practical_suite_sweep/` and
+summary JSON/CSV files to `data/processed/perlmutter/`. Combine any finished
+chunks with:
+
+```bash
+/pscratch/sd/s/sgkim/kis_cuquantum/00_env/cutn_conda/bin/python \
+  benchmarks/workloads/summarize_practical_results.py \
+  'data/raw/perlmutter/practical_suite_sweep/practical_*.json' \
+  --summary-json data/processed/perlmutter/practical_suite_combined_summary.json \
+  --csv data/processed/perlmutter/practical_suite_combined_summary.csv
+```
+
 ## Digits Supremacy Benchmark
 
 The first non-toy workload uses the bundled `sklearn digits` dataset. The GPU

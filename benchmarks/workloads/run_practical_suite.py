@@ -317,6 +317,8 @@ def run_chemistry(args):
     start = time.perf_counter()
     sim = CuStateVecSimulator(2)
     best = {"energy": float("inf"), "theta0": None, "theta1": None}
+    total_g1 = 0
+    total_g2 = 0
     try:
         for theta0 in np.linspace(-math.pi, math.pi, args.chem_grid):
             for theta1 in np.linspace(-math.pi, math.pi, args.chem_grid):
@@ -332,7 +334,11 @@ def run_chemistry(args):
                         "theta0": float(theta0),
                         "theta1": float(theta1),
                     }
+                total_g1 += sim.one_qubit_gates
+                total_g2 += sim.two_qubit_gates
         meta = sim.metadata(evaluations=args.chem_grid * args.chem_grid)
+        meta["one_qubit_gates"] = int(total_g1)
+        meta["two_qubit_gates"] = int(total_g2)
         quantum = {
             "status": "ok",
             "runtime_sec": time.perf_counter() - start,
@@ -387,6 +393,8 @@ def run_optimization(args):
     start = time.perf_counter()
     sim = CuStateVecSimulator(n)
     best = {"expected_cut": -1.0, "beta": None, "gamma": None}
+    total_g1 = 0
+    total_g2 = 0
     try:
         for beta in np.linspace(0.0, math.pi / 2.0, args.opt_grid):
             for gamma in np.linspace(0.0, math.pi, args.opt_grid):
@@ -409,7 +417,11 @@ def run_optimization(args):
                         "beta": float(beta),
                         "gamma": float(gamma),
                     }
+                total_g1 += sim.one_qubit_gates
+                total_g2 += sim.two_qubit_gates
         meta = sim.metadata(evaluations=args.opt_grid * args.opt_grid)
+        meta["one_qubit_gates"] = int(total_g1)
+        meta["two_qubit_gates"] = int(total_g2)
         quantum = {
             "status": "ok",
             "runtime_sec": time.perf_counter() - start,
