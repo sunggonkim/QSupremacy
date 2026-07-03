@@ -1,0 +1,4 @@
+JobID|JobName|State|ExitCode|Elapsed|Submit|Start|End|AllocTRES
+55432715|qsup-prac-sweep|COMPLETED|0:0|00:01:44|2026-07-03T04:54:55|2026-07-03T06:16:25|2026-07-03T06:18:09|billing=32,cpu=32,energy=46717,gres/gpu:a100=1,gres/gpu=1,mem=57472M,node=1
+55432715.batch|batch|COMPLETED|0:0|00:01:44|2026-07-03T06:16:25|2026-07-03T06:16:25|2026-07-03T06:18:09|cpu=32,gres/gpu:a100=1,gres/gpu=1,mem=57472M,node=1
+55432715.extern|extern|COMPLETED|0:0|00:01:45|2026-07-03T06:16:25|2026-07-03T06:16:25|2026-07-03T06:18:10|billing=32,cpu=32,gres/gpu:a100=1,gres/gpu=1,mem=57472M,node=1

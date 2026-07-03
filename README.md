@@ -115,10 +115,14 @@ GPU for 15 minutes and verifies all four application families.
 Chunked practical sweep:
 
 ```bash
-for chunk in 0 1 2 3 4 5 6 7; do
-  QS_CHUNK_ID=${chunk} QS_CHUNK_COUNT=8 \
-    sbatch jobs/perlmutter/practical_suite_sweep_1gpu_shared.sbatch
-done
+QS_CHUNK_ID=0 QS_CHUNK_COUNT=16 \
+  sbatch jobs/perlmutter/practical_suite_sweep_1gpu_shared.sbatch
+
+# After the pilot passes, bundle the remaining chunk slots into two jobs.
+QS_CHUNK_IDS=1,2,3,4,5,6,7,8 QS_CHUNK_COUNT=16 \
+  sbatch jobs/perlmutter/practical_suite_sweep_1gpu_shared.sbatch
+QS_CHUNK_IDS=9,10,11,12,13,14,15 QS_CHUNK_COUNT=16 \
+  sbatch jobs/perlmutter/practical_suite_sweep_1gpu_shared.sbatch
 ```
 
 The sweep currently expands to 190 case templates:

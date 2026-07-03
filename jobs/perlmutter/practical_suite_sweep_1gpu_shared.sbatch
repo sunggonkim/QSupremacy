@@ -29,6 +29,7 @@ echo "host=$(hostname)"
 echo "date_start=$(date --iso-8601=seconds)"
 echo "cuda_visible_devices=${CUDA_VISIBLE_DEVICES:-unset}"
 echo "chunk_id=${QS_CHUNK_ID:-0}"
+echo "chunk_ids=${QS_CHUNK_IDS:-${QS_CHUNK_ID:-0}}"
 echo "chunk_count=${QS_CHUNK_COUNT:-1}"
 nvidia-smi -L
 
@@ -47,10 +48,17 @@ maybe_run_case() {
   local case_id="$1"
   shift
   local chunk_id="${QS_CHUNK_ID:-0}"
+  local chunk_ids="${QS_CHUNK_IDS:-${chunk_id}}"
   local chunk_count="${QS_CHUNK_COUNT:-1}"
-  if (( case_id % chunk_count == chunk_id )); then
-    run_case "$@"
-  fi
+  local slot=$((case_id % chunk_count))
+  local candidate
+  IFS=',' read -ra candidates <<< "${chunk_ids}"
+  for candidate in "${candidates[@]}"; do
+    if (( slot == candidate )); then
+      run_case "$@"
+      return
+    fi
+  done
 }
 
 case_id=0

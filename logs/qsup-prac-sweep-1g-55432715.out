@@ -1,0 +1,70 @@
+job_id=55432715
+host=nid008245
+date_start=2026-07-03T06:16:31-07:00
+cuda_visible_devices=0
+chunk_id=0
+chunk_count=16
+GPU 0: NVIDIA A100-SXM4-80GB (UUID: GPU-765b0387-2aac-cb13-6a4b-13ed681aa11c)
+case_start=ml_digits_c0v1v2_128s_4q_d1_seed17 2026-07-03T06:16:31-07:00
+case_end=ml_digits_c0v1v2_128s_4q_d1_seed17 2026-07-03T06:16:50-07:00
+case_start=ml_digits_c0v1v2_256s_8q_d1_seed17 2026-07-03T06:16:50-07:00
+case_end=ml_digits_c0v1v2_256s_8q_d1_seed17 2026-07-03T06:16:57-07:00
+case_start=ml_digits_c3v5v8_256s_6q_d1_seed17 2026-07-03T06:16:57-07:00
+case_end=ml_digits_c3v5v8_256s_6q_d1_seed17 2026-07-03T06:17:04-07:00
+case_start=ml_digits_c0v1v2v3_256s_4q_d1_seed17 2026-07-03T06:17:04-07:00
+case_end=ml_digits_c0v1v2v3_256s_4q_d1_seed17 2026-07-03T06:17:11-07:00
+case_start=ml_digits_c0v1v2_192s_8q_d1_seed23 2026-07-03T06:17:11-07:00
+case_end=ml_digits_c0v1v2_192s_8q_d1_seed23 2026-07-03T06:17:19-07:00
+case_start=ml_digits_c3v5v8_192s_6q_d1_seed23 2026-07-03T06:17:19-07:00
+case_end=ml_digits_c3v5v8_192s_6q_d1_seed23 2026-07-03T06:17:25-07:00
+case_start=ml_digits_c0v1v2v3_192s_4q_d1_seed23 2026-07-03T06:17:25-07:00
+case_end=ml_digits_c0v1v2v3_192s_4q_d1_seed23 2026-07-03T06:17:32-07:00
+case_start=chem_4q_grid13_seed17 2026-07-03T06:17:32-07:00
+case_end=chem_4q_grid13_seed17 2026-07-03T06:17:39-07:00
+case_start=qaoa_ring_5n_grid9_seed17 2026-07-03T06:17:39-07:00
+case_end=qaoa_ring_5n_grid9_seed17 2026-07-03T06:17:46-07:00
+case_start=qaoa_ladder_4n_grid11_seed23 2026-07-03T06:17:46-07:00
+case_end=qaoa_ladder_4n_grid11_seed23 2026-07-03T06:17:53-07:00
+case_start=sim_tfim_6q_4steps_seed17 2026-07-03T06:17:53-07:00
+case_end=sim_tfim_6q_4steps_seed17 2026-07-03T06:18:00-07:00
+case_start=sim_tfim_5q_6steps_seed23 2026-07-03T06:18:00-07:00
+case_end=sim_tfim_5q_6steps_seed23 2026-07-03T06:18:08-07:00
+total_case_templates=190
+{
+  "by_workload": {
+    "chemistry": {
+      "cases": 1,
+      "quality_gap_median": 0.8037728406485469,
+      "quantum_runtime_sec_sum": 6.155128660000628,
+      "speedup_required_max": 31954.609376395256,
+      "speedup_required_median": 31954.609376395256,
+      "speedup_required_min": 31954.609376395256
+    },
+    "ml": {
+      "cases": 7,
+      "quality_gap_median": 0.28125,
+      "quantum_runtime_sec_sum": 54.05077559503843,
+      "speedup_required_max": 1518.730490475984,
+      "speedup_required_median": 524.8365392362712,
+      "speedup_required_min": 424.683109445672
+    },
+    "optimization": {
+      "cases": 2,
+      "quality_gap_median": 0.16818643785156612,
+      "quantum_runtime_sec_sum": 12.55878524199943,
+      "speedup_required_max": 200317.16923293893,
+      "speedup_required_median": 157524.72084030928,
+      "speedup_required_min": 114732.27244767961
+    },
+    "simulation": {
+      "cases": 2,
+      "quality_gap_median": 0.0008149426756953737,
+      "quantum_runtime_sec_sum": 13.165257661021315,
+      "speedup_required_max": 9022.667912132985,
+      "speedup_required_median": 5723.789330654143,
+      "speedup_required_min": 2424.9107491753
+    }
+  },
+  "cases": 12
+}
+date_end=2026-07-03T06:18:08-07:00

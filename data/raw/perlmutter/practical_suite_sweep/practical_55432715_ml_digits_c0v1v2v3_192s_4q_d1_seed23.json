@@ -1,0 +1,131 @@
+{
+  "config": {
+    "chem_grid": 21,
+    "chem_hamiltonian_json": "",
+    "chem_layers": 1,
+    "digits_classes": "0,1,2,3",
+    "digits_path": "data/datasets/sklearn_digits.npz",
+    "entangle": true,
+    "login_safe": false,
+    "ml_classes": 4,
+    "ml_dataset": "digits",
+    "ml_depth": 1,
+    "ml_features": 4,
+    "ml_lr": 0.25,
+    "ml_samples": 192,
+    "ml_steps": 300,
+    "mlp_hidden": 24,
+    "mlp_lr": 0.05,
+    "mlp_steps": 300,
+    "opt_graph": "chordal",
+    "opt_grid": 7,
+    "opt_nodes": 4,
+    "output": "data/raw/perlmutter/practical_suite_sweep/practical_55432715_ml_digits_c0v1v2v3_192s_4q_d1_seed23.json",
+    "seed": 23,
+    "sim_coupling": 0.7,
+    "sim_field": 0.4,
+    "sim_initial_state": "auto",
+    "sim_model": "tfim",
+    "sim_qubits": 4,
+    "sim_steps": 4,
+    "sim_time": 0.8,
+    "train_frac": 0.75,
+    "workloads": "ml"
+  },
+  "metadata": {
+    "cuda_visible_devices": "0",
+    "cwd": "/pscratch/sd/s/sgkim/Skim-Qsupreme",
+    "hostname": "nid008245",
+    "platform": "Linux-6.4.0-150600.23.103_15.0.24-cray_shasta_c-x86_64-with-glibc2.38",
+    "python": "3.11.14 | packaged by conda-forge | (main, Jan 26 2026, 23:48:32) [GCC 14.3.0]",
+    "python_executable": "/pscratch/sd/s/sgkim/kis_cuquantum/00_env/cutn_conda/bin/python",
+    "slurm_job_id": "55432715",
+    "slurm_job_name": "qsup-prac-sweep",
+    "total_runtime_sec": 6.429853126988746
+  },
+  "workloads": {
+    "ml": {
+      "break_even_projection": {
+        "circuit_evaluations": 192,
+        "measurement_ops": 768,
+        "one_qubit_gates": 1536,
+        "required_uniform_op_time_sec_for_native_parity": 4.111534720626272e-06,
+        "sim_to_native_speedup_required": 534.9617781341713,
+        "two_qubit_gates": 576
+      },
+      "dataset": {
+        "class_counts": {
+          "0": 48,
+          "1": 48,
+          "2": 48,
+          "3": 48
+        },
+        "classes": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "name": "sklearn_digits",
+        "path": "data/datasets/sklearn_digits.npz",
+        "pca": {
+          "pca_dim": 4,
+          "raw_feature_dim": 64
+        },
+        "samples": 192
+      },
+      "family": "multiclass_ml",
+      "native_path": {
+        "best_quality_model": "softmax_regression_numpy",
+        "best_runtime_sec": 0.011841219995403662,
+        "best_test_accuracy": 0.9166666666666666,
+        "models": {
+          "mlp": {
+            "hidden": 24,
+            "model": "one_hidden_layer_mlp_numpy",
+            "parameters": 220,
+            "runtime_sec": 0.04876237999997102,
+            "test_accuracy": 0.8958333333333334,
+            "train_accuracy": 0.9305555555555556
+          },
+          "softmax_regression": {
+            "model": "softmax_regression_numpy",
+            "parameters": 20,
+            "runtime_sec": 0.011841219995403662,
+            "test_accuracy": 0.9166666666666666,
+            "train_accuracy": 0.9375
+          }
+        },
+        "runtime_sec": 0.011841219995403662,
+        "test_accuracy": 0.9166666666666666,
+        "total_runtime_sec": 0.060787705006077886,
+        "train_accuracy": 0.9375
+      },
+      "quality_metric": "test_accuracy",
+      "quantum_path": {
+        "feature_runtime_sec": 6.2765872739837505,
+        "head_runtime_sec": 0.008580495021305978,
+        "runtime_sec": 6.334600104019046,
+        "status": "ok",
+        "test_accuracy": 0.7708333333333334,
+        "test_metadata": {
+          "circuit_evaluations": 48,
+          "one_qubit_gates": 384,
+          "qubits": 4,
+          "runtime_sec": 0.012291207996895537,
+          "state_dim": 16,
+          "two_qubit_gates": 144
+        },
+        "train_accuracy": 0.8194444444444444,
+        "train_metadata": {
+          "circuit_evaluations": 144,
+          "one_qubit_gates": 1152,
+          "qubits": 4,
+          "runtime_sec": 6.264296065986855,
+          "state_dim": 16,
+          "two_qubit_gates": 432
+        }
+      }
+    }
+  }
+}

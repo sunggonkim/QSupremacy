@@ -163,19 +163,34 @@ QS_CHUNK_ID=0 QS_CHUNK_COUNT=16 \
   sbatch jobs/perlmutter/practical_suite_sweep_1gpu_shared.sbatch
 ```
 
-Current pilot job:
+Pilot job:
 
 ```text
 job_id: 55432715
-state: PENDING
-reason: Priority
-elapsed: 00:00:00
-allocation used: none
+state: COMPLETED
+exit: 0:0
+elapsed: 00:01:44
+stderr: 0 bytes
+cases: 12
 ```
 
-No practical sweep result files exist yet for this job.
+Pilot result artifacts:
 
-Do **not** submit the other 15 chunks until this pilot completes and passes validation.
+```text
+logs/qsup-prac-sweep-1g-55432715.out
+logs/qsup-prac-sweep-1g-55432715.err
+data/raw/perlmutter/practical_suite_sweep/practical_55432715_*.json
+data/processed/perlmutter/practical_suite_55432715_summary.json
+data/processed/perlmutter/practical_suite_55432715_summary.csv
+data/raw/perlmutter/accounting/sacct_practical_pilot_55432715.txt
+```
+
+Remaining chunks are submitted as two bundled jobs, not 15 separate jobs:
+
+```text
+job_id: 55452410, chunks 1-8, state PENDING at submission check
+job_id: 55452411, chunks 9-15, state PENDING at submission check
+```
 
 ## 4. Definitions
 
@@ -352,10 +367,11 @@ If the pilot fails:
 Only after the pilot passes:
 
 ```bash
-for chunk in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
-  QS_CHUNK_ID=${chunk} QS_CHUNK_COUNT=16 \
-    sbatch jobs/perlmutter/practical_suite_sweep_1gpu_shared.sbatch
-done
+QS_CHUNK_IDS=1,2,3,4,5,6,7,8 QS_CHUNK_COUNT=16 \
+  sbatch jobs/perlmutter/practical_suite_sweep_1gpu_shared.sbatch
+
+QS_CHUNK_IDS=9,10,11,12,13,14,15 QS_CHUNK_COUNT=16 \
+  sbatch jobs/perlmutter/practical_suite_sweep_1gpu_shared.sbatch
 ```
 
 Monitor all practical jobs:
@@ -457,33 +473,34 @@ Until practical sweep finishes, label those results as planned or pending.
 
 ## 8. Immediate Next Actions
 
-Current active blocker:
+Current active state:
 
 ```text
-Pilot job 55432715 is pending due to scheduler priority.
-No allocation has been consumed.
+Pilot job 55432715 completed successfully.
+Remaining bundled jobs 55452410 and 55452411 are pending due to scheduler priority.
 ```
 
 Next actions:
 
-1. Wait for `55432715` to start and complete.
+1. Wait for bundled jobs `55452410` and `55452411` to start and complete.
 2. Check:
 
    ```bash
-   squeue -j 55432715 -o '%i %j %T %M %l %R'
-   sacct -j 55432715 --format=JobID,State,ExitCode,Elapsed,AllocTRES -P
+   squeue -j 55452410,55452411 -o '%i %j %T %M %l %R'
+   sacct -j 55452410,55452411 --format=JobID,State,ExitCode,Elapsed,AllocTRES -P
    ```
 
 3. If completed, inspect:
 
    ```bash
-   ls -lh logs/qsup-prac-sweep-1g-55432715.*
-   ls -lh data/raw/perlmutter/practical_suite_sweep/practical_55432715_*.json
-   ls -lh data/processed/perlmutter/practical_suite_55432715_summary.*
+   ls -lh logs/qsup-prac-sweep-1g-55452410.*
+   ls -lh logs/qsup-prac-sweep-1g-55452411.*
+   ls -lh data/raw/perlmutter/practical_suite_sweep/practical_55452410_*.json
+   ls -lh data/raw/perlmutter/practical_suite_sweep/practical_55452411_*.json
    ```
 
-4. If pilot passes, submit chunks `1..15`.
-5. Combine results.
+4. Combine pilot and bundle results.
+5. Save Slurm accounting for all practical jobs.
 6. Update `paper/4.Evaluation.tex` with practical suite measurements.
 7. Commit raw summaries, accounting, and paper update.
 
