@@ -868,6 +868,10 @@ shared 1-GPU job 55412749:
 │   └── workloads/
 ├── jobs/
 │   └── perlmutter/
+├── paper/
+│   ├── main.tex
+│   ├── references.bib
+│   └── README.md
 ├── data/
 │   ├── raw/
 │   └── processed/
@@ -952,8 +956,36 @@ shared 1-GPU job 55412749:
 
 ## 13. 참고 문서
 
+- ATC 2026 Call for Papers: https://sigops.org/s/conferences/atc/2026/cfp.html
+- USENIX conference paper templates: https://www.usenix.org/conferences/author-resources/paper-templates
 - NERSC Perlmutter running jobs: https://docs.nersc.gov/systems/perlmutter/running-jobs/
 - NERSC jobs and Slurm basics: https://docs.nersc.gov/jobs/
 - NERSC QOS and charges: https://docs.nersc.gov/jobs/policy/
 - NERSC CUDA on Perlmutter: https://docs.nersc.gov/development/programming-models/cuda/
 - Existing lab publications: https://hpcbigdata.seoultech.ac.kr/publications
+
+## 14. Paper Target
+
+`paper/` contains an ATC-style manuscript scaffold.
+
+Current status:
+
+- `paper/main.tex`: paper draft with abstract, problem definition, methodology, workload plan, projection model, evaluation placeholders, and discussion.
+- `paper/references.bib`: initial references and TODO entries for ScaleQsim, SWIFTN, and AURORA-Q.
+- `paper/README.md`: paper-specific status, build instructions, and submission readiness checklist.
+- `paper/Makefile`: local LaTeX build target.
+
+Important date note:
+
+- ATC 2026 CFP lists June 10, 2026 as the submission deadline.
+- Current work date is July 3, 2026, so ATC 2026 submission has already passed.
+- Treat the current paper as ATC-style or next-cycle target unless the target venue changes.
+
+Submission readiness gate:
+
+- Do not submit until all three first workloads are implemented and evaluated:
+  - `sklearn digits` native ML baselines
+  - quantum kernel classifier
+  - QNN/VQC classifier
+- Do not submit until Perlmutter result sweeps include repeated trials, variance, warmup policy, and charged node-hour accounting.
+- Replace the lightweight local LaTeX scaffold with the official target venue template before submission.

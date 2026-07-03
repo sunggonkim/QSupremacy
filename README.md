@@ -68,6 +68,7 @@ benchmarks/smoke/      Login-node-safe correctness and application smoke tests
 data/raw/perlmutter/   Small smoke outputs and Perlmutter job outputs
 jobs/perlmutter/       Slurm job scripts
 logs/                  Small Slurm smoke logs
+paper/                 ATC-style paper scaffold
 scripts/               Helper scripts
 plan.md                Research and execution plan
 ```
@@ -77,3 +78,14 @@ plan.md                Research and execution plan
 Do not submit full GPU-node jobs unless the workload can use all requested GPUs or the job is explicitly a one-time sanity check.
 
 Use the login smoke gate first, then shared 1-GPU jobs, then full-node or multi-node sweeps only after batching and multi-GPU partitioning are ready.
+
+## Paper Draft
+
+The ATC-style paper scaffold is in `paper/`.
+
+```bash
+cd paper
+make
+```
+
+The current draft is not submission-ready. It contains the thesis, methodology, workload matrix, and result placeholders. The first full evaluation must complete all three tracks: `sklearn digits` native ML, quantum kernel classification, and QNN/VQC classification.

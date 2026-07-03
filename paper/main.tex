@@ -1,0 +1,204 @@
+\documentclass[10pt,twocolumn]{article}
+
+\usepackage[letterpaper,margin=0.75in]{geometry}
+\usepackage{times}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{amsmath}
+
+\title{When Does Quantum Win?\\
+Modeling Application-Level Quantum Advantage over Native HPC}
+
+\author{Anonymous Authors}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Claims of quantum advantage are often framed around asymptotic algorithmic speedups or around the cost of simulating quantum circuits on classical machines. For practical HPC users, however, the relevant question is different: when does a quantum-circuit version of an application outperform the best native HPC implementation of the same task?
+
+This paper proposes an end-to-end modeling framework for application-level quantum advantage. We compare native ML/HPC application paths against quantum-circuit application paths executed with cuQuantum on Perlmutter, then project the logical quantum hardware performance required to beat the native path. Our initial target workloads are a native \texttt{sklearn digits} classifier suite, a quantum kernel classifier, and a QNN/VQC classifier under a shared dataset split and time-to-quality policy. Results are pending; this draft defines the system, methodology, metrics, and evaluation plan required for an ATC-style systems paper.
+\end{abstract}
+
+\section{Introduction}
+
+Quantum computing promises speedups for selected workloads, but practical quantum advantage is difficult to evaluate. A common pitfall is to compare one quantum circuit simulator against another simulator. Such comparisons are useful for simulator engineering, but they do not answer the application question that HPC users care about: should the user solve the problem natively on a GPU cluster, or should the user transform the problem into a quantum-circuit application?
+
+We argue that the correct unit of comparison is the end-to-end application path. The native path executes the application directly on HPC resources. The quantum path maps the same task to a quantum-circuit model, executes or simulates that circuit, performs measurement and postprocessing, and then projects the required quantum hardware characteristics.
+
+This paper targets ATC because the contribution is a systems methodology: a reproducible Perlmutter-based experimental framework, concrete application workloads, allocation-aware accounting, and a hardware projection model. The paper is not yet ready for submission because the full evaluation is pending.
+
+\paragraph{Contributions.}
+This draft is structured around four intended contributions:
+
+\begin{itemize}
+  \item An application-level definition of quantum advantage for native HPC/ML versus quantum-circuit application paths.
+  \item A Perlmutter measurement framework using cuQuantum, login-node smoke gates, Slurm metadata, and allocation-aware accounting.
+  \item A workload suite spanning native \texttt{sklearn digits}, quantum kernel classification, and QNN/VQC classification.
+  \item A hardware projection model that estimates the logical gate rate, shot throughput, and error overhead required for quantum hardware to beat native HPC.
+\end{itemize}
+
+\section{Problem Definition}
+
+For a fixed task, dataset, target quality, and system budget, we define the native application time as:
+
+\begin{align}
+T_{\mathrm{native}} =
+T_{\mathrm{input}} +
+T_{\mathrm{preprocess}} +
+T_{\mathrm{train/solve}} +
+T_{\mathrm{eval}} +
+T_{\mathrm{postprocess}}.
+\end{align}
+
+The quantum-circuit application path executed on cuQuantum is:
+
+\begin{align}
+T_{\mathrm{qc\_sim}} =
+T_{\mathrm{input}} +
+T_{\mathrm{encoding}} +
+T_{\mathrm{circuit}} +
+T_{\mathrm{cuQuantum}} +
+T_{\mathrm{measure/eval}} +
+T_{\mathrm{postprocess}}.
+\end{align}
+
+The projected quantum hardware path is:
+
+\begin{align}
+T_{\mathrm{qhw}} =
+T_{\mathrm{input}} +
+T_{\mathrm{encoding}} +
+T_{\mathrm{compile}} +
+T_{\mathrm{execute}} +
+T_{\mathrm{measure}} +
+T_{\mathrm{error}} +
+T_{\mathrm{postprocess}}.
+\end{align}
+
+Quantum advantage requires:
+
+\begin{align}
+T_{\mathrm{qhw}} < T_{\mathrm{native}}
+\end{align}
+
+at the same target quality.
+
+\section{System Overview}
+
+QSupremacy is organized as a measurement and projection pipeline. Figure placeholders will later show the full architecture.
+
+\begin{enumerate}
+  \item A workload generator creates shared train/test splits and preprocessing transforms.
+  \item Native baselines train and evaluate classical models.
+  \item Quantum-circuit baselines encode the same features into circuits and execute them through cuQuantum.
+  \item The measurement layer records runtime breakdowns, accuracy, GPU metadata, Slurm metadata, and allocation cost.
+  \item The projection layer estimates future quantum hardware requirements.
+\end{enumerate}
+
+\section{Workloads}
+
+\subsection{Native ML Baselines}
+
+The first workload uses \texttt{sklearn digits}. Features are reduced with PCA to 4, 8, 12, and 16 dimensions. Native baselines include logistic regression, MLP, and optionally SVM/RBF. These baselines establish a realistic lower bound for classical ML time-to-quality.
+
+\subsection{Quantum Kernel Classifier}
+
+The quantum kernel path maps PCA-reduced features into a quantum feature map. cuQuantum simulates the circuits used to estimate pairwise kernel entries. A classical classifier head then consumes the kernel matrix. The evaluation must separately report encoding time, circuit simulation time, kernel construction time, and classifier time.
+
+\subsection{QNN/VQC Classifier}
+
+The QNN/VQC path maps the same PCA-reduced features into a parameterized quantum circuit. cuQuantum evaluates the circuit during training and inference. The evaluation must report the number of trainable parameters, optimizer iterations, circuit depth, gate counts, and time-to-quality.
+
+\section{Perlmutter Methodology}
+
+Experiments run on NERSC Perlmutter. Login-node tests are restricted to correctness and pipeline smoke checks. Allocation-consuming experiments run through Slurm. GPU jobs use the NERSC GPU constraints and record \texttt{sacct} metadata.
+
+The current smoke gate verifies:
+
+\begin{itemize}
+  \item cuQuantum, CuPy, and cuStateVec import.
+  \item small state-vector norm correctness.
+  \item native ML versus quantum-circuit ML pipeline correctness.
+  \item JSON schema and basic runtime/accuracy validation.
+\end{itemize}
+
+Full GPU-node jobs must use all requested GPUs. Otherwise, the experiment is considered an allocation sanity check rather than a valid scaling result.
+
+\section{Metrics}
+
+We will report:
+
+\begin{itemize}
+  \item time-to-quality at fixed accuracy or loss targets;
+  \item end-to-end runtime and component runtime breakdowns;
+  \item GPU memory and utilization where available;
+  \item Slurm queue time, elapsed time, and charged node-hours;
+  \item circuit qubits, depth, gate counts, shots, and trainable parameters;
+  \item projected logical gate time, shot throughput, and error overhead.
+\end{itemize}
+
+\section{Hardware Projection Model}
+
+For a circuit with shot count $N_s$, one-qubit depth $D_1$, two-qubit depth $D_2$, and measurement depth $D_m$, we estimate:
+
+\begin{align}
+T_{\mathrm{execute}} =
+\frac{N_s(D_1t_1 + D_2t_2 + D_mt_m)}
+{P_{\mathrm{shots}}}
+\ T_{\mathrm{error}},
+\end{align}
+
+where $t_1$, $t_2$, and $t_m$ are logical operation times and $P_{\mathrm{shots}}$ is shot-level parallelism. We invert this model to compute the hardware region where $T_{\mathrm{qhw}} < T_{\mathrm{native}}$.
+
+\section{Evaluation Plan}
+
+Table~\ref{tab:planned} summarizes the planned evaluation. Results are not yet available.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{llll}
+\toprule
+Track & Dataset & Sweep & Status \\
+\midrule
+Native ML & digits & PCA, model, samples & TODO \\
+Quantum kernel & digits & PCA, feature map, shots & TODO \\
+QNN/VQC & digits & PCA, ansatz, depth & TODO \\
+Projection & all & gate time, shots, error & TODO \\
+\bottomrule
+\end{tabular}
+\caption{Planned ATC-style evaluation matrix.}
+\label{tab:planned}
+\end{table}
+
+Expected figures:
+
+\begin{itemize}
+  \item native ML versus quantum kernel versus QNN/VQC time-to-quality;
+  \item runtime breakdown for encoding, cuQuantum execution, and optimizer loops;
+  \item charged node-hour comparison under Perlmutter QOS policies;
+  \item quantum hardware break-even heatmaps over gate time and shot throughput;
+  \item sensitivity to circuit depth, shots, and error mitigation overhead.
+\end{itemize}
+
+\section{Discussion}
+
+The central risk is that small quantum-circuit workloads are dominated by Python dispatch and CUDA context initialization. The system must therefore batch circuit evaluations, reuse cuStateVec handles, and partition samples across GPUs before making any claims about Perlmutter performance.
+
+Another risk is unfair comparison. The paper must compare against strong native baselines and report results at equal quality. A quantum path with lower accuracy cannot be claimed faster unless the target quality definition explicitly permits it.
+
+\section{Related Work}
+
+This paper will discuss cuQuantum~\cite{cuquantum}, Perlmutter~\cite{nerscperlmutter,nerscslurm}, native ML baselines~\cite{scikit-learn}, and the lab's prior ScaleQsim, SWIFTN, and AURORA-Q work~\cite{scaleqsimtodo,swifttodo,auroraqtodo}. The final version must replace TODO citations with complete metadata.
+
+\section{Conclusion}
+
+This draft defines an ATC-style paper plan for QSupremacy. The intended contribution is an application-level, allocation-aware methodology for determining how fast quantum hardware must become to outperform native HPC/ML paths. The next step is to complete the digits, quantum kernel, and QNN/VQC evaluation suite and populate the result placeholders.
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}
