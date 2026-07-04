@@ -32,6 +32,11 @@ def load_results(patterns):
                 "family": workload.get("family", ""),
                 "quality_metric": workload.get("quality_metric", ""),
                 "native_runtime_sec": native.get("runtime_sec", 0.0),
+                "native_selected_model": native.get(
+                    "selected_model", native.get("method", native.get("best_quality_model", ""))
+                ),
+                "native_best_quality_model": native.get("best_quality_model", ""),
+                "native_model_count": len(native.get("models", {})),
                 "quantum_runtime_sec": quantum.get(
                     "runtime_sec", quantum.get("total_runtime_sec", 0.0)
                 ),
@@ -119,6 +124,9 @@ def write_csv(path, rows):
         "family",
         "quality_metric",
         "native_runtime_sec",
+        "native_selected_model",
+        "native_best_quality_model",
+        "native_model_count",
         "quantum_runtime_sec",
         "speedup_required",
         "native_quality",

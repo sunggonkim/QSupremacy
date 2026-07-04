@@ -38,7 +38,7 @@ Without shared workload control, the comparison becomes ambiguous. A native mode
 \subsection{Native Path Execution}
 
 \noindent\textbf{Classical Baselines.}
-The native path trains and evaluates classical models directly on the preprocessed features. The first baselines are logistic regression, MLP, and optionally SVM/RBF. These models are simple but strong for the first workload, and they provide a clear lower bound for time-to-quality.
+The native path trains and evaluates classical models directly on the preprocessed features. For ML, \SystemName now supports softmax regression, MLP, linear ridge classification, RBF kernel ridge classification, k-nearest neighbors, and nearest-centroid baselines without requiring an external ML package. For optimization, \SystemName records exact enumeration when feasible and also greedy, local-search, and simulated-annealing baselines. The native time used in the threshold is the fastest implemented model that reaches the best native quality within a small tolerance. This rule prevents a weak or low-quality native model from making the quantum path look artificially competitive.
 
 \noindent\textbf{Runtime Breakdown.}
 \SystemName records preprocessing time, training time, inference time, and total time. It also records accuracy and model metadata. These values define $T_{\mathrm{native}}$, which is the target that the projected quantum hardware path must beat.
@@ -95,6 +95,9 @@ T_{\mathrm{qhw}} < T_{\mathrm{native}}.
 \end{align}
 
 This gives a hardware requirement rather than a vague claim of supremacy.
+
+\noindent\textbf{Advantage Frontier.}
+\SystemName does not reduce the result to one speedup number. It sweeps hardware assumptions and reports the feasible region where the projected quantum path beats the native path at the same quality. This region is the advantage frontier. If no reasonable region exists, the workload is classified by the limiting factor: quality, encoding, shots, error overhead, or native baseline strength.
 
 \subsection{Workload Expansion Plan}
 

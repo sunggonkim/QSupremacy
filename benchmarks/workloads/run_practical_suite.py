@@ -142,6 +142,133 @@ def train_mlp_classifier(x_train, y_train, x_test, y_test, classes, steps, lr, h
     }
 
 
+def train_linear_ridge_classifier(x_train, y_train, x_test, y_test, classes, alpha):
+    start = time.perf_counter()
+    x_train_b = np.concatenate([x_train, np.ones((x_train.shape[0], 1))], axis=1)
+    x_test_b = np.concatenate([x_test, np.ones((x_test.shape[0], 1))], axis=1)
+    y_onehot = np.eye(classes, dtype=np.float64)[y_train]
+    gram = x_train_b.T @ x_train_b
+    reg = float(alpha) * np.eye(gram.shape[0], dtype=np.float64)
+    reg[-1, -1] = 0.0
+    w = np.linalg.solve(gram + reg, x_train_b.T @ y_onehot)
+    train_scores = x_train_b @ w
+    test_scores = x_test_b @ w
+    return {
+        "model": "linear_ridge_numpy",
+        "runtime_sec": time.perf_counter() - start,
+        "train_accuracy": multiclass_accuracy(train_scores, y_train),
+        "test_accuracy": multiclass_accuracy(test_scores, y_test),
+        "alpha": float(alpha),
+        "parameters": int(w.size),
+    }
+
+
+def squared_distances(a, b):
+    a2 = np.sum(a * a, axis=1, keepdims=True)
+    b2 = np.sum(b * b, axis=1, keepdims=True).T
+    return np.maximum(a2 + b2 - 2.0 * (a @ b.T), 0.0)
+
+
+def train_rbf_kernel_ridge_classifier(
+    x_train, y_train, x_test, y_test, classes, alpha, gamma
+):
+    start = time.perf_counter()
+    d2_train = squared_distances(x_train, x_train)
+    if gamma <= 0.0:
+        positive = d2_train[d2_train > 1.0e-12]
+        scale = float(np.median(positive)) if positive.size else 1.0
+        gamma_used = 1.0 / max(scale, 1.0e-12)
+    else:
+        gamma_used = float(gamma)
+    k_train = np.exp(-gamma_used * d2_train)
+    y_onehot = np.eye(classes, dtype=np.float64)[y_train]
+    coeff = np.linalg.solve(
+        k_train + float(alpha) * np.eye(k_train.shape[0], dtype=np.float64),
+        y_onehot,
+    )
+    train_scores = k_train @ coeff
+    k_test = np.exp(-gamma_used * squared_distances(x_test, x_train))
+    test_scores = k_test @ coeff
+    return {
+        "model": "rbf_kernel_ridge_numpy",
+        "runtime_sec": time.perf_counter() - start,
+        "train_accuracy": multiclass_accuracy(train_scores, y_train),
+        "test_accuracy": multiclass_accuracy(test_scores, y_test),
+        "alpha": float(alpha),
+        "gamma": float(gamma_used),
+        "parameters": int(coeff.size),
+    }
+
+
+def train_knn_classifier(x_train, y_train, x_test, y_test, classes, k):
+    start = time.perf_counter()
+    k = max(1, min(int(k), x_train.shape[0]))
+
+    def predict(x_query):
+        d2 = squared_distances(x_query, x_train)
+        neighbors = np.argpartition(d2, kth=k - 1, axis=1)[:, :k]
+        preds = np.empty(x_query.shape[0], dtype=np.int64)
+        for i, row in enumerate(neighbors):
+            votes = np.bincount(y_train[row], minlength=classes)
+            preds[i] = int(np.argmax(votes))
+        return preds
+
+    train_pred = predict(x_train)
+    test_pred = predict(x_test)
+    return {
+        "model": "knn_numpy",
+        "runtime_sec": time.perf_counter() - start,
+        "train_accuracy": float(np.mean(train_pred == y_train)),
+        "test_accuracy": float(np.mean(test_pred == y_test)),
+        "k": int(k),
+        "parameters": int(x_train.size),
+    }
+
+
+def train_nearest_centroid_classifier(x_train, y_train, x_test, y_test, classes):
+    start = time.perf_counter()
+    centroids = np.zeros((classes, x_train.shape[1]), dtype=np.float64)
+    for cls in range(classes):
+        members = x_train[y_train == cls]
+        if members.size:
+            centroids[cls] = members.mean(axis=0)
+
+    def predict(x_query):
+        d2 = squared_distances(x_query, centroids)
+        return np.argmin(d2, axis=1)
+
+    train_pred = predict(x_train)
+    test_pred = predict(x_test)
+    return {
+        "model": "nearest_centroid_numpy",
+        "runtime_sec": time.perf_counter() - start,
+        "train_accuracy": float(np.mean(train_pred == y_train)),
+        "test_accuracy": float(np.mean(test_pred == y_test)),
+        "parameters": int(centroids.size),
+    }
+
+
+def requested_baselines(text):
+    return [item.strip().lower() for item in text.split(",") if item.strip()]
+
+
+def select_native_classifier(models, quality_tolerance):
+    if not models:
+        raise ValueError("No native ML baselines were evaluated.")
+    best_quality_model = max(
+        models, key=lambda model: (model["test_accuracy"], -model["runtime_sec"])
+    )
+    best_accuracy = float(best_quality_model["test_accuracy"])
+    valid = [
+        model
+        for model in models
+        if float(model["test_accuracy"]) >= best_accuracy - float(quality_tolerance)
+    ]
+    selected = min(valid, key=lambda model: model["runtime_sec"])
+    fastest = min(models, key=lambda model: model["runtime_sec"])
+    return selected, best_quality_model, fastest, best_accuracy
+
+
 class CuStateVecSimulator:
     def __init__(self, n_qubits):
         import cupy as cp
@@ -391,38 +518,80 @@ def run_multiclass_ml(args):
     x, y, classes, dataset_metadata = make_ml_dataset(args)
     x_train, y_train, x_test, y_test = split(x, y, args.train_frac)
     native_start = time.perf_counter()
-    softmax_model = train_softmax(
-        x_train, y_train, x_test, y_test, classes, args.ml_steps, args.ml_lr
-    )
-    mlp_model = train_mlp_classifier(
-        x_train,
-        y_train,
-        x_test,
-        y_test,
-        classes,
-        args.mlp_steps,
-        args.mlp_lr,
-        args.mlp_hidden,
-        args.seed + 101,
-    )
-    native_models = [softmax_model, mlp_model]
-    best_accuracy = max(model["test_accuracy"] for model in native_models)
-    best_runtime = min(model["runtime_sec"] for model in native_models)
-    best_quality_model = max(
-        native_models, key=lambda model: (model["test_accuracy"], -model["runtime_sec"])
+    native_models = []
+    for baseline in requested_baselines(args.ml_native_baselines):
+        if baseline == "softmax":
+            native_models.append(
+                train_softmax(
+                    x_train, y_train, x_test, y_test, classes, args.ml_steps, args.ml_lr
+                )
+            )
+        elif baseline == "mlp":
+            native_models.append(
+                train_mlp_classifier(
+                    x_train,
+                    y_train,
+                    x_test,
+                    y_test,
+                    classes,
+                    args.mlp_steps,
+                    args.mlp_lr,
+                    args.mlp_hidden,
+                    args.seed + 101,
+                )
+            )
+        elif baseline == "linear_ridge":
+            native_models.append(
+                train_linear_ridge_classifier(
+                    x_train, y_train, x_test, y_test, classes, args.ridge_alpha
+                )
+            )
+        elif baseline == "rbf_kernel_ridge":
+            native_models.append(
+                train_rbf_kernel_ridge_classifier(
+                    x_train,
+                    y_train,
+                    x_test,
+                    y_test,
+                    classes,
+                    args.ridge_alpha,
+                    args.rbf_gamma,
+                )
+            )
+        elif baseline == "knn":
+            native_models.append(
+                train_knn_classifier(
+                    x_train, y_train, x_test, y_test, classes, args.knn_k
+                )
+            )
+        elif baseline == "nearest_centroid":
+            native_models.append(
+                train_nearest_centroid_classifier(
+                    x_train, y_train, x_test, y_test, classes
+                )
+            )
+        else:
+            raise ValueError("Unknown ML native baseline: {}".format(baseline))
+
+    selected_model, best_quality_model, fastest_model, best_accuracy = select_native_classifier(
+        native_models, args.ml_native_quality_tolerance
     )
     native = {
-        "runtime_sec": best_runtime,
+        "runtime_sec": float(selected_model["runtime_sec"]),
         "total_runtime_sec": time.perf_counter() - native_start,
         "train_accuracy": best_quality_model["train_accuracy"],
         "test_accuracy": best_accuracy,
+        "selected_model": selected_model["model"],
+        "selected_model_test_accuracy": selected_model["test_accuracy"],
+        "selected_model_runtime_sec": selected_model["runtime_sec"],
         "best_quality_model": best_quality_model["model"],
-        "best_runtime_sec": best_runtime,
+        "fastest_model": fastest_model["model"],
+        "fastest_runtime_sec": fastest_model["runtime_sec"],
+        "best_runtime_sec": selected_model["runtime_sec"],
         "best_test_accuracy": best_accuracy,
-        "models": {
-            "softmax_regression": softmax_model,
-            "mlp": mlp_model,
-        },
+        "quality_tolerance": float(args.ml_native_quality_tolerance),
+        "selection_rule": "fastest_model_within_tolerance_of_best_test_accuracy",
+        "models": {model["model"]: model for model in native_models},
     }
     q_start = time.perf_counter()
     q_train, train_meta = quantum_ml_features(x_train, args.ml_depth, args.entangle)
@@ -629,9 +798,7 @@ def build_maxcut_edges(n, graph):
     raise ValueError("Unknown graph family: {}".format(graph))
 
 
-def run_optimization(args):
-    n = args.opt_nodes
-    edges = build_maxcut_edges(n, args.opt_graph)
+def exact_maxcut_baseline(n, edges):
     start = time.perf_counter()
     best_value = -1
     best_bits = None
@@ -641,11 +808,153 @@ def run_optimization(args):
         if value > best_value:
             best_value = value
             best_bits = bits
-    native = {
+    return {
+        "method": "exact_enumeration_numpy",
         "runtime_sec": time.perf_counter() - start,
         "best_cut": int(best_value),
         "best_bits": best_bits,
-        "method": "exact_enumeration_numpy",
+    }
+
+
+def greedy_maxcut_baseline(n, edges):
+    start = time.perf_counter()
+    bits = [0 for _ in range(n)]
+    assigned = [False for _ in range(n)]
+    for node in range(n):
+        best_bit = 0
+        best_value = -1
+        for bit in (0, 1):
+            bits[node] = bit
+            assigned[node] = True
+            partial_edges = [
+                (u, v) for u, v in edges if assigned[u] and assigned[v]
+            ]
+            value = maxcut_value(bits, partial_edges)
+            if value > best_value:
+                best_value = value
+                best_bit = bit
+        bits[node] = best_bit
+        assigned[node] = True
+    return {
+        "method": "greedy_assignment_numpy",
+        "runtime_sec": time.perf_counter() - start,
+        "best_cut": int(maxcut_value(bits, edges)),
+        "best_bits": bits,
+    }
+
+
+def improve_maxcut_by_flips(bits, edges):
+    current = maxcut_value(bits, edges)
+    improved = True
+    while improved:
+        improved = False
+        for node in range(len(bits)):
+            candidate = list(bits)
+            candidate[node] = 1 - candidate[node]
+            value = maxcut_value(candidate, edges)
+            if value > current:
+                bits = candidate
+                current = value
+                improved = True
+    return bits, current
+
+
+def local_search_maxcut_baseline(n, edges, restarts, seed):
+    rng = np.random.default_rng(seed)
+    start = time.perf_counter()
+    starts = []
+    starts.append(greedy_maxcut_baseline(n, edges)["best_bits"])
+    starts.append([0 for _ in range(n)])
+    for _ in range(max(0, int(restarts))):
+        starts.append([int(x) for x in rng.integers(0, 2, size=n)])
+    best_value = -1
+    best_bits = None
+    for bits in starts:
+        improved_bits, value = improve_maxcut_by_flips(list(bits), edges)
+        if value > best_value:
+            best_value = value
+            best_bits = improved_bits
+    return {
+        "method": "local_search_numpy",
+        "runtime_sec": time.perf_counter() - start,
+        "best_cut": int(best_value),
+        "best_bits": best_bits,
+        "restarts": int(restarts),
+    }
+
+
+def annealing_maxcut_baseline(n, edges, steps, seed):
+    rng = np.random.default_rng(seed)
+    start = time.perf_counter()
+    bits = [int(x) for x in rng.integers(0, 2, size=n)]
+    current = maxcut_value(bits, edges)
+    best_bits = list(bits)
+    best_value = current
+    steps = max(1, int(steps))
+    for step in range(steps):
+        temp = max(0.02, 1.0 - step / steps)
+        node = int(rng.integers(0, n))
+        candidate = list(bits)
+        candidate[node] = 1 - candidate[node]
+        value = maxcut_value(candidate, edges)
+        delta = value - current
+        if delta >= 0 or rng.random() < math.exp(delta / temp):
+            bits = candidate
+            current = value
+            if value > best_value:
+                best_value = value
+                best_bits = list(candidate)
+    return {
+        "method": "simulated_annealing_numpy",
+        "runtime_sec": time.perf_counter() - start,
+        "best_cut": int(best_value),
+        "best_bits": best_bits,
+        "steps": int(steps),
+    }
+
+
+def select_maxcut_native_baseline(models):
+    best_cut = max(int(model["best_cut"]) for model in models)
+    valid = [model for model in models if int(model["best_cut"]) == best_cut]
+    selected = min(valid, key=lambda model: model["runtime_sec"])
+    return selected, best_cut
+
+
+def run_optimization(args):
+    n = args.opt_nodes
+    edges = build_maxcut_edges(n, args.opt_graph)
+    native_start = time.perf_counter()
+    native_models = []
+    for baseline in requested_baselines(args.opt_native_baselines):
+        if baseline == "exact":
+            if n <= args.opt_exact_max_nodes:
+                native_models.append(exact_maxcut_baseline(n, edges))
+        elif baseline == "greedy":
+            native_models.append(greedy_maxcut_baseline(n, edges))
+        elif baseline == "local_search":
+            native_models.append(
+                local_search_maxcut_baseline(
+                    n, edges, args.opt_local_restarts, args.seed + 202
+                )
+            )
+        elif baseline == "annealing":
+            native_models.append(
+                annealing_maxcut_baseline(
+                    n, edges, args.opt_anneal_steps, args.seed + 303
+                )
+            )
+        else:
+            raise ValueError("Unknown optimization native baseline: {}".format(baseline))
+    selected_native, best_value = select_maxcut_native_baseline(native_models)
+    native = {
+        "runtime_sec": float(selected_native["runtime_sec"]),
+        "total_runtime_sec": time.perf_counter() - native_start,
+        "best_cut": int(best_value),
+        "best_bits": selected_native["best_bits"],
+        "method": selected_native["method"],
+        "selected_model": selected_native["method"],
+        "selection_rule": "fastest_model_matching_best_cut",
+        "models": {model["method"]: model for model in native_models},
     }
 
     start = time.perf_counter()
@@ -887,6 +1196,14 @@ def main():
     parser.add_argument("--mlp-steps", type=int, default=250)
     parser.add_argument("--mlp-hidden", type=int, default=16)
     parser.add_argument("--mlp-lr", type=float, default=0.05)
+    parser.add_argument(
+        "--ml-native-baselines",
+        default="softmax,mlp,linear_ridge,rbf_kernel_ridge,knn,nearest_centroid",
+    )
+    parser.add_argument("--ml-native-quality-tolerance", type=float, default=0.01)
+    parser.add_argument("--ridge-alpha", type=float, default=1.0e-2)
+    parser.add_argument("--rbf-gamma", type=float, default=0.0)
+    parser.add_argument("--knn-k", type=int, default=5)
 
     parser.add_argument("--chem-grid", type=int, default=21)
     parser.add_argument("--chem-layers", type=int, default=1)
@@ -894,6 +1211,13 @@ def main():
     parser.add_argument("--opt-nodes", type=int, default=4)
     parser.add_argument("--opt-graph", choices=["chordal", "ring", "ladder"], default="chordal")
     parser.add_argument("--opt-grid", type=int, default=7)
+    parser.add_argument(
+        "--opt-native-baselines",
+        default="exact,greedy,local_search,annealing",
+    )
+    parser.add_argument("--opt-exact-max-nodes", type=int, default=22)
+    parser.add_argument("--opt-local-restarts", type=int, default=8)
+    parser.add_argument("--opt-anneal-steps", type=int, default=250)
     parser.add_argument("--sim-model", choices=["tfim", "heisenberg"], default="tfim")
     parser.add_argument("--sim-initial-state", choices=["auto", "zero", "neel"], default="auto")
     parser.add_argument("--sim-qubits", type=int, default=4)

@@ -1,0 +1,13 @@
+{
+  "by_workload": {
+    "ml": {
+      "cases": 56,
+      "quality_gap_median": 0.2916666666666667,
+      "quantum_runtime_sec_sum": 385.07746011877316,
+      "speedup_required_max": 1997.8049090996367,
+      "speedup_required_median": 521.4042390624066,
+      "speedup_required_min": 189.1790229656577
+    }
+  },
+  "cases": 56
+}

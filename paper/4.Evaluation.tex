@@ -54,6 +54,25 @@ QNN/VQC required speedup & 21.1$\times$ & 64.9$\times$ & 171.7$\times$ \\
 \noindent\textbf{Key result.}
 The first result supports the main thesis: the useful output is not ``quantum is faster'' or ``quantum is slower.'' The useful output is the hardware requirement. For this workload, even when quantum kernels achieve good accuracy, the projected execution must improve by a median 421.9$\times$ to reach native time. For QNN/VQC, the median threshold is 64.9$\times$, but the model usually fails to match native accuracy.
 
+\begin{figure}[t]
+\centering
+\begin{subfigure}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/digits_required_speedup.pdf}
+    \caption{Threshold distribution.}
+    \label{fig:digits-speedup}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/digits_quality_speedup.pdf}
+    \caption{Quality vs. threshold.}
+    \label{fig:digits-quality}
+\end{subfigure}
+\caption{Expanded digits results over 160 cases. The quantum-kernel path often reaches useful accuracy but needs hundreds of times faster execution, while QNN/VQC has a lower threshold but usually lower quality.}
+\label{fig:digits-results}
+\end{figure}
+
 \subsection{Quality Sensitivity}
 
 Table~\ref{tab:class-sensitivity} shows that the threshold depends on the data pair. The easy pair, 0-vs-1, gives high quantum-kernel accuracy. Harder pairs such as 3-vs-8 and 5-vs-8 reduce quality and make a simple speedup claim invalid. This is exactly why \SystemName keeps quality and runtime together.
@@ -75,28 +94,139 @@ Class pair & Kernel acc. & QNN/VQC acc. \\
 \label{tab:class-sensitivity}
 \end{table}
 
-\subsection{Allocation and Slurm Cost}
-
-The expanded sweep used eight completed shared-GPU chunks. The total measured GPU time is 0.4089 GPU-hours, and the Slurm billing sum is 13.0844 core-hours. All stderr logs are empty. Several pending jobs were cancelled before allocation while we adjusted the queue strategy; they have zero elapsed time and do not contribute to the accounting.
-
 \subsection{Why Digits Is Not Enough}
 
 The digits workload is useful because it is controlled, cheap, and easy to repeat. It is not enough for a practical quantum supremacy claim. Real users care about broader applications: AI pipelines, molecular energy estimation for drug discovery, optimization, and scientific simulation. These workloads have different native baselines and different quantum overheads.
 
 \subsection{Required Practical Workloads}
 
-Before submission, \SystemName must add practical workloads beyond digits:
+\SystemName also evaluates a practical suite beyond the controlled binary digits sweep. The suite covers ML classification, VQE-style chemistry, QAOA-style optimization, and Hamiltonian simulation. These workloads represent the application classes where users often expect quantum advantage, but the measured result shows that the threshold is application dependent and usually large. The main practical-suite result below uses the strengthened native baseline gate: ML selects among six native classifiers, and optimization selects among exact, greedy, local-search, and annealing baselines.
 
-\begin{itemize}[leftmargin=*]
-    \item \textbf{ML workloads.} Add multiclass classification and larger tabular/image datasets with native logistic, MLP, tree/SVM, and GPU neural baselines.
-    \item \textbf{Drug discovery and chemistry.} Add a molecular energy workload with a native chemistry or surrogate baseline and a VQE-style quantum circuit path.
-    \item \textbf{Optimization.} Add QAOA-style MaxCut, portfolio, or scheduling instances with native heuristic and solver baselines.
-    \item \textbf{Scientific simulation.} Add Hamiltonian simulation or quantum dynamics workloads with native numerical solver baselines.
-\end{itemize}
+\begin{table}[t]
+\caption{Strong-native practical suite summary over 190 cases. Values are medians.}
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+Workload & Cases & Required speedup & Quality gap \\
+\midrule
+ML & 108 & 3,483.4$\times$ & 0.2943 \\
+Chemistry & 10 & 39,654.6$\times$ & 0.0117 \\
+Optimization & 36 & 378,588.2$\times$ & 0.2500 \\
+Simulation & 36 & 9,634.5$\times$ & 0.0250 \\
+\bottomrule
+\end{tabular}
+\label{tab:practical-suite}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/practical_suite_summary.pdf}
+\caption{Strong-native practical suite over 190 cases. Each bar compares the selected native HPC-style baseline with a quantum-circuit application path simulated through cuQuantum. All families currently require faster projected quantum execution, but the threshold differs by application class.}
+\label{fig:practical-suite}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/strong_native_comparison.pdf}
+\caption{Native baseline stress test. Strengthening the native side makes the ML threshold 6.6$\times$ larger and the optimization threshold 2.3$\times$ larger than the initial native-baseline sweep. This confirms that \SystemName must treat native-baseline strength as part of the advantage model.}
+\label{fig:strong-native}
+\end{figure}
+
+The strong-native run completed as a one-node, four-GPU bundled allocation on \Perlmutter. The job finished 190 cases in 6 minutes and 59 seconds with exit code 0:0, 190 raw JSON outputs, and empty stderr logs. The selected ML baselines were RBF kernel ridge, nearest centroid, kNN, softmax regression, and linear ridge depending on the case; the selected optimization baselines were mostly greedy assignment, with exact enumeration selected when it was fastest at the best cut value.
+
+\subsection{Scale-Out Gate}
+
+After the one-node strong-native gate, we ran the same bundled execution model on two \Perlmutter GPU nodes. This is not yet the full 3,552-case large-profile experiment. It is a scale-out gate that checks whether one allocation can launch one task per GPU across multiple nodes, partition the large manifest by chunk id, and preserve the same result schema without failed cases.
+
+\begin{table}[t]
+\caption{Two-node large-profile scale-out gate. Values are medians over chunk slots 0--7 of 128.}
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+Workload & Cases & Required speedup & Quality gap \\
+\midrule
+ML & 128 & 46,159.0$\times$ & 0.2813 \\
+Chemistry & 16 & 43,081.6$\times$ & 0.0203 \\
+Optimization & 48 & 365,144.4$\times$ & 0.2500 \\
+Simulation & 32 & 14,438.3$\times$ & 0.0004 \\
+\bottomrule
+\end{tabular}
+\label{tab:scale-gate}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/scale_out_gate.pdf}
+\caption{Scale-out gate from one to two \Perlmutter GPU nodes. The left panel shows bundled throughput. The right panel checks that the measured advantage thresholds remain in the same order of magnitude when the large manifest is partitioned across eight GPUs.}
+\label{fig:scale-gate}
+\end{figure}
+
+The two-node job completed 224 cases in 4 minutes and 28 seconds on eight A100 GPUs with exit code 0:0. Each GPU task completed 28 cases, and no timeout or failed case was recorded. The selected ML baselines were nearest centroid, linear ridge, kNN, RBF kernel ridge, softmax regression, and MLP. The selected optimization baselines were greedy assignment and exact enumeration. This result validates the multi-node bundled path used for the next 4-, 8-, 16-, and 32-node experiments; it should not be interpreted as distributed single-circuit simulation.
+
+\subsection{Advantage Frontier}
+
+The practical-suite result gives one speed threshold per case, but a speed-only threshold is still incomplete. A practical advantage claim also needs comparable output quality. We therefore convert each measured case into an advantage frontier over two axes: projected quantum execution speedup and quality-gap recovery. A point is in the advantage region only if the projected quantum path is no slower than the selected native path and the remaining quality gap is within a small workload tolerance.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/advantage_frontier.pdf}
+\caption{Advantage frontier over projected quantum speedup and quality-gap recovery. Color shows the fraction of measured cases in each family that would enter the advantage region under that hypothetical hardware and algorithmic improvement. The contour marks the 50\% frontier when it appears.}
+\label{fig:advantage-frontier}
+\end{figure}
+
+\noindent\textbf{Key insight.}
+The frontier separates speed-limited and quality-limited workloads. Chemistry and simulation often have small quality gaps, so their frontier is mostly pushed right by runtime. ML has a lower runtime threshold in some cases, but the quality gap must shrink before speed alone becomes meaningful. Optimization is far from the advantage region on both axes for the current QAOA configuration. This is the central point of \SystemName: quantum advantage is a feasible region, not a single speedup slogan.
+
+\subsection{Bundled Allocation Pilot}
+
+The official practical sweep was first run as multiple shared-GPU jobs. We then validated a bundled allocation path using \texttt{salloc} with two A100 GPUs. This pilot is not a new advantage claim. It checks that \SystemName can run multiple chunks inside one allocation, keep the GPUs busy with independent workload cases, and produce the same summary format used by the official sweep.
+
+\begin{table}[t]
+\caption{Bundled \texttt{salloc} pilot over 96 cases. Values are medians.}
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+Workload & Cases & Required speedup & Quality gap \\
+\midrule
+ML & 54 & 615.7$\times$ & 0.2865 \\
+Chemistry & 6 & 49,476.5$\times$ & 0.2446 \\
+Optimization & 18 & 210,056.9$\times$ & 0.2500 \\
+Simulation & 18 & 11,629.0$\times$ & 0.0250 \\
+\bottomrule
+\end{tabular}
+\label{tab:salloc-pilot}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/salloc_pilot_comparison.pdf}
+\caption{Official 190-case sweep versus the 96-case bundled \texttt{salloc} pilot. The pilot uses two A100 GPUs inside one allocation and reproduces the same qualitative conclusion: every workload family remains outside the current advantage region, but the required hardware improvement differs by family.}
+\label{fig:salloc-pilot}
+\end{figure}
+
+The pilot completed in 6 minutes and 54 seconds with 96 raw JSON outputs and empty stderr logs. Its main systems result is operational: the correct bundled pattern is a single \texttt{srun} step with multiple tasks, where each task selects a chunk using \texttt{SLURM\_PROCID}. Launching multiple overlapping \texttt{srun} steps was less reliable because of step-level resource ownership.
 
 \subsection{Hardware Projection}
 
 The current projection uses measured circuit metadata to compute a required speedup relative to native runtime. The next version should convert this speedup into logical gate time, measurement time, shot throughput, and error-correction overhead. The output should be a heatmap that answers: for each workload family, how fast must quantum hardware be before the quantum path beats the native HPC path at the same quality?
+
+\subsection{Advantage Insight}
+
+The main evaluation output is not that the simulator is slow. The simulator is the measurement tool. The paper should use the measurements to explain what kind of quantum hardware and algorithmic behavior would be necessary for advantage. For each workload family, \SystemName should report whether the path is currently speed-limited, quality-limited, encoding-limited, shot-limited, error-overhead-limited, or native-dominated.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/workload_taxonomy.pdf}
+\caption{Primary bottleneck taxonomy for the strong-native practical suite. ML and optimization are quality-limited in the current circuit configurations. Chemistry is mostly speed-limited, while simulation splits between speed and quality limits.}
+\label{fig:workload-taxonomy}
+\end{figure}
+
+Figure~\ref{fig:workload-taxonomy} shows this classification for the strong-native run. ML is quality-limited in all 108 cases because the quantum feature path does not match the selected native classifier accuracy. Optimization is also quality-limited in all 36 cases because the current QAOA grid has a large objective gap. Chemistry has 6 speed-limited cases and 4 quality-limited cases. Simulation has 18 speed-limited and 18 quality-limited cases.
+
+This classification is the practical insight. If a workload is speed-limited, faster logical gates or more shot parallelism may move it into the advantage region. If it is quality-limited, faster hardware alone is not enough. If it is native-dominated, the correct conclusion is that the native HPC baseline remains the better application path unless the quantum algorithm changes.
 
 \subsection{Sensitivity and Stability}
 

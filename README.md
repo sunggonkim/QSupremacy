@@ -23,6 +23,30 @@ The core comparison is not simulator vs simulator. The comparison is:
   job `55414571`, 18 cases, 221 seconds elapsed, about 0.061 GPU-hours.
 - Expanded `sklearn digits` sweep completed:
   8 shared-GPU chunks, 160 cases, about 0.409 GPU-hours total.
+- Official practical-suite sweep completed:
+  190 cases across ML, chemistry, optimization, and simulation.
+- Bundled `salloc` pilot completed:
+  job `55454998`, 2 A100 GPUs, 96 cases, 6 minutes 54 seconds elapsed.
+- Stronger native-baseline logic added for the next official run:
+  ML now includes NumPy softmax, MLP, linear ridge, RBF kernel ridge, kNN, and
+  nearest-centroid candidates; optimization now includes exact, greedy, local
+  search, and simulated annealing candidates.
+- Strong-native full-node gate completed:
+  job `55468746`, 1 Perlmutter GPU node, 4 A100 GPUs, 190 cases,
+  6 minutes 59 seconds elapsed.
+- Two-node large-profile scale-out gate completed:
+  job `55470269`, 2 Perlmutter GPU nodes, 8 A100 GPUs, 224 cases from
+  chunk slots 0-7 of 128, 4 minutes 28 seconds elapsed.
+- Four-node large-profile scale-out gate submitted:
+  job `55470822`, 4 Perlmutter GPU nodes, 16 A100 GPUs, chunk slots 0-15 of
+  128. Leave it running until Slurm reports a final state.
+- Advantage-frontier figure added:
+  `paper/figures/advantage_frontier.pdf`.
+- Workload taxonomy added:
+  `paper/figures/workload_taxonomy.pdf` and
+  `data/processed/perlmutter/practical_suite_strongnative_1node_int_20260704012008_taxonomy.json`.
+- Large scale-out manifest profile added:
+  `QS_SWEEP_PROFILE=large` expands the practical suite from 190 to 3,552 case templates.
 
 ## Login Smoke Gate
 
@@ -65,9 +89,10 @@ module load cudatoolkit/12.9
 
 Current workload families:
 
-- multiclass ML: native softmax regression vs quantum feature circuit + softmax head
+- multiclass ML: native softmax/MLP/linear-ridge/RBF-kernel-ridge/kNN/centroid
+  candidates vs quantum feature circuit + softmax head
 - drug discovery / chemistry: exact H2 Hamiltonian diagonalization vs VQE-style circuit
-- optimization: exact small MaxCut vs QAOA-style circuit
+- optimization: exact/greedy/local-search/annealing MaxCut vs QAOA-style circuit
 - scientific simulation: exact TFIM/Heisenberg dynamics vs Trotterized circuit
 
 Chemistry Hamiltonians can be supplied as Pauli-term JSON:
@@ -147,9 +172,160 @@ chunks with:
 /pscratch/sd/s/sgkim/kis_cuquantum/00_env/cutn_conda/bin/python \
   benchmarks/workloads/summarize_practical_results.py \
   'data/raw/perlmutter/practical_suite_sweep/practical_*.json' \
-  --summary-json data/processed/perlmutter/practical_suite_combined_summary.json \
-  --csv data/processed/perlmutter/practical_suite_combined_summary.csv
+	  --summary-json data/processed/perlmutter/practical_suite_combined_summary.json \
+	  --csv data/processed/perlmutter/practical_suite_combined_summary.csv
 ```
+
+Completed official practical sweep:
+
+```text
+job_ids: 55453128, 55453129, 55453130, 55453131
+cases: 190
+summary: data/processed/perlmutter/practical_suite_55453128_55453131_summary.json
+```
+
+Median results:
+
+| Family | Cases | Median required speedup | Median quality gap |
+| --- | ---: | ---: | ---: |
+| ML | 108 | 524.3x | 0.2865 |
+| Chemistry | 10 | 67,528.7x | 0.0117 |
+| Optimization | 36 | 161,776.0x | 0.2500 |
+| Simulation | 36 | 8,747.4x | 0.0250 |
+
+Important baseline note: these 190 official cases were measured before the
+stronger native-baseline gate was added. They are kept as the initial sweep for
+comparison, not as the strongest current baseline result.
+
+Completed strong-native full-node gate:
+
+```text
+job_id: 55468746
+run_tag: strongnative_1node_int_20260704012008
+qos: interactive
+resources: 1 Perlmutter GPU node, 4 A100 GPUs, 128 CPU cores
+elapsed: 00:06:59
+state: COMPLETED
+exit: 0:0
+raw JSON files: 190
+stderr: 0 bytes
+summary: data/processed/perlmutter/practical_suite_strongnative_1node_int_20260704012008_summary.json
+accounting: data/raw/perlmutter/accounting/sacct_practical_suite_strongnative_1node_int_20260704012008.txt
+```
+
+Median strong-native results:
+
+| Family | Cases | Median required speedup | Median quality gap |
+| --- | ---: | ---: | ---: |
+| ML | 108 | 3,483.4x | 0.2943 |
+| Chemistry | 10 | 39,654.6x | 0.0117 |
+| Optimization | 36 | 378,588.2x | 0.2500 |
+| Simulation | 36 | 9,634.5x | 0.0250 |
+
+Native model selection in the strong-native run:
+
+| Family | Selected native baselines |
+| --- | --- |
+| ML | RBF kernel ridge 30 cases, nearest centroid 26, kNN 24, softmax 16, linear ridge 12 |
+| Chemistry | exact diagonalization 10 cases |
+| Optimization | greedy assignment 30 cases, exact enumeration 6 |
+| Simulation | exact dense eigendecomposition 36 cases |
+
+Advantage-frontier figure:
+
+```text
+paper/figures/advantage_frontier.pdf
+paper/figures/strong_native_comparison.pdf
+paper/figures/workload_taxonomy.pdf
+paper/figures/scale_out_gate.pdf
+```
+
+The frontier plots projected quantum speedup against quality-gap recovery. A
+case enters the advantage region only when the projected quantum path is both
+fast enough and close enough in output quality to the selected native path.
+
+Completed two-node large-profile scale-out gate:
+
+```text
+job_id: 55470269
+run_tag: strongnative_2node_large128c0c7_fix_20260704022146
+qos: debug
+resources: 2 Perlmutter GPU nodes, 8 A100 GPUs, 256 CPU cores
+elapsed: 00:04:28
+state: COMPLETED
+exit: 0:0
+chunk slots: 0-7 of 128
+raw JSON files: 224
+failed cases: 0
+summary: data/processed/perlmutter/practical_suite_strongnative_2node_large128c0c7_fix_20260704022146_summary.json
+accounting: data/raw/perlmutter/accounting/sacct_practical_suite_strongnative_2node_large128c0c7_fix_20260704022146.txt
+```
+
+Median two-node scale-gate results:
+
+| Family | Cases | Median required speedup | Median quality gap |
+| --- | ---: | ---: | ---: |
+| ML | 128 | 46,159.0x | 0.2813 |
+| Chemistry | 16 | 43,081.6x | 0.0203 |
+| Optimization | 48 | 365,144.4x | 0.2500 |
+| Simulation | 32 | 14,438.3x | 0.0004 |
+
+This is a scale-out gate, not the final 3,552-case large-profile result. It
+validates the multi-node bundled execution pattern: one Slurm task per GPU, one
+independent chunk per task, and a single summary over all completed chunks.
+
+Current next scale-out job:
+
+```text
+job_id: 55470822
+profile: large
+nodes: 4
+gpus: 16
+chunk_count: 128
+expected chunk slots: 0-15
+case_timeout: 180s
+```
+
+Bundled `salloc` pilot:
+
+```bash
+salloc -A m1248 -C gpu -q shared_interactive -t 00:12:00 \
+  -n 2 -c 32 --gpus=2 --job-name=qsup-prac-2gpu-int \
+  bash -lc 'cd /pscratch/sd/s/sgkim/Skim-Qsupreme && \
+    QS_RUN_TAG=${SLURM_JOB_ID}_prac2gint_c0c1of4 \
+    QS_CASE_TIMEOUT=90s QS_CHUNK_COUNT=4 QS_TASK_COUNT=2 \
+    QS_CPUS_PER_CHUNK=32 \
+    jobs/perlmutter/practical_suite_4gpu_salloc_run.sh'
+```
+
+Completed pilot result:
+
+```text
+job_id: 55454998
+qos: shared_interactive
+resources: 2 A100 GPUs, 64 CPU cores
+elapsed: 00:06:54
+state: COMPLETED
+exit: 0:0
+stderr: 0 bytes
+raw JSON files: 96
+summary: data/processed/perlmutter/practical_suite_55454998_prac2gint_c0c1of4_summary.json
+```
+
+Median pilot results:
+
+| Family | Cases | Median required speedup | Median quality gap |
+| --- | ---: | ---: | ---: |
+| ML | 54 | 615.7x | 0.2865 |
+| Chemistry | 6 | 49,476.5x | 0.2446 |
+| Optimization | 18 | 210,056.9x | 0.2500 |
+| Simulation | 18 | 11,629.0x | 0.0250 |
+
+The `salloc` pilot is not the main science result. Its purpose is to verify that
+one allocation can run multiple GPU chunks concurrently and produce the same
+threshold-style outputs as the official sweep. The main insight is unchanged:
+all workload families still require faster projected quantum execution, and the
+required improvement is strongly workload dependent.
 
 ## Digits Supremacy Benchmark
 
@@ -212,9 +388,12 @@ summary: data/processed/perlmutter/digits_expanded_55421321_55422142_summary.jso
 The first real experiment suite should run all three tracks:
 
 1. sklearn digits native ML baseline
-   - logistic regression
+   - softmax/logistic-style regression
    - MLP
-   - optional SVM/RBF baseline
+   - linear ridge classifier
+   - RBF kernel ridge classifier
+   - kNN
+   - nearest centroid
 
 2. Quantum kernel classifier
    - digits features reduced with PCA
@@ -227,6 +406,55 @@ The first real experiment suite should run all three tracks:
    - classical optimizer loop with runtime and accuracy logging
 
 All tracks must report time-to-quality under the same dataset split and target accuracy/loss policy.
+
+## Scale-Out Plan
+
+Do not jump directly to 32 nodes. Use this staged path:
+
+```bash
+# Preflight only: no workload execution, just show assigned cases per chunk.
+QS_PREFLIGHT_ONLY=1 QS_CHUNK_COUNT=4 \
+  sbatch -q debug -t 00:10:00 -N 1 jobs/perlmutter/practical_suite_scale_nodes.sbatch
+
+# S3: one full GPU node, 4 tasks, 4 GPUs.
+QS_CHUNK_COUNT=4 \
+  sbatch -q debug -t 00:30:00 -N 1 jobs/perlmutter/practical_suite_scale_nodes.sbatch
+
+# S4-S6: debug QOS supports up to 8 GPU nodes for short validation runs.
+QS_CHUNK_COUNT=8 \
+  sbatch -q debug -t 00:30:00 -N 2 jobs/perlmutter/practical_suite_scale_nodes.sbatch
+QS_CHUNK_COUNT=16 \
+  sbatch -q debug -t 00:30:00 -N 4 jobs/perlmutter/practical_suite_scale_nodes.sbatch
+QS_CHUNK_COUNT=32 \
+  sbatch -q debug -t 00:30:00 -N 8 jobs/perlmutter/practical_suite_scale_nodes.sbatch
+
+# S7-S8: only after the 8-node result is clean and the manifest is large enough.
+QS_CHUNK_COUNT=64 \
+  sbatch -q regular -t 01:00:00 -N 16 jobs/perlmutter/practical_suite_scale_nodes.sbatch
+QS_CHUNK_COUNT=128 \
+  sbatch -q regular -t 01:00:00 -N 32 jobs/perlmutter/practical_suite_scale_nodes.sbatch
+```
+
+Each Perlmutter GPU node has four A100 GPUs. The scale-out runner uses one
+Slurm task per GPU and one independent workload chunk per task. This is
+throughput scaling across independent cases, not distributed single-circuit
+simulation.
+
+For 16/32 node planning, use the large manifest profile:
+
+```bash
+# Login-safe dry run; no allocation. Standard profile is 190 cases.
+QS_PREFLIGHT_ONLY=1 QS_SWEEP_PROFILE=standard QS_CHUNK_COUNT=4 QS_CHUNK_ID=0 \
+  SLURM_JOB_ID=preflight_standard bash jobs/perlmutter/practical_suite_sweep_1gpu_shared.sbatch
+
+# Login-safe dry run; no allocation. Large profile is 3,552 cases.
+QS_PREFLIGHT_ONLY=1 QS_SWEEP_PROFILE=large QS_CHUNK_COUNT=128 QS_CHUNK_ID=0 \
+  SLURM_JOB_ID=preflight_large bash jobs/perlmutter/practical_suite_sweep_1gpu_shared.sbatch
+
+# Example 8-node validation with large profile.
+QS_SWEEP_PROFILE=large QS_CHUNK_COUNT=32 QS_CASE_TIMEOUT=180s \
+  sbatch -q debug -t 00:30:00 -N 8 jobs/perlmutter/practical_suite_scale_nodes.sbatch
+```
 
 ## Repository Layout
 
@@ -257,4 +485,9 @@ cd paper
 make
 ```
 
-The current draft is not submission-ready. It contains the thesis, modeling method, workload matrix, analysis plan, and result placeholders. The first full evaluation must complete all three tracks: `sklearn digits` native ML, quantum kernel classification, and QNN/VQC classification.
+The current draft is not submission-ready, but it now contains measured digits
+results, the initial 190-case practical suite, the strong-native one-node
+full-packing result, the bundled `salloc` pilot, and the advantage-frontier
+figure. The next paper-quality update should add the workload taxonomy and then
+run the 2-node gate only after confirming the manifest is large enough to keep
+8 GPUs useful.

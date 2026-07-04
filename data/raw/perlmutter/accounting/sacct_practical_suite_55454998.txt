@@ -1,0 +1,4 @@
+JobID|JobName|State|ExitCode|Elapsed|AllocTRES
+55454998|qsup-prac-2gpu-int|COMPLETED|0:0|00:06:54|billing=64,cpu=64,energy=142944,gres/gpu:a100=2,gres/gpu=2,mem=114944M,node=1
+55454998.extern|extern|COMPLETED|0:0|00:06:56|billing=64,cpu=64,gres/gpu:a100=2,gres/gpu=2,mem=114944M,node=1
+55454998.0|bash|COMPLETED|0:0|00:06:48|cpu=64,gres/gpu:a100=2,gres/gpu=2,mem=114944M,node=1

@@ -31,17 +31,46 @@ echo "cuda_visible_devices=${CUDA_VISIBLE_DEVICES:-unset}"
 echo "chunk_id=${QS_CHUNK_ID:-0}"
 echo "chunk_ids=${QS_CHUNK_IDS:-${QS_CHUNK_ID:-0}}"
 echo "chunk_count=${QS_CHUNK_COUNT:-1}"
+echo "workload_families=${QS_WORKLOAD_FAMILIES:-all}"
+echo "case_timeout=${QS_CASE_TIMEOUT:-120s}"
+echo "preflight_only=${QS_PREFLIGHT_ONLY:-0}"
+echo "sweep_profile=${QS_SWEEP_PROFILE:-standard}"
+echo "repeat_count=${QS_REPEAT_COUNT:-auto}"
 nvidia-smi -L
+
+family_enabled() {
+  local family="$1"
+  local enabled="${QS_WORKLOAD_FAMILIES:-all}"
+  if [[ "${enabled}" == "all" ]]; then
+    return 0
+  fi
+  local candidate
+  IFS=',' read -ra candidates <<< "${enabled}"
+  for candidate in "${candidates[@]}"; do
+    if [[ "${candidate}" == "${family}" ]]; then
+      return 0
+    fi
+  done
+  return 1
+}
 
 run_case() {
   local tag="$1"
   shift
+  if [[ "${QS_PREFLIGHT_ONLY:-0}" == "1" ]]; then
+    echo "case_would_run=${tag}"
+    return
+  fi
   echo "case_start=${tag} $(date --iso-8601=seconds)"
-  "${PY}" benchmarks/workloads/run_practical_suite.py \
+  if timeout "${QS_CASE_TIMEOUT:-120s}" "${PY}" benchmarks/workloads/run_practical_suite.py \
     "$@" \
     --entangle \
-    --output "${OUTDIR}/practical_${SLURM_JOB_ID}_${tag}.json" >/dev/null
-  echo "case_end=${tag} $(date --iso-8601=seconds)"
+    --output "${OUTDIR}/practical_${SLURM_JOB_ID}_${tag}.json" >/dev/null; then
+    echo "case_end=${tag} $(date --iso-8601=seconds)"
+  else
+    local rc=$?
+    echo "case_failed=${tag} rc=${rc} $(date --iso-8601=seconds)"
+  fi
 }
 
 maybe_run_case() {
@@ -63,104 +92,187 @@ maybe_run_case() {
 
 case_id=0
 
+SWEEP_PROFILE="${QS_SWEEP_PROFILE:-standard}"
+if [[ -n "${QS_REPEAT_COUNT:-}" ]]; then
+  REPEAT_COUNT="${QS_REPEAT_COUNT}"
+elif [[ "${SWEEP_PROFILE}" == "large" ]]; then
+  REPEAT_COUNT=4
+else
+  REPEAT_COUNT=1
+fi
+
+if [[ "${SWEEP_PROFILE}" == "large" ]]; then
+  SEEDS=(17 23 31 43)
+  ML_CLASSES=("0,1,2" "3,5,8" "0,1,2,3" "2,4,6,8")
+  ML_SAMPLES=(128 192 256 320)
+  ML_FEATURES=(4 6 8 10)
+  ML_DEPTHS=(1 2)
+  CHEM_H2_GRIDS=(17 21 25 33)
+  CHEM_JSON_GRIDS=(9 13 17)
+  CHEM_LAYERS=(1 2)
+  OPT_NODES=(4 5 6 7)
+  OPT_GRAPHS=(ring chordal ladder)
+  OPT_GRIDS=(7 9 11 13)
+  SIM_MODELS=(tfim heisenberg)
+  SIM_QUBITS=(4 5 6 7)
+  SIM_STEPS=(4 6 8 10)
+else
+  SEEDS=(17 23)
+  ML_CLASSES=("0,1,2" "3,5,8" "0,1,2,3")
+  ML_SAMPLES=(128 192 256)
+  ML_FEATURES=(4 6 8)
+  ML_DEPTHS=(1 2)
+  CHEM_H2_GRIDS=(17 21 25)
+  CHEM_JSON_GRIDS=(9 13)
+  CHEM_LAYERS=(1)
+  OPT_NODES=(4 5)
+  OPT_GRAPHS=(ring chordal ladder)
+  OPT_GRIDS=(7 9 11)
+  SIM_MODELS=(tfim heisenberg)
+  SIM_QUBITS=(4 5 6)
+  SIM_STEPS=(4 6 8)
+fi
+
+repeat_suffix() {
+  local repeat="$1"
+  if [[ "${SWEEP_PROFILE}" == "standard" && "${REPEAT_COUNT}" == "1" ]]; then
+    echo ""
+  else
+    echo "_r${repeat}"
+  fi
+}
+
 # Larger multiclass ML over the real sklearn digits dataset. Feature count is
 # the PCA/qubit dimension used by the quantum feature circuit.
-for seed in 17 23; do
-  for classes in 0,1,2 3,5,8 0,1,2,3; do
-    class_count=$(awk -F, '{print NF}' <<< "${classes}")
-    class_tag="${classes//,/v}"
-    for samples in 128 192 256; do
-    for features in 4 6 8; do
-      for depth in 1 2; do
+if family_enabled ml; then
+  for repeat in $(seq 0 $((REPEAT_COUNT - 1))); do
+  suffix="$(repeat_suffix "${repeat}")"
+  for seed in "${SEEDS[@]}"; do
+    run_seed=$((seed + repeat * 1000))
+    for classes in "${ML_CLASSES[@]}"; do
+      class_count=$(awk -F, '{print NF}' <<< "${classes}")
+      class_tag="${classes//,/v}"
+      for samples in "${ML_SAMPLES[@]}"; do
+      for features in "${ML_FEATURES[@]}"; do
+        for depth in "${ML_DEPTHS[@]}"; do
+          maybe_run_case "${case_id}" \
+            "ml_digits_c${class_tag}_${samples}s_${features}q_d${depth}${suffix}_seed${run_seed}" \
+            --workloads ml \
+            --seed "${run_seed}" \
+            --ml-dataset digits \
+            --digits-path data/datasets/sklearn_digits.npz \
+            --digits-classes "${classes}" \
+            --ml-samples "${samples}" \
+            --ml-features "${features}" \
+            --ml-classes "${class_count}" \
+            --ml-depth "${depth}" \
+            --ml-steps 300 \
+            --mlp-steps 300 \
+            --mlp-hidden 24
+          case_id=$((case_id + 1))
+        done
+      done
+      done
+    done
+  done
+  done
+fi
+
+# VQE-style chemistry. Grid size controls optimizer/search work. The built-in
+# H2 case is a quality anchor; the 4-qubit fixture checks the generic Pauli
+# Hamiltonian path that can receive OpenFermion/PySCF-generated inputs.
+if family_enabled chemistry; then
+  for repeat in $(seq 0 $((REPEAT_COUNT - 1))); do
+  suffix="$(repeat_suffix "${repeat}")"
+  for seed in "${SEEDS[@]}"; do
+    run_seed=$((seed + repeat * 1000))
+    for layer in "${CHEM_LAYERS[@]}"; do
+      for grid in "${CHEM_H2_GRIDS[@]}"; do
         maybe_run_case "${case_id}" \
-          "ml_digits_c${class_tag}_${samples}s_${features}q_d${depth}_seed${seed}" \
-          --workloads ml \
-          --seed "${seed}" \
-          --ml-dataset digits \
-          --digits-path data/datasets/sklearn_digits.npz \
-          --digits-classes "${classes}" \
-          --ml-samples "${samples}" \
-          --ml-features "${features}" \
-          --ml-classes "${class_count}" \
-          --ml-depth "${depth}" \
-          --ml-steps 300 \
-          --mlp-steps 300 \
-          --mlp-hidden 24
+          "chem_h2_l${layer}_grid${grid}${suffix}_seed${run_seed}" \
+          --workloads chemistry \
+          --seed "${run_seed}" \
+          --chem-grid "${grid}" \
+          --chem-layers "${layer}"
+        case_id=$((case_id + 1))
+      done
+      for grid in "${CHEM_JSON_GRIDS[@]}"; do
+        maybe_run_case "${case_id}" \
+          "chem_4q_l${layer}_grid${grid}${suffix}_seed${run_seed}" \
+          --workloads chemistry \
+          --seed "${run_seed}" \
+          --chem-grid "${grid}" \
+          --chem-layers "${layer}" \
+          --chem-hamiltonian-json benchmarks/workloads/hamiltonians/molecular_chain_4q.json
+        case_id=$((case_id + 1))
+      done
+    done
+  done
+  done
+fi
+
+# QAOA-style optimization over small MaxCut graph families.
+if family_enabled optimization; then
+  for repeat in $(seq 0 $((REPEAT_COUNT - 1))); do
+  suffix="$(repeat_suffix "${repeat}")"
+  for seed in "${SEEDS[@]}"; do
+    run_seed=$((seed + repeat * 1000))
+    for nodes in "${OPT_NODES[@]}"; do
+      for graph in "${OPT_GRAPHS[@]}"; do
+      for grid in "${OPT_GRIDS[@]}"; do
+        maybe_run_case "${case_id}" \
+          "qaoa_${graph}_${nodes}n_grid${grid}${suffix}_seed${run_seed}" \
+          --workloads optimization \
+          --seed "${run_seed}" \
+          --opt-nodes "${nodes}" \
+          --opt-graph "${graph}" \
+          --opt-grid "${grid}"
+        case_id=$((case_id + 1))
+      done
+      done
+    done
+  done
+  done
+fi
+
+# Hamiltonian simulation. Qubit count, physical model, and Trotter steps control
+# circuit size.
+if family_enabled simulation; then
+  for repeat in $(seq 0 $((REPEAT_COUNT - 1))); do
+  suffix="$(repeat_suffix "${repeat}")"
+  for seed in "${SEEDS[@]}"; do
+    run_seed=$((seed + repeat * 1000))
+    for model in "${SIM_MODELS[@]}"; do
+    for qubits in "${SIM_QUBITS[@]}"; do
+      for steps in "${SIM_STEPS[@]}"; do
+        maybe_run_case "${case_id}" \
+          "sim_${model}_${qubits}q_${steps}steps${suffix}_seed${run_seed}" \
+          --workloads simulation \
+          --seed "${run_seed}" \
+          --sim-model "${model}" \
+          --sim-qubits "${qubits}" \
+          --sim-steps "${steps}" \
+          --sim-time 0.8
         case_id=$((case_id + 1))
       done
     done
     done
   done
-done
-
-# VQE-style chemistry. Grid size controls optimizer/search work. The built-in
-# H2 case is a quality anchor; the 4-qubit fixture checks the generic Pauli
-# Hamiltonian path that can receive OpenFermion/PySCF-generated inputs.
-for seed in 17 23; do
-  for grid in 17 21 25; do
-    maybe_run_case "${case_id}" \
-      "chem_h2_grid${grid}_seed${seed}" \
-      --workloads chemistry \
-      --seed "${seed}" \
-      --chem-grid "${grid}" \
-      --chem-layers 1
-    case_id=$((case_id + 1))
   done
-  for grid in 9 13; do
-    maybe_run_case "${case_id}" \
-      "chem_4q_grid${grid}_seed${seed}" \
-      --workloads chemistry \
-      --seed "${seed}" \
-      --chem-grid "${grid}" \
-      --chem-layers 1 \
-      --chem-hamiltonian-json benchmarks/workloads/hamiltonians/molecular_chain_4q.json
-    case_id=$((case_id + 1))
-  done
-done
-
-# QAOA-style optimization over small MaxCut graph families.
-for seed in 17 23; do
-  for nodes in 4 5; do
-    for graph in ring chordal ladder; do
-    for grid in 7 9 11; do
-      maybe_run_case "${case_id}" \
-        "qaoa_${graph}_${nodes}n_grid${grid}_seed${seed}" \
-        --workloads optimization \
-        --seed "${seed}" \
-        --opt-nodes "${nodes}" \
-        --opt-graph "${graph}" \
-        --opt-grid "${grid}"
-      case_id=$((case_id + 1))
-    done
-    done
-  done
-done
-
-# Hamiltonian simulation. Qubit count, physical model, and Trotter steps control
-# circuit size.
-for seed in 17 23; do
-  for model in tfim heisenberg; do
-  for qubits in 4 5 6; do
-    for steps in 4 6 8; do
-      maybe_run_case "${case_id}" \
-        "sim_${model}_${qubits}q_${steps}steps_seed${seed}" \
-        --workloads simulation \
-        --seed "${seed}" \
-        --sim-model "${model}" \
-        --sim-qubits "${qubits}" \
-        --sim-steps "${steps}" \
-        --sim-time 0.8
-      case_id=$((case_id + 1))
-    done
-  done
-  done
-done
+fi
 
 echo "total_case_templates=${case_id}"
+
+if [[ "${QS_PREFLIGHT_ONLY:-0}" == "1" ]]; then
+  echo "preflight_complete=${SLURM_JOB_ID}"
+  echo "date_end=$(date --iso-8601=seconds)"
+  exit 0
+fi
 
 "${PY}" benchmarks/workloads/summarize_practical_results.py \
   "${OUTDIR}/practical_${SLURM_JOB_ID}_*.json" \
   --summary-json "${SUMMARY_DIR}/practical_suite_${SLURM_JOB_ID}_summary.json" \
-  --csv "${SUMMARY_DIR}/practical_suite_${SLURM_JOB_ID}_summary.csv"
+  --csv "${SUMMARY_DIR}/practical_suite_${SLURM_JOB_ID}_summary.csv" || \
+  echo "summary_empty_or_failed=${SLURM_JOB_ID}"
 
 echo "date_end=$(date --iso-8601=seconds)"

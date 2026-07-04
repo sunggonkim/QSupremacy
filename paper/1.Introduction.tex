@@ -28,6 +28,9 @@ Even if the quantum-circuit path is slower today, it can still be useful if it t
 \noindent\textbf{Observation 4: Real applications are diverse.}
 Public claims about quantum computing often move from one successful example to broad expectations such as better AI, faster drug discovery, or better optimization. A systems paper cannot validate such claims with one toy workload. It must cover representative application families and show the threshold for each family.
 
+\noindent\textbf{Observation 5: Advantage is a feasible region, not a slogan.}
+For a practical workload, quantum advantage depends on several conditions being true at the same time: the quantum path must reach the target quality, the native baseline must be strong, the circuit must fit the available logical qubits, shots must be parallelized enough, and error overhead must not erase the speedup. \SystemName therefore reports an advantage frontier rather than a single yes/no answer.
+
 Many previous studies focus on one part of this stack. Table~\ref{tab:intro-position} summarizes the gap. ScaleQsim and AURORA-Q improve quantum simulation on HPC systems. \cuQuantum provides high-performance GPU primitives. Native ML frameworks provide strong classical baselines. \SystemName connects these pieces into an application-level supremacy threshold model.
 
 \begin{table}[t]
@@ -61,5 +64,6 @@ This draft makes the following intended contributions:
     \item \textbf{Supremacy threshold definition.} We define quantum supremacy as a break-even condition between native HPC/ML paths and quantum-circuit application paths at the same target quality.
     \item \textbf{Measurement framework.} We design a Perlmutter measurement pipeline that records runtime breakdowns, quality, circuit metadata, GPU metadata, and Slurm allocation information.
     \item \textbf{Workload suite.} We define a first measured suite with \texttt{sklearn digits}, quantum kernel classification, and QNN/VQC classification, and we define the next practical suite for ML, chemistry, optimization, and simulation.
-    \item \textbf{Modeling and analysis.} We convert measured circuit costs into required logical gate time, shot throughput, and error overhead, then analyze the hardware region where supremacy becomes possible.
+    \item \textbf{Modeling and analysis.} We convert measured circuit costs into required logical gate time, shot throughput, and error overhead, then analyze the workload-specific hardware region where supremacy becomes possible.
+    \item \textbf{Advantage insights.} We classify workloads by the reason advantage is hard: native-dominated, quality-limited, encoding-limited, shot-limited, or hardware-speed-limited.
 \end{itemize}
