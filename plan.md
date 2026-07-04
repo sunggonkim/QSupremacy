@@ -1013,14 +1013,14 @@ Four-node large-profile scale-out gate completed with job 55470822: 448 cases, 1
 Weak-scaling large-profile runs completed with jobs 55475423, 55475476, and 55475477: 896, 1,792, and 3,552 cases on 8, 16, and 32 nodes; no failed cases.
 Strong-scaling full-workload runs completed with jobs 55475633, 55475634, and 55475635 for 4, 8, and 16 nodes. The existing 32-node full-profile job 55475477 is the 32-node strong-scaling endpoint. All fixed-workload runs completed 3,552 cases with no failed cases.
 Scaling summary figure generated at paper/figures/scaling_summary.pdf.
+Paper narrative updated to follow the accepted-paper structure: generated intro/design figures, RQ-style Evaluation, related-work positioning table, and scaling/advantage sections.
 ```
 
 Next actions:
 
-1. Update the paper narrative around weak scaling, strong scaling, and independent-case throughput.
-2. Add chemistry sparse/Lanczos and simulation sparse-Krylov baselines before claiming production-grade native coverage for those families.
-3. Add a short limitation paragraph: these are throughput scaling results, not distributed single-circuit simulation.
-4. Keep raw per-case JSON out of Git unless archiving is explicitly needed; commit processed summaries, accounting, and figures.
+1. Add chemistry sparse/Lanczos and simulation sparse-Krylov baselines before claiming production-grade native coverage for those families.
+2. Add OpenFermion/PySCF-generated chemistry instances if the paper needs a stronger drug-discovery claim.
+3. Keep raw per-case JSON out of Git unless archiving is explicitly needed; commit processed summaries, accounting, and figures.
 
 ## 12. Completion Criteria
 

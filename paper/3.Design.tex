@@ -5,8 +5,7 @@
 
 \begin{figure}[t]
     \centering
-    \fbox{\parbox{0.92\linewidth}{\centering
-    Placeholder: workload control, native path, quantum path, logging, and hardware projection.}}
+    \includegraphics[width=\linewidth]{figures/design_overview.pdf}
     \caption{Architecture and procedure of \SystemName.}
     \label{fig:design-overview}
 \end{figure}
@@ -99,12 +98,12 @@ This gives a hardware requirement rather than a vague claim of supremacy.
 \noindent\textbf{Advantage Frontier.}
 \SystemName does not reduce the result to one speedup number. It sweeps hardware assumptions and reports the feasible region where the projected quantum path beats the native path at the same quality. This region is the advantage frontier. If no reasonable region exists, the workload is classified by the limiting factor: quality, encoding, shots, error overhead, or native baseline strength.
 
-\subsection{Workload Expansion Plan}
+\subsection{Workload Suite}
 
-Table~\ref{tab:workload-suite} shows the intended workload suite. The current paper has measured the first row. The remaining rows are required before making broad claims about practical quantum supremacy.
+Table~\ref{tab:workload-suite} shows the measured workload suite. The digits workload is the controlled calibration case. The practical suite covers the application families that motivate many real-world quantum-computing claims.
 
 \begin{table}[t]
-\caption{Planned practical workload suite.}
+\caption{Measured workload suite.}
 \centering
 \small
 \resizebox{\columnwidth}{!}{%

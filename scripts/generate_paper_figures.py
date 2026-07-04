@@ -169,6 +169,85 @@ def savefig(name):
     return path
 
 
+def figure_intro_application_gap():
+    fig, axes = plt.subplots(1, 2, figsize=(6.8, 2.6))
+
+    stages = [
+        ("Native HPC", 0.14, "#4C78A8"),
+        ("Quantum\ncircuit app", 0.50, "#F58518"),
+        ("Projected\nQHW path", 0.84, "#54A24B"),
+    ]
+    for label, x, color in stages:
+        axes[0].add_patch(
+            plt.Rectangle((x - 0.12, 0.42), 0.24, 0.25, color=color, alpha=0.82)
+        )
+        axes[0].text(x, 0.545, label, ha="center", va="center", fontsize=8, color="white")
+    for x0, x1 in [(0.26, 0.38), (0.62, 0.72)]:
+        axes[0].annotate(
+            "",
+            xy=(x1, 0.545),
+            xytext=(x0, 0.545),
+            arrowprops={"arrowstyle": "->", "lw": 1.1, "color": "#555555"},
+        )
+    axes[0].text(0.50, 0.25, "Same input, same quality target", ha="center", fontsize=8)
+    axes[0].text(0.50, 0.12, "Question: how fast must quantum hardware be?", ha="center", fontsize=8)
+    axes[0].set_xlim(0, 1)
+    axes[0].set_ylim(0, 1)
+    axes[0].axis("off")
+    axes[0].set_title("Application-level comparison")
+
+    labels = ["Digits\nQNN/VQC", "Digits\nQKernel", "ML", "Chem.", "Opt.", "Sim."]
+    values = [64.9, 421.9, 3483.4, 39654.6, 378588.2, 9634.5]
+    colors = ["#F58518", "#4C78A8", "#4C78A8", "#72B7B2", "#E45756", "#54A24B"]
+    axes[1].bar(np.arange(len(labels)), values, color=colors)
+    axes[1].set_yscale("log")
+    axes[1].set_xticks(np.arange(len(labels)))
+    axes[1].set_xticklabels(labels, fontsize=7)
+    axes[1].set_ylabel("Median required speedup (x)")
+    axes[1].grid(axis="y", which="both", linestyle=":", linewidth=0.6)
+    axes[1].set_title("Measured thresholds")
+
+    path = os.path.join(FIG_DIR, "intro_application_gap.pdf")
+    fig.tight_layout()
+    fig.savefig(path, bbox_inches="tight")
+    plt.close(fig)
+    return path
+
+
+def figure_design_overview():
+    fig, ax = plt.subplots(figsize=(6.8, 2.65))
+    boxes = [
+        ("Shared\nworkload", 0.08, "#4C78A8"),
+        ("Native HPC\npath", 0.30, "#4C78A8"),
+        ("Quantum circuit\npath", 0.52, "#F58518"),
+        ("Cost and quality\nrecords", 0.74, "#72B7B2"),
+        ("Advantage\nfrontier", 0.92, "#54A24B"),
+    ]
+    for label, x, color in boxes:
+        ax.add_patch(
+            plt.Rectangle((x - 0.085, 0.47), 0.17, 0.24, color=color, alpha=0.86)
+        )
+        ax.text(x, 0.59, label, ha="center", va="center", fontsize=8, color="white")
+    for x0, x1 in [(0.165, 0.215), (0.385, 0.435), (0.605, 0.655), (0.825, 0.845)]:
+        ax.annotate(
+            "",
+            xy=(x1, 0.59),
+            xytext=(x0, 0.59),
+            arrowprops={"arrowstyle": "->", "lw": 1.0, "color": "#555555"},
+        )
+    ax.text(0.30, 0.30, "$T_{native}$, quality", ha="center", fontsize=8)
+    ax.text(0.52, 0.30, "qubits, gates, shots, $T_{sim}$", ha="center", fontsize=8)
+    ax.text(0.83, 0.18, "$T_{qhw} < T_{native}$ under the same target quality", ha="center", fontsize=8)
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.axis("off")
+    path = os.path.join(FIG_DIR, "design_overview.pdf")
+    fig.tight_layout()
+    fig.savefig(path, bbox_inches="tight")
+    plt.close(fig)
+    return path
+
+
 def figure_digits_speedup():
     rows = read_csv("data/processed/perlmutter/digits_expanded_55421321_55422142_summary.csv")
     kernel = [float(r["quantum_kernel_required_speedup"]) for r in rows]
@@ -650,6 +729,8 @@ def figure_scaling_summary():
 def main():
     ensure_fig_dir()
     paths = [
+        figure_intro_application_gap(),
+        figure_design_overview(),
         figure_digits_speedup(),
         figure_digits_quality_runtime(),
         figure_practical_suite(),

@@ -1,6 +1,6 @@
 \section{Evaluation}
 
-This section reports the first measured \SystemName result and then defines the remaining evaluation needed for practical application coverage. The current result is not a claim that quantum wins today. It is a calibration experiment that shows how \SystemName converts an application comparison into a supremacy threshold.
+This section evaluates \SystemName in the same style as a systems performance paper: first the setup, then the end-to-end application comparison, then baseline sensitivity, Perlmutter scalability, and advantage analysis. The result is not a claim that quantum wins today. The result is a measured threshold model that explains how fast and how accurate the future quantum path must be to beat native HPC paths.
 
 \subsection{Evaluation Setup}
 
@@ -29,7 +29,31 @@ Cases & 160 \\
 \label{tab:eval-setup}
 \end{table}
 
-\subsection{End-to-End Results}
+\noindent\textbf{Evaluation questions.}
+Table~\ref{tab:eval-questions} summarizes the evaluation flow. Each question maps to a measured table or figure, following the comparison--scalability--analysis structure used by our prior systems papers.
+
+\begin{table}[t]
+\caption{Evaluation roadmap.}
+\centering
+\small
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lll}
+\toprule
+Question & Goal & Main evidence \\
+\midrule
+RQ1 & Compare native ML and quantum-circuit ML & Table~\ref{tab:expanded-summary}, Fig.~\ref{fig:digits-results} \\
+RQ2 & Test quality sensitivity & Table~\ref{tab:class-sensitivity} \\
+RQ3 & Cover practical application families & Table~\ref{tab:practical-suite}, Fig.~\ref{fig:practical-suite} \\
+RQ4 & Stress the native baseline & Fig.~\ref{fig:strong-native} \\
+RQ5 & Scale on Perlmutter GPU nodes & Table~\ref{tab:scaling}, Fig.~\ref{fig:scaling-summary} \\
+RQ6 & Project advantage regions & Fig.~\ref{fig:advantage-frontier}, Fig.~\ref{fig:workload-taxonomy} \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:eval-questions}
+\end{table}
+
+\subsection{RQ1: Native ML versus Quantum-Circuit ML}
 
 Table~\ref{tab:expanded-summary} summarizes the expanded sweep. Native ML remains strong across the workload. Quantum kernels sometimes reach high quality, but the measured circuit path still requires hundreds of times faster projected execution to match the native path. QNN/VQC has a smaller required speedup in many cases, but its quality is usually below the native baseline.
 
@@ -51,7 +75,7 @@ QNN/VQC required speedup & 21.1$\times$ & 64.9$\times$ & 171.7$\times$ \\
 \label{tab:expanded-summary}
 \end{table}
 
-\noindent\textbf{Key result.}
+\noindent\textbf{Answer.}
 The first result supports the main thesis: the useful output is not ``quantum is faster'' or ``quantum is slower.'' The useful output is the hardware requirement. For this workload, even when quantum kernels achieve good accuracy, the projected execution must improve by a median 421.9$\times$ to reach native time. For QNN/VQC, the median threshold is 64.9$\times$, but the model usually fails to match native accuracy.
 
 \begin{figure}[t]
@@ -73,7 +97,7 @@ The first result supports the main thesis: the useful output is not ``quantum is
 \label{fig:digits-results}
 \end{figure}
 
-\subsection{Quality Sensitivity}
+\subsection{RQ2: Quality Sensitivity}
 
 Table~\ref{tab:class-sensitivity} shows that the threshold depends on the data pair. The easy pair, 0-vs-1, gives high quantum-kernel accuracy. Harder pairs such as 3-vs-8 and 5-vs-8 reduce quality and make a simple speedup claim invalid. This is exactly why \SystemName keeps quality and runtime together.
 
@@ -94,11 +118,12 @@ Class pair & Kernel acc. & QNN/VQC acc. \\
 \label{tab:class-sensitivity}
 \end{table}
 
-\subsection{Why Digits Is Not Enough}
+\noindent\textbf{Answer.}
+Quality changes the interpretation of speed. A lower runtime threshold does not imply advantage if the quantum model misses the native target quality.
+
+\subsection{RQ3: Practical Application Suite}
 
 The digits workload is useful because it is controlled, cheap, and easy to repeat. It is not enough for a practical quantum supremacy claim. Real users care about broader applications: AI pipelines, molecular energy estimation for drug discovery, optimization, and scientific simulation. These workloads have different native baselines and different quantum overheads.
-
-\subsection{Required Practical Workloads}
 
 \SystemName also evaluates a practical suite beyond the controlled binary digits sweep. The suite covers ML classification, VQE-style chemistry, QAOA-style optimization, and Hamiltonian simulation. These workloads represent the application classes where users often expect quantum advantage, but the measured result shows that the threshold is application dependent and usually large. The main practical-suite result below uses the strengthened native baseline gate: ML selects among six native classifiers, and optimization selects among exact, greedy, local-search, and annealing baselines.
 
@@ -126,6 +151,11 @@ Simulation & 36 & 9,634.5$\times$ & 0.0250 \\
 \label{fig:practical-suite}
 \end{figure}
 
+\noindent\textbf{Answer.}
+The practical suite confirms that the gap is not an ML-only artifact. Every family remains outside the current advantage region, but the reason differs by family. Chemistry and simulation are often closer in quality but still require large execution improvement, while ML and optimization are frequently quality-limited.
+
+\subsection{RQ4: Native Baseline Stress Test}
+
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figures/strong_native_comparison.pdf}
@@ -133,9 +163,10 @@ Simulation & 36 & 9,634.5$\times$ & 0.0250 \\
 \label{fig:strong-native}
 \end{figure}
 
-The strong-native run completed as a one-node, four-GPU bundled allocation on \Perlmutter. The job finished 190 cases in 6 minutes and 59 seconds with exit code 0:0, 190 raw JSON outputs, and empty stderr logs. The selected ML baselines were RBF kernel ridge, nearest centroid, kNN, softmax regression, and linear ridge depending on the case; the selected optimization baselines were mostly greedy assignment, with exact enumeration selected when it was fastest at the best cut value.
+\noindent\textbf{Answer.}
+The native baseline is part of the model. Strengthening the native side increases the ML threshold by 6.6$\times$ and the optimization threshold by 2.3$\times$ relative to the initial native-baseline sweep. The strong-native run completed as a one-node, four-GPU bundled allocation on \Perlmutter. The job finished 190 cases in 6 minutes and 59 seconds with exit code 0:0, 190 raw JSON outputs, and empty stderr logs. The selected ML baselines were RBF kernel ridge, nearest centroid, kNN, softmax regression, and linear ridge depending on the case; the selected optimization baselines were mostly greedy assignment, with exact enumeration selected when it was fastest at the best cut value.
 
-\subsection{Weak and Strong Scaling}
+\subsection{RQ5: Perlmutter Weak and Strong Scaling}
 
 The large-profile suite contains 3,552 application cases. We evaluate two scaling modes. In weak scaling, each GPU receives roughly 28 cases, so total work grows with the number of GPUs. In strong scaling, every run executes the same 3,552 cases and the chunk slots are striped across the available GPUs. Both modes use one Slurm task per A100 GPU and independent application cases; this is throughput scaling, not distributed single-circuit simulation.
 
@@ -166,9 +197,10 @@ Strong & 32 & 128 & 3,552 & 4:17 \\
 \label{fig:scaling-summary}
 \end{figure}
 
+\noindent\textbf{Answer.}
 All six scaling jobs completed with exit code 0:0. The generated raw JSON counts match the expected case counts: 896, 1,792, and 3,552 for the weak-scaling runs, and 3,552 for each strong-scaling run. No failed case, traceback, or timeout was recorded in the task logs. The weak-scaling results keep per-GPU throughput close to stable from 8 to 32 nodes. The strong-scaling result reduces time-to-solution from 30 minutes 55 seconds on four nodes to 4 minutes 17 seconds on 32 nodes, a 7.2$\times$ speedup over an 8$\times$ node increase. This validates the bundled multi-node execution path for the advantage-modeling workflow.
 
-\subsection{Advantage Frontier}
+\subsection{RQ6: Advantage Frontier}
 
 The practical-suite result gives one speed threshold per case, but a speed-only threshold is still incomplete. A practical advantage claim also needs comparable output quality. We therefore convert each measured case into an advantage frontier over two axes: projected quantum execution speedup and quality-gap recovery. A point is in the advantage region only if the projected quantum path is no slower than the selected native path and the remaining quality gap is within a small workload tolerance.
 
@@ -179,10 +211,10 @@ The practical-suite result gives one speed threshold per case, but a speed-only 
 \label{fig:advantage-frontier}
 \end{figure}
 
-\noindent\textbf{Key insight.}
+\noindent\textbf{Answer.}
 The frontier separates speed-limited and quality-limited workloads. Chemistry and simulation often have small quality gaps, so their frontier is mostly pushed right by runtime. ML has a lower runtime threshold in some cases, but the quality gap must shrink before speed alone becomes meaningful. Optimization is far from the advantage region on both axes for the current QAOA configuration. This is the central point of \SystemName: quantum advantage is a feasible region, not a single speedup slogan.
 
-\subsection{Bundled Allocation Pilot}
+\subsection{Operational Stability}
 
 The official practical sweep was first run as multiple shared-GPU jobs. We then validated a bundled allocation path using \texttt{salloc} with two A100 GPUs. This pilot is not a new advantage claim. It checks that \SystemName can run multiple chunks inside one allocation, keep the GPUs busy with independent workload cases, and produce the same summary format used by the official sweep.
 
@@ -212,11 +244,11 @@ Simulation & 18 & 11,629.0$\times$ & 0.0250 \\
 
 The pilot completed in 6 minutes and 54 seconds with 96 raw JSON outputs and empty stderr logs. Its main systems result is operational: the correct bundled pattern is a single \texttt{srun} step with multiple tasks, where each task selects a chunk using \texttt{SLURM\_PROCID}. Launching multiple overlapping \texttt{srun} steps was less reliable because of step-level resource ownership.
 
-\subsection{Hardware Projection}
+\subsection{Hardware Projection Model}
 
 The current projection uses measured circuit metadata to compute a required speedup relative to native runtime. The next version should convert this speedup into logical gate time, measurement time, shot throughput, and error-correction overhead. The output should be a heatmap that answers: for each workload family, how fast must quantum hardware be before the quantum path beats the native HPC path at the same quality?
 
-\subsection{Advantage Insight}
+\subsection{Bottleneck Taxonomy}
 
 The main evaluation output is not that the simulator is slow. The simulator is the measurement tool. The paper should use the measurements to explain what kind of quantum hardware and algorithmic behavior would be necessary for advantage. For each workload family, \SystemName should report whether the path is currently speed-limited, quality-limited, encoding-limited, shot-limited, error-overhead-limited, or native-dominated.
 
@@ -231,6 +263,6 @@ Figure~\ref{fig:workload-taxonomy} shows this classification for the strong-nati
 
 This classification is the practical insight. If a workload is speed-limited, faster logical gates or more shot parallelism may move it into the advantage region. If it is quality-limited, faster hardware alone is not enough. If it is native-dominated, the correct conclusion is that the native HPC baseline remains the better application path unless the quantum algorithm changes.
 
-\subsection{Sensitivity and Stability}
+\subsection{Remaining Sensitivity Checks}
 
 The current expanded sweep covers class pair, sample count, PCA dimension, circuit depth, and seed. The next experiments must add warmup separation, repeated trials, shot sensitivity, ansatz sensitivity, optimizer sensitivity, and error mitigation overhead. These are necessary because small circuit experiments can be dominated by initialization, Python dispatch, and circuit construction overhead.

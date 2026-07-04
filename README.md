@@ -238,10 +238,12 @@ Native model selection in the strong-native run:
 | Optimization | greedy assignment 30 cases, exact enumeration 6 |
 | Simulation | exact dense eigendecomposition 36 cases |
 
-Advantage-frontier figure:
+Paper figures:
 
 ```text
 paper/figures/advantage_frontier.pdf
+paper/figures/intro_application_gap.pdf
+paper/figures/design_overview.pdf
 paper/figures/strong_native_comparison.pdf
 paper/figures/workload_taxonomy.pdf
 paper/figures/scale_out_gate.pdf
@@ -533,9 +535,8 @@ cd paper
 make
 ```
 
-The current draft is not submission-ready, but it now contains measured digits
-results, the initial 190-case practical suite, the strong-native one-node
-full-packing result, the bundled `salloc` pilot, and the advantage-frontier
-figure. The next paper-quality update should add the workload taxonomy and then
-run the 2-node gate only after confirming the manifest is large enough to keep
-8 GPUs useful.
+The current draft is not submission-ready, but it now follows the accepted-paper
+structure more closely: intro positioning table, generated intro/design figures,
+RQ-style evaluation sections, multiple result figures, a related-work positioning
+table, and the completed large-profile weak/strong scaling results through
+32 GPU nodes.

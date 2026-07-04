@@ -10,8 +10,7 @@ But this is not the same as quantum supremacy for applications. A simulator can 
 
 \begin{figure}[t]
     \centering
-    \fbox{\parbox{0.92\linewidth}{\centering
-    Placeholder: native ML path vs quantum kernel path vs QNN/VQC path.}}
+    \includegraphics[width=\linewidth]{figures/intro_application_gap.pdf}
     \caption{Application-level comparison target. The key comparison is not simulator versus simulator. The key comparison is native application execution versus quantum-circuit application execution and projected quantum hardware execution.}
     \label{fig:intro-gap}
 \end{figure}
@@ -56,14 +55,15 @@ Native ML studies &  & \checkmark &  &  \\
 \noindent\textbf{Key idea.}
 \SystemName treats quantum supremacy as a modeling and analysis problem. In this paper, the supremacy threshold is the condition where the projected quantum-circuit path becomes faster than the measured native HPC/ML path under the same workload and quality target. For each workload, \SystemName records the cost of each stage and then projects the quantum hardware region where this condition holds.
 
-In this paper, we present \SystemName, a quantum supremacy modeling and analysis study for HPC systems. \SystemName starts with a controlled ML workload: \texttt{sklearn digits} native ML baselines, quantum kernel classifiers, and QNN/VQC classifiers. This first workload is not the final claim. It is the calibration point that validates the measurement pipeline. The full study targets practical application families: quantum ML, molecular energy estimation for drug discovery, combinatorial optimization, and quantum/scientific simulation. This structure follows the logic of our accepted systems papers: first expose the bottleneck, then define the modeling design, then evaluate each component and its sensitivity.
+In this paper, we present \SystemName, a quantum supremacy modeling and analysis study for HPC systems. \SystemName starts with a controlled ML workload: \texttt{sklearn digits} native ML baselines, quantum kernel classifiers, and QNN/VQC classifiers. This first workload is the calibration point that validates the measurement pipeline. We then scale the study to a practical suite with ML, molecular energy estimation for drug discovery, combinatorial optimization, and Hamiltonian simulation. This structure follows the logic of our accepted systems papers: first expose the bottleneck, then define the modeling design, then evaluate each component, scaling behavior, and sensitivity.
 
 This draft makes the following intended contributions:
 
 \begin{itemize}[leftmargin=*]
     \item \textbf{Supremacy threshold definition.} We define quantum supremacy as a break-even condition between native HPC/ML paths and quantum-circuit application paths at the same target quality.
-    \item \textbf{Measurement framework.} We design a Perlmutter measurement pipeline that records runtime breakdowns, quality, circuit metadata, GPU metadata, and Slurm allocation information.
-    \item \textbf{Workload suite.} We define a first measured suite with \texttt{sklearn digits}, quantum kernel classification, and QNN/VQC classification, and we define the next practical suite for ML, chemistry, optimization, and simulation.
-    \item \textbf{Modeling and analysis.} We convert measured circuit costs into required logical gate time, shot throughput, and error overhead, then analyze the workload-specific hardware region where supremacy becomes possible.
+    \item \textbf{Measurement framework.} We build a Perlmutter measurement pipeline that records runtime breakdowns, quality, circuit metadata, GPU metadata, and Slurm allocation information.
+    \item \textbf{Practical workload suite.} We evaluate controlled quantum ML and a practical suite covering ML, chemistry, optimization, and simulation, including a 3,552-case large profile.
+    \item \textbf{Perlmutter scaling result.} We run the large profile up to 32 GPU nodes and report both weak scaling and fixed-workload strong scaling.
+    \item \textbf{Modeling and analysis.} We convert measured circuit costs into required logical gate speed, shot throughput, and quality-gap recovery, then analyze the workload-specific hardware region where supremacy becomes possible.
     \item \textbf{Advantage insights.} We classify workloads by the reason advantage is hard: native-dominated, quality-limited, encoding-limited, shot-limited, or hardware-speed-limited.
 \end{itemize}
