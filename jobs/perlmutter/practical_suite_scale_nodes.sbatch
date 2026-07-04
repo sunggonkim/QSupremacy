@@ -4,6 +4,10 @@
 # Override at submit time, for example:
 #   sbatch -q debug -t 00:30:00 -N 1 jobs/perlmutter/practical_suite_scale_nodes.sbatch
 #   sbatch -q regular -t 01:00:00 -N 16 jobs/perlmutter/practical_suite_scale_nodes.sbatch
+#
+# Scaling modes:
+#   QS_SCALE_MODE=weak    each GPU runs one chunk slot; total work grows with GPUs.
+#   QS_SCALE_MODE=strong  all chunk slots are striped over available GPUs.
 
 #SBATCH -A m1248
 #SBATCH -C gpu
@@ -40,6 +44,12 @@ CPUS_PER_CHUNK="${QS_CPUS_PER_CHUNK:-${SLURM_CPUS_PER_TASK:-32}}"
 RUN_TAG="${QS_RUN_TAG:-${ALLOC_ID}_scale_${NODE_COUNT}n_${TASK_COUNT}g}"
 SWEEP_PROFILE="${QS_SWEEP_PROFILE:-standard}"
 REPEAT_COUNT="${QS_REPEAT_COUNT:-}"
+SCALE_MODE="${QS_SCALE_MODE:-weak}"
+
+if [[ "${SCALE_MODE}" != "weak" && "${SCALE_MODE}" != "strong" ]]; then
+  echo "unsupported QS_SCALE_MODE=${SCALE_MODE}; expected weak or strong" >&2
+  exit 2
+fi
 
 echo "allocation_id=${ALLOC_ID}"
 echo "run_tag=${RUN_TAG}"
@@ -53,6 +63,7 @@ echo "cpus_per_chunk=${CPUS_PER_CHUNK}"
 echo "preflight_only=${QS_PREFLIGHT_ONLY:-0}"
 echo "sweep_profile=${SWEEP_PROFILE}"
 echo "repeat_count=${REPEAT_COUNT:-auto}"
+echo "scale_mode=${SCALE_MODE}"
 echo "date_start=$(date --iso-8601=seconds)"
 if [[ -n "${SLURM_JOB_NODELIST:-}" ]]; then
   scontrol show hostnames "${SLURM_JOB_NODELIST}"
@@ -61,7 +72,7 @@ else
 fi
 nvidia-smi -L || true
 
-export RUN_TAG CHUNK_COUNT TASK_COUNT FAMILIES CASE_TIMEOUT LOGDIR SWEEP_PROFILE REPEAT_COUNT
+export RUN_TAG CHUNK_COUNT TASK_COUNT FAMILIES CASE_TIMEOUT LOGDIR SWEEP_PROFILE REPEAT_COUNT SCALE_MODE
 srun -N "${NODE_COUNT}" -n "${TASK_COUNT}" -c "${CPUS_PER_CHUNK}" \
   --gpus-per-task=1 \
   --gpu-bind=single:1 \
@@ -70,13 +81,26 @@ srun -N "${NODE_COUNT}" -n "${TASK_COUNT}" -c "${CPUS_PER_CHUNK}" \
     cd /pscratch/sd/s/sgkim/Skim-Qsupreme
     chunk="${SLURM_PROCID}"
     chunk_tag="${RUN_TAG}_c${chunk}"
+    if [[ "${SCALE_MODE}" == "strong" ]]; then
+      chunk_ids=""
+      next_chunk="${chunk}"
+      while (( next_chunk < CHUNK_COUNT )); do
+        if [[ -n "${chunk_ids}" ]]; then
+          chunk_ids="${chunk_ids},"
+        fi
+        chunk_ids="${chunk_ids}${next_chunk}"
+        next_chunk=$((next_chunk + TASK_COUNT))
+      done
+    else
+      chunk_ids="${chunk}"
+    fi
     out_log="${LOGDIR}/qsup-prac-scale-${chunk_tag}.out"
     err_log="${LOGDIR}/qsup-prac-scale-${chunk_tag}.err"
-    echo "task_start=${chunk} tag=${chunk_tag} host=$(hostname) cuda_visible_devices=${CUDA_VISIBLE_DEVICES:-unset}"
+    echo "task_start=${chunk} tag=${chunk_tag} chunk_ids=${chunk_ids} host=$(hostname) cuda_visible_devices=${CUDA_VISIBLE_DEVICES:-unset}"
     env \
       SLURM_JOB_ID="${chunk_tag}" \
       QS_CHUNK_ID="${chunk}" \
-      QS_CHUNK_IDS="${chunk}" \
+      QS_CHUNK_IDS="${chunk_ids}" \
       QS_CHUNK_COUNT="${CHUNK_COUNT}" \
       QS_WORKLOAD_FAMILIES="${FAMILIES}" \
       QS_CASE_TIMEOUT="${CASE_TIMEOUT}" \

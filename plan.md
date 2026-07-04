@@ -1013,16 +1013,18 @@ Four-node large-profile scale-out gate completed with job 55470822: 448 cases, 1
 Eight-node large-profile scale-out gate submitted as job 55475423 and should be left running until final Slurm state.
 Sixteen-node regular-QOS large-profile run submitted as job 55475476 and should be left running until final Slurm state.
 Thirty-two-node regular-QOS large-profile run submitted as job 55475477 and should be left running until final Slurm state.
+Strong-scaling full-workload runs submitted as jobs 55475633, 55475634, and 55475635 for 4, 8, and 16 nodes. The existing 32-node full-profile job 55475477 is the 32-node strong-scaling endpoint.
 ```
 
 Next actions:
 
 1. Do not launch a 32-node run yet.
 2. Add chemistry sparse/Lanczos and simulation sparse-Krylov baselines before any paper-scale 16/32 node result.
-3. Wait for the 8-node gate (`55475423`) and regular-QOS 16/32-node runs (`55475476`, `55475477`) to reach final Slurm states; do not cancel due to queue/start-time estimates.
+3. Wait for weak-scaling jobs (`55475423`, `55475476`, `55475477`) and strong-scaling jobs (`55475633`, `55475634`, `55475635`) to reach final Slurm states; do not cancel due to queue/start-time estimates.
 4. After each run completes, validate state, exit code, case count, failed-case logs, summary JSON/CSV, and accounting.
 5. Update README, paper figures, paper evaluation text, and GitHub only after successful final-state validation.
-6. Treat 16/32-node results as throughput scaling across independent cases unless distributed single-circuit simulation is implemented.
+6. Report weak scaling as throughput scaling with fixed work per GPU, and strong scaling as fixed 3,552-case workload time-to-solution.
+7. Treat all scale-out results as independent-case throughput unless distributed single-circuit simulation is implemented.
 
 ## 12. Completion Criteria
 

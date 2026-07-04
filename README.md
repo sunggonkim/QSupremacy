@@ -49,6 +49,10 @@ The core comparison is not simulator vs simulator. The comparison is:
 - Thirty-two-node large-profile scale-out run submitted:
   job `55475477`, regular QOS, 32 Perlmutter GPU nodes, 128 A100 GPUs, chunk
   slots 0-127 of 128.
+- Fixed-workload strong-scaling runs submitted:
+  jobs `55475633`, `55475634`, and `55475635` run the full 3,552-case large
+  profile on 4, 8, and 16 GPU nodes, respectively. The existing 32-node job
+  `55475477` is the matching full-profile 32-node point.
 - Advantage-frontier figure added:
   `paper/figures/advantage_frontier.pdf`.
 - Workload taxonomy added:
@@ -324,6 +328,8 @@ case_timeout: 180s
 Submitted regular-QOS scale-out jobs:
 
 ```text
+Weak-scaling / throughput jobs:
+
 job_id: 55475476
 profile: large
 nodes: 16
@@ -339,6 +345,41 @@ nodes: 32
 gpus: 128
 chunk_count: 128
 expected chunk slots: 0-127
+case_timeout: 180s
+qos: regular
+
+Strong-scaling / fixed-workload jobs:
+
+job_id: 55475633
+profile: large
+scale_mode: strong
+nodes: 4
+gpus: 16
+chunk_count: 128
+covered chunk slots: 0-127 striped across 16 GPUs
+expected cases: 3,552
+case_timeout: 180s
+qos: regular
+
+job_id: 55475634
+profile: large
+scale_mode: strong
+nodes: 8
+gpus: 32
+chunk_count: 128
+covered chunk slots: 0-127 striped across 32 GPUs
+expected cases: 3,552
+case_timeout: 180s
+qos: regular
+
+job_id: 55475635
+profile: large
+scale_mode: strong
+nodes: 16
+gpus: 64
+chunk_count: 128
+covered chunk slots: 0-127 striped across 64 GPUs
+expected cases: 3,552
 case_timeout: 180s
 qos: regular
 ```
