@@ -135,35 +135,38 @@ Simulation & 36 & 9,634.5$\times$ & 0.0250 \\
 
 The strong-native run completed as a one-node, four-GPU bundled allocation on \Perlmutter. The job finished 190 cases in 6 minutes and 59 seconds with exit code 0:0, 190 raw JSON outputs, and empty stderr logs. The selected ML baselines were RBF kernel ridge, nearest centroid, kNN, softmax regression, and linear ridge depending on the case; the selected optimization baselines were mostly greedy assignment, with exact enumeration selected when it was fastest at the best cut value.
 
-\subsection{Scale-Out Gate}
+\subsection{Weak and Strong Scaling}
 
-After the one-node strong-native gate, we ran the same bundled execution model on two and four \Perlmutter GPU nodes. These are not yet the full 3,552-case large-profile experiment. They are scale-out gates that check whether one allocation can launch one task per GPU across multiple nodes, partition the large manifest by chunk id, and preserve the same result schema without failed cases.
+The large-profile suite contains 3,552 application cases. We evaluate two scaling modes. In weak scaling, each GPU receives roughly 28 cases, so total work grows with the number of GPUs. In strong scaling, every run executes the same 3,552 cases and the chunk slots are striped across the available GPUs. Both modes use one Slurm task per A100 GPU and independent application cases; this is throughput scaling, not distributed single-circuit simulation.
 
 \begin{table}[t]
-\caption{Four-node large-profile scale-out gate. Values are medians over chunk slots 0--15 of 128.}
+\caption{Large-profile weak and strong scaling on \Perlmutter.}
 \centering
 \small
-\begin{tabular}{lccc}
+\begin{tabular}{lrrrr}
 \toprule
-Workload & Cases & Required speedup & Quality gap \\
+Mode & Nodes & GPUs & Cases & Elapsed \\
 \midrule
-ML & 256 & 40,893.5$\times$ & 0.2813 \\
-Chemistry & 32 & 43,424.0$\times$ & 0.0203 \\
-Optimization & 96 & 354,663.1$\times$ & 0.2500 \\
-Simulation & 64 & 5,521.1$\times$ & 0.0004 \\
+Weak & 8 & 32 & 896 & 4:05 \\
+Weak & 16 & 64 & 1,792 & 4:04 \\
+Weak & 32 & 128 & 3,552 & 4:17 \\
+Strong & 4 & 16 & 3,552 & 30:55 \\
+Strong & 8 & 32 & 3,552 & 15:13 \\
+Strong & 16 & 64 & 3,552 & 11:05 \\
+Strong & 32 & 128 & 3,552 & 4:17 \\
 \bottomrule
 \end{tabular}
-\label{tab:scale-gate}
+\label{tab:scaling}
 \end{table}
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\linewidth]{figures/scale_out_gate.pdf}
-\caption{Scale-out gate from one to two \Perlmutter GPU nodes. The left panel shows bundled throughput. The right panel checks that the measured advantage thresholds remain in the same order of magnitude when the large manifest is partitioned across eight GPUs.}
-\label{fig:scale-gate}
+\includegraphics[width=\linewidth]{figures/scaling_summary.pdf}
+\caption{Large-profile scaling. Weak scaling keeps per-GPU work nearly fixed and increases total throughput. Strong scaling fixes the full 3,552-case workload and measures time-to-solution speedup relative to four nodes.}
+\label{fig:scaling-summary}
 \end{figure}
 
-The two-node job completed 224 cases in 4 minutes and 28 seconds on eight A100 GPUs with exit code 0:0. The four-node job completed 448 cases in 4 minutes and 43 seconds on sixteen A100 GPUs with exit code 0:0. In both jobs, each GPU task completed 28 cases, and no timeout or failed case was recorded. In the four-node result, the selected ML baselines were nearest centroid, linear ridge, kNN, RBF kernel ridge, softmax regression, and MLP. The selected optimization baselines were greedy assignment and exact enumeration. These results validate the multi-node bundled path used for the next 8-, 16-, and 32-node experiments; they should not be interpreted as distributed single-circuit simulation.
+All six scaling jobs completed with exit code 0:0. The generated raw JSON counts match the expected case counts: 896, 1,792, and 3,552 for the weak-scaling runs, and 3,552 for each strong-scaling run. No failed case, traceback, or timeout was recorded in the task logs. The weak-scaling results keep per-GPU throughput close to stable from 8 to 32 nodes. The strong-scaling result reduces time-to-solution from 30 minutes 55 seconds on four nodes to 4 minutes 17 seconds on 32 nodes, a 7.2$\times$ speedup over an 8$\times$ node increase. This validates the bundled multi-node execution path for the advantage-modeling workflow.
 
 \subsection{Advantage Frontier}
 

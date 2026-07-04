@@ -68,6 +68,89 @@ SCALE_GATE_RUNS = [
     },
 ]
 
+WEAK_SCALING_RUNS = [
+    {
+        "label": "8 nodes",
+        "nodes": 8,
+        "gpus": 32,
+        "cases": 896,
+        "elapsed_sec": 245,
+        "summary": (
+            "data/processed/perlmutter/"
+            "practical_suite_strongnative_8node_large128c0c31_20260704060009_summary.json"
+        ),
+    },
+    {
+        "label": "16 nodes",
+        "nodes": 16,
+        "gpus": 64,
+        "cases": 1792,
+        "elapsed_sec": 244,
+        "summary": (
+            "data/processed/perlmutter/"
+            "practical_suite_strongnative_16node_large128c0c63_20260704060230_summary.json"
+        ),
+    },
+    {
+        "label": "32 nodes",
+        "nodes": 32,
+        "gpus": 128,
+        "cases": 3552,
+        "elapsed_sec": 257,
+        "summary": (
+            "data/processed/perlmutter/"
+            "practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.json"
+        ),
+    },
+]
+
+STRONG_SCALING_RUNS = [
+    {
+        "label": "4 nodes",
+        "nodes": 4,
+        "gpus": 16,
+        "cases": 3552,
+        "elapsed_sec": 1855,
+        "summary": (
+            "data/processed/perlmutter/"
+            "practical_suite_strongscale_4node_large128full_20260704060904_summary.json"
+        ),
+    },
+    {
+        "label": "8 nodes",
+        "nodes": 8,
+        "gpus": 32,
+        "cases": 3552,
+        "elapsed_sec": 913,
+        "summary": (
+            "data/processed/perlmutter/"
+            "practical_suite_strongscale_8node_large128full_20260704060904_summary.json"
+        ),
+    },
+    {
+        "label": "16 nodes",
+        "nodes": 16,
+        "gpus": 64,
+        "cases": 3552,
+        "elapsed_sec": 665,
+        "summary": (
+            "data/processed/perlmutter/"
+            "practical_suite_strongscale_16node_large128full_20260704060904_summary.json"
+        ),
+    },
+    {
+        "label": "32 nodes",
+        "nodes": 32,
+        "gpus": 128,
+        "cases": 3552,
+        "elapsed_sec": 257,
+        "summary": (
+            "data/processed/perlmutter/"
+            "practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.json"
+        ),
+    },
+]
+
 
 def ensure_fig_dir():
     os.makedirs(FIG_DIR, exist_ok=True)
@@ -509,6 +592,61 @@ def figure_scale_out_gate():
     return path
 
 
+def figure_scaling_summary():
+    weak_runs = [run for run in WEAK_SCALING_RUNS if load_summary(run["summary"]) is not None]
+    strong_runs = [run for run in STRONG_SCALING_RUNS if load_summary(run["summary"]) is not None]
+    if len(weak_runs) < 2 or len(strong_runs) < 2:
+        return None
+
+    fig, axes = plt.subplots(1, 2, figsize=(6.8, 2.65))
+
+    weak_nodes = np.array([run["nodes"] for run in weak_runs], dtype=float)
+    weak_cases_per_sec = np.array(
+        [run["cases"] / run["elapsed_sec"] for run in weak_runs], dtype=float
+    )
+    weak_cases_per_sec_gpu = np.array(
+        [run["cases"] / (run["elapsed_sec"] * run["gpus"]) for run in weak_runs],
+        dtype=float,
+    )
+    axes[0].plot(weak_nodes, weak_cases_per_sec, marker="o", color="#4C78A8", label="cases/sec")
+    axes[0].plot(
+        weak_nodes,
+        weak_cases_per_sec_gpu,
+        marker="s",
+        color="#F58518",
+        label="cases/sec/GPU",
+    )
+    axes[0].set_xscale("log", base=2)
+    axes[0].set_xticks(weak_nodes)
+    axes[0].set_xticklabels([str(int(x)) for x in weak_nodes])
+    axes[0].set_xlabel("Nodes")
+    axes[0].set_ylabel("Throughput")
+    axes[0].grid(True, which="both", linestyle=":", linewidth=0.6)
+    axes[0].legend(frameon=False, fontsize=7)
+    axes[0].set_title("Weak scaling")
+
+    strong_nodes = np.array([run["nodes"] for run in strong_runs], dtype=float)
+    strong_elapsed = np.array([run["elapsed_sec"] for run in strong_runs], dtype=float)
+    speedup = strong_elapsed[0] / strong_elapsed
+    ideal = strong_nodes / strong_nodes[0]
+    axes[1].plot(strong_nodes, speedup, marker="o", color="#54A24B", label="measured")
+    axes[1].plot(strong_nodes, ideal, linestyle="--", color="#888888", label="ideal")
+    axes[1].set_xscale("log", base=2)
+    axes[1].set_xticks(strong_nodes)
+    axes[1].set_xticklabels([str(int(x)) for x in strong_nodes])
+    axes[1].set_xlabel("Nodes")
+    axes[1].set_ylabel("Speedup vs. 4 nodes")
+    axes[1].grid(True, which="both", linestyle=":", linewidth=0.6)
+    axes[1].legend(frameon=False, fontsize=7)
+    axes[1].set_title("Strong scaling")
+
+    path = os.path.join(FIG_DIR, "scaling_summary.pdf")
+    fig.tight_layout()
+    fig.savefig(path, bbox_inches="tight")
+    plt.close(fig)
+    return path
+
+
 def main():
     ensure_fig_dir()
     paths = [
@@ -520,6 +658,7 @@ def main():
         figure_advantage_frontier(),
         figure_workload_taxonomy(),
         figure_scale_out_gate(),
+        figure_scaling_summary(),
     ]
     for path in paths:
         if path:

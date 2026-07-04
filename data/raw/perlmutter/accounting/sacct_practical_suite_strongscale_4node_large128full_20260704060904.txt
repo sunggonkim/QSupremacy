@@ -1,0 +1,5 @@
+JobID|JobName|State|ExitCode|Elapsed|Submit|Start|End|AllocTRES
+55475633|qsup-prac-scale|RUNNING|0:0|00:30:54|2026-07-04T06:09:04|2026-07-04T07:55:48|Unknown|billing=512,cpu=512,gres/gpu:a100=16,gres/gpu=16,mem=919608M,node=4
+55475633.batch|batch|RUNNING|0:0|00:30:54|2026-07-04T07:55:48|2026-07-04T07:55:48|Unknown|cpu=128,gres/gpu:a100=4,gres/gpu=4,mem=229902M,node=1
+55475633.extern|extern|RUNNING|0:0|00:30:54|2026-07-04T07:55:48|2026-07-04T07:55:48|Unknown|billing=512,cpu=512,gres/gpu:a100=16,gres/gpu=16,mem=919608M,node=4
+55475633.0|bash|COMPLETED|0:0|00:30:47|2026-07-04T07:55:52|2026-07-04T07:55:52|2026-07-04T08:26:39|cpu=512,gres/gpu:a100=16,gres/gpu=16,mem=919608M,node=4

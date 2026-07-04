@@ -40,19 +40,13 @@ The core comparison is not simulator vs simulator. The comparison is:
 - Four-node large-profile scale-out gate completed:
   job `55470822`, 4 Perlmutter GPU nodes, 16 A100 GPUs, 448 cases from
   chunk slots 0-15 of 128, 4 minutes 43 seconds elapsed, no failed cases.
-- Eight-node large-profile scale-out gate submitted:
-  job `55475423`, 8 Perlmutter GPU nodes, 32 A100 GPUs, chunk slots 0-31 of
-  128. Leave it running until Slurm reports a final state.
-- Sixteen-node large-profile scale-out run submitted:
-  job `55475476`, regular QOS, 16 Perlmutter GPU nodes, 64 A100 GPUs, chunk
-  slots 0-63 of 128.
-- Thirty-two-node large-profile scale-out run submitted:
-  job `55475477`, regular QOS, 32 Perlmutter GPU nodes, 128 A100 GPUs, chunk
-  slots 0-127 of 128.
-- Fixed-workload strong-scaling runs submitted:
-  jobs `55475633`, `55475634`, and `55475635` run the full 3,552-case large
-  profile on 4, 8, and 16 GPU nodes, respectively. The existing 32-node job
-  `55475477` is the matching full-profile 32-node point.
+- Large-profile weak scaling completed:
+  jobs `55475423`, `55475476`, and `55475477` completed 896, 1,792, and
+  3,552 cases on 8, 16, and 32 GPU nodes with no failed cases.
+- Large-profile strong scaling completed:
+  jobs `55475633`, `55475634`, and `55475635` completed the fixed 3,552-case
+  profile on 4, 8, and 16 GPU nodes. Job `55475477` is the matching full-profile
+  32-node point.
 - Advantage-frontier figure added:
   `paper/figures/advantage_frontier.pdf`.
 - Workload taxonomy added:
@@ -251,6 +245,7 @@ paper/figures/advantage_frontier.pdf
 paper/figures/strong_native_comparison.pdf
 paper/figures/workload_taxonomy.pdf
 paper/figures/scale_out_gate.pdf
+paper/figures/scaling_summary.pdf
 ```
 
 The frontier plots projected quantum speedup against quality-gap recovery. A
@@ -313,75 +308,30 @@ Median four-node scale-gate results:
 | Optimization | 96 | 354,663.1x | 0.2500 |
 | Simulation | 64 | 5,521.1x | 0.0004 |
 
-Current next scale-out job:
+Completed large-profile weak scaling:
+
+| Job | Nodes | GPUs | Cases | Elapsed | Cases/sec | Cases/sec/GPU |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 55475423 | 8 | 32 | 896 | 00:04:05 | 3.657 | 0.1143 |
+| 55475476 | 16 | 64 | 1,792 | 00:04:04 | 7.344 | 0.1148 |
+| 55475477 | 32 | 128 | 3,552 | 00:04:17 | 13.821 | 0.1080 |
+
+Completed large-profile strong scaling:
+
+| Job | Nodes | GPUs | Cases | Elapsed | Speedup vs 4 nodes | Efficiency |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 55475633 | 4 | 16 | 3,552 | 00:30:55 | 1.00x | 1.000 |
+| 55475634 | 8 | 32 | 3,552 | 00:15:13 | 2.03x | 1.016 |
+| 55475635 | 16 | 64 | 3,552 | 00:11:05 | 2.79x | 0.697 |
+| 55475477 | 32 | 128 | 3,552 | 00:04:17 | 7.22x | 0.902 |
+
+Validation:
 
 ```text
-job_id: 55475423
-profile: large
-nodes: 8
-gpus: 32
-chunk_count: 128
-expected chunk slots: 0-31
-case_timeout: 180s
-```
-
-Submitted regular-QOS scale-out jobs:
-
-```text
-Weak-scaling / throughput jobs:
-
-job_id: 55475476
-profile: large
-nodes: 16
-gpus: 64
-chunk_count: 128
-expected chunk slots: 0-63
-case_timeout: 180s
-qos: regular
-
-job_id: 55475477
-profile: large
-nodes: 32
-gpus: 128
-chunk_count: 128
-expected chunk slots: 0-127
-case_timeout: 180s
-qos: regular
-
-Strong-scaling / fixed-workload jobs:
-
-job_id: 55475633
-profile: large
-scale_mode: strong
-nodes: 4
-gpus: 16
-chunk_count: 128
-covered chunk slots: 0-127 striped across 16 GPUs
-expected cases: 3,552
-case_timeout: 180s
-qos: regular
-
-job_id: 55475634
-profile: large
-scale_mode: strong
-nodes: 8
-gpus: 32
-chunk_count: 128
-covered chunk slots: 0-127 striped across 32 GPUs
-expected cases: 3,552
-case_timeout: 180s
-qos: regular
-
-job_id: 55475635
-profile: large
-scale_mode: strong
-nodes: 16
-gpus: 64
-chunk_count: 128
-covered chunk slots: 0-127 striped across 64 GPUs
-expected cases: 3,552
-case_timeout: 180s
-qos: regular
+All scaling jobs: COMPLETED, exit 0:0
+Failed case / traceback / timeout logs: none
+Raw JSON counts: matched expected case counts for every run
+Scaling figure: paper/figures/scaling_summary.pdf
 ```
 
 Bundled `salloc` pilot:
