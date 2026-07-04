@@ -1011,16 +1011,18 @@ Scale-out batch runner added at jobs/perlmutter/practical_suite_scale_nodes.sbat
 Two-node large-profile scale-out gate completed with job 55470269: 224 cases, 8 GPUs, no failed cases.
 Four-node large-profile scale-out gate completed with job 55470822: 448 cases, 16 GPUs, no failed cases.
 Eight-node large-profile scale-out gate submitted as job 55475423 and should be left running until final Slurm state.
+Sixteen-node regular-QOS large-profile run submitted as job 55475476 and should be left running until final Slurm state.
+Thirty-two-node regular-QOS large-profile run submitted as job 55475477 and should be left running until final Slurm state.
 ```
 
 Next actions:
 
 1. Do not launch a 32-node run yet.
 2. Add chemistry sparse/Lanczos and simulation sparse-Krylov baselines before any paper-scale 16/32 node result.
-3. Wait for the 8-node gate (`55475423`) to reach a final Slurm state; do not cancel due to queue/start-time estimates.
-4. If the 8-node gate is clean, update the paper and then decide whether the 16-node regular run is worth the allocation.
-5. Use `regular` for 16/32 nodes only after the 8-node result is clean.
-6. Scale through 4, 8, 16, and 32 nodes only if the stop conditions in Section 8.5 are not triggered.
+3. Wait for the 8-node gate (`55475423`) and regular-QOS 16/32-node runs (`55475476`, `55475477`) to reach final Slurm states; do not cancel due to queue/start-time estimates.
+4. After each run completes, validate state, exit code, case count, failed-case logs, summary JSON/CSV, and accounting.
+5. Update README, paper figures, paper evaluation text, and GitHub only after successful final-state validation.
+6. Treat 16/32-node results as throughput scaling across independent cases unless distributed single-circuit simulation is implemented.
 
 ## 12. Completion Criteria
 

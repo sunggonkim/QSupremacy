@@ -43,6 +43,12 @@ The core comparison is not simulator vs simulator. The comparison is:
 - Eight-node large-profile scale-out gate submitted:
   job `55475423`, 8 Perlmutter GPU nodes, 32 A100 GPUs, chunk slots 0-31 of
   128. Leave it running until Slurm reports a final state.
+- Sixteen-node large-profile scale-out run submitted:
+  job `55475476`, regular QOS, 16 Perlmutter GPU nodes, 64 A100 GPUs, chunk
+  slots 0-63 of 128.
+- Thirty-two-node large-profile scale-out run submitted:
+  job `55475477`, regular QOS, 32 Perlmutter GPU nodes, 128 A100 GPUs, chunk
+  slots 0-127 of 128.
 - Advantage-frontier figure added:
   `paper/figures/advantage_frontier.pdf`.
 - Workload taxonomy added:
@@ -313,6 +319,28 @@ gpus: 32
 chunk_count: 128
 expected chunk slots: 0-31
 case_timeout: 180s
+```
+
+Submitted regular-QOS scale-out jobs:
+
+```text
+job_id: 55475476
+profile: large
+nodes: 16
+gpus: 64
+chunk_count: 128
+expected chunk slots: 0-63
+case_timeout: 180s
+qos: regular
+
+job_id: 55475477
+profile: large
+nodes: 32
+gpus: 128
+chunk_count: 128
+expected chunk slots: 0-127
+case_timeout: 180s
+qos: regular
 ```
 
 Bundled `salloc` pilot:
