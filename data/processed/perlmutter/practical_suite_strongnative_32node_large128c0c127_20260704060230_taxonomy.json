@@ -1,0 +1,45 @@
+{
+  "by_workload": {
+    "chemistry": {
+      "cases": 224,
+      "counts": {
+        "quality-limited": 160,
+        "speed-limited": 64
+      },
+      "fractions": {
+        "quality-limited": 0.7142857142857143,
+        "speed-limited": 0.2857142857142857
+      }
+    },
+    "ml": {
+      "cases": 2048,
+      "counts": {
+        "quality-limited": 2048
+      },
+      "fractions": {
+        "quality-limited": 1.0
+      }
+    },
+    "optimization": {
+      "cases": 768,
+      "counts": {
+        "quality-limited": 768
+      },
+      "fractions": {
+        "quality-limited": 1.0
+      }
+    },
+    "simulation": {
+      "cases": 512,
+      "counts": {
+        "quality-limited": 256,
+        "speed-limited": 256
+      },
+      "fractions": {
+        "quality-limited": 0.5,
+        "speed-limited": 0.5
+      }
+    }
+  },
+  "cases": 3552
+}

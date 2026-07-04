@@ -1,0 +1,94 @@
+{
+  "active_indices": null,
+  "basis": "sto-3g",
+  "charge": 0,
+  "description": "OpenFermion/PySCF H2 STO-3G Jordan-Wigner Hamiltonian.",
+  "geometry": [
+    {
+      "atom": "H",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "atom": "H",
+      "xyz": [
+        0.0,
+        0.0,
+        0.7414
+      ]
+    }
+  ],
+  "hf_energy": -1.1166843870853405,
+  "multiplicity": 1,
+  "n_electrons": 2,
+  "n_orbitals": 2,
+  "n_qubits": 4,
+  "name": "h2_sto3g_4q",
+  "occupied_indices": null,
+  "source": "OpenFermion 1.7.1 + PySCF 2.13.1",
+  "terms": [
+    {
+      "coefficient": -0.09886396933545866,
+      "pauli": "IIII"
+    },
+    {
+      "coefficient": -0.04532220205287396,
+      "pauli": "XXYY"
+    },
+    {
+      "coefficient": 0.04532220205287396,
+      "pauli": "XYYX"
+    },
+    {
+      "coefficient": 0.04532220205287396,
+      "pauli": "YXXY"
+    },
+    {
+      "coefficient": -0.04532220205287396,
+      "pauli": "YYXX"
+    },
+    {
+      "coefficient": 0.17119774903432994,
+      "pauli": "ZIII"
+    },
+    {
+      "coefficient": 0.1686221915892094,
+      "pauli": "ZZII"
+    },
+    {
+      "coefficient": 0.12054482205301792,
+      "pauli": "ZIZI"
+    },
+    {
+      "coefficient": 0.16586702410589188,
+      "pauli": "ZIIZ"
+    },
+    {
+      "coefficient": 0.17119774903432994,
+      "pauli": "IZII"
+    },
+    {
+      "coefficient": 0.16586702410589188,
+      "pauli": "IZZI"
+    },
+    {
+      "coefficient": 0.12054482205301792,
+      "pauli": "IZIZ"
+    },
+    {
+      "coefficient": -0.22278593040418435,
+      "pauli": "IIZI"
+    },
+    {
+      "coefficient": 0.17434844185575665,
+      "pauli": "IIZZ"
+    },
+    {
+      "coefficient": -0.22278593040418435,
+      "pauli": "IIIZ"
+    }
+  ]
+}

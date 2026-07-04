@@ -23,15 +23,19 @@ OFFICIAL_SUMMARY_CSV = (
 )
 STRONG_NATIVE_SUMMARY_JSON = (
     "data/processed/perlmutter/"
-    "practical_suite_strongnative_1node_int_20260704012008_summary.json"
+    "practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.json"
 )
 STRONG_NATIVE_SUMMARY_CSV = (
     "data/processed/perlmutter/"
-    "practical_suite_strongnative_1node_int_20260704012008_summary.csv"
+    "practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv"
 )
 STRONG_NATIVE_TAXONOMY_JSON = (
     "data/processed/perlmutter/"
-    "practical_suite_strongnative_1node_int_20260704012008_taxonomy.json"
+    "practical_suite_strongnative_32node_large128c0c127_20260704060230_taxonomy.json"
+)
+STRONG_NATIVE_1NODE_SUMMARY_JSON = (
+    "data/processed/perlmutter/"
+    "practical_suite_strongnative_1node_int_20260704012008_summary.json"
 )
 SCALE_2NODE_SUMMARY_JSON = (
     "data/processed/perlmutter/"
@@ -45,7 +49,7 @@ SCALE_GATE_RUNS = [
         "gpus": 4,
         "cases": 190,
         "elapsed_sec": 419,
-        "summary": STRONG_NATIVE_SUMMARY_JSON,
+        "summary": STRONG_NATIVE_1NODE_SUMMARY_JSON,
     },
     {
         "label": "2 nodes",
@@ -413,7 +417,7 @@ def figure_salloc_pilot_comparison():
 
 def figure_strong_native_comparison():
     official = load_summary(OFFICIAL_SUMMARY_JSON)
-    strong = load_summary(STRONG_NATIVE_SUMMARY_JSON)
+    strong = load_summary(STRONG_NATIVE_1NODE_SUMMARY_JSON)
     if official is None or strong is None:
         return None
 

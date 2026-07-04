@@ -1,0 +1,110 @@
+{
+  "active_indices": [
+    4,
+    5
+  ],
+  "basis": "sto-3g",
+  "charge": 0,
+  "description": "OpenFermion/PySCF H2O STO-3G active-space Hamiltonian.",
+  "geometry": [
+    {
+      "atom": "O",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "atom": "H",
+      "xyz": [
+        0.0,
+        0.757,
+        0.586
+      ]
+    },
+    {
+      "atom": "H",
+      "xyz": [
+        0.0,
+        -0.757,
+        0.586
+      ]
+    }
+  ],
+  "hf_energy": -74.96294665653875,
+  "multiplicity": 1,
+  "n_electrons": 10,
+  "n_orbitals": 7,
+  "n_qubits": 4,
+  "name": "h2o_sto3g_active_4q",
+  "occupied_indices": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "source": "OpenFermion 1.7.1 + PySCF 2.13.1",
+  "terms": [
+    {
+      "coefficient": -74.16645534708738,
+      "pauli": "IIII"
+    },
+    {
+      "coefficient": -0.009651234083133555,
+      "pauli": "XXYY"
+    },
+    {
+      "coefficient": 0.009651234083133555,
+      "pauli": "XYYX"
+    },
+    {
+      "coefficient": 0.009651234083133555,
+      "pauli": "YXXY"
+    },
+    {
+      "coefficient": -0.009651234083133555,
+      "pauli": "YYXX"
+    },
+    {
+      "coefficient": 0.1308351805593307,
+      "pauli": "ZIII"
+    },
+    {
+      "coefficient": 0.22003977334376112,
+      "pauli": "ZZII"
+    },
+    {
+      "coefficient": 0.13758739161057218,
+      "pauli": "ZIZI"
+    },
+    {
+      "coefficient": 0.14723862569370577,
+      "pauli": "ZIIZ"
+    },
+    {
+      "coefficient": 0.13083518055933072,
+      "pauli": "IZII"
+    },
+    {
+      "coefficient": 0.14723862569370577,
+      "pauli": "IZZI"
+    },
+    {
+      "coefficient": 0.13758739161057218,
+      "pauli": "IZIZ"
+    },
+    {
+      "coefficient": -0.167246619139188,
+      "pauli": "IIZI"
+    },
+    {
+      "coefficient": 0.14928455121041323,
+      "pauli": "IIZZ"
+    },
+    {
+      "coefficient": -0.167246619139188,
+      "pauli": "IIIZ"
+    }
+  ]
+}

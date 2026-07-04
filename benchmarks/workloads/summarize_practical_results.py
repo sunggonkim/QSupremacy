@@ -25,6 +25,7 @@ def load_results(patterns):
             quantum = workload.get("quantum_path", {})
             projection = workload.get("break_even_projection", {})
             dataset = workload.get("dataset", {})
+            problem = workload.get("problem", {})
             row = {
                 "path": path,
                 "file": os.path.basename(path),
@@ -56,10 +57,15 @@ def load_results(patterns):
                 "ml_dataset": config.get("ml_dataset", ""),
                 "digits_classes": config.get("digits_classes", ""),
                 "dataset_name": dataset.get("name", ""),
+                "problem_name": problem.get("name", ""),
+                "problem_qubits": problem.get(
+                    "n_qubits", problem.get("qubits", problem.get("nodes", ""))
+                ),
                 "ml_depth": config.get("ml_depth", ""),
                 "chem_grid": config.get("chem_grid", ""),
                 "chem_layers": config.get("chem_layers", ""),
                 "chem_hamiltonian_json": config.get("chem_hamiltonian_json", ""),
+                "chem_native_baselines": config.get("chem_native_baselines", ""),
                 "opt_nodes": config.get("opt_nodes", ""),
                 "opt_graph": config.get("opt_graph", ""),
                 "opt_grid": config.get("opt_grid", ""),
@@ -67,6 +73,7 @@ def load_results(patterns):
                 "sim_initial_state": config.get("sim_initial_state", ""),
                 "sim_qubits": config.get("sim_qubits", ""),
                 "sim_steps": config.get("sim_steps", ""),
+                "sim_native_baselines": config.get("sim_native_baselines", ""),
                 "status": quantum.get("status", ""),
             }
             if "test_accuracy" in native:
@@ -145,10 +152,13 @@ def write_csv(path, rows):
         "ml_dataset",
         "digits_classes",
         "dataset_name",
+        "problem_name",
+        "problem_qubits",
         "ml_depth",
         "chem_grid",
         "chem_layers",
         "chem_hamiltonian_json",
+        "chem_native_baselines",
         "opt_nodes",
         "opt_graph",
         "opt_grid",
@@ -156,6 +166,7 @@ def write_csv(path, rows):
         "sim_initial_state",
         "sim_qubits",
         "sim_steps",
+        "sim_native_baselines",
         "path",
         "status",
     ]

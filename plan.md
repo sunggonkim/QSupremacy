@@ -80,10 +80,10 @@ Current artifact status:
 
 | Artifact | Current status |
 | --- | --- |
-| Advantage frontier | Implemented as `paper/figures/advantage_frontier.pdf` using the strong-native 190-case practical sweep |
+| Advantage frontier | Implemented as `paper/figures/advantage_frontier.pdf` using the 32-node, 3,552-case large practical sweep |
 | Native stress test | ML and optimization runner logic strengthened; strong-native 1-node run completed as job `55468746` |
-| 1-32 node plan | Batch runner added as `jobs/perlmutter/practical_suite_scale_nodes.sbatch`; one-, two-, and four-node gates completed, eight-node gate submitted |
-| Workload taxonomy | Implemented as `paper/figures/workload_taxonomy.pdf` and `data/processed/perlmutter/practical_suite_strongnative_1node_int_20260704012008_taxonomy.json` |
+| 1-32 node plan | Batch runner added as `jobs/perlmutter/practical_suite_scale_nodes.sbatch`; weak and strong scaling completed through 32 nodes |
+| Workload taxonomy | Implemented as `paper/figures/workload_taxonomy.pdf` and `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_taxonomy.json` |
 | Large manifest | Implemented as `QS_SWEEP_PROFILE=large`; preflight reports 3,552 case templates |
 
 ## 3. Current Evidence
@@ -352,7 +352,16 @@ Baseline stress-test interpretation:
 | Optimization | `161,776.0x` | `378,588.2x` | `2.34x` larger |
 | Scientific simulation | `8,747.4x` | `9,634.5x` | `1.10x` larger |
 
-This result validates the paper's baseline warning: a weak native baseline can understate the quantum hardware speed required for advantage. The paper should use this strong-native result as the main practical-suite threshold and keep the earlier 190-case result as a baseline-stress comparison.
+This result validates the paper's baseline warning: a weak native baseline can understate the quantum hardware speed required for advantage. The paper keeps this comparable 190-case result as a baseline-stress comparison. The main practical-suite threshold now comes from the 32-node, 3,552-case large run.
+
+Main 32-node large-profile result:
+
+| Family | Cases | Median required speedup | Median quality gap |
+| --- | ---: | ---: | ---: |
+| ML | 2,048 | `3,726.4x` | `0.3125` |
+| Chemistry | 224 | `42,491.4x` | `0.0203` |
+| Optimization | 768 | `287,045.6x` | `0.2500` |
+| Scientific simulation | 512 | `3,071.0x` | `0.0188` |
 
 ## 4. Definitions
 
@@ -1018,8 +1027,8 @@ Paper narrative updated to follow the accepted-paper structure: generated intro/
 
 Next actions:
 
-1. Add chemistry sparse/Lanczos and simulation sparse-Krylov baselines before claiming production-grade native coverage for those families.
-2. Add OpenFermion/PySCF-generated chemistry instances if the paper needs a stronger drug-discovery claim.
+1. Run the accept-profile sweep with the new chemistry sparse/Lanczos and simulation sparse-Krylov native baselines before claiming production-grade native coverage for those families.
+2. Use the OpenFermion/PySCF-generated H2, LiH, and H2O fixtures as the next chemistry/drug-discovery evidence path.
 3. Keep raw per-case JSON out of Git unless archiving is explicitly needed; commit processed summaries, accounting, and figures.
 
 ## 12. Completion Criteria

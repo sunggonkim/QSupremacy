@@ -22,9 +22,10 @@ export OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-32}"
 PY=/pscratch/sd/s/sgkim/kis_cuquantum/00_env/cutn_conda/bin/python
 OUTDIR=data/raw/perlmutter/practical_suite_sweep
 SUMMARY_DIR=data/processed/perlmutter
+JOB_ID="${SLURM_JOB_ID:-manual}"
 mkdir -p "${OUTDIR}" "${SUMMARY_DIR}" logs
 
-echo "job_id=${SLURM_JOB_ID}"
+echo "job_id=${JOB_ID}"
 echo "host=$(hostname)"
 echo "date_start=$(date --iso-8601=seconds)"
 echo "cuda_visible_devices=${CUDA_VISIBLE_DEVICES:-unset}"
@@ -36,7 +37,7 @@ echo "case_timeout=${QS_CASE_TIMEOUT:-120s}"
 echo "preflight_only=${QS_PREFLIGHT_ONLY:-0}"
 echo "sweep_profile=${QS_SWEEP_PROFILE:-standard}"
 echo "repeat_count=${QS_REPEAT_COUNT:-auto}"
-nvidia-smi -L
+nvidia-smi -L || true
 
 family_enabled() {
   local family="$1"
@@ -65,7 +66,7 @@ run_case() {
   if timeout "${QS_CASE_TIMEOUT:-120s}" "${PY}" benchmarks/workloads/run_practical_suite.py \
     "$@" \
     --entangle \
-    --output "${OUTDIR}/practical_${SLURM_JOB_ID}_${tag}.json" >/dev/null; then
+    --output "${OUTDIR}/practical_${JOB_ID}_${tag}.json" >/dev/null; then
     echo "case_end=${tag} $(date --iso-8601=seconds)"
   else
     local rc=$?
@@ -116,6 +117,21 @@ if [[ "${SWEEP_PROFILE}" == "large" ]]; then
   SIM_MODELS=(tfim heisenberg)
   SIM_QUBITS=(4 5 6 7)
   SIM_STEPS=(4 6 8 10)
+elif [[ "${SWEEP_PROFILE}" == "accept" ]]; then
+  SEEDS=(17 23)
+  ML_CLASSES=("0,1,2" "3,5,8")
+  ML_SAMPLES=(128 192)
+  ML_FEATURES=(4 6)
+  ML_DEPTHS=(1 2)
+  CHEM_H2_GRIDS=(17 21)
+  CHEM_JSON_GRIDS=(9 13 17)
+  CHEM_LAYERS=(1 2)
+  OPT_NODES=(4 5)
+  OPT_GRAPHS=(ring chordal)
+  OPT_GRIDS=(7 9)
+  SIM_MODELS=(tfim heisenberg)
+  SIM_QUBITS=(4 5 6 7 8)
+  SIM_STEPS=(4 6 8)
 else
   SEEDS=(17 23)
   ML_CLASSES=("0,1,2" "3,5,8" "0,1,2,3")
@@ -131,6 +147,19 @@ else
   SIM_MODELS=(tfim heisenberg)
   SIM_QUBITS=(4 5 6)
   SIM_STEPS=(4 6 8)
+fi
+
+if [[ -n "${QS_CHEM_HAMILTONIAN_FILES:-}" ]]; then
+  IFS=',' read -ra CHEM_JSON_FILES <<< "${QS_CHEM_HAMILTONIAN_FILES}"
+elif [[ "${SWEEP_PROFILE}" == "accept" ]]; then
+  CHEM_JSON_FILES=(
+    benchmarks/workloads/hamiltonians/h2_sto3g_4q.json
+    benchmarks/workloads/hamiltonians/lih_sto3g_active_4q.json
+    benchmarks/workloads/hamiltonians/h2o_sto3g_active_4q.json
+    benchmarks/workloads/hamiltonians/molecular_chain_4q.json
+  )
+else
+  CHEM_JSON_FILES=(benchmarks/workloads/hamiltonians/molecular_chain_4q.json)
 fi
 
 repeat_suffix() {
@@ -196,15 +225,18 @@ if family_enabled chemistry; then
           --chem-layers "${layer}"
         case_id=$((case_id + 1))
       done
+      for json_file in "${CHEM_JSON_FILES[@]}"; do
+      json_base="$(basename "${json_file}" .json)"
       for grid in "${CHEM_JSON_GRIDS[@]}"; do
         maybe_run_case "${case_id}" \
-          "chem_4q_l${layer}_grid${grid}${suffix}_seed${run_seed}" \
+          "chem_${json_base}_l${layer}_grid${grid}${suffix}_seed${run_seed}" \
           --workloads chemistry \
           --seed "${run_seed}" \
           --chem-grid "${grid}" \
           --chem-layers "${layer}" \
-          --chem-hamiltonian-json benchmarks/workloads/hamiltonians/molecular_chain_4q.json
+          --chem-hamiltonian-json "${json_file}"
         case_id=$((case_id + 1))
+      done
       done
     done
   done
@@ -264,15 +296,15 @@ fi
 echo "total_case_templates=${case_id}"
 
 if [[ "${QS_PREFLIGHT_ONLY:-0}" == "1" ]]; then
-  echo "preflight_complete=${SLURM_JOB_ID}"
+  echo "preflight_complete=${JOB_ID}"
   echo "date_end=$(date --iso-8601=seconds)"
   exit 0
 fi
 
 "${PY}" benchmarks/workloads/summarize_practical_results.py \
-  "${OUTDIR}/practical_${SLURM_JOB_ID}_*.json" \
-  --summary-json "${SUMMARY_DIR}/practical_suite_${SLURM_JOB_ID}_summary.json" \
-  --csv "${SUMMARY_DIR}/practical_suite_${SLURM_JOB_ID}_summary.csv" || \
-  echo "summary_empty_or_failed=${SLURM_JOB_ID}"
+  "${OUTDIR}/practical_${JOB_ID}_*.json" \
+  --summary-json "${SUMMARY_DIR}/practical_suite_${JOB_ID}_summary.json" \
+  --csv "${SUMMARY_DIR}/practical_suite_${JOB_ID}_summary.csv" || \
+  echo "summary_empty_or_failed=${JOB_ID}"
 
 echo "date_end=$(date --iso-8601=seconds)"

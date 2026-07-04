@@ -23,7 +23,7 @@ The core comparison is not simulator vs simulator. The comparison is:
   job `55414571`, 18 cases, 221 seconds elapsed, about 0.061 GPU-hours.
 - Expanded `sklearn digits` sweep completed:
   8 shared-GPU chunks, 160 cases, about 0.409 GPU-hours total.
-- Official practical-suite sweep completed:
+- Initial official practical-suite sweep completed:
   190 cases across ML, chemistry, optimization, and simulation.
 - Bundled `salloc` pilot completed:
   job `55454998`, 2 A100 GPUs, 96 cases, 6 minutes 54 seconds elapsed.
@@ -43,6 +43,9 @@ The core comparison is not simulator vs simulator. The comparison is:
 - Large-profile weak scaling completed:
   jobs `55475423`, `55475476`, and `55475477` completed 896, 1,792, and
   3,552 cases on 8, 16, and 32 GPU nodes with no failed cases.
+- Main large practical-suite result now uses the 32-node, 3,552-case summary:
+  ML 3,726.4x, chemistry 42,491.4x, optimization 287,045.6x, and simulation
+  3,071.0x median required speedup.
 - Large-profile strong scaling completed:
   jobs `55475633`, `55475634`, and `55475635` completed the fixed 3,552-case
   profile on 4, 8, and 16 GPU nodes. Job `55475477` is the matching full-profile
@@ -51,7 +54,7 @@ The core comparison is not simulator vs simulator. The comparison is:
   `paper/figures/advantage_frontier.pdf`.
 - Workload taxonomy added:
   `paper/figures/workload_taxonomy.pdf` and
-  `data/processed/perlmutter/practical_suite_strongnative_1node_int_20260704012008_taxonomy.json`.
+  `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_taxonomy.json`.
 - Large scale-out manifest profile added:
   `QS_SWEEP_PROFILE=large` expands the practical suite from 190 to 3,552 case templates.
 
@@ -326,6 +329,15 @@ Completed large-profile strong scaling:
 | 55475634 | 8 | 32 | 3,552 | 00:15:13 | 2.03x | 1.016 |
 | 55475635 | 16 | 64 | 3,552 | 00:11:05 | 2.79x | 0.697 |
 | 55475477 | 32 | 128 | 3,552 | 00:04:17 | 7.22x | 0.902 |
+
+Main 32-node large-profile summary:
+
+| Family | Cases | Median required speedup | Median quality gap |
+| --- | ---: | ---: | ---: |
+| ML | 2,048 | 3,726.4x | 0.3125 |
+| Chemistry | 224 | 42,491.4x | 0.0203 |
+| Optimization | 768 | 287,045.6x | 0.2500 |
+| Simulation | 512 | 3,071.0x | 0.0188 |
 
 Validation:
 

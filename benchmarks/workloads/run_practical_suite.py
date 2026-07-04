@@ -26,6 +26,13 @@ import time
 
 import numpy as np
 
+try:
+    import scipy.sparse as sp
+    import scipy.sparse.linalg as spla
+except Exception:
+    sp = None
+    spla = None
+
 
 I2 = np.eye(2, dtype=np.complex128)
 X = np.array([[0.0, 1.0], [1.0, 0.0]], dtype=np.complex128)
@@ -73,6 +80,27 @@ def pauli_string(n_qubits, terms):
 def pauli_word_matrix(word):
     ops = {"I": I2, "X": X, "Y": Y, "Z": Z}
     return kron_all([ops[ch] for ch in word])
+
+
+def pauli_word_sparse(word):
+    if sp is None:
+        return None
+    ops = {
+        "I": sp.csr_matrix(I2),
+        "X": sp.csr_matrix(X),
+        "Y": sp.csr_matrix(Y),
+        "Z": sp.csr_matrix(Z),
+    }
+    out = ops[word[0]]
+    for ch in word[1:]:
+        out = sp.kron(out, ops[ch], format="csr")
+    return out
+
+
+def dense_to_sparse(matrix):
+    if sp is None:
+        return None
+    return sp.csr_matrix(matrix)
 
 
 def softmax(logits):
@@ -676,6 +704,92 @@ def chemistry_hamiltonian(args):
     }
 
 
+def lanczos_min_eigenvalue_numpy(matrix, max_iter, tol, seed):
+    start = time.perf_counter()
+    rng = np.random.default_rng(seed)
+    n = matrix.shape[0]
+    m = max(2, min(int(max_iter), n))
+    q = rng.normal(size=n) + 1.0j * rng.normal(size=n)
+    q = q / np.linalg.norm(q)
+    q_prev = np.zeros_like(q)
+    alphas = []
+    betas = []
+    beta = 0.0
+    for _ in range(m):
+        z = matrix @ q
+        alpha = float(np.real(np.vdot(q, z)))
+        z = z - alpha * q - beta * q_prev
+        beta_next = float(np.linalg.norm(z))
+        alphas.append(alpha)
+        if beta_next < tol:
+            break
+        betas.append(beta_next)
+        q_prev = q
+        q = z / beta_next
+        beta = beta_next
+    tri = np.diag(alphas)
+    if len(alphas) > 1:
+        off = np.array(betas[: len(alphas) - 1], dtype=np.float64)
+        tri += np.diag(off, 1) + np.diag(off, -1)
+    evals = np.linalg.eigvalsh(tri)
+    return {
+        "method": "lanczos_numpy_matvec",
+        "runtime_sec": time.perf_counter() - start,
+        "ground_energy": float(np.min(evals).real),
+        "iterations": int(len(alphas)),
+    }
+
+
+def dense_ground_state_baseline(h):
+    start = time.perf_counter()
+    evals = np.linalg.eigvalsh(h)
+    return {
+        "method": "exact_dense_diagonalization_numpy",
+        "runtime_sec": time.perf_counter() - start,
+        "ground_energy": float(np.min(evals).real),
+    }
+
+
+def sparse_lanczos_ground_state_baseline(h, max_iter, tol, seed):
+    start = time.perf_counter()
+    if sp is not None and spla is not None and h.shape[0] > 2:
+        h_sparse = dense_to_sparse(h)
+        try:
+            evals = spla.eigsh(
+                h_sparse,
+                k=1,
+                which="SA",
+                return_eigenvectors=False,
+                maxiter=max_iter,
+                tol=tol,
+            )
+            return {
+                "method": "sparse_lanczos_eigsh_scipy",
+                "runtime_sec": time.perf_counter() - start,
+                "ground_energy": float(np.min(evals).real),
+                "iterations": int(max_iter),
+            }
+        except Exception as exc:
+            fallback = lanczos_min_eigenvalue_numpy(h, max_iter, tol, seed)
+            fallback["method"] = "lanczos_numpy_matvec_after_scipy_failure"
+            fallback["scipy_error"] = "{}: {}".format(type(exc).__name__, exc)
+            fallback["runtime_sec"] = time.perf_counter() - start
+            return fallback
+    return lanczos_min_eigenvalue_numpy(h, max_iter, tol, seed)
+
+
+def select_energy_native_baseline(models, tolerance):
+    best_energy = min(float(model["ground_energy"]) for model in models)
+    valid = [
+        model
+        for model in models
+        if abs(float(model["ground_energy"]) - best_energy) <= float(tolerance)
+    ]
+    selected = min(valid, key=lambda model: model["runtime_sec"])
+    best_quality = min(models, key=lambda model: model["ground_energy"])
+    return selected, best_quality, best_energy
+
+
 def run_vqe_ansatz(sim, theta, layers, entangle):
     idx = 0
     for layer in range(layers):
@@ -717,12 +831,36 @@ def vqe_parameter_candidates(n_qubits, layers, grid, seed):
 def run_chemistry(args):
     h, problem = chemistry_hamiltonian(args)
     n_qubits = int(problem["n_qubits"])
-    start = time.perf_counter()
-    evals = np.linalg.eigvalsh(h)
+    native_start = time.perf_counter()
+    native_models = []
+    for baseline in requested_baselines(args.chem_native_baselines):
+        if baseline == "dense_exact":
+            native_models.append(dense_ground_state_baseline(h))
+        elif baseline == "sparse_lanczos":
+            native_models.append(
+                sparse_lanczos_ground_state_baseline(
+                    h,
+                    args.chem_lanczos_max_iter,
+                    args.chem_lanczos_tol,
+                    args.seed + 404,
+                )
+            )
+        else:
+            raise ValueError("Unknown chemistry native baseline: {}".format(baseline))
+    selected_native, best_quality_native, best_energy = select_energy_native_baseline(
+        native_models, args.chem_native_energy_tolerance
+    )
     native = {
-        "runtime_sec": time.perf_counter() - start,
-        "ground_energy": float(np.min(evals).real),
-        "method": "exact_diagonalization_numpy",
+        "runtime_sec": float(selected_native["runtime_sec"]),
+        "total_runtime_sec": time.perf_counter() - native_start,
+        "ground_energy": float(best_energy),
+        "selected_model": selected_native["method"],
+        "method": selected_native["method"],
+        "best_quality_model": best_quality_native["method"],
+        "selected_model_ground_energy": float(selected_native["ground_energy"]),
+        "selection_rule": "fastest_model_within_energy_tolerance_of_best_ground_energy",
+        "energy_tolerance": float(args.chem_native_energy_tolerance),
+        "models": {model["method"]: model for model in native_models},
     }
 
     start = time.perf_counter()
@@ -1036,6 +1174,95 @@ def heisenberg_hamiltonian(n_qubits, coupling, field):
     return h
 
 
+def krylov_expm_multiply_numpy(h, init, sim_time, dimension, tol):
+    start = time.perf_counter()
+    n = init.size
+    m = max(2, min(int(dimension), n))
+    beta = float(np.linalg.norm(init))
+    v0 = init / max(beta, tol)
+    basis = []
+    hessenberg = np.zeros((m + 1, m), dtype=np.complex128)
+    basis.append(v0)
+    actual_m = m
+    for j in range(m):
+        w = h @ basis[j]
+        for i in range(j + 1):
+            hessenberg[i, j] = np.vdot(basis[i], w)
+            w = w - hessenberg[i, j] * basis[i]
+        hessenberg[j + 1, j] = np.linalg.norm(w)
+        if abs(hessenberg[j + 1, j]) < tol:
+            actual_m = j + 1
+            break
+        if j + 1 < m:
+            basis.append(w / hessenberg[j + 1, j])
+    hm = hessenberg[:actual_m, :actual_m]
+    evals, evecs = np.linalg.eig(hm)
+    e1 = np.zeros(actual_m, dtype=np.complex128)
+    e1[0] = beta
+    small = evecs @ (np.exp(-1.0j * evals * sim_time) * (np.linalg.inv(evecs) @ e1))
+    evolved = np.zeros(n, dtype=np.complex128)
+    for coeff, vec in zip(small, basis[:actual_m]):
+        evolved += coeff * vec
+    norm = np.linalg.norm(evolved)
+    if norm > 0:
+        evolved = evolved / norm
+    return evolved, {
+        "method": "krylov_arnoldi_numpy",
+        "runtime_sec": time.perf_counter() - start,
+        "krylov_dimension": int(actual_m),
+    }
+
+
+def dense_dynamics_baseline(h, init, z0, sim_time):
+    start = time.perf_counter()
+    evals, evecs = np.linalg.eigh(h)
+    evolved = evecs @ (np.exp(-1.0j * evals * sim_time) * (evecs.conj().T @ init))
+    native_obs = float(np.real(np.vdot(evolved, z0 @ evolved)))
+    return {
+        "runtime_sec": time.perf_counter() - start,
+        "z0_expectation": native_obs,
+        "method": "exact_dense_eigendecomposition_numpy",
+    }
+
+
+def krylov_dynamics_baseline(h, init, z0, sim_time, dimension, tol):
+    start = time.perf_counter()
+    if sp is not None and spla is not None:
+        try:
+            evolved = spla.expm_multiply((-1.0j * sim_time) * dense_to_sparse(h), init)
+            native_obs = float(np.real(np.vdot(evolved, z0 @ evolved)))
+            return {
+                "runtime_sec": time.perf_counter() - start,
+                "z0_expectation": native_obs,
+                "method": "sparse_krylov_expm_multiply_scipy",
+            }
+        except Exception as exc:
+            evolved, meta = krylov_expm_multiply_numpy(h, init, sim_time, dimension, tol)
+            meta["method"] = "krylov_arnoldi_numpy_after_scipy_failure"
+            meta["runtime_sec"] = time.perf_counter() - start
+            meta["scipy_error"] = "{}: {}".format(type(exc).__name__, exc)
+    else:
+        evolved, meta = krylov_expm_multiply_numpy(h, init, sim_time, dimension, tol)
+    meta["z0_expectation"] = float(np.real(np.vdot(evolved, z0 @ evolved)))
+    return meta
+
+
+def select_observable_native_baseline(models, tolerance):
+    dense = next(
+        (model for model in models if model["method"] == "exact_dense_eigendecomposition_numpy"),
+        None,
+    )
+    reference = dense if dense is not None else models[0]
+    ref_obs = float(reference["z0_expectation"])
+    valid = [
+        model
+        for model in models
+        if abs(float(model["z0_expectation"]) - ref_obs) <= float(tolerance)
+    ]
+    selected = min(valid, key=lambda model: model["runtime_sec"])
+    return selected, reference, ref_obs
+
+
 def simulation_hamiltonian(args):
     if args.sim_model == "tfim":
         return tfim_hamiltonian(args.sim_qubits, args.sim_coupling, args.sim_field)
@@ -1095,15 +1322,39 @@ def run_simulation(args):
     init = np.zeros(1 << n, dtype=np.complex128)
     init_mask = simulation_initial_mask(args)
     init[init_mask] = 1.0
-    start = time.perf_counter()
-    evals, evecs = np.linalg.eigh(h)
-    evolved = evecs @ (np.exp(-1.0j * evals * args.sim_time) * (evecs.conj().T @ init))
     z0 = pauli_string(n, [(0, Z)])
-    native_obs = float(np.real(np.vdot(evolved, z0 @ evolved)))
+    native_start = time.perf_counter()
+    native_models = []
+    for baseline in requested_baselines(args.sim_native_baselines):
+        if baseline == "dense_exact":
+            native_models.append(dense_dynamics_baseline(h, init, z0, args.sim_time))
+        elif baseline == "sparse_krylov":
+            native_models.append(
+                krylov_dynamics_baseline(
+                    h,
+                    init,
+                    z0,
+                    args.sim_time,
+                    args.sim_krylov_dim,
+                    args.sim_krylov_tol,
+                )
+            )
+        else:
+            raise ValueError("Unknown simulation native baseline: {}".format(baseline))
+    selected_native, reference_native, reference_obs = select_observable_native_baseline(
+        native_models, args.sim_native_observable_tolerance
+    )
     native = {
-        "runtime_sec": time.perf_counter() - start,
-        "z0_expectation": native_obs,
-        "method": "exact_dense_eigendecomposition_numpy",
+        "runtime_sec": float(selected_native["runtime_sec"]),
+        "total_runtime_sec": time.perf_counter() - native_start,
+        "z0_expectation": float(reference_obs),
+        "selected_model_z0_expectation": float(selected_native["z0_expectation"]),
+        "method": selected_native["method"],
+        "selected_model": selected_native["method"],
+        "best_quality_model": reference_native["method"],
+        "selection_rule": "fastest_model_within_observable_tolerance_of_dense_reference",
+        "observable_tolerance": float(args.sim_native_observable_tolerance),
+        "models": {model["method"]: model for model in native_models},
     }
 
     start = time.perf_counter()
@@ -1121,7 +1372,7 @@ def run_simulation(args):
             "status": "ok",
             "runtime_sec": time.perf_counter() - start,
             "z0_expectation": q_obs,
-            "absolute_observable_error": float(abs(q_obs - native_obs)),
+            "absolute_observable_error": float(abs(q_obs - reference_obs)),
             "metadata": meta,
             "ansatz": "first_order_trotter_{}".format(args.sim_model),
         }
@@ -1208,6 +1459,10 @@ def main():
     parser.add_argument("--chem-grid", type=int, default=21)
     parser.add_argument("--chem-layers", type=int, default=1)
     parser.add_argument("--chem-hamiltonian-json", default="")
+    parser.add_argument("--chem-native-baselines", default="dense_exact,sparse_lanczos")
+    parser.add_argument("--chem-native-energy-tolerance", type=float, default=1.0e-8)
+    parser.add_argument("--chem-lanczos-max-iter", type=int, default=128)
+    parser.add_argument("--chem-lanczos-tol", type=float, default=1.0e-10)
     parser.add_argument("--opt-nodes", type=int, default=4)
     parser.add_argument("--opt-graph", choices=["chordal", "ring", "ladder"], default="chordal")
     parser.add_argument("--opt-grid", type=int, default=7)
@@ -1225,6 +1480,10 @@ def main():
     parser.add_argument("--sim-time", type=float, default=0.8)
     parser.add_argument("--sim-coupling", type=float, default=0.7)
     parser.add_argument("--sim-field", type=float, default=0.4)
+    parser.add_argument("--sim-native-baselines", default="dense_exact,sparse_krylov")
+    parser.add_argument("--sim-native-observable-tolerance", type=float, default=1.0e-8)
+    parser.add_argument("--sim-krylov-dim", type=int, default=64)
+    parser.add_argument("--sim-krylov-tol", type=float, default=1.0e-10)
     args = parser.parse_args()
 
     if args.login_safe:
