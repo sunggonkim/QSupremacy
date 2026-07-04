@@ -82,7 +82,7 @@ Current artifact status:
 | --- | --- |
 | Advantage frontier | Implemented as `paper/figures/advantage_frontier.pdf` using the strong-native 190-case practical sweep |
 | Native stress test | ML and optimization runner logic strengthened; strong-native 1-node run completed as job `55468746` |
-| 1-32 node plan | Batch runner added as `jobs/perlmutter/practical_suite_scale_nodes.sbatch`; one-node and two-node gates completed, four-node gate submitted |
+| 1-32 node plan | Batch runner added as `jobs/perlmutter/practical_suite_scale_nodes.sbatch`; one-, two-, and four-node gates completed, eight-node gate submitted |
 | Workload taxonomy | Implemented as `paper/figures/workload_taxonomy.pdf` and `data/processed/perlmutter/practical_suite_strongnative_1node_int_20260704012008_taxonomy.json` |
 | Large manifest | Implemented as `QS_SWEEP_PROFILE=large`; preflight reports 3,552 case templates |
 
@@ -1009,15 +1009,16 @@ Workload taxonomy generated at paper/figures/workload_taxonomy.pdf.
 Large manifest preflight implemented with QS_SWEEP_PROFILE=large and 3,552 cases.
 Scale-out batch runner added at jobs/perlmutter/practical_suite_scale_nodes.sbatch.
 Two-node large-profile scale-out gate completed with job 55470269: 224 cases, 8 GPUs, no failed cases.
-Four-node large-profile scale-out gate submitted as job 55470822 and should be left running until final Slurm state.
+Four-node large-profile scale-out gate completed with job 55470822: 448 cases, 16 GPUs, no failed cases.
+Eight-node large-profile scale-out gate submitted as job 55475423 and should be left running until final Slurm state.
 ```
 
 Next actions:
 
 1. Do not launch a 32-node run yet.
 2. Add chemistry sparse/Lanczos and simulation sparse-Krylov baselines before any paper-scale 16/32 node result.
-3. Wait for the 4-node gate (`55470822`) to reach a final Slurm state; do not cancel due to queue/start-time estimates.
-4. If the 4-node gate is clean, run the 8-node debug gate using the same large profile and `QS_CHUNK_COUNT=128`.
+3. Wait for the 8-node gate (`55475423`) to reach a final Slurm state; do not cancel due to queue/start-time estimates.
+4. If the 8-node gate is clean, update the paper and then decide whether the 16-node regular run is worth the allocation.
 5. Use `regular` for 16/32 nodes only after the 8-node result is clean.
 6. Scale through 4, 8, 16, and 32 nodes only if the stop conditions in Section 8.5 are not triggered.
 
@@ -1044,8 +1045,9 @@ The project is not complete until all of the following are true:
 - Strong-native practical suite rerun exists and is summarized.
 - One-node full-packing scale-out gate passes.
 - Two-node large-profile scale-out gate passes.
+- Four-node large-profile scale-out gate passes.
 - Baseline-stress figure compares initial and strong-native practical suites.
-- Scale-out gate figure compares one-node and two-node bundled runs.
+- Scale-out gate figure compares one-node, two-node, and four-node bundled runs.
 - Large-profile preflight exists and reports enough cases for 32-node planning.
 - README and `plan.md` match the actual state.
 
@@ -1090,6 +1092,7 @@ data/processed/perlmutter/
   practical_suite_strongnative_1node_int_20260704012008_summary.json
   practical_suite_strongnative_1node_int_20260704012008_taxonomy.json
   practical_suite_strongnative_2node_large128c0c7_fix_20260704022146_summary.json
+  practical_suite_strongnative_4node_large128c0c15_20260704024223_summary.json
 
 scripts/
   generate_paper_figures.py

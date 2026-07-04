@@ -55,6 +55,17 @@ SCALE_GATE_RUNS = [
         "elapsed_sec": 268,
         "summary": SCALE_2NODE_SUMMARY_JSON,
     },
+    {
+        "label": "4 nodes",
+        "nodes": 4,
+        "gpus": 16,
+        "cases": 448,
+        "elapsed_sec": 283,
+        "summary": (
+            "data/processed/perlmutter/"
+            "practical_suite_strongnative_4node_large128c0c15_20260704024223_summary.json"
+        ),
+    },
 ]
 
 

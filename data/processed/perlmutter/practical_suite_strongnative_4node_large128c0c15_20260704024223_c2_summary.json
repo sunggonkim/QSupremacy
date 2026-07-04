@@ -1,0 +1,37 @@
+{
+  "by_workload": {
+    "chemistry": {
+      "cases": 2,
+      "quality_gap_median": 0.4020207019883457,
+      "quantum_runtime_sec_sum": 48.31921746500302,
+      "speedup_required_max": 228989.0716128889,
+      "speedup_required_median": 138264.16912577717,
+      "speedup_required_min": 47539.26663866545
+    },
+    "ml": {
+      "cases": 16,
+      "quality_gap_median": 0.25,
+      "quantum_runtime_sec_sum": 120.9834800400422,
+      "speedup_required_max": 66511.96953270753,
+      "speedup_required_median": 45140.324757405964,
+      "speedup_required_min": 636.0174403651783
+    },
+    "optimization": {
+      "cases": 6,
+      "quality_gap_median": 0.2738728757031318,
+      "quantum_runtime_sec_sum": 48.80443981496501,
+      "speedup_required_max": 513445.3053962691,
+      "speedup_required_median": 311304.04001889366,
+      "speedup_required_min": 117493.16727726231
+    },
+    "simulation": {
+      "cases": 4,
+      "quality_gap_median": 0.00028121916742374076,
+      "quantum_runtime_sec_sum": 27.93257974999142,
+      "speedup_required_max": 15842.392317362155,
+      "speedup_required_median": 14980.005256178109,
+      "speedup_required_min": 14678.220107517764
+    }
+  },
+  "cases": 28
+}

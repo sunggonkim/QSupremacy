@@ -137,20 +137,20 @@ The strong-native run completed as a one-node, four-GPU bundled allocation on \P
 
 \subsection{Scale-Out Gate}
 
-After the one-node strong-native gate, we ran the same bundled execution model on two \Perlmutter GPU nodes. This is not yet the full 3,552-case large-profile experiment. It is a scale-out gate that checks whether one allocation can launch one task per GPU across multiple nodes, partition the large manifest by chunk id, and preserve the same result schema without failed cases.
+After the one-node strong-native gate, we ran the same bundled execution model on two and four \Perlmutter GPU nodes. These are not yet the full 3,552-case large-profile experiment. They are scale-out gates that check whether one allocation can launch one task per GPU across multiple nodes, partition the large manifest by chunk id, and preserve the same result schema without failed cases.
 
 \begin{table}[t]
-\caption{Two-node large-profile scale-out gate. Values are medians over chunk slots 0--7 of 128.}
+\caption{Four-node large-profile scale-out gate. Values are medians over chunk slots 0--15 of 128.}
 \centering
 \small
 \begin{tabular}{lccc}
 \toprule
 Workload & Cases & Required speedup & Quality gap \\
 \midrule
-ML & 128 & 46,159.0$\times$ & 0.2813 \\
-Chemistry & 16 & 43,081.6$\times$ & 0.0203 \\
-Optimization & 48 & 365,144.4$\times$ & 0.2500 \\
-Simulation & 32 & 14,438.3$\times$ & 0.0004 \\
+ML & 256 & 40,893.5$\times$ & 0.2813 \\
+Chemistry & 32 & 43,424.0$\times$ & 0.0203 \\
+Optimization & 96 & 354,663.1$\times$ & 0.2500 \\
+Simulation & 64 & 5,521.1$\times$ & 0.0004 \\
 \bottomrule
 \end{tabular}
 \label{tab:scale-gate}
@@ -163,7 +163,7 @@ Simulation & 32 & 14,438.3$\times$ & 0.0004 \\
 \label{fig:scale-gate}
 \end{figure}
 
-The two-node job completed 224 cases in 4 minutes and 28 seconds on eight A100 GPUs with exit code 0:0. Each GPU task completed 28 cases, and no timeout or failed case was recorded. The selected ML baselines were nearest centroid, linear ridge, kNN, RBF kernel ridge, softmax regression, and MLP. The selected optimization baselines were greedy assignment and exact enumeration. This result validates the multi-node bundled path used for the next 4-, 8-, 16-, and 32-node experiments; it should not be interpreted as distributed single-circuit simulation.
+The two-node job completed 224 cases in 4 minutes and 28 seconds on eight A100 GPUs with exit code 0:0. The four-node job completed 448 cases in 4 minutes and 43 seconds on sixteen A100 GPUs with exit code 0:0. In both jobs, each GPU task completed 28 cases, and no timeout or failed case was recorded. In the four-node result, the selected ML baselines were nearest centroid, linear ridge, kNN, RBF kernel ridge, softmax regression, and MLP. The selected optimization baselines were greedy assignment and exact enumeration. These results validate the multi-node bundled path used for the next 8-, 16-, and 32-node experiments; they should not be interpreted as distributed single-circuit simulation.
 
 \subsection{Advantage Frontier}
 

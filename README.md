@@ -37,8 +37,11 @@ The core comparison is not simulator vs simulator. The comparison is:
 - Two-node large-profile scale-out gate completed:
   job `55470269`, 2 Perlmutter GPU nodes, 8 A100 GPUs, 224 cases from
   chunk slots 0-7 of 128, 4 minutes 28 seconds elapsed.
-- Four-node large-profile scale-out gate submitted:
-  job `55470822`, 4 Perlmutter GPU nodes, 16 A100 GPUs, chunk slots 0-15 of
+- Four-node large-profile scale-out gate completed:
+  job `55470822`, 4 Perlmutter GPU nodes, 16 A100 GPUs, 448 cases from
+  chunk slots 0-15 of 128, 4 minutes 43 seconds elapsed, no failed cases.
+- Eight-node large-profile scale-out gate submitted:
+  job `55475423`, 8 Perlmutter GPU nodes, 32 A100 GPUs, chunk slots 0-31 of
   128. Leave it running until Slurm reports a final state.
 - Advantage-frontier figure added:
   `paper/figures/advantage_frontier.pdf`.
@@ -274,15 +277,41 @@ This is a scale-out gate, not the final 3,552-case large-profile result. It
 validates the multi-node bundled execution pattern: one Slurm task per GPU, one
 independent chunk per task, and a single summary over all completed chunks.
 
-Current next scale-out job:
+Completed four-node large-profile scale-out gate:
 
 ```text
 job_id: 55470822
+run_tag: strongnative_4node_large128c0c15_20260704024223
+qos: debug
+resources: 4 Perlmutter GPU nodes, 16 A100 GPUs, 512 CPU cores
+elapsed: 00:04:43
+state: COMPLETED
+exit: 0:0
+chunk slots: 0-15 of 128
+raw JSON files: 448
+failed cases: 0
+summary: data/processed/perlmutter/practical_suite_strongnative_4node_large128c0c15_20260704024223_summary.json
+accounting: data/raw/perlmutter/accounting/sacct_practical_suite_strongnative_4node_large128c0c15_20260704024223.txt
+```
+
+Median four-node scale-gate results:
+
+| Family | Cases | Median required speedup | Median quality gap |
+| --- | ---: | ---: | ---: |
+| ML | 256 | 40,893.5x | 0.2813 |
+| Chemistry | 32 | 43,424.0x | 0.0203 |
+| Optimization | 96 | 354,663.1x | 0.2500 |
+| Simulation | 64 | 5,521.1x | 0.0004 |
+
+Current next scale-out job:
+
+```text
+job_id: 55475423
 profile: large
-nodes: 4
-gpus: 16
+nodes: 8
+gpus: 32
 chunk_count: 128
-expected chunk slots: 0-15
+expected chunk slots: 0-31
 case_timeout: 180s
 ```
 
