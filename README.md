@@ -46,6 +46,11 @@ The core comparison is not simulator vs simulator. The comparison is:
 - Main large practical-suite result now uses the 32-node, 3,552-case summary:
   ML 3,726.4x, chemistry 42,491.4x, optimization 287,045.6x, and simulation
   3,071.0x median required speedup.
+- Accept-profile baseline-strengthening run submitted:
+  job `55498688`, 1 Perlmutter GPU node, 4 A100 tasks, `QS_SWEEP_PROFILE=accept`,
+  `QS_WORKLOAD_FAMILIES=chemistry,simulation`, `QS_CHUNK_COUNT=4`,
+  `QS_CASE_TIMEOUT=240s`. This run exercises the OpenFermion/PySCF chemistry
+  fixtures and the sparse/Lanczos/Krylov native baseline path.
 - Large-profile strong scaling completed:
   jobs `55475633`, `55475634`, and `55475635` completed the fixed 3,552-case
   profile on 4, 8, and 16 GPU nodes. Job `55475477` is the matching full-profile

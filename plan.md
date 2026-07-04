@@ -85,6 +85,7 @@ Current artifact status:
 | 1-32 node plan | Batch runner added as `jobs/perlmutter/practical_suite_scale_nodes.sbatch`; weak and strong scaling completed through 32 nodes |
 | Workload taxonomy | Implemented as `paper/figures/workload_taxonomy.pdf` and `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_taxonomy.json` |
 | Large manifest | Implemented as `QS_SWEEP_PROFILE=large`; preflight reports 3,552 case templates |
+| Accept-profile stronger baselines | Submitted as job `55498688`: 1 GPU node, 4 A100 tasks, chemistry+simulation only, OpenFermion/PySCF fixtures plus sparse/Lanczos/Krylov native baselines |
 
 ## 3. Current Evidence
 
@@ -1027,7 +1028,7 @@ Paper narrative updated to follow the accepted-paper structure: generated intro/
 
 Next actions:
 
-1. Run the accept-profile sweep with the new chemistry sparse/Lanczos and simulation sparse-Krylov native baselines before claiming production-grade native coverage for those families.
+1. After job `55498688` completes, summarize the accept-profile chemistry+simulation results and update the paper's baseline-coverage discussion.
 2. Use the OpenFermion/PySCF-generated H2, LiH, and H2O fixtures as the next chemistry/drug-discovery evidence path.
 3. Keep raw per-case JSON out of Git unless archiving is explicitly needed; commit processed summaries, accounting, and figures.
 
