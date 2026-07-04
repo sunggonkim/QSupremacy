@@ -51,6 +51,9 @@ The core comparison is not simulator vs simulator. The comparison is:
   `QS_WORKLOAD_FAMILIES=chemistry,simulation`, `QS_CHUNK_COUNT=4`,
   `QS_CASE_TIMEOUT=240s`. This run exercises the OpenFermion/PySCF chemistry
   fixtures and the sparse/Lanczos/Krylov native baseline path.
+- Accept-profile result helper added:
+  `scripts/summarize_accept_baselines.py` converts the completed accept-profile
+  CSV into compact JSON/Markdown evidence for paper tables.
 - Large-profile strong scaling completed:
   jobs `55475633`, `55475634`, and `55475635` completed the fixed 3,552-case
   profile on 4, 8, and 16 GPU nodes. Job `55475477` is the matching full-profile

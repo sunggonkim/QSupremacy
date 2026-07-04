@@ -86,6 +86,7 @@ Current artifact status:
 | Workload taxonomy | Implemented as `paper/figures/workload_taxonomy.pdf` and `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_taxonomy.json` |
 | Large manifest | Implemented as `QS_SWEEP_PROFILE=large`; preflight reports 3,552 case templates |
 | Accept-profile stronger baselines | Submitted as job `55498688`: 1 GPU node, 4 A100 tasks, chemistry+simulation only, OpenFermion/PySCF fixtures plus sparse/Lanczos/Krylov native baselines |
+| Accept-profile result helper | Added as `scripts/summarize_accept_baselines.py`; emits compact JSON/Markdown evidence from the completed summary CSV |
 
 ## 3. Current Evidence
 
@@ -1031,6 +1032,16 @@ Next actions:
 1. After job `55498688` completes, summarize the accept-profile chemistry+simulation results and update the paper's baseline-coverage discussion.
 2. Use the OpenFermion/PySCF-generated H2, LiH, and H2O fixtures as the next chemistry/drug-discovery evidence path.
 3. Keep raw per-case JSON out of Git unless archiving is explicitly needed; commit processed summaries, accounting, and figures.
+
+Accept-profile result ingestion command after completion:
+
+```bash
+/pscratch/sd/s/sgkim/kis_cuquantum/00_env/cutn_conda/bin/python \
+  scripts/summarize_accept_baselines.py \
+  --input-csv data/processed/perlmutter/practical_suite_accept_baselines_1node_20260704150409_summary.csv \
+  --output-json data/processed/perlmutter/practical_suite_accept_baselines_1node_20260704150409_accept_baselines.json \
+  --output-md data/processed/perlmutter/practical_suite_accept_baselines_1node_20260704150409_accept_baselines.md
+```
 
 ## 12. Completion Criteria
 
