@@ -1082,6 +1082,16 @@ stdout: logs/qsup-prac-scale-55515248.out
 stderr: logs/qsup-prac-scale-55515248.err
 ```
 
+Post-run ingestion command:
+
+```bash
+RUN_TAG=<run_tag_from_logs/qsup-prac-scale-55515248.out>
+python scripts/summarize_chemistry_coverage.py \
+  --input-csv data/processed/perlmutter/practical_suite_${RUN_TAG}_summary.csv \
+  --output-json data/processed/perlmutter/practical_suite_${RUN_TAG}_chemistry_coverage.json \
+  --output-md data/processed/perlmutter/practical_suite_${RUN_TAG}_chemistry_coverage.md
+```
+
 Accept-profile result ingestion command:
 
 ```bash
