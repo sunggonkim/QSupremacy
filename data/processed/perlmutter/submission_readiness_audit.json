@@ -1,0 +1,68 @@
+{
+  "blocking_error_count": 0,
+  "checks": [
+    {
+      "detail": "paper/main.pdf exists",
+      "name": "main_pdf_exists",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "detail": "pdfinfo can read page count",
+      "name": "page_count_known",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "detail": "current page count is 11; typical systems submissions need a target-specific page budget",
+      "name": "page_count_atc_style",
+      "passed": true,
+      "severity": "warning"
+    },
+    {
+      "detail": "LaTeX log has no undefined references or citations",
+      "name": "latex_no_undefined",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "detail": "BibTeX log has no warnings",
+      "name": "bibtex_no_warnings",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "detail": "paper sources contain no TODO/TBD/placeholder hits: none",
+      "name": "paper_no_todos",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "detail": "paper evidence audit reports PASS",
+      "name": "evidence_audit_pass",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "detail": "current manuscript keeps anonymous authors",
+      "name": "anonymous_submission",
+      "passed": true,
+      "severity": "warning"
+    },
+    {
+      "detail": "current manuscript still uses lightweight article class rather than a target conference template",
+      "name": "target_template_selected",
+      "passed": false,
+      "severity": "warning"
+    },
+    {
+      "detail": "explicit warmup-separated repeated hardware trials are not yet measured for every sensitivity point",
+      "name": "repeated_hardware_trials",
+      "passed": false,
+      "severity": "warning"
+    }
+  ],
+  "page_count": 11,
+  "status": "EVIDENCE_READY_WITH_SUBMISSION_RISKS",
+  "warning_count": 2
+}

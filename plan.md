@@ -83,6 +83,7 @@ Current artifact status:
 | Advantage frontier | Implemented as `paper/figures/advantage_frontier.pdf` using the 32-node, 3,552-case large practical sweep |
 | Advantage projection table | Implemented as `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.json`; at 90% quality-gap recovery, `10^4x` covers 54.9% of simulation cases and `10^5x` covers 57.1% of chemistry cases |
 | Paper evidence audit | Implemented as `scripts/audit_paper_evidence.py`; current output `data/processed/perlmutter/paper_evidence_audit.json` reports PASS for case counts, key medians, figures, and accounting files |
+| Submission-readiness audit | Implemented as `scripts/audit_submission_readiness.py`; current output reports `EVIDENCE_READY_WITH_SUBMISSION_RISKS` with no blocking evidence/build errors and explicit remaining risks for target template and repeated hardware trials |
 | Native stress test | ML and optimization runner logic strengthened; strong-native 1-node run completed as job `55468746` |
 | 1-32 node plan | Batch runner added as `jobs/perlmutter/practical_suite_scale_nodes.sbatch`; weak and strong scaling completed through 32 nodes |
 | Workload taxonomy | Implemented as `paper/figures/workload_taxonomy.pdf` and `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_taxonomy.json` |
