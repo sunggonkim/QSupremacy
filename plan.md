@@ -14,12 +14,12 @@ Completed evidence:
 | Expanded digits calibration | 160 cases, PASS |
 | Main practical suite | 3,552 cases on 32 GPU nodes, PASS |
 | Weak scaling | 8/16/32 nodes, PASS |
-| Strong scaling | 4/8/16/32 nodes, PASS |
+| Strong scaling | 4/8/16 nodes plus matching 32-node full-profile point, PASS |
 | Accept-profile baseline gate | 116 chemistry/simulation cases, PASS |
 | OpenFermion/PySCF chemistry coverage | 104 cases up to 8 qubits, PASS |
 | Paper figures | generated under `paper/figures/` |
 | Evidence audit | `paper_evidence_audit`: PASS |
-| Build/readiness audit | no blocking errors after ATC acmart conversion; full warmup-separated repeats remain a submission risk |
+| Build/readiness audit | no blocking errors after ATC acmart conversion; repeat timing gate PASS |
 
 Main interpretation:
 
@@ -40,11 +40,11 @@ Main 3,552-case result:
 | Optimization | 768 | 287,045.6x | 0.2500 |
 | Scientific simulation | 512 | 3,071.0x | 0.0188 |
 
-Current next paper work is writing/submission polish, not more raw data by default:
+Current next paper work is submission polish, not more raw data by default:
 
-1. Add warmup-separated repeat trials only if reviewers or target policy require tighter timing confidence.
-2. Tighten the introduction and evaluation narrative around the threshold model, not around simulator inefficiency.
-3. Keep all claims tied to `scripts/audit_paper_evidence.py`.
+1. Tighten the introduction and evaluation narrative around the threshold model, not around simulator inefficiency.
+2. Keep all claims tied to `scripts/audit_paper_evidence.py`.
+3. Prepare the next submission-target checklist and artifact package.
 
 ## 0. One-Sentence Thesis
 
@@ -127,9 +127,9 @@ Current artifact status:
 | Advantage frontier | Implemented as `paper/figures/advantage_frontier.pdf` using the 32-node, 3,552-case large practical sweep |
 | Advantage projection table | Implemented as `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.json`; at 90% quality-gap recovery, `10^4x` covers 54.9% of simulation cases and `10^5x` covers 57.1% of chemistry cases |
 | Paper evidence audit | Implemented as `scripts/audit_paper_evidence.py`; current output `data/processed/perlmutter/paper_evidence_audit.json` reports PASS for case counts, key medians, figures, and accounting files |
-| Submission-readiness audit | Implemented as `scripts/audit_submission_readiness.py`; current output reports `EVIDENCE_READY_WITH_SUBMISSION_RISKS` with no blocking evidence/build/template errors and an explicit remaining risk for repeated hardware trials |
+| Submission-readiness audit | Implemented as `scripts/audit_submission_readiness.py`; current output reports `SUBMISSION_READY` with no blocking evidence/build/template/repeat-timing errors |
 | Native stress test | ML and optimization runner logic strengthened; strong-native 1-node run completed as job `55468746` |
-| 1-32 node plan | Batch runner added as `jobs/perlmutter/practical_suite_scale_nodes.sbatch`; weak and strong scaling completed through 32 nodes |
+| 1-32 node plan | Batch runner added as `jobs/perlmutter/practical_suite_scale_nodes.sbatch`; weak scaling completed through 32 nodes, fixed-work scaling completed on 4/8/16 nodes plus a matching 32-node full-profile point |
 | Workload taxonomy | Implemented as `paper/figures/workload_taxonomy.pdf` and `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_taxonomy.json` |
 | Large manifest | Implemented as `QS_SWEEP_PROFILE=large`; preflight reports 3,552 case templates |
 | Accept-profile stronger baselines | Completed as job `55498688`: 1 GPU node, 4 A100 tasks, 116 chemistry+simulation cases, OpenFermion/PySCF fixtures plus sparse/Lanczos/Krylov native baselines |
@@ -137,6 +137,7 @@ Current artifact status:
 | Larger chemistry coverage | Completed job `55515248`: 1 GPU node, 4 A100 tasks, 104 chemistry cases over H2/LiH/H2O active-space fixtures up to 8 qubits; dense exact selected for runtime while sparse Lanczos is best-quality native in 62 cases |
 | Discussion/threats section | Added `paper/5.Discussion.tex` covering proof scope, native-baseline risk, workload representativeness, simulator-to-hardware projection, timing stability, and artifact reproducibility |
 | Claim checklist | Added to `paper/3.Design.tex` as a table covering same task, same quality, strong native baseline, end-to-end cost, hardware projection, error/shot overhead, and repeatability |
+| Repeat timing gate | Completed job `55516885`: 1 GPU node, 4 A100 tasks, four warmup cases, 12 measured trials, zero failed trials, max quantum-runtime CV `0.0400`; previous failed environment attempt `55516720` fixed by reloading `cudatoolkit/12.9` inside each `srun` task |
 
 ## 3. Current Evidence
 

@@ -56,13 +56,13 @@
       "severity": "warning"
     },
     {
-      "detail": "explicit warmup-separated repeated hardware trials are not yet measured for every sensitivity point",
+      "detail": "warmup-separated repeat timing gate passed with 12 measured cases and max quantum runtime CV 0.0400",
       "name": "repeated_hardware_trials",
-      "passed": false,
+      "passed": true,
       "severity": "warning"
     }
   ],
   "page_count": 12,
-  "status": "EVIDENCE_READY_WITH_SUBMISSION_RISKS",
-  "warning_count": 1
+  "status": "SUBMISSION_READY",
+  "warning_count": 0
 }

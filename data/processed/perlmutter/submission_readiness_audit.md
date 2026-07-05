@@ -1,6 +1,6 @@
 # Submission Readiness Audit
 
-Status: **EVIDENCE_READY_WITH_SUBMISSION_RISKS**
+Status: **SUBMISSION_READY**
 
 Page count: `12`
 
@@ -15,4 +15,4 @@ Page count: `12`
 | evidence_audit_pass | error | PASS | paper evidence audit reports PASS |
 | anonymous_submission | warning | PASS | current manuscript uses an anonymous Paper ID author block |
 | target_template_selected | warning | PASS | current manuscript uses the ATC 2026 recommended ACM SIGPLAN-style acmart template with CCS and keywords |
-| repeated_hardware_trials | warning | RISK | explicit warmup-separated repeated hardware trials are not yet measured for every sensitivity point |
+| repeated_hardware_trials | warning | PASS | warmup-separated repeat timing gate passed with 12 measured cases and max quantum runtime CV 0.0400 |

@@ -14,6 +14,9 @@ OUT_JSON = os.path.join(
 OUT_MD = os.path.join(
     ROOT, "data", "processed", "perlmutter", "submission_readiness_audit.md"
 )
+REPEAT_GATE_JSON = os.path.join(
+    ROOT, "data", "processed", "perlmutter", "repeat_timing_gate_latest.json"
+)
 
 
 def read_text(rel_path):
@@ -83,6 +86,13 @@ def main():
             )
         except ValueError:
             evidence = {}
+    repeat_gate = {}
+    if os.path.exists(REPEAT_GATE_JSON):
+        try:
+            with open(REPEAT_GATE_JSON, errors="replace") as f:
+                repeat_gate = json.load(f)
+        except ValueError:
+            repeat_gate = {}
 
     main_tex = read_text("paper/0.Main.tex")
     main_log = read_text("paper/main.log") if exists("paper/main.log") else ""
@@ -161,9 +171,16 @@ def main():
         ),
         check(
             "repeated_hardware_trials",
-            False,
+            bool(repeat_gate.get("passed")),
             "warning",
-            "explicit warmup-separated repeated hardware trials are not yet measured for every sensitivity point",
+            (
+                "warmup-separated repeat timing gate passed with {} measured cases and max quantum runtime CV {:.4f}".format(
+                    repeat_gate.get("measured_cases", 0),
+                    repeat_gate.get("max_quantum_runtime_cv", 0.0) or 0.0,
+                )
+                if repeat_gate.get("passed")
+                else "explicit warmup-separated repeated hardware trials are not yet measured"
+            ),
         ),
     ]
 

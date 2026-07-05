@@ -2,9 +2,9 @@
 
 Target: ATC-style quantum supremacy modeling and analysis paper.
 
-Status: evidence-backed draft. The manuscript now includes measured Perlmutter results for the digits calibration sweep, the 3,552-case practical suite, weak/strong scaling through 32 GPU nodes, strengthened native baselines, chemistry active-space coverage, advantage-frontier analysis, and a bottleneck taxonomy. It now builds with the ATC 2026 recommended ACM `acmart` SIGPLAN-style template.
+Status: evidence-backed draft. The manuscript now includes measured Perlmutter results for the digits calibration sweep, the 3,552-case practical suite, weak scaling through 32 GPU nodes, fixed-work scaling through 16 GPU nodes plus a matching 32-node full-profile point, strengthened native baselines, chemistry active-space coverage, advantage-frontier analysis, and a bottleneck taxonomy. It now builds with the ATC 2026 recommended ACM `acmart` SIGPLAN-style template.
 
-Current readiness audit: `scripts/audit_submission_readiness.py` reports `EVIDENCE_READY_WITH_SUBMISSION_RISKS`. Blocking evidence, build, and template checks pass; the remaining explicit risk is full warmup-separated repeated hardware trials.
+Current readiness audit: `scripts/audit_submission_readiness.py` reports `SUBMISSION_READY`. Blocking evidence, build, template, and repeat-timing checks pass. The remaining work is paper polish for the chosen submission target, not missing core experimental evidence.
 
 Note: the ATC 2026 CFP lists June 10, 2026 as the submission deadline. As of July 3, 2026, that deadline has passed, so this directory should be treated as an ATC-style manuscript for the next viable submission target unless the plan changes.
 
@@ -73,8 +73,8 @@ Quantum supremacy should be modeled as an application-level break-even condition
 - Advantage frontier and projection table: complete.
 - `sacct` accounting records for completed jobs: recorded in `data/raw/perlmutter/accounting/`.
 - Evidence audit: complete and currently PASS.
-- Submission-readiness audit: complete and currently `EVIDENCE_READY_WITH_SUBMISSION_RISKS`.
-- Remaining submission risk: repeated hardware trials and explicit warmup-separated timing.
+- Submission-readiness audit: complete and currently `SUBMISSION_READY`.
+- Warmup-separated repeat timing: complete as job `55516885`.
 
 ## Build
 
@@ -92,6 +92,27 @@ python3 scripts/audit_paper_evidence.py
 python3 scripts/audit_submission_readiness.py
 make -B -C paper
 ```
+
+## Repeat Timing Gate
+
+The remaining timing-confidence check is intentionally small and allocation
+safe:
+
+```bash
+sbatch jobs/perlmutter/practical_suite_repeat_timing_gate.sbatch
+```
+
+The job uses one GPU node, four A100 tasks, one warmup per workload family, and
+three measured trials per family. It writes the latest summarized evidence to
+`data/processed/perlmutter/repeat_timing_gate_latest.json` and Markdown beside
+it. The submission-readiness audit consumes that summary directly.
+
+Current status: job `55516885` completed in 58 seconds with exit `0:0`. The
+gate passed with four warmup cases, 12 measured trials, zero failed trials, and
+max quantum-runtime CV `0.0400`. The previous attempt, job `55516720`, failed
+after 21 seconds because the inner `srun` shell did not load the CUDA 12.9
+library path required by cuQuantum. The job script now loads
+`cudatoolkit/12.9` inside each task.
 
 ## Sources To Check Before Submission
 

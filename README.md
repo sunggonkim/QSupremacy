@@ -17,11 +17,11 @@ The main Perlmutter campaign is complete through the current paper evidence gate
 | Expanded digits calibration | 160 cases complete |
 | Large practical suite | 3,552 cases complete on 32 GPU nodes |
 | Weak scaling | 8, 16, and 32 GPU nodes complete |
-| Strong scaling | 4, 8, 16, and 32 GPU nodes complete |
+| Strong scaling | fixed 3,552-case profile complete on 4, 8, and 16 GPU nodes; matching 32-node full-profile point complete |
 | Chemistry active-space coverage | 104 OpenFermion/PySCF cases complete |
 | Paper figures | 11 PDF figures generated |
 | Paper evidence audit | PASS |
-| Submission readiness audit | no blocking errors; two submission risks remain |
+| Submission readiness audit | PASS after repeat-timing confidence gate |
 
 Main measured conclusion:
 
@@ -48,6 +48,35 @@ The paper-ready artifacts are:
 - readiness audit: `data/processed/perlmutter/submission_readiness_audit.md`
 - main 32-node summary: `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv`
 - advantage projection: `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.md`
+
+## Repeat Timing Gate
+
+The large sweep already contains repeated seeds and workload-level medians. For
+submission timing confidence, the repository also includes a small
+warmup-separated hardware repeat gate. It runs one representative case from
+each workload family, discards one warmup, and records three measured trials.
+
+```bash
+sbatch jobs/perlmutter/practical_suite_repeat_timing_gate.sbatch
+```
+
+The gate uses one Perlmutter GPU node with four A100 tasks, so ML, chemistry,
+optimization, and simulation run concurrently inside one allocation. Completed
+results are summarized into:
+
+- `data/processed/perlmutter/repeat_timing_gate_latest.json`
+- `data/processed/perlmutter/repeat_timing_gate_latest.md`
+
+`scripts/audit_submission_readiness.py` uses this summary to decide whether the
+warmup-separated repeat-timing check passes.
+
+Current repeat-gate status: job `55516885` completed in 58 seconds with exit
+`0:0`. The gate passed with four warmup cases, 12 measured trials, zero failed
+trials, and max quantum-runtime CV `0.0400`. The earlier attempt, job
+`55516720`, failed after 21 seconds because the inner `srun` login shell did
+not inherit the CUDA 12.9 library path needed by cuQuantum
+(`libcublas.so.12`); the fixed batch script reloads `cudatoolkit/12.9` inside
+each task.
 
 ## Current Status
 
@@ -104,7 +133,8 @@ The paper-ready artifacts are:
 - Large-profile strong scaling completed:
   jobs `55475633`, `55475634`, and `55475635` completed the fixed 3,552-case
   profile on 4, 8, and 16 GPU nodes. Job `55475477` is the matching full-profile
-  32-node point.
+  32-node point, completing the same 3,552-case profile in 4 minutes 7 seconds
+  at the Slurm step level.
 - Advantage-frontier figure added:
   `paper/figures/advantage_frontier.pdf`.
 - Advantage-projection summary added:
@@ -115,8 +145,8 @@ The paper-ready artifacts are:
   `data/processed/perlmutter/paper_evidence_audit.json`.
 - Submission-readiness audit added:
   `scripts/audit_submission_readiness.py` currently reports
-  `EVIDENCE_READY_WITH_SUBMISSION_RISKS`; blocking evidence/build/template
-  checks pass, while full warmup-separated repeated-trial coverage remains a risk.
+  `SUBMISSION_READY`; blocking evidence/build/template checks pass,
+  and the warmup-separated repeat-timing gate passes.
 - Workload taxonomy added:
   `paper/figures/workload_taxonomy.pdf` and
   `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_taxonomy.json`.

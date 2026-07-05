@@ -4,7 +4,7 @@ This section evaluates \SystemName in the same style as a systems performance pa
 
 \subsection{Evaluation Setup}
 
-Experiments run on NERSC \Perlmutter. Login-node smoke tests validate correctness, while performance experiments run through Slurm. The first expanded sweep uses \texttt{gpu\_shared} jobs with one A100 GPU per job. Each job records JSON outputs, Slurm metadata, elapsed time, and allocation information.
+Experiments run on NERSC \Perlmutter. Login-node smoke tests validate correctness, while performance experiments run through Slurm. The expanded digits sweep uses one A100 GPU per job. Each job records JSON outputs, Slurm metadata, elapsed time, and allocation information.
 
 \begin{table}[t]
 \caption{Measured setup for the expanded digits sweep.}
@@ -217,10 +217,10 @@ H$_2$O active & 8 & 12 & 788.0$\times$ & 1.0916 \\
 
 \subsection{RQ5: Perlmutter Weak and Strong Scaling}
 
-The large-profile suite contains 3,552 application cases. We evaluate two scaling modes. In weak scaling, each GPU receives roughly 28 cases, so total work grows with the number of GPUs. In strong scaling, every run executes the same 3,552 cases and the chunk slots are striped across the available GPUs. Both modes use one Slurm task per A100 GPU and independent application cases; this is throughput scaling, not distributed single-circuit simulation.
+The large-profile suite contains 3,552 application cases. We evaluate two scaling modes. In weak scaling, each GPU receives roughly 28 cases, so total work grows with the number of GPUs. In fixed-work scaling, every run executes the same 3,552 cases and the chunk slots are striped across the available GPUs. Both modes use one Slurm task per A100 GPU and independent application cases; this is throughput scaling, not distributed single-circuit simulation.
 
 \begin{table}[t]
-\caption{Large-profile weak and strong scaling on \Perlmutter.}
+\caption{Large-profile weak and fixed-work scaling on \Perlmutter.}
 \centering
 \small
 \begin{tabular}{lrrrr}
@@ -230,10 +230,10 @@ Mode & Nodes & GPUs & Cases & Elapsed \\
 Weak & 8 & 32 & 896 & 4:05 \\
 Weak & 16 & 64 & 1,792 & 4:04 \\
 Weak & 32 & 128 & 3,552 & 4:17 \\
-Strong & 4 & 16 & 3,552 & 30:55 \\
-Strong & 8 & 32 & 3,552 & 15:13 \\
-Strong & 16 & 64 & 3,552 & 11:05 \\
-Strong & 32 & 128 & 3,552 & 4:17 \\
+Fixed work & 4 & 16 & 3,552 & 30:55 \\
+Fixed work & 8 & 32 & 3,552 & 15:13 \\
+Fixed work & 16 & 64 & 3,552 & 11:05 \\
+Full profile & 32 & 128 & 3,552 & 4:17 \\
 \bottomrule
 \end{tabular}
 \label{tab:scaling}
@@ -243,12 +243,12 @@ Strong & 32 & 128 & 3,552 & 4:17 \\
 \centering
 \includegraphics[width=\linewidth]{figures/scaling_summary.pdf}
 \Description{Weak and strong scaling plot showing case throughput and elapsed time across Perlmutter GPU node counts.}
-\caption{Large-profile scaling. Weak scaling keeps per-GPU work nearly fixed and increases total throughput. Strong scaling fixes the full 3,552-case workload and measures time-to-solution speedup relative to four nodes.}
+\caption{Large-profile scaling. Weak scaling keeps per-GPU work nearly fixed and increases total throughput. Fixed-work scaling runs the full 3,552-case workload and measures time-to-solution speedup relative to four nodes.}
 \label{fig:scaling-summary}
 \end{figure}
 
 \noindent\textbf{Answer.}
-All six scaling jobs completed with exit code 0:0. The generated raw JSON counts match the expected case counts: 896, 1,792, and 3,552 for the weak-scaling runs, and 3,552 for each strong-scaling run. No failed case, traceback, or timeout was recorded in the task logs. The weak-scaling results keep per-GPU throughput close to stable from 8 to 32 nodes. The strong-scaling result reduces time-to-solution from 30 minutes 55 seconds on four nodes to 4 minutes 17 seconds on 32 nodes, a 7.2$\times$ speedup over an 8$\times$ node increase. This validates the bundled multi-node execution path for the advantage-modeling workflow.
+All scale-out jobs used by this table completed with exit code 0:0. The generated raw JSON counts match the expected case counts: 896, 1,792, and 3,552 for the weak-scaling runs, and 3,552 for each fixed-work run. No failed case, traceback, or timeout was recorded in the task logs. The weak-scaling results keep per-GPU throughput close to stable from 8 to 32 nodes. The fixed-work result reduces time-to-solution from 30 minutes 55 seconds on four nodes to 4 minutes 17 seconds on the matching 32-node full-profile point, a 7.2$\times$ speedup over an 8$\times$ node increase. This validates the bundled multi-node execution path for the advantage-modeling workflow.
 
 \subsection{RQ6: Advantage Frontier}
 
