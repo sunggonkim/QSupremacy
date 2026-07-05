@@ -5,6 +5,7 @@
     "evaluation_previous_shape": true,
     "intro_role_and_size": true,
     "paragraph_role_inventory_present": true,
+    "paragraph_role_lines_present": true,
     "previous_sources_available": true,
     "role_markers_ordered": true
   },
@@ -38,30 +39,44 @@
       },
       "paragraph_role_inventory": [
         {
+          "current_line": 3,
+          "current_marker": "\\subsection{Quantum-Circuit Application Paths}",
           "role": "application paths",
           "template_logic": "Define quantum-circuit application families"
         },
         {
+          "current_line": 7,
+          "current_marker": "Repeated execution",
           "role": "repeated execution",
           "template_logic": "Explain why one circuit run is not the full application"
         },
         {
+          "current_line": 10,
+          "current_marker": "Practical application families",
           "role": "practical families",
           "template_logic": "ML, chemistry, optimization, simulation"
         },
         {
+          "current_line": 13,
+          "current_marker": "Terminology",
           "role": "terminology",
           "template_logic": "Threshold and advantage-region definitions"
         },
         {
+          "current_line": 16,
+          "current_marker": "\\subsection{Native Baselines and Threshold Model}",
           "role": "native baselines",
           "template_logic": "Classical target path"
         },
         {
+          "current_line": 20,
+          "current_marker": "Perlmutter and cuQuantum",
           "role": "Perlmutter/cuQuantum",
           "template_logic": "Measurement platform"
         },
         {
+          "current_line": 23,
+          "current_marker": "Break-even condition",
           "role": "break-even equations",
           "template_logic": "Native, simulated quantum, projected hardware paths"
         }
@@ -118,10 +133,14 @@
       },
       "paragraph_role_inventory": [
         {
+          "current_line": 3,
+          "current_marker": "In this paper",
           "role": "paper result",
           "template_logic": "Framework and measured thresholds"
         },
         {
+          "current_line": 5,
+          "current_marker": "The main lesson",
           "role": "main lesson",
           "template_logic": "Frontier and bottleneck taxonomy instead of slogan"
         }
@@ -171,42 +190,62 @@
       },
       "paragraph_role_inventory": [
         {
+          "current_line": 3,
+          "current_marker": "Overview of",
           "role": "overview and boundary",
           "template_logic": "State what the system is and is not"
         },
         {
+          "current_line": 17,
+          "current_marker": "\\subsection{Overall Procedure}",
           "role": "overall procedure",
           "template_logic": "Measurement then supremacy analysis"
         },
         {
+          "current_line": 24,
+          "current_marker": "Config Record",
           "role": "configuration record",
           "template_logic": "Stable work representation before execution"
         },
         {
+          "current_line": 30,
+          "current_marker": "Failure Handling",
           "role": "failure handling",
           "template_logic": "Failed paths remain measured evidence"
         },
         {
+          "current_line": 33,
+          "current_marker": "\\subsection{Shared Workload Control}",
           "role": "shared workload control",
           "template_logic": "Same input, instance identity, and quality target"
         },
         {
+          "current_line": 53,
+          "current_marker": "\\subsection{Application Path Execution}",
           "role": "application paths",
           "template_logic": "Native, kernel, and QNN/VQC execution rules"
         },
         {
+          "current_line": 94,
+          "current_marker": "\\subsection{Measurement and Threshold Analysis}",
           "role": "measurement records",
           "template_logic": "JSON, summary path, and allocation accounting"
         },
         {
+          "current_line": 105,
+          "current_marker": "\\subsubsection{Threshold Analysis}",
           "role": "threshold analysis",
           "template_logic": "Execution model, break-even search, and frontier classification"
         },
         {
+          "current_line": 134,
+          "current_marker": "\\subsection{Advantage Claim Checklist}",
           "role": "claim checklist",
           "template_logic": "Systems checks before an advantage claim"
         },
         {
+          "current_line": 160,
+          "current_marker": "\\subsection{Workload Suite}",
           "role": "workload suite",
           "template_logic": "Measured application families"
         }
@@ -266,42 +305,62 @@
       },
       "paragraph_role_inventory": [
         {
+          "current_line": 5,
+          "current_marker": "\\subsection{Evaluation Setup}",
           "role": "setup",
           "template_logic": "Hardware, benchmark, baselines, feasibility"
         },
         {
+          "current_line": 19,
+          "current_marker": "Campaign summary",
           "role": "campaign summary",
           "template_logic": "Evidence table and evaluation questions"
         },
         {
+          "current_line": 91,
+          "current_marker": "\\subsection{RQ1:",
           "role": "RQ1",
           "template_logic": "Native ML versus quantum-circuit ML"
         },
         {
+          "current_line": 137,
+          "current_marker": "\\subsection{RQ2:",
           "role": "RQ2",
           "template_logic": "Quality sensitivity"
         },
         {
+          "current_line": 161,
+          "current_marker": "\\subsection{RQ3:",
           "role": "RQ3",
           "template_logic": "Practical application suite"
         },
         {
+          "current_line": 195,
+          "current_marker": "\\subsection{RQ4:",
           "role": "RQ4",
           "template_logic": "Native baseline stress"
         },
         {
+          "current_line": 253,
+          "current_marker": "\\subsection{RQ5:",
           "role": "RQ5",
           "template_logic": "Weak and strong scaling"
         },
         {
+          "current_line": 288,
+          "current_marker": "\\subsection{RQ6:",
           "role": "RQ6",
           "template_logic": "Advantage frontier and hardware projection"
         },
         {
+          "current_line": 322,
+          "current_marker": "\\subsection{Operational Stability}",
           "role": "stability",
           "template_logic": "Operational and repeat-timing checks"
         },
         {
+          "current_line": 371,
+          "current_marker": "Bottleneck Taxonomy",
           "role": "taxonomy and sensitivity",
           "template_logic": "Bottleneck classes and remaining scope"
         }
@@ -362,34 +421,50 @@
       },
       "paragraph_role_inventory": [
         {
+          "current_line": 3,
+          "current_marker": "Quantum computing is often described",
           "role": "opening motivation",
           "template_logic": "Broad promise, practical HPC question, hardware limit"
         },
         {
+          "current_line": 5,
+          "current_marker": "Existing simulation systems provide",
           "role": "prior simulator boundary",
           "template_logic": "Simulation systems help, but simulator speed is not application speed"
         },
         {
+          "current_line": 7,
+          "current_marker": "\\begin{figure}",
           "role": "intro figure",
           "template_logic": "First visual statement of native path versus quantum path"
         },
         {
+          "current_line": 15,
+          "current_marker": "Observation 1",
           "role": "observations",
           "template_logic": "Bold observations before positioning table"
         },
         {
+          "current_line": 17,
+          "current_marker": "The same issue becomes stronger",
           "role": "application diversity",
           "template_logic": "Why one toy workload cannot support broad quantum claims"
         },
         {
+          "current_line": 21,
+          "current_marker": "\\begin{table}",
           "role": "positioning table",
           "template_logic": "Early related-work table before final pitch"
         },
         {
+          "current_line": 41,
+          "current_marker": "Key idea",
           "role": "key idea",
           "template_logic": "Break-even threshold model"
         },
         {
+          "current_line": 46,
+          "current_marker": "This paper makes the following contributions",
           "role": "paper statement and contributions",
           "template_logic": "System statement followed by contribution list"
         }
@@ -448,10 +523,14 @@
       },
       "paragraph_role_inventory": [
         {
+          "current_line": 3,
+          "current_marker": "Quantum simulation and NISQ systems",
           "role": "simulation and NISQ",
           "template_logic": "Simulation substrate and current-device limits"
         },
         {
+          "current_line": 6,
+          "current_marker": "Quantum applications and native baselines",
           "role": "applications and baselines",
           "template_logic": "Application families and native comparisons"
         }

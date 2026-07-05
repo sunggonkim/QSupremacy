@@ -141,6 +141,61 @@ ROLE_INVENTORY = {
 }
 
 
+ROLE_CURRENT_MARKERS = {
+    "introduction": {
+        "opening motivation": "Quantum computing is often described",
+        "prior simulator boundary": "Existing simulation systems provide",
+        "intro figure": "\\begin{figure}",
+        "observations": "Observation 1",
+        "application diversity": "The same issue becomes stronger",
+        "positioning table": "\\begin{table}",
+        "key idea": "Key idea",
+        "paper statement and contributions": "This paper makes the following contributions",
+    },
+    "background": {
+        "application paths": "\\subsection{Quantum-Circuit Application Paths}",
+        "repeated execution": "Repeated execution",
+        "practical families": "Practical application families",
+        "terminology": "Terminology",
+        "native baselines": "\\subsection{Native Baselines and Threshold Model}",
+        "Perlmutter/cuQuantum": "Perlmutter and cuQuantum",
+        "break-even equations": "Break-even condition",
+    },
+    "design": {
+        "overview and boundary": "Overview of",
+        "overall procedure": "\\subsection{Overall Procedure}",
+        "configuration record": "Config Record",
+        "failure handling": "Failure Handling",
+        "shared workload control": "\\subsection{Shared Workload Control}",
+        "application paths": "\\subsection{Application Path Execution}",
+        "measurement records": "\\subsection{Measurement and Threshold Analysis}",
+        "threshold analysis": "\\subsubsection{Threshold Analysis}",
+        "claim checklist": "\\subsection{Advantage Claim Checklist}",
+        "workload suite": "\\subsection{Workload Suite}",
+    },
+    "evaluation": {
+        "setup": "\\subsection{Evaluation Setup}",
+        "campaign summary": "Campaign summary",
+        "RQ1": "\\subsection{RQ1:",
+        "RQ2": "\\subsection{RQ2:",
+        "RQ3": "\\subsection{RQ3:",
+        "RQ4": "\\subsection{RQ4:",
+        "RQ5": "\\subsection{RQ5:",
+        "RQ6": "\\subsection{RQ6:",
+        "stability": "\\subsection{Operational Stability}",
+        "taxonomy and sensitivity": "Bottleneck Taxonomy",
+    },
+    "related": {
+        "simulation and NISQ": "Quantum simulation and NISQ systems",
+        "applications and baselines": "Quantum applications and native baselines",
+    },
+    "conclusion": {
+        "paper result": "In this paper",
+        "main lesson": "The main lesson",
+    },
+}
+
+
 def read_rel(rel_path):
     path = os.path.join(ROOT, rel_path)
     if not os.path.exists(path):
@@ -201,6 +256,15 @@ def marker_positions(text, markers):
     return positions
 
 
+def marker_line(text, marker):
+    if marker is None:
+        return None
+    pos = text.find(marker)
+    if pos < 0:
+        return None
+    return text[:pos].count("\n") + 1
+
+
 def ordered_markers(positions):
     seen = [pos for pos in positions.values() if pos is not None]
     return seen == sorted(seen) and len(seen) == len(positions)
@@ -234,7 +298,15 @@ def main():
             section_data["role_markers_ordered"] = ordered_markers(positions)
         if section in ROLE_INVENTORY:
             section_data["paragraph_role_inventory"] = [
-                {"role": role, "template_logic": template_logic}
+                {
+                    "role": role,
+                    "template_logic": template_logic,
+                    "current_marker": ROLE_CURRENT_MARKERS.get(section, {}).get(role),
+                    "current_line": marker_line(
+                        texts.get("ours", ""),
+                        ROLE_CURRENT_MARKERS.get(section, {}).get(role),
+                    ),
+                }
                 for role, template_logic in ROLE_INVENTORY[section]
             ]
 
@@ -272,6 +344,10 @@ def main():
         ),
         "paragraph_role_inventory_present": all(
             len(sections[section].get("paragraph_role_inventory", [])) > 0
+            for section in SECTION_FILES
+        ),
+        "paragraph_role_lines_present": all(
+            all(item.get("current_line") for item in sections[section].get("paragraph_role_inventory", []))
             for section in SECTION_FILES
         ),
     }
@@ -365,14 +441,15 @@ def main():
         else:
             f.write("No large word-count gaps under the current threshold.\n")
         f.write("\n## Paragraph Role Inventory\n\n")
-        f.write("| Section | Order | Current paragraph role | Previous-paper logic followed |\n")
-        f.write("| --- | ---: | --- | --- |\n")
+        f.write("| Section | Order | Current source line | Current paragraph role | Previous-paper logic followed |\n")
+        f.write("| --- | ---: | ---: | --- | --- |\n")
         for section, data in sections.items():
             for index, item in enumerate(data.get("paragraph_role_inventory", []), start=1):
                 f.write(
-                    "| {} | {} | {} | {} |\n".format(
+                    "| {} | {} | {} | {} | {} |\n".format(
                         section,
                         index,
+                        item.get("current_line") or "",
                         item["role"],
                         item["template_logic"],
                     )
