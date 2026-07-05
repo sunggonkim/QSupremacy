@@ -108,6 +108,25 @@ def check_pdf_artifact(rel_path, min_bytes=1024):
     }
 
 
+def check_text_contains(label, rel_path, needles):
+    text = ""
+    if exists(rel_path):
+        with open(os.path.join(ROOT, rel_path), errors="replace") as f:
+            text = f.read()
+    missing = [needle for needle in needles if needle not in text]
+    return {
+        "label": label,
+        "actual": {
+            "file": rel_path,
+            "missing": missing,
+        },
+        "expected": {
+            "contains": needles,
+        },
+        "passed": exists(rel_path) and not missing,
+    }
+
+
 def main():
     items = []
 
@@ -288,6 +307,64 @@ def main():
             "Main paper figures are valid PDF artifacts for performance, scaling, quality, and frontier analysis",
             scaling_figures,
             [check_pdf_artifact(path) for path in scaling_figures],
+        )
+    )
+
+    manuscript_checks = [
+        check_text_contains(
+            "abstract_core_numbers",
+            "paper/0.Main.tex",
+            [
+                "160 cases",
+                "421.9$\\times$",
+                "64.9$\\times$",
+                "3,552-case",
+                "3,071.0$\\times$",
+                "287,045.6$\\times$",
+                "104-case OpenFermion/PySCF",
+            ],
+        ),
+        check_text_contains(
+            "practical_suite_table_numbers",
+            "paper/4.Evaluation.tex",
+            [
+                "ML & 2,048 & 3,726.4$\\times$ & 0.3125",
+                "Chemistry & 224 & 42,491.4$\\times$ & 0.0203",
+                "Optimization & 768 & 287,045.6$\\times$ & 0.2500",
+                "Simulation & 512 & 3,071.0$\\times$ & 0.0188",
+            ],
+        ),
+        check_text_contains(
+            "projection_and_repeat_numbers",
+            "paper/4.Evaluation.tex",
+            [
+                "Simulation & 0.01 & 54.9\\% & 71.9\\% & 100.0\\% & 100.0\\%",
+                "Chemistry & 0.01 & 0.0\\% & 57.1\\% & 100.0\\% & 100.0\\%",
+                "maximum quantum-runtime coefficient of variation is 0.0400",
+            ],
+        ),
+        check_text_contains(
+            "conclusion_frontier_numbers",
+            "paper/6.Conclusion.tex",
+            [
+                "421.9$\\times$",
+                "64.9$\\times$",
+                "3,552 cases",
+                "54.9\\% of simulation cases",
+                "57.1\\% of chemistry cases",
+            ],
+        ),
+    ]
+    items.append(
+        ok_item(
+            "manuscript_claims",
+            "Manuscript text contains the canonical evidence-backed numeric claims",
+            [
+                "paper/0.Main.tex",
+                "paper/4.Evaluation.tex",
+                "paper/6.Conclusion.tex",
+            ],
+            manuscript_checks,
         )
     )
 
