@@ -20,8 +20,8 @@
 \acmDOI{}
 
 \newcommand{\SystemName}{\textsc{QSupremacy}\xspace}
-\newcommand{\cuQuantum}{\texttt{cuQuantum}\xspace}
-\newcommand{\Perlmutter}{\texttt{Perlmutter}\xspace}
+\newcommand{\cuQuantum}{\texttt{cu\-Quantum}\xspace}
+\newcommand{\Perlmutter}{\texttt{Perl\-mutter}\xspace}
 \title{\SystemName: Quantum Supremacy Modeling and Analysis over Native HPC}
 
 \author{Paper ID: Anonymous Submission}
@@ -62,7 +62,7 @@
 \begin{abstract}
 \textbf{Problem.} Quantum supremacy is often discussed as if faster quantum hardware will solve many practical problems automatically. This is not enough for HPC users. A systems claim needs an end-to-end break-even test: can a quantum-circuit application beat a strong native HPC application on the same task, at the same quality, after encoding, circuit execution, measurement, and classical control are included?
 
-\textbf{Approach.} This paper presents \SystemName, a Perlmutter-based measurement and modeling framework for this break-even test. \SystemName runs native baselines and quantum-circuit versions of the same workload with shared inputs and quality targets. It then converts measured circuit cost, quality gap, and native runtime into a supremacy threshold: the quantum execution speed and quality recovery needed to beat the native path.
+\textbf{Approach.} We present \SystemName, a Perlmutter measurement framework for this break-even test. \SystemName runs native baselines and quantum-circuit versions of the same workload with shared inputs and quality targets. It then converts measured circuit cost, quality gap, and native runtime into a supremacy threshold: the quantum execution speed and quality recovery needed to beat the native path.
 
 \textbf{Result.} On \Perlmutter, our expanded \texttt{sklearn digits} sweep runs 160 cases across class pairs, sample counts, PCA dimensions, depths, and seeds. Quantum kernels require a median 421.9$\times$ speedup to match the native path; QNN/VQC requires 64.9$\times$ but usually misses native quality. We then run a 3,552-case practical suite across ML, chemistry, optimization, and simulation on up to 32 GPU nodes. Median required speedups range from 3,071.0$\times$ for simulation to 287,045.6$\times$ for optimization. Baseline-coverage gates add sparse Krylov simulation baselines and a 104-case OpenFermion/PySCF chemistry sweep with LiH/H$_2$O active-space fixtures up to 8 qubits. These results do not claim quantum wins today. They show why practical quantum supremacy must be modeled as a workload-specific threshold.
 \end{abstract}

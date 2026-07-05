@@ -19,8 +19,8 @@ But simulator scalability is not the same as application-level quantum supremacy
 \noindent\textbf{Observation 1: Simulator speed is not application speed.}
 Figure~\ref{fig:intro-gap} shows the comparison target of \SystemName. A circuit simulator is only one component of the quantum path. The full quantum path also includes encoding, circuit generation, repeated evaluations, measurement, optimizer steps, and postprocessing.
 
-\noindent\textbf{Observation 2: Native baselines are strong.}
-Native HPC/ML applications already use mature software stacks and hardware-efficient kernels. Therefore, a fair quantum supremacy claim must compare against a native implementation of the same workload, not only against another quantum simulator.
+\noindent\textbf{Observation 2: Native baselines matter.}
+Native HPC/ML applications already use mature software stacks and efficient kernels. A fair quantum supremacy claim must therefore compare against a native implementation of the same workload, not only against another quantum simulator.
 
 \noindent\textbf{Observation 3: Supremacy is a break-even condition.}
 Even if the quantum-circuit path is slower today, it can still be useful if it tells us how fast future quantum hardware must be. Thus, the goal is not only to measure \cuQuantum time. The goal is to invert the measurement and compute the required quantum gate time, shot throughput, and error overhead.
@@ -54,15 +54,15 @@ Native ML studies &  & \checkmark &  &  \\
 \end{table}
 
 \noindent\textbf{Key idea.}
-\SystemName treats quantum supremacy as a modeling and analysis problem. In this paper, the supremacy threshold is the condition where the projected quantum-circuit path becomes faster than the measured native HPC and ML path under the same workload and quality target. For each workload, \SystemName records the cost of each stage and then projects the quantum hardware region where this condition holds.
+\SystemName treats quantum supremacy as a modeling and analysis problem. The supremacy threshold is the point where the projected quantum-circuit path becomes faster than the measured native HPC and ML path under the same workload and quality target. For each workload, \SystemName records the cost of each stage and then projects the quantum hardware region where this condition holds.
 
-In this paper, we present \SystemName, a quantum supremacy modeling and analysis study for HPC systems. \SystemName starts with a controlled ML workload: \texttt{sklearn digits} native ML baselines, quantum kernel classifiers, and QNN/VQC classifiers. This first workload is the calibration point that validates the measurement pipeline. We then scale the study to a practical suite with ML, molecular energy estimation for drug discovery, combinatorial optimization, and Hamiltonian simulation. The evaluation first exposes the bottleneck, then studies baseline sensitivity, scaling behavior, hardware projection, and workload-specific advantage frontiers.
+We present \SystemName, a quantum supremacy modeling and analysis study for HPC systems. \SystemName starts with a controlled ML workload: \texttt{sklearn digits} native ML baselines, quantum kernel classifiers, and QNN/VQC classifiers. This first workload validates the measurement pipeline. We then scale the study to a practical suite with ML, molecular energy estimation, combinatorial optimization, and Hamiltonian simulation. The evaluation first exposes the bottleneck, then studies baseline sensitivity, scaling behavior, hardware projection, and workload-specific advantage frontiers.
 
 This paper makes the following contributions:
 
 \begin{itemize}[leftmargin=*]
     \item \textbf{End-to-end threshold model.} We define practical quantum supremacy as a same-task, same-quality break-even condition between a native HPC path and a quantum-circuit application path.
-    \item \textbf{Perlmutter measurement framework.} We build a pipeline that records runtime breakdowns, quality, circuit metadata, GPU metadata, Slurm metadata, and repeat-timing evidence.
+    \item \textbf{Logging framework.} We build a pipeline that records runtime breakdowns, quality, circuit metadata, GPU metadata, Slurm metadata, and repeat-timing evidence.
     \item \textbf{Practical workload evidence.} We evaluate controlled quantum ML and a suite covering ML, chemistry, optimization, and simulation, including a 3,552-case large profile, OpenFermion/PySCF chemistry, and sparse Krylov baselines.
     \item \textbf{Scale-out validation.} We run the large profile up to 32 GPU nodes and report weak scaling, fixed-work scaling, bundled allocation behavior, and repeat timing.
     \item \textbf{Hardware-region analysis.} We convert measured circuit costs into required execution speed, shot throughput, and quality-gap recovery, then classify why each workload is hard.

@@ -49,7 +49,7 @@ The native path executes the best available non-quantum implementation for the s
 \subsection{Quantum Kernel Path}
 
 \noindent\textbf{Feature Map Execution.}
-The quantum kernel path maps each PCA feature vector into a quantum feature map. \cuQuantum simulates the circuit and produces state or observable information used to build kernel entries. A classical classifier then consumes the kernel matrix.
+The quantum kernel path maps each PCA feature vector into a quantum feature map. \cuQuantum simulates the circuit and produces state or observable data for kernel entries. A classical classifier then consumes the kernel matrix.
 
 \noindent\textbf{Cost Breakdown.}
 \SystemName records encoding time, circuit construction time, \cuQuantum execution time, kernel matrix construction time, and classifier-head time. This path is useful because it separates circuit execution cost from trainable quantum-parameter optimization.

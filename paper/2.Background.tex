@@ -22,7 +22,7 @@ Native HPC/ML baselines execute the same task directly on CPUs or GPUs. For the 
 
 \subsection{Perlmutter and cuQuantum}
 
-\Perlmutter provides GPU nodes suitable for quantum-circuit simulation with \cuQuantum and cuStateVec~\cite{nerscperlmutter,cuquantum}. Our current environment uses an existing \cuQuantum installation and validates it through login-node smoke tests before any allocation-consuming job. Login-node tests are used only for correctness and pipeline validation. Performance experiments must run through Slurm and record queue time, elapsed time, allocation resources, and charged node-hours~\cite{nerscslurm}.
+\Perlmutter provides GPU nodes for quantum-circuit simulation with \cuQuantum and cuStateVec~\cite{nerscperlmutter,cuquantum}. Our environment uses an existing \cuQuantum installation and validates it through login-node smoke tests before any allocation-consuming job. Login-node tests are used only for correctness and pipeline validation. Performance experiments run through Slurm and record queue time, elapsed time, allocation resources, and charged node-hours~\cite{nerscslurm}.
 
 \subsection{Definition of Quantum Supremacy Threshold}
 

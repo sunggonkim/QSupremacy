@@ -391,7 +391,7 @@ def main():
             [
                 "Simulation & 0.01 & 54.9\\% & 71.9\\% & 100.0\\% & 100.0\\%",
                 "Chemistry & 0.01 & 0.0\\% & 57.1\\% & 100.0\\% & 100.0\\%",
-                "maximum quantum-runtime coefficient of variation is 0.0400",
+                "maximum quantum-runtime CV is 0.0400",
             ],
         ),
         check_text_contains(

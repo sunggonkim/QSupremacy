@@ -340,8 +340,8 @@ Simulation & 18 & 11,629.0$\times$ & 0.0250 \\
 
 The pilot completed in 6 minutes and 54 seconds with 96 raw JSON outputs and empty stderr logs. Its main systems result is operational: the correct bundled pattern is a single \texttt{srun} step with multiple tasks, where each task selects a chunk using \texttt{SLURM\_PROCID}. Launching multiple overlapping \texttt{srun} steps was less reliable because of step-level resource ownership.
 
-\noindent\textbf{Repeat timing gate.}
-Finally, we run a small warmup-separated repeat-timing gate to check that the measured path is not dominated by one first-use timing sample. The gate uses one \Perlmutter GPU node with four A100 tasks. Each task runs one workload family, discards one warmup case, and records three measured trials. Job 55516885 completed in 58 seconds with exit code 0:0 and empty stderr. Across the 12 measured trials, the maximum quantum-runtime coefficient of variation is 0.0400. This gate is not a replacement for the large 3,552-case sweep; it is a timing-stability check for the submitted evidence package.
+\noindent\textbf{Timing gate.}
+Finally, we run a small warmup-separated repeat-timing gate to check that the measured path is not dominated by one first-use timing sample. The gate uses one \Perlmutter GPU node with four A100 tasks. Each task runs one workload family, discards one warmup case, and records three measured trials. Job 55516885 completed in 58 seconds with exit code 0:0 and empty stderr. Across the 12 measured trials, the maximum quantum-runtime CV is 0.0400. This gate is not a replacement for the large 3,552-case sweep; it is a timing-stability check for the submitted evidence package.
 
 \subsection{Hardware Projection Model}
 
