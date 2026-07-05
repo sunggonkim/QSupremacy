@@ -3,6 +3,9 @@
 \noindent\textbf{Overview of \SystemName's Design.}
 \SystemName is designed to answer one question: what quantum hardware speed is required for a quantum-circuit application to beat the native HPC application for the same task? Figure~\ref{fig:design-overview} summarizes the key components. First, \SystemName uses \textit{Shared Workload Control} to ensure that all paths use the same input instance and quality target. Second, it uses \textit{Native Path Execution} to establish a strong classical baseline. Third, it uses \textit{Quantum Path Execution} to run quantum kernels, QNN/VQC, VQE, QAOA, and Hamiltonian simulation circuits with \cuQuantum. Finally, it uses \textit{Supremacy Threshold Analysis} to estimate the future quantum hardware requirements.
 
+\noindent\textbf{Design Boundary.}
+\SystemName is not a new quantum circuit simulator, compiler, or quantum algorithm. It treats existing simulators and native methods as execution engines behind a controlled workload interface. The design contribution is the measurement discipline: same input, same quality metric, strongest valid native path, measured quantum-circuit path, and explicit hardware projection. This boundary is important because faster simulation alone does not answer whether a future quantum computer would beat the native application.
+
 \begin{figure}[t]
     \centering
     \includegraphics[width=\linewidth]{figures/design_overview.pdf}
