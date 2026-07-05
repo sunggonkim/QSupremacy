@@ -257,43 +257,158 @@
     {
       "checks": [
         {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/scaling_summary.pdf",
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 19715
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/intro_application_gap.pdf",
           "passed": true
         },
         {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/strong_native_comparison.pdf",
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 18956
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/design_overview.pdf",
           "passed": true
         },
         {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/practical_suite_summary.pdf",
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 16142
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/scaling_summary.pdf",
           "passed": true
         },
         {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/digits_required_speedup.pdf",
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 15904
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/strong_native_comparison.pdf",
           "passed": true
         },
         {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/digits_quality_speedup.pdf",
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 14392
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/practical_suite_summary.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 12976
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/digits_required_speedup.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 18973
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/digits_quality_speedup.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 27194
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/advantage_frontier.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 17334
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/salloc_pilot_comparison.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 15220
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/workload_taxonomy.pdf",
           "passed": true
         }
       ],
-      "claim": "Main paper figures exist for performance, scaling, quality, and frontier analysis",
+      "claim": "Main paper figures are valid PDF artifacts for performance, scaling, quality, and frontier analysis",
       "evidence": [
+        "paper/figures/intro_application_gap.pdf",
+        "paper/figures/design_overview.pdf",
         "paper/figures/scaling_summary.pdf",
         "paper/figures/strong_native_comparison.pdf",
         "paper/figures/practical_suite_summary.pdf",
         "paper/figures/digits_required_speedup.pdf",
-        "paper/figures/digits_quality_speedup.pdf"
+        "paper/figures/digits_quality_speedup.pdf",
+        "paper/figures/advantage_frontier.pdf",
+        "paper/figures/salloc_pilot_comparison.pdf",
+        "paper/figures/workload_taxonomy.pdf"
       ],
       "name": "paper_figures",
       "passed": true

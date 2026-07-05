@@ -81,6 +81,33 @@ def check_exists(rel_path):
     }
 
 
+def check_pdf_artifact(rel_path, min_bytes=1024):
+    path = os.path.join(ROOT, rel_path)
+    actual = {
+        "exists": os.path.exists(path),
+        "size_bytes": 0,
+        "header": "",
+    }
+    if os.path.exists(path):
+        actual["size_bytes"] = os.path.getsize(path)
+        with open(path, "rb") as f:
+            actual["header"] = f.read(4).decode("ascii", errors="replace")
+    return {
+        "label": "valid_pdf: {}".format(rel_path),
+        "actual": actual,
+        "expected": {
+            "exists": True,
+            "min_bytes": min_bytes,
+            "header": "%PDF",
+        },
+        "passed": (
+            actual["exists"]
+            and actual["size_bytes"] >= min_bytes
+            and actual["header"] == "%PDF"
+        ),
+    }
+
+
 def main():
     items = []
 
@@ -244,18 +271,23 @@ def main():
     )
 
     scaling_figures = [
+        "paper/figures/intro_application_gap.pdf",
+        "paper/figures/design_overview.pdf",
         "paper/figures/scaling_summary.pdf",
         "paper/figures/strong_native_comparison.pdf",
         "paper/figures/practical_suite_summary.pdf",
         "paper/figures/digits_required_speedup.pdf",
         "paper/figures/digits_quality_speedup.pdf",
+        "paper/figures/advantage_frontier.pdf",
+        "paper/figures/salloc_pilot_comparison.pdf",
+        "paper/figures/workload_taxonomy.pdf",
     ]
     items.append(
         ok_item(
             "paper_figures",
-            "Main paper figures exist for performance, scaling, quality, and frontier analysis",
+            "Main paper figures are valid PDF artifacts for performance, scaling, quality, and frontier analysis",
             scaling_figures,
-            [check_exists(path) for path in scaling_figures],
+            [check_pdf_artifact(path) for path in scaling_figures],
         )
     )
 
