@@ -113,6 +113,15 @@ def main():
         "paper/references.bib",
     ]
     todo_hits = grep_any(r"\b(TODO|TBD|placeholder|undefined citation)\b", paper_sources)
+    anonymity_sources = [
+        rel_path
+        for rel_path in paper_sources
+        if rel_path != "paper/references.bib"
+    ] + ["paper/README.md"]
+    anonymity_hits = grep_any(
+        r"(sgkim|sunggon|sung\s+gon|seoultech|hpcbigdata|/global|/pscratch|github\.com/sunggonkim)",
+        anonymity_sources,
+    )
 
     checks = [
         check("main_pdf_exists", exists("paper/main.pdf"), "error", "paper/main.pdf exists"),
@@ -161,6 +170,14 @@ def main():
             and "Anonymous Institution" in main_tex,
             "warning",
             "current manuscript uses an anonymous Paper ID author block",
+        ),
+        check(
+            "paper_source_anonymity",
+            len(anonymity_hits) == 0,
+            "warning",
+            "paper sources and paper README contain no obvious author, institution, local-path, or personal GitHub leaks: {}".format(
+                ", ".join(anonymity_hits) if anonymity_hits else "none"
+            ),
         ),
         check(
             "target_template_selected",
