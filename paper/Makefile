@@ -3,7 +3,7 @@ SHELL=/bin/bash
 PDF=main.pdf
 TEX=0.Main.tex
 BIB=references.bib
-LOAD_TEXLIVE=source /etc/profile.d/zzz-lmod.sh && module load texlive/2024
+LOAD_TEXLIVE=if ! command -v pdflatex >/dev/null 2>&1; then source /etc/profile.d/zzz-lmod.sh >/dev/null 2>&1 || true; module load texlive/2024 >/dev/null 2>&1; fi
 
 .PHONY: all clean
 
