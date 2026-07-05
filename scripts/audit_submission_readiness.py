@@ -95,6 +95,20 @@ def markdown_paths(text):
     return sorted(set(paths))
 
 
+def newest_existing(paths):
+    newest_path = None
+    newest_mtime = -1.0
+    for rel_path in paths:
+        path = os.path.join(ROOT, rel_path)
+        if not os.path.exists(path):
+            continue
+        mtime = os.path.getmtime(path)
+        if mtime > newest_mtime:
+            newest_path = rel_path
+            newest_mtime = mtime
+    return newest_path, newest_mtime
+
+
 def main():
     evidence = {}
     if exists("data/processed/perlmutter/paper_evidence_audit.json"):
@@ -145,8 +159,28 @@ def main():
         "paper/5.Discussion.tex",
         "paper/5.RelatedWork.tex",
         "paper/6.Conclusion.tex",
+        "paper/7.Ack.tex",
+        "paper/Makefile",
+        "paper/main.tex",
         "paper/references.bib",
     ]
+    figure_sources = [
+        os.path.join("paper", "figures", name)
+        for name in sorted(os.listdir(os.path.join(ROOT, "paper", "figures")))
+        if name.endswith(".pdf")
+    ]
+    build_inputs = paper_sources + figure_sources
+    newest_input, newest_input_mtime = newest_existing(build_inputs)
+    pdf_mtime = (
+        os.path.getmtime(os.path.join(ROOT, "paper", "main.pdf"))
+        if exists("paper/main.pdf")
+        else -1.0
+    )
+    log_mtime = (
+        os.path.getmtime(os.path.join(ROOT, "paper", "main.log"))
+        if exists("paper/main.log")
+        else -1.0
+    )
     todo_hits = grep_any(r"\b(TODO|TBD|placeholder|undefined citation)\b", paper_sources)
     anonymity_sources = [
         rel_path
@@ -161,6 +195,19 @@ def main():
     checks = [
         check("main_pdf_exists", exists("paper/main.pdf"), "error", "paper/main.pdf exists"),
         check("page_count_known", pages is not None, "error", "pdfinfo can read page count"),
+        check(
+            "main_pdf_fresh",
+            exists("paper/main.pdf")
+            and newest_input is not None
+            and pdf_mtime >= newest_input_mtime
+            and log_mtime >= newest_input_mtime,
+            "error",
+            (
+                "paper/main.pdf and paper/main.log are newer than paper sources and figures"
+                if pdf_mtime >= newest_input_mtime and log_mtime >= newest_input_mtime
+                else "newest input is {}; rerun `make -B -C paper`".format(newest_input)
+            ),
+        ),
         check(
             "page_count_atc_style",
             pages is not None and pages <= 12,

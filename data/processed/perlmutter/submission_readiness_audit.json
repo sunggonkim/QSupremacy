@@ -14,6 +14,12 @@
       "severity": "error"
     },
     {
+      "detail": "paper/main.pdf and paper/main.log are newer than paper sources and figures",
+      "name": "main_pdf_fresh",
+      "passed": true,
+      "severity": "error"
+    },
+    {
       "detail": "current page count is 12; typical systems submissions need a target-specific page budget",
       "name": "page_count_atc_style",
       "passed": true,
