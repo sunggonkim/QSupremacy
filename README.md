@@ -46,11 +46,11 @@ The core comparison is not simulator vs simulator. The comparison is:
 - Main large practical-suite result now uses the 32-node, 3,552-case summary:
   ML 3,726.4x, chemistry 42,491.4x, optimization 287,045.6x, and simulation
   3,071.0x median required speedup.
-- Accept-profile baseline-strengthening run submitted:
-  job `55498688`, 1 Perlmutter GPU node, 4 A100 tasks, `QS_SWEEP_PROFILE=accept`,
-  `QS_WORKLOAD_FAMILIES=chemistry,simulation`, `QS_CHUNK_COUNT=4`,
-  `QS_CASE_TIMEOUT=240s`. This run exercises the OpenFermion/PySCF chemistry
-  fixtures and the sparse/Lanczos/Krylov native baseline path.
+- Accept-profile baseline-strengthening run completed:
+  job `55498688`, 1 Perlmutter GPU node, 4 A100 tasks, 116 cases,
+  6 minutes 5 seconds elapsed, exit `0:0`, empty stderr logs. The run exercises
+  OpenFermion/PySCF chemistry fixtures and the sparse/Lanczos/Krylov native
+  baseline path.
 - Accept-profile result helper added:
   `scripts/summarize_accept_baselines.py` converts the completed accept-profile
   CSV into compact JSON/Markdown evidence for paper tables.
@@ -346,6 +346,22 @@ Main 32-node large-profile summary:
 | Chemistry | 224 | 42,491.4x | 0.0203 |
 | Optimization | 768 | 287,045.6x | 0.2500 |
 | Simulation | 512 | 3,071.0x | 0.0188 |
+
+Accept-profile baseline-coverage gate:
+
+| Family | Cases | Median required speedup | Median quality gap | Selected native baselines |
+| --- | ---: | ---: | ---: | --- |
+| Chemistry | 56 | 63,566.8x | 0.4468 | dense exact 56 |
+| Simulation | 60 | 4,185.2x | 0.0237 | dense exact 26, sparse Krylov 34 |
+
+Accept-profile artifacts:
+
+```text
+summary: data/processed/perlmutter/practical_suite_accept_baselines_1node_20260704150409_summary.json
+csv: data/processed/perlmutter/practical_suite_accept_baselines_1node_20260704150409_summary.csv
+baseline evidence: data/processed/perlmutter/practical_suite_accept_baselines_1node_20260704150409_accept_baselines.json
+accounting: data/raw/perlmutter/accounting/sacct_practical_suite_accept_baselines_1node_20260704150409.txt
+```
 
 Validation:
 

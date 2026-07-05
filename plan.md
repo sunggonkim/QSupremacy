@@ -85,7 +85,7 @@ Current artifact status:
 | 1-32 node plan | Batch runner added as `jobs/perlmutter/practical_suite_scale_nodes.sbatch`; weak and strong scaling completed through 32 nodes |
 | Workload taxonomy | Implemented as `paper/figures/workload_taxonomy.pdf` and `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_taxonomy.json` |
 | Large manifest | Implemented as `QS_SWEEP_PROFILE=large`; preflight reports 3,552 case templates |
-| Accept-profile stronger baselines | Submitted as job `55498688`: 1 GPU node, 4 A100 tasks, chemistry+simulation only, OpenFermion/PySCF fixtures plus sparse/Lanczos/Krylov native baselines |
+| Accept-profile stronger baselines | Completed as job `55498688`: 1 GPU node, 4 A100 tasks, 116 chemistry+simulation cases, OpenFermion/PySCF fixtures plus sparse/Lanczos/Krylov native baselines |
 | Accept-profile result helper | Added as `scripts/summarize_accept_baselines.py`; emits compact JSON/Markdown evidence from the completed summary CSV |
 
 ## 3. Current Evidence
@@ -1027,13 +1027,14 @@ Scaling summary figure generated at paper/figures/scaling_summary.pdf.
 Paper narrative updated to follow the accepted-paper structure: generated intro/design figures, RQ-style Evaluation, related-work positioning table, and scaling/advantage sections.
 ```
 
-Next actions:
+Accept-profile result:
 
-1. After job `55498688` completes, summarize the accept-profile chemistry+simulation results and update the paper's baseline-coverage discussion.
-2. Use the OpenFermion/PySCF-generated H2, LiH, and H2O fixtures as the next chemistry/drug-discovery evidence path.
-3. Keep raw per-case JSON out of Git unless archiving is explicitly needed; commit processed summaries, accounting, and figures.
+| Family | Cases | Median required speedup | Median quality gap | Selected native baselines |
+| --- | ---: | ---: | ---: | --- |
+| Chemistry | 56 | `63,566.8x` | `0.4468` | dense exact 56 |
+| Scientific simulation | 60 | `4,185.2x` | `0.0237` | dense exact 26, sparse Krylov 34 |
 
-Accept-profile result ingestion command after completion:
+Accept-profile result ingestion command:
 
 ```bash
 /pscratch/sd/s/sgkim/kis_cuquantum/00_env/cutn_conda/bin/python \
@@ -1042,6 +1043,11 @@ Accept-profile result ingestion command after completion:
   --output-json data/processed/perlmutter/practical_suite_accept_baselines_1node_20260704150409_accept_baselines.json \
   --output-md data/processed/perlmutter/practical_suite_accept_baselines_1node_20260704150409_accept_baselines.md
 ```
+
+Next actions:
+
+1. Use the accept-profile baseline-coverage result to motivate the next larger chemistry active-space sweep if reviewers ask for larger molecules.
+2. Keep raw per-case JSON out of Git unless archiving is explicitly needed; commit processed summaries, accounting, and figures.
 
 ## 12. Completion Criteria
 

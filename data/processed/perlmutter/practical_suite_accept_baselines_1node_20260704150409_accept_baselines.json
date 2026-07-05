@@ -1,0 +1,162 @@
+{
+  "by_workload": {
+    "chemistry": {
+      "best_quality_native_models": {
+        "exact_dense_diagonalization_numpy": 22,
+        "sparse_lanczos_eigsh_scipy": 34
+      },
+      "by_problem": {
+        "H2_minimal_2qubit": {
+          "cases": 8,
+          "median_quality_gap": 0.015978535532031435,
+          "median_required_speedup": 69553.86739661638,
+          "selected_native_models": {
+            "exact_dense_diagonalization_numpy": 8
+          }
+        },
+        "h2_sto3g_4q": {
+          "cases": 12,
+          "median_quality_gap": 0.6399462764235595,
+          "median_required_speedup": 65284.43897856913,
+          "selected_native_models": {
+            "exact_dense_diagonalization_numpy": 12
+          }
+        },
+        "h2o_sto3g_active_4q": {
+          "cases": 12,
+          "median_quality_gap": 0.42750514096537273,
+          "median_required_speedup": 63144.02931229056,
+          "selected_native_models": {
+            "exact_dense_diagonalization_numpy": 12
+          }
+        },
+        "lih_sto3g_active_4q": {
+          "cases": 12,
+          "median_quality_gap": 0.1545824666035096,
+          "median_required_speedup": 62734.53130480717,
+          "selected_native_models": {
+            "exact_dense_diagonalization_numpy": 12
+          }
+        },
+        "molecular_chain_4q_surrogate": {
+          "cases": 12,
+          "median_quality_gap": 0.79980406690368,
+          "median_required_speedup": 60116.39689796229,
+          "selected_native_models": {
+            "exact_dense_diagonalization_numpy": 12
+          }
+        }
+      },
+      "cases": 56,
+      "median_quality_gap": 0.44680760913161777,
+      "median_required_speedup": 63566.84602244992,
+      "requested_native_baselines": {
+        "dense_exact": 56,
+        "sparse_lanczos": 56
+      },
+      "selected_native_models": {
+        "exact_dense_diagonalization_numpy": 56
+      }
+    },
+    "simulation": {
+      "best_quality_native_models": {
+        "exact_dense_eigendecomposition_numpy": 60
+      },
+      "by_problem": {
+        "heisenberg_4q": {
+          "cases": 6,
+          "median_quality_gap": 0.15137504536241128,
+          "median_required_speedup": 29954.117069256117,
+          "selected_native_models": {
+            "exact_dense_eigendecomposition_numpy": 6
+          }
+        },
+        "heisenberg_5q": {
+          "cases": 6,
+          "median_quality_gap": 0.06646850282312036,
+          "median_required_speedup": 23517.57016046156,
+          "selected_native_models": {
+            "exact_dense_eigendecomposition_numpy": 6
+          }
+        },
+        "heisenberg_6q": {
+          "cases": 6,
+          "median_quality_gap": 0.12034764952011648,
+          "median_required_speedup": 3817.8848908512814,
+          "selected_native_models": {
+            "sparse_krylov_expm_multiply_scipy": 6
+          }
+        },
+        "heisenberg_7q": {
+          "cases": 6,
+          "median_quality_gap": 0.0637245807586623,
+          "median_required_speedup": 3117.113038800251,
+          "selected_native_models": {
+            "sparse_krylov_expm_multiply_scipy": 6
+          }
+        },
+        "heisenberg_8q": {
+          "cases": 6,
+          "median_quality_gap": 0.12011103266551641,
+          "median_required_speedup": 2419.2486857015906,
+          "selected_native_models": {
+            "sparse_krylov_expm_multiply_scipy": 6
+          }
+        },
+        "tfim_4q": {
+          "cases": 6,
+          "median_quality_gap": 0.000500466582059933,
+          "median_required_speedup": 31008.034089848952,
+          "selected_native_models": {
+            "exact_dense_eigendecomposition_numpy": 6
+          }
+        },
+        "tfim_5q": {
+          "cases": 6,
+          "median_quality_gap": 0.0005004665820635967,
+          "median_required_speedup": 17550.367265128192,
+          "selected_native_models": {
+            "exact_dense_eigendecomposition_numpy": 6
+          }
+        },
+        "tfim_6q": {
+          "cases": 6,
+          "median_quality_gap": 0.0005004665820628196,
+          "median_required_speedup": 4732.686981893303,
+          "selected_native_models": {
+            "exact_dense_eigendecomposition_numpy": 2,
+            "sparse_krylov_expm_multiply_scipy": 4
+          }
+        },
+        "tfim_7q": {
+          "cases": 6,
+          "median_quality_gap": 0.000500466582065151,
+          "median_required_speedup": 3802.3183926794054,
+          "selected_native_models": {
+            "sparse_krylov_expm_multiply_scipy": 6
+          }
+        },
+        "tfim_8q": {
+          "cases": 6,
+          "median_quality_gap": 0.0005004665820655951,
+          "median_required_speedup": 3015.832818677746,
+          "selected_native_models": {
+            "sparse_krylov_expm_multiply_scipy": 6
+          }
+        }
+      },
+      "cases": 60,
+      "median_quality_gap": 0.02374097726509171,
+      "median_required_speedup": 4185.171385047967,
+      "requested_native_baselines": {
+        "dense_exact": 60,
+        "sparse_krylov": 60
+      },
+      "selected_native_models": {
+        "exact_dense_eigendecomposition_numpy": 26,
+        "sparse_krylov_expm_multiply_scipy": 34
+      }
+    }
+  },
+  "cases": 116
+}

@@ -166,6 +166,29 @@ The practical suite confirms that the gap is not an ML-only artifact. Every fami
 \noindent\textbf{Answer.}
 The native baseline is part of the model. Strengthening the native side increases the ML threshold by 6.6$\times$ and the optimization threshold by 2.3$\times$ relative to the initial native-baseline sweep. The strong-native run completed as a one-node, four-GPU bundled allocation on \Perlmutter. The job finished 190 cases in 6 minutes and 59 seconds with exit code 0:0, 190 raw JSON outputs, and empty stderr logs. The selected ML baselines were RBF kernel ridge, nearest centroid, kNN, softmax regression, and linear ridge depending on the case; the selected optimization baselines were mostly greedy assignment, with exact enumeration selected when it was fastest at the best cut value.
 
+\noindent\textbf{Baseline coverage gate.}
+We also run a separate accept-profile gate to strengthen the two application families that are easiest to criticize as toy baselines: chemistry and scientific simulation. The chemistry gate includes OpenFermion/PySCF-generated H$_2$, LiH, and H$_2$O active-space Hamiltonians, in addition to the built-in minimal H$_2$ and molecular-chain surrogate. The simulation gate compares dense exact evolution with sparse Krylov evolution on TFIM and Heisenberg Hamiltonians from 4 to 8 qubits.
+
+\begin{table}[t]
+\caption{Accept-profile baseline-coverage gate on one \Perlmutter GPU node.}
+\centering
+\small
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lcccl}
+\toprule
+Workload & Cases & Required speedup & Quality gap & Selected native model \\
+\midrule
+Chemistry & 56 & 63,566.8$\times$ & 0.4468 & Dense exact: 56 \\
+Simulation & 60 & 4,185.2$\times$ & 0.0237 & Dense exact: 26; sparse Krylov: 34 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:accept-baselines}
+\end{table}
+
+\noindent\textbf{Answer.}
+Table~\ref{tab:accept-baselines} shows that the strengthened chemistry and simulation baselines execute correctly in the same bundled one-node run. The job completed 116 cases in 6 minutes and 5 seconds with exit code 0:0; each of the four A100 tasks completed 29 cases, and stderr logs were empty. For chemistry, both dense exact and sparse Lanczos/eigensolver candidates were evaluated for every case. The selected runtime baseline is dense exact for all 56 cases because these active-space Hamiltonians are still small, but the run now uses OpenFermion/PySCF instances instead of only a hand-written surrogate. For simulation, sparse Krylov becomes the selected native method in 34 of 60 cases, especially at 6--8 qubits, showing that the native path is no longer a single dense solver.
+
 \subsection{RQ5: Perlmutter Weak and Strong Scaling}
 
 The large-profile suite contains 3,552 application cases. We evaluate two scaling modes. In weak scaling, each GPU receives roughly 28 cases, so total work grows with the number of GPUs. In strong scaling, every run executes the same 3,552 cases and the chunk slots are striped across the available GPUs. Both modes use one Slurm task per A100 GPU and independent application cases; this is throughput scaling, not distributed single-circuit simulation.
