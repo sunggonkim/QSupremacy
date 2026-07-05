@@ -1,0 +1,254 @@
+{
+  "best_quality_native_models": {
+    "exact_dense_diagonalization_numpy": 42, 
+    "sparse_lanczos_eigsh_scipy": 62
+  }, 
+  "by_problem": {
+    "H2_minimal_2qubit": {
+      "best_quality_native_models": {
+        "exact_dense_diagonalization_numpy": 4, 
+        "sparse_lanczos_eigsh_scipy": 4
+      }, 
+      "cases": 8, 
+      "chem_grids": [
+        17, 
+        21
+      ], 
+      "chem_layers": [
+        1, 
+        2
+      ], 
+      "median_native_runtime_sec": 0.0001476854959037155, 
+      "median_quality_gap": 0.015978535532032878, 
+      "median_quantum_runtime_sec": 9.777865137497429, 
+      "median_required_speedup": 67244.91004851463, 
+      "qubits": [
+        2
+      ], 
+      "selected_native_models": {
+        "exact_dense_diagonalization_numpy": 8
+      }
+    }, 
+    "h2_sto3g_4q": {
+      "best_quality_native_models": {
+        "exact_dense_diagonalization_numpy": 4, 
+        "sparse_lanczos_eigsh_scipy": 8
+      }, 
+      "cases": 12, 
+      "chem_grids": [
+        9, 
+        13, 
+        17
+      ], 
+      "chem_layers": [
+        1, 
+        2
+      ], 
+      "median_native_runtime_sec": 0.0001494745083618909, 
+      "median_quality_gap": 0.6399462764235603, 
+      "median_quantum_runtime_sec": 9.92136666298029, 
+      "median_required_speedup": 66910.62860059024, 
+      "qubits": [
+        4
+      ], 
+      "selected_native_models": {
+        "exact_dense_diagonalization_numpy": 12
+      }
+    }, 
+    "h2o_sto3g_active_4q": {
+      "best_quality_native_models": {
+        "exact_dense_diagonalization_numpy": 9, 
+        "sparse_lanczos_eigsh_scipy": 3
+      }, 
+      "cases": 12, 
+      "chem_grids": [
+        9, 
+        13, 
+        17
+      ], 
+      "chem_layers": [
+        1, 
+        2
+      ], 
+      "median_native_runtime_sec": 0.0001500255020800978, 
+      "median_quality_gap": 0.4275051409654296, 
+      "median_quantum_runtime_sec": 9.748676402494311, 
+      "median_required_speedup": 67197.46258829063, 
+      "qubits": [
+        4
+      ], 
+      "selected_native_models": {
+        "exact_dense_diagonalization_numpy": 12
+      }
+    }, 
+    "h2o_sto3g_active_6q": {
+      "best_quality_native_models": {
+        "exact_dense_diagonalization_numpy": 5, 
+        "sparse_lanczos_eigsh_scipy": 7
+      }, 
+      "cases": 12, 
+      "chem_grids": [
+        9, 
+        13, 
+        17
+      ], 
+      "chem_layers": [
+        1, 
+        2
+      ], 
+      "median_native_runtime_sec": 0.0004484530072659254, 
+      "median_quality_gap": 1.0365307353101016, 
+      "median_quantum_runtime_sec": 9.676260406995425, 
+      "median_required_speedup": 21613.04481254219, 
+      "qubits": [
+        6
+      ], 
+      "selected_native_models": {
+        "exact_dense_diagonalization_numpy": 12
+      }
+    }, 
+    "h2o_sto3g_active_8q": {
+      "best_quality_native_models": {
+        "exact_dense_diagonalization_numpy": 5, 
+        "sparse_lanczos_eigsh_scipy": 7
+      }, 
+      "cases": 12, 
+      "chem_grids": [
+        9, 
+        13, 
+        17
+      ], 
+      "chem_layers": [
+        1, 
+        2
+      ], 
+      "median_native_runtime_sec": 0.012007095996523276, 
+      "median_quality_gap": 1.0915884613131581, 
+      "median_quantum_runtime_sec": 9.443752891995246, 
+      "median_required_speedup": 788.049597010312, 
+      "qubits": [
+        8
+      ], 
+      "selected_native_models": {
+        "exact_dense_diagonalization_numpy": 12
+      }
+    }, 
+    "lih_sto3g_active_4q": {
+      "best_quality_native_models": {
+        "exact_dense_diagonalization_numpy": 5, 
+        "sparse_lanczos_eigsh_scipy": 7
+      }, 
+      "cases": 12, 
+      "chem_grids": [
+        9, 
+        13, 
+        17
+      ], 
+      "chem_layers": [
+        1, 
+        2
+      ], 
+      "median_native_runtime_sec": 0.00015925796469673514, 
+      "median_quality_gap": 0.15458246660351493, 
+      "median_quantum_runtime_sec": 9.726270630490035, 
+      "median_required_speedup": 60850.33322069104, 
+      "qubits": [
+        4
+      ], 
+      "selected_native_models": {
+        "exact_dense_diagonalization_numpy": 12
+      }
+    }, 
+    "lih_sto3g_active_6q": {
+      "best_quality_native_models": {
+        "exact_dense_diagonalization_numpy": 3, 
+        "sparse_lanczos_eigsh_scipy": 9
+      }, 
+      "cases": 12, 
+      "chem_grids": [
+        9, 
+        13, 
+        17
+      ], 
+      "chem_layers": [
+        1, 
+        2
+      ], 
+      "median_native_runtime_sec": 0.0004502614901866764, 
+      "median_quality_gap": 0.3029611780383483, 
+      "median_quantum_runtime_sec": 9.803464550495846, 
+      "median_required_speedup": 21847.88648957553, 
+      "qubits": [
+        6
+      ], 
+      "selected_native_models": {
+        "exact_dense_diagonalization_numpy": 12
+      }
+    }, 
+    "lih_sto3g_active_8q": {
+      "best_quality_native_models": {
+        "exact_dense_diagonalization_numpy": 5, 
+        "sparse_lanczos_eigsh_scipy": 7
+      }, 
+      "cases": 12, 
+      "chem_grids": [
+        9, 
+        13, 
+        17
+      ], 
+      "chem_layers": [
+        1, 
+        2
+      ], 
+      "median_native_runtime_sec": 0.01175463548861444, 
+      "median_quality_gap": 0.6299313173735328, 
+      "median_quantum_runtime_sec": 9.689215015998343, 
+      "median_required_speedup": 821.5202724402109, 
+      "qubits": [
+        8
+      ], 
+      "selected_native_models": {
+        "exact_dense_diagonalization_numpy": 12
+      }
+    }, 
+    "molecular_chain_4q_surrogate": {
+      "best_quality_native_models": {
+        "exact_dense_diagonalization_numpy": 2, 
+        "sparse_lanczos_eigsh_scipy": 10
+      }, 
+      "cases": 12, 
+      "chem_grids": [
+        9, 
+        13, 
+        17
+      ], 
+      "chem_layers": [
+        1, 
+        2
+      ], 
+      "median_native_runtime_sec": 0.00016438798047602177, 
+      "median_quality_gap": 0.7998040669036809, 
+      "median_quantum_runtime_sec": 9.597899235988734, 
+      "median_required_speedup": 59062.42499986914, 
+      "qubits": [
+        4
+      ], 
+      "selected_native_models": {
+        "exact_dense_diagonalization_numpy": 12
+      }
+    }
+  }, 
+  "cases": 104, 
+  "median_quality_gap": 0.5056154644325526, 
+  "median_required_speedup": 58152.45823903983, 
+  "problem_count": 9, 
+  "qubits": [
+    2, 
+    4, 
+    6, 
+    8
+  ], 
+  "selected_native_models": {
+    "exact_dense_diagonalization_numpy": 104
+  }
+}

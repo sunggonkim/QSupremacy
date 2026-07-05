@@ -189,8 +189,27 @@ Simulation & 60 & 4,185.2$\times$ & 0.0237 & Dense exact: 26; sparse Krylov: 34 
 \noindent\textbf{Answer.}
 Table~\ref{tab:accept-baselines} shows that the strengthened chemistry and simulation baselines execute correctly in the same bundled one-node run. The job completed 116 cases in 6 minutes and 5 seconds with exit code 0:0; each of the four A100 tasks completed 29 cases, and stderr logs were empty. For chemistry, both dense exact and sparse Lanczos/eigensolver candidates were evaluated for every case. The selected runtime baseline is dense exact for all 56 cases because these active-space Hamiltonians are still small, but the run now uses OpenFermion/PySCF instances instead of only a hand-written surrogate. For simulation, sparse Krylov becomes the selected native method in 34 of 60 cases, especially at 6--8 qubits, showing that the native path is no longer a single dense solver.
 
-\noindent\textbf{Chemistry fixture smoke.}
-To avoid spending allocation on broken chemistry inputs, we also smoke-test the larger OpenFermion/PySCF fixtures on the login node. LiH and H$_2$O at 6 qubits contain 62 Pauli terms, and the 8-qubit fixtures contain 105 Pauli terms. All four cases execute through the same VQE-style chemistry path and evaluate both dense exact and sparse Lanczos native candidates. Dense exact remains the selected runtime baseline at these sizes, but sparse Lanczos matches the best energy for the LiH and 6-qubit H$_2$O fixtures. This means the chemistry pipeline is no longer limited to hand-written 4-qubit Hamiltonians, while the paper still reports the honest limitation that these are active-space chemistry instances rather than production drug-discovery scale.
+\noindent\textbf{Chemistry active-space coverage.}
+We then run the expanded chemistry-only accept profile with the 4--8 qubit OpenFermion/PySCF fixture set. Job 55515248 completed 104 chemistry cases on one \Perlmutter GPU node in 5 minutes and 23 seconds with exit code 0:0, 104 raw JSON outputs, and empty stderr. Table~\ref{tab:chem-coverage} shows the larger active-space subset. Dense exact remains the selected runtime baseline because these fixtures are still small, but sparse Lanczos is the best-quality native method in 62 of 104 cases. This result upgrades the chemistry evidence from a login smoke to a completed GPU coverage gate, while still reporting the limitation that these are active-space instances rather than production drug-discovery scale.
+
+\begin{table}[t]
+\caption{OpenFermion/PySCF chemistry active-space coverage gate.}
+\centering
+\small
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lcccc}
+\toprule
+Problem & Qubits & Cases & Required speedup & Quality gap \\
+\midrule
+LiH active & 6 & 12 & 21,847.9$\times$ & 0.3030 \\
+LiH active & 8 & 12 & 821.5$\times$ & 0.6299 \\
+H$_2$O active & 6 & 12 & 21,613.0$\times$ & 1.0365 \\
+H$_2$O active & 8 & 12 & 788.0$\times$ & 1.0916 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:chem-coverage}
+\end{table}
 
 \subsection{RQ5: Perlmutter Weak and Strong Scaling}
 

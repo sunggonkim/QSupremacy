@@ -87,7 +87,7 @@ Current artifact status:
 | Large manifest | Implemented as `QS_SWEEP_PROFILE=large`; preflight reports 3,552 case templates |
 | Accept-profile stronger baselines | Completed as job `55498688`: 1 GPU node, 4 A100 tasks, 116 chemistry+simulation cases, OpenFermion/PySCF fixtures plus sparse/Lanczos/Krylov native baselines |
 | Accept-profile result helper | Added as `scripts/summarize_accept_baselines.py`; emits compact JSON/Markdown evidence from the completed summary CSV |
-| Larger chemistry fixtures | Added LiH/H2O OpenFermion/PySCF 6q and 8q active-space fixtures; login smoke validates dense exact plus sparse Lanczos native candidates |
+| Larger chemistry coverage | Completed job `55515248`: 1 GPU node, 4 A100 tasks, 104 chemistry cases over H2/LiH/H2O active-space fixtures up to 8 qubits; dense exact selected for runtime while sparse Lanczos is best-quality native in 62 cases |
 | Discussion/threats section | Added `paper/5.Discussion.tex` covering proof scope, native-baseline risk, workload representativeness, simulator-to-hardware projection, timing stability, and artifact reproducibility |
 | Claim checklist | Added to `paper/3.Design.tex` as a table covering same task, same quality, strong native baseline, end-to-end cost, hardware projection, error/shot overhead, and repeatability |
 
@@ -1059,42 +1059,41 @@ benchmarks/workloads/hamiltonians/h2o_sto3g_active_6q.json
 benchmarks/workloads/hamiltonians/h2o_sto3g_active_8q.json
 ```
 
-Current accept-profile note:
-
-```text
-Completed job 55498688 used the earlier 4-qubit chemistry fixture set.
-The current accept profile includes the new 6q/8q fixtures.
-Login preflight: QS_SWEEP_PROFILE=accept, chemistry only, QS_CHUNK_COUNT=4
-reports 104 case templates, or 26 cases per chunk.
-```
-
-Submitted larger chemistry coverage run:
+Completed larger chemistry coverage run:
 
 ```text
 job_id: 55515248
+run_tag: chem_active_6q8q_1node_20260704233824
 submitted: 2026-07-04T23:38:26
-state at submission: PENDING, reason Priority
+started: 2026-07-04T23:43:06
+ended: 2026-07-04T23:48:29
+state: COMPLETED
+exit: 0:0
 qos: debug
 resources: 1 Perlmutter GPU node, 4 A100 tasks
-time_limit: 00:30:00
+elapsed: 00:05:23
 profile: QS_SWEEP_PROFILE=accept
 families: chemistry
 chunks: QS_CHUNK_COUNT=4, QS_TASK_COUNT=4
 case_timeout: 300s
-expected scope: 104 chemistry case templates, 26 per task
+cases: 104
+raw JSON files: 104
+stderr: 0 bytes
 stdout: logs/qsup-prac-scale-55515248.out
 stderr: logs/qsup-prac-scale-55515248.err
+summary: data/processed/perlmutter/practical_suite_chem_active_6q8q_1node_20260704233824_summary.json
+coverage: data/processed/perlmutter/practical_suite_chem_active_6q8q_1node_20260704233824_chemistry_coverage.md
+accounting: data/raw/perlmutter/accounting/sacct_practical_suite_chem_active_6q8q_1node_20260704233824.txt
 ```
 
-Post-run ingestion command:
+Larger chemistry coverage medians:
 
-```bash
-RUN_TAG=<run_tag_from_logs/qsup-prac-scale-55515248.out>
-python scripts/summarize_chemistry_coverage.py \
-  --input-csv data/processed/perlmutter/practical_suite_${RUN_TAG}_summary.csv \
-  --output-json data/processed/perlmutter/practical_suite_${RUN_TAG}_chemistry_coverage.json \
-  --output-md data/processed/perlmutter/practical_suite_${RUN_TAG}_chemistry_coverage.md
-```
+| Problem | Qubits | Cases | Median required speedup | Median quality gap | Best-quality native |
+| --- | ---: | ---: | ---: | ---: | --- |
+| LiH active | 6 | 12 | `21,847.9x` | `0.3030` | sparse Lanczos 9, dense exact 3 |
+| LiH active | 8 | 12 | `821.5x` | `0.6299` | sparse Lanczos 7, dense exact 5 |
+| H2O active | 6 | 12 | `21,613.0x` | `1.0365` | sparse Lanczos 7, dense exact 5 |
+| H2O active | 8 | 12 | `788.0x` | `1.0916` | sparse Lanczos 7, dense exact 5 |
 
 Accept-profile result ingestion command:
 

@@ -114,7 +114,8 @@ def write_markdown(path, summary):
         "| Problem | Cases | Qubits | Grids | Layers | Median required speedup | Median quality gap | Selected native | Best-quality native |",
         "| --- | ---: | ---: | --- | --- | ---: | ---: | --- | --- |",
     ]
-    for problem, item in summary["by_problem"].items():
+    for problem in sorted(summary["by_problem"]):
+        item = summary["by_problem"][problem]
         lines.append(
             "| {} | {} | {} | {} | {} | {:.1f}x | {:.4f} | {} | {} |".format(
                 problem,

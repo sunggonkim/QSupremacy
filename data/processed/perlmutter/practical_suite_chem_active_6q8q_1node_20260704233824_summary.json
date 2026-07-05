@@ -1,0 +1,13 @@
+{
+  "by_workload": {
+    "chemistry": {
+      "cases": 104,
+      "quality_gap_median": 0.5056154644325526,
+      "quantum_runtime_sec_sum": 1060.085141709831,
+      "speedup_required_max": 144532.28028947266,
+      "speedup_required_median": 58152.45823903983,
+      "speedup_required_min": 153.99969176313968
+    }
+  },
+  "cases": 104
+}
