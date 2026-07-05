@@ -13,7 +13,7 @@ The suite covers the practical claims most often attached to quantum computing: 
 The measured quantum path uses \cuQuantum on \Perlmutter as the instrumentation layer. Real future quantum hardware will have different costs: logical gate time, measurement time, shot parallelism, queueing, classical feedback, and error-correction overhead. For this reason, \SystemName reports required speedup and advantage frontiers instead of presenting simulator time as hardware time.
 
 \noindent\textbf{Timing stability.}
-Small quantum-circuit experiments can be affected by Python overhead, CUDA initialization, and first-use costs. We reduce this risk with bundled Slurm runs, repeated cases in the large profile, workload-level medians, and separate login-node smoke gates. The reported thresholds should therefore be interpreted as end-to-end application thresholds on the measured software stack, not as isolated kernel microbenchmarks. Warmup-separated timings and repeated hardware trials would make the confidence intervals stronger, but the current conclusion does not depend on a single short timing sample.
+Small quantum-circuit experiments can be affected by Python overhead, CUDA initialization, and first-use costs. We reduce this risk with bundled Slurm runs, repeated cases in the large profile, workload-level medians, separate login-node smoke gates, and a warmup-separated repeat-timing gate. The repeat gate discards one warmup case per workload family and records three measured trials per family on one GPU node; it completes with zero failed trials and a maximum quantum-runtime coefficient of variation of 0.0400. The reported thresholds should therefore be interpreted as end-to-end application thresholds on the measured software stack, not as isolated kernel microbenchmarks. Larger confidence intervals over every sensitivity point remain future work.
 
 \noindent\textbf{Artifact and reproducibility.}
 The repository contains the workload runner, Slurm launch scripts, processed summaries, accounting records, and plotting inputs used by the paper. The large-profile result sets \texttt{QS\_SWEEP\_PROFILE} to \texttt{large}; the accept-profile baseline gate sets it to \texttt{accept}. Raw per-case JSON is intentionally not all committed because large sweep chunks produce many files, but the processed summaries and accounting records are sufficient to reproduce the paper tables and figures. New chemistry coverage runs can be converted into per-molecule evidence with the chemistry coverage summarizer.
@@ -32,6 +32,7 @@ Large practical suite & \texttt{strongnative\_32node\_...\_summary.json} & 3,552
 Advantage frontier & \texttt{...\_advantage\_projection.json} & Projection fractions match Table~\ref{tab:projection-fractions} \\
 Bottleneck taxonomy & \texttt{...\_taxonomy.json} & Counts match Fig.~\ref{fig:workload-taxonomy} \\
 Chemistry coverage & \texttt{chem\_active\_...\_coverage.json} & 104 cases; accounting completed \\
+Repeat timing & \texttt{repeat\_timing\_gate\_latest.json} & 12 measured trials; max runtime CV 0.0400 \\
 \bottomrule
 \end{tabular}
 }
