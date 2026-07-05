@@ -83,6 +83,7 @@ The first result supports the main thesis: the useful output is not ``quantum is
 \begin{subfigure}{0.48\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figures/digits_required_speedup.pdf}
+    \Description{Distribution of required projected speedup for quantum-kernel and QNN/VQC digits cases.}
     \caption{Threshold distribution.}
     \label{fig:digits-speedup}
 \end{subfigure}
@@ -90,6 +91,7 @@ The first result supports the main thesis: the useful output is not ``quantum is
 \begin{subfigure}{0.48\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figures/digits_quality_speedup.pdf}
+    \Description{Scatter plot relating quantum model quality to required projected speedup for expanded digits cases.}
     \caption{Quality vs. threshold.}
     \label{fig:digits-quality}
 \end{subfigure}
@@ -147,6 +149,7 @@ Simulation & 512 & 3,071.0$\times$ & 0.0188 \\
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figures/practical_suite_summary.pdf}
+\Description{Bar chart summarizing median required speedup and quality gap for ML, chemistry, optimization, and simulation.}
 \caption{Large practical suite over 3,552 cases. Each bar compares the selected native HPC-style baseline with a quantum-circuit application path simulated through cuQuantum. All families currently require faster projected quantum execution, but the threshold differs by application class.}
 \label{fig:practical-suite}
 \end{figure}
@@ -159,6 +162,7 @@ The practical suite confirms that the gap is not an ML-only artifact. Every fami
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figures/strong_native_comparison.pdf}
+\Description{Bar chart comparing required speedup before and after strengthening native baselines.}
 \caption{Native baseline stress test. Strengthening the native side makes the ML threshold 6.6$\times$ larger and the optimization threshold 2.3$\times$ larger than the initial native-baseline sweep. This confirms that \SystemName must treat native-baseline strength as part of the advantage model.}
 \label{fig:strong-native}
 \end{figure}
@@ -167,7 +171,7 @@ The practical suite confirms that the gap is not an ML-only artifact. Every fami
 The native baseline is part of the model. Strengthening the native side increases the ML threshold by 6.6$\times$ and the optimization threshold by 2.3$\times$ relative to the initial native-baseline sweep. The strong-native run completed as a one-node, four-GPU bundled allocation on \Perlmutter. The job finished 190 cases in 6 minutes and 59 seconds with exit code 0:0, 190 raw JSON outputs, and empty stderr logs. The selected ML baselines were RBF kernel ridge, nearest centroid, kNN, softmax regression, and linear ridge depending on the case; the selected optimization baselines were mostly greedy assignment, with exact enumeration selected when it was fastest at the best cut value.
 
 \noindent\textbf{Baseline coverage gate.}
-We also run a separate accept-profile gate to strengthen the two application families that are easiest to criticize as toy baselines: chemistry and scientific simulation. The chemistry gate includes OpenFermion/PySCF-generated H$_2$, LiH, and H$_2$O active-space Hamiltonians, in addition to the built-in minimal H$_2$ and molecular-chain surrogate. The committed fixture set now includes LiH and H$_2$O active spaces at 4, 6, and 8 qubits; the 6--8 qubit fixtures pass a login-node smoke gate before larger allocation runs. The simulation gate compares dense exact evolution with sparse Krylov evolution on TFIM and Heisenberg Hamiltonians from 4 to 8 qubits.
+We also run a separate accept-profile gate to strengthen the two application families that are easiest to criticize as toy baselines: chemistry and scientific simulation. The chemistry gate includes OpenFermion and PySCF-generated H$_2$, LiH, and H$_2$O active-space Hamiltonians, in addition to the built-in minimal H$_2$ and molecular-chain surrogate. The committed fixture set now includes LiH and H$_2$O active spaces at 4, 6, and 8 qubits; the 6--8 qubit fixtures pass a login-node smoke gate before larger allocation runs. The simulation gate compares dense exact evolution with sparse Krylov evolution on TFIM and Heisenberg Hamiltonians from 4 to 8 qubits.
 
 \begin{table}[t]
 \caption{Accept-profile baseline-coverage gate on one \Perlmutter GPU node.}
@@ -187,13 +191,13 @@ Simulation & 60 & 4,185.2$\times$ & 0.0237 & Dense exact: 26; sparse Krylov: 34 
 \end{table}
 
 \noindent\textbf{Answer.}
-Table~\ref{tab:accept-baselines} shows that the strengthened chemistry and simulation baselines execute correctly in the same bundled one-node run. The job completed 116 cases in 6 minutes and 5 seconds with exit code 0:0; each of the four A100 tasks completed 29 cases, and stderr logs were empty. For chemistry, both dense exact and sparse Lanczos/eigensolver candidates were evaluated for every case. The selected runtime baseline is dense exact for all 56 cases because these active-space Hamiltonians are still small, but the run now uses OpenFermion/PySCF instances instead of only a hand-written surrogate. For simulation, sparse Krylov becomes the selected native method in 34 of 60 cases, especially at 6--8 qubits, showing that the native path is no longer a single dense solver.
+Table~\ref{tab:accept-baselines} shows that the strengthened chemistry and simulation baselines execute correctly in the same bundled one-node run. The job completed 116 cases in 6 minutes and 5 seconds with exit code 0:0; each of the four A100 tasks completed 29 cases, and stderr logs were empty. For chemistry, both dense exact and sparse Lanczos/eigensolver candidates were evaluated for every case. The selected runtime baseline is dense exact for all 56 cases because these active-space Hamiltonians are still small, but the run now uses OpenFermion and PySCF instances instead of only a hand-written surrogate. For simulation, sparse Krylov becomes the selected native method in 34 of 60 cases, especially at 6--8 qubits, showing that the native path is no longer a single dense solver.
 
 \noindent\textbf{Chemistry active-space coverage.}
-We then run the expanded chemistry-only accept profile with the 4--8 qubit OpenFermion/PySCF fixture set. Job 55515248 completed 104 chemistry cases on one \Perlmutter GPU node in 5 minutes and 23 seconds with exit code 0:0, 104 raw JSON outputs, and empty stderr. Table~\ref{tab:chem-coverage} shows the larger active-space subset. Dense exact remains the selected runtime baseline because these fixtures are still small, but sparse Lanczos is the best-quality native method in 62 of 104 cases. This result upgrades the chemistry evidence from a login smoke to a completed GPU coverage gate, while still reporting the limitation that these are active-space instances rather than production drug-discovery scale.
+We then run the expanded chemistry-only accept profile with the 4--8 qubit OpenFermion and PySCF fixture set. Job 55515248 completed 104 chemistry cases on one \Perlmutter GPU node in 5 minutes and 23 seconds with exit code 0:0, 104 raw JSON outputs, and empty stderr. Table~\ref{tab:chem-coverage} shows the larger active-space subset. Dense exact remains the selected runtime baseline because these fixtures are still small, but sparse Lanczos is the best-quality native method in 62 of 104 cases. This result upgrades the chemistry evidence from a login smoke to a completed GPU coverage gate, while still reporting the limitation that these are active-space instances rather than production drug-discovery scale.
 
 \begin{table}[t]
-\caption{OpenFermion/PySCF chemistry active-space coverage gate.}
+\caption{OpenFermion and PySCF chemistry active-space coverage gate.}
 \centering
 \small
 \resizebox{\columnwidth}{!}{%
@@ -238,6 +242,7 @@ Strong & 32 & 128 & 3,552 & 4:17 \\
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figures/scaling_summary.pdf}
+\Description{Weak and strong scaling plot showing case throughput and elapsed time across Perlmutter GPU node counts.}
 \caption{Large-profile scaling. Weak scaling keeps per-GPU work nearly fixed and increases total throughput. Strong scaling fixes the full 3,552-case workload and measures time-to-solution speedup relative to four nodes.}
 \label{fig:scaling-summary}
 \end{figure}
@@ -252,6 +257,7 @@ The practical-suite result gives one speed threshold per case, but a speed-only 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figures/advantage_frontier.pdf}
+\Description{Heatmap showing fraction of cases entering the projected advantage region as quantum speedup and quality recovery vary.}
 \caption{Advantage frontier over projected quantum speedup and quality-gap recovery. Color shows the fraction of measured cases in each family that would enter the advantage region under that hypothetical hardware and algorithmic improvement. The contour marks the 50\% frontier when it appears.}
 \label{fig:advantage-frontier}
 \end{figure}
@@ -302,6 +308,7 @@ Simulation & 18 & 11,629.0$\times$ & 0.0250 \\
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figures/salloc_pilot_comparison.pdf}
+\Description{Comparison of median required speedups between the official practical sweep and a bundled salloc pilot.}
 \caption{Official 190-case sweep versus the 96-case bundled \texttt{salloc} pilot. The pilot uses two A100 GPUs inside one allocation and reproduces the same qualitative conclusion: every workload family remains outside the current advantage region, but the required hardware improvement differs by family.}
 \label{fig:salloc-pilot}
 \end{figure}
@@ -330,6 +337,7 @@ The main evaluation output is not that the simulator is slow. The simulator is t
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figures/workload_taxonomy.pdf}
+\Description{Stacked workload taxonomy chart classifying measured cases as quality-limited, speed-limited, or other bottleneck categories.}
 \caption{Primary bottleneck taxonomy for the strong-native practical suite. ML and optimization are quality-limited in the current circuit configurations. Chemistry is mostly speed-limited, while simulation splits between speed and quality limits.}
 \label{fig:workload-taxonomy}
 \end{figure}

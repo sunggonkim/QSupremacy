@@ -2,9 +2,9 @@
 
 Target: ATC-style quantum supremacy modeling and analysis paper.
 
-Status: evidence-backed draft. The manuscript now includes measured Perlmutter results for the digits calibration sweep, the 3,552-case practical suite, weak/strong scaling through 32 GPU nodes, strengthened native baselines, chemistry active-space coverage, advantage-frontier analysis, and a bottleneck taxonomy. It is still an ATC-style manuscript rather than a target-formatted submission package.
+Status: evidence-backed draft. The manuscript now includes measured Perlmutter results for the digits calibration sweep, the 3,552-case practical suite, weak/strong scaling through 32 GPU nodes, strengthened native baselines, chemistry active-space coverage, advantage-frontier analysis, and a bottleneck taxonomy. It now builds with the ATC 2026 recommended ACM `acmart` SIGPLAN-style template.
 
-Current readiness audit: `scripts/audit_submission_readiness.py` reports `EVIDENCE_READY_WITH_SUBMISSION_RISKS`. Blocking evidence and build checks pass; the remaining explicit risks are target-conference template selection and full warmup-separated repeated hardware trials.
+Current readiness audit: `scripts/audit_submission_readiness.py` reports `EVIDENCE_READY_WITH_SUBMISSION_RISKS`. Blocking evidence, build, and template checks pass; the remaining explicit risk is full warmup-separated repeated hardware trials.
 
 Note: the ATC 2026 CFP lists June 10, 2026 as the submission deadline. As of July 3, 2026, that deadline has passed, so this directory should be treated as an ATC-style manuscript for the next viable submission target unless the plan changes.
 
@@ -74,7 +74,7 @@ Quantum supremacy should be modeled as an application-level break-even condition
 - `sacct` accounting records for completed jobs: recorded in `data/raw/perlmutter/accounting/`.
 - Evidence audit: complete and currently PASS.
 - Submission-readiness audit: complete and currently `EVIDENCE_READY_WITH_SUBMISSION_RISKS`.
-- Remaining submission risk: repeated hardware trials, explicit warmup-separated timing, and final target-conference formatting.
+- Remaining submission risk: repeated hardware trials and explicit warmup-separated timing.
 
 ## Build
 
@@ -83,7 +83,7 @@ cd paper
 make
 ```
 
-The Makefile loads `texlive/2024` on Perlmutter before running `pdflatex`. The current LaTeX file uses a lightweight two-column article scaffold. Replace it with the official target conference template before submission.
+The Makefile loads `texlive/2024` on Perlmutter before running `pdflatex`. The current LaTeX file uses the ATC 2026 recommended ACM `acmart` SIGPLAN-style scaffold with anonymous Paper ID metadata, CCS concepts, keywords, page numbers, and ACM reference formatting.
 
 Run the current automated checks from the repository root:
 

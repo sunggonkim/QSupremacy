@@ -145,15 +145,19 @@ def main():
         ),
         check(
             "anonymous_submission",
-            "Anonymous Authors" in main_tex,
+            "Paper ID: Anonymous Submission" in main_tex
+            and "Anonymous Institution" in main_tex,
             "warning",
-            "current manuscript keeps anonymous authors",
+            "current manuscript uses an anonymous Paper ID author block",
         ),
         check(
             "target_template_selected",
-            "\\documentclass[10pt,twocolumn]{article}" not in main_tex,
+            "\\documentclass[sigplan,10pt]{acmart}" in main_tex
+            and "\\settopmatter{printfolios=true}" in main_tex
+            and "\\ccsdesc" in main_tex
+            and "\\keywords{" in main_tex,
             "warning",
-            "current manuscript still uses lightweight article class rather than a target conference template",
+            "current manuscript uses the ATC 2026 recommended ACM SIGPLAN-style acmart template with CCS and keywords",
         ),
         check(
             "repeated_hardware_trials",

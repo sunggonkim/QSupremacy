@@ -115,8 +115,8 @@ The paper-ready artifacts are:
   `data/processed/perlmutter/paper_evidence_audit.json`.
 - Submission-readiness audit added:
   `scripts/audit_submission_readiness.py` currently reports
-  `EVIDENCE_READY_WITH_SUBMISSION_RISKS`; blocking evidence/build checks pass,
-  while target-template selection and full repeated-trial coverage remain risks.
+  `EVIDENCE_READY_WITH_SUBMISSION_RISKS`; blocking evidence/build/template
+  checks pass, while full warmup-separated repeated-trial coverage remains a risk.
 - Workload taxonomy added:
   `paper/figures/workload_taxonomy.pdf` and
   `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_taxonomy.json`.
