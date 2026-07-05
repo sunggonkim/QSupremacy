@@ -7,15 +7,7 @@
     "previous_sources_available": true,
     "role_markers_ordered": true
   },
-  "known_gaps": [
-    {
-      "closest_template": "aurora",
-      "ours_words": 1625,
-      "section": "design",
-      "target_words": 3497,
-      "word_ratio": 0.465
-    }
-  ],
+  "known_gaps": [],
   "sections": {
     "background": {
       "aurora": {
@@ -123,27 +115,27 @@
         "textbf": 33,
         "words": 3497
       },
-      "closest_template": "scaleqsim",
+      "closest_template": "aurora",
       "ours": {
         "figures": 1,
         "items": 0,
         "missing": false,
-        "paragraphs": 26,
+        "paragraphs": 35,
         "path": "paper/3.Design.tex",
         "subsections": 6,
         "subsubsections": 4,
         "tables": 2,
-        "textbf": 28,
-        "words": 1625
+        "textbf": 37,
+        "words": 2437
       },
       "role_markers": {
         "Overview of": 47,
-        "\\subsection{Advantage Claim Checklist}": 9285,
-        "\\subsection{Application Path Execution}": 4298,
-        "\\subsection{Measurement and Threshold Analysis}": 7365,
+        "\\subsection{Advantage Claim Checklist}": 14628,
+        "\\subsection{Application Path Execution}": 6779,
+        "\\subsection{Measurement and Threshold Analysis}": 11553,
         "\\subsection{Overall Procedure}": 1733,
-        "\\subsection{Shared Workload Control}": 2731,
-        "\\subsection{Workload Suite}": 10718
+        "\\subsection{Shared Workload Control}": 3949,
+        "\\subsection{Workload Suite}": 16061
       },
       "role_markers_ordered": true,
       "scaleqsim": {
@@ -159,8 +151,8 @@
         "words": 4581
       },
       "template_distance": {
-        "aurora": 7.583,
-        "scaleqsim": 7.568
+        "aurora": 7.193,
+        "scaleqsim": 7.62
       }
     },
     "evaluation": {
@@ -313,5 +305,5 @@
       }
     }
   },
-  "status": "TRACKED_WITH_KNOWN_GAPS"
+  "status": "ALIGNED_BY_COUNTS"
 }

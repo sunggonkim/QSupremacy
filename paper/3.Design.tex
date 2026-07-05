@@ -21,19 +21,31 @@ Figure~\ref{fig:design-overview} shows the overall procedure. \SystemName has tw
 \noindent\textbf{Measurement.}
 When an experiment starts, \SystemName reads the workload configuration. The configuration includes the dataset, train/test split, feature dimension, model type, circuit type, shots, and target quality. \SystemName then runs the native path and the quantum-circuit path using the same input data. This prevents unfair comparisons caused by different preprocessing or different quality targets.
 
+\noindent\textbf{Config Record.}
+Before any path is executed, \SystemName materializes a single configuration record. This record is the logical owner of the experiment. It stores the workload family, instance ID, random seed, feature transform, native candidates, quantum circuit family, circuit depth, shot setting, and quality metric. The native and quantum paths do not choose these values independently. They receive the same record and append path-specific measurements to it. This mirrors the task-oriented style in the previous papers: the system first creates a stable representation of the work, then later components operate on that representation.
+
 \noindent\textbf{Supremacy Analysis.}
 After measurement, \SystemName reads the circuit metadata and runtime breakdown. It extracts the number of qubits, circuit depth, one-qubit gates, two-qubit gates, shots, and optimizer iterations. Using this information, \SystemName computes the quantum hardware speed required to make the projected quantum path faster than the measured native path.
+
+\noindent\textbf{Failure Handling.}
+\SystemName treats failed paths as measurement results rather than silently dropping them. If a native candidate fails, the record keeps the error and continues with other native candidates. If a quantum path fails, the record keeps the circuit metadata available up to the failure point and marks the case as non-advantaged. This rule is important for large sweeps because feasibility is part of the systems question. A workload that only succeeds after removing difficult cases would overstate the advantage frontier.
 
 \subsection{Shared Workload Control}
 
 \noindent\textbf{Dataset Control.}
 \SystemName first fixes the workload. The first full workload is \texttt{sklearn digits}. \SystemName uses a fixed train/test split and applies PCA to 4, 8, 12, and 16 dimensions. The same reduced features are used by every native and quantum model.
 
+\noindent\textbf{Instance Identity.}
+Each measured case receives a deterministic identity. For ML, the identity includes the class pair, sample count, PCA dimension, circuit depth, and seed. For chemistry, it includes the molecule, basis, active-space setting, and circuit layer count. For optimization, it includes the graph family, graph size, seed, and QAOA layer count. For simulation, it includes the Hamiltonian model, number of qubits, evolution time, and approximation setting. This identity is used in filenames, JSON records, summaries, and paper figures. As a result, a figure bar can be traced back to the exact raw case that produced it.
+
 \noindent\textbf{Application Control.}
 \SystemName then extends the same rule to practical workloads. For drug discovery, the native path may be a classical molecular simulation or learned surrogate, while the quantum path may be a VQE-style molecular energy circuit. For optimization, the native path may be a mixed-integer, local-search, or GPU heuristic baseline, while the quantum path may be a QAOA-style circuit. For simulation, the native path may be a classical numerical solver, while the quantum path may be a Hamiltonian simulation circuit. In every case, \SystemName keeps the task, input instance, output metric, and quality target fixed.
 
 \noindent\textbf{Quality Control.}
 \SystemName defines the target quality before execution. The target can be a fixed accuracy threshold or a time-to-best-quality curve. This is important because a quantum path with lower accuracy cannot be claimed faster than a native path with higher accuracy.
+
+\noindent\textbf{Quality Normalization.}
+Different application families expose different quality values, so \SystemName stores both the native metric and a normalized gap. For classification, the gap is based on accuracy. For chemistry, it is based on energy error relative to the native reference. For optimization, it is based on objective gap. For simulation, it is based on state or observable error. The normalized gap lets the threshold analysis ask a common question across families: how much of the quality gap must future quantum hardware and algorithms recover before runtime speed becomes relevant?
 
 \noindent\textbf{Why This Matters.}
 Without shared workload control, the comparison becomes ambiguous. A native model may use a different feature dimension or a different split from the quantum model. \SystemName avoids this by making the workload controller the first step in the pipeline.
@@ -48,6 +60,9 @@ The native path executes the best available non-quantum implementation for the s
 \noindent\textbf{Runtime Breakdown.}
 \SystemName records preprocessing time, training time, inference time, and total time. It also records accuracy and model metadata. These values define $T_{\mathrm{native}}$, which is the target that the projected quantum hardware path must beat.
 
+\noindent\textbf{Baseline Selection Rule.}
+The native path may produce several valid answers for one case. \SystemName first removes candidates that do not meet the family-specific quality rule. Among the remaining candidates, it selects the fastest one as the native baseline. If no native candidate reaches the quality target, the best-quality native candidate is still recorded, but the case is marked so that the threshold analysis does not create an artificial win. This selection rule is deliberately conservative: adding a stronger native method can only make the quantum threshold harder, not easier.
+
 \subsubsection{Quantum Kernel Path}
 
 \noindent\textbf{Feature Map Execution.}
@@ -58,6 +73,9 @@ The quantum kernel path maps each PCA feature vector into a quantum feature map.
 
 \noindent\textbf{Expected Bottleneck.}
 The kernel path can become expensive because the kernel matrix grows with the number of samples. Therefore, \SystemName must report both sample scaling and feature-dimension scaling.
+
+\noindent\textbf{Kernel Accounting Rule.}
+The kernel path is counted at the application level, not only at the circuit-kernel level. \SystemName records how many pairwise circuit evaluations are required, how many are actually executed, whether symmetry is used, and how the resulting matrix is consumed by the classifier. This matters because a circuit that is fast for one encoded sample can still be expensive after all sample pairs are evaluated. The design therefore exposes the sample-count multiplier instead of hiding it inside one aggregate runtime.
 
 \subsubsection{QNN/VQC Path}
 
@@ -70,10 +88,16 @@ The QNN/VQC path maps the same PCA features into a parameterized quantum circuit
 \noindent\textbf{Why This Matters.}
 QNN/VQC models are often discussed as quantum machine-learning candidates. However, their systems cost is easy to underestimate. \SystemName makes the repeated circuit evaluations visible.
 
+\noindent\textbf{Optimizer Rule.}
+For variational paths, \SystemName records the outer-loop optimizer separately from circuit execution. The record includes the number of parameter vectors, the number of observables, the number of shots per evaluation, and the measured time spent outside \cuQuantum. This separation is needed because future quantum hardware can reduce circuit execution time without removing the classical optimizer loop. If the optimizer or data movement dominates, the projected hardware speedup has limited effect.
+
 \subsection{Measurement and Threshold Analysis}
 
 \noindent\textbf{JSON Record.}
 Every run emits a JSON record. The record includes dataset metadata, model metadata, runtime breakdowns, accuracy, circuit qubits, circuit depth, gate counts, shots, GPU metadata, and Slurm metadata where available.
+
+\noindent\textbf{Summary Path.}
+\SystemName keeps raw case records separate from derived summaries. A sweep first writes one JSON object per case or per task shard. A summarizer then validates expected case counts, merges shards, computes medians and quantiles, and writes CSV/JSON summaries used by the figures. The paper audit reads these summaries and checks that the claims in the manuscript match the stored values. This design follows the same spirit as prior systems papers: the evaluation does not depend on hand-copied numbers.
 
 \noindent\textbf{Allocation Accounting.}
 \SystemName separates login-node smoke tests from Slurm performance runs. Login-node tests are only for correctness. Slurm runs must record elapsed time, queue time, requested walltime, allocated GPUs, and charged node-hours. This prevents short sanity checks from being mistaken for valid performance experiments.
@@ -103,6 +127,9 @@ This gives a hardware requirement rather than a vague claim of supremacy.
 
 \noindent\textbf{Advantage Frontier.}
 \SystemName does not reduce the result to one speedup number. It sweeps hardware assumptions and reports the feasible region where the projected quantum path beats the native path at the same quality. This region is the advantage frontier. If no reasonable region exists, the workload is classified by the limiting factor: quality, encoding, shots, error overhead, or native baseline strength.
+
+\noindent\textbf{Frontier Classification.}
+After the sweep, each case is assigned a primary limiting factor. A case is speed-limited when quality is close enough but the required runtime improvement is large. It is quality-limited when even aggressive speedup does not help unless the output gap closes. It is encoding- or shot-limited when non-kernel overhead dominates the projection. It is native-dominated when a strong native baseline makes the required improvement much larger than the quantum path can plausibly recover. This classification turns the frontier into a diagnostic result instead of only a plot.
 
 \subsection{Advantage Claim Checklist}
 

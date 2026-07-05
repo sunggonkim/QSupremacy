@@ -43,11 +43,11 @@ ScaleQsim.
 | Evaluation subsection count | 8 large subsections | Close to ScaleQsim's seven-part evaluation body while keeping this paper's extra stability section. |
 | Count-level audit | `previous_paper_alignment_metrics.md` | Tracks the exact word, paragraph, `textbf`, heading, figure, table, and item counts against both templates. |
 
-Current count status: all role-order and section-shape checks pass in
-`data/processed/perlmutter/previous_paper_alignment_metrics.md`. The remaining
-large count gap is the design section: the current design is structurally close
-to ScaleQsim but still shorter in word count than the AURORA-Q design template.
-This is the next section to expand if strict word-count matching is required.
+Current count status: all role-order, section-shape, and large word-count gap
+checks pass in `data/processed/perlmutter/previous_paper_alignment_metrics.md`.
+The design section now follows the previous papers' mechanism-oriented rhythm:
+stable work representation, procedure, path-specific execution rules,
+measurement records, threshold analysis, and diagnostic classification.
 | Introduction comparison table | Present before the final pitch | Matches both previous papers. |
 | Bold lead-in style | Used heavily in design/evaluation | Matches AURORA-Q's paragraph style. |
 | Evaluation setup lead-ins | Hardware, Benchmark, Baselines, Feasibility | Matches AURORA-Q's evaluation setup rhythm. |

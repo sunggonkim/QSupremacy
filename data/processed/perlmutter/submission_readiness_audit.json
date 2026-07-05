@@ -20,7 +20,7 @@
       "severity": "error"
     },
     {
-      "detail": "current page count is 11; typical systems submissions need a target-specific page budget",
+      "detail": "current page count is 12; typical systems submissions need a target-specific page budget",
       "name": "page_count_atc_style",
       "passed": true,
       "severity": "warning"
@@ -116,7 +116,7 @@
       "severity": "warning"
     }
   ],
-  "page_count": 11,
+  "page_count": 12,
   "status": "SUBMISSION_READY",
   "warning_count": 0
 }

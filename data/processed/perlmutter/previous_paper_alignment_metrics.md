@@ -1,6 +1,6 @@
 # Previous-Paper Alignment Metrics
 
-Status: **TRACKED_WITH_KNOWN_GAPS**
+Status: **ALIGNED_BY_COUNTS**
 
 ## Checks
 
@@ -23,7 +23,7 @@ Status: **TRACKED_WITH_KNOWN_GAPS**
 | background | ours | 617 | 8 | 5 | 2 | 0 | 0 | 0 | 0 |
 | background | aurora | 746 | 11 | 2 | 2 | 0 | 3 | 0 | 0 |
 | background | scaleqsim | 989 | 8 | 2 | 2 | 0 | 1 | 0 | 0 |
-| design | ours | 1625 | 26 | 28 | 6 | 4 | 1 | 2 | 0 |
+| design | ours | 2437 | 35 | 37 | 6 | 4 | 1 | 2 | 0 |
 | design | aurora | 3497 | 37 | 33 | 5 | 0 | 3 | 0 | 0 |
 | design | scaleqsim | 4581 | 36 | 23 | 6 | 0 | 4 | 0 | 0 |
 | evaluation | ours | 3818 | 33 | 17 | 8 | 3 | 7 | 11 | 0 |
@@ -38,6 +38,4 @@ Status: **TRACKED_WITH_KNOWN_GAPS**
 
 ## Known Gaps
 
-| Section | Closest template | Ours words | Template words | Ratio |
-| --- | --- | ---: | ---: | ---: |
-| design | aurora | 1625 | 3497 | 0.465 |
+No large word-count gaps under the current threshold.

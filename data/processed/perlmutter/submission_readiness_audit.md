@@ -2,14 +2,14 @@
 
 Status: **SUBMISSION_READY**
 
-Page count: `11`
+Page count: `12`
 
 | Check | Severity | Status | Detail |
 | --- | --- | --- | --- |
 | main_pdf_exists | error | PASS | paper/main.pdf exists |
 | page_count_known | error | PASS | pdfinfo can read page count |
 | main_pdf_fresh | error | PASS | paper/main.pdf and paper/main.log are newer than paper sources and figures |
-| page_count_atc_style | warning | PASS | current page count is 11; typical systems submissions need a target-specific page budget |
+| page_count_atc_style | warning | PASS | current page count is 12; typical systems submissions need a target-specific page budget |
 | latex_no_undefined | error | PASS | LaTeX log has no undefined references or citations |
 | latex_no_overfull_hbox | warning | PASS | LaTeX log has no overfull hbox warnings |
 | latex_no_lmod_noise | warning | PASS | LaTeX log has no Lmod initialization noise |
