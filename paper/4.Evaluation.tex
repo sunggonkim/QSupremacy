@@ -6,6 +6,31 @@ This section evaluates \SystemName in the same style as a systems performance pa
 
 Experiments run on NERSC \Perlmutter. Login-node smoke tests validate correctness, while performance experiments run through Slurm. The expanded digits sweep uses one A100 GPU per job. Each job records JSON outputs, Slurm metadata, elapsed time, and allocation information.
 
+\noindent\textbf{Campaign summary.}
+Table~\ref{tab:campaign-summary} lists the completed evidence used by the paper. The first two rows provide the main accuracy and threshold results. The next rows stress native-baseline strength, application coverage, scale-out behavior, and timing stability. This organization separates correctness gates from performance evidence and avoids treating a short smoke test as a performance claim.
+
+\begin{table}[t]
+\caption{Completed Perlmutter evidence campaign.}
+\centering
+\small
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lrrl}
+\toprule
+Evidence & Nodes & Cases & Role \\
+\midrule
+Digits calibration & 1 & 160 & Controlled ML threshold \\
+Practical suite & 32 & 3,552 & Main application evidence \\
+Accept baseline gate & 1 & 116 & Chemistry/simulation baseline stress \\
+Chemistry coverage & 1 & 104 & OpenFermion/PySCF active spaces \\
+Weak scaling & 8--32 & 896--3,552 & Throughput scaling \\
+Fixed-work scaling & 4--32 & 3,552 & Time-to-solution scaling \\
+Repeat timing gate & 1 & 12 & Warmup-separated stability \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:campaign-summary}
+\end{table}
+
 \begin{table}[t]
 \caption{Measured setup for the expanded digits sweep.}
 \centering
