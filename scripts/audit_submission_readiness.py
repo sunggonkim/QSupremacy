@@ -43,6 +43,11 @@ def run(cmd):
         return 127, "", str(exc)
 
 
+def tracked_file(rel_path):
+    code, _, _ = run(["git", "ls-files", "--error-unmatch", rel_path])
+    return code == 0
+
+
 def check(name, passed, severity, detail):
     return {
         "name": name,
@@ -77,6 +82,19 @@ def grep_any(pattern, rel_paths):
     return hits
 
 
+def markdown_paths(text):
+    paths = []
+    for match in re.findall(r"`([^`]+)`", text):
+        if (
+            "/" in match
+            and not match.startswith("/")
+            and not match.startswith("http")
+            and "*" not in match
+        ):
+            paths.append(match)
+    return sorted(set(paths))
+
+
 def main():
     evidence = {}
     if exists("data/processed/perlmutter/paper_evidence_audit.json"):
@@ -104,6 +122,13 @@ def main():
         if exists("paper/reviewer_readiness.md")
         else ""
     )
+    reviewer_paths = markdown_paths(reviewer_notes)
+    missing_reviewer_paths = [
+        rel_path for rel_path in reviewer_paths if not exists(rel_path)
+    ]
+    untracked_reviewer_paths = [
+        rel_path for rel_path in reviewer_paths if exists(rel_path) and not tracked_file(rel_path)
+    ]
     pages = pdf_pages()
 
     paper_sources = [
@@ -236,6 +261,24 @@ def main():
             and "paper/reviewer_readiness.md" in root_readme,
             "warning",
             "reviewer-risk notes cover expected acceptance risks and are linked from README files",
+        ),
+        check(
+            "reviewer_risk_evidence_paths_valid",
+            exists("paper/reviewer_readiness.md")
+            and len(reviewer_paths) >= 12
+            and not missing_reviewer_paths
+            and not untracked_reviewer_paths,
+            "warning",
+            (
+                "reviewer-risk evidence paths are present and tracked: {} paths".format(
+                    len(reviewer_paths)
+                )
+                if not missing_reviewer_paths and not untracked_reviewer_paths
+                else "missing paths: {}; untracked paths: {}".format(
+                    ", ".join(missing_reviewer_paths) if missing_reviewer_paths else "none",
+                    ", ".join(untracked_reviewer_paths) if untracked_reviewer_paths else "none",
+                )
+            ),
         ),
     ]
 

@@ -19,3 +19,4 @@ Page count: `12`
 | repeated_hardware_trials | warning | PASS | warmup-separated repeat timing gate passed with 12 measured cases and max quantum runtime CV 0.0400 |
 | artifact_quickstart_documented | warning | PASS | README files document paper-readiness audits and the allocation-free login smoke gate |
 | reviewer_risk_map_documented | warning | PASS | reviewer-risk notes cover expected acceptance risks and are linked from README files |
+| reviewer_risk_evidence_paths_valid | warning | PASS | reviewer-risk evidence paths are present and tracked: 17 paths |
