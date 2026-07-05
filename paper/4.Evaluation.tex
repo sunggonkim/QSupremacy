@@ -115,21 +115,13 @@ The first result supports the main thesis: the useful output is not ``quantum is
 
 \begin{figure}[t]
 \centering
-\begin{subfigure}{0.48\linewidth}
-    \centering
-    \includegraphics[width=\linewidth]{figures/digits_required_speedup.pdf}
-    \Description{Distribution of required projected speedup for quantum-kernel and QNN/VQC digits cases.}
-    \caption{Threshold distribution.}
-    \label{fig:digits-speedup}
-\end{subfigure}
+\subfloat[Threshold distribution.\label{fig:digits-speedup}]{%
+    \includegraphics[width=0.48\linewidth]{figures/digits_required_speedup.pdf}
+    \Description{Distribution of required projected speedup for quantum-kernel and QNN/VQC digits cases.}}
 \hfill
-\begin{subfigure}{0.48\linewidth}
-    \centering
-    \includegraphics[width=\linewidth]{figures/digits_quality_speedup.pdf}
-    \Description{Scatter plot relating quantum model quality to required projected speedup for expanded digits cases.}
-    \caption{Quality vs. threshold.}
-    \label{fig:digits-quality}
-\end{subfigure}
+\subfloat[Quality vs. threshold.\label{fig:digits-quality}]{%
+    \includegraphics[width=0.48\linewidth]{figures/digits_quality_speedup.pdf}
+    \Description{Scatter plot relating quantum model quality to required projected speedup for expanded digits cases.}}
 \caption{Expanded digits results over 160 cases. The quantum-kernel path often reaches useful accuracy but needs hundreds of times faster execution, while QNN/VQC has a lower threshold but usually lower quality.}
 \label{fig:digits-results}
 \end{figure}
