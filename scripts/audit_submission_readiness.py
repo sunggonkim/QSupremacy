@@ -390,7 +390,7 @@ def main():
             and "previous_paper_alignment_metrics.md" in paper_readme
             and all(previous_alignment_metrics.get("checks", {}).values()),
             "warning",
-            "previous-paper word, paragraph, heading, role-marker, paragraph-role, current-line, and template-line metrics are generated and linked",
+            "previous-paper word, paragraph, heading, style, role-marker, paragraph-role, current-line, and template-line metrics are generated and linked",
         ),
     ]
 

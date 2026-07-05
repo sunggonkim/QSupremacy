@@ -15,6 +15,7 @@ Status: **ALIGNED_BY_COUNTS**
 | paragraph_role_inventory_present | PASS |
 | paragraph_role_lines_present | PASS |
 | template_role_lines_present | PASS |
+| style_fingerprint_no_large_gaps | PASS |
 
 ## Section Counts
 
@@ -42,6 +43,33 @@ Status: **ALIGNED_BY_COUNTS**
 ## Known Gaps
 
 No large word-count gaps under the current threshold.
+
+## Style Fingerprint
+
+| Section | Paper | Avg paragraph words | textbf / 1000 words | Paragraphs / heading |
+| --- | --- | ---: | ---: | ---: |
+| introduction | ours | 119.12 | 15.74 | 8.0 |
+| introduction | aurora | 146.14 | 6.84 | 7.0 |
+| introduction | scaleqsim | 151.0 | 3.97 | 10.0 |
+| background | ours | 77.12 | 8.1 | 4.0 |
+| background | aurora | 67.82 | 2.68 | 5.5 |
+| background | scaleqsim | 123.62 | 2.02 | 4.0 |
+| design | ours | 69.63 | 15.18 | 3.5 |
+| design | aurora | 94.51 | 9.44 | 7.4 |
+| design | scaleqsim | 127.25 | 5.02 | 6.0 |
+| evaluation | ours | 115.7 | 4.45 | 3.0 |
+| evaluation | aurora | 135.78 | 7.09 | 5.4 |
+| evaluation | scaleqsim | 121.96 | 4.71 | 6.71 |
+| related | ours | 103.5 | 9.66 | 2.0 |
+| related | aurora | 158.5 | 6.31 | 2.0 |
+| related | scaleqsim | 85.33 | 0.0 | 3.0 |
+| conclusion | ours | 43.5 | 0.0 | 2.0 |
+| conclusion | aurora | 89.0 | 0.0 | 1.0 |
+| conclusion | scaleqsim | 55.5 | 0.0 | 2.0 |
+
+## Style Gaps
+
+No large style-fingerprint gaps under the current threshold.
 
 ## Paragraph Role Inventory
 

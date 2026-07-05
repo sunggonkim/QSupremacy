@@ -280,12 +280,22 @@ def prose_paragraphs(text):
 
 def count_metrics(text):
     clean = strip_latex(text)
+    paragraphs = prose_paragraphs(text)
+    words = len(re.findall(r"[A-Za-z0-9]+", clean))
+    textbf = clean.count("\\textbf")
+    subsections = len(re.findall(r"^\\subsection", clean, flags=re.M))
+    subsubsections = len(re.findall(r"^\\subsubsection", clean, flags=re.M))
     return {
-        "words": len(re.findall(r"[A-Za-z0-9]+", clean)),
-        "paragraphs": len(prose_paragraphs(text)),
-        "textbf": clean.count("\\textbf"),
-        "subsections": len(re.findall(r"^\\subsection", clean, flags=re.M)),
-        "subsubsections": len(re.findall(r"^\\subsubsection", clean, flags=re.M)),
+        "words": words,
+        "paragraphs": len(paragraphs),
+        "avg_paragraph_words": round(words / max(len(paragraphs), 1), 2),
+        "textbf": textbf,
+        "textbf_per_1000_words": round(1000.0 * textbf / max(words, 1), 2),
+        "subsections": subsections,
+        "subsubsections": subsubsections,
+        "paragraphs_per_heading": round(
+            len(paragraphs) / max(subsections + subsubsections, 1), 2
+        ),
         "figures": len(re.findall(r"\\begin\{figure", clean)),
         "tables": len(re.findall(r"\\begin\{table", clean)),
         "items": len(re.findall(r"^\\s*\\item\b", clean, flags=re.M)),
@@ -421,6 +431,7 @@ def main():
     }
 
     known_gaps = []
+    style_gaps = []
     for section, data in sections.items():
         ours = data.get("ours", {})
         if ours.get("missing"):
@@ -450,11 +461,64 @@ def main():
                     "word_ratio": round(word_ratio, 3),
                 }
             )
+        avg_para_template = min(
+            candidates,
+            key=lambda label: abs(
+                ours.get("avg_paragraph_words", 0)
+                - data[label].get("avg_paragraph_words", 0)
+            ),
+        )
+        avg_para_target = data[avg_para_template]
+        avg_para_ratio = ours.get("avg_paragraph_words", 0) / max(
+            avg_para_target.get("avg_paragraph_words", 1), 1
+        )
+        textbf_template = min(
+            candidates,
+            key=lambda label: abs(
+                ours.get("textbf_per_1000_words", 0)
+                - data[label].get("textbf_per_1000_words", 0)
+            ),
+        )
+        textbf_target = data[textbf_template]
+        textbf_target_value = textbf_target.get("textbf_per_1000_words", 0)
+        textbf_density_ratio = (
+            1.0
+            if ours.get("textbf_per_1000_words", 0) == 0 and textbf_target_value == 0
+            else ours.get("textbf_per_1000_words", 0) / max(textbf_target_value, 1)
+        )
+        if avg_para_ratio < 0.5 or avg_para_ratio > 2.0:
+            style_gaps.append(
+                {
+                    "section": section,
+                    "metric": "avg_paragraph_words",
+                    "closest_template": avg_para_template,
+                    "ours": ours.get("avg_paragraph_words", 0),
+                    "target": avg_para_target.get("avg_paragraph_words", 0),
+                    "ratio": round(avg_para_ratio, 3),
+                }
+            )
+        if textbf_density_ratio < 0.25 or textbf_density_ratio > 4.0:
+            style_gaps.append(
+                {
+                    "section": section,
+                    "metric": "textbf_per_1000_words",
+                    "closest_template": textbf_template,
+                    "ours": ours.get("textbf_per_1000_words", 0),
+                    "target": textbf_target.get("textbf_per_1000_words", 0),
+                    "ratio": round(textbf_density_ratio, 3),
+                }
+            )
+    checks["style_fingerprint_no_large_gaps"] = not style_gaps
 
     summary = {
-        "status": "TRACKED_WITH_KNOWN_GAPS" if known_gaps else "ALIGNED_BY_COUNTS",
+        "status": (
+            "TRACKED_WITH_KNOWN_GAPS"
+            if known_gaps or style_gaps
+            else "ALIGNED_BY_COUNTS"
+        ),
         "checks": checks,
         "known_gaps": known_gaps,
+        "style_gaps": style_gaps,
         "sections": sections,
     }
 
@@ -508,6 +572,37 @@ def main():
                 )
         else:
             f.write("No large word-count gaps under the current threshold.\n")
+        f.write("\n## Style Fingerprint\n\n")
+        f.write(
+            "| Section | Paper | Avg paragraph words | textbf / 1000 words | Paragraphs / heading |\n"
+        )
+        f.write("| --- | --- | ---: | ---: | ---: |\n")
+        for section, data in sections.items():
+            for label in ("ours", "aurora", "scaleqsim"):
+                metrics = data[label]
+                if metrics.get("missing"):
+                    continue
+                f.write(
+                    "| {} | {} | {} | {} | {} |\n".format(
+                        section,
+                        label,
+                        metrics["avg_paragraph_words"],
+                        metrics["textbf_per_1000_words"],
+                        metrics["paragraphs_per_heading"],
+                    )
+                )
+        f.write("\n## Style Gaps\n\n")
+        if style_gaps:
+            f.write("| Section | Metric | Closest template | Ours | Template | Ratio |\n")
+            f.write("| --- | --- | --- | ---: | ---: | ---: |\n")
+            for gap in style_gaps:
+                f.write(
+                    "| {section} | {metric} | {closest_template} | {ours} | {target} | {ratio} |\n".format(
+                        **gap
+                    )
+                )
+        else:
+            f.write("No large style-fingerprint gaps under the current threshold.\n")
         f.write("\n## Paragraph Role Inventory\n\n")
         f.write("| Section | Order | Current source line | Template source line | Current paragraph role | Previous-paper logic followed |\n")
         f.write("| --- | ---: | ---: | --- | --- | --- |\n")

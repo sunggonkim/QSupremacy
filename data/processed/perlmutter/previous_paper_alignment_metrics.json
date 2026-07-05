@@ -8,34 +8,41 @@
     "paragraph_role_lines_present": true,
     "previous_sources_available": true,
     "role_markers_ordered": true,
+    "style_fingerprint_no_large_gaps": true,
     "template_role_lines_present": true
   },
   "known_gaps": [],
   "sections": {
     "background": {
       "aurora": {
+        "avg_paragraph_words": 67.82,
         "figures": 3,
         "items": 0,
         "missing": false,
         "paragraphs": 11,
+        "paragraphs_per_heading": 5.5,
         "path": "paper/PreviousPapers/AURORA_Q_ICDCS26/2.Background.tex",
         "subsections": 2,
         "subsubsections": 0,
         "tables": 0,
         "textbf": 2,
+        "textbf_per_1000_words": 2.68,
         "words": 746
       },
       "closest_template": "scaleqsim",
       "ours": {
+        "avg_paragraph_words": 77.12,
         "figures": 0,
         "items": 0,
         "missing": false,
         "paragraphs": 8,
+        "paragraphs_per_heading": 4.0,
         "path": "paper/2.Background.tex",
         "subsections": 2,
         "subsubsections": 0,
         "tables": 0,
         "textbf": 5,
+        "textbf_per_1000_words": 8.1,
         "words": 617
       },
       "paragraph_role_inventory": [
@@ -111,15 +118,18 @@
       },
       "role_markers_ordered": true,
       "scaleqsim": {
+        "avg_paragraph_words": 123.62,
         "figures": 1,
         "items": 0,
         "missing": false,
         "paragraphs": 8,
+        "paragraphs_per_heading": 4.0,
         "path": "paper/PreviousPapers/ScaleQsim_SIGMETRICS26/2.Background.tex",
         "subsections": 2,
         "subsubsections": 0,
         "tables": 0,
         "textbf": 2,
+        "textbf_per_1000_words": 2.02,
         "words": 989
       },
       "template_distance": {
@@ -129,28 +139,34 @@
     },
     "conclusion": {
       "aurora": {
+        "avg_paragraph_words": 89.0,
         "figures": 0,
         "items": 0,
         "missing": false,
         "paragraphs": 1,
+        "paragraphs_per_heading": 1.0,
         "path": "paper/PreviousPapers/AURORA_Q_ICDCS26/6.Conclusion.tex",
         "subsections": 0,
         "subsubsections": 0,
         "tables": 0,
         "textbf": 0,
+        "textbf_per_1000_words": 0.0,
         "words": 89
       },
       "closest_template": "scaleqsim",
       "ours": {
+        "avg_paragraph_words": 43.5,
         "figures": 0,
         "items": 0,
         "missing": false,
         "paragraphs": 2,
+        "paragraphs_per_heading": 2.0,
         "path": "paper/6.Conclusion.tex",
         "subsections": 0,
         "subsubsections": 0,
         "tables": 0,
         "textbf": 0,
+        "textbf_per_1000_words": 0.0,
         "words": 87
       },
       "paragraph_role_inventory": [
@@ -174,15 +190,18 @@
         }
       ],
       "scaleqsim": {
+        "avg_paragraph_words": 55.5,
         "figures": 0,
         "items": 0,
         "missing": false,
         "paragraphs": 2,
+        "paragraphs_per_heading": 2.0,
         "path": "paper/PreviousPapers/ScaleQsim_SIGMETRICS26/6.Conclusion.tex",
         "subsections": 0,
         "subsubsections": 0,
         "tables": 0,
         "textbf": 0,
+        "textbf_per_1000_words": 0.0,
         "words": 111
       },
       "template_distance": {
@@ -192,28 +211,34 @@
     },
     "design": {
       "aurora": {
+        "avg_paragraph_words": 94.51,
         "figures": 3,
         "items": 0,
         "missing": false,
         "paragraphs": 37,
+        "paragraphs_per_heading": 7.4,
         "path": "paper/PreviousPapers/AURORA_Q_ICDCS26/3.Design.tex",
         "subsections": 5,
         "subsubsections": 0,
         "tables": 0,
         "textbf": 33,
+        "textbf_per_1000_words": 9.44,
         "words": 3497
       },
       "closest_template": "aurora",
       "ours": {
+        "avg_paragraph_words": 69.63,
         "figures": 1,
         "items": 0,
         "missing": false,
         "paragraphs": 35,
+        "paragraphs_per_heading": 3.5,
         "path": "paper/3.Design.tex",
         "subsections": 6,
         "subsubsections": 4,
         "tables": 2,
         "textbf": 37,
+        "textbf_per_1000_words": 15.18,
         "words": 2437
       },
       "paragraph_role_inventory": [
@@ -319,15 +344,18 @@
       },
       "role_markers_ordered": true,
       "scaleqsim": {
+        "avg_paragraph_words": 127.25,
         "figures": 4,
         "items": 0,
         "missing": false,
         "paragraphs": 36,
+        "paragraphs_per_heading": 6.0,
         "path": "paper/PreviousPapers/ScaleQsim_SIGMETRICS26/3.Design.tex",
         "subsections": 6,
         "subsubsections": 0,
         "tables": 0,
         "textbf": 23,
+        "textbf_per_1000_words": 5.02,
         "words": 4581
       },
       "template_distance": {
@@ -337,28 +365,34 @@
     },
     "evaluation": {
       "aurora": {
+        "avg_paragraph_words": 135.78,
         "figures": 9,
         "items": 0,
         "missing": false,
         "paragraphs": 27,
+        "paragraphs_per_heading": 5.4,
         "path": "paper/PreviousPapers/AURORA_Q_ICDCS26/4.Evaluation.tex",
         "subsections": 5,
         "subsubsections": 0,
         "tables": 2,
         "textbf": 26,
+        "textbf_per_1000_words": 7.09,
         "words": 3666
       },
       "closest_template": "scaleqsim",
       "ours": {
+        "avg_paragraph_words": 115.7,
         "figures": 7,
         "items": 0,
         "missing": false,
         "paragraphs": 33,
+        "paragraphs_per_heading": 3.0,
         "path": "paper/4.Evaluation.tex",
         "subsections": 8,
         "subsubsections": 3,
         "tables": 11,
         "textbf": 17,
+        "textbf_per_1000_words": 4.45,
         "words": 3818
       },
       "paragraph_role_inventory": [
@@ -465,15 +499,18 @@
       },
       "role_markers_ordered": true,
       "scaleqsim": {
+        "avg_paragraph_words": 121.96,
         "figures": 7,
         "items": 0,
         "missing": false,
         "paragraphs": 47,
+        "paragraphs_per_heading": 6.71,
         "path": "paper/PreviousPapers/ScaleQsim_SIGMETRICS26/4.Evaluation.tex",
         "subsections": 7,
         "subsubsections": 0,
         "tables": 2,
         "textbf": 27,
+        "textbf_per_1000_words": 4.71,
         "words": 5732
       },
       "template_distance": {
@@ -483,28 +520,34 @@
     },
     "introduction": {
       "aurora": {
+        "avg_paragraph_words": 146.14,
         "figures": 1,
         "items": 0,
         "missing": false,
         "paragraphs": 7,
+        "paragraphs_per_heading": 7.0,
         "path": "paper/PreviousPapers/AURORA_Q_ICDCS26/1.Introduction.tex",
         "subsections": 0,
         "subsubsections": 0,
         "tables": 1,
         "textbf": 7,
+        "textbf_per_1000_words": 6.84,
         "words": 1023
       },
       "closest_template": "aurora",
       "ours": {
+        "avg_paragraph_words": 119.12,
         "figures": 1,
         "items": 0,
         "missing": false,
         "paragraphs": 8,
+        "paragraphs_per_heading": 8.0,
         "path": "paper/1.Introduction.tex",
         "subsections": 0,
         "subsubsections": 0,
         "tables": 1,
         "textbf": 15,
+        "textbf_per_1000_words": 15.74,
         "words": 953
       },
       "paragraph_role_inventory": [
@@ -591,15 +634,18 @@
       },
       "role_markers_ordered": true,
       "scaleqsim": {
+        "avg_paragraph_words": 151.0,
         "figures": 1,
         "items": 0,
         "missing": false,
         "paragraphs": 10,
+        "paragraphs_per_heading": 10.0,
         "path": "paper/PreviousPapers/ScaleQsim_SIGMETRICS26/1.introduction.tex",
         "subsections": 0,
         "subsubsections": 0,
         "tables": 1,
         "textbf": 6,
+        "textbf_per_1000_words": 3.97,
         "words": 1510
       },
       "template_distance": {
@@ -609,28 +655,34 @@
     },
     "related": {
       "aurora": {
+        "avg_paragraph_words": 158.5,
         "figures": 0,
         "items": 0,
         "missing": false,
         "paragraphs": 2,
+        "paragraphs_per_heading": 2.0,
         "path": "paper/PreviousPapers/AURORA_Q_ICDCS26/5.Related work.tex",
         "subsections": 0,
         "subsubsections": 0,
         "tables": 0,
         "textbf": 2,
+        "textbf_per_1000_words": 6.31,
         "words": 317
       },
       "closest_template": "aurora",
       "ours": {
+        "avg_paragraph_words": 103.5,
         "figures": 0,
         "items": 0,
         "missing": false,
         "paragraphs": 2,
+        "paragraphs_per_heading": 2.0,
         "path": "paper/5.RelatedWork.tex",
         "subsections": 0,
         "subsubsections": 0,
         "tables": 0,
         "textbf": 2,
+        "textbf_per_1000_words": 9.66,
         "words": 207
       },
       "paragraph_role_inventory": [
@@ -654,15 +706,18 @@
         }
       ],
       "scaleqsim": {
+        "avg_paragraph_words": 85.33,
         "figures": 0,
         "items": 0,
         "missing": false,
         "paragraphs": 6,
+        "paragraphs_per_heading": 3.0,
         "path": "paper/PreviousPapers/ScaleQsim_SIGMETRICS26/5.Related Work.tex",
         "subsections": 2,
         "subsubsections": 0,
         "tables": 0,
         "textbf": 0,
+        "textbf_per_1000_words": 0.0,
         "words": 512
       },
       "template_distance": {
@@ -671,5 +726,6 @@
       }
     }
   },
-  "status": "ALIGNED_BY_COUNTS"
+  "status": "ALIGNED_BY_COUNTS",
+  "style_gaps": []
 }
