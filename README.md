@@ -73,6 +73,10 @@ The core comparison is not simulator vs simulator. The comparison is:
   `paper/5.Discussion.tex` states what the measurements prove, where the
   native baseline risk remains, what is outside scope, and how to reproduce
   processed tables/figures.
+- Paper advantage-claim checklist added:
+  `paper/3.Design.tex` now states the same-task, same-quality, strong-native,
+  end-to-end-cost, hardware-projection, error/shot-overhead, and repeatability
+  checks used before accepting a practical quantum-advantage claim.
 
 ## Login Smoke Gate
 

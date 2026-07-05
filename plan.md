@@ -89,6 +89,7 @@ Current artifact status:
 | Accept-profile result helper | Added as `scripts/summarize_accept_baselines.py`; emits compact JSON/Markdown evidence from the completed summary CSV |
 | Larger chemistry fixtures | Added LiH/H2O OpenFermion/PySCF 6q and 8q active-space fixtures; login smoke validates dense exact plus sparse Lanczos native candidates |
 | Discussion/threats section | Added `paper/5.Discussion.tex` covering proof scope, native-baseline risk, workload representativeness, simulator-to-hardware projection, timing stability, and artifact reproducibility |
+| Claim checklist | Added to `paper/3.Design.tex` as a table covering same task, same quality, strong native baseline, end-to-end cost, hardware projection, error/shot overhead, and repeatability |
 
 ## 3. Current Evidence
 
@@ -1028,6 +1029,7 @@ Strong-scaling full-workload runs completed with jobs 55475633, 55475634, and 55
 Scaling summary figure generated at paper/figures/scaling_summary.pdf.
 Paper narrative updated to follow the accepted-paper structure: generated intro/design figures, RQ-style Evaluation, related-work positioning table, and scaling/advantage sections.
 Paper discussion/threats section added to make the claim boundary and reproducibility story explicit.
+Paper claim-checklist table added to make practical quantum-advantage criteria explicit.
 ```
 
 Accept-profile result:

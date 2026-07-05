@@ -98,6 +98,32 @@ This gives a hardware requirement rather than a vague claim of supremacy.
 \noindent\textbf{Advantage Frontier.}
 \SystemName does not reduce the result to one speedup number. It sweeps hardware assumptions and reports the feasible region where the projected quantum path beats the native path at the same quality. This region is the advantage frontier. If no reasonable region exists, the workload is classified by the limiting factor: quality, encoding, shots, error overhead, or native baseline strength.
 
+\subsection{Advantage Claim Checklist}
+
+A practical quantum-advantage claim should pass a small set of systems checks before it is treated as meaningful. Table~\ref{tab:claim-checklist} lists the checks used by \SystemName. The checklist is intentionally strict because a weak native baseline, a different input instance, or a lower-quality quantum output can all create a false impression of advantage.
+
+\begin{table}[t]
+\caption{Checklist for a practical quantum-advantage claim.}
+\centering
+\small
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{Check} & \textbf{Question} & \textbf{\SystemName evidence} \\
+\midrule
+Same task & Are native and quantum paths solving the same input? & Shared workload config \\
+Same quality & Does the quantum path meet the native target? & Accuracy, energy, objective, observable gap \\
+Strong native & Is the native path the fastest valid baseline? & Baseline selection rule \\
+End-to-end cost & Are encoding, execution, measurement, and postprocess included? & Runtime breakdown and metadata \\
+Hardware projection & What future quantum speed is required? & Required speedup and frontier \\
+Error/shot overhead & Could shots or error correction erase speedup? & Projection parameters and sensitivity \\
+Repeatability & Can the result be regenerated on the system? & Slurm scripts, summaries, accounting \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:claim-checklist}
+\end{table}
+
 \subsection{Workload Suite}
 
 Table~\ref{tab:workload-suite} shows the measured workload suite. The digits workload is the controlled calibration case. The practical suite covers the application families that motivate many real-world quantum-computing claims.
