@@ -331,6 +331,7 @@ def main():
         "paper/figures/intro_application_gap.pdf",
         "paper/figures/design_overview.pdf",
         "paper/figures/scaling_summary.pdf",
+        "paper/figures/scale_out_gate.pdf",
         "paper/figures/strong_native_comparison.pdf",
         "paper/figures/practical_suite_summary.pdf",
         "paper/figures/digits_required_speedup.pdf",
@@ -339,12 +340,24 @@ def main():
         "paper/figures/salloc_pilot_comparison.pdf",
         "paper/figures/workload_taxonomy.pdf",
     ]
+    discovered_figures = [
+        os.path.join("paper", "figures", name)
+        for name in sorted(os.listdir(os.path.join(ROOT, "paper", "figures")))
+        if name.endswith(".pdf")
+    ]
     items.append(
         ok_item(
             "paper_figures",
-            "Main paper figures are valid PDF artifacts for performance, scaling, quality, and frontier analysis",
+            "Generated paper figures are valid PDF artifacts for performance, scaling, quality, and frontier analysis",
             scaling_figures,
-            [check_pdf_artifact(path) for path in scaling_figures],
+            [
+                check_equals(
+                    "all_generated_figures_audited",
+                    sorted(discovered_figures),
+                    sorted(scaling_figures),
+                )
+            ]
+            + [check_pdf_artifact(path) for path in scaling_figures],
         )
     )
 
