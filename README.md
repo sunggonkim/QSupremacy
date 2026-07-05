@@ -1,6 +1,6 @@
 # QSupremacy
 
-QSupremacy is a quantum supremacy modeling and analysis project. It models when quantum-circuit applications can outperform native HPC/ML applications on Perlmutter.
+QSupremacy is a practical quantum-advantage modeling and analysis project. It models when quantum-circuit applications can outperform native HPC/ML applications on Perlmutter.
 
 The core comparison is not simulator vs simulator. The comparison is:
 
@@ -65,11 +65,13 @@ python3 scripts/audit_paper_evidence.py
 python3 scripts/audit_submission_readiness.py
 ```
 
-Expected current result: `paper/main.pdf` builds as a 12-page manuscript,
-`scripts/audit_previous_paper_alignment.py` writes the previous-paper count
-metrics, `scripts/audit_paper_evidence.py` reports PASS, and
-`scripts/audit_submission_readiness.py` reports `SUBMISSION_READY`. The paper
-claim-to-artifact map is tracked in
+Expected current result: `paper/main.pdf` builds as an HPCA 2027-style
+double-blind manuscript, `scripts/audit_previous_paper_alignment.py` writes the
+previous-paper count metrics, `scripts/audit_paper_evidence.py` reports PASS,
+and `scripts/audit_submission_readiness.py` reports `SUBMISSION_READY`. The
+current PDF has references starting on page 11, so the body fits HPCA's
+11-page limit excluding references; the AI-use appendix is placed after the
+references. The paper claim-to-artifact map is tracked in
 `data/processed/perlmutter/paper_artifact_manifest.md` and checked by the
 paper evidence audit.
 
@@ -735,7 +737,7 @@ benchmarks/workloads/  Practical ML/chemistry/optimization/simulation suite
 data/raw/perlmutter/   Small smoke outputs and Perlmutter job outputs
 jobs/perlmutter/       Slurm job scripts
 logs/                  Small Slurm smoke logs
-paper/                 ATC-style paper scaffold
+paper/                 HPCA 2027-style paper scaffold
 scripts/               Helper scripts
 plan.md                Research and execution plan
 ```
@@ -748,15 +750,15 @@ Use the login smoke gate first, then shared 1-GPU jobs, then full-node or multi-
 
 ## Paper Draft
 
-The ATC-style quantum supremacy modeling and analysis paper scaffold is in `paper/`.
+The HPCA 2027-style practical quantum-advantage modeling and analysis paper scaffold is in `paper/`.
 
 ```bash
 cd paper
 make
 ```
 
-The current draft is not submission-ready, but it now follows the accepted-paper
-structure more closely: intro positioning table, generated intro/design figures,
-RQ-style evaluation sections, multiple result figures, a related-work positioning
-table, and the completed large-profile weak/strong scaling results through
-32 GPU nodes.
+The current draft is evidence-ready under the repository audits. It now follows
+the accepted-paper structure closely: intro positioning table, generated
+intro/design figures, RQ-style evaluation sections, multiple result figures, a
+related-work positioning table, HPCA-style formatting, and the completed
+large-profile weak/strong scaling results through 32 GPU nodes.

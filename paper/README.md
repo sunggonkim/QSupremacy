@@ -1,8 +1,8 @@
 # Paper Draft
 
-Target: ATC-style quantum supremacy modeling and analysis paper.
+Target: HPCA 2027 practical quantum-advantage modeling and analysis paper.
 
-Status: evidence-backed draft. The manuscript now includes measured Perlmutter results for the digits calibration sweep, the 3,552-case practical suite, weak scaling through 32 GPU nodes, fixed-work scaling through 16 GPU nodes plus a matching 32-node full-profile point, strengthened native baselines, chemistry active-space coverage, advantage-frontier analysis, and a bottleneck taxonomy. It now builds with the ATC 2026 recommended ACM `acmart` SIGPLAN-style template.
+Status: evidence-backed draft. The manuscript now includes measured Perlmutter results for the digits calibration sweep, the 3,552-case practical suite, weak scaling through 32 GPU nodes, fixed-work scaling through 16 GPU nodes plus a matching 32-node full-profile point, strengthened native baselines, chemistry active-space coverage, advantage-frontier analysis, and a bottleneck taxonomy. It now builds with an HPCA 2027-compatible IEEEtran two-column template: 10pt Times-style body text, HPCA title-page banner, empty author block for double-blind review, page numbers, and all-author IEEE references.
 
 Current readiness audit: `scripts/audit_submission_readiness.py` reports `SUBMISSION_READY`. Blocking evidence, build, template, and repeat-timing checks pass. The remaining work is paper polish for the chosen submission target, not missing core experimental evidence.
 
@@ -20,7 +20,7 @@ paragraph roles to the accepted ScaleQsim and AURORA-Q source structures under
 `data/processed/perlmutter/previous_paper_alignment_metrics.md`. Requirement
 completion is summarized in `paper/previous_paper_completion_audit.md`.
 
-Note: the ATC 2026 CFP lists June 10, 2026 as the submission deadline. As of July 3, 2026, that deadline has passed, so this directory should be treated as an ATC-style manuscript for the next viable submission target unless the plan changes.
+HPCA 2027 public instructions were checked on 2026-07-05. The site states that the CFP is still under construction, so the final camera-ready target must be rechecked before submission.
 
 ## Draft Files
 
@@ -77,7 +77,7 @@ paper/PreviousPapers/
 
 ## Paper Thesis
 
-Quantum supremacy should be modeled as an application-level break-even condition, not by comparing a CPU state-vector simulator against cuQuantum. This paper studies the end-to-end gap between native HPC/ML applications and quantum-circuit versions of the same workloads, then analyzes the quantum hardware requirements needed to beat the native path.
+Practical quantum advantage should be modeled as an application-level break-even condition, not by comparing a CPU state-vector simulator against cuQuantum. This paper studies the end-to-end gap between native HPC/ML applications and quantum-circuit versions of the same workloads, then analyzes the quantum hardware requirements needed to beat the native path.
 
 ## Submission Readiness Checklist
 
@@ -100,7 +100,7 @@ cd paper
 make
 ```
 
-The Makefile loads `texlive/2024` on Perlmutter before running `pdflatex`. The current LaTeX file uses the ATC 2026 recommended ACM `acmart` SIGPLAN-style scaffold with anonymous Paper ID metadata, CCS concepts, keywords, page numbers, and ACM reference formatting.
+The Makefile loads `texlive/2024` on Perlmutter before running `pdflatex`. The current LaTeX file uses an HPCA 2027-compatible IEEEtran scaffold with the HPCA title-page banner, an empty author block for double-blind review, HPCA margins, page numbers, IEEE references, and an `AI Use` appendix after the references.
 
 Run the current automated checks from the repository root:
 
@@ -122,11 +122,13 @@ python3 scripts/audit_previous_paper_alignment.py
 python3 scripts/audit_submission_readiness.py
 ```
 
-The expected state is a 12-page `paper/main.pdf`, a PASS paper-evidence audit,
-and a `SUBMISSION_READY` readiness audit. The audits check the committed
-processed summaries, accounting records, figures, page count, citations,
-anonymous template metadata, repeat-timing evidence, and the paper
-claim-to-artifact manifest in
+The expected state is an HPCA-style `paper/main.pdf`, a PASS paper-evidence
+audit, and a `SUBMISSION_READY` readiness audit. The current PDF has 13 total
+pages: references start on page 11 and the AI-use appendix appears after
+references, so the body fits the HPCA 11-page limit excluding references. The
+audits check the committed processed summaries, accounting records, figures,
+body-page budget, citations, anonymous template metadata, all-author
+references, repeat-timing evidence, and the paper claim-to-artifact manifest in
 `data/processed/perlmutter/paper_artifact_manifest.md`.
 
 For a low-cost rerun on Perlmutter, use the login smoke gate first:
@@ -162,7 +164,7 @@ library path required by cuQuantum. The job script now loads
 
 ## Sources To Check Before Submission
 
-- ATC CFP and formatting instructions for the chosen year.
+- HPCA 2027 CFP, formatting instructions, AI-use policy, and final template.
 - Target conference artifact evaluation policy.
 - NERSC Perlmutter job, QOS, and charge policy.
 - NVIDIA cuQuantum and cuStateVec documentation.

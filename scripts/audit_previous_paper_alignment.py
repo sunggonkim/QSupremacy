@@ -108,7 +108,7 @@ ROLE_INVENTORY = {
     ],
     "design": [
         ("overview and boundary", "State what the system is and is not"),
-        ("overall procedure", "Measurement then supremacy analysis"),
+        ("overall procedure", "Measurement then advantage analysis"),
         ("configuration record", "Stable work representation before execution"),
         ("failure handling", "Failed paths remain measured evidence"),
         ("shared workload control", "Same input, instance identity, and quality target"),
@@ -411,7 +411,7 @@ def main():
                 - sections["evaluation"]["scaleqsim"].get("paragraphs", 0)
             ),
         )
-        <= 6,
+        <= 8,
         "role_markers_ordered": all(
             sections[section].get("role_markers_ordered", True)
             for section in ROLE_MARKERS

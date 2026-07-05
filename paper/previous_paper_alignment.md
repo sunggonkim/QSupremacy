@@ -60,6 +60,6 @@ measurement records, threshold analysis, and diagnostic classification.
 ## Non-Copying Boundary
 
 The manuscript follows the accepted papers' logic and paragraph roles, but it
-does not copy their prose. The content is specific to quantum supremacy
+does not copy their prose. The content is specific to practical quantum-advantage
 threshold modeling: native HPC baselines, quantum-circuit application paths,
 cuQuantum instrumentation, Perlmutter scaling, and advantage frontiers.

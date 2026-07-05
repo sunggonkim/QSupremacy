@@ -42,6 +42,6 @@ The current generated status is `ALIGNED_BY_COUNTS`. The generated checks pass:
 
 The manuscript follows the accepted papers' logic, paragraph roles, section
 rhythm, and style fingerprint. It does not copy their prose. The content remains
-specific to quantum supremacy modeling: native HPC baselines, quantum-circuit
+specific to practical quantum-advantage modeling: native HPC baselines, quantum-circuit
 application paths, cuQuantum instrumentation, Perlmutter scaling, hardware
 projection, and advantage frontiers.

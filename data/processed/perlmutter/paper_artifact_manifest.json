@@ -4,7 +4,7 @@
   "paper": {
     "pdf": "paper/main.pdf",
     "source_entry": "paper/0.Main.tex",
-    "target_style": "ATC-style acmart SIGPLAN anonymous submission"
+    "target_style": "HPCA 2027 IEEEtran-style double-blind submission"
   },
   "audits": {
     "paper_evidence": "data/processed/perlmutter/paper_evidence_audit.json",
@@ -204,7 +204,7 @@
     },
     {
       "id": "submission_package",
-      "claim": "The paper package builds to a 12-page anonymous PDF with evidence, readiness, citation, and artifact checks passing.",
+      "claim": "The paper package builds to an HPCA 2027-style double-blind PDF with the references starting on page 11, evidence/readiness checks passing, and all-author references.",
       "paper_locations": [
         "paper/main.pdf",
         "paper/README.md",

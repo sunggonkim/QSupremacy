@@ -1,7 +1,7 @@
 \section{\SystemName Design}
 
 \noindent\textbf{Overview of \SystemName's Design.}
-\SystemName is designed to answer one question: what quantum hardware speed is required for a quantum-circuit application to beat the native HPC application for the same task? Figure~\ref{fig:design-overview} summarizes the key components. First, \SystemName uses \textit{Shared Workload Control} to ensure that all paths use the same input instance and quality target. Second, it uses \textit{Native Path Execution} to establish a strong classical baseline. Third, it uses \textit{Quantum Path Execution} to run quantum kernels, QNN/VQC, VQE, QAOA, and Hamiltonian simulation circuits with \cuQuantum. Finally, it uses \textit{Supremacy Threshold Analysis} to estimate the future quantum hardware requirements.
+\SystemName is designed to answer one question: what quantum hardware speed is required for a quantum-circuit application to beat the native HPC application for the same task? Figure~\ref{fig:design-overview} summarizes the key components. First, \SystemName uses \textit{Shared Workload Control} to ensure that all paths use the same input instance and quality target. Second, it uses \textit{Native Path Execution} to establish a strong classical baseline. Third, it uses \textit{Quantum Path Execution} to run quantum kernels, QNN/VQC, VQE, QAOA, and Hamiltonian simulation circuits with \cuQuantum. Finally, it uses \textit{Advantage Threshold Analysis} to estimate the future quantum hardware requirements.
 
 \noindent\textbf{Design Boundary.}
 \SystemName is not a new quantum circuit simulator, compiler, or quantum algorithm. It treats existing simulators and native methods as execution engines behind a controlled workload interface. The design contribution is the measurement discipline: same input, same quality metric, strongest valid native path, measured quantum-circuit path, and explicit hardware projection. This boundary is important because faster simulation alone does not answer whether a future quantum computer would beat the native application.
@@ -9,14 +9,14 @@
 \begin{figure}[t]
     \centering
     \includegraphics[width=\linewidth]{figures/design_overview.pdf}
-    \Description{Block diagram of QSupremacy with shared workload control, native path execution, quantum path execution, measurement logging, and supremacy threshold analysis.}
+    \Description{Block diagram of QSupremacy with shared workload control, native path execution, quantum path execution, measurement logging, and advantage threshold analysis.}
     \caption{Architecture and procedure of \SystemName.}
     \label{fig:design-overview}
 \end{figure}
 
 \subsection{Overall Procedure}
 
-Figure~\ref{fig:design-overview} shows the overall procedure. \SystemName has two main phases: \textit{Measurement} and \textit{Supremacy Analysis}.
+Figure~\ref{fig:design-overview} shows the overall procedure. \SystemName has two main phases: \textit{Measurement} and \textit{Advantage Analysis}.
 
 \noindent\textbf{Measurement.}
 When an experiment starts, \SystemName reads the workload configuration. The configuration includes the dataset, train/test split, feature dimension, model type, circuit type, shots, and target quality. \SystemName then runs the native path and the quantum-circuit path using the same input data. This prevents unfair comparisons caused by different preprocessing or different quality targets.
@@ -24,7 +24,7 @@ When an experiment starts, \SystemName reads the workload configuration. The con
 \noindent\textbf{Config Record.}
 Before any path is executed, \SystemName materializes a single configuration record. This record is the logical owner of the experiment. It stores the workload family, instance ID, random seed, feature transform, native candidates, quantum circuit family, circuit depth, shot setting, and quality metric. The native and quantum paths do not choose these values independently. They receive the same record and append path-specific measurements to it. This mirrors the task-oriented style in the previous papers: the system first creates a stable representation of the work, then later components operate on that representation.
 
-\noindent\textbf{Supremacy Analysis.}
+\noindent\textbf{Advantage Analysis.}
 After measurement, \SystemName reads the circuit metadata and runtime breakdown. It extracts the number of qubits, circuit depth, one-qubit gates, two-qubit gates, shots, and optimizer iterations. Using this information, \SystemName computes the quantum hardware speed required to make the projected quantum path faster than the measured native path.
 
 \noindent\textbf{Failure Handling.}
@@ -45,7 +45,11 @@ Each measured case receives a deterministic identity. For ML, the identity inclu
 \SystemName defines the target quality before execution. The target can be a fixed accuracy threshold or a time-to-best-quality curve. This is important because a quantum path with lower accuracy cannot be claimed faster than a native path with higher accuracy.
 
 \noindent\textbf{Quality Normalization.}
-Different application families expose different quality values, so \SystemName stores both the native metric and a normalized gap. For classification, the gap is based on accuracy. For chemistry, it is based on energy error relative to the native reference. For optimization, it is based on objective gap. For simulation, it is based on state or observable error. The normalized gap lets the threshold analysis ask a common question across families: how much of the quality gap must future quantum hardware and algorithms recover before runtime speed becomes relevant?
+Different application families expose different quality values, so \SystemName stores both the native metric and a tolerance-scaled gap. For higher-is-better metrics, the gap is the native score minus the quantum score. For lower-is-better metrics, it is the quantum error minus the native/reference error. \SystemName compares the residual gap to the workload tolerance $\epsilon_w$:
+\[
+(1-R)\Delta Q_w \leq \epsilon_w .
+\]
+Here $R$ is a hypothetical recovery factor. $\Delta Q_w$ is not a probability and is not bounded by one; values above one mean that the measured quantum path is more than one tolerance unit away from the target.
 
 \noindent\textbf{Why This Matters.}
 Without shared workload control, the comparison becomes ambiguous. A native model may use a different feature dimension or a different split from the quantum model. \SystemName avoids this by making the workload controller the first step in the pipeline.
@@ -116,6 +120,9 @@ T_{\mathrm{execute}} =
 
 where $N_s$ is the shot count, $D_1$ and $D_2$ are one- and two-qubit gate depths, $D_m$ is measurement depth, $t_1$, $t_2$, and $t_m$ are logical operation times, and $P_{\mathrm{shots}}$ is shot-level parallelism.
 
+\noindent\textbf{Projection Scope.}
+This model is a first-order lower bound, not a validated fault-tolerant schedule. $T_{\mathrm{error}}$ aggregates costs not decomposed here: compilation, mapping, routing, readout, feedback, mitigation, correction, and queue/device concurrency. A fault-tolerant version can replace it with a surface-code stack using code distance, cycle time, logical-error budget, magic-state cost, and decoder latency~\cite{fowler2012surface,litinski2019game}. We keep the result dimensionless so stronger hardware models can be plugged in later.
+
 \noindent\textbf{Break-even Search.}
 \SystemName inverts the model. Instead of assuming a quantum speedup, it asks what logical gate time, shot throughput, and error overhead are needed for:
 
@@ -123,7 +130,7 @@ where $N_s$ is the shot count, $D_1$ and $D_2$ are one- and two-qubit gate depth
 T_{\mathrm{qhw}} < T_{\mathrm{native}}.
 \end{align}
 
-This gives a hardware requirement rather than a vague claim of supremacy.
+This gives a hardware requirement rather than a vague claim of advantage.
 
 \noindent\textbf{Advantage Frontier.}
 \SystemName does not reduce the result to one speedup number. It sweeps hardware assumptions and reports the feasible region where the projected quantum path beats the native path at the same quality. This region is the advantage frontier. If no reasonable region exists, the workload is classified by the limiting factor: quality, encoding, shots, error overhead, or native baseline strength.

@@ -21,19 +21,19 @@ Status: **ALIGNED_BY_COUNTS**
 
 | Section | Paper | Words | Paragraphs | textbf | Subsections | Subsubsections | Figures | Tables | Items |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| introduction | ours | 953 | 8 | 15 | 0 | 0 | 1 | 1 | 0 |
+| introduction | ours | 975 | 8 | 15 | 0 | 0 | 1 | 1 | 0 |
 | introduction | aurora | 1023 | 7 | 7 | 0 | 0 | 1 | 1 | 0 |
 | introduction | scaleqsim | 1510 | 10 | 6 | 0 | 0 | 1 | 1 | 0 |
-| background | ours | 617 | 8 | 5 | 2 | 0 | 0 | 0 | 0 |
+| background | ours | 622 | 8 | 5 | 2 | 0 | 0 | 0 | 0 |
 | background | aurora | 746 | 11 | 2 | 2 | 0 | 3 | 0 | 0 |
 | background | scaleqsim | 989 | 8 | 2 | 2 | 0 | 1 | 0 | 0 |
-| design | ours | 2437 | 35 | 37 | 6 | 4 | 1 | 2 | 0 |
+| design | ours | 2536 | 36 | 38 | 6 | 4 | 1 | 2 | 0 |
 | design | aurora | 3497 | 37 | 33 | 5 | 0 | 3 | 0 | 0 |
 | design | scaleqsim | 4581 | 36 | 23 | 6 | 0 | 4 | 0 | 0 |
-| evaluation | ours | 3818 | 33 | 17 | 8 | 3 | 7 | 11 | 0 |
+| evaluation | ours | 3927 | 34 | 17 | 8 | 3 | 7 | 11 | 0 |
 | evaluation | aurora | 3666 | 27 | 26 | 5 | 0 | 9 | 2 | 0 |
 | evaluation | scaleqsim | 5732 | 47 | 27 | 7 | 0 | 7 | 2 | 0 |
-| related | ours | 207 | 2 | 2 | 0 | 0 | 0 | 0 | 0 |
+| related | ours | 311 | 4 | 4 | 0 | 0 | 0 | 0 | 0 |
 | related | aurora | 317 | 2 | 2 | 0 | 0 | 0 | 0 | 0 |
 | related | scaleqsim | 512 | 6 | 0 | 2 | 0 | 0 | 0 | 0 |
 | conclusion | ours | 87 | 2 | 0 | 0 | 0 | 0 | 0 | 0 |
@@ -48,19 +48,19 @@ No large word-count gaps under the current threshold.
 
 | Section | Paper | Avg paragraph words | textbf / 1000 words | Paragraphs / heading |
 | --- | --- | ---: | ---: | ---: |
-| introduction | ours | 119.12 | 15.74 | 8.0 |
+| introduction | ours | 121.88 | 15.38 | 8.0 |
 | introduction | aurora | 146.14 | 6.84 | 7.0 |
 | introduction | scaleqsim | 151.0 | 3.97 | 10.0 |
-| background | ours | 77.12 | 8.1 | 4.0 |
+| background | ours | 77.75 | 8.04 | 4.0 |
 | background | aurora | 67.82 | 2.68 | 5.5 |
 | background | scaleqsim | 123.62 | 2.02 | 4.0 |
-| design | ours | 69.63 | 15.18 | 3.5 |
+| design | ours | 70.44 | 14.98 | 3.6 |
 | design | aurora | 94.51 | 9.44 | 7.4 |
 | design | scaleqsim | 127.25 | 5.02 | 6.0 |
-| evaluation | ours | 115.7 | 4.45 | 3.0 |
+| evaluation | ours | 115.5 | 4.33 | 3.09 |
 | evaluation | aurora | 135.78 | 7.09 | 5.4 |
 | evaluation | scaleqsim | 121.96 | 4.71 | 6.71 |
-| related | ours | 103.5 | 9.66 | 2.0 |
+| related | ours | 77.75 | 12.86 | 4.0 |
 | related | aurora | 158.5 | 6.31 | 2.0 |
 | related | scaleqsim | 85.33 | 0.0 | 3.0 |
 | conclusion | ours | 43.5 | 0.0 | 2.0 |
@@ -91,26 +91,26 @@ No large style-fingerprint gaps under the current threshold.
 | background | 6 | 20 | aurora:80 | Perlmutter/cuQuantum | Measurement platform |
 | background | 7 | 23 | aurora:84 | break-even equations | Native, simulated quantum, projected hardware paths |
 | design | 1 | 3 | aurora:3 | overview and boundary | State what the system is and is not |
-| design | 2 | 17 | scaleqsim:8 | overall procedure | Measurement then supremacy analysis |
+| design | 2 | 17 | scaleqsim:8 | overall procedure | Measurement then advantage analysis |
 | design | 3 | 24 | scaleqsim:18 | configuration record | Stable work representation before execution |
 | design | 4 | 30 | scaleqsim:41 | failure handling | Failed paths remain measured evidence |
 | design | 5 | 33 | scaleqsim:54 | shared workload control | Same input, instance identity, and quality target |
-| design | 6 | 53 | scaleqsim:95 | application paths | Native, kernel, and QNN/VQC execution rules |
-| design | 7 | 94 | scaleqsim:140 | measurement records | JSON, summary path, and allocation accounting |
-| design | 8 | 105 | scaleqsim:165 | threshold analysis | Execution model, break-even search, and frontier classification |
-| design | 9 | 134 | scaleqsim:237 | claim checklist | Systems checks before an advantage claim |
-| design | 10 | 160 | scaleqsim:306 | workload suite | Measured application families |
+| design | 6 | 57 | scaleqsim:95 | application paths | Native, kernel, and QNN/VQC execution rules |
+| design | 7 | 98 | scaleqsim:140 | measurement records | JSON, summary path, and allocation accounting |
+| design | 8 | 109 | scaleqsim:165 | threshold analysis | Execution model, break-even search, and frontier classification |
+| design | 9 | 141 | scaleqsim:237 | claim checklist | Systems checks before an advantage claim |
+| design | 10 | 167 | scaleqsim:306 | workload suite | Measured application families |
 | evaluation | 1 | 5 | aurora:58 | setup | Hardware, benchmark, baselines, feasibility |
 | evaluation | 2 | 19 | aurora:9 | campaign summary | Evidence table and evaluation questions |
 | evaluation | 3 | 91 | aurora:133 | RQ1 | Native ML versus quantum-circuit ML |
 | evaluation | 4 | 137 | scaleqsim:58 | RQ2 | Quality sensitivity |
 | evaluation | 5 | 161 | aurora:248 | RQ3 | Practical application suite |
 | evaluation | 6 | 195 | scaleqsim:247 | RQ4 | Native baseline stress |
-| evaluation | 7 | 253 | aurora:262 | RQ5 | Weak and strong scaling |
-| evaluation | 8 | 288 | aurora:334 | RQ6 | Advantage frontier and hardware projection |
-| evaluation | 9 | 322 | scaleqsim:413 | stability | Operational and repeat-timing checks |
-| evaluation | 10 | 371 | aurora:399 | taxonomy and sensitivity | Bottleneck classes and remaining scope |
+| evaluation | 7 | 255 | aurora:262 | RQ5 | Weak and strong scaling |
+| evaluation | 8 | 290 | aurora:334 | RQ6 | Advantage frontier and hardware projection |
+| evaluation | 9 | 324 | scaleqsim:413 | stability | Operational and repeat-timing checks |
+| evaluation | 10 | 373 | aurora:399 | taxonomy and sensitivity | Bottleneck classes and remaining scope |
 | related | 1 | 3 | aurora:3 | simulation and NISQ | Simulation substrate and current-device limits |
-| related | 2 | 6 | aurora:6 | applications and baselines | Application families and native comparisons |
+| related | 2 | 9 | aurora:6 | applications and baselines | Application families and native comparisons |
 | conclusion | 1 | 3 | scaleqsim:8 | paper result | Framework and measured thresholds |
 | conclusion | 2 | 5 | scaleqsim:15 | main lesson | Frontier and bottleneck taxonomy instead of slogan |

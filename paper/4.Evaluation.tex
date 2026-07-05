@@ -160,7 +160,7 @@ Quality changes the interpretation of speed. A lower runtime threshold does not 
 
 \subsection{RQ3: Practical Application Suite}
 
-The digits workload is useful because it is controlled, cheap, and easy to repeat. It is not enough for a practical quantum supremacy claim. Real users care about broader applications: AI pipelines, molecular energy estimation for drug discovery, optimization, and scientific simulation. These workloads have different native baselines and different quantum overheads.
+The digits workload is useful because it is controlled, cheap, and easy to repeat. It is not enough for a practical quantum-advantage claim. Real users care about broader applications: AI pipelines, molecular energy estimation for drug discovery, optimization, and scientific simulation. These workloads have different native baselines and different quantum overheads.
 
 \SystemName also evaluates a practical suite beyond the controlled binary digits sweep. The suite covers ML classification, VQE-style chemistry, QAOA-style optimization, and Hamiltonian simulation. These workloads represent the application classes where users often expect quantum advantage, but the measured result shows that the threshold is application dependent and usually large. The main practical-suite result below uses the large 3,552-case profile on 32 GPU nodes. ML selects among six native classifiers, and optimization selects among exact, greedy, local-search, and annealing baselines. Chemistry and simulation use native numerical baselines on the same Hamiltonian instances and compare them with quantum-circuit executions simulated through \cuQuantum.
 
@@ -238,7 +238,7 @@ We then run the expanded chemistry-only accept profile with the 4--8 qubit OpenF
 \resizebox{\columnwidth}{!}{%
 \begin{tabular}{lcccc}
 \toprule
-Problem & Qubits & Cases & Required speedup & Quality gap \\
+Problem & Qubits & Cases & Required speedup & Tol.-scaled gap \\
 \midrule
 LiH active & 6 & 12 & 21,847.9$\times$ & 0.3030 \\
 LiH active & 8 & 12 & 821.5$\times$ & 0.6299 \\
@@ -249,6 +249,8 @@ H$_2$O active & 8 & 12 & 788.0$\times$ & 1.0916 \\
 }
 \label{tab:chem-coverage}
 \end{table}
+
+The last column is a tolerance-scaled error gap, not a probability or bounded accuracy loss. Values above one mean that the measured circuit path is more than one workload tolerance away from the native/reference target. This distinction is important for H$_2$O active-space rows: they are useful as failure evidence, but they are not near-quality advantage cases.
 
 \subsection{RQ5: Perlmutter Weak and Strong Scaling}
 
@@ -305,14 +307,14 @@ The frontier separates speed-limited and quality-limited workloads. Chemistry an
 \centering
 \small
 \resizebox{\columnwidth}{!}{%
-\begin{tabular}{lccccc}
+\begin{tabular}{lcccccc}
 \toprule
-Workload & Tol. & $10^4\times$, 90\% & $10^5\times$, 90\% & $10^5\times$, 100\% & $10^6\times$, 100\% \\
+Workload & Tol. & $10^4\times$, 90\% & $10^5\times$, 90\% & $10^6\times$, 90\% & $10^5\times$, 100\% & $10^6\times$, 100\% \\
 \midrule
-ML & 0.02 & 6.6\% & 9.8\% & 99.9\% & 100.0\% \\
-Chemistry & 0.01 & 0.0\% & 57.1\% & 100.0\% & 100.0\% \\
-Optimization & 0.02 & 0.0\% & 0.0\% & 0.4\% & 100.0\% \\
-Simulation & 0.01 & 54.9\% & 71.9\% & 100.0\% & 100.0\% \\
+ML & 0.02 & 6.6\% & 9.8\% & 9.8\% & 99.9\% & 100.0\% \\
+Chemistry & 0.01 & 0.0\% & 57.1\% & 57.1\% & 100.0\% & 100.0\% \\
+Optimization & 0.02 & 0.0\% & 0.0\% & 22.9\% & 0.4\% & 100.0\% \\
+Simulation & 0.01 & 54.9\% & 71.9\% & 71.9\% & 100.0\% & 100.0\% \\
 \bottomrule
 \end{tabular}
 }
@@ -355,13 +357,13 @@ Finally, we run a small warmup-separated repeat-timing gate to check that the me
 
 \subsubsection{Hardware Projection Model}
 
-The projection model uses the measured native runtime, measured quantum-circuit simulation runtime, and measured quality gap for each case. For a projected quantum speedup $S$ and quality-gap recovery $R$, a case enters the advantage region only if $S$ is at least the measured required speedup and the residual quality gap is below the workload tolerance. Formally, a case is counted as advantaged when
+The projection model uses the measured native runtime, measured quantum-circuit simulation runtime, and measured tolerance-scaled quality gap for each case. For a projected quantum speedup $S$ and quality-gap recovery $R$, a case enters the advantage region only if $S$ is at least the measured required speedup and the residual quality gap is below the workload tolerance. Formally, a case is counted as advantaged when
 \[
 S \geq \frac{T_{qsim}}{T_{native}}
 \quad\text{and}\quad
 (1-R)\Delta Q \leq \epsilon_w ,
 \]
-where $\Delta Q$ is the measured quality gap and $\epsilon_w$ is the workload tolerance.
+where $\Delta Q$ is the measured quality gap in the workload's natural units and $\epsilon_w$ is the workload tolerance. The recovery parameter $R$ is not a measured error-mitigation result; it is a requirement axis. Thus, a point on the frontier says how much algorithmic, mitigation, or fault-tolerance improvement would be needed before runtime speedup matters.
 
 Table~\ref{tab:projection-fractions} turns the frontier into concrete hardware targets. Simulation is the closest family: with 90\% quality-gap recovery, a $10^4\times$ projected execution improvement covers 54.9\% of measured simulation cases. Chemistry needs a larger runtime shift: at the same recovery level, $10^5\times$ covers 57.1\% of chemistry cases. ML shows the opposite behavior. A $10^5\times$ speed improvement covers only 9.8\% of ML cases at 90\% recovery, but almost all cases if the quality gap is fully closed. Optimization is the hardest family in the current suite; even $10^6\times$ speedup covers only 22.9\% of cases at 90\% recovery and requires full quality recovery to cover all cases.
 

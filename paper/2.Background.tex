@@ -8,17 +8,17 @@ Quantum-circuit applications map input data or problem instances into a sequence
 The key systems implication is repetition. A single circuit execution is rarely the full application. Training and evaluation require many samples, classes, optimizer steps, shots, and circuit variants. Therefore, the cost of a quantum application must include encoding, circuit construction, repeated simulation or execution, measurement, loss computation, and classical postprocessing.
 
 \noindent\textbf{Practical application families.}
-\SystemName treats the first ML workload as a calibration workload, not as the whole target. Practical quantum claims usually appear in four application families. First, quantum ML claims include classification, kernel methods, and variational classifiers. Second, chemistry and drug-discovery claims include molecular energy estimation, Hamiltonian simulation, and candidate screening loops. Third, optimization claims include portfolio, routing, scheduling, and QAOA-style objective minimization. Fourth, scientific simulation claims include quantum dynamics and materials workloads. These families have different native baselines and different quantum costs. A useful supremacy model must therefore report a threshold per workload family, not one global number for all quantum computing.
+\SystemName treats the first ML workload as a calibration workload, not as the whole target. Practical quantum claims usually appear in four application families. First, quantum ML claims include classification, kernel methods, and variational classifiers. Second, chemistry and drug-discovery claims include molecular energy estimation, Hamiltonian simulation, and candidate screening loops. Third, optimization claims include portfolio, routing, scheduling, and QAOA-style objective minimization. Fourth, scientific simulation claims include quantum dynamics and materials workloads. These families have different native baselines and different quantum costs. A useful advantage model must therefore report a threshold per workload family, not one global number for all quantum computing.
 
 \noindent\textbf{Terminology.}
-This paper uses \textit{quantum supremacy threshold} as a modeling term, not as a claim that current quantum hardware wins on the measured applications. A threshold is the break-even condition under which the projected quantum-circuit application path becomes faster than the selected native HPC path while meeting the same quality target. We use \textit{advantage region} for the set of speed and quality-recovery assumptions that satisfy this condition. This distinction is important because a circuit simulator can be useful for measurement even when both the simulator and the projected near-term quantum path are far from application-level advantage.
+The project name is \SystemName, but the paper's technical object is a \textit{practical quantum-advantage threshold}. This is not a claim that current quantum hardware wins on the measured applications. A threshold is the break-even condition under which the projected quantum-circuit application path becomes faster than the selected native HPC path while meeting the same quality target. We use \textit{advantage region} for the set of speed and quality-recovery assumptions that satisfy this condition. This distinction is important because a circuit simulator can be useful for measurement even when both the simulator and the projected near-term quantum path are far from application-level advantage.
 
 \subsection{Native Baselines and Threshold Model}
 
-Native HPC/ML baselines execute the same task directly on CPUs or GPUs. For the first \SystemName workload, the native path uses \texttt{sklearn digits} with PCA and classical classifiers such as logistic regression, MLP, and optionally SVM/RBF. These baselines are intentionally strong and simple: if a quantum-circuit model cannot beat a well-optimized native baseline at the same target quality, it does not satisfy the practical supremacy threshold.
+Native HPC/ML baselines execute the same task directly on CPUs or GPUs. For the first \SystemName workload, the native path uses \texttt{sklearn digits} with PCA and classical classifiers such as logistic regression, MLP, and optionally SVM/RBF. These baselines are intentionally strong and simple: if a quantum-circuit model cannot beat a well-optimized native baseline at the same target quality, it does not satisfy the practical advantage threshold.
 
 \noindent\textbf{Perlmutter and cuQuantum.}
-\Perlmutter provides GPU nodes for quantum-circuit simulation with \cuQuantum and cuStateVec~\cite{nerscperlmutter,cuquantum}. Our environment uses an existing \cuQuantum installation and validates it through login-node smoke tests before any allocation-consuming job. Login-node tests are used only for correctness and pipeline validation. Performance experiments run through Slurm and record queue time, elapsed time, allocation resources, and charged node-hours~\cite{nerscslurm}.
+\Perlmutter provides GPU nodes for quantum-circuit simulation with \cuQuantum and cuStateVec~\cite{cuquantum}. Our environment uses an existing \cuQuantum installation and validates it through login-node smoke tests before any allocation-consuming job. Login-node tests are used only for correctness and pipeline validation. Performance experiments run through Slurm and record queue time, elapsed time, allocation resources, and charged node-hours.
 
 \noindent\textbf{Break-even condition.}
 For a fixed task, dataset split, target quality, and system budget, the native application path is:
@@ -50,7 +50,7 @@ T_{\mathrm{input}} + T_{\mathrm{encoding}}
 + T_{\mathrm{error}} + T_{\mathrm{postprocess}}.
 \end{align}
 
-The condition for projected quantum supremacy is:
+The condition for projected quantum advantage is:
 
 \begin{align}
 T_{\mathrm{qhw}} < T_{\mathrm{native}}

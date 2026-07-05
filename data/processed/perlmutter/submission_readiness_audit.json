@@ -8,7 +8,7 @@
       "severity": "error"
     },
     {
-      "detail": "pdfinfo can read page count",
+      "detail": "PDF page count can be read from pdfinfo or the LaTeX log",
       "name": "page_count_known",
       "passed": true,
       "severity": "error"
@@ -20,8 +20,8 @@
       "severity": "error"
     },
     {
-      "detail": "current page count is 12; typical systems submissions need a target-specific page budget",
-      "name": "page_count_atc_style",
+      "detail": "references start on page 11; HPCA 2027 allows 11 pages before references",
+      "name": "page_count_hpca_body",
       "passed": true,
       "severity": "warning"
     },
@@ -62,7 +62,7 @@
       "severity": "error"
     },
     {
-      "detail": "current manuscript uses an anonymous Paper ID author block",
+      "detail": "current manuscript uses the HPCA title-page banner and an empty author block for double-blind review",
       "name": "anonymous_submission",
       "passed": true,
       "severity": "warning"
@@ -74,8 +74,20 @@
       "severity": "warning"
     },
     {
-      "detail": "current manuscript uses the ATC 2026 recommended ACM SIGPLAN-style acmart template with CCS and keywords",
+      "detail": "current manuscript uses the HPCA 2027-compatible IEEEtran two-column layout, margins, column gap, and bibliography style",
       "name": "target_template_selected",
+      "passed": true,
+      "severity": "warning"
+    },
+    {
+      "detail": "references.bib and main.bbl contain no et al., and others, or \\etal shorthand",
+      "name": "references_list_all_authors",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "detail": "HPCA 2027 AI-use disclosure appendix is present after references",
+      "name": "ai_use_appendix",
       "passed": true,
       "severity": "warning"
     },
@@ -122,7 +134,8 @@
       "severity": "warning"
     }
   ],
-  "page_count": 12,
+  "page_count": 13,
+  "references_start_page": 11,
   "status": "SUBMISSION_READY",
   "warning_count": 0
 }

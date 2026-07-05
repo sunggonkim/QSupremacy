@@ -389,8 +389,8 @@ def main():
             "projection_and_repeat_numbers",
             "paper/4.Evaluation.tex",
             [
-                "Simulation & 0.01 & 54.9\\% & 71.9\\% & 100.0\\% & 100.0\\%",
-                "Chemistry & 0.01 & 0.0\\% & 57.1\\% & 100.0\\% & 100.0\\%",
+                "Simulation & 0.01 & 54.9\\% & 71.9\\% & 71.9\\% & 100.0\\% & 100.0\\%",
+                "Chemistry & 0.01 & 0.0\\% & 57.1\\% & 57.1\\% & 100.0\\% & 100.0\\%",
                 "maximum quantum-runtime CV is 0.0400",
             ],
         ),

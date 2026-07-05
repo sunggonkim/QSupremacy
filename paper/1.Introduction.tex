@@ -2,7 +2,7 @@
 
 Quantum computing is often described through broad application promises: better machine learning, faster molecular modeling, improved optimization, and natural Hamiltonian simulation. For HPC users, the question is more concrete. A future quantum path is useful only if it beats a strong native HPC path on the same input, at the same quality, after all application overheads are included. Current quantum hardware is not yet large and reliable enough to answer this question directly for many practical workloads. HPC systems therefore play a second role beyond accelerating quantum-circuit simulation: they are the measurement instrument for modeling when a quantum-circuit application could become competitive.
 
-Existing simulation systems provide the first part of this stack. Libraries such as \cuQuantum execute quantum circuits on GPUs, while prior systems such as ScaleQsim and AURORA-Q improve simulation scalability on leadership-scale systems~\cite{scaleqsim,auroraq}. These systems answer an important question: how can we simulate larger quantum circuits faster on HPC? However, simulator scalability is not the same as application-level quantum supremacy. A simulator can be faster than another simulator, but the quantum-circuit application can still be slower than a native HPC application because encoding, circuit generation, repeated evaluations, measurement, optimizer steps, and postprocessing remain in the end-to-end path.
+Existing simulation systems provide the first part of this stack. Libraries such as \cuQuantum execute quantum circuits on GPUs, while prior systems such as ScaleQsim and AURORA-Q improve simulation scalability on leadership-scale systems~\cite{scaleqsim,auroraq}. These systems answer an important question: how can we simulate larger quantum circuits faster on HPC? However, simulator scalability is not the same as application-level quantum advantage. A simulator can be faster than another simulator, but the quantum-circuit application can still be slower than a native HPC application because encoding, circuit generation, repeated evaluations, measurement, optimizer steps, and postprocessing remain in the end-to-end path.
 
 \begin{figure}[t]
     \centering
@@ -12,11 +12,11 @@ Existing simulation systems provide the first part of this stack. Libraries such
     \label{fig:intro-gap}
 \end{figure}
 
-Figure~\ref{fig:intro-gap} shows the comparison target of \SystemName. A circuit simulator is only one component of the quantum path. The full quantum path also includes application stages that do not disappear when the circuit kernel becomes faster. This creates three practical observations. \textbf{Observation 1: Simulator speed is not application speed.} Measuring only \cuQuantum time can hide encoding, measurement, optimization, and classical control. \textbf{Observation 2: Native baselines matter.} Native HPC/ML applications already use mature software stacks and efficient kernels, so a fair quantum claim must compare against a native implementation of the same workload. \textbf{Observation 3: Supremacy is a break-even condition.} The goal is not only to measure today's simulator time, but to invert the measurement and compute the required quantum gate time, shot throughput, and error overhead for future hardware.
+Figure~\ref{fig:intro-gap} shows the comparison target of \SystemName. A circuit simulator is only one component of the quantum path. The full quantum path also includes application stages that do not disappear when the circuit kernel becomes faster. This creates three practical observations. \textbf{Observation 1: Simulator speed is not application speed.} Measuring only \cuQuantum time can hide encoding, measurement, optimization, and classical control. \textbf{Observation 2: Native baselines matter.} Native HPC/ML applications already use mature software stacks and efficient kernels, so a fair quantum claim must compare against a native implementation of the same workload. \textbf{Observation 3: Advantage is a break-even condition.} The goal is not only to measure today's simulator time, but to invert the measurement and compute the required quantum gate time, shot throughput, and error overhead for future hardware.
 
 The same issue becomes stronger when the workload moves beyond one small ML example. Public claims about quantum computing often jump from one successful example to broad expectations such as better AI, faster drug discovery, or better optimization. A systems paper cannot validate such claims with one toy workload. It must cover representative application families and show the threshold for each family. For a practical workload, quantum advantage depends on several conditions being true at the same time: the quantum path must reach the target quality, the native baseline must be strong, the circuit must fit the available logical qubits, shots must be parallelized enough, and error overhead must not erase the speedup. \SystemName therefore reports an advantage frontier rather than a single yes/no answer.
 
-Many previous studies focus on one part of this stack. Table~\ref{tab:intro-position} summarizes the gap. ScaleQsim and AURORA-Q improve quantum simulation on HPC systems. \cuQuantum provides high-performance GPU primitives. Native ML frameworks provide strong classical baselines. \SystemName connects these pieces into an application-level supremacy threshold model.
+Many previous studies focus on one part of this stack. Table~\ref{tab:intro-position} summarizes the gap. ScaleQsim and AURORA-Q improve quantum simulation on HPC systems. \cuQuantum provides high-performance GPU primitives. Benchmark suites such as SupermarQ, QASMBench, MQT Bench, and QAOAKit improve coverage and reproducibility~\cite{supermarq,qasmbench,mqtbench,qaoakit}. Native ML frameworks provide strong classical baselines. \SystemName connects these pieces into an application-level advantage threshold model.
 
 \begin{table}[t]
 \caption{Positioning of \SystemName relative to prior work.}
@@ -27,10 +27,10 @@ Many previous studies focus on one part of this stack. Table~\ref{tab:intro-posi
 \toprule
 \textbf{Study/System} & \textbf{HPC sim.} & \textbf{Native baseline} & \textbf{Cost model} & \textbf{HW projection} \\
 \midrule
-ScaleQsim & \checkmark &  &  &  \\
-AURORA-Q & \checkmark &  &  &  \\
+ScaleQsim/AURORA-Q & \checkmark &  &  &  \\
 \cuQuantum & \checkmark &  &  &  \\
-Native ML studies &  & \checkmark &  &  \\
+Benchmark suites &  &  & partial & partial \\
+Native baselines &  & \checkmark &  &  \\
 \textbf{\SystemName} & \checkmark & \checkmark & \checkmark & \checkmark \\
 \bottomrule
 \end{tabular}
@@ -39,13 +39,13 @@ Native ML studies &  & \checkmark &  &  \\
 \end{table}
 
 \noindent\textbf{Key idea.}
-\SystemName treats quantum supremacy as a modeling and analysis problem. The supremacy threshold is the point where the projected quantum-circuit path becomes faster than the measured native HPC and ML path under the same workload and quality target. For each workload, \SystemName records the cost of each stage and then projects the quantum hardware region where this condition holds.
+\SystemName treats practical quantum advantage as a modeling and analysis problem. The advantage threshold is the point where the projected quantum-circuit path becomes faster than the measured native HPC and ML path under the same workload and quality target. For each workload, \SystemName records the cost of each stage and then projects the quantum hardware region where this condition holds.
 
-We present \SystemName, a quantum supremacy modeling and analysis study for HPC systems. \SystemName starts with a controlled ML workload: \texttt{sklearn digits} native ML baselines, quantum kernel classifiers, and QNN/VQC classifiers. This first workload validates the measurement pipeline. We then scale the study to a practical suite with ML, molecular energy estimation, combinatorial optimization, and Hamiltonian simulation. The evaluation first exposes the bottleneck, then studies baseline sensitivity, scaling behavior, hardware projection, and workload-specific advantage frontiers.
+We present \SystemName, a quantum-advantage modeling and analysis study for HPC systems. \SystemName starts with a controlled ML workload: \texttt{sklearn digits} native ML baselines, quantum kernel classifiers, and QNN/VQC classifiers. This first workload validates the measurement pipeline. We then scale the study to a practical suite with ML, molecular energy estimation, combinatorial optimization, and Hamiltonian simulation. The evaluation first exposes the bottleneck, then studies baseline sensitivity, scaling behavior, hardware projection, and workload-specific advantage frontiers.
 
 This paper makes the following contributions:
 \begin{itemize}[leftmargin=*]
-    \item \textbf{End-to-end threshold model.} We define practical quantum supremacy as a same-task, same-quality break-even condition between a native HPC path and a quantum-circuit application path.
+    \item \textbf{End-to-end threshold model.} We define practical quantum advantage as a same-task, same-quality break-even condition between a native HPC path and a quantum-circuit application path.
     \item \textbf{Logging framework.} We build a pipeline that records runtime breakdowns, quality, circuit metadata, GPU metadata, Slurm metadata, and repeat-timing evidence.
     \item \textbf{Practical workload evidence.} We evaluate controlled quantum ML and a suite covering ML, chemistry, optimization, and simulation, including a 3,552-case large profile, OpenFermion/PySCF chemistry, and sparse Krylov baselines.
     \item \textbf{Scale-out validation.} We run the large profile up to 32 GPU nodes and report weak scaling, fixed-work scaling, bundled allocation behavior, and repeat timing.

@@ -77,6 +77,21 @@ def pdf_pages():
     return None
 
 
+def references_start_page():
+    if exists("paper/main.aux"):
+        match = re.search(
+            r"\\contentsline\s+\{section\}\{References\}\{(\d+)\}",
+            read_text("paper/main.aux"),
+        )
+        if match:
+            return int(match.group(1))
+    if exists("paper/main.log"):
+        match = re.search(r"\(\./main\.bbl.*?\[(\d+)\]", read_text("paper/main.log"), re.S)
+        if match:
+            return int(match.group(1))
+    return None
+
+
 def grep_any(pattern, rel_paths):
     hits = []
     regex = re.compile(pattern, re.IGNORECASE)
@@ -173,6 +188,9 @@ def main():
         rel_path for rel_path in reviewer_paths if exists(rel_path) and not tracked_file(rel_path)
     ]
     pages = pdf_pages()
+    ref_start_page = references_start_page()
+    bib_text = read_text("paper/references.bib") if exists("paper/references.bib") else ""
+    bbl_text = read_text("paper/main.bbl") if exists("paper/main.bbl") else ""
 
     paper_sources = [
         "paper/0.Main.tex",
@@ -183,7 +201,6 @@ def main():
         "paper/5.Discussion.tex",
         "paper/5.RelatedWork.tex",
         "paper/6.Conclusion.tex",
-        "paper/7.Ack.tex",
         "paper/Makefile",
         "paper/main.tex",
         "paper/references.bib",
@@ -218,7 +235,12 @@ def main():
 
     checks = [
         check("main_pdf_exists", exists("paper/main.pdf"), "error", "paper/main.pdf exists"),
-        check("page_count_known", pages is not None, "error", "pdfinfo can read page count"),
+        check(
+            "page_count_known",
+            pages is not None,
+            "error",
+            "PDF page count can be read from pdfinfo or the LaTeX log",
+        ),
         check(
             "main_pdf_fresh",
             exists("paper/main.pdf")
@@ -233,11 +255,15 @@ def main():
             ),
         ),
         check(
-            "page_count_atc_style",
-            pages is not None and pages <= 12,
+            "page_count_hpca_body",
+            ref_start_page is not None and ref_start_page <= 11,
             "warning",
-            "current page count is {}; typical systems submissions need a target-specific page budget".format(
-                pages if pages is not None else "unknown"
+            (
+                "references start on page {}; HPCA 2027 allows 11 pages before references".format(
+                    ref_start_page
+                )
+                if ref_start_page is not None
+                else "could not detect the References start page from LaTeX outputs"
             ),
         ),
         check(
@@ -286,10 +312,12 @@ def main():
         ),
         check(
             "anonymous_submission",
-            "Paper ID: Anonymous Submission" in main_tex
-            and "Anonymous Institution" in main_tex,
+            "HPCA 2027 Submission \\#NaN" in main_tex
+            and "Confidential Draft" in main_tex
+            and "Do NOT Distribute!!" in main_tex
+            and "\\author{}" in main_tex,
             "warning",
-            "current manuscript uses an anonymous Paper ID author block",
+            "current manuscript uses the HPCA title-page banner and an empty author block for double-blind review",
         ),
         check(
             "paper_source_anonymity",
@@ -301,12 +329,24 @@ def main():
         ),
         check(
             "target_template_selected",
-            "\\documentclass[sigplan,10pt]{acmart}" in main_tex
-            and "\\settopmatter{printfolios=true}" in main_tex
-            and "\\ccsdesc" in main_tex
-            and "\\keywords{" in main_tex,
+            "\\documentclass[10pt,conference]{IEEEtran}" in main_tex
+            and "\\usepackage[letterpaper,left=0.7in,right=0.7in,top=0.7in,bottom=1in]{geometry}" in main_tex
+            and "\\setlength{\\columnsep}{0.1in}" in main_tex
+            and "\\bibliographystyle{IEEEtran}" in main_tex,
             "warning",
-            "current manuscript uses the ATC 2026 recommended ACM SIGPLAN-style acmart template with CCS and keywords",
+            "current manuscript uses the HPCA 2027-compatible IEEEtran two-column layout, margins, column gap, and bibliography style",
+        ),
+        check(
+            "references_list_all_authors",
+            not re.search(r"\b(et al\.?|and others)\b|\\etal\b", bib_text + "\n" + bbl_text, re.IGNORECASE),
+            "error",
+            "references.bib and main.bbl contain no et al., and others, or \\etal shorthand",
+        ),
+        check(
+            "ai_use_appendix",
+            "\\section*{AI Use}" in main_tex and "OpenAI Codex" in main_tex,
+            "warning",
+            "HPCA 2027 AI-use disclosure appendix is present after references",
         ),
         check(
             "repeated_hardware_trials",
@@ -426,6 +466,7 @@ def main():
     summary = {
         "status": status,
         "page_count": pages,
+        "references_start_page": ref_start_page,
         "blocking_error_count": len(blocking_errors),
         "warning_count": len(warnings),
         "checks": checks,
@@ -440,6 +481,11 @@ def main():
         f.write("# Submission Readiness Audit\n\n")
         f.write("Status: **{}**\n\n".format(status))
         f.write("Page count: `{}`\n\n".format(pages if pages is not None else "unknown"))
+        f.write(
+            "References start page: `{}`\n\n".format(
+                ref_start_page if ref_start_page is not None else "unknown"
+            )
+        )
         f.write("| Check | Severity | Status | Detail |\n")
         f.write("| --- | --- | --- | --- |\n")
         for item in checks:

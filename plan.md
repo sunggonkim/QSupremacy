@@ -14,7 +14,7 @@ Current paper evidence is already sufficient for the present manuscript:
 
 | Gate | Current status | Evidence |
 | --- | --- | --- |
-| Paper build | PASS, 12 pages | `make -B -C paper` |
+| Paper build | PASS, HPCA-style PDF; references start on page 11 | `make -B -C paper` |
 | Paper evidence audit | PASS | `scripts/audit_paper_evidence.py` |
 | Submission readiness | `SUBMISSION_READY`, warning 0 | `scripts/audit_submission_readiness.py` |
 | Previous-paper alignment | `ALIGNED_BY_COUNTS` | `scripts/audit_previous_paper_alignment.py` |
@@ -240,11 +240,11 @@ python3 scripts/audit_submission_readiness.py
 Expected result:
 
 ```text
-paper/main.pdf: 12 pages
+paper/main.pdf: HPCA-style double-blind PDF, references start on page 11
 previous-paper alignment: ALIGNED_BY_COUNTS
 paper evidence audit: PASS
 submission readiness: SUBMISSION_READY, warning_count 0
-LaTeX/BibTeX warnings: none
+LaTeX/BibTeX blocking errors: none
 ```
 
 ## 8. Paper Structure Plan
