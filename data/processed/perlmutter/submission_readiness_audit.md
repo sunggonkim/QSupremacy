@@ -25,3 +25,4 @@ Page count: `12`
 | reviewer_risk_evidence_paths_valid | warning | PASS | reviewer-risk evidence paths are present and tracked: 17 paths |
 | previous_paper_alignment_documented | warning | PASS | previous-paper paragraph and style alignment is documented and linked |
 | previous_paper_alignment_metrics | warning | PASS | previous-paper word, paragraph, heading, style, role-marker, paragraph-role, current-line, and template-line metrics are generated and linked |
+| previous_paper_completion_audit | warning | PASS | previous-paper completion audit covers logic, line, paragraph, word-count, and style requirements |

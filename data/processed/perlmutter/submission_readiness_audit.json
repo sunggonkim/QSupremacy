@@ -114,6 +114,12 @@
       "name": "previous_paper_alignment_metrics",
       "passed": true,
       "severity": "warning"
+    },
+    {
+      "detail": "previous-paper completion audit covers logic, line, paragraph, word-count, and style requirements",
+      "name": "previous_paper_completion_audit",
+      "passed": true,
+      "severity": "warning"
     }
   ],
   "page_count": 12,

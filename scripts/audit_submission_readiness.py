@@ -160,6 +160,11 @@ def main():
         if exists("paper/previous_paper_alignment.md")
         else ""
     )
+    previous_completion = (
+        read_text("paper/previous_paper_completion_audit.md")
+        if exists("paper/previous_paper_completion_audit.md")
+        else ""
+    )
     reviewer_paths = markdown_paths(reviewer_notes)
     missing_reviewer_paths = [
         rel_path for rel_path in reviewer_paths if not exists(rel_path)
@@ -391,6 +396,21 @@ def main():
             and all(previous_alignment_metrics.get("checks", {}).values()),
             "warning",
             "previous-paper word, paragraph, heading, style, role-marker, paragraph-role, current-line, and template-line metrics are generated and linked",
+        ),
+        check(
+            "previous_paper_completion_audit",
+            exists("paper/previous_paper_completion_audit.md")
+            and "Requirement Audit" in previous_completion
+            and "Line-by-line traceability" in previous_completion
+            and "Paragraph-by-paragraph roles" in previous_completion
+            and "Word-count alignment" in previous_completion
+            and "Style alignment" in previous_completion
+            and "ALIGNED_BY_COUNTS" in previous_completion
+            and "Non-Copying Boundary" in previous_completion
+            and "paper/previous_paper_completion_audit.md" in root_readme
+            and "paper/previous_paper_completion_audit.md" in paper_readme,
+            "warning",
+            "previous-paper completion audit covers logic, line, paragraph, word-count, and style requirements",
         ),
     ]
 

@@ -47,6 +47,7 @@ The paper-ready artifacts are:
 - artifact manifest: `data/processed/perlmutter/paper_artifact_manifest.md`
 - reviewer-risk notes: `paper/reviewer_readiness.md`
 - previous-paper alignment: `paper/previous_paper_alignment.md`
+- previous-paper completion audit: `paper/previous_paper_completion_audit.md`
 - previous-paper alignment metrics: `data/processed/perlmutter/previous_paper_alignment_metrics.md`
 - evidence audit: `data/processed/perlmutter/paper_evidence_audit.md`
 - readiness audit: `data/processed/perlmutter/submission_readiness_audit.md`
