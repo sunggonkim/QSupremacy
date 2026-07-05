@@ -2,7 +2,7 @@
 
 Target: ATC-style quantum supremacy modeling and analysis paper.
 
-Status: scaffold only. Do not submit this draft as-is. The current draft contains methodology, workload design, and result placeholders, but not enough experimental evidence for an ATC submission.
+Status: evidence-backed draft. The manuscript now includes measured Perlmutter results for the digits calibration sweep, the 3,552-case practical suite, weak/strong scaling through 32 GPU nodes, strengthened native baselines, chemistry active-space coverage, advantage-frontier analysis, and a bottleneck taxonomy. It is still an ATC-style manuscript rather than a target-formatted submission package.
 
 Note: the ATC 2026 CFP lists June 10, 2026 as the submission deadline. As of July 3, 2026, that deadline has passed, so this directory should be treated as an ATC-style manuscript for the next viable submission target unless the plan changes.
 
@@ -60,17 +60,17 @@ paper/PreviousPapers/
 
 Quantum supremacy should be modeled as an application-level break-even condition, not by comparing a CPU state-vector simulator against cuQuantum. This paper studies the end-to-end gap between native HPC/ML applications and quantum-circuit versions of the same workloads, then analyzes the quantum hardware requirements needed to beat the native path.
 
-## Required Results Before Submission
+## Submission Readiness Checklist
 
-- Login-node smoke gate must pass.
-- Perlmutter shared-GPU sweep must run long enough to avoid allocation waste.
-- Full GPU-node jobs must use all requested GPUs.
-- `sklearn digits` native ML baselines must be complete.
-- Quantum kernel classifier must be complete.
-- QNN/VQC classifier must be complete.
-- Results must include repeated trials, variance, warmup policy, and time-to-quality.
-- `sacct` metadata must be parsed for elapsed time, queue time, and charged node-hours.
-- Hardware projection must report required gate time, shot throughput, logical qubits, and error overhead.
+- Login-node smoke gate: complete.
+- Perlmutter shared-GPU and GPU-node sweeps: complete.
+- Full GPU-node bundled execution: complete through 32 nodes.
+- `sklearn digits` native ML, quantum kernel, and QNN/VQC paths: complete.
+- Practical suite across ML, chemistry, optimization, and simulation: complete.
+- Stronger native baselines and chemistry/simulation accept-profile gates: complete.
+- Advantage frontier and projection table: complete.
+- `sacct` accounting records for completed jobs: recorded in `data/raw/perlmutter/accounting/`.
+- Remaining submission risk: repeated hardware trials, explicit warmup-separated timing, final target-conference formatting, and a tighter related-work pass.
 
 ## Build
 

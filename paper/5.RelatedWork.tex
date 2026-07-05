@@ -21,7 +21,7 @@ Native HPC/ML baselines &  & \checkmark & \checkmark &  \\
 \end{table}
 
 \noindent\textbf{Large-scale quantum circuit simulation.}
-ScaleQsim and AURORA-Q demonstrate that quantum circuit simulation can be scaled on leadership-class HPC systems~\cite{scaleqsimtodo,auroraqtodo}. ScaleQsim focuses on scalable distributed full state-vector simulation, while AURORA-Q addresses memory capacity limitations with tiered memory and asynchronous offloading. \SystemName builds on this direction but shifts the question from simulator scalability to quantum supremacy modeling and analysis.
+ScaleQsim and AURORA-Q demonstrate that quantum circuit simulation can be scaled on leadership-class HPC systems~\cite{scaleqsim,auroraq}. ScaleQsim focuses on scalable distributed full state-vector simulation, while AURORA-Q addresses memory capacity limitations with tiered memory and asynchronous offloading. \SystemName builds on this direction but shifts the question from simulator scalability to quantum supremacy modeling and analysis.
 
 \noindent\textbf{Quantum machine-learning systems.}
 Quantum kernels and variational quantum classifiers are common approaches for quantum machine learning. These methods can express feature spaces differently from native ML models, but they also introduce data encoding, repeated circuit execution, measurement, and optimizer overheads. \SystemName treats these overheads as first-class systems costs and evaluates them through \cuQuantum~\cite{cuquantum}.

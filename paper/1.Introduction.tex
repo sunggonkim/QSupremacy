@@ -4,7 +4,7 @@ Quantum computing provides a different way to compute. Unlike classical computer
 
 However, current quantum computers are still limited. They have noise, limited qubit counts, short coherence time, and high access cost. Because of these limits, many quantum applications cannot yet be tested directly on reliable large-scale quantum hardware. As a result, HPC systems and quantum circuit simulators have become the practical platform for studying quantum applications before fault-tolerant quantum hardware is available.
 
-To support this direction, many simulators and frameworks have been developed for HPC systems. Libraries such as \cuQuantum allow users to execute quantum circuits on GPUs, while prior systems such as ScaleQsim and AURORA-Q improve simulation scalability on leadership-scale systems~\cite{scaleqsimtodo,auroraqtodo}. These systems answer an important question: how can we simulate larger quantum circuits faster on HPC?
+To support this direction, many simulators and frameworks have been developed for HPC systems. Libraries such as \cuQuantum allow users to execute quantum circuits on GPUs, while prior systems such as ScaleQsim and AURORA-Q improve simulation scalability on leadership-scale systems~\cite{scaleqsim,auroraq}. These systems answer an important question: how can we simulate larger quantum circuits faster on HPC?
 
 But this is not the same as quantum supremacy for applications. A simulator can be faster than another simulator, but the quantum-circuit application can still be slower than a native HPC application. For example, a native classifier can train directly on GPU-friendly tensors, while a quantum-circuit classifier must encode data, build circuits, run many circuit evaluations, extract measurements, and run classical postprocessing. Similar gaps appear in chemistry, optimization, and scientific simulation: the quantum part may be promising, but the end-to-end application still includes input preparation, repeated evaluations, error overhead, and classical control. These extra stages can dominate total time.
 
@@ -57,7 +57,7 @@ Native ML studies &  & \checkmark &  &  \\
 
 In this paper, we present \SystemName, a quantum supremacy modeling and analysis study for HPC systems. \SystemName starts with a controlled ML workload: \texttt{sklearn digits} native ML baselines, quantum kernel classifiers, and QNN/VQC classifiers. This first workload is the calibration point that validates the measurement pipeline. We then scale the study to a practical suite with ML, molecular energy estimation for drug discovery, combinatorial optimization, and Hamiltonian simulation. This structure follows the logic of our accepted systems papers: first expose the bottleneck, then define the modeling design, then evaluate each component, scaling behavior, and sensitivity.
 
-This draft makes the following intended contributions:
+This paper makes the following contributions:
 
 \begin{itemize}[leftmargin=*]
     \item \textbf{Supremacy threshold definition.} We define quantum supremacy as a break-even condition between native HPC/ML paths and quantum-circuit application paths at the same target quality.
