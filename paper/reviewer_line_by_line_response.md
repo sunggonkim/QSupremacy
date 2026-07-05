@@ -27,6 +27,39 @@ artifacts, or planned follow-up work. It is not part of the submitted paper.
 | Can quality-gap recovery map to practical techniques? | Clarified that recovery is a requirement axis for better ansatz, encodings, optimizers, mitigation, or fault tolerance, not a measured mitigation result. | `paper/4.Evaluation.tex`, `paper/5.Discussion.tex` |
 | Overall assessment: promising but needs stronger baselines, tolerance justification, calibrated hardware scenario. | Addressed in the manuscript with explicit limits and a worked hardware instantiation; stronger baselines remain future work unless new experiments are approved. | `paper/3.Design.tex`, `paper/4.Evaluation.tex`, `paper/5.Discussion.tex`, `plan.md` |
 
+## Detailed Author-Question Audit
+
+This table keeps the review questions separate from the general concern list so
+that a response letter can be drafted without re-reading the manuscript.
+
+| Author question | Response status | Manuscript or artifact action |
+| --- | --- | --- |
+| How are per-family tolerances chosen and how sensitive are Table XIII advantage fractions to them? | Partly addressed in the submitted draft; deeper domain-specific budgets remain future work. | `paper/3.Design.tex` defines `0.02` for ML/optimization and `0.01` for chemistry/simulation as strict model inputs. `paper/4.Evaluation.tex` states that looser or stricter tolerances move the frontier and that the raw projection grid can be regenerated without rerunning jobs. |
+| The digits qubit plot seems inconsistent with 4--16 PCA dimensions. | Addressed. | `paper/4.Evaluation.tex` now states one qubit per PCA feature and limits the interpretation to 4, 8, 12, and 16 measured qubits. |
+| Why not include CNNs for digits or Gurobi/CPLEX for optimization? | Explicit limitation, not silently claimed. | `paper/5.Discussion.tex` says implemented baselines do not exhaust CNNs, boosted trees, tuned MILP/domain heuristics, Gurobi/CPLEX, tensor-network physics, or CCSD(T)-class chemistry. |
+| Can the paper provide one concrete hardware instantiation? | Addressed as an illustrative lower-bound stack. | `paper/3.Design.tex` adds a surface-code-style example with `d=25`, `tau_c=1us`, operation multipliers, decoder latency, and `P_shots=1e4`; `paper/5.RelatedWork.tex` adds FT/resource-estimation context. |
+| How were shots chosen and what happens under different shot budgets or shot parallelism? | Partly addressed in model; full shot sweep remains follow-up. | `paper/3.Design.tex` records shots per case and includes `P_shots` in the projection. `paper/4.Evaluation.tex` lists shot sensitivity as outside measured scope. |
+| Did QAOA and VQC/QNN explore optimizer or ansatz sensitivity? | Explicit limitation and interpretation guard. | `paper/5.Discussion.tex` states fixed ansatz/grid choices may bias quality-limited classifications and maps improved optimizers/encodings/training to the quality-gap recovery axis. |
+| Can chemistry/simulation extend beyond 8-qubit active spaces or include tensor-network baselines? | Not completed for this manuscript; recorded as a scope limit. | `paper/4.Evaluation.tex` and `paper/5.Discussion.tex` describe current active-space coverage and state that larger active spaces and tensor-network baselines are future work. |
+| How would alternative simulators change `T_qsim` and taxonomy? | Addressed qualitatively, not remeasured. | `paper/5.Discussion.tex` states that tensor-network, path-integral, stabilizer, or specialized simulators can shift `T_qsim` while the same native baseline and quality rule remain fixed. |
+| How does quality-gap recovery map to practical techniques? | Addressed as a requirement axis. | `paper/4.Evaluation.tex` says recovery is not a measured mitigation result; it represents the improvement required from better ansatz, encodings, optimizers, mitigation, or fault tolerance. |
+| Would the project consider renaming away from QSUPREMACY? | Addressed in manuscript display name. | `paper/0.Main.tex` uses `QAdvantage`; `paper/5.Discussion.tex` states the repository name is historical. |
+
+## Remaining Evidence Limits
+
+The current draft is ready for HPCA-style submission packaging, but the response
+map should not overclaim. The following items are deliberately marked as future
+work rather than solved evidence:
+
+- CNN/boosted-tree image baselines, commercial MILP solvers, tensor-network
+  physics baselines, and production chemistry references.
+- Larger chemistry/simulation active spaces beyond the current 4--8 qubit
+  OpenFermion/PySCF coverage gate.
+- Systematic shot, ansatz, optimizer, mitigation, and backend sensitivity
+  sweeps.
+- Vendor-calibrated fault-tolerant resource estimates; the current hardware
+  instantiation is illustrative and lower-bound.
+
 ## Active Experiment Follow-Up
 
 The 64-node extension requested after the current paper plan is queued:
