@@ -102,6 +102,12 @@
       "name": "reviewer_risk_evidence_paths_valid",
       "passed": true,
       "severity": "warning"
+    },
+    {
+      "detail": "previous-paper paragraph and style alignment is documented and linked",
+      "name": "previous_paper_alignment_documented",
+      "passed": true,
+      "severity": "warning"
     }
   ],
   "page_count": 12,

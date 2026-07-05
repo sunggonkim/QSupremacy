@@ -12,6 +12,11 @@ criticisms: novelty boundary, native baselines, toy workloads, chemistry
 coverage, hardware projection, quality, scaling, timing stability, artifact
 traceability, and submission hygiene.
 
+Previous-paper structure alignment is tracked in
+`paper/previous_paper_alignment.md`. This note maps the current paper's
+paragraph roles to the accepted ScaleQsim and AURORA-Q source structures under
+`paper/PreviousPapers`.
+
 Note: the ATC 2026 CFP lists June 10, 2026 as the submission deadline. As of July 3, 2026, that deadline has passed, so this directory should be treated as an ATC-style manuscript for the next viable submission target unless the plan changes.
 
 ## Draft Files
@@ -29,6 +34,7 @@ paper/
 ├── 7.Ack.tex
 ├── main.tex
 ├── references.bib
+├── previous_paper_alignment.md
 ├── reviewer_readiness.md
 ├── Makefile
 ├── figures/

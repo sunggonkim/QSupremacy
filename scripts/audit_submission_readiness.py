@@ -141,6 +141,11 @@ def main():
         if exists("paper/reviewer_readiness.md")
         else ""
     )
+    previous_alignment = (
+        read_text("paper/previous_paper_alignment.md")
+        if exists("paper/previous_paper_alignment.md")
+        else ""
+    )
     reviewer_paths = markdown_paths(reviewer_notes)
     missing_reviewer_paths = [
         rel_path for rel_path in reviewer_paths if not exists(rel_path)
@@ -345,6 +350,20 @@ def main():
                     ", ".join(untracked_reviewer_paths) if untracked_reviewer_paths else "none",
                 )
             ),
+        ),
+        check(
+            "previous_paper_alignment_documented",
+            exists("paper/previous_paper_alignment.md")
+            and "AURORA-Q" in previous_alignment
+            and "ScaleQsim" in previous_alignment
+            and "Introduction comparison table" in previous_alignment
+            and "Evaluation setup lead-ins" in previous_alignment
+            and "Hardware, Benchmark, Baselines, Feasibility" in previous_alignment
+            and "Non-Copying Boundary" in previous_alignment
+            and "paper/previous_paper_alignment.md" in root_readme
+            and "paper/previous_paper_alignment.md" in paper_readme,
+            "warning",
+            "previous-paper paragraph and style alignment is documented and linked",
         ),
     ]
 

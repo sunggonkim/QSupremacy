@@ -23,3 +23,4 @@ Page count: `12`
 | artifact_quickstart_documented | warning | PASS | README files document paper-readiness audits and the allocation-free login smoke gate |
 | reviewer_risk_map_documented | warning | PASS | reviewer-risk notes cover expected acceptance risks and are linked from README files |
 | reviewer_risk_evidence_paths_valid | warning | PASS | reviewer-risk evidence paths are present and tracked: 17 paths |
+| previous_paper_alignment_documented | warning | PASS | previous-paper paragraph and style alignment is documented and linked |

@@ -4,7 +4,17 @@ This section evaluates \SystemName in the same style as a systems performance pa
 
 \subsection{Evaluation Setup}
 
-Experiments run on NERSC \Perlmutter. Login-node smoke tests validate correctness, while performance experiments run through Slurm. The expanded digits sweep uses one A100 GPU per job. Each job records JSON outputs, Slurm metadata, elapsed time, and allocation information.
+\noindent\textbf{Hardware specification.}
+Experiments run on NERSC \Perlmutter. Login-node smoke tests validate correctness, while performance experiments run through Slurm. GPU-node runs use A100 GPUs and record JSON outputs, Slurm metadata, elapsed time, and allocation information.
+
+\noindent\textbf{Benchmark.}
+The controlled benchmark is the expanded \texttt{sklearn digits} sweep. It varies class pair, sample count, PCA dimension, circuit depth, and seed. The practical benchmark suite then expands the same measurement discipline to ML, chemistry, optimization, and simulation.
+
+\noindent\textbf{Baselines.}
+Native paths are selected from workload-specific candidates. ML selects among six classifiers, optimization selects among exact and heuristic solvers, chemistry evaluates dense exact and sparse Lanczos candidates, and simulation evaluates dense exact and sparse Krylov candidates.
+
+\noindent\textbf{Feasibility.}
+Short login runs are only correctness gates. Performance evidence must come from Slurm jobs with accounting records, raw JSON counts, and completed exit status. The completed campaign below separates calibration, application coverage, baseline stress, scaling, and timing stability.
 
 \noindent\textbf{Campaign summary.}
 Table~\ref{tab:campaign-summary} lists the completed evidence used by the paper. The first two rows provide the main accuracy and threshold results. The next rows stress native-baseline strength, application coverage, scale-out behavior, and timing stability. This organization separates correctness gates from performance evidence and avoids treating a short smoke test as a performance claim.
