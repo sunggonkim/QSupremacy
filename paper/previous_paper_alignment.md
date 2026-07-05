@@ -10,16 +10,16 @@ ScaleQsim for systems-performance evaluation language.
 | Current section | Previous-paper role followed | Current implementation |
 | --- | --- | --- |
 | Abstract | Problem, approach, result in short bold blocks | `paper/0.Main.tex` uses `Problem`, `Approach`, and `Result` blocks with measured numbers. |
-| Introduction opening | Motivation, limitation, HPC simulation role | Paragraphs 1--4 move from broad quantum claims to the missing application-level threshold model. |
+| Introduction opening | Motivation, limitation, HPC simulation role | The first two prose paragraphs move from broad quantum claims to the missing application-level threshold model. |
 | Introduction figure | First visual statement of the systems gap | Fig. 1 plays the same role as the ScaleQsim/AURORA intro scalability figures. |
-| Introduction observations | Short bold claims before positioning table | Five `Observation` paragraphs separate simulator speed, native baselines, break-even modeling, workload diversity, and advantage frontiers. |
+| Introduction observations | Short bold claims before positioning table | The figure paragraph contains three bold observations, then a second application-diversity paragraph explains why the answer is a frontier rather than a slogan. |
 | Introduction positioning table | Related-work table before the final pitch | Table 1 mirrors the previous papers' early comparison table. |
 | Introduction close | Key idea, paper statement, contributions | The final paragraphs follow the accepted-paper pattern: distinguish from prior work, present the system, then list contributions. |
-| Background | Compact definitions before design | Background defines native path, quantum path, Perlmutter/cuQuantum, and threshold variables before the design section. |
+| Background | Compact definitions before design | Background now uses two large subsections, matching the previous papers' compact setup before design. |
 | Design overview | Overview figure plus design boundary | The first design paragraphs follow AURORA's overview-first style and explicitly state what the paper is not. |
-| Design body | Bold mechanism paragraphs under subsections | Design uses short `\textbf{}` lead-ins for workload control, native path, quantum path, logging, and threshold analysis. |
+| Design body | Bold mechanism paragraphs under subsections | Design uses six large subsections, like ScaleQsim, with short `\textbf{}` lead-ins for workload control, application paths, logging, and threshold analysis. |
 | Evaluation setup | Hardware, benchmark, baselines, feasibility | The setup now mirrors AURORA's evaluation opening with explicit bold lead-ins. |
-| Evaluation body | RQ-style systems results with answer paragraphs | Each RQ gives evidence first and then a short `Answer` paragraph, matching the accepted papers' claim-after-figure rhythm. |
+| Evaluation body | RQ-style systems results with answer paragraphs | Evaluation uses eight large subsections, close to ScaleQsim's evaluation shape, and each RQ gives evidence first and then a short `Answer` paragraph. |
 | Discussion | Threats and artifact map | Discussion turns reviewer risks into explicit validity and artifact-traceability statements. |
 | Related work | Short scoped categories | Related work keeps the same compact category style as the previous papers. |
 | Conclusion | Short lesson-focused close | Conclusion restates measured thresholds and the main systems insight without adding new claims. |
@@ -30,6 +30,10 @@ ScaleQsim for systems-performance evaluation language.
 | --- | --- | --- |
 | Source layout | Numbered section files plus main wrapper | Matches AURORA-Q and ScaleQsim layout. |
 | Introduction length | Approximately AURORA-sized | AURORA is the closest target; ScaleQsim is longer because it contains draft notes. |
+| Introduction paragraph count | 11 prose blocks after cleanup | Close to ScaleQsim's cleaned 10-block introduction rhythm. |
+| Background subsection count | 2 large subsections | Matches AURORA-Q and ScaleQsim. |
+| Design subsection count | 6 large subsections | Matches ScaleQsim's six-part design body. |
+| Evaluation subsection count | 8 large subsections | Close to ScaleQsim's seven-part evaluation body while keeping this paper's extra stability section. |
 | Introduction comparison table | Present before the final pitch | Matches both previous papers. |
 | Bold lead-in style | Used heavily in design/evaluation | Matches AURORA-Q's paragraph style. |
 | Evaluation setup lead-ins | Hardware, Benchmark, Baselines, Feasibility | Matches AURORA-Q's evaluation setup rhythm. |

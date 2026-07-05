@@ -38,7 +38,9 @@ After measurement, \SystemName reads the circuit metadata and runtime breakdown.
 \noindent\textbf{Why This Matters.}
 Without shared workload control, the comparison becomes ambiguous. A native model may use a different feature dimension or a different split from the quantum model. \SystemName avoids this by making the workload controller the first step in the pipeline.
 
-\subsection{Native Path Execution}
+\subsection{Application Path Execution}
+
+\subsubsection{Native Path Execution}
 
 \noindent\textbf{Classical Baselines.}
 The native path executes the best available non-quantum implementation for the same input. For ML, \SystemName supports softmax regression, MLP, linear ridge classification, RBF kernel ridge classification, k-nearest neighbors, and nearest-centroid baselines without requiring an external ML package. For chemistry, the native path computes molecular energy from the same Hamiltonian by exact dense diagonalization and, in the strengthened implementation, sparse Lanczos/eigensolver baselines for Pauli Hamiltonians. For optimization, \SystemName records exact enumeration when feasible and also greedy, local-search, and simulated-annealing baselines. For scientific simulation, the native path includes dense exact time evolution and a sparse Krylov-style evolution baseline. The native time used in the threshold is the fastest implemented model that reaches the best native quality within a small tolerance. This rule prevents a weak or low-quality native model from making the quantum path look artificially competitive.
@@ -46,7 +48,7 @@ The native path executes the best available non-quantum implementation for the s
 \noindent\textbf{Runtime Breakdown.}
 \SystemName records preprocessing time, training time, inference time, and total time. It also records accuracy and model metadata. These values define $T_{\mathrm{native}}$, which is the target that the projected quantum hardware path must beat.
 
-\subsection{Quantum Kernel Path}
+\subsubsection{Quantum Kernel Path}
 
 \noindent\textbf{Feature Map Execution.}
 The quantum kernel path maps each PCA feature vector into a quantum feature map. \cuQuantum simulates the circuit and produces state or observable data for kernel entries. A classical classifier then consumes the kernel matrix.
@@ -57,7 +59,7 @@ The quantum kernel path maps each PCA feature vector into a quantum feature map.
 \noindent\textbf{Expected Bottleneck.}
 The kernel path can become expensive because the kernel matrix grows with the number of samples. Therefore, \SystemName must report both sample scaling and feature-dimension scaling.
 
-\subsection{QNN/VQC Path}
+\subsubsection{QNN/VQC Path}
 
 \noindent\textbf{Parameterized Circuit Execution.}
 The QNN/VQC path maps the same PCA features into a parameterized quantum circuit. It then updates trainable parameters through a classical optimizer. Each optimizer step can require many circuit evaluations.
@@ -68,7 +70,7 @@ The QNN/VQC path maps the same PCA features into a parameterized quantum circuit
 \noindent\textbf{Why This Matters.}
 QNN/VQC models are often discussed as quantum machine-learning candidates. However, their systems cost is easy to underestimate. \SystemName makes the repeated circuit evaluations visible.
 
-\subsection{Measurement and Logging}
+\subsection{Measurement and Threshold Analysis}
 
 \noindent\textbf{JSON Record.}
 Every run emits a JSON record. The record includes dataset metadata, model metadata, runtime breakdowns, accuracy, circuit qubits, circuit depth, gate counts, shots, GPU metadata, and Slurm metadata where available.
@@ -76,7 +78,7 @@ Every run emits a JSON record. The record includes dataset metadata, model metad
 \noindent\textbf{Allocation Accounting.}
 \SystemName separates login-node smoke tests from Slurm performance runs. Login-node tests are only for correctness. Slurm runs must record elapsed time, queue time, requested walltime, allocated GPUs, and charged node-hours. This prevents short sanity checks from being mistaken for valid performance experiments.
 
-\subsection{Supremacy Threshold Analysis}
+\subsubsection{Threshold Analysis}
 
 \noindent\textbf{Execution Model.}
 Given circuit metadata, \SystemName estimates projected quantum execution time:

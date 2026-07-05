@@ -285,7 +285,7 @@ Full profile & 32 & 128 & 3,552 & 4:17 \\
 \noindent\textbf{Answer.}
 All scale-out jobs used by this table completed with exit code 0:0. The generated raw JSON counts match the expected case counts: 896, 1,792, and 3,552 for the weak-scaling runs, and 3,552 for each fixed-work run. No failed case, traceback, or timeout was recorded in the task logs. The weak-scaling results keep per-GPU throughput close to stable from 8 to 32 nodes. The fixed-work result reduces time-to-solution from 30 minutes 55 seconds on four nodes to 4 minutes 17 seconds on the matching 32-node full-profile point, a 7.2$\times$ speedup over an 8$\times$ node increase. This validates the bundled multi-node execution path for the advantage-modeling workflow.
 
-\subsection{RQ6: Advantage Frontier}
+\subsection{RQ6: Advantage Frontier and Hardware Projection}
 
 The practical-suite result gives one speed threshold per case, but a speed-only threshold is still incomplete. A practical advantage claim also needs comparable output quality. We therefore convert each measured case into an advantage frontier over two axes: projected quantum execution speedup and quality-gap recovery. A point is in the advantage region only if the projected quantum path is no slower than the selected native path and the remaining quality gap is within a small workload tolerance.
 
@@ -353,7 +353,7 @@ The pilot completed in 6 minutes and 54 seconds with 96 raw JSON outputs and emp
 \noindent\textbf{Timing gate.}
 Finally, we run a small warmup-separated repeat-timing gate to check that the measured path is not dominated by one first-use timing sample. The gate uses one \Perlmutter GPU node with four A100 tasks. Each task runs one workload family, discards one warmup case, and records three measured trials. Job 55516885 completed in 58 seconds with exit code 0:0 and empty stderr. Across the 12 measured trials, the maximum quantum-runtime CV is 0.0400. This gate is not a replacement for the large 3,552-case sweep; it is a timing-stability check for the submitted evidence package.
 
-\subsection{Hardware Projection Model}
+\subsubsection{Hardware Projection Model}
 
 The projection model uses the measured native runtime, measured quantum-circuit simulation runtime, and measured quality gap for each case. For a projected quantum speedup $S$ and quality-gap recovery $R$, a case enters the advantage region only if $S$ is at least the measured required speedup and the residual quality gap is below the workload tolerance. Formally, a case is counted as advantaged when
 \[
@@ -368,9 +368,9 @@ Table~\ref{tab:projection-fractions} turns the frontier into concrete hardware t
 \noindent\textbf{Answer.}
 The hardware target is not one global number. The same projected speedup has different meaning depending on quality recovery and native-baseline strength. Faster gates help speed-limited families such as simulation and part of chemistry, but they do not rescue quality-limited ML and optimization without algorithmic improvement.
 
-\subsection{Bottleneck Taxonomy}
+\subsubsection{Bottleneck Taxonomy}
 
-The main evaluation output is not that the simulator is slow. The simulator is the measurement tool. \SystemName uses the measurements to explain what kind of quantum hardware and algorithmic behavior would be necessary for advantage. For each workload family, it reports whether the path is currently speed-limited, quality-limited, encoding-limited, shot-limited, error-overhead-limited, or native-dominated.
+The main evaluation output is not that the simulator is slow. The simulator is the measurement tool. \SystemName uses the measurements to explain what kind of quantum hardware and algorithmic behavior would be necessary for advantage. For each workload family, it reports whether the path is limited by speed, quality, encoding, shots, error overhead, or native-baseline strength.
 
 \begin{figure}[t]
 \centering
@@ -384,6 +384,6 @@ Figure~\ref{fig:workload-taxonomy} shows this classification for the 3,552-case 
 
 This classification is the practical insight. If a workload is speed-limited, faster logical gates or more shot parallelism may move it into the advantage region. If it is quality-limited, faster hardware alone is not enough. If it is native-dominated, the correct conclusion is that the native HPC baseline remains the better application path unless the quantum algorithm changes.
 
-\subsection{Sensitivity Scope}
+\subsubsection{Sensitivity Scope}
 
 The expanded digits sweep covers class pair, sample count, PCA dimension, circuit depth, and seed. The practical suite adds workload family, native-baseline choice, chemistry grid size, circuit layer count, graph family, simulation model, and Perlmutter node count. These dimensions are sufficient for the paper's central claim: advantage thresholds are workload-specific and depend jointly on runtime and quality. The sensitivity space is still incomplete for a final hardware-roadmap study. Warmup-separated timing, repeated hardware trials, shot sensitivity, ansatz sensitivity, optimizer sensitivity, and explicit error-mitigation overhead remain outside the measured scope and are treated as threats rather than hidden assumptions.
