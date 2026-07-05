@@ -46,7 +46,7 @@ RQ2 & Test quality sensitivity & Table~\ref{tab:class-sensitivity} \\
 RQ3 & Cover practical application families & Table~\ref{tab:practical-suite}, Fig.~\ref{fig:practical-suite} \\
 RQ4 & Stress the native baseline & Fig.~\ref{fig:strong-native} \\
 RQ5 & Scale on Perlmutter GPU nodes & Table~\ref{tab:scaling}, Fig.~\ref{fig:scaling-summary} \\
-RQ6 & Project advantage regions & Fig.~\ref{fig:advantage-frontier}, Fig.~\ref{fig:workload-taxonomy} \\
+RQ6 & Project advantage regions & Fig.~\ref{fig:advantage-frontier}, Table~\ref{tab:projection-fractions}, Fig.~\ref{fig:workload-taxonomy} \\
 \bottomrule
 \end{tabular}
 }
@@ -259,6 +259,25 @@ The practical-suite result gives one speed threshold per case, but a speed-only 
 \noindent\textbf{Answer.}
 The frontier separates speed-limited and quality-limited workloads. Chemistry and simulation often have small quality gaps, so their frontier is mostly pushed right by runtime. ML has a lower runtime threshold in some cases, but the quality gap must shrink before speed alone becomes meaningful. Optimization is far from the advantage region on both axes for the current QAOA configuration. This is the central point of \SystemName: quantum advantage is a feasible region, not a single speedup slogan.
 
+\begin{table}[t]
+\caption{Projected advantage fraction from the 3,552-case strong-native suite.}
+\centering
+\small
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lccccc}
+\toprule
+Workload & Tol. & $10^4\times$, 90\% & $10^5\times$, 90\% & $10^5\times$, 100\% & $10^6\times$, 100\% \\
+\midrule
+ML & 0.02 & 6.6\% & 9.8\% & 99.9\% & 100.0\% \\
+Chemistry & 0.01 & 0.0\% & 57.1\% & 100.0\% & 100.0\% \\
+Optimization & 0.02 & 0.0\% & 0.0\% & 0.4\% & 100.0\% \\
+Simulation & 0.01 & 54.9\% & 71.9\% & 100.0\% & 100.0\% \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:projection-fractions}
+\end{table}
+
 \subsection{Operational Stability}
 
 The official practical sweep was first run as multiple shared-GPU jobs. We then validated a bundled allocation path using \texttt{salloc} with two A100 GPUs. This pilot is not a new advantage claim. It checks that \SystemName can run multiple chunks inside one allocation, keep the GPUs busy with independent workload cases, and produce the same summary format used by the official sweep.
@@ -291,7 +310,18 @@ The pilot completed in 6 minutes and 54 seconds with 96 raw JSON outputs and emp
 
 \subsection{Hardware Projection Model}
 
-The current projection uses measured circuit metadata to compute a required speedup relative to native runtime. The next version should convert this speedup into logical gate time, measurement time, shot throughput, and error-correction overhead. The output should be a heatmap that answers: for each workload family, how fast must quantum hardware be before the quantum path beats the native HPC path at the same quality?
+The projection model uses the measured native runtime, measured quantum-circuit simulation runtime, and measured quality gap for each case. For a projected quantum speedup $S$ and quality-gap recovery $R$, a case enters the advantage region only if $S$ is at least the measured required speedup and the residual quality gap is below the workload tolerance. Formally, a case is counted as advantaged when
+\[
+S \geq \frac{T_{qsim}}{T_{native}}
+\quad\text{and}\quad
+(1-R)\Delta Q \leq \epsilon_w ,
+\]
+where $\Delta Q$ is the measured quality gap and $\epsilon_w$ is the workload tolerance.
+
+Table~\ref{tab:projection-fractions} turns the frontier into concrete hardware targets. Simulation is the closest family: with 90\% quality-gap recovery, a $10^4\times$ projected execution improvement covers 54.9\% of measured simulation cases. Chemistry needs a larger runtime shift: at the same recovery level, $10^5\times$ covers 57.1\% of chemistry cases. ML shows the opposite behavior. A $10^5\times$ speed improvement covers only 9.8\% of ML cases at 90\% recovery, but almost all cases if the quality gap is fully closed. Optimization is the hardest family in the current suite; even $10^6\times$ speedup covers only 22.9\% of cases at 90\% recovery and requires full quality recovery to cover all cases.
+
+\noindent\textbf{Answer.}
+The hardware target is not one global number. The same projected speedup has different meaning depending on quality recovery and native-baseline strength. Faster gates help speed-limited families such as simulation and part of chemistry, but they do not rescue quality-limited ML and optimization without algorithmic improvement.
 
 \subsection{Bottleneck Taxonomy}
 

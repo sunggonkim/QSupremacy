@@ -65,6 +65,9 @@ The core comparison is not simulator vs simulator. The comparison is:
   32-node point.
 - Advantage-frontier figure added:
   `paper/figures/advantage_frontier.pdf`.
+- Advantage-projection summary added:
+  `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.json`
+  and matching Markdown table.
 - Workload taxonomy added:
   `paper/figures/workload_taxonomy.pdf` and
   `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_taxonomy.json`.
@@ -289,6 +292,11 @@ paper/figures/scaling_summary.pdf
 The frontier plots projected quantum speedup against quality-gap recovery. A
 case enters the advantage region only when the projected quantum path is both
 fast enough and close enough in output quality to the selected native path.
+At 90% quality-gap recovery, the 3,552-case strong-native suite projects that
+`10^4x` faster quantum execution covers 54.9% of simulation cases but only 6.6%
+of ML cases, while `10^5x` covers 57.1% of chemistry and 71.9% of simulation
+cases. Optimization remains hardest: at 90% recovery, even `10^6x` covers only
+22.9% of cases.
 
 Completed two-node large-profile scale-out gate:
 
