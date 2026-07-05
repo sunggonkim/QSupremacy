@@ -41,9 +41,13 @@
       "claim": "3,552-case strong-native practical suite on 32 Perlmutter GPU nodes across ML, chemistry, optimization, and simulation.",
       "figures_tables": [
         "paper/figures/practical_suite_summary.pdf",
+        "paper/figures/practical_suite_cdf.pdf",
         "paper/figures/weak_scaling.pdf",
+        "paper/figures/weak_scaling_efficiency.pdf",
         "paper/figures/strong_scaling.pdf",
-        "paper/figures/strong_native_comparison.pdf"
+        "paper/figures/strong_scaling_speedup.pdf",
+        "paper/figures/strong_native_comparison.pdf",
+        "paper/figures/strong_native_quality_shift.pdf"
       ],
       "id": "large_practical_suite",
       "paper_locations": [
@@ -68,7 +72,10 @@
       "audit_item": "advantage_projection",
       "claim": "Projected advantage is reported as a frontier over quantum execution improvement and quality-gap recovery, not as a single yes/no result.",
       "figures_tables": [
-        "paper/figures/advantage_frontier.pdf"
+        "paper/figures/advantage_frontier.pdf",
+        "paper/figures/advantage_frontier_chemistry.pdf",
+        "paper/figures/advantage_frontier_optimization.pdf",
+        "paper/figures/advantage_frontier_simulation.pdf"
       ],
       "id": "advantage_projection",
       "paper_locations": [
@@ -157,12 +164,19 @@
         "paper/figures/intro_application_gap.pdf",
         "paper/figures/design_overview.pdf",
         "paper/figures/weak_scaling.pdf",
+        "paper/figures/weak_scaling_efficiency.pdf",
         "paper/figures/strong_scaling.pdf",
+        "paper/figures/strong_scaling_speedup.pdf",
         "paper/figures/strong_native_comparison.pdf",
+        "paper/figures/strong_native_quality_shift.pdf",
         "paper/figures/practical_suite_summary.pdf",
+        "paper/figures/practical_suite_cdf.pdf",
         "paper/figures/digits_required_speedup.pdf",
         "paper/figures/digits_quality_speedup.pdf",
         "paper/figures/advantage_frontier.pdf",
+        "paper/figures/advantage_frontier_chemistry.pdf",
+        "paper/figures/advantage_frontier_optimization.pdf",
+        "paper/figures/advantage_frontier_simulation.pdf",
         "paper/figures/workload_taxonomy.pdf"
       ],
       "audit_item": "paper_figures",
@@ -171,12 +185,19 @@
         "paper/figures/intro_application_gap.pdf",
         "paper/figures/design_overview.pdf",
         "paper/figures/weak_scaling.pdf",
+        "paper/figures/weak_scaling_efficiency.pdf",
         "paper/figures/strong_scaling.pdf",
+        "paper/figures/strong_scaling_speedup.pdf",
         "paper/figures/strong_native_comparison.pdf",
+        "paper/figures/strong_native_quality_shift.pdf",
         "paper/figures/practical_suite_summary.pdf",
+        "paper/figures/practical_suite_cdf.pdf",
         "paper/figures/digits_required_speedup.pdf",
         "paper/figures/digits_quality_speedup.pdf",
         "paper/figures/advantage_frontier.pdf",
+        "paper/figures/advantage_frontier_chemistry.pdf",
+        "paper/figures/advantage_frontier_optimization.pdf",
+        "paper/figures/advantage_frontier_simulation.pdf",
         "paper/figures/workload_taxonomy.pdf"
       ],
       "id": "paper_figures",

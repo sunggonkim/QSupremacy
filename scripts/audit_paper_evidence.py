@@ -279,10 +279,19 @@ def main():
         ok_item(
             "advantage_projection",
             "Advantage fractions over projected speedup and quality-gap recovery",
-            [projection_json, "paper/figures/advantage_frontier.pdf"],
+            [
+                projection_json,
+                "paper/figures/advantage_frontier.pdf",
+                "paper/figures/advantage_frontier_chemistry.pdf",
+                "paper/figures/advantage_frontier_optimization.pdf",
+                "paper/figures/advantage_frontier_simulation.pdf",
+            ],
             [
                 check_exists(projection_json),
                 check_exists("paper/figures/advantage_frontier.pdf"),
+                check_exists("paper/figures/advantage_frontier_chemistry.pdf"),
+                check_exists("paper/figures/advantage_frontier_optimization.pdf"),
+                check_exists("paper/figures/advantage_frontier_simulation.pdf"),
                 check_equals("projection_cases", projection["cases"], 3552),
                 check_close(
                     "simulation_1e4_90pct_recovery",
@@ -326,12 +335,19 @@ def main():
         "paper/figures/intro_application_gap.pdf",
         "paper/figures/design_overview.pdf",
         "paper/figures/weak_scaling.pdf",
+        "paper/figures/weak_scaling_efficiency.pdf",
         "paper/figures/strong_scaling.pdf",
+        "paper/figures/strong_scaling_speedup.pdf",
         "paper/figures/strong_native_comparison.pdf",
+        "paper/figures/strong_native_quality_shift.pdf",
         "paper/figures/practical_suite_summary.pdf",
+        "paper/figures/practical_suite_cdf.pdf",
         "paper/figures/digits_required_speedup.pdf",
         "paper/figures/digits_quality_speedup.pdf",
         "paper/figures/advantage_frontier.pdf",
+        "paper/figures/advantage_frontier_chemistry.pdf",
+        "paper/figures/advantage_frontier_optimization.pdf",
+        "paper/figures/advantage_frontier_simulation.pdf",
         "paper/figures/workload_taxonomy.pdf",
     ]
     discovered_figures = [

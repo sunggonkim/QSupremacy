@@ -183,6 +183,24 @@
           "passed": true
         },
         {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/advantage_frontier_chemistry.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/advantage_frontier_optimization.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/advantage_frontier_simulation.pdf",
+          "passed": true
+        },
+        {
           "actual": 3552,
           "expected": 3552,
           "label": "projection_cases",
@@ -206,7 +224,10 @@
       "claim": "Advantage fractions over projected speedup and quality-gap recovery",
       "evidence": [
         "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.json",
-        "paper/figures/advantage_frontier.pdf"
+        "paper/figures/advantage_frontier.pdf",
+        "paper/figures/advantage_frontier_chemistry.pdf",
+        "paper/figures/advantage_frontier_optimization.pdf",
+        "paper/figures/advantage_frontier_simulation.pdf"
       ],
       "name": "advantage_projection",
       "passed": true
@@ -257,26 +278,40 @@
         {
           "actual": [
             "paper/figures/advantage_frontier.pdf",
+            "paper/figures/advantage_frontier_chemistry.pdf",
+            "paper/figures/advantage_frontier_optimization.pdf",
+            "paper/figures/advantage_frontier_simulation.pdf",
             "paper/figures/design_overview.pdf",
             "paper/figures/digits_quality_speedup.pdf",
             "paper/figures/digits_required_speedup.pdf",
             "paper/figures/intro_application_gap.pdf",
+            "paper/figures/practical_suite_cdf.pdf",
             "paper/figures/practical_suite_summary.pdf",
             "paper/figures/strong_native_comparison.pdf",
+            "paper/figures/strong_native_quality_shift.pdf",
             "paper/figures/strong_scaling.pdf",
+            "paper/figures/strong_scaling_speedup.pdf",
             "paper/figures/weak_scaling.pdf",
+            "paper/figures/weak_scaling_efficiency.pdf",
             "paper/figures/workload_taxonomy.pdf"
           ],
           "expected": [
             "paper/figures/advantage_frontier.pdf",
+            "paper/figures/advantage_frontier_chemistry.pdf",
+            "paper/figures/advantage_frontier_optimization.pdf",
+            "paper/figures/advantage_frontier_simulation.pdf",
             "paper/figures/design_overview.pdf",
             "paper/figures/digits_quality_speedup.pdf",
             "paper/figures/digits_required_speedup.pdf",
             "paper/figures/intro_application_gap.pdf",
+            "paper/figures/practical_suite_cdf.pdf",
             "paper/figures/practical_suite_summary.pdf",
             "paper/figures/strong_native_comparison.pdf",
+            "paper/figures/strong_native_quality_shift.pdf",
             "paper/figures/strong_scaling.pdf",
+            "paper/figures/strong_scaling_speedup.pdf",
             "paper/figures/weak_scaling.pdf",
+            "paper/figures/weak_scaling_efficiency.pdf",
             "paper/figures/workload_taxonomy.pdf"
           ],
           "label": "all_generated_figures_audited",
@@ -286,7 +321,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 33112
+            "size_bytes": 25698
           },
           "expected": {
             "exists": true,
@@ -300,7 +335,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 27650
+            "size_bytes": 27662
           },
           "expected": {
             "exists": true,
@@ -314,7 +349,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 19375
+            "size_bytes": 8377
           },
           "expected": {
             "exists": true,
@@ -328,7 +363,21 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 20014
+            "size_bytes": 10548
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/weak_scaling_efficiency.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 9471
           },
           "expected": {
             "exists": true,
@@ -342,7 +391,21 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 23900
+            "size_bytes": 11015
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/strong_scaling_speedup.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 13382
           },
           "expected": {
             "exists": true,
@@ -356,7 +419,21 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 63166
+            "size_bytes": 10792
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/strong_native_quality_shift.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 47481
           },
           "expected": {
             "exists": true,
@@ -364,6 +441,20 @@
             "min_bytes": 1024
           },
           "label": "valid_pdf: paper/figures/practical_suite_summary.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 13933
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/practical_suite_cdf.pdf",
           "passed": true
         },
         {
@@ -384,7 +475,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 17269
+            "size_bytes": 17278
           },
           "expected": {
             "exists": true,
@@ -398,7 +489,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 31563
+            "size_bytes": 12488
           },
           "expected": {
             "exists": true,
@@ -412,7 +503,49 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 14280
+            "size_bytes": 8625
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/advantage_frontier_chemistry.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 17432
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/advantage_frontier_optimization.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 16448
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/advantage_frontier_simulation.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 12746
           },
           "expected": {
             "exists": true,
@@ -428,12 +561,19 @@
         "paper/figures/intro_application_gap.pdf",
         "paper/figures/design_overview.pdf",
         "paper/figures/weak_scaling.pdf",
+        "paper/figures/weak_scaling_efficiency.pdf",
         "paper/figures/strong_scaling.pdf",
+        "paper/figures/strong_scaling_speedup.pdf",
         "paper/figures/strong_native_comparison.pdf",
+        "paper/figures/strong_native_quality_shift.pdf",
         "paper/figures/practical_suite_summary.pdf",
+        "paper/figures/practical_suite_cdf.pdf",
         "paper/figures/digits_required_speedup.pdf",
         "paper/figures/digits_quality_speedup.pdf",
         "paper/figures/advantage_frontier.pdf",
+        "paper/figures/advantage_frontier_chemistry.pdf",
+        "paper/figures/advantage_frontier_optimization.pdf",
+        "paper/figures/advantage_frontier_simulation.pdf",
         "paper/figures/workload_taxonomy.pdf"
       ],
       "name": "paper_figures",
@@ -667,7 +807,19 @@
         {
           "actual": true,
           "expected": true,
+          "label": "exists: paper/figures/practical_suite_cdf.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
           "label": "exists: paper/figures/weak_scaling.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/weak_scaling_efficiency.pdf",
           "passed": true
         },
         {
@@ -679,7 +831,19 @@
         {
           "actual": true,
           "expected": true,
+          "label": "exists: paper/figures/strong_scaling_speedup.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
           "label": "exists: paper/figures/strong_native_comparison.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/strong_native_quality_shift.pdf",
           "passed": true
         },
         {
@@ -716,6 +880,24 @@
           "actual": true,
           "expected": true,
           "label": "exists: paper/figures/advantage_frontier.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/advantage_frontier_chemistry.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/advantage_frontier_optimization.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/advantage_frontier_simulation.pdf",
           "passed": true
         },
         {
@@ -877,7 +1059,19 @@
         {
           "actual": true,
           "expected": true,
+          "label": "exists: paper/figures/weak_scaling_efficiency.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
           "label": "exists: paper/figures/strong_scaling.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/strong_scaling_speedup.pdf",
           "passed": true
         },
         {
@@ -889,7 +1083,19 @@
         {
           "actual": true,
           "expected": true,
+          "label": "exists: paper/figures/strong_native_quality_shift.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
           "label": "exists: paper/figures/practical_suite_summary.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/practical_suite_cdf.pdf",
           "passed": true
         },
         {
@@ -908,6 +1114,24 @@
           "actual": true,
           "expected": true,
           "label": "exists: paper/figures/advantage_frontier.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/advantage_frontier_chemistry.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/advantage_frontier_optimization.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/advantage_frontier_simulation.pdf",
           "passed": true
         },
         {
@@ -937,7 +1161,19 @@
         {
           "actual": true,
           "expected": true,
+          "label": "exists: paper/figures/weak_scaling_efficiency.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
           "label": "exists: paper/figures/strong_scaling.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/strong_scaling_speedup.pdf",
           "passed": true
         },
         {
@@ -949,7 +1185,19 @@
         {
           "actual": true,
           "expected": true,
+          "label": "exists: paper/figures/strong_native_quality_shift.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
           "label": "exists: paper/figures/practical_suite_summary.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/practical_suite_cdf.pdf",
           "passed": true
         },
         {
@@ -968,6 +1216,24 @@
           "actual": true,
           "expected": true,
           "label": "exists: paper/figures/advantage_frontier.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/advantage_frontier_chemistry.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/advantage_frontier_optimization.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/advantage_frontier_simulation.pdf",
           "passed": true
         },
         {

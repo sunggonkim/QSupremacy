@@ -144,16 +144,16 @@ def apply_paper_style():
     plt.rcParams.update(
         {
             "font.family": "serif",
-            "font.size": 10,
-            "axes.labelsize": 10,
-            "axes.titlesize": 10,
+            "font.size": 8.0,
+            "axes.labelsize": 8.0,
+            "axes.titlesize": 8.0,
             "axes.titleweight": "bold",
-            "xtick.labelsize": 9,
-            "ytick.labelsize": 9,
-            "legend.fontsize": 9,
-            "axes.linewidth": 0.8,
-            "lines.linewidth": 1.8,
-            "lines.markersize": 5.5,
+            "xtick.labelsize": 7.2,
+            "ytick.labelsize": 7.2,
+            "legend.fontsize": 7.2,
+            "axes.linewidth": 0.7,
+            "lines.linewidth": 1.35,
+            "lines.markersize": 4.3,
             "pdf.fonttype": 42,
             "ps.fonttype": 42,
         }
@@ -161,12 +161,12 @@ def apply_paper_style():
 
 
 def style_axis(ax, grid="both"):
-    ax.tick_params(axis="both", labelsize=9, pad=2, width=0.8)
+    ax.tick_params(axis="both", labelsize=7.2, pad=1.5, width=0.7)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     if grid:
         axis = "both" if grid == "both" else grid
-        ax.grid(axis=axis, which="both", linestyle=":", linewidth=0.55, color="#B9B9B9")
+        ax.grid(axis=axis, which="both", linestyle=":", linewidth=0.45, color="#B9B9B9")
 
 
 def add_top_legend(fig, handles, labels, ncol, y=1.02, fontsize=None):
@@ -178,9 +178,9 @@ def add_top_legend(fig, handles, labels, ncol, y=1.02, fontsize=None):
         bbox_to_anchor=(0.5, y),
         frameon=False,
         fontsize=fontsize,
-        handlelength=1.6,
-        handletextpad=0.45,
-        columnspacing=1.0,
+        handlelength=1.35,
+        handletextpad=0.35,
+        columnspacing=0.75,
     )
 
 
@@ -189,7 +189,7 @@ def read_csv(path):
         return list(csv.DictReader(f))
 
 
-def savefig(name, fig=None, pad=0.35):
+def savefig(name, fig=None, pad=0.18):
     if fig is None:
         fig = plt.gcf()
     path = os.path.join(FIG_DIR, name)
@@ -228,12 +228,11 @@ def figure_intro_application_gap():
     fig, axes = plt.subplots(
         2,
         1,
-        figsize=(COLUMN_WIDTH, 3.80),
+        figsize=(COLUMN_WIDTH, 3.45),
         gridspec_kw={"height_ratios": [1.05, 1.35], "hspace": 0.42},
     )
 
     ax = axes[0]
-    ax.set_title("Same task, two paths", pad=3)
     draw_box(ax, (0.02, 0.61), 0.20, 0.19, "Input\ninstance", COLORS["dark"], fontsize=7.5)
     draw_box(ax, (0.34, 0.67), 0.28, 0.15, "Native HPC\napp", COLORS["blue"], fontsize=7.4)
     draw_box(ax, (0.74, 0.67), 0.22, 0.15, "$T_n, Q_n$", COLORS["blue"], fontsize=7.4)
@@ -276,7 +275,6 @@ def figure_intro_application_gap():
     axes[1].set_yticklabels(labels)
     axes[1].invert_yaxis()
     axes[1].set_xlabel("Required quantum speedup (x)")
-    axes[1].set_title("Measured break-even thresholds", pad=3)
     axes[1].set_xlim(10, 2.2e6)
     style_axis(axes[1], grid="x")
 
@@ -432,22 +430,28 @@ def figure_practical_suite():
     rows = read_csv(rel_path)
     workloads = [
         ("ml", "ML", COLORS["blue"], 0.02),
-        ("chemistry", "Chemistry", COLORS["teal"], 0.01),
-        ("optimization", "Optimization", COLORS["red"], 0.02),
-        ("simulation", "Simulation", COLORS["green"], 0.01),
+        ("chemistry", "Chem.", COLORS["teal"], 0.01),
+        ("optimization", "Opt.", COLORS["red"], 0.02),
+        ("simulation", "Sim.", COLORS["green"], 0.01),
     ]
 
-    fig, axes = plt.subplots(2, 1, figsize=(COLUMN_WIDTH, 3.65), gridspec_kw={"hspace": 0.52})
-    legend_handles = []
-    legend_labels = []
+    series = []
     for workload, label, color, tolerance in workloads:
         subset = [row for row in rows if row["workload"] == workload]
         speed = np.array([float(row["speedup_required"]) for row in subset])
         quality = np.array([max(0.0, float(row["quality_gap"])) for row in subset])
-        points = axes[0].scatter(
+        sorted_speed = np.sort(speed)
+        cdf = np.arange(1, sorted_speed.size + 1) / float(sorted_speed.size)
+        series.append((label, color, speed, quality, sorted_speed, cdf))
+
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.50))
+    legend_handles = []
+    legend_labels = []
+    for label, color, speed, quality, sorted_speed, cdf in series:
+        points = ax.scatter(
             speed,
             quality,
-            s=12,
+            s=9,
             alpha=0.26,
             color=color,
             edgecolors="none",
@@ -455,38 +459,37 @@ def figure_practical_suite():
         )
         legend_handles.append(points)
         legend_labels.append(label)
-        axes[0].scatter(
+        ax.scatter(
             [np.median(speed)],
             [np.median(quality)],
-            s=58,
+            s=42,
             color=color,
             edgecolors="black",
             linewidths=0.65,
             zorder=4,
         )
-        sorted_speed = np.sort(speed)
-        cdf = np.arange(1, sorted_speed.size + 1) / float(sorted_speed.size)
-        axes[1].plot(sorted_speed, cdf, color=color, linewidth=1.8, label=label)
-
-    axes[0].set_xscale("log")
-    axes[0].set_xlabel("")
-    axes[0].set_ylabel("Quality gap\nto native")
-    axes[0].set_title("Runtime-quality landscape")
-    axes[0].tick_params(labelbottom=False)
-    style_axis(axes[0], grid="both")
-
-    axes[1].set_xscale("log")
-    axes[1].set_xlabel("Required quantum speedup (x)")
-    axes[1].set_ylabel("Cumulative\ncase fraction")
-    axes[1].set_title("Full threshold distribution")
-    style_axis(axes[1], grid="both")
-    add_top_legend(fig, legend_handles, legend_labels, ncol=2, y=0.995, fontsize=8.2)
-    fig.subplots_adjust(top=0.84, bottom=0.11, hspace=0.52)
-
-    path = os.path.join(FIG_DIR, "practical_suite_summary.pdf")
-    fig.savefig(path, bbox_inches="tight")
+    ax.set_xscale("log")
+    ax.tick_params(axis="x", labelbottom=False)
+    ax.set_ylabel("Quality gap\nto native")
+    style_axis(ax, grid="both")
+    add_top_legend(fig, legend_handles, legend_labels, ncol=4, y=1.03, fontsize=6.4)
+    fig.subplots_adjust(top=0.72, bottom=0.10, left=0.18, right=0.98)
+    landscape_path = os.path.join(FIG_DIR, "practical_suite_summary.pdf")
+    fig.savefig(landscape_path, bbox_inches="tight")
     plt.close(fig)
-    return path
+
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.25))
+    for label, color, speed, quality, sorted_speed, cdf in series:
+        ax.plot(sorted_speed, cdf, color=color, linewidth=1.8, label=label)
+    ax.set_xscale("log")
+    ax.set_xlabel("Required speedup (x)")
+    ax.set_ylabel("CDF")
+    style_axis(ax, grid="both")
+    fig.subplots_adjust(bottom=0.30, left=0.18, right=0.98, top=0.98)
+    cdf_path = os.path.join(FIG_DIR, "practical_suite_cdf.pdf")
+    fig.savefig(cdf_path, bbox_inches="tight")
+    plt.close(fig)
+    return [landscape_path, cdf_path]
 
 
 def load_summary(rel_path):
@@ -504,7 +507,7 @@ def figure_strong_native_comparison():
         return None
 
     workloads = ["ml", "chemistry", "optimization", "simulation"]
-    labels = ["ML", "Chemistry", "Optimization", "Simulation"]
+    labels = ["ML", "Chem.", "Opt.", "Sim."]
     official_speed = [
         float(official["by_workload"][workload]["speedup_required_median"])
         for workload in workloads
@@ -522,36 +525,37 @@ def figure_strong_native_comparison():
         for workload in workloads
     ]
 
-    fig, axes = plt.subplots(2, 1, figsize=(COLUMN_WIDTH, 3.60), gridspec_kw={"hspace": 0.52})
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.35))
     colors = [COLORS["blue"], COLORS["teal"], COLORS["red"], COLORS["green"]]
     handles = []
     for label, color, initial, strong in zip(labels, colors, official_speed, strong_speed):
-        line = axes[0].plot([0, 1], [initial, strong], marker="o", color=color, linewidth=1.8)[0]
+        line = ax.plot([0, 1], [initial, strong], marker="o", color=color, linewidth=1.8)[0]
         handles.append(line)
-    axes[0].set_yscale("log")
-    axes[0].set_xlim(-0.12, 1.12)
-    axes[0].set_xticks([0, 1])
-    axes[0].set_xticklabels(["Initial\nbaseline", "Strong\nbaseline"])
-    axes[0].set_ylabel("Median required\nspeedup (x)")
-    axes[0].set_title("Runtime threshold shift")
-    axes[0].tick_params(labelbottom=False)
-    style_axis(axes[0], grid="y")
-
-    for label, color, initial, strong in zip(labels, colors, official_quality, strong_quality):
-        axes[1].plot([0, 1], [initial, strong], marker="o", color=color, linewidth=1.8)
-    axes[1].set_xlim(-0.12, 1.12)
-    axes[1].set_xticks([0, 1])
-    axes[1].set_xticklabels(["Initial\nbaseline", "Strong\nbaseline"])
-    axes[1].set_ylabel("Median\nquality gap")
-    axes[1].set_title("Quality gap shift")
-    style_axis(axes[1], grid="y")
-    add_top_legend(fig, handles, labels, ncol=2, y=0.995, fontsize=8.3)
-    fig.subplots_adjust(top=0.84, bottom=0.11, hspace=0.52)
-
-    path = os.path.join(FIG_DIR, "strong_native_comparison.pdf")
-    fig.savefig(path, bbox_inches="tight")
+    ax.set_yscale("log")
+    ax.set_xlim(-0.12, 1.12)
+    ax.set_xticks([0, 1])
+    ax.set_xticklabels([])
+    ax.set_ylabel("Median required\nspeedup (x)")
+    style_axis(ax, grid="y")
+    add_top_legend(fig, handles, labels, ncol=4, y=1.04, fontsize=6.4)
+    fig.subplots_adjust(top=0.70, bottom=0.10, left=0.18, right=0.98)
+    speed_path = os.path.join(FIG_DIR, "strong_native_comparison.pdf")
+    fig.savefig(speed_path, bbox_inches="tight")
     plt.close(fig)
-    return path
+
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.25))
+    for label, color, initial, strong in zip(labels, colors, official_quality, strong_quality):
+        ax.plot([0, 1], [initial, strong], marker="o", color=color, linewidth=1.8)
+    ax.set_xlim(-0.12, 1.12)
+    ax.set_xticks([0, 1])
+    ax.set_xticklabels(["Initial\nbaseline", "Strong\nbaseline"])
+    ax.set_ylabel("Median\nquality gap")
+    style_axis(ax, grid="y")
+    fig.subplots_adjust(bottom=0.34, left=0.18, right=0.98, top=0.98)
+    quality_path = os.path.join(FIG_DIR, "strong_native_quality_shift.pdf")
+    fig.savefig(quality_path, bbox_inches="tight")
+    plt.close(fig)
+    return [speed_path, quality_path]
 
 
 def figure_weak_scaling():
@@ -568,48 +572,43 @@ def figure_weak_scaling():
     per_gpu = cases / (elapsed * gpus)
     efficiency = per_gpu / per_gpu[0]
 
-    fig, axes = plt.subplots(2, 1, figsize=(COLUMN_WIDTH, 3.60), gridspec_kw={"hspace": 0.52})
-    line_measured = axes[0].plot(nodes, throughput, marker="o", color=COLORS["blue"], label="measured")[0]
-    line_ideal = axes[0].plot(nodes, ideal, linestyle="--", color=COLORS["gray"], label="ideal linear")[0]
-    axes[0].set_xscale("log", base=2)
-    axes[0].set_xticks(nodes)
-    axes[0].set_xticklabels([str(int(x)) for x in nodes])
-    axes[0].set_xlabel("")
-    axes[0].set_ylabel("Cases / second")
-    axes[0].set_title("Total throughput")
-    axes[0].tick_params(labelbottom=False)
-    style_axis(axes[0], grid="both")
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.25))
+    line_measured = ax.plot(nodes, throughput, marker="o", color=COLORS["blue"], label="measured")[0]
+    line_ideal = ax.plot(nodes, ideal, linestyle="--", color=COLORS["gray"], label="ideal linear")[0]
+    ax.set_xscale("log", base=2)
+    ax.set_xticks(nodes)
+    ax.set_xticklabels([str(int(x)) for x in nodes])
+    ax.tick_params(axis="x", labelbottom=False)
+    ax.set_ylabel("Cases/s")
+    style_axis(ax, grid="both")
+    add_top_legend(fig, [line_measured, line_ideal], ["measured", "ideal"], ncol=2, y=1.04, fontsize=6.5)
+    fig.subplots_adjust(top=0.76, bottom=0.10, left=0.18, right=0.98)
+    throughput_path = os.path.join(FIG_DIR, "weak_scaling.pdf")
+    fig.savefig(throughput_path, bbox_inches="tight")
+    plt.close(fig)
 
-    line_eff = axes[1].plot(
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.20))
+    line_eff = ax.plot(
         nodes,
         efficiency,
         marker="s",
         color=COLORS["orange"],
         label="per-GPU throughput",
     )[0]
-    axes[1].axhline(1.0, linestyle="--", color=COLORS["gray"], linewidth=1.0)
-    axes[1].set_xscale("log", base=2)
-    axes[1].set_xticks(nodes)
-    axes[1].set_xticklabels([str(int(x)) for x in nodes])
-    axes[1].set_xlabel("Perlmutter GPU nodes")
-    axes[1].set_ylabel("Per-GPU throughput\n(normalized)")
-    axes[1].set_ylim(0.82, 1.08)
-    axes[1].set_title("Per-GPU stability")
-    style_axis(axes[1], grid="both")
-    add_top_legend(
-        fig,
-        [line_measured, line_ideal, line_eff],
-        ["measured", "ideal", "per-GPU normalized"],
-        ncol=2,
-        y=0.995,
-        fontsize=8.3,
-    )
-    fig.subplots_adjust(top=0.84, bottom=0.11, hspace=0.52)
-
-    path = os.path.join(FIG_DIR, "weak_scaling.pdf")
-    fig.savefig(path, bbox_inches="tight")
+    ax.axhline(1.0, linestyle="--", color=COLORS["gray"], linewidth=1.0)
+    ax.set_xscale("log", base=2)
+    ax.set_xticks(nodes)
+    ax.set_xticklabels([str(int(x)) for x in nodes])
+    ax.set_xlabel("GPU nodes")
+    ax.set_ylabel("Norm. per-GPU\nthroughput")
+    ax.set_ylim(0.82, 1.08)
+    style_axis(ax, grid="both")
+    add_top_legend(fig, [line_eff], ["per-GPU normalized"], ncol=1, y=1.04, fontsize=6.5)
+    fig.subplots_adjust(top=0.76, bottom=0.32, left=0.22, right=0.98)
+    efficiency_path = os.path.join(FIG_DIR, "weak_scaling_efficiency.pdf")
+    fig.savefig(efficiency_path, bbox_inches="tight")
     plt.close(fig)
-    return path
+    return [throughput_path, efficiency_path]
 
 
 def figure_strong_scaling():
@@ -623,47 +622,42 @@ def figure_strong_scaling():
     ideal = nodes / nodes[0]
     efficiency = speedup / ideal
 
-    fig, axes = plt.subplots(2, 1, figsize=(COLUMN_WIDTH, 3.60), gridspec_kw={"hspace": 0.52})
-    line_time = axes[0].plot(nodes, elapsed / 60.0, marker="o", color=COLORS["blue"], label="measured")[0]
-    line_time_ideal = axes[0].plot(
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.25))
+    line_time = ax.plot(nodes, elapsed / 60.0, marker="o", color=COLORS["blue"], label="measured")[0]
+    line_time_ideal = ax.plot(
         nodes,
         (elapsed[0] / ideal) / 60.0,
         linestyle="--",
         color=COLORS["gray"],
         label="ideal linear",
     )[0]
-    axes[0].set_xscale("log", base=2)
-    axes[0].set_xticks(nodes)
-    axes[0].set_xticklabels([str(int(x)) for x in nodes])
-    axes[0].set_xlabel("")
-    axes[0].set_ylabel("Elapsed time\n(min)")
-    axes[0].set_title("Fixed-work elapsed time")
-    axes[0].tick_params(labelbottom=False)
-    style_axis(axes[0], grid="both")
-
-    line_speed = axes[1].plot(nodes, speedup, marker="o", color=COLORS["green"], label="measured speedup")[0]
-    line_speed_ideal = axes[1].plot(nodes, ideal, linestyle="--", color=COLORS["gray"], label="ideal linear")[0]
-    axes[1].set_xscale("log", base=2)
-    axes[1].set_xticks(nodes)
-    axes[1].set_xticklabels([str(int(x)) for x in nodes])
-    axes[1].set_xlabel("Perlmutter GPU nodes")
-    axes[1].set_ylabel("Speedup vs.\n4-node run")
-    axes[1].set_title("Time-to-solution scaling")
-    style_axis(axes[1], grid="both")
-    add_top_legend(
-        fig,
-        [line_time, line_time_ideal, line_speed, line_speed_ideal],
-        ["measured time", "ideal time", "measured speedup", "ideal speedup"],
-        ncol=2,
-        y=0.995,
-        fontsize=8.0,
-    )
-    fig.subplots_adjust(top=0.84, bottom=0.11, hspace=0.52)
-
-    path = os.path.join(FIG_DIR, "strong_scaling.pdf")
-    fig.savefig(path, bbox_inches="tight")
+    ax.set_xscale("log", base=2)
+    ax.set_xticks(nodes)
+    ax.set_xticklabels([str(int(x)) for x in nodes])
+    ax.set_ylabel("Elapsed time\n(min)")
+    ax.tick_params(axis="x", labelbottom=False)
+    style_axis(ax, grid="both")
+    add_top_legend(fig, [line_time, line_time_ideal], ["measured", "ideal"], ncol=2, y=1.04, fontsize=6.5)
+    fig.subplots_adjust(top=0.76, bottom=0.10, left=0.18, right=0.98)
+    elapsed_path = os.path.join(FIG_DIR, "strong_scaling.pdf")
+    fig.savefig(elapsed_path, bbox_inches="tight")
     plt.close(fig)
-    return path
+
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.20))
+    line_speed = ax.plot(nodes, speedup, marker="o", color=COLORS["green"], label="measured")[0]
+    line_speed_ideal = ax.plot(nodes, ideal, linestyle="--", color=COLORS["gray"], label="ideal linear")[0]
+    ax.set_xscale("log", base=2)
+    ax.set_xticks(nodes)
+    ax.set_xticklabels([str(int(x)) for x in nodes])
+    ax.set_xlabel("GPU nodes")
+    ax.set_ylabel("Speedup vs.\n4 nodes")
+    style_axis(ax, grid="both")
+    add_top_legend(fig, [line_speed, line_speed_ideal], ["measured", "ideal"], ncol=2, y=1.04, fontsize=6.5)
+    fig.subplots_adjust(top=0.76, bottom=0.32, left=0.18, right=0.98)
+    speedup_path = os.path.join(FIG_DIR, "strong_scaling_speedup.pdf")
+    fig.savefig(speedup_path, bbox_inches="tight")
+    plt.close(fig)
+    return [elapsed_path, speedup_path]
 
 
 def figure_advantage_frontier():
@@ -687,9 +681,8 @@ def figure_advantage_frontier():
     speedups = np.logspace(0, max_power, 121)
     recoveries = np.linspace(0.0, 1.0, 101)
 
-    fig, axes = plt.subplots(2, 2, figsize=(COLUMN_WIDTH, 3.60), sharex=True, sharey=True)
-    image = None
-    for ax, (workload, label, tolerance) in zip(axes.flat, workloads):
+    panel_paths = []
+    for panel_index, (workload, label, tolerance) in enumerate(workloads):
         subset = [row for row in rows if row["workload"] == workload]
         required = np.array([float(row["speedup_required"]) for row in subset])
         gaps = np.array([max(0.0, float(row["quality_gap"])) for row in subset])
@@ -699,6 +692,7 @@ def figure_advantage_frontier():
             for xi, speedup in enumerate(speedups):
                 advantaged = (speedup >= required) & (residual_gap <= tolerance)
                 frontier[yi, xi] = np.mean(advantaged) if advantaged.size else 0.0
+        fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.55))
         image = ax.imshow(
             frontier,
             origin="lower",
@@ -717,39 +711,43 @@ def figure_advantage_frontier():
                 colors="white",
                 linewidths=1.0,
             )
-        ax.set_title(label, pad=3, fontsize=8.8)
         ax.grid(False)
         ax.text(
             0.04,
             0.92,
             "tol={:.2g}".format(tolerance),
             transform=ax.transAxes,
-            fontsize=7.3,
+            fontsize=6.2,
             color="white",
             bbox={"facecolor": "black", "alpha": 0.35, "pad": 2, "edgecolor": "none"},
         )
-        ax.tick_params(axis="both", labelsize=7.5, pad=1.5)
-    for ax in axes[:, 0]:
-        ax.set_ylabel("Recovery (%)", fontsize=8.0)
-    for ax in axes[-1, :]:
+        if panel_index % 2 == 0:
+            ax.set_ylabel("Recovery (%)")
+        else:
+            ax.tick_params(axis="y", labelleft=False)
         ticks = list(range(0, max_power + 1, 3))
         ax.set_xticks(ticks)
         ax.set_xticklabels(["$10^{}$".format(tick) for tick in ticks])
-    fig.text(0.44, 0.045, "Projected speedup (x)", ha="center", fontsize=8.2)
-    cbar = fig.colorbar(
-        image,
-        ax=axes.ravel().tolist(),
-        shrink=0.82,
-        pad=0.02,
-        label="Advantaged fraction",
-    )
-    cbar.ax.tick_params(labelsize=7.5)
-    cbar.set_label("Advantaged fraction", fontsize=8.0)
-    fig.subplots_adjust(left=0.14, right=0.82, bottom=0.14, top=0.95, wspace=0.18, hspace=0.33)
-    path = os.path.join(FIG_DIR, "advantage_frontier.pdf")
-    fig.savefig(path, bbox_inches="tight")
-    plt.close(fig)
-    return path
+        if panel_index >= 2:
+            ax.set_xlabel("Projected speedup (x)")
+        else:
+            ax.tick_params(axis="x", labelbottom=False)
+        ax.tick_params(axis="both", labelsize=6.6, pad=1.2)
+        cbar = fig.colorbar(image, ax=ax, shrink=0.90, pad=0.02)
+        cbar.set_ticks([0.0, 0.5, 1.0])
+        cbar.ax.tick_params(labelsize=6.4)
+        fig.subplots_adjust(left=0.15, right=0.89, bottom=0.27, top=0.98)
+        suffix = "ml" if workload == "ml" else workload
+        filename = (
+            "advantage_frontier.pdf"
+            if workload == "ml"
+            else "advantage_frontier_{}.pdf".format(suffix)
+        )
+        panel_path = os.path.join(FIG_DIR, filename)
+        fig.savefig(panel_path, bbox_inches="tight")
+        plt.close(fig)
+        panel_paths.append(panel_path)
+    return panel_paths
 
 
 def figure_workload_taxonomy():
@@ -774,7 +772,7 @@ def figure_workload_taxonomy():
         "native-dominated": COLORS["purple"],
     }
 
-    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 2.55))
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.85))
     x = np.arange(len(workloads))
     bottom = np.zeros(len(workloads))
     legend_handles = []
@@ -802,18 +800,18 @@ def figure_workload_taxonomy():
                     "{:.0f}%".format(value * 100.0),
                     ha="center",
                     va="center",
-                    fontsize=8.8,
+                    fontsize=6.4,
                     color="white" if label in {"quality-limited", "speed-limited", "native-dominated"} else "black",
                 )
         bottom += np.array(values)
 
     ax.set_xticks(x)
     ax.set_xticklabels(labels)
-    ax.set_ylabel("Fraction of workload cases")
+    ax.set_ylabel("Case fraction")
     ax.set_ylim(0.0, 1.0)
     style_axis(ax, grid="y")
-    add_top_legend(fig, legend_handles, legend_labels, ncol=2, y=0.995)
-    fig.subplots_adjust(top=0.70, bottom=0.16)
+    add_top_legend(fig, legend_handles, legend_labels, ncol=2, y=0.995, fontsize=6.5)
+    fig.subplots_adjust(top=0.68, bottom=0.18, left=0.24, right=0.98)
     path = os.path.join(FIG_DIR, "workload_taxonomy.pdf")
     fig.savefig(path, bbox_inches="tight")
     plt.close(fig)
@@ -835,9 +833,14 @@ def main():
         figure_weak_scaling(),
         figure_strong_scaling(),
     ]
-    for path in paths:
-        if path:
-            print(os.path.relpath(path, ROOT))
+    for generated in paths:
+        if not generated:
+            continue
+        if isinstance(generated, (list, tuple)):
+            for path in generated:
+                print(os.path.relpath(path, ROOT))
+        else:
+            print(os.path.relpath(generated, ROOT))
 
 
 if __name__ == "__main__":

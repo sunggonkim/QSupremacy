@@ -117,16 +117,16 @@ The first result supports the main thesis: the useful output is not ``quantum is
 \noindent\textbf{Qubit Accounting.}
 The digits circuits use one qubit per PCA feature dimension. Thus, the controlled sweep uses 4, 8, 12, and 16 qubits, matching Table~\ref{tab:eval-setup}. Figures~\ref{fig:digits-speedup} and~\ref{fig:digits-quality} are not hardware-roadmap plots over 50--1000 qubits; they are generated from the 160 measured case records and summarize threshold and quality versus the measured circuit configuration.
 
-\begin{figure*}[t]
+\begin{figure}[t]
 \centering
-\begin{subfigure}{0.48\textwidth}
+\begin{subfigure}{0.48\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figures/digits_required_speedup.pdf}
     \caption{Threshold distribution.}
     \label{fig:digits-speedup}
     \Description{Distribution of required projected speedup for quantum-kernel and QNN/VQC digits cases.}
 \end{subfigure}
-\begin{subfigure}{0.48\textwidth}
+\begin{subfigure}{0.48\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figures/digits_quality_speedup.pdf}
     \caption{Quality vs. threshold.}
@@ -135,7 +135,7 @@ The digits circuits use one qubit per PCA feature dimension. Thus, the controlle
 \end{subfigure}
 \caption{Expanded digits results over 160 cases. The quantum-kernel path often reaches useful accuracy but needs hundreds of times faster execution, while QNN/VQC has a lower threshold but usually lower quality.}
 \label{fig:digits-results}
-\end{figure*}
+\end{figure}
 
 \subsubsection{Quality Sensitivity}
 
@@ -188,9 +188,21 @@ Simulation & 512 & 2.08 & 6.89 & 3,071.0$\times$ & 0.0188 \\
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\linewidth]{figures/practical_suite_summary.pdf}
+\begin{subfigure}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/practical_suite_summary.pdf}
+    \caption{Runtime-quality landscape.}
+    \label{fig:practical-suite-landscape}
+\end{subfigure}
+\begin{subfigure}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/practical_suite_cdf.pdf}
+    \caption{Threshold distribution.}
+    \label{fig:practical-suite-cdf}
+\end{subfigure}
+\vspace{-.1cm}
 \Description{Scatter and CDF views of required speedup and quality gap for all 3,552 measured practical-suite cases.}
-\caption{Large practical-suite landscape over 3,552 cases. The top panel keeps both axes that matter for advantage: required speedup and quality gap. The bottom panel shows the full threshold distribution rather than only one bar per workload.}
+\caption{Large practical-suite landscape over 3,552 cases. The first panel keeps both axes that matter for advantage: required speedup and quality gap. The second panel shows the full threshold distribution rather than only one bar per workload.}
 \label{fig:practical-suite}
 \end{figure}
 
@@ -201,7 +213,19 @@ The practical suite confirms that the gap is not an ML-only artifact. Every fami
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\linewidth]{figures/strong_native_comparison.pdf}
+\begin{subfigure}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/strong_native_comparison.pdf}
+    \caption{Runtime threshold shift.}
+    \label{fig:strong-native-speed}
+\end{subfigure}
+\begin{subfigure}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/strong_native_quality_shift.pdf}
+    \caption{Quality gap shift.}
+    \label{fig:strong-native-quality}
+\end{subfigure}
+\vspace{-.1cm}
 \Description{Slope graph comparing required speedup and quality gap before and after strengthening native baselines.}
 \caption{Native baseline stress test. The slope view shows how each workload moves when the native path is strengthened, instead of hiding the shift inside grouped bars. Strengthening the native side makes the ML threshold 6.6$\times$ larger and the optimization threshold 2.3$\times$ larger than the initial native-baseline sweep.}
 \label{fig:strong-native}
@@ -285,7 +309,19 @@ Full profile & 32 & 128 & 3,552 & 4:17 \\
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\linewidth]{figures/weak_scaling.pdf}
+\begin{subfigure}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/weak_scaling.pdf}
+    \caption{Total throughput.}
+    \label{fig:weak-scaling-throughput}
+\end{subfigure}
+\begin{subfigure}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/weak_scaling_efficiency.pdf}
+    \caption{Per-GPU stability.}
+    \label{fig:weak-scaling-efficiency}
+\end{subfigure}
+\vspace{-.1cm}
 \Description{Weak scaling plot showing total throughput and normalized per-GPU throughput from 8 to 32 Perlmutter GPU nodes.}
 \caption{Weak scaling of the large-profile application suite. Total throughput grows nearly linearly from 8 to 32 nodes while normalized per-GPU throughput remains close to the 8-node reference.}
 \label{fig:weak-scaling}
@@ -298,7 +334,19 @@ All weak-scaling jobs completed with exit code 0:0. The generated raw JSON count
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\linewidth]{figures/strong_scaling.pdf}
+\begin{subfigure}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/strong_scaling.pdf}
+    \caption{Elapsed time.}
+    \label{fig:strong-scaling-time}
+\end{subfigure}
+\begin{subfigure}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/strong_scaling_speedup.pdf}
+    \caption{Speedup.}
+    \label{fig:strong-scaling-speedup}
+\end{subfigure}
+\vspace{-.1cm}
 \Description{Strong scaling plot showing elapsed time, speedup, and efficiency for the fixed 3,552-case suite from 4 to 32 Perlmutter GPU nodes.}
 \caption{Strong scaling of the fixed 3,552-case application suite. The run reduces time-to-solution from 30 minutes 55 seconds on four nodes to 4 minutes 17 seconds on 32 nodes.}
 \label{fig:strong-scaling}
@@ -313,7 +361,32 @@ The practical-suite result gives one speed threshold per case, but a speed-only 
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\linewidth]{figures/advantage_frontier.pdf}
+\begin{subfigure}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/advantage_frontier.pdf}
+    \caption{ML.}
+    \label{fig:advantage-frontier-ml}
+\end{subfigure}
+\begin{subfigure}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/advantage_frontier_chemistry.pdf}
+    \caption{Chemistry.}
+    \label{fig:advantage-frontier-chemistry}
+\end{subfigure}
+\vspace{-0.9em}
+\begin{subfigure}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/advantage_frontier_optimization.pdf}
+    \caption{Optimization.}
+    \label{fig:advantage-frontier-optimization}
+\end{subfigure}
+\begin{subfigure}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/advantage_frontier_simulation.pdf}
+    \caption{Simulation.}
+    \label{fig:advantage-frontier-simulation}
+\end{subfigure}
+\vspace{0.15em}
 \Description{Heatmap showing fraction of cases entering the projected advantage region as quantum speedup and quality recovery vary.}
 \caption{Advantage frontier over projected quantum speedup and quality-gap recovery. Color shows the fraction of measured cases in each family that would enter the advantage region under that hypothetical hardware and algorithmic improvement. The contour marks the 50\% frontier when it appears.}
 \label{fig:advantage-frontier}
@@ -365,7 +438,7 @@ The main evaluation output is not that the simulator is slow. The simulator is t
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\linewidth]{figures/workload_taxonomy.pdf}
+\includegraphics[width=0.90\linewidth]{figures/workload_taxonomy.pdf}
 \Description{Stacked workload taxonomy chart classifying measured cases as quality-limited, speed-limited, or other bottleneck categories.}
 \caption{Primary bottleneck taxonomy for the strong-native practical suite. ML and optimization are quality-limited in the current circuit configurations. Chemistry is mostly speed-limited, while simulation splits between speed and quality limits.}
 \label{fig:workload-taxonomy}

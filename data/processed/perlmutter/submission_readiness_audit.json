@@ -20,7 +20,7 @@
       "severity": "error"
     },
     {
-      "detail": "references start on page 12",
+      "detail": "references start on page 11",
       "name": "page_count_hpca_body",
       "passed": true,
       "severity": "warning"
@@ -129,8 +129,8 @@
     }
   ],
   "line_spacing_points": 12.001982142857143,
-  "page_count": 14,
-  "references_start_page": 12,
+  "page_count": 13,
+  "references_start_page": 11,
   "status": "SUBMISSION_READY",
   "warning_count": 0
 }

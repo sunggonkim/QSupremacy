@@ -16,7 +16,7 @@
       "passed": true
     },
     {
-      "detail": "current subfigure environments: 2",
+      "detail": "current subfigure environments: 14",
       "name": "current_uses_subfigure_environment",
       "passed": true
     },
@@ -26,7 +26,7 @@
       "passed": true
     },
     {
-      "detail": "subfigures=2, captions=2, labels=2",
+      "detail": "subfigures=14, captions=14, labels=14",
       "name": "subfigures_have_caption_and_label",
       "passed": true
     },
@@ -36,7 +36,7 @@
       "passed": true
     },
     {
-      "detail": "captionsetup=1, float spacing setlengths=3",
+      "detail": "captionsetup=2, float spacing setlengths=3",
       "name": "float_spacing_matches_previous_idiom",
       "passed": true
     },
@@ -65,23 +65,23 @@
     "arraystretch": 3,
     "booktabs_rules": 39,
     "caption_before_label_ratio": 1.0,
-    "caption_setup": 1,
-    "figure": 8,
-    "figure_star": 1,
+    "caption_setup": 2,
+    "figure": 9,
+    "figure_star": 0,
     "float_spacing": 3,
     "hline_rules": 0,
     "lowercase_noindent_textbf": [],
     "noindent_textbf": 72,
     "resizebox_column": 9,
     "scriptsize": 4,
-    "subfigure_environment": 2,
-    "subfigures_with_caption": 2,
-    "subfigures_with_label": 2,
+    "subfigure_environment": 14,
+    "subfigures_with_caption": 14,
+    "subfigures_with_label": 14,
     "subfloat": 0,
     "table": 13,
     "table_star": 0,
     "textbf": 96,
-    "vspace": 0
+    "vspace": 6
   },
   "passed": true,
   "previous_metrics": {
