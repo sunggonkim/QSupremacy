@@ -1,6 +1,51 @@
 # QSupremacy Research and Execution Plan
 
-Last updated: 2026-07-04
+Last updated: 2026-07-05
+
+## Current Completion State
+
+The current experimental campaign has finished through the paper evidence gate.
+No additional Slurm job is needed just to support the current manuscript claims.
+
+Completed evidence:
+
+| Component | Result |
+| --- | --- |
+| Expanded digits calibration | 160 cases, PASS |
+| Main practical suite | 3,552 cases on 32 GPU nodes, PASS |
+| Weak scaling | 8/16/32 nodes, PASS |
+| Strong scaling | 4/8/16/32 nodes, PASS |
+| Accept-profile baseline gate | 116 chemistry/simulation cases, PASS |
+| OpenFermion/PySCF chemistry coverage | 104 cases up to 8 qubits, PASS |
+| Paper figures | generated under `paper/figures/` |
+| Evidence audit | `paper_evidence_audit`: PASS |
+| Build/readiness audit | no blocking errors; target template and full warmup-separated repeats remain submission risks |
+
+Main interpretation:
+
+```text
+The experiments do not show present-day quantum advantage.
+They show a workload-specific quantum-advantage frontier.
+For each application family, the paper reports how much future quantum
+execution speed and quality recovery are required before the quantum-circuit
+path can beat a selected native HPC baseline.
+```
+
+Main 3,552-case result:
+
+| Family | Cases | Median required speedup | Median quality gap |
+| --- | ---: | ---: | ---: |
+| ML / AI | 2,048 | 3,726.4x | 0.3125 |
+| Chemistry | 224 | 42,491.4x | 0.0203 |
+| Optimization | 768 | 287,045.6x | 0.2500 |
+| Scientific simulation | 512 | 3,071.0x | 0.0188 |
+
+Current next paper work is writing/submission polish, not more raw data by default:
+
+1. Move from lightweight `article` to the selected target conference template.
+2. Add warmup-separated repeat trials only if reviewers or target policy require tighter timing confidence.
+3. Tighten the introduction and evaluation narrative around the threshold model, not around simulator inefficiency.
+4. Keep all claims tied to `scripts/audit_paper_evidence.py`.
 
 ## 0. One-Sentence Thesis
 

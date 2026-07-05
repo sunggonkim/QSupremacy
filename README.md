@@ -7,6 +7,48 @@ The core comparison is not simulator vs simulator. The comparison is:
 - native application path: classical ML/HPC model executed directly on CPU/GPU
 - quantum application path: the same application converted into a quantum-circuit model, simulated with cuQuantum, then projected to future quantum hardware
 
+## Completed Result Summary
+
+The main Perlmutter campaign is complete through the current paper evidence gate.
+
+| Evidence | Status |
+| --- | --- |
+| Login and Slurm smoke gates | PASS |
+| Expanded digits calibration | 160 cases complete |
+| Large practical suite | 3,552 cases complete on 32 GPU nodes |
+| Weak scaling | 8, 16, and 32 GPU nodes complete |
+| Strong scaling | 4, 8, 16, and 32 GPU nodes complete |
+| Chemistry active-space coverage | 104 OpenFermion/PySCF cases complete |
+| Paper figures | 11 PDF figures generated |
+| Paper evidence audit | PASS |
+| Submission readiness audit | no blocking errors; two submission risks remain |
+
+Main measured conclusion:
+
+```text
+Current quantum-circuit application paths do not beat native HPC baselines.
+The contribution is a measured threshold model: how much faster and how much
+more accurate future quantum hardware/software must become before advantage is
+plausible for each workload family.
+```
+
+Median required projected speedups in the main 3,552-case suite:
+
+| Workload | Cases | Median required speedup | Median quality gap |
+| --- | ---: | ---: | ---: |
+| ML / AI | 2,048 | 3,726.4x | 0.3125 |
+| Chemistry / drug-discovery proxy | 224 | 42,491.4x | 0.0203 |
+| Optimization | 768 | 287,045.6x | 0.2500 |
+| Scientific simulation | 512 | 3,071.0x | 0.0188 |
+
+The paper-ready artifacts are:
+
+- manuscript: `paper/main.pdf`
+- evidence audit: `data/processed/perlmutter/paper_evidence_audit.md`
+- readiness audit: `data/processed/perlmutter/submission_readiness_audit.md`
+- main 32-node summary: `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv`
+- advantage projection: `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.md`
+
 ## Current Status
 
 - Perlmutter environment identified.
