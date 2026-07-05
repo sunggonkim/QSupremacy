@@ -127,6 +127,44 @@ def check_text_contains(label, rel_path, needles):
     }
 
 
+def manifest_checks(manifest_rel_path):
+    required_ids = [
+        "expanded_digits",
+        "large_practical_suite",
+        "advantage_projection",
+        "workload_taxonomy",
+        "chemistry_active_space",
+        "repeat_timing",
+        "paper_figures",
+        "submission_package",
+    ]
+    checks = [
+        check_exists(manifest_rel_path),
+        check_exists("data/processed/perlmutter/paper_artifact_manifest.md"),
+    ]
+    if not exists(manifest_rel_path):
+        return checks
+
+    manifest = load_json(manifest_rel_path)
+    claim_ids = sorted(claim["id"] for claim in manifest.get("claims", []))
+    checks.append(check_equals("manifest_claim_ids", claim_ids, sorted(required_ids)))
+
+    for claim in manifest.get("claims", []):
+        claim_id = claim["id"]
+        for field in ["source_jobs", "source_scripts", "artifacts", "figures_tables"]:
+            for rel_path in claim.get(field, []):
+                checks.append(check_exists(rel_path))
+        checks.append(
+            {
+                "label": "audit_item_declared: {}".format(claim_id),
+                "actual": bool(claim.get("audit_item")),
+                "expected": True,
+                "passed": bool(claim.get("audit_item")),
+            }
+        )
+    return checks
+
+
 def main():
     items = []
 
@@ -365,6 +403,19 @@ def main():
                 "paper/6.Conclusion.tex",
             ],
             manuscript_checks,
+        )
+    )
+
+    manifest_json = "data/processed/perlmutter/paper_artifact_manifest.json"
+    items.append(
+        ok_item(
+            "artifact_manifest",
+            "Machine-readable and Markdown manifest connect paper claims to jobs, scripts, artifacts, figures, and audit items",
+            [
+                manifest_json,
+                "data/processed/perlmutter/paper_artifact_manifest.md",
+            ],
+            manifest_checks(manifest_json),
         )
     )
 

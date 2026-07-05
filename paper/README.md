@@ -106,7 +106,9 @@ python3 scripts/audit_submission_readiness.py
 The expected state is a 12-page `paper/main.pdf`, a PASS paper-evidence audit,
 and a `SUBMISSION_READY` readiness audit. The audits check the committed
 processed summaries, accounting records, figures, page count, citations,
-anonymous template metadata, and repeat-timing evidence.
+anonymous template metadata, repeat-timing evidence, and the paper
+claim-to-artifact manifest in
+`data/processed/perlmutter/paper_artifact_manifest.md`.
 
 For a low-cost rerun on Perlmutter, use the login smoke gate first:
 

@@ -44,6 +44,7 @@ Median required projected speedups in the main 3,552-case suite:
 The paper-ready artifacts are:
 
 - manuscript: `paper/main.pdf`
+- artifact manifest: `data/processed/perlmutter/paper_artifact_manifest.md`
 - evidence audit: `data/processed/perlmutter/paper_evidence_audit.md`
 - readiness audit: `data/processed/perlmutter/submission_readiness_audit.md`
 - main 32-node summary: `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv`
@@ -61,7 +62,10 @@ python3 scripts/audit_submission_readiness.py
 
 Expected current result: `paper/main.pdf` builds as a 12-page manuscript,
 `scripts/audit_paper_evidence.py` reports PASS, and
-`scripts/audit_submission_readiness.py` reports `SUBMISSION_READY`.
+`scripts/audit_submission_readiness.py` reports `SUBMISSION_READY`. The paper
+claim-to-artifact map is tracked in
+`data/processed/perlmutter/paper_artifact_manifest.md` and checked by the
+paper evidence audit.
 
 For allocation-free correctness validation before any new GPU job:
 
