@@ -384,6 +384,23 @@ chemistry fixture set. The current accept profile now includes the 6q/8q
 fixtures for the next chemistry coverage run; a login preflight reports 104
 chemistry case templates, or 26 cases per chunk with `QS_CHUNK_COUNT=4`.
 
+Submitted larger chemistry coverage run:
+
+```text
+job_id: 55515248
+state at submission: PENDING, reason Priority
+qos: debug
+resources: 1 Perlmutter GPU node, 4 A100 tasks
+time_limit: 00:30:00
+profile: QS_SWEEP_PROFILE=accept
+families: chemistry
+chunks: QS_CHUNK_COUNT=4, QS_TASK_COUNT=4
+case_timeout: 300s
+expected scope: 104 chemistry case templates, 26 per task
+stdout: logs/qsup-prac-scale-55515248.out
+stderr: logs/qsup-prac-scale-55515248.err
+```
+
 Accept-profile artifacts:
 
 ```text
