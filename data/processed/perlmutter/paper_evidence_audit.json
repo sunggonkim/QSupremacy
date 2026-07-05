@@ -179,12 +179,6 @@
         {
           "actual": true,
           "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.md",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
           "label": "exists: paper/figures/advantage_frontier.pdf",
           "passed": true
         },
@@ -212,7 +206,6 @@
       "claim": "Advantage fractions over projected speedup and quality-gap recovery",
       "evidence": [
         "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.json",
-        "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.md",
         "paper/figures/advantage_frontier.pdf"
       ],
       "name": "advantage_projection",
@@ -224,12 +217,6 @@
           "actual": true,
           "expected": true,
           "label": "exists: data/processed/perlmutter/practical_suite_chem_active_6q8q_1node_20260704233824_chemistry_coverage.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_chem_active_6q8q_1node_20260704233824_chemistry_coverage.md",
           "passed": true
         },
         {
@@ -260,7 +247,6 @@
       "claim": "104-case OpenFermion/PySCF chemistry coverage gate",
       "evidence": [
         "data/processed/perlmutter/practical_suite_chem_active_6q8q_1node_20260704233824_chemistry_coverage.json",
-        "data/processed/perlmutter/practical_suite_chem_active_6q8q_1node_20260704233824_chemistry_coverage.md",
         "data/raw/perlmutter/accounting/sacct_practical_suite_chem_active_6q8q_1node_20260704233824.txt"
       ],
       "name": "chemistry_active_space",
@@ -558,12 +544,6 @@
           "passed": true
         },
         {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/paper_artifact_manifest.md",
-          "passed": true
-        },
-        {
           "actual": [
             "advantage_projection",
             "chemistry_active_space",
@@ -746,12 +726,6 @@
         {
           "actual": true,
           "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.md",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
           "label": "exists: paper/figures/advantage_frontier.pdf",
           "passed": true
         },
@@ -836,12 +810,6 @@
         {
           "actual": true,
           "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_chem_active_6q8q_1node_20260704233824_chemistry_coverage.md",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
           "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_chem_active_6q8q_1node_20260704233824.txt",
           "passed": true
         },
@@ -884,19 +852,7 @@
         {
           "actual": true,
           "expected": true,
-          "label": "exists: data/processed/perlmutter/repeat_timing_gate_latest.md",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
           "label": "exists: data/processed/perlmutter/repeat_timing_gate_55516885_repeat_timing_gate.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/repeat_timing_gate_55516885_repeat_timing_gate.md",
           "passed": true
         },
         {
@@ -1082,19 +1038,7 @@
         {
           "actual": true,
           "expected": true,
-          "label": "exists: data/processed/perlmutter/paper_evidence_audit.md",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
           "label": "exists: data/processed/perlmutter/submission_readiness_audit.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/submission_readiness_audit.md",
           "passed": true
         },
         {
@@ -1104,10 +1048,9 @@
           "passed": true
         }
       ],
-      "claim": "Machine-readable and Markdown manifest connect paper claims to jobs, scripts, artifacts, figures, and audit items",
+      "claim": "Machine-readable manifest connects paper claims to jobs, scripts, artifacts, figures, and audit items",
       "evidence": [
-        "data/processed/perlmutter/paper_artifact_manifest.json",
-        "data/processed/perlmutter/paper_artifact_manifest.md"
+        "data/processed/perlmutter/paper_artifact_manifest.json"
       ],
       "name": "artifact_manifest",
       "passed": true

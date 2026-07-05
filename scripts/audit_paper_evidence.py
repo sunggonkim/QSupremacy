@@ -10,9 +10,7 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 OUT_JSON = os.path.join(
     ROOT, "data", "processed", "perlmutter", "paper_evidence_audit.json"
 )
-OUT_MD = os.path.join(
-    ROOT, "data", "processed", "perlmutter", "paper_evidence_audit.md"
-)
+OUT_MD = os.devnull
 
 
 def rel(path):
@@ -138,10 +136,7 @@ def manifest_checks(manifest_rel_path):
         "paper_figures",
         "submission_package",
     ]
-    checks = [
-        check_exists(manifest_rel_path),
-        check_exists("data/processed/perlmutter/paper_artifact_manifest.md"),
-    ]
+    checks = [check_exists(manifest_rel_path)]
     if not exists(manifest_rel_path):
         return checks
 
@@ -279,19 +274,14 @@ def main():
         "data/processed/perlmutter/"
         "practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.json"
     )
-    projection_md = (
-        "data/processed/perlmutter/"
-        "practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.md"
-    )
     projection = load_json(projection_json)
     items.append(
         ok_item(
             "advantage_projection",
             "Advantage fractions over projected speedup and quality-gap recovery",
-            [projection_json, projection_md, "paper/figures/advantage_frontier.pdf"],
+            [projection_json, "paper/figures/advantage_frontier.pdf"],
             [
                 check_exists(projection_json),
-                check_exists(projection_md),
                 check_exists("paper/figures/advantage_frontier.pdf"),
                 check_equals("projection_cases", projection["cases"], 3552),
                 check_close(
@@ -312,10 +302,6 @@ def main():
         "data/processed/perlmutter/"
         "practical_suite_chem_active_6q8q_1node_20260704233824_chemistry_coverage.json"
     )
-    chemistry_md = (
-        "data/processed/perlmutter/"
-        "practical_suite_chem_active_6q8q_1node_20260704233824_chemistry_coverage.md"
-    )
     chemistry_accounting = (
         "data/raw/perlmutter/accounting/"
         "sacct_practical_suite_chem_active_6q8q_1node_20260704233824.txt"
@@ -325,10 +311,9 @@ def main():
         ok_item(
             "chemistry_active_space",
             "104-case OpenFermion/PySCF chemistry coverage gate",
-            [chemistry_json, chemistry_md, chemistry_accounting],
+            [chemistry_json, chemistry_accounting],
             [
                 check_exists(chemistry_json),
-                check_exists(chemistry_md),
                 check_exists(chemistry_accounting),
                 check_equals("chemistry_cases", chemistry["cases"], 104),
                 check_equals("chemistry_problem_count", chemistry["problem_count"], 9),
@@ -433,11 +418,8 @@ def main():
     items.append(
         ok_item(
             "artifact_manifest",
-            "Machine-readable and Markdown manifest connect paper claims to jobs, scripts, artifacts, figures, and audit items",
-            [
-                manifest_json,
-                "data/processed/perlmutter/paper_artifact_manifest.md",
-            ],
+            "Machine-readable manifest connects paper claims to jobs, scripts, artifacts, figures, and audit items",
+            [manifest_json],
             manifest_checks(manifest_json),
         )
     )

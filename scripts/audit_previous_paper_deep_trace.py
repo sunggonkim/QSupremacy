@@ -26,13 +26,7 @@ OUT_JSON = os.path.join(
     "perlmutter",
     "previous_paper_deep_trace.json",
 )
-OUT_MD = os.path.join(
-    ROOT,
-    "data",
-    "processed",
-    "perlmutter",
-    "previous_paper_deep_trace.md",
-)
+OUT_MD = os.devnull
 
 
 def read_rel(rel_path):

@@ -136,44 +136,10 @@ def summarize(rows):
     }
 
 
-def write_markdown(path, summary):
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, "w") as f:
-        f.write("# Repeat Timing Gate\n\n")
-        f.write("Status: **{}**\n\n".format("PASS" if summary["passed"] else "RISK"))
-        f.write(
-            "Warmup cases: `{}`; measured cases: `{}`; max quantum runtime CV: `{:.4f}`\n\n".format(
-                summary["warmup_cases"],
-                summary["measured_cases"],
-                summary["max_quantum_runtime_cv"],
-            )
-        )
-        f.write(
-            "| Family | Warmup | Measured | Failed | Quantum runtime mean | Quantum runtime CV | Speedup median |\n"
-        )
-        f.write("| --- | ---: | ---: | ---: | ---: | ---: | ---: |\n")
-        for family in summary["families"]:
-            item = summary["by_family"][family]
-            qstats = item["quantum_runtime_sec"]
-            sstats = item["speedup_required"]
-            f.write(
-                "| {} | {} | {} | {} | {:.6f} | {:.4f} | {:.3f}x |\n".format(
-                    family,
-                    item["warmup_trials"],
-                    item["measured_trials"],
-                    item["failed_trials"],
-                    qstats["mean"] if qstats["mean"] is not None else 0.0,
-                    qstats["cv"] if qstats["cv"] is not None else 0.0,
-                    sstats["median"] if sstats["median"] is not None else 0.0,
-                )
-            )
-
-
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("patterns", nargs="+")
     parser.add_argument("--summary-json", required=True)
-    parser.add_argument("--markdown", required=True)
     args = parser.parse_args()
 
     rows = load_rows(args.patterns)
@@ -182,7 +148,6 @@ def main():
     with open(args.summary_json, "w") as f:
         json.dump(summary, f, indent=2, sort_keys=True)
         f.write("\n")
-    write_markdown(args.markdown, summary)
     print(json.dumps(summary, indent=2, sort_keys=True))
     return 0 if summary["passed"] else 1
 

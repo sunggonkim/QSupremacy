@@ -10,9 +10,7 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 OUT_JSON = os.path.join(
     ROOT, "data", "processed", "perlmutter", "previous_paper_style_audit.json"
 )
-OUT_MD = os.path.join(
-    ROOT, "data", "processed", "perlmutter", "previous_paper_style_audit.md"
-)
+OUT_MD = os.devnull
 
 CURRENT = [
     "paper/0.Main.tex",

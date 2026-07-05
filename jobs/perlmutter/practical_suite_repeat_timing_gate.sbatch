@@ -90,18 +90,14 @@ srun -N 1 -n 4 -c "${SLURM_CPUS_PER_TASK:-32}" \
 
 "${PY}" scripts/summarize_repeat_timing_gate.py \
   "${OUTDIR}/repeat_${RUN_TAG}_*.json" \
-  --summary-json "${SUMMARY_DIR}/repeat_timing_gate_${RUN_TAG}.json" \
-  --markdown "${SUMMARY_DIR}/repeat_timing_gate_${RUN_TAG}.md"
+  --summary-json "${SUMMARY_DIR}/repeat_timing_gate_${RUN_TAG}.json"
 
 cp "${SUMMARY_DIR}/repeat_timing_gate_${RUN_TAG}.json" \
   "${SUMMARY_DIR}/repeat_timing_gate_latest.json"
-cp "${SUMMARY_DIR}/repeat_timing_gate_${RUN_TAG}.md" \
-  "${SUMMARY_DIR}/repeat_timing_gate_latest.md"
 
 sacct -j "${SLURM_JOB_ID:-}" \
   --format=JobID,JobName,State,ExitCode,Elapsed,Submit,Start,End,AllocTRES%80 \
   -P > "data/raw/perlmutter/accounting/sacct_repeat_timing_gate_${RUN_TAG}.txt" || true
 
 echo "summary_json=${SUMMARY_DIR}/repeat_timing_gate_${RUN_TAG}.json"
-echo "summary_md=${SUMMARY_DIR}/repeat_timing_gate_${RUN_TAG}.md"
 echo "date_end=$(date --iso-8601=seconds)"

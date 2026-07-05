@@ -1,27 +1,25 @@
 {
-  "manifest_version": 1,
-  "updated_utc": "2026-07-05",
-  "paper": {
-    "pdf": "paper/main.pdf",
-    "source_entry": "paper/0.Main.tex",
-    "target_style": "HPCA 2027 IEEEtran-style double-blind submission"
-  },
   "audits": {
     "paper_evidence": "data/processed/perlmutter/paper_evidence_audit.json",
     "submission_readiness": "data/processed/perlmutter/submission_readiness_audit.json"
   },
   "claims": [
     {
-      "id": "expanded_digits",
+      "artifacts": [
+        "data/processed/perlmutter/digits_expanded_55421321_55422142_summary.json",
+        "data/processed/perlmutter/digits_expanded_55421321_55422142_summary.csv"
+      ],
+      "audit_item": "expanded_digits",
       "claim": "160-case digits calibration comparing native sklearn ML against quantum kernel and QNN/VQC circuit paths.",
+      "figures_tables": [
+        "paper/figures/digits_required_speedup.pdf",
+        "paper/figures/digits_quality_speedup.pdf"
+      ],
+      "id": "expanded_digits",
       "paper_locations": [
         "paper/0.Main.tex",
         "paper/4.Evaluation.tex",
         "paper/6.Conclusion.tex"
-      ],
-      "figures_tables": [
-        "paper/figures/digits_required_speedup.pdf",
-        "paper/figures/digits_quality_speedup.pdf"
       ],
       "source_jobs": [
         "jobs/perlmutter/digits_supremacy_expanded_1gpu_shared.sbatch",
@@ -31,25 +29,26 @@
         "benchmarks/digits/run_digits_supremacy.py",
         "scripts/materialize_sklearn_digits.py",
         "scripts/generate_paper_figures.py"
-      ],
-      "artifacts": [
-        "data/processed/perlmutter/digits_expanded_55421321_55422142_summary.json",
-        "data/processed/perlmutter/digits_expanded_55421321_55422142_summary.csv"
-      ],
-      "audit_item": "expanded_digits"
+      ]
     },
     {
-      "id": "large_practical_suite",
-      "claim": "3,552-case strong-native practical suite on 32 Perlmutter GPU nodes across ML, chemistry, optimization, and simulation.",
-      "paper_locations": [
-        "paper/0.Main.tex",
-        "paper/4.Evaluation.tex",
-        "paper/6.Conclusion.tex"
+      "artifacts": [
+        "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.json",
+        "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv",
+        "data/raw/perlmutter/accounting/sacct_practical_suite_strongnative_32node_large128c0c127_20260704060230.txt"
       ],
+      "audit_item": "large_practical_suite",
+      "claim": "3,552-case strong-native practical suite on 32 Perlmutter GPU nodes across ML, chemistry, optimization, and simulation.",
       "figures_tables": [
         "paper/figures/practical_suite_summary.pdf",
         "paper/figures/scaling_summary.pdf",
         "paper/figures/strong_native_comparison.pdf"
+      ],
+      "id": "large_practical_suite",
+      "paper_locations": [
+        "paper/0.Main.tex",
+        "paper/4.Evaluation.tex",
+        "paper/6.Conclusion.tex"
       ],
       "source_jobs": [
         "jobs/perlmutter/practical_suite_scale_nodes.sbatch",
@@ -59,23 +58,21 @@
         "benchmarks/workloads/run_practical_suite.py",
         "benchmarks/workloads/summarize_practical_results.py",
         "scripts/generate_paper_figures.py"
-      ],
-      "artifacts": [
-        "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.json",
-        "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv",
-        "data/raw/perlmutter/accounting/sacct_practical_suite_strongnative_32node_large128c0c127_20260704060230.txt"
-      ],
-      "audit_item": "large_practical_suite"
+      ]
     },
     {
-      "id": "advantage_projection",
+      "artifacts": [
+        "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.json"
+      ],
+      "audit_item": "advantage_projection",
       "claim": "Projected advantage is reported as a frontier over quantum execution improvement and quality-gap recovery, not as a single yes/no result.",
+      "figures_tables": [
+        "paper/figures/advantage_frontier.pdf"
+      ],
+      "id": "advantage_projection",
       "paper_locations": [
         "paper/4.Evaluation.tex",
         "paper/6.Conclusion.tex"
-      ],
-      "figures_tables": [
-        "paper/figures/advantage_frontier.pdf"
       ],
       "source_jobs": [
         "jobs/perlmutter/practical_suite_scale_nodes.sbatch"
@@ -83,22 +80,21 @@
       "source_scripts": [
         "scripts/summarize_advantage_projection.py",
         "scripts/generate_paper_figures.py"
-      ],
-      "artifacts": [
-        "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.json",
-        "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.md"
-      ],
-      "audit_item": "advantage_projection"
+      ]
     },
     {
-      "id": "workload_taxonomy",
+      "artifacts": [
+        "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_taxonomy.json"
+      ],
+      "audit_item": "workload_taxonomy",
       "claim": "The measured bottleneck taxonomy separates speed-limited cases from quality-limited cases by workload family.",
+      "figures_tables": [
+        "paper/figures/workload_taxonomy.pdf"
+      ],
+      "id": "workload_taxonomy",
       "paper_locations": [
         "paper/4.Evaluation.tex",
         "paper/5.Discussion.tex"
-      ],
-      "figures_tables": [
-        "paper/figures/workload_taxonomy.pdf"
       ],
       "source_jobs": [
         "jobs/perlmutter/practical_suite_scale_nodes.sbatch"
@@ -106,21 +102,22 @@
       "source_scripts": [
         "scripts/generate_workload_taxonomy.py",
         "scripts/generate_paper_figures.py"
-      ],
-      "artifacts": [
-        "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_taxonomy.json"
-      ],
-      "audit_item": "workload_taxonomy"
+      ]
     },
     {
-      "id": "chemistry_active_space",
+      "artifacts": [
+        "data/processed/perlmutter/practical_suite_chem_active_6q8q_1node_20260704233824_chemistry_coverage.json",
+        "data/raw/perlmutter/accounting/sacct_practical_suite_chem_active_6q8q_1node_20260704233824.txt"
+      ],
+      "audit_item": "chemistry_active_space",
       "claim": "OpenFermion/PySCF chemistry active-space coverage gate validates 104 chemistry cases up to 8 qubits.",
+      "figures_tables": [
+        "paper/figures/practical_suite_summary.pdf"
+      ],
+      "id": "chemistry_active_space",
       "paper_locations": [
         "paper/0.Main.tex",
         "paper/4.Evaluation.tex"
-      ],
-      "figures_tables": [
-        "paper/figures/practical_suite_summary.pdf"
       ],
       "source_jobs": [
         "jobs/perlmutter/practical_suite_scale_nodes.sbatch",
@@ -130,46 +127,46 @@
         "scripts/generate_openfermion_pyscf_hamiltonians.py",
         "benchmarks/workloads/run_practical_suite.py",
         "scripts/summarize_chemistry_coverage.py"
-      ],
-      "artifacts": [
-        "data/processed/perlmutter/practical_suite_chem_active_6q8q_1node_20260704233824_chemistry_coverage.json",
-        "data/processed/perlmutter/practical_suite_chem_active_6q8q_1node_20260704233824_chemistry_coverage.md",
-        "data/raw/perlmutter/accounting/sacct_practical_suite_chem_active_6q8q_1node_20260704233824.txt"
-      ],
-      "audit_item": "chemistry_active_space"
+      ]
     },
     {
-      "id": "repeat_timing",
+      "artifacts": [
+        "data/processed/perlmutter/repeat_timing_gate_latest.json",
+        "data/processed/perlmutter/repeat_timing_gate_55516885_repeat_timing_gate.json"
+      ],
+      "audit_item": "submission_readiness.repeated_hardware_trials",
       "claim": "A warmup-separated repeat timing gate checks that representative hardware timings are stable enough for submission.",
+      "figures_tables": [],
+      "id": "repeat_timing",
       "paper_locations": [
         "paper/4.Evaluation.tex",
         "paper/README.md",
         "README.md"
       ],
-      "figures_tables": [],
       "source_jobs": [
         "jobs/perlmutter/practical_suite_repeat_timing_gate.sbatch"
       ],
       "source_scripts": [
         "benchmarks/workloads/run_practical_suite.py",
         "scripts/summarize_repeat_timing_gate.py"
-      ],
-      "artifacts": [
-        "data/processed/perlmutter/repeat_timing_gate_latest.json",
-        "data/processed/perlmutter/repeat_timing_gate_latest.md",
-        "data/processed/perlmutter/repeat_timing_gate_55516885_repeat_timing_gate.json",
-        "data/processed/perlmutter/repeat_timing_gate_55516885_repeat_timing_gate.md"
-      ],
-      "audit_item": "submission_readiness.repeated_hardware_trials"
+      ]
     },
     {
-      "id": "paper_figures",
-      "claim": "All main manuscript plots are generated PDF artifacts and are checked by the evidence audit.",
-      "paper_locations": [
-        "paper/1.Introduction.tex",
-        "paper/3.Design.tex",
-        "paper/4.Evaluation.tex"
+      "artifacts": [
+        "paper/figures/intro_application_gap.pdf",
+        "paper/figures/design_overview.pdf",
+        "paper/figures/scaling_summary.pdf",
+        "paper/figures/scale_out_gate.pdf",
+        "paper/figures/strong_native_comparison.pdf",
+        "paper/figures/practical_suite_summary.pdf",
+        "paper/figures/digits_required_speedup.pdf",
+        "paper/figures/digits_quality_speedup.pdf",
+        "paper/figures/advantage_frontier.pdf",
+        "paper/figures/salloc_pilot_comparison.pdf",
+        "paper/figures/workload_taxonomy.pdf"
       ],
+      "audit_item": "paper_figures",
+      "claim": "All main manuscript plots are generated PDF artifacts and are checked by the evidence audit.",
       "figures_tables": [
         "paper/figures/intro_application_gap.pdf",
         "paper/figures/design_overview.pdf",
@@ -183,48 +180,45 @@
         "paper/figures/salloc_pilot_comparison.pdf",
         "paper/figures/workload_taxonomy.pdf"
       ],
+      "id": "paper_figures",
+      "paper_locations": [
+        "paper/1.Introduction.tex",
+        "paper/3.Design.tex",
+        "paper/4.Evaluation.tex"
+      ],
       "source_jobs": [],
       "source_scripts": [
         "scripts/generate_paper_figures.py"
-      ],
-      "artifacts": [
-        "paper/figures/intro_application_gap.pdf",
-        "paper/figures/design_overview.pdf",
-        "paper/figures/scaling_summary.pdf",
-        "paper/figures/scale_out_gate.pdf",
-        "paper/figures/strong_native_comparison.pdf",
-        "paper/figures/practical_suite_summary.pdf",
-        "paper/figures/digits_required_speedup.pdf",
-        "paper/figures/digits_quality_speedup.pdf",
-        "paper/figures/advantage_frontier.pdf",
-        "paper/figures/salloc_pilot_comparison.pdf",
-        "paper/figures/workload_taxonomy.pdf"
-      ],
-      "audit_item": "paper_figures"
+      ]
     },
     {
-      "id": "submission_package",
+      "artifacts": [
+        "paper/main.pdf",
+        "data/processed/perlmutter/paper_evidence_audit.json",
+        "data/processed/perlmutter/submission_readiness_audit.json"
+      ],
+      "audit_item": "submission_readiness",
       "claim": "The paper package builds to an HPCA 2027-style double-blind PDF with references starting on page 11 within the 11-page body limit, evidence/readiness checks passing, and all-author references.",
+      "figures_tables": [],
+      "id": "submission_package",
       "paper_locations": [
         "paper/main.pdf",
         "paper/README.md",
         "README.md"
       ],
-      "figures_tables": [],
       "source_jobs": [],
       "source_scripts": [
         "paper/Makefile",
         "scripts/audit_paper_evidence.py",
         "scripts/audit_submission_readiness.py"
-      ],
-      "artifacts": [
-        "paper/main.pdf",
-        "data/processed/perlmutter/paper_evidence_audit.json",
-        "data/processed/perlmutter/paper_evidence_audit.md",
-        "data/processed/perlmutter/submission_readiness_audit.json",
-        "data/processed/perlmutter/submission_readiness_audit.md"
-      ],
-      "audit_item": "submission_readiness"
+      ]
     }
-  ]
+  ],
+  "manifest_version": 1,
+  "paper": {
+    "pdf": "paper/main.pdf",
+    "source_entry": "paper/0.Main.tex",
+    "target_style": "HPCA 2027 IEEEtran-style double-blind submission"
+  },
+  "updated_utc": "2026-07-05"
 }
