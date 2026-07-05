@@ -1325,7 +1325,7 @@
       ]
     },
     "evaluation": {
-      "block_count": 67,
+      "block_count": 66,
       "current_path": "paper/4.Evaluation.tex",
       "role_marker_count": 11,
       "rows": [
@@ -1832,7 +1832,7 @@
           "has_resizebox": false,
           "has_subfigure": false,
           "kind": "figure",
-          "lead": "Large practical-suite landscape over 3,552 cases. The left panel keeps both axes that matter for advantage: required speedup and quality gap. The right panel shows the full threshold distribution rather than only one bar per workload.",
+          "lead": "Large practical-suite landscape over 3,552 cases. The top panel keeps both axes that matter for advantage: required speedup and quality gap. The bottom panel shows the full threshold distribution rather than only one bar per workload.",
           "order": 27,
           "role": "practical landscape",
           "section": "evaluation",
@@ -2562,18 +2562,18 @@
           "template_line": 413,
           "template_marker": "Performance Variability and Stability",
           "template_source": "scaleqsim",
-          "word_count": 62
+          "word_count": 73
         },
         {
           "current_line": 382,
           "current_marker": "\\subsection{Operational Stability}",
           "current_path": "paper/4.Evaluation.tex",
-          "end_line": 386,
-          "has_noindent_textbf": false,
+          "end_line": 387,
+          "has_noindent_textbf": true,
           "has_resizebox": false,
           "has_subfigure": false,
           "kind": "paragraph",
-          "lead": "The pilot completed in 6 minutes and 54 seconds with 96 raw JSON outputs",
+          "lead": "Timing Gate.",
           "order": 66,
           "role": "stability",
           "section": "evaluation",
@@ -2581,26 +2581,7 @@
           "template_line": 413,
           "template_marker": "Performance Variability and Stability",
           "template_source": "scaleqsim",
-          "word_count": 59
-        },
-        {
-          "current_line": 382,
-          "current_marker": "\\subsection{Operational Stability}",
-          "current_path": "paper/4.Evaluation.tex",
-          "end_line": 389,
-          "has_noindent_textbf": true,
-          "has_resizebox": false,
-          "has_subfigure": false,
-          "kind": "paragraph",
-          "lead": "Timing Gate.",
-          "order": 67,
-          "role": "stability",
-          "section": "evaluation",
-          "start_line": 388,
-          "template_line": 413,
-          "template_marker": "Performance Variability and Stability",
-          "template_source": "scaleqsim",
-          "word_count": 103
+          "word_count": 82
         }
       ]
     },
@@ -2861,7 +2842,7 @@
           "template_line": 3,
           "template_marker": "Quantum Simulation Beyond Memory Limits",
           "template_source": "aurora",
-          "word_count": 91
+          "word_count": 69
         },
         {
           "current_line": 3,
@@ -2880,7 +2861,7 @@
           "template_line": 3,
           "template_marker": "Quantum Simulation Beyond Memory Limits",
           "template_source": "aurora",
-          "word_count": 73
+          "word_count": 54
         },
         {
           "current_line": 9,
@@ -2899,7 +2880,7 @@
           "template_line": 6,
           "template_marker": "Memory and I/O Optimization in HPC Systems",
           "template_source": "aurora",
-          "word_count": 98
+          "word_count": 72
         },
         {
           "current_line": 9,
@@ -2918,7 +2899,7 @@
           "template_line": 6,
           "template_marker": "Memory and I/O Optimization in HPC Systems",
           "template_source": "aurora",
-          "word_count": 59
+          "word_count": 52
         },
         {
           "current_line": 9,
@@ -2937,10 +2918,10 @@
           "template_line": 6,
           "template_marker": "Memory and I/O Optimization in HPC Systems",
           "template_source": "aurora",
-          "word_count": 59
+          "word_count": 55
         }
       ]
     }
   },
-  "total_traced_blocks": 152
+  "total_traced_blocks": 151
 }

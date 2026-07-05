@@ -286,7 +286,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 19697
+            "size_bytes": 33112
           },
           "expected": {
             "exists": true,
@@ -300,7 +300,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 18974
+            "size_bytes": 27650
           },
           "expected": {
             "exists": true,
@@ -314,7 +314,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 16626
+            "size_bytes": 19375
           },
           "expected": {
             "exists": true,
@@ -328,7 +328,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 16018
+            "size_bytes": 20014
           },
           "expected": {
             "exists": true,
@@ -342,7 +342,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 17891
+            "size_bytes": 23900
           },
           "expected": {
             "exists": true,
@@ -356,7 +356,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 60555
+            "size_bytes": 63166
           },
           "expected": {
             "exists": true,
@@ -370,7 +370,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 12974
+            "size_bytes": 10926
           },
           "expected": {
             "exists": true,
@@ -384,7 +384,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 18928
+            "size_bytes": 17269
           },
           "expected": {
             "exists": true,
@@ -398,7 +398,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 26605
+            "size_bytes": 31563
           },
           "expected": {
             "exists": true,
@@ -412,7 +412,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 15231
+            "size_bytes": 14280
           },
           "expected": {
             "exists": true,

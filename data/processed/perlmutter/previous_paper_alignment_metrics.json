@@ -381,19 +381,19 @@
       },
       "closest_template": "scaleqsim",
       "ours": {
-        "avg_paragraph_words": 114.94,
+        "avg_paragraph_words": 116.23,
         "figures": 7,
         "items": 0,
         "missing": false,
-        "paragraphs": 36,
-        "paragraphs_per_heading": 2.77,
+        "paragraphs": 35,
+        "paragraphs_per_heading": 2.69,
         "path": "paper/4.Evaluation.tex",
         "subsections": 6,
         "subsubsections": 7,
         "tables": 10,
         "textbf": 20,
-        "textbf_per_1000_words": 4.83,
-        "words": 4138
+        "textbf_per_1000_words": 4.92,
+        "words": 4068
       },
       "paragraph_role_inventory": [
         {
@@ -497,19 +497,19 @@
         }
       ],
       "role_markers": {
-        "Advantage Frontier and Bottleneck Analysis": 19321,
+        "Advantage Frontier and Bottleneck Analysis": 19323,
         "Baselines": 1027,
         "Benchmark": 726,
-        "Component and Baseline Analysis": 11146,
+        "Component and Baseline Analysis": 11148,
         "End-to-End Threshold Landscape": 4512,
         "Evaluation Questions": 3365,
         "Evaluation Setup": 404,
         "Feasibility": 1338,
         "Hardware Specification": 440,
-        "Operational Stability": 26744,
-        "Perlmutter Scaling Analysis": 16157,
-        "Strong Scaling": 18186,
-        "Weak Scaling": 17162
+        "Operational Stability": 26746,
+        "Perlmutter Scaling Analysis": 16159,
+        "Strong Scaling": 18188,
+        "Weak Scaling": 17164
       },
       "role_markers_ordered": true,
       "scaleqsim": {
@@ -528,8 +528,8 @@
         "words": 5732
       },
       "template_distance": {
-        "aurora": 12.051,
-        "scaleqsim": 11.775
+        "aurora": 12.004,
+        "scaleqsim": 11.803
       }
     },
     "introduction": {
@@ -685,7 +685,7 @@
       },
       "closest_template": "aurora",
       "ours": {
-        "avg_paragraph_words": 81.6,
+        "avg_paragraph_words": 65.8,
         "figures": 0,
         "items": 0,
         "missing": false,
@@ -696,8 +696,8 @@
         "subsubsections": 0,
         "tables": 0,
         "textbf": 5,
-        "textbf_per_1000_words": 12.25,
-        "words": 408
+        "textbf_per_1000_words": 15.2,
+        "words": 329
       },
       "paragraph_role_inventory": [
         {
@@ -735,8 +735,8 @@
         "words": 512
       },
       "template_distance": {
-        "aurora": 3.144,
-        "scaleqsim": 6.268
+        "aurora": 3.019,
+        "scaleqsim": 6.345
       }
     }
   },

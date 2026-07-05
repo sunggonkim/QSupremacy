@@ -117,16 +117,16 @@ The first result supports the main thesis: the useful output is not ``quantum is
 \noindent\textbf{Qubit Accounting.}
 The digits circuits use one qubit per PCA feature dimension. Thus, the controlled sweep uses 4, 8, 12, and 16 qubits, matching Table~\ref{tab:eval-setup}. Figures~\ref{fig:digits-speedup} and~\ref{fig:digits-quality} are not hardware-roadmap plots over 50--1000 qubits; they are generated from the 160 measured case records and summarize threshold and quality versus the measured circuit configuration.
 
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
-\begin{subfigure}{0.48\linewidth}
+\begin{subfigure}{0.48\textwidth}
     \centering
     \includegraphics[width=\linewidth]{figures/digits_required_speedup.pdf}
     \caption{Threshold distribution.}
     \label{fig:digits-speedup}
     \Description{Distribution of required projected speedup for quantum-kernel and QNN/VQC digits cases.}
 \end{subfigure}
-\begin{subfigure}{0.48\linewidth}
+\begin{subfigure}{0.48\textwidth}
     \centering
     \includegraphics[width=\linewidth]{figures/digits_quality_speedup.pdf}
     \caption{Quality vs. threshold.}
@@ -135,7 +135,7 @@ The digits circuits use one qubit per PCA feature dimension. Thus, the controlle
 \end{subfigure}
 \caption{Expanded digits results over 160 cases. The quantum-kernel path often reaches useful accuracy but needs hundreds of times faster execution, while QNN/VQC has a lower threshold but usually lower quality.}
 \label{fig:digits-results}
-\end{figure}
+\end{figure*}
 
 \subsubsection{Quality Sensitivity}
 
@@ -190,7 +190,7 @@ Simulation & 512 & 2.08 & 6.89 & 3,071.0$\times$ & 0.0188 \\
 \centering
 \includegraphics[width=\linewidth]{figures/practical_suite_summary.pdf}
 \Description{Scatter and CDF views of required speedup and quality gap for all 3,552 measured practical-suite cases.}
-\caption{Large practical-suite landscape over 3,552 cases. The left panel keeps both axes that matter for advantage: required speedup and quality gap. The right panel shows the full threshold distribution rather than only one bar per workload.}
+\caption{Large practical-suite landscape over 3,552 cases. The top panel keeps both axes that matter for advantage: required speedup and quality gap. The bottom panel shows the full threshold distribution rather than only one bar per workload.}
 \label{fig:practical-suite}
 \end{figure}
 
@@ -381,9 +381,7 @@ The expanded digits sweep covers class pair, sample count, PCA dimension, circui
 
 \subsection{Operational Stability}
 
-The official practical sweep was first run as multiple shared-GPU jobs. We then validated a bundled allocation path using \texttt{salloc} with two A100 GPUs. This pilot is not a new advantage claim. It checks that \SystemName can run multiple chunks inside one allocation, keep the GPUs busy with independent workload cases, and produce the same summary format used by the official sweep.
-
-The pilot completed in 6 minutes and 54 seconds with 96 raw JSON outputs and empty stderr logs. Its main systems result is operational: the correct bundled pattern is a single \texttt{srun} step with multiple tasks, where each task selects a chunk using \texttt{SLURM\_PROCID}. Launching multiple overlapping \texttt{srun} steps was less reliable because of step-level resource ownership.
+The official practical sweep was first run as multiple shared-GPU jobs. We then validated the bundled path with one \texttt{salloc} allocation and one multi-task \texttt{srun}. The pilot completed in 6 minutes and 54 seconds with 96 raw JSON outputs and empty stderr logs. Its systems result is operational: one \texttt{srun} step with task-local chunks selected by \texttt{SLURM\_PROCID} is the reliable pattern for keeping independent cases on the allocated GPUs.
 
 \noindent\textbf{Timing Gate.}
-Finally, we run a small warmup-separated repeat-timing gate to check that the measured path is not dominated by one first-use timing sample. The gate uses one \Perlmutter GPU node with four A100 tasks. Each task runs one workload family, discards one warmup case, and records three measured trials. Job 55516885 completed in 58 seconds with exit code 0:0 and empty stderr. Across the 12 measured trials, the maximum quantum-runtime CV is 0.0400. This gate is not a replacement for the large 3,552-case sweep; it is a timing-stability check for the submitted evidence package.
+Finally, a warmup-separated repeat-timing gate checks that one first-use sample does not dominate the measured path. One \Perlmutter GPU node runs four A100 tasks; each task discards one warmup case and records three measured trials. Job 55516885 completed in 58 seconds with exit code 0:0 and empty stderr. Across the 12 measured trials, the maximum quantum-runtime CV is 0.0400, so the gate supports the submitted timing evidence without replacing the large 3,552-case sweep.

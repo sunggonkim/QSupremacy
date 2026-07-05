@@ -1,19 +1,19 @@
 \section{Discussion and Threats to Validity}
 
 \noindent\textbf{What the Results Prove.}
-\SystemName does not prove practical quantum advantage on current hardware. It proves a stronger systems point: once the same task, the same quality target, and a selected native baseline are fixed, the quantum advantage question can be converted into a measured threshold. This threshold is different for ML, chemistry, optimization, and simulation, so a single quantum-speedup claim is not enough.
+\SystemName does not prove practical quantum advantage on current hardware. It proves a systems point: once the task, quality target, and native baseline are fixed, the advantage question becomes a measured threshold. That threshold differs across ML, chemistry, optimization, and simulation, so one quantum-speedup claim is not enough.
 
 \noindent\textbf{Native Baseline Strength.}
-The largest threat is an underpowered native baseline. We address this by selecting the fastest valid native method among multiple candidates: six ML classifiers, exact/greedy/local-search/annealing optimization, dense and sparse chemistry solvers, and dense and sparse simulation solvers. Stronger natives still exist, including CNNs or boosted trees for ML, tuned MILP/domain heuristics or commercial solvers such as Gurobi/CPLEX for optimization, tensor-network methods for 1D physics, and CCSD(T)-class chemistry references. We do not claim those baselines are exhausted. Adding them would usually move the frontier rightward, so current thresholds are conservative with respect to the implemented baselines, not final domain limits.
+The largest threat is an underpowered native baseline. We reduce it by selecting the fastest valid method among six ML classifiers, exact/heuristic optimization, dense/sparse chemistry solvers, and dense/sparse simulation solvers. Stronger natives still exist, including CNNs or boosted trees, tuned MILP/domain heuristics, tensor networks, and CCSD(T)-class chemistry references. Adding them would usually move the frontier rightward, so our thresholds are conservative with respect to implemented baselines, not final domain limits.
 
 \noindent\textbf{Workload Representativeness.}
-The suite covers AI, molecular energy estimation, optimization, and Hamiltonian simulation, but it is not exhaustive. It excludes cryptography, communication, sensing, and device physics because they do not fit our native-application versus quantum-circuit-application comparison. The chemistry/simulation fixtures are small active spaces, often up to 8 qubits in the strengthened gates, and the QAOA path uses fixed-grid sweeps rather than best-known parameter-transfer or layer-wise tuning. The goal is to model break-even conditions and expose bottlenecks, not to claim deployment-scale drug discovery or final QAOA performance.
+The suite covers AI, molecular energy estimation, optimization, and Hamiltonian simulation, but it is not exhaustive. It excludes cryptography, communication, sensing, and device physics because they do not fit our native-application versus quantum-circuit-application comparison. The chemistry/simulation fixtures are small active spaces, and QAOA uses fixed-grid sweeps rather than best-known tuning. The goal is break-even modeling and bottleneck exposure, not deployment-scale drug discovery or final QAOA performance.
 
 \noindent\textbf{Algorithmic Sensitivity.}
-The current QAOA and QNN/VQC paths use fixed ansatz families and bounded optimizer grids so that thousands of cases remain auditable. This choice can bias classifications toward quality-limited outcomes. Layer-wise training, parameter transfer, natural-gradient updates, larger shot budgets, and better encodings are therefore not ignored wins; they are precisely the improvement mechanisms represented by the quality-gap recovery axis.
+The current QAOA and QNN/VQC paths use fixed ansatz families and bounded optimizer grids so thousands of cases remain auditable. This can bias outcomes toward quality-limited classes. Layer-wise training, parameter transfer, natural-gradient updates, larger shot budgets, and better encodings are therefore represented by the quality-gap recovery axis, not ignored.
 
 \noindent\textbf{Simulator versus Hardware Projection.}
-The measured quantum path uses \cuQuantum on \Perlmutter as instrumentation. Real hardware adds logical gate time, readout, shot parallelism limits, queueing, feedback latency, mapping, and error correction. The projection equation is therefore a lower-bound model, not a calibrated timeline for IBM, IonQ, Rigetti, Google, or any other platform. A vendor-calibrated study should replace $T_{\mathrm{error}}$ with a hardware stack and, for fault-tolerant regimes, an explicit surface-code model with code distance, cycle time, logical error budget, magic-state overhead, and decoder latency.
+The measured quantum path uses \cuQuantum on \Perlmutter as instrumentation. Real hardware adds logical gate time, readout, shot limits, feedback, mapping, and error correction. The projection equation is a lower-bound model, not a calibrated timeline for any vendor. A hardware-specific study should replace $T_{\mathrm{error}}$ with a stack model, and fault-tolerant regimes should add code distance, cycle time, logical-error budget, magic-state overhead, and decoder latency.
 
 \noindent\textbf{Simulator Choice.}
 The main measurements use state-vector \cuQuantum for stable GPU instrumentation. Tensor-network, path-integral, stabilizer, or QAOA-specialized simulators could reduce $T_{\mathrm{qc\_sim}}$ for some circuits; swapping them changes the measured quantum path but preserves the native baseline and quality test.
@@ -22,30 +22,7 @@ The main measurements use state-vector \cuQuantum for stable GPU instrumentation
 The repository name is historical. The submitted manuscript uses the neutral display name \SystemName and frames the result as practical quantum-advantage modeling, not quantum supremacy.
 
 \noindent\textbf{Timing Stability.}
-Small quantum-circuit experiments can be affected by Python overhead, CUDA initialization, and first-use costs. We reduce this risk with bundled Slurm runs, repeated cases in the large profile, workload-level medians, separate login-node smoke gates, and a warmup-separated repeat-timing gate. The repeat gate discards one warmup case per workload family and records three measured trials per family on one GPU node; it completes with zero failed trials and a maximum quantum-runtime coefficient of variation of 0.0400. The reported thresholds should therefore be interpreted as end-to-end application thresholds on the measured software stack, not as isolated kernel microbenchmarks. Larger confidence intervals over every sensitivity point remain future work.
+Small quantum-circuit experiments can be affected by Python overhead, CUDA initialization, and first-use costs. We reduce this risk with bundled Slurm runs, repeated cases, workload-level medians, login-node smoke gates, and a warmup-separated repeat gate. The gate records 12 measured trials with zero failures and maximum quantum-runtime CV 0.0400. The thresholds are therefore end-to-end application thresholds on the measured stack, not isolated kernel microbenchmarks.
 
 \noindent\textbf{Artifact and Reproducibility.}
-The repository contains the runner, Slurm scripts, processed summaries, selected raw subsets, accounting records, and plotting inputs used by the paper. The large profile uses \texttt{QS\_SWEEP\_PROFILE=large}; the accept-profile gate uses \texttt{accept}. The audit script verifies the paper tables and figures from these artifacts.
-
-\begin{table}[t]
-\caption{Claim-to-artifact map for the main paper results.}
-\centering
-\small
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{lll}
-\toprule
-Claim & Primary artifact & Audit check \\
-\midrule
-Digits thresholds & \texttt{digits\_expanded\_...\_summary.json} & 160 cases; medians match Table~\ref{tab:expanded-summary} \\
-Large practical suite & \texttt{strongnative\_32node\_...\_summary.json} & 3,552 cases; workload counts match Table~\ref{tab:practical-suite} \\
-Advantage frontier & \texttt{...\_advantage\_projection.json} & Projection fractions match Table~\ref{tab:projection-fractions} \\
-Bottleneck taxonomy & \texttt{...\_taxonomy.json} & Counts match Fig.~\ref{fig:workload-taxonomy} \\
-Chemistry coverage & \texttt{chem\_active\_...\_coverage.json} & 104 cases; accounting completed \\
-Repeat timing & \texttt{repeat\_timing\_gate\_latest.json} & 12 measured trials; max runtime CV 0.0400 \\
-\bottomrule
-\end{tabular}
-}
-\label{tab:artifact-map}
-\end{table}
-
-The repository audit script checks these artifacts, verifies key case counts and table values, and emits the paper evidence audit JSON and Markdown artifacts under the processed Perlmutter data directory. The current audit status is PASS.
+The repository contains the runner, Slurm scripts, processed summaries, selected raw subsets, accounting records, and plotting inputs used by the paper. The large profile uses \texttt{QS\_SWEEP\_PROFILE=large}; the accept-profile gate uses \texttt{accept}. The audit script verifies the 160-case digits summary, the 3,552-case practical suite, the advantage projection, the taxonomy, the 104-case chemistry coverage gate, and the repeat-timing gate from stored JSON/CSV/accounting artifacts. The current audit status is PASS.
