@@ -13,6 +13,9 @@ that these files cover the main expected criticisms: novelty boundary, native
 baselines, toy workloads, chemistry coverage, hardware projection, quality,
 tolerance sensitivity, QHPC workflow context, scaling, timing stability,
 artifact traceability, and submission hygiene.
+Line-by-line response coverage is additionally checked by
+`scripts/audit_reviewer_response.py`, which writes
+`data/processed/perlmutter/reviewer_response_audit.md`.
 
 Previous-paper structure alignment is tracked in
 `paper/previous_paper_alignment.md`. This note maps the current paper's
@@ -113,6 +116,7 @@ Run the current automated checks from the repository root:
 ```bash
 python3 scripts/audit_paper_evidence.py
 python3 scripts/audit_previous_paper_alignment.py
+python3 scripts/audit_reviewer_response.py
 python3 scripts/audit_submission_readiness.py
 make -B -C paper
 ```
@@ -125,6 +129,7 @@ From the repository root, the shortest paper-readiness check is:
 make -B -C paper
 python3 scripts/audit_paper_evidence.py
 python3 scripts/audit_previous_paper_alignment.py
+python3 scripts/audit_reviewer_response.py
 python3 scripts/audit_submission_readiness.py
 ```
 

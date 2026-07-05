@@ -128,6 +128,12 @@
       "severity": "warning"
     },
     {
+      "detail": "line-by-line reviewer response coverage is machine-audited and linked",
+      "name": "line_by_line_response_audited",
+      "passed": true,
+      "severity": "warning"
+    },
+    {
       "detail": "reviewer-risk evidence paths are present and tracked: 22 paths",
       "name": "reviewer_risk_evidence_paths_valid",
       "passed": true,

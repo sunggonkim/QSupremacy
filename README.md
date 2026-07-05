@@ -47,6 +47,7 @@ The paper-ready artifacts are:
 - artifact manifest: `data/processed/perlmutter/paper_artifact_manifest.md`
 - reviewer-risk notes: `paper/reviewer_readiness.md`
 - line-by-line reviewer response map: `paper/reviewer_line_by_line_response.md`
+- line-by-line response audit: `data/processed/perlmutter/reviewer_response_audit.md`
 - previous-paper alignment: `paper/previous_paper_alignment.md`
 - previous-paper completion audit: `paper/previous_paper_completion_audit.md`
 - previous-paper alignment metrics: `data/processed/perlmutter/previous_paper_alignment_metrics.md`
@@ -62,14 +63,16 @@ Run the paper checks from the repository root:
 ```bash
 make -B -C paper
 python3 scripts/audit_previous_paper_alignment.py
+python3 scripts/audit_reviewer_response.py
 python3 scripts/audit_paper_evidence.py
 python3 scripts/audit_submission_readiness.py
 ```
 
 Expected current result: `paper/main.pdf` builds as an HPCA 2027-style
 double-blind manuscript, `scripts/audit_previous_paper_alignment.py` writes the
-previous-paper count metrics, `scripts/audit_paper_evidence.py` reports PASS,
-and `scripts/audit_submission_readiness.py` reports `SUBMISSION_READY`. The
+previous-paper count metrics, `scripts/audit_reviewer_response.py` reports PASS,
+`scripts/audit_paper_evidence.py` reports PASS, and
+`scripts/audit_submission_readiness.py` reports `SUBMISSION_READY`. The
 current PDF has references starting on page 12, so the body is exactly HPCA's
 11-page limit excluding references; the AI-use appendix is placed after the
 references. The readiness audit also checks inferred 12pt line spacing,

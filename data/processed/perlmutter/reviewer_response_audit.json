@@ -1,0 +1,296 @@
+{
+  "author_question_count": 10,
+  "checks": [
+    {
+      "missing": [],
+      "name": "hardware_projection",
+      "passed": true
+    },
+    {
+      "missing": [],
+      "name": "technology_calibration",
+      "passed": true
+    },
+    {
+      "missing": [],
+      "name": "small_instances",
+      "passed": true
+    },
+    {
+      "missing": [],
+      "name": "digits_limited",
+      "passed": true
+    },
+    {
+      "missing": [],
+      "name": "qaoa_vqc_sensitivity",
+      "passed": true
+    },
+    {
+      "missing": [],
+      "name": "native_baselines",
+      "passed": true
+    },
+    {
+      "missing": [],
+      "name": "tolerance_choices",
+      "passed": true
+    },
+    {
+      "missing": [],
+      "name": "qubit_accounting",
+      "passed": true
+    },
+    {
+      "missing": [],
+      "name": "shot_optimizer_backend_sensitivity",
+      "passed": true
+    },
+    {
+      "missing": [],
+      "name": "figure_clarity",
+      "passed": true
+    },
+    {
+      "missing": [],
+      "name": "name_sensitivity",
+      "passed": true
+    },
+    {
+      "missing": [],
+      "name": "qhpc_related_work",
+      "passed": true
+    },
+    {
+      "missing": [],
+      "name": "industry_frameworks",
+      "passed": true
+    },
+    {
+      "missing": [],
+      "name": "ft_resource_estimation",
+      "passed": true
+    },
+    {
+      "missing": [],
+      "name": "frontier_notional",
+      "passed": true
+    },
+    {
+      "missing": [],
+      "name": "sensitivity_partial",
+      "passed": true
+    },
+    {
+      "missing": [],
+      "name": "question:How are per-family tolerances chosen",
+      "passed": true
+    },
+    {
+      "missing": [],
+      "name": "question:The digits qubit plot seems inconsistent",
+      "passed": true
+    },
+    {
+      "missing": [],
+      "name": "question:Why not include CNNs",
+      "passed": true
+    },
+    {
+      "missing": [],
+      "name": "question:Can the paper provide one concrete hardware instantiation",
+      "passed": true
+    },
+    {
+      "missing": [],
+      "name": "question:How were shots chosen",
+      "passed": true
+    },
+    {
+      "missing": [],
+      "name": "question:Did QAOA and VQC/QNN explore optimizer",
+      "passed": true
+    },
+    {
+      "missing": [],
+      "name": "question:Can chemistry/simulation extend beyond 8-qubit",
+      "passed": true
+    },
+    {
+      "missing": [],
+      "name": "question:How would alternative simulators change",
+      "passed": true
+    },
+    {
+      "missing": [],
+      "name": "question:How does quality-gap recovery map",
+      "passed": true
+    },
+    {
+      "missing": [],
+      "name": "question:Would the project consider renaming",
+      "passed": true
+    },
+    {
+      "exists": true,
+      "in_response": true,
+      "name": "evidence:paper/0.Main.tex",
+      "passed": true,
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "in_response": true,
+      "name": "evidence:paper/3.Design.tex",
+      "passed": true,
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "in_response": true,
+      "name": "evidence:paper/4.Evaluation.tex",
+      "passed": true,
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "in_response": true,
+      "name": "evidence:paper/5.Discussion.tex",
+      "passed": true,
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "in_response": true,
+      "name": "evidence:paper/5.RelatedWork.tex",
+      "passed": true,
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "in_response": true,
+      "name": "evidence:paper/references.bib",
+      "passed": true,
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "in_response": true,
+      "name": "evidence:paper/reviewer_readiness.md",
+      "passed": true,
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "in_response": true,
+      "name": "evidence:scripts/generate_workload_taxonomy.py",
+      "passed": true,
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "in_response": true,
+      "name": "evidence:scripts/audit_paper_evidence.py",
+      "passed": true,
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "in_response": true,
+      "name": "evidence:data/processed/perlmutter/paper_artifact_manifest.md",
+      "passed": true,
+      "tracked": true
+    },
+    {
+      "missing": [],
+      "name": "pasted_feedback:Technical limitations or concerns",
+      "passed": true
+    },
+    {
+      "missing": [],
+      "name": "pasted_feedback:Questions for Authors",
+      "passed": true
+    },
+    {
+      "missing": [],
+      "name": "pasted_feedback:Overall Assessment",
+      "passed": true
+    },
+    {
+      "exists": true,
+      "name": "response_path:data/processed/perlmutter/paper_artifact_manifest.md",
+      "passed": true,
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "name": "response_path:paper/0.Main.tex",
+      "passed": true,
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "name": "response_path:paper/1.Introduction.tex",
+      "passed": true,
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "name": "response_path:paper/3.Design.tex",
+      "passed": true,
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "name": "response_path:paper/4.Evaluation.tex",
+      "passed": true,
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "name": "response_path:paper/5.Discussion.tex",
+      "passed": true,
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "name": "response_path:paper/5.RelatedWork.tex",
+      "passed": true,
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "name": "response_path:paper/references.bib",
+      "passed": true,
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "name": "response_path:paper/reviewer_readiness.md",
+      "passed": true,
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "name": "response_path:scripts/audit_paper_evidence.py",
+      "passed": true,
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "name": "response_path:scripts/generate_paper_figures.py",
+      "passed": true,
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "name": "response_path:scripts/generate_workload_taxonomy.py",
+      "passed": true,
+      "tracked": true
+    }
+  ],
+  "concern_count": 16,
+  "evidence_path_count": 10,
+  "passed": true,
+  "response_markdown_path_count": 12
+}

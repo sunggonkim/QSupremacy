@@ -226,6 +226,7 @@ The paper-ready artifact set is:
 | Artifact manifest | `data/processed/perlmutter/paper_artifact_manifest.md` |
 | Reviewer-risk map | `paper/reviewer_readiness.md` |
 | Line-by-line reviewer response map | `paper/reviewer_line_by_line_response.md` |
+| Line-by-line reviewer response audit | `data/processed/perlmutter/reviewer_response_audit.md` |
 | Previous-paper alignment map | `paper/previous_paper_alignment.md` |
 | Previous-paper alignment metrics | `data/processed/perlmutter/previous_paper_alignment_metrics.md` |
 | Previous-paper completion audit | `paper/previous_paper_completion_audit.md` |
@@ -238,6 +239,7 @@ Current validation commands:
 ```bash
 make -B -C paper
 python3 scripts/audit_previous_paper_alignment.py
+python3 scripts/audit_reviewer_response.py
 python3 scripts/audit_paper_evidence.py
 python3 scripts/audit_submission_readiness.py
 ```
@@ -247,6 +249,7 @@ Expected result:
 ```text
 paper/main.pdf: HPCA-style double-blind PDF, references start on page 12 after an 11-page body
 previous-paper alignment: ALIGNED_BY_COUNTS
+reviewer response audit: PASS
 paper evidence audit: PASS
 submission readiness: SUBMISSION_READY, warning_count 0
 LaTeX/BibTeX blocking errors: none

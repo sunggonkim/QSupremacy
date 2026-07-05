@@ -24,6 +24,13 @@ PREVIOUS_ALIGNMENT_JSON = os.path.join(
     "perlmutter",
     "previous_paper_alignment_metrics.json",
 )
+REVIEWER_RESPONSE_AUDIT_JSON = os.path.join(
+    ROOT,
+    "data",
+    "processed",
+    "perlmutter",
+    "reviewer_response_audit.json",
+)
 
 
 def read_text(rel_path):
@@ -181,6 +188,13 @@ def main():
                 previous_alignment_metrics = json.load(f)
         except ValueError:
             previous_alignment_metrics = {}
+    reviewer_response_audit = {}
+    if os.path.exists(REVIEWER_RESPONSE_AUDIT_JSON):
+        try:
+            with open(REVIEWER_RESPONSE_AUDIT_JSON, errors="replace") as f:
+                reviewer_response_audit = json.load(f)
+        except ValueError:
+            reviewer_response_audit = {}
 
     main_tex = read_text("paper/0.Main.tex")
     main_log = read_text("paper/main.log") if exists("paper/main.log") else ""
@@ -478,6 +492,21 @@ def main():
             and "paper/reviewer_line_by_line_response.md" in paper_readme,
             "warning",
             "line-by-line reviewer response map exists and is linked from README files",
+        ),
+        check(
+            "line_by_line_response_audited",
+            exists("scripts/audit_reviewer_response.py")
+            and exists("data/processed/perlmutter/reviewer_response_audit.json")
+            and exists("data/processed/perlmutter/reviewer_response_audit.md")
+            and bool(reviewer_response_audit.get("passed"))
+            and reviewer_response_audit.get("concern_count", 0) >= 16
+            and reviewer_response_audit.get("author_question_count", 0) >= 10
+            and "scripts/audit_reviewer_response.py" in root_readme
+            and "reviewer_response_audit.md" in root_readme
+            and "scripts/audit_reviewer_response.py" in paper_readme
+            and "reviewer_response_audit.md" in paper_readme,
+            "warning",
+            "line-by-line reviewer response coverage is machine-audited and linked",
         ),
         check(
             "reviewer_risk_evidence_paths_valid",

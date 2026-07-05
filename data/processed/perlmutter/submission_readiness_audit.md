@@ -31,6 +31,7 @@ Inferred line spacing: `12.00` pt
 | artifact_quickstart_documented | warning | PASS | README files document paper-readiness audits and the allocation-free login smoke gate |
 | reviewer_risk_map_documented | warning | PASS | reviewer-risk notes cover expected acceptance risks and are linked from README files |
 | line_by_line_response_documented | warning | PASS | line-by-line reviewer response map exists and is linked from README files |
+| line_by_line_response_audited | warning | PASS | line-by-line reviewer response coverage is machine-audited and linked |
 | reviewer_risk_evidence_paths_valid | warning | PASS | reviewer-risk evidence paths are present and tracked: 22 paths |
 | previous_paper_alignment_documented | warning | PASS | previous-paper paragraph and style alignment is documented and linked |
 | previous_paper_alignment_metrics | warning | PASS | previous-paper word, paragraph, heading, style, role-marker, paragraph-role, current-line, and template-line metrics are generated and linked |
