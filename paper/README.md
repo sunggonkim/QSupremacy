@@ -20,7 +20,10 @@ paragraph roles to the accepted ScaleQsim and AURORA-Q source structures under
 `data/processed/perlmutter/previous_paper_alignment_metrics.md`. Requirement
 completion is summarized in `paper/previous_paper_completion_audit.md`.
 
-HPCA 2027 public instructions were checked on 2026-07-05. The site states that the CFP is still under construction, so the final camera-ready target must be rechecked before submission.
+HPCA 2027 public instructions were checked on 2026-07-05. The site states that
+the CFP is still under construction, so the final template must be rechecked
+before submission. The current public dates are abstract registration on July
+24, 2026 AoE and paper submission on July 31, 2026 AoE.
 
 ## Draft Files
 
@@ -100,7 +103,7 @@ cd paper
 make
 ```
 
-The Makefile loads `texlive/2024` on Perlmutter before running `pdflatex`. The current LaTeX file uses an HPCA 2027-compatible IEEEtran scaffold with the HPCA title-page banner, an empty author block for double-blind review, HPCA margins, page numbers, IEEE references, and an `AI Use` appendix after the references.
+The Makefile loads `texlive/2024` on Perlmutter before running `pdflatex`. The current LaTeX file uses an HPCA 2027-compatible IEEEtran scaffold with the HPCA title-page banner, an empty author block for double-blind review, HPCA margins, page numbers, IEEE references, and an `AI Use` appendix after the references. Replace `NaN` in the title banner with the HotCRP submission number after registration.
 
 Run the current automated checks from the repository root:
 
@@ -127,8 +130,9 @@ audit, and a `SUBMISSION_READY` readiness audit. The current PDF has 13 total
 pages: references start on page 11 and the AI-use appendix appears after
 references, so the body fits the HPCA 11-page limit excluding references. The
 audits check the committed processed summaries, accounting records, figures,
-body-page budget, citations, anonymous template metadata, all-author
-references, repeat-timing evidence, and the paper claim-to-artifact manifest in
+body-page budget, inferred line spacing, citations, anonymous source and PDF
+metadata, all-author references, repeat-timing evidence, and the paper
+claim-to-artifact manifest in
 `data/processed/perlmutter/paper_artifact_manifest.md`.
 
 For a low-cost rerun on Perlmutter, use the login smoke gate first:

@@ -92,6 +92,33 @@ def references_start_page():
     return None
 
 
+def hpca_leading_points():
+    if not exists("paper/main.log"):
+        return None
+    match = re.search(r"-- Lines per column: (\d+)", read_text("paper/main.log"))
+    if not match:
+        return None
+    lines_per_column = int(match.group(1))
+    # HPCA uses US Letter with 0.7in top and 1.0in bottom margins.
+    text_height_pt = (11.0 - 0.7 - 1.0) * 72.27
+    return text_height_pt / max(lines_per_column, 1)
+
+
+def pdf_metadata_text():
+    path = os.path.join(ROOT, "paper", "main.pdf")
+    if not os.path.exists(path):
+        return ""
+    with open(path, "rb") as f:
+        raw = f.read().decode("latin-1", errors="replace")
+    snippets = []
+    for key in ["/Author", "/Title", "/Subject", "/Keywords", "/Creator", "/Producer"]:
+        for match in re.finditer(re.escape(key), raw):
+            start = max(match.start() - 20, 0)
+            end = min(match.end() + 160, len(raw))
+            snippets.append(raw[start:end])
+    return "\n".join(snippets)
+
+
 def grep_any(pattern, rel_paths):
     hits = []
     regex = re.compile(pattern, re.IGNORECASE)
@@ -189,6 +216,8 @@ def main():
     ]
     pages = pdf_pages()
     ref_start_page = references_start_page()
+    leading_points = hpca_leading_points()
+    metadata_text = pdf_metadata_text()
     bib_text = read_text("paper/references.bib") if exists("paper/references.bib") else ""
     bbl_text = read_text("paper/main.bbl") if exists("paper/main.bbl") else ""
 
@@ -232,6 +261,14 @@ def main():
         r"(sgkim|sunggon|sung\s+gon|seoultech|hpcbigdata|/global|/pscratch|github\.com/sunggonkim)",
         anonymity_sources,
     )
+    metadata_anonymity_hits = [
+        hit
+        for hit in re.findall(
+            r"sgkim|sunggon|sung\s+gon|seoultech|hpcbigdata|/global|/pscratch|github\.com/sunggonkim",
+            metadata_text,
+            re.IGNORECASE,
+        )
+    ]
 
     checks = [
         check("main_pdf_exists", exists("paper/main.pdf"), "error", "paper/main.pdf exists"),
@@ -264,6 +301,18 @@ def main():
                 )
                 if ref_start_page is not None
                 else "could not detect the References start page from LaTeX outputs"
+            ),
+        ),
+        check(
+            "line_spacing_hpca",
+            leading_points is not None and leading_points >= 12.0,
+            "warning",
+            (
+                "LaTeX log implies {:.2f}pt leading from the HPCA text block".format(
+                    leading_points
+                )
+                if leading_points is not None
+                else "could not infer line spacing from the LaTeX log"
             ),
         ),
         check(
@@ -328,6 +377,14 @@ def main():
             ),
         ),
         check(
+            "pdf_metadata_anonymity",
+            len(metadata_anonymity_hits) == 0,
+            "warning",
+            "PDF metadata contains no obvious author, institution, local-path, or personal GitHub leaks: {}".format(
+                ", ".join(metadata_anonymity_hits) if metadata_anonymity_hits else "none"
+            ),
+        ),
+        check(
             "target_template_selected",
             "\\documentclass[10pt,conference]{IEEEtran}" in main_tex
             and "\\usepackage[letterpaper,left=0.7in,right=0.7in,top=0.7in,bottom=1in]{geometry}" in main_tex
@@ -383,6 +440,12 @@ def main():
             and "Practical chemistry concern" in reviewer_notes
             and "Hardware projection concern" in reviewer_notes
             and "Quality concern" in reviewer_notes
+            and "Fault-tolerance model" in reviewer_notes
+            and "Simulator choice sensitivity" in reviewer_notes
+            and "Quality normalization" in reviewer_notes
+            and "Benchmark-suite context" in reviewer_notes
+            and "QAOA tuning" in reviewer_notes
+            and "Raw JSON auditability" in reviewer_notes
             and "Scaling concern" in reviewer_notes
             and "Timing stability concern" in reviewer_notes
             and "Artifact traceability" in reviewer_notes
@@ -467,6 +530,7 @@ def main():
         "status": status,
         "page_count": pages,
         "references_start_page": ref_start_page,
+        "line_spacing_points": leading_points,
         "blocking_error_count": len(blocking_errors),
         "warning_count": len(warnings),
         "checks": checks,
@@ -484,6 +548,13 @@ def main():
         f.write(
             "References start page: `{}`\n\n".format(
                 ref_start_page if ref_start_page is not None else "unknown"
+            )
+        )
+        f.write(
+            "Inferred line spacing: `{}` pt\n\n".format(
+                "{:.2f}".format(leading_points)
+                if leading_points is not None
+                else "unknown"
             )
         )
         f.write("| Check | Severity | Status | Detail |\n")

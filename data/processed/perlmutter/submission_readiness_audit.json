@@ -26,6 +26,12 @@
       "severity": "warning"
     },
     {
+      "detail": "LaTeX log implies 12.00pt leading from the HPCA text block",
+      "name": "line_spacing_hpca",
+      "passed": true,
+      "severity": "warning"
+    },
+    {
       "detail": "LaTeX log has no undefined references or citations",
       "name": "latex_no_undefined",
       "passed": true,
@@ -74,6 +80,12 @@
       "severity": "warning"
     },
     {
+      "detail": "PDF metadata contains no obvious author, institution, local-path, or personal GitHub leaks: none",
+      "name": "pdf_metadata_anonymity",
+      "passed": true,
+      "severity": "warning"
+    },
+    {
       "detail": "current manuscript uses the HPCA 2027-compatible IEEEtran two-column layout, margins, column gap, and bibliography style",
       "name": "target_template_selected",
       "passed": true,
@@ -110,7 +122,7 @@
       "severity": "warning"
     },
     {
-      "detail": "reviewer-risk evidence paths are present and tracked: 17 paths",
+      "detail": "reviewer-risk evidence paths are present and tracked: 19 paths",
       "name": "reviewer_risk_evidence_paths_valid",
       "passed": true,
       "severity": "warning"
@@ -134,6 +146,7 @@
       "severity": "warning"
     }
   ],
+  "line_spacing_points": 12.001982142857143,
   "page_count": 13,
   "references_start_page": 11,
   "status": "SUBMISSION_READY",

@@ -381,7 +381,7 @@
       },
       "closest_template": "scaleqsim",
       "ours": {
-        "avg_paragraph_words": 115.5,
+        "avg_paragraph_words": 115.15,
         "figures": 7,
         "items": 0,
         "missing": false,
@@ -392,8 +392,8 @@
         "subsubsections": 3,
         "tables": 11,
         "textbf": 17,
-        "textbf_per_1000_words": 4.33,
-        "words": 3927
+        "textbf_per_1000_words": 4.34,
+        "words": 3915
       },
       "paragraph_role_inventory": [
         {
@@ -424,7 +424,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 137,
+          "current_line": 129,
           "current_marker": "\\subsection{RQ2:",
           "role": "RQ2",
           "template_line": 58,
@@ -433,7 +433,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 161,
+          "current_line": 153,
           "current_marker": "\\subsection{RQ3:",
           "role": "RQ3",
           "template_line": 248,
@@ -442,7 +442,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 195,
+          "current_line": 187,
           "current_marker": "\\subsection{RQ4:",
           "role": "RQ4",
           "template_line": 247,
@@ -451,7 +451,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 255,
+          "current_line": 247,
           "current_marker": "\\subsection{RQ5:",
           "role": "RQ5",
           "template_line": 262,
@@ -460,7 +460,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 290,
+          "current_line": 282,
           "current_marker": "\\subsection{RQ6:",
           "role": "RQ6",
           "template_line": 334,
@@ -469,7 +469,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 324,
+          "current_line": 316,
           "current_marker": "\\subsection{Operational Stability}",
           "role": "stability",
           "template_line": 413,
@@ -478,7 +478,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 373,
+          "current_line": 365,
           "current_marker": "Bottleneck Taxonomy",
           "role": "taxonomy and sensitivity",
           "template_line": 399,
@@ -488,7 +488,7 @@
         }
       ],
       "role_markers": {
-        "Advantage Frontier": 17556,
+        "Advantage Frontier": 17424,
         "Answer": 5418,
         "Baselines": 1069,
         "Benchmark": 768,
@@ -514,8 +514,8 @@
         "words": 5732
       },
       "template_distance": {
-        "aurora": 8.963,
-        "scaleqsim": 8.447
+        "aurora": 8.962,
+        "scaleqsim": 8.448
       }
     },
     "introduction": {
