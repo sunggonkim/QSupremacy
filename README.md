@@ -69,6 +69,10 @@ The core comparison is not simulator vs simulator. The comparison is:
   `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_taxonomy.json`.
 - Large scale-out manifest profile added:
   `QS_SWEEP_PROFILE=large` expands the practical suite from 190 to 3,552 case templates.
+- Paper discussion/threats section added:
+  `paper/5.Discussion.tex` states what the measurements prove, where the
+  native baseline risk remains, what is outside scope, and how to reproduce
+  processed tables/figures.
 
 ## Login Smoke Gate
 

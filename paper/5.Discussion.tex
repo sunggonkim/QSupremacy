@@ -1,0 +1,19 @@
+\section{Discussion and Threats to Validity}
+
+\noindent\textbf{What the results prove.}
+\SystemName does not prove practical quantum advantage on current hardware. It proves a stronger systems point: once the same task, the same quality target, and a selected native baseline are fixed, the quantum advantage question can be converted into a measured threshold. This threshold is different for ML, chemistry, optimization, and simulation, so a single quantum-speedup claim is not enough.
+
+\noindent\textbf{Native baseline strength.}
+The largest threat is an underpowered native baseline. We address this by selecting the fastest valid native method among multiple candidates. ML includes six native classifiers. Optimization includes exact, greedy, local-search, and annealing candidates. Chemistry evaluates dense exact and sparse Lanczos candidates. Simulation evaluates dense exact and sparse Krylov candidates. The current chemistry instances are still small active spaces, so dense exact remains fastest in the completed gate; this is reported directly rather than hidden.
+
+\noindent\textbf{Workload representativeness.}
+The suite covers the practical claims most often attached to quantum computing: AI, molecular energy estimation, optimization, and Hamiltonian simulation. It is still not exhaustive. It does not cover quantum cryptography, communication, sensing, or device physics, because those do not fit the native-application versus quantum-circuit-application comparison used in this paper. The chemistry workloads are active-space Hamiltonians, not production drug-discovery campaigns. The goal is to model the break-even condition, not to claim deployment-scale chemistry.
+
+\noindent\textbf{Simulator versus hardware projection.}
+The measured quantum path uses \cuQuantum on \Perlmutter as the instrumentation layer. Real future quantum hardware will have different costs: logical gate time, measurement time, shot parallelism, queueing, classical feedback, and error-correction overhead. For this reason, \SystemName reports required speedup and advantage frontiers instead of presenting simulator time as hardware time.
+
+\noindent\textbf{Timing stability.}
+Small quantum-circuit experiments can be affected by Python overhead, CUDA initialization, and first-use costs. We reduce this risk with bundled Slurm runs, repeated cases in the large profile, and workload-level medians. The next version should add explicit warmup-separated timings and repeated hardware trials for every sensitivity point.
+
+\noindent\textbf{Artifact and reproducibility.}
+The repository contains the workload runner, Slurm launch scripts, processed summaries, accounting records, and plotting inputs used by the paper. The large-profile result is generated through \texttt{QS\_SWEEP\_PROFILE=large}; the accept-profile baseline gate uses \texttt{QS\_SWEEP\_PROFILE=accept}. Raw per-case JSON is intentionally not all committed because large sweep chunks produce many files, but the processed summaries and accounting records are sufficient to reproduce the paper tables and figures. New chemistry coverage runs can be converted into per-molecule evidence with \texttt{scripts/summarize\_chemistry\_coverage.py}.

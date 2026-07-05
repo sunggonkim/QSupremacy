@@ -88,6 +88,7 @@ Current artifact status:
 | Accept-profile stronger baselines | Completed as job `55498688`: 1 GPU node, 4 A100 tasks, 116 chemistry+simulation cases, OpenFermion/PySCF fixtures plus sparse/Lanczos/Krylov native baselines |
 | Accept-profile result helper | Added as `scripts/summarize_accept_baselines.py`; emits compact JSON/Markdown evidence from the completed summary CSV |
 | Larger chemistry fixtures | Added LiH/H2O OpenFermion/PySCF 6q and 8q active-space fixtures; login smoke validates dense exact plus sparse Lanczos native candidates |
+| Discussion/threats section | Added `paper/5.Discussion.tex` covering proof scope, native-baseline risk, workload representativeness, simulator-to-hardware projection, timing stability, and artifact reproducibility |
 
 ## 3. Current Evidence
 
@@ -1026,6 +1027,7 @@ Weak-scaling large-profile runs completed with jobs 55475423, 55475476, and 5547
 Strong-scaling full-workload runs completed with jobs 55475633, 55475634, and 55475635 for 4, 8, and 16 nodes. The existing 32-node full-profile job 55475477 is the 32-node strong-scaling endpoint. All fixed-workload runs completed 3,552 cases with no failed cases.
 Scaling summary figure generated at paper/figures/scaling_summary.pdf.
 Paper narrative updated to follow the accepted-paper structure: generated intro/design figures, RQ-style Evaluation, related-work positioning table, and scaling/advantage sections.
+Paper discussion/threats section added to make the claim boundary and reproducibility story explicit.
 ```
 
 Accept-profile result:
