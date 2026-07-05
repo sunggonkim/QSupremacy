@@ -99,6 +99,11 @@ def main():
     blg = read_text("paper/main.blg") if exists("paper/main.blg") else ""
     root_readme = read_text("README.md") if exists("README.md") else ""
     paper_readme = read_text("paper/README.md") if exists("paper/README.md") else ""
+    reviewer_notes = (
+        read_text("paper/reviewer_readiness.md")
+        if exists("paper/reviewer_readiness.md")
+        else ""
+    )
     pages = pdf_pages()
 
     paper_sources = [
@@ -213,6 +218,24 @@ def main():
             and "scripts/run_login_smoke.sh" in paper_readme,
             "warning",
             "README files document paper-readiness audits and the allocation-free login smoke gate",
+        ),
+        check(
+            "reviewer_risk_map_documented",
+            exists("paper/reviewer_readiness.md")
+            and "Novelty boundary" in reviewer_notes
+            and "Native baseline strength" in reviewer_notes
+            and "Toy workload concern" in reviewer_notes
+            and "Practical chemistry concern" in reviewer_notes
+            and "Hardware projection concern" in reviewer_notes
+            and "Quality concern" in reviewer_notes
+            and "Scaling concern" in reviewer_notes
+            and "Timing stability concern" in reviewer_notes
+            and "Artifact traceability" in reviewer_notes
+            and "Submission hygiene" in reviewer_notes
+            and "paper/reviewer_readiness.md" in paper_readme
+            and "paper/reviewer_readiness.md" in root_readme,
+            "warning",
+            "reviewer-risk notes cover expected acceptance risks and are linked from README files",
         ),
     ]
 

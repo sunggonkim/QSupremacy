@@ -72,6 +72,12 @@
       "name": "artifact_quickstart_documented",
       "passed": true,
       "severity": "warning"
+    },
+    {
+      "detail": "reviewer-risk notes cover expected acceptance risks and are linked from README files",
+      "name": "reviewer_risk_map_documented",
+      "passed": true,
+      "severity": "warning"
     }
   ],
   "page_count": 12,

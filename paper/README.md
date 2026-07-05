@@ -6,6 +6,12 @@ Status: evidence-backed draft. The manuscript now includes measured Perlmutter r
 
 Current readiness audit: `scripts/audit_submission_readiness.py` reports `SUBMISSION_READY`. Blocking evidence, build, template, and repeat-timing checks pass. The remaining work is paper polish for the chosen submission target, not missing core experimental evidence.
 
+Internal reviewer-risk notes are tracked in `paper/reviewer_readiness.md`. The
+submission-readiness audit checks that this file covers the main expected
+criticisms: novelty boundary, native baselines, toy workloads, chemistry
+coverage, hardware projection, quality, scaling, timing stability, artifact
+traceability, and submission hygiene.
+
 Note: the ATC 2026 CFP lists June 10, 2026 as the submission deadline. As of July 3, 2026, that deadline has passed, so this directory should be treated as an ATC-style manuscript for the next viable submission target unless the plan changes.
 
 ## Draft Files
@@ -23,6 +29,7 @@ paper/
 ├── 7.Ack.tex
 ├── main.tex
 ├── references.bib
+├── reviewer_readiness.md
 ├── Makefile
 ├── figures/
 └── tables/
