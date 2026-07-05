@@ -6,11 +6,13 @@ Status: evidence-backed draft. The manuscript now includes measured Perlmutter r
 
 Current readiness audit: `scripts/audit_submission_readiness.py` reports `SUBMISSION_READY`. Blocking evidence, build, template, and repeat-timing checks pass. The remaining work is paper polish for the chosen submission target, not missing core experimental evidence.
 
-Internal reviewer-risk notes are tracked in `paper/reviewer_readiness.md`. The
-submission-readiness audit checks that this file covers the main expected
-criticisms: novelty boundary, native baselines, toy workloads, chemistry
-coverage, hardware projection, quality, scaling, timing stability, artifact
-traceability, and submission hygiene.
+Internal reviewer-risk notes are tracked in `paper/reviewer_readiness.md`, and
+the concern-by-concern response map is tracked in
+`paper/reviewer_line_by_line_response.md`. The submission-readiness audit checks
+that these files cover the main expected criticisms: novelty boundary, native
+baselines, toy workloads, chemistry coverage, hardware projection, quality,
+tolerance sensitivity, QHPC workflow context, scaling, timing stability,
+artifact traceability, and submission hygiene.
 
 Previous-paper structure alignment is tracked in
 `paper/previous_paper_alignment.md`. This note maps the current paper's
@@ -43,6 +45,7 @@ paper/
 ├── previous_paper_alignment.md
 ├── previous_paper_completion_audit.md
 ├── reviewer_readiness.md
+├── reviewer_line_by_line_response.md
 ├── Makefile
 ├── figures/
 └── tables/
@@ -127,7 +130,7 @@ python3 scripts/audit_submission_readiness.py
 
 The expected state is an HPCA-style `paper/main.pdf`, a PASS paper-evidence
 audit, and a `SUBMISSION_READY` readiness audit. The current PDF has 13 total
-pages: references start on page 11 and the AI-use appendix appears after
+pages: references start on page 12 and the AI-use appendix appears after
 references, so the body fits the HPCA 11-page limit excluding references. The
 audits check the committed processed summaries, accounting records, figures,
 body-page budget, inferred line spacing, citations, anonymous source and PDF

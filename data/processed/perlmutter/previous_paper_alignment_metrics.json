@@ -227,19 +227,19 @@
       },
       "closest_template": "aurora",
       "ours": {
-        "avg_paragraph_words": 70.44,
+        "avg_paragraph_words": 73.3,
         "figures": 1,
         "items": 0,
         "missing": false,
-        "paragraphs": 36,
-        "paragraphs_per_heading": 3.6,
+        "paragraphs": 37,
+        "paragraphs_per_heading": 3.7,
         "path": "paper/3.Design.tex",
         "subsections": 6,
         "subsubsections": 4,
         "tables": 2,
-        "textbf": 38,
-        "textbf_per_1000_words": 14.98,
-        "words": 2536
+        "textbf": 39,
+        "textbf_per_1000_words": 14.38,
+        "words": 2712
       },
       "paragraph_role_inventory": [
         {
@@ -315,7 +315,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 141,
+          "current_line": 146,
           "current_marker": "\\subsection{Advantage Claim Checklist}",
           "role": "claim checklist",
           "template_line": 237,
@@ -324,7 +324,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 167,
+          "current_line": 172,
           "current_marker": "\\subsection{Workload Suite}",
           "role": "workload suite",
           "template_line": 306,
@@ -335,12 +335,12 @@
       ],
       "role_markers": {
         "Overview of": 47,
-        "\\subsection{Advantage Claim Checklist}": 15266,
-        "\\subsection{Application Path Execution}": 6847,
-        "\\subsection{Measurement and Threshold Analysis}": 11621,
+        "\\subsection{Advantage Claim Checklist}": 16305,
+        "\\subsection{Application Path Execution}": 7155,
+        "\\subsection{Measurement and Threshold Analysis}": 11929,
         "\\subsection{Overall Procedure}": 1733,
         "\\subsection{Shared Workload Control}": 3949,
-        "\\subsection{Workload Suite}": 16699
+        "\\subsection{Workload Suite}": 17738
       },
       "role_markers_ordered": true,
       "scaleqsim": {
@@ -359,8 +359,8 @@
         "words": 4581
       },
       "template_distance": {
-        "aurora": 7.183,
-        "scaleqsim": 7.625
+        "aurora": 7.161,
+        "scaleqsim": 7.677
       }
     },
     "evaluation": {
@@ -381,19 +381,19 @@
       },
       "closest_template": "scaleqsim",
       "ours": {
-        "avg_paragraph_words": 115.15,
+        "avg_paragraph_words": 112.83,
         "figures": 7,
         "items": 0,
         "missing": false,
-        "paragraphs": 34,
-        "paragraphs_per_heading": 3.09,
+        "paragraphs": 36,
+        "paragraphs_per_heading": 3.27,
         "path": "paper/4.Evaluation.tex",
         "subsections": 8,
         "subsubsections": 3,
         "tables": 11,
-        "textbf": 17,
-        "textbf_per_1000_words": 4.34,
-        "words": 3915
+        "textbf": 19,
+        "textbf_per_1000_words": 4.68,
+        "words": 4062
       },
       "paragraph_role_inventory": [
         {
@@ -424,7 +424,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 129,
+          "current_line": 132,
           "current_marker": "\\subsection{RQ2:",
           "role": "RQ2",
           "template_line": 58,
@@ -433,7 +433,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 153,
+          "current_line": 156,
           "current_marker": "\\subsection{RQ3:",
           "role": "RQ3",
           "template_line": 248,
@@ -442,7 +442,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 187,
+          "current_line": 190,
           "current_marker": "\\subsection{RQ4:",
           "role": "RQ4",
           "template_line": 247,
@@ -451,7 +451,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 247,
+          "current_line": 250,
           "current_marker": "\\subsection{RQ5:",
           "role": "RQ5",
           "template_line": 262,
@@ -460,7 +460,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 282,
+          "current_line": 285,
           "current_marker": "\\subsection{RQ6:",
           "role": "RQ6",
           "template_line": 334,
@@ -469,7 +469,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 316,
+          "current_line": 322,
           "current_marker": "\\subsection{Operational Stability}",
           "role": "stability",
           "template_line": 413,
@@ -478,7 +478,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 365,
+          "current_line": 371,
           "current_marker": "Bottleneck Taxonomy",
           "role": "taxonomy and sensitivity",
           "template_line": 399,
@@ -488,7 +488,7 @@
         }
       ],
       "role_markers": {
-        "Advantage Frontier": 17424,
+        "Advantage Frontier": 17864,
         "Answer": 5418,
         "Baselines": 1069,
         "Benchmark": 768,
@@ -514,8 +514,8 @@
         "words": 5732
       },
       "template_distance": {
-        "aurora": 8.962,
-        "scaleqsim": 8.448
+        "aurora": 8.979,
+        "scaleqsim": 8.319
       }
     },
     "introduction": {
@@ -671,19 +671,19 @@
       },
       "closest_template": "aurora",
       "ours": {
-        "avg_paragraph_words": 77.75,
+        "avg_paragraph_words": 81.6,
         "figures": 0,
         "items": 0,
         "missing": false,
-        "paragraphs": 4,
-        "paragraphs_per_heading": 4.0,
+        "paragraphs": 5,
+        "paragraphs_per_heading": 5.0,
         "path": "paper/5.RelatedWork.tex",
         "subsections": 0,
         "subsubsections": 0,
         "tables": 0,
-        "textbf": 4,
-        "textbf_per_1000_words": 12.86,
-        "words": 311
+        "textbf": 5,
+        "textbf_per_1000_words": 12.25,
+        "words": 408
       },
       "paragraph_role_inventory": [
         {
@@ -721,8 +721,8 @@
         "words": 512
       },
       "template_distance": {
-        "aurora": 2.009,
-        "scaleqsim": 5.53
+        "aurora": 3.144,
+        "scaleqsim": 6.268
       }
     }
   },

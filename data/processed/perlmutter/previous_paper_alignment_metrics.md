@@ -27,13 +27,13 @@ Status: **ALIGNED_BY_COUNTS**
 | background | ours | 622 | 8 | 5 | 2 | 0 | 0 | 0 | 0 |
 | background | aurora | 746 | 11 | 2 | 2 | 0 | 3 | 0 | 0 |
 | background | scaleqsim | 989 | 8 | 2 | 2 | 0 | 1 | 0 | 0 |
-| design | ours | 2536 | 36 | 38 | 6 | 4 | 1 | 2 | 0 |
+| design | ours | 2712 | 37 | 39 | 6 | 4 | 1 | 2 | 0 |
 | design | aurora | 3497 | 37 | 33 | 5 | 0 | 3 | 0 | 0 |
 | design | scaleqsim | 4581 | 36 | 23 | 6 | 0 | 4 | 0 | 0 |
-| evaluation | ours | 3915 | 34 | 17 | 8 | 3 | 7 | 11 | 0 |
+| evaluation | ours | 4062 | 36 | 19 | 8 | 3 | 7 | 11 | 0 |
 | evaluation | aurora | 3666 | 27 | 26 | 5 | 0 | 9 | 2 | 0 |
 | evaluation | scaleqsim | 5732 | 47 | 27 | 7 | 0 | 7 | 2 | 0 |
-| related | ours | 311 | 4 | 4 | 0 | 0 | 0 | 0 | 0 |
+| related | ours | 408 | 5 | 5 | 0 | 0 | 0 | 0 | 0 |
 | related | aurora | 317 | 2 | 2 | 0 | 0 | 0 | 0 | 0 |
 | related | scaleqsim | 512 | 6 | 0 | 2 | 0 | 0 | 0 | 0 |
 | conclusion | ours | 87 | 2 | 0 | 0 | 0 | 0 | 0 | 0 |
@@ -54,13 +54,13 @@ No large word-count gaps under the current threshold.
 | background | ours | 77.75 | 8.04 | 4.0 |
 | background | aurora | 67.82 | 2.68 | 5.5 |
 | background | scaleqsim | 123.62 | 2.02 | 4.0 |
-| design | ours | 70.44 | 14.98 | 3.6 |
+| design | ours | 73.3 | 14.38 | 3.7 |
 | design | aurora | 94.51 | 9.44 | 7.4 |
 | design | scaleqsim | 127.25 | 5.02 | 6.0 |
-| evaluation | ours | 115.15 | 4.34 | 3.09 |
+| evaluation | ours | 112.83 | 4.68 | 3.27 |
 | evaluation | aurora | 135.78 | 7.09 | 5.4 |
 | evaluation | scaleqsim | 121.96 | 4.71 | 6.71 |
-| related | ours | 77.75 | 12.86 | 4.0 |
+| related | ours | 81.6 | 12.25 | 5.0 |
 | related | aurora | 158.5 | 6.31 | 2.0 |
 | related | scaleqsim | 85.33 | 0.0 | 3.0 |
 | conclusion | ours | 43.5 | 0.0 | 2.0 |
@@ -98,18 +98,18 @@ No large style-fingerprint gaps under the current threshold.
 | design | 6 | 57 | scaleqsim:95 | application paths | Native, kernel, and QNN/VQC execution rules |
 | design | 7 | 98 | scaleqsim:140 | measurement records | JSON, summary path, and allocation accounting |
 | design | 8 | 109 | scaleqsim:165 | threshold analysis | Execution model, break-even search, and frontier classification |
-| design | 9 | 141 | scaleqsim:237 | claim checklist | Systems checks before an advantage claim |
-| design | 10 | 167 | scaleqsim:306 | workload suite | Measured application families |
+| design | 9 | 146 | scaleqsim:237 | claim checklist | Systems checks before an advantage claim |
+| design | 10 | 172 | scaleqsim:306 | workload suite | Measured application families |
 | evaluation | 1 | 5 | aurora:58 | setup | Hardware, benchmark, baselines, feasibility |
 | evaluation | 2 | 19 | aurora:9 | campaign summary | Evidence table and evaluation questions |
 | evaluation | 3 | 91 | aurora:133 | RQ1 | Native ML versus quantum-circuit ML |
-| evaluation | 4 | 129 | scaleqsim:58 | RQ2 | Quality sensitivity |
-| evaluation | 5 | 153 | aurora:248 | RQ3 | Practical application suite |
-| evaluation | 6 | 187 | scaleqsim:247 | RQ4 | Native baseline stress |
-| evaluation | 7 | 247 | aurora:262 | RQ5 | Weak and strong scaling |
-| evaluation | 8 | 282 | aurora:334 | RQ6 | Advantage frontier and hardware projection |
-| evaluation | 9 | 316 | scaleqsim:413 | stability | Operational and repeat-timing checks |
-| evaluation | 10 | 365 | aurora:399 | taxonomy and sensitivity | Bottleneck classes and remaining scope |
+| evaluation | 4 | 132 | scaleqsim:58 | RQ2 | Quality sensitivity |
+| evaluation | 5 | 156 | aurora:248 | RQ3 | Practical application suite |
+| evaluation | 6 | 190 | scaleqsim:247 | RQ4 | Native baseline stress |
+| evaluation | 7 | 250 | aurora:262 | RQ5 | Weak and strong scaling |
+| evaluation | 8 | 285 | aurora:334 | RQ6 | Advantage frontier and hardware projection |
+| evaluation | 9 | 322 | scaleqsim:413 | stability | Operational and repeat-timing checks |
+| evaluation | 10 | 371 | aurora:399 | taxonomy and sensitivity | Bottleneck classes and remaining scope |
 | related | 1 | 3 | aurora:3 | simulation and NISQ | Simulation substrate and current-device limits |
 | related | 2 | 9 | aurora:6 | applications and baselines | Application families and native comparisons |
 | conclusion | 1 | 3 | scaleqsim:8 | paper result | Framework and measured thresholds |

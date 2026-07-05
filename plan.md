@@ -10,15 +10,19 @@ The current goal is to keep the research plan, paper plan, and evidence map
 complete and internally consistent. New Slurm jobs should be launched only if a
 human explicitly approves a new experimental campaign after reviewing this plan.
 
-Current paper evidence is already sufficient for the present manuscript:
+Current paper evidence is already sufficient for the present manuscript. The
+explicitly approved 64-node weak/fixed-work extension is queued as follow-up
+work, but it is not counted as completed paper evidence until the jobs finish
+and pass the same accounting and artifact audits.
 
 | Gate | Current status | Evidence |
 | --- | --- | --- |
-| Paper build | PASS, HPCA-style PDF; references start on page 11 | `make -B -C paper` |
+| Paper build | PASS, HPCA-style PDF; references start on page 12 after an 11-page body | `make -B -C paper` |
 | Paper evidence audit | PASS | `scripts/audit_paper_evidence.py` |
 | Submission readiness | `SUBMISSION_READY`, warning 0 | `scripts/audit_submission_readiness.py` |
 | Previous-paper alignment | `ALIGNED_BY_COUNTS` | `scripts/audit_previous_paper_alignment.py` |
 | Previous-paper completion audit | PASS | `paper/previous_paper_completion_audit.md` |
+| 64-node follow-up | QUEUED, not paper evidence yet | jobs `55520623`, `55520624` |
 
 Therefore the near-term work is paper polish, artifact consistency, and
 submission targeting. Additional measurements are optional follow-up work, not
@@ -221,6 +225,7 @@ The paper-ready artifact set is:
 | Submission readiness audit | `data/processed/perlmutter/submission_readiness_audit.md` |
 | Artifact manifest | `data/processed/perlmutter/paper_artifact_manifest.md` |
 | Reviewer-risk map | `paper/reviewer_readiness.md` |
+| Line-by-line reviewer response map | `paper/reviewer_line_by_line_response.md` |
 | Previous-paper alignment map | `paper/previous_paper_alignment.md` |
 | Previous-paper alignment metrics | `data/processed/perlmutter/previous_paper_alignment_metrics.md` |
 | Previous-paper completion audit | `paper/previous_paper_completion_audit.md` |
@@ -240,7 +245,7 @@ python3 scripts/audit_submission_readiness.py
 Expected result:
 
 ```text
-paper/main.pdf: HPCA-style double-blind PDF, references start on page 11
+paper/main.pdf: HPCA-style double-blind PDF, references start on page 12 after an 11-page body
 previous-paper alignment: ALIGNED_BY_COUNTS
 paper evidence audit: PASS
 submission readiness: SUBMISSION_READY, warning_count 0

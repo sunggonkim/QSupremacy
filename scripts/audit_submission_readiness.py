@@ -197,6 +197,11 @@ def main():
         if exists("paper/reviewer_readiness.md")
         else ""
     )
+    line_by_line_response = (
+        read_text("paper/reviewer_line_by_line_response.md")
+        if exists("paper/reviewer_line_by_line_response.md")
+        else ""
+    )
     previous_alignment = (
         read_text("paper/previous_paper_alignment.md")
         if exists("paper/previous_paper_alignment.md")
@@ -293,10 +298,10 @@ def main():
         ),
         check(
             "page_count_hpca_body",
-            ref_start_page is not None and ref_start_page <= 11,
+            ref_start_page is not None and ref_start_page <= 12,
             "warning",
             (
-                "references start on page {}; HPCA 2027 allows 11 pages before references".format(
+                "references start on page {}; HPCA 2027 allows an 11-page body before references".format(
                     ref_start_page
                 )
                 if ref_start_page is not None
@@ -441,11 +446,17 @@ def main():
             and "Hardware projection concern" in reviewer_notes
             and "Quality concern" in reviewer_notes
             and "Fault-tolerance model" in reviewer_notes
+            and "Worked hardware scenario" in reviewer_notes
             and "Simulator choice sensitivity" in reviewer_notes
             and "Quality normalization" in reviewer_notes
+            and "Tolerance sensitivity" in reviewer_notes
             and "Benchmark-suite context" in reviewer_notes
+            and "QHPC workflow context" in reviewer_notes
             and "QAOA tuning" in reviewer_notes
+            and "ML qubit provenance" in reviewer_notes
+            and "Name sensitivity" in reviewer_notes
             and "Raw JSON auditability" in reviewer_notes
+            and "Line-by-line response" in reviewer_notes
             and "Scaling concern" in reviewer_notes
             and "Timing stability concern" in reviewer_notes
             and "Artifact traceability" in reviewer_notes
@@ -454,6 +465,19 @@ def main():
             and "paper/reviewer_readiness.md" in root_readme,
             "warning",
             "reviewer-risk notes cover expected acceptance risks and are linked from README files",
+        ),
+        check(
+            "line_by_line_response_documented",
+            exists("paper/reviewer_line_by_line_response.md")
+            and "Line-by-Line Reviewer Response Map" in line_by_line_response
+            and "Hardware projection is first-order" in line_by_line_response
+            and "Problem instances are small" in line_by_line_response
+            and "Native baselines may be weak" in line_by_line_response
+            and "Name `QSUPREMACY` may distract" in line_by_line_response
+            and "paper/reviewer_line_by_line_response.md" in root_readme
+            and "paper/reviewer_line_by_line_response.md" in paper_readme,
+            "warning",
+            "line-by-line reviewer response map exists and is linked from README files",
         ),
         check(
             "reviewer_risk_evidence_paths_valid",

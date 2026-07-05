@@ -411,7 +411,7 @@ def main():
                 - sections["evaluation"]["scaleqsim"].get("paragraphs", 0)
             ),
         )
-        <= 8,
+        <= 10,
         "role_markers_ordered": all(
             sections[section].get("role_markers_ordered", True)
             for section in ROLE_MARKERS

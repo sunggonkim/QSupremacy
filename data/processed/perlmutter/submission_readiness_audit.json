@@ -20,7 +20,7 @@
       "severity": "error"
     },
     {
-      "detail": "references start on page 11; HPCA 2027 allows 11 pages before references",
+      "detail": "references start on page 12; HPCA 2027 allows an 11-page body before references",
       "name": "page_count_hpca_body",
       "passed": true,
       "severity": "warning"
@@ -122,7 +122,13 @@
       "severity": "warning"
     },
     {
-      "detail": "reviewer-risk evidence paths are present and tracked: 19 paths",
+      "detail": "line-by-line reviewer response map exists and is linked from README files",
+      "name": "line_by_line_response_documented",
+      "passed": true,
+      "severity": "warning"
+    },
+    {
+      "detail": "reviewer-risk evidence paths are present and tracked: 22 paths",
       "name": "reviewer_risk_evidence_paths_valid",
       "passed": true,
       "severity": "warning"
@@ -148,7 +154,7 @@
   ],
   "line_spacing_points": 12.001982142857143,
   "page_count": 13,
-  "references_start_page": 11,
+  "references_start_page": 12,
   "status": "SUBMISSION_READY",
   "warning_count": 0
 }

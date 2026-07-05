@@ -10,9 +10,9 @@ from collections import Counter, defaultdict
 
 TOLERANCES = {
     "ml": 0.02,
-    "chemistry": 0.02,
+    "chemistry": 0.01,
     "optimization": 0.02,
-    "simulation": 0.03,
+    "simulation": 0.01,
 }
 
 

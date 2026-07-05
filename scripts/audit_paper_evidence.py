@@ -261,6 +261,16 @@ def main():
                     taxonomy["by_workload"]["simulation"]["counts"]["speed-limited"],
                     256,
                 ),
+                check_equals(
+                    "chemistry_speed_limited",
+                    taxonomy["by_workload"]["chemistry"]["counts"]["speed-limited"],
+                    48,
+                ),
+                check_equals(
+                    "chemistry_quality_limited",
+                    taxonomy["by_workload"]["chemistry"]["counts"]["quality-limited"],
+                    176,
+                ),
             ],
         )
     )

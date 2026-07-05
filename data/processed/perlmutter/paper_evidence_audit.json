@@ -146,6 +146,18 @@
           "expected": 256,
           "label": "simulation_speed_limited",
           "passed": true
+        },
+        {
+          "actual": 48,
+          "expected": 48,
+          "label": "chemistry_speed_limited",
+          "passed": true
+        },
+        {
+          "actual": 176,
+          "expected": 176,
+          "label": "chemistry_quality_limited",
+          "passed": true
         }
       ],
       "claim": "Bottleneck taxonomy over the 3,552-case strong-native suite",
@@ -290,7 +302,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 19715
+            "size_bytes": 19697
           },
           "expected": {
             "exists": true,
@@ -304,7 +316,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 18956
+            "size_bytes": 18974
           },
           "expected": {
             "exists": true,
@@ -318,7 +330,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 16142
+            "size_bytes": 16152
           },
           "expected": {
             "exists": true,
@@ -332,7 +344,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 16686
+            "size_bytes": 16682
           },
           "expected": {
             "exists": true,
@@ -346,7 +358,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 15904
+            "size_bytes": 15908
           },
           "expected": {
             "exists": true,
@@ -360,7 +372,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 14392
+            "size_bytes": 14393
           },
           "expected": {
             "exists": true,
@@ -374,7 +386,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 12976
+            "size_bytes": 12974
           },
           "expected": {
             "exists": true,
@@ -388,7 +400,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 18973
+            "size_bytes": 18928
           },
           "expected": {
             "exists": true,
@@ -402,7 +414,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 27194
+            "size_bytes": 26605
           },
           "expected": {
             "exists": true,
@@ -416,7 +428,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 17334
+            "size_bytes": 17335
           },
           "expected": {
             "exists": true,
@@ -430,7 +442,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 15220
+            "size_bytes": 15231
           },
           "expected": {
             "exists": true,

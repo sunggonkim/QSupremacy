@@ -46,6 +46,7 @@ The paper-ready artifacts are:
 - manuscript: `paper/main.pdf`
 - artifact manifest: `data/processed/perlmutter/paper_artifact_manifest.md`
 - reviewer-risk notes: `paper/reviewer_readiness.md`
+- line-by-line reviewer response map: `paper/reviewer_line_by_line_response.md`
 - previous-paper alignment: `paper/previous_paper_alignment.md`
 - previous-paper completion audit: `paper/previous_paper_completion_audit.md`
 - previous-paper alignment metrics: `data/processed/perlmutter/previous_paper_alignment_metrics.md`
@@ -69,7 +70,7 @@ Expected current result: `paper/main.pdf` builds as an HPCA 2027-style
 double-blind manuscript, `scripts/audit_previous_paper_alignment.py` writes the
 previous-paper count metrics, `scripts/audit_paper_evidence.py` reports PASS,
 and `scripts/audit_submission_readiness.py` reports `SUBMISSION_READY`. The
-current PDF has references starting on page 11, so the body fits HPCA's
+current PDF has references starting on page 12, so the body is exactly HPCA's
 11-page limit excluding references; the AI-use appendix is placed after the
 references. The readiness audit also checks inferred 12pt line spacing,
 all-author references, source anonymity, and PDF metadata anonymity. Replace
@@ -77,6 +78,11 @@ all-author references, source anonymity, and PDF metadata anonymity. Replace
 registration. The paper claim-to-artifact map is tracked in
 `data/processed/perlmutter/paper_artifact_manifest.md` and checked by the
 paper evidence audit.
+
+Current follow-up queue state: 64-node weak and fixed-work extension jobs
+`55520623` and `55520624` have been submitted, but they remain follow-up data
+until completed and audited. The current submitted evidence tables use only
+completed runs.
 
 For allocation-free correctness validation before any new GPU job:
 

@@ -3,12 +3,12 @@
     "chemistry": {
       "cases": 224,
       "counts": {
-        "quality-limited": 160,
-        "speed-limited": 64
+        "quality-limited": 176,
+        "speed-limited": 48
       },
       "fractions": {
-        "quality-limited": 0.7142857142857143,
-        "speed-limited": 0.2857142857142857
+        "quality-limited": 0.7857142857142857,
+        "speed-limited": 0.21428571428571427
       }
     },
     "ml": {

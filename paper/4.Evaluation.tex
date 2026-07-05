@@ -113,6 +113,9 @@ QNN/VQC required speedup & 21.1$\times$ & 64.9$\times$ & 171.7$\times$ \\
 \noindent\textbf{Answer.}
 The first result supports the main thesis: the useful output is not ``quantum is faster'' or ``quantum is slower.'' The useful output is the hardware requirement. For this workload, even when quantum kernels achieve good accuracy, the projected execution must improve by a median 421.9$\times$ to reach native time. For QNN/VQC, the median threshold is 64.9$\times$, but the model usually fails to match native accuracy.
 
+\noindent\textbf{Qubit accounting.}
+The digits circuits use one qubit per PCA feature dimension. Thus, the controlled sweep uses 4, 8, 12, and 16 qubits, matching Table~\ref{tab:eval-setup}. Figures~\ref{fig:digits-speedup} and~\ref{fig:digits-quality} are not hardware-roadmap plots over 50--1000 qubits; they are generated from the 160 measured case records and summarize threshold and quality versus the measured circuit configuration.
+
 \begin{figure}[t]
 \centering
 \subfloat[Threshold distribution.\label{fig:digits-speedup}]{%
@@ -294,6 +297,9 @@ The practical-suite result gives one speed threshold per case, but a speed-only 
 \noindent\textbf{Answer.}
 The frontier separates speed-limited and quality-limited workloads. Chemistry and simulation often have small quality gaps, so their frontier is mostly pushed right by runtime. ML has a lower runtime threshold in some cases, but the quality gap must shrink before speed alone becomes meaningful. Optimization is far from the advantage region on both axes for the current QAOA configuration. This is the central point of \SystemName: quantum advantage is a feasible region, not a single speedup slogan.
 
+\noindent\textbf{Tolerance sensitivity.}
+The projection table reports the tolerance used for each family. These values are intentionally strict and are treated as model inputs, not universal domain standards. A looser tolerance moves quality-limited cases toward the frontier; a stricter tolerance moves them away. The raw projection artifact records the full grid so the table can be regenerated under other tolerances without rerunning the Perlmutter jobs.
+
 \begin{table}[t]
 \caption{Projected advantage fraction from the 3,552-case strong-native suite.}
 \centering
@@ -374,7 +380,7 @@ The main evaluation output is not that the simulator is slow. The simulator is t
 \label{fig:workload-taxonomy}
 \end{figure}
 
-Figure~\ref{fig:workload-taxonomy} shows this classification for the 3,552-case large run. ML is quality-limited in all 2,048 cases because the quantum feature path does not match the selected native classifier accuracy. Optimization is also quality-limited in all 768 cases because the current QAOA grid has a large objective gap. Chemistry has 64 speed-limited cases and 160 quality-limited cases. Simulation splits evenly, with 256 speed-limited cases and 256 quality-limited cases.
+Figure~\ref{fig:workload-taxonomy} shows this classification for the 3,552-case large run using the same family tolerances as Table~\ref{tab:projection-fractions}. ML is quality-limited in all 2,048 cases because the quantum feature path does not match the selected native classifier accuracy. Optimization is also quality-limited in all 768 cases because the current QAOA grid has a large objective gap. Chemistry has 48 speed-limited cases and 176 quality-limited cases. Simulation splits evenly, with 256 speed-limited cases and 256 quality-limited cases.
 
 This classification is the practical insight. If a workload is speed-limited, faster logical gates or more shot parallelism may move it into the advantage region. If it is quality-limited, faster hardware alone is not enough. If it is native-dominated, the correct conclusion is that the native HPC baseline remains the better application path unless the quantum algorithm changes.
 

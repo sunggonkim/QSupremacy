@@ -9,7 +9,7 @@
 \begin{figure}[t]
     \centering
     \includegraphics[width=\linewidth]{figures/design_overview.pdf}
-    \Description{Block diagram of QSupremacy with shared workload control, native path execution, quantum path execution, measurement logging, and advantage threshold analysis.}
+    \Description{Block diagram of QAdvantage with shared workload control, native path execution, quantum path execution, measurement logging, and advantage threshold analysis.}
     \caption{Architecture and procedure of \SystemName.}
     \label{fig:design-overview}
 \end{figure}
@@ -45,7 +45,7 @@ Each measured case receives a deterministic identity. For ML, the identity inclu
 \SystemName defines the target quality before execution. The target can be a fixed accuracy threshold or a time-to-best-quality curve. This is important because a quantum path with lower accuracy cannot be claimed faster than a native path with higher accuracy.
 
 \noindent\textbf{Quality Normalization.}
-Different application families expose different quality values, so \SystemName stores both the native metric and a tolerance-scaled gap. For higher-is-better metrics, the gap is the native score minus the quantum score. For lower-is-better metrics, it is the quantum error minus the native/reference error. \SystemName compares the residual gap to the workload tolerance $\epsilon_w$:
+Different application families expose different quality values, so \SystemName stores both the native metric and a tolerance-scaled gap. For higher-is-better metrics, the gap is the native score minus the quantum score. For lower-is-better metrics, it is the quantum error minus the native/reference error. The current paper uses $\epsilon_w=0.02$ for ML/optimization accuracy or objective gaps and $\epsilon_w=0.01$ for chemistry/simulation energy or observable gaps. These are not domain-final budgets; they are deliberately small thresholds for sensitivity analysis and are recorded in the projection artifacts. \SystemName compares the residual gap to the workload tolerance $\epsilon_w$:
 \[
 (1-R)\Delta Q_w \leq \epsilon_w .
 \]
@@ -122,6 +122,11 @@ where $N_s$ is the shot count, $D_1$ and $D_2$ are one- and two-qubit gate depth
 
 \noindent\textbf{Projection Scope.}
 This model is a first-order lower bound, not a validated fault-tolerant schedule. $T_{\mathrm{error}}$ aggregates costs not decomposed here: compilation, mapping, routing, readout, feedback, mitigation, correction, and queue/device concurrency. A fault-tolerant version can replace it with a surface-code stack using code distance, cycle time, logical-error budget, magic-state cost, and decoder latency~\cite{fowler2012surface,litinski2019game}. We keep the result dimensionless so stronger hardware models can be plugged in later.
+
+\noindent\textbf{Worked Hardware Instantiation.}
+To make the abstraction concrete, the projection can be instantiated as
+$T_{\mathrm{error}}=T_{\mathrm{compile}}+T_{\mathrm{route}}+T_{\mathrm{decode}}+T_{\mathrm{mitigate}}$ and
+$t_i=k_i d\tau_c$, where $d$ is surface-code distance, $\tau_c$ is cycle time, and $k_i$ is the number of code cycles for the logical operation. For example, an illustrative lower-bound stack with $d=25$, $\tau_c=1\,\mu$s, $k_1=1$, $k_2=4$, $k_m=1$, $5\,\mu$s decoder latency per measured layer, and $P_{\mathrm{shots}}=10^4$ parallel shots maps each measured case to a concrete logical-runtime budget. Changing any of these parameters moves the same frontier rather than changing the native baseline.
 
 \noindent\textbf{Break-even Search.}
 \SystemName inverts the model. Instead of assuming a quantum speedup, it asks what logical gate time, shot throughput, and error overhead are needed for:
