@@ -37,40 +37,6 @@ STRONG_NATIVE_1NODE_SUMMARY_JSON = (
     "data/processed/perlmutter/"
     "practical_suite_strongnative_1node_int_20260704012008_summary.json"
 )
-SCALE_2NODE_SUMMARY_JSON = (
-    "data/processed/perlmutter/"
-    "practical_suite_strongnative_2node_large128c0c7_fix_20260704022146_summary.json"
-)
-
-SCALE_GATE_RUNS = [
-    {
-        "label": "1 node",
-        "nodes": 1,
-        "gpus": 4,
-        "cases": 190,
-        "elapsed_sec": 419,
-        "summary": STRONG_NATIVE_1NODE_SUMMARY_JSON,
-    },
-    {
-        "label": "2 nodes",
-        "nodes": 2,
-        "gpus": 8,
-        "cases": 224,
-        "elapsed_sec": 268,
-        "summary": SCALE_2NODE_SUMMARY_JSON,
-    },
-    {
-        "label": "4 nodes",
-        "nodes": 4,
-        "gpus": 16,
-        "cases": 448,
-        "elapsed_sec": 283,
-        "summary": (
-            "data/processed/perlmutter/"
-            "practical_suite_strongnative_4node_large128c0c15_20260704024223_summary.json"
-        ),
-    },
-]
 
 WEAK_SCALING_RUNS = [
     {
@@ -305,44 +271,62 @@ def figure_digits_quality_runtime():
 
 
 def figure_practical_suite():
-    combined = (
-        STRONG_NATIVE_SUMMARY_JSON
-        if os.path.exists(os.path.join(ROOT, STRONG_NATIVE_SUMMARY_JSON))
-        else OFFICIAL_SUMMARY_JSON
+    rel_path = (
+        STRONG_NATIVE_SUMMARY_CSV
+        if os.path.exists(os.path.join(ROOT, STRONG_NATIVE_SUMMARY_CSV))
+        else OFFICIAL_SUMMARY_CSV
     )
-    pilot = "data/processed/perlmutter/practical_suite_55432715_summary.json"
-    rel_path = combined if os.path.exists(os.path.join(ROOT, combined)) else pilot
-    path = os.path.join(ROOT, rel_path)
-    if not os.path.exists(path):
+    if not os.path.exists(os.path.join(ROOT, rel_path)):
         return None
-    with open(path) as f:
-        data = json.load(f)
-    workloads = ["ml", "chemistry", "optimization", "simulation"]
-    speed = []
-    quality = []
-    labels = []
-    for workload in workloads:
-        item = data["by_workload"].get(workload)
-        if not item:
-            continue
-        labels.append(workload)
-        speed.append(float(item["speedup_required_median"]))
-        quality.append(float(item["quality_gap_median"]))
-    x = list(range(len(labels)))
-    fig, axes = plt.subplots(1, 2, figsize=(6.8, 2.35))
-    axes[0].bar(x, speed, color="#4C78A8")
-    axes[0].set_yscale("log")
-    axes[0].set_xticks(x)
-    axes[0].set_xticklabels(labels, rotation=25, ha="right", fontsize=8)
-    axes[0].set_ylabel("Median required speedup (x)")
-    axes[0].grid(axis="y", which="both", linestyle=":", linewidth=0.6)
-    axes[0].set_title("Hardware threshold")
-    axes[1].bar(x, quality, color="#F58518")
-    axes[1].set_xticks(x)
-    axes[1].set_xticklabels(labels, rotation=25, ha="right", fontsize=8)
-    axes[1].set_ylabel("Median quality gap")
-    axes[1].grid(axis="y", linestyle=":", linewidth=0.6)
-    axes[1].set_title("Quality gap")
+    rows = read_csv(rel_path)
+    workloads = [
+        ("ml", "ML", "#4C78A8", 0.02),
+        ("chemistry", "Chem.", "#72B7B2", 0.01),
+        ("optimization", "Opt.", "#E45756", 0.02),
+        ("simulation", "Sim.", "#54A24B", 0.01),
+    ]
+
+    fig, axes = plt.subplots(1, 2, figsize=(6.8, 2.65))
+    for workload, label, color, tolerance in workloads:
+        subset = [row for row in rows if row["workload"] == workload]
+        speed = np.array([float(row["speedup_required"]) for row in subset])
+        quality = np.array([max(0.0, float(row["quality_gap"])) for row in subset])
+        axes[0].scatter(
+            speed,
+            quality,
+            s=8,
+            alpha=0.22,
+            color=color,
+            edgecolors="none",
+            label=label,
+        )
+        axes[0].scatter(
+            [np.median(speed)],
+            [np.median(quality)],
+            s=42,
+            color=color,
+            edgecolors="black",
+            linewidths=0.5,
+            zorder=4,
+        )
+        sorted_speed = np.sort(speed)
+        cdf = np.arange(1, sorted_speed.size + 1) / float(sorted_speed.size)
+        axes[1].plot(sorted_speed, cdf, color=color, linewidth=1.35, label=label)
+
+    axes[0].set_xscale("log")
+    axes[0].set_xlabel("Required speedup (x)")
+    axes[0].set_ylabel("Quality gap")
+    axes[0].grid(True, which="both", linestyle=":", linewidth=0.6)
+    axes[0].legend(frameon=False, fontsize=7, ncol=2, loc="upper left")
+    axes[0].set_title("Threshold-quality landscape")
+
+    axes[1].set_xscale("log")
+    axes[1].set_xlabel("Required speedup (x)")
+    axes[1].set_ylabel("Fraction of cases")
+    axes[1].grid(True, which="both", linestyle=":", linewidth=0.6)
+    axes[1].legend(frameon=False, fontsize=7, loc="lower right")
+    axes[1].set_title("Threshold CDF")
+
     path = os.path.join(FIG_DIR, "practical_suite_summary.pdf")
     fig.tight_layout()
     fig.savefig(path, bbox_inches="tight")
@@ -356,63 +340,6 @@ def load_summary(rel_path):
         return None
     with open(path) as f:
         return json.load(f)
-
-
-def figure_salloc_pilot_comparison():
-    official = load_summary(
-        "data/processed/perlmutter/practical_suite_55453128_55453131_summary.json"
-    )
-    pilot = load_summary(
-        "data/processed/perlmutter/practical_suite_55454998_prac2gint_c0c1of4_summary.json"
-    )
-    if official is None or pilot is None:
-        return None
-
-    workloads = ["ml", "chemistry", "optimization", "simulation"]
-    labels = ["ML", "Chem.", "Opt.", "Sim."]
-    official_speed = [
-        float(official["by_workload"][workload]["speedup_required_median"])
-        for workload in workloads
-    ]
-    pilot_speed = [
-        float(pilot["by_workload"][workload]["speedup_required_median"])
-        for workload in workloads
-    ]
-    official_quality = [
-        float(official["by_workload"][workload]["quality_gap_median"])
-        for workload in workloads
-    ]
-    pilot_quality = [
-        float(pilot["by_workload"][workload]["quality_gap_median"])
-        for workload in workloads
-    ]
-
-    x = list(range(len(workloads)))
-    width = 0.36
-    fig, axes = plt.subplots(1, 2, figsize=(6.8, 2.45))
-    axes[0].bar([i - width / 2 for i in x], official_speed, width, label="190-case sweep", color="#4C78A8")
-    axes[0].bar([i + width / 2 for i in x], pilot_speed, width, label="2GPU salloc pilot", color="#54A24B")
-    axes[0].set_yscale("log")
-    axes[0].set_xticks(x)
-    axes[0].set_xticklabels(labels, fontsize=8)
-    axes[0].set_ylabel("Median required speedup (x)")
-    axes[0].grid(axis="y", which="both", linestyle=":", linewidth=0.6)
-    axes[0].set_title("Threshold")
-    axes[0].legend(frameon=False, fontsize=7)
-
-    axes[1].bar([i - width / 2 for i in x], official_quality, width, label="190-case sweep", color="#F58518")
-    axes[1].bar([i + width / 2 for i in x], pilot_quality, width, label="2GPU salloc pilot", color="#B279A2")
-    axes[1].set_xticks(x)
-    axes[1].set_xticklabels(labels, fontsize=8)
-    axes[1].set_ylabel("Median quality gap")
-    axes[1].grid(axis="y", linestyle=":", linewidth=0.6)
-    axes[1].set_title("Quality")
-
-    path = os.path.join(FIG_DIR, "salloc_pilot_comparison.pdf")
-    fig.tight_layout()
-    fig.savefig(path, bbox_inches="tight")
-    plt.close(fig)
-    return path
 
 
 def figure_strong_native_comparison():
@@ -440,52 +367,131 @@ def figure_strong_native_comparison():
         for workload in workloads
     ]
 
-    x = list(range(len(workloads)))
-    width = 0.36
     fig, axes = plt.subplots(1, 2, figsize=(6.8, 2.45))
-    axes[0].bar(
-        [i - width / 2 for i in x],
-        official_speed,
-        width,
-        label="Initial native",
-        color="#4C78A8",
-    )
-    axes[0].bar(
-        [i + width / 2 for i in x],
-        strong_speed,
-        width,
-        label="Strong native",
-        color="#E45756",
-    )
+    colors = ["#4C78A8", "#72B7B2", "#E45756", "#54A24B"]
+    for label, color, initial, strong in zip(labels, colors, official_speed, strong_speed):
+        axes[0].plot([0, 1], [initial, strong], marker="o", color=color, linewidth=1.35)
+        axes[0].text(1.03, strong, label, va="center", fontsize=7)
     axes[0].set_yscale("log")
-    axes[0].set_xticks(x)
-    axes[0].set_xticklabels(labels, fontsize=8)
+    axes[0].set_xlim(-0.12, 1.42)
+    axes[0].set_xticks([0, 1])
+    axes[0].set_xticklabels(["Initial", "Strong"])
     axes[0].set_ylabel("Median required speedup (x)")
     axes[0].grid(axis="y", which="both", linestyle=":", linewidth=0.6)
-    axes[0].set_title("Baseline stress test")
-    axes[0].legend(frameon=False, fontsize=7)
+    axes[0].set_title("Threshold shift")
 
-    axes[1].bar(
-        [i - width / 2 for i in x],
-        official_quality,
-        width,
-        label="Initial native",
-        color="#F58518",
-    )
-    axes[1].bar(
-        [i + width / 2 for i in x],
-        strong_quality,
-        width,
-        label="Strong native",
-        color="#72B7B2",
-    )
-    axes[1].set_xticks(x)
-    axes[1].set_xticklabels(labels, fontsize=8)
+    for label, color, initial, strong in zip(labels, colors, official_quality, strong_quality):
+        axes[1].plot([0, 1], [initial, strong], marker="o", color=color, linewidth=1.35)
+        axes[1].text(1.03, strong, label, va="center", fontsize=7)
+    axes[1].set_xlim(-0.12, 1.42)
+    axes[1].set_xticks([0, 1])
+    axes[1].set_xticklabels(["Initial", "Strong"])
     axes[1].set_ylabel("Median quality gap")
     axes[1].grid(axis="y", linestyle=":", linewidth=0.6)
-    axes[1].set_title("Quality")
+    axes[1].set_title("Quality shift")
 
     path = os.path.join(FIG_DIR, "strong_native_comparison.pdf")
+    fig.tight_layout()
+    fig.savefig(path, bbox_inches="tight")
+    plt.close(fig)
+    return path
+
+
+def figure_weak_scaling():
+    runs = [run for run in WEAK_SCALING_RUNS if load_summary(run["summary"]) is not None]
+    if len(runs) < 2:
+        return None
+
+    nodes = np.array([run["nodes"] for run in runs], dtype=float)
+    gpus = np.array([run["gpus"] for run in runs], dtype=float)
+    cases = np.array([run["cases"] for run in runs], dtype=float)
+    elapsed = np.array([run["elapsed_sec"] for run in runs], dtype=float)
+    throughput = cases / elapsed
+    ideal = throughput[0] * (nodes / nodes[0])
+    per_gpu = cases / (elapsed * gpus)
+    efficiency = per_gpu / per_gpu[0]
+
+    fig, axes = plt.subplots(1, 2, figsize=(6.8, 2.45))
+    axes[0].plot(nodes, throughput, marker="o", color="#4C78A8", label="measured")
+    axes[0].plot(nodes, ideal, linestyle="--", color="#888888", label="ideal")
+    axes[0].set_xscale("log", base=2)
+    axes[0].set_xticks(nodes)
+    axes[0].set_xticklabels([str(int(x)) for x in nodes])
+    axes[0].set_xlabel("Nodes")
+    axes[0].set_ylabel("Cases/sec")
+    axes[0].grid(True, which="both", linestyle=":", linewidth=0.6)
+    axes[0].legend(frameon=False, fontsize=7)
+    axes[0].set_title("Total throughput")
+
+    axes[1].plot(nodes, efficiency, marker="s", color="#F58518", label="per-GPU efficiency")
+    axes[1].axhline(1.0, linestyle="--", color="#888888", linewidth=0.9)
+    for x, y, seconds, case_count in zip(nodes, efficiency, elapsed, cases):
+        axes[1].annotate(
+            "{} cases\n{:.1f} min".format(int(case_count), seconds / 60.0),
+            xy=(x, y),
+            xytext=(0, 8),
+            textcoords="offset points",
+            ha="center",
+            fontsize=6.5,
+        )
+    axes[1].set_xscale("log", base=2)
+    axes[1].set_xticks(nodes)
+    axes[1].set_xticklabels([str(int(x)) for x in nodes])
+    axes[1].set_xlabel("Nodes")
+    axes[1].set_ylabel("Normalized cases/sec/GPU")
+    axes[1].set_ylim(0.82, 1.08)
+    axes[1].grid(True, which="both", linestyle=":", linewidth=0.6)
+    axes[1].set_title("Per-GPU stability")
+
+    path = os.path.join(FIG_DIR, "weak_scaling.pdf")
+    fig.tight_layout()
+    fig.savefig(path, bbox_inches="tight")
+    plt.close(fig)
+    return path
+
+
+def figure_strong_scaling():
+    runs = [run for run in STRONG_SCALING_RUNS if load_summary(run["summary"]) is not None]
+    if len(runs) < 2:
+        return None
+
+    nodes = np.array([run["nodes"] for run in runs], dtype=float)
+    elapsed = np.array([run["elapsed_sec"] for run in runs], dtype=float)
+    speedup = elapsed[0] / elapsed
+    ideal = nodes / nodes[0]
+    efficiency = speedup / ideal
+
+    fig, axes = plt.subplots(1, 2, figsize=(6.8, 2.45))
+    axes[0].plot(nodes, elapsed / 60.0, marker="o", color="#4C78A8", label="measured")
+    axes[0].plot(
+        nodes,
+        (elapsed[0] / ideal) / 60.0,
+        linestyle="--",
+        color="#888888",
+        label="ideal",
+    )
+    axes[0].set_xscale("log", base=2)
+    axes[0].set_xticks(nodes)
+    axes[0].set_xticklabels([str(int(x)) for x in nodes])
+    axes[0].set_xlabel("Nodes")
+    axes[0].set_ylabel("Elapsed time (min)")
+    axes[0].grid(True, which="both", linestyle=":", linewidth=0.6)
+    axes[0].legend(frameon=False, fontsize=7)
+    axes[0].set_title("Fixed 3,552-case time")
+
+    axes[1].plot(nodes, speedup, marker="o", color="#54A24B", label="speedup")
+    axes[1].plot(nodes, ideal, linestyle="--", color="#888888", label="ideal")
+    axes[1].plot(nodes, efficiency, marker="s", color="#F58518", label="efficiency")
+    axes[1].set_xscale("log", base=2)
+    axes[1].set_xticks(nodes)
+    axes[1].set_xticklabels([str(int(x)) for x in nodes])
+    axes[1].set_xlabel("Nodes")
+    axes[1].set_ylabel("Speedup / efficiency")
+    axes[1].grid(True, which="both", linestyle=":", linewidth=0.6)
+    axes[1].legend(frameon=False, fontsize=7)
+    axes[1].set_title("Speedup vs. 4 nodes")
+
+    path = os.path.join(FIG_DIR, "strong_scaling.pdf")
     fig.tight_layout()
     fig.savefig(path, bbox_inches="tight")
     plt.close(fig)
@@ -622,114 +628,6 @@ def figure_workload_taxonomy():
     return path
 
 
-def figure_scale_out_gate():
-    runs = []
-    for run in SCALE_GATE_RUNS:
-        data = load_summary(run["summary"])
-        if data is None:
-            continue
-        item = dict(run)
-        item["data"] = data
-        runs.append(item)
-    if len(runs) < 2:
-        return None
-
-    labels = [run["label"] for run in runs]
-    throughput = [run["cases"] / run["elapsed_sec"] for run in runs]
-    gpu_throughput = [run["cases"] / (run["elapsed_sec"] * run["gpus"]) for run in runs]
-    workloads = ["ml", "chemistry", "optimization", "simulation"]
-    workload_labels = ["ML", "Chem.", "Opt.", "Sim."]
-
-    fig, axes = plt.subplots(1, 2, figsize=(6.8, 2.55))
-    x = np.arange(len(labels))
-    width = 0.36
-    axes[0].bar(x - width / 2, throughput, width, label="cases/sec", color="#4C78A8")
-    axes[0].bar(x + width / 2, gpu_throughput, width, label="cases/sec/GPU", color="#F58518")
-    axes[0].set_xticks(x)
-    axes[0].set_xticklabels(labels)
-    axes[0].set_ylabel("Throughput")
-    axes[0].grid(axis="y", linestyle=":", linewidth=0.6)
-    axes[0].legend(frameon=False, fontsize=7)
-    axes[0].set_title("Bundled scale gate")
-
-    x2 = np.arange(len(workloads))
-    for index, run in enumerate(runs):
-        medians = [
-            float(run["data"]["by_workload"][workload]["speedup_required_median"])
-            for workload in workloads
-        ]
-        offset = (index - (len(runs) - 1) / 2) * width
-        axes[1].bar(x2 + offset, medians, width, label=run["label"])
-    axes[1].set_yscale("log")
-    axes[1].set_xticks(x2)
-    axes[1].set_xticklabels(workload_labels)
-    axes[1].set_ylabel("Median required speedup (x)")
-    axes[1].grid(axis="y", which="both", linestyle=":", linewidth=0.6)
-    axes[1].legend(frameon=False, fontsize=7)
-    axes[1].set_title("Threshold stability")
-
-    path = os.path.join(FIG_DIR, "scale_out_gate.pdf")
-    fig.tight_layout()
-    fig.savefig(path, bbox_inches="tight")
-    plt.close(fig)
-    return path
-
-
-def figure_scaling_summary():
-    weak_runs = [run for run in WEAK_SCALING_RUNS if load_summary(run["summary"]) is not None]
-    strong_runs = [run for run in STRONG_SCALING_RUNS if load_summary(run["summary"]) is not None]
-    if len(weak_runs) < 2 or len(strong_runs) < 2:
-        return None
-
-    fig, axes = plt.subplots(1, 2, figsize=(6.8, 2.65))
-
-    weak_nodes = np.array([run["nodes"] for run in weak_runs], dtype=float)
-    weak_cases_per_sec = np.array(
-        [run["cases"] / run["elapsed_sec"] for run in weak_runs], dtype=float
-    )
-    weak_cases_per_sec_gpu = np.array(
-        [run["cases"] / (run["elapsed_sec"] * run["gpus"]) for run in weak_runs],
-        dtype=float,
-    )
-    axes[0].plot(weak_nodes, weak_cases_per_sec, marker="o", color="#4C78A8", label="cases/sec")
-    axes[0].plot(
-        weak_nodes,
-        weak_cases_per_sec_gpu,
-        marker="s",
-        color="#F58518",
-        label="cases/sec/GPU",
-    )
-    axes[0].set_xscale("log", base=2)
-    axes[0].set_xticks(weak_nodes)
-    axes[0].set_xticklabels([str(int(x)) for x in weak_nodes])
-    axes[0].set_xlabel("Nodes")
-    axes[0].set_ylabel("Throughput")
-    axes[0].grid(True, which="both", linestyle=":", linewidth=0.6)
-    axes[0].legend(frameon=False, fontsize=7)
-    axes[0].set_title("Weak scaling")
-
-    strong_nodes = np.array([run["nodes"] for run in strong_runs], dtype=float)
-    strong_elapsed = np.array([run["elapsed_sec"] for run in strong_runs], dtype=float)
-    speedup = strong_elapsed[0] / strong_elapsed
-    ideal = strong_nodes / strong_nodes[0]
-    axes[1].plot(strong_nodes, speedup, marker="o", color="#54A24B", label="measured")
-    axes[1].plot(strong_nodes, ideal, linestyle="--", color="#888888", label="ideal")
-    axes[1].set_xscale("log", base=2)
-    axes[1].set_xticks(strong_nodes)
-    axes[1].set_xticklabels([str(int(x)) for x in strong_nodes])
-    axes[1].set_xlabel("Nodes")
-    axes[1].set_ylabel("Speedup vs. 4 nodes")
-    axes[1].grid(True, which="both", linestyle=":", linewidth=0.6)
-    axes[1].legend(frameon=False, fontsize=7)
-    axes[1].set_title("Strong scaling")
-
-    path = os.path.join(FIG_DIR, "scaling_summary.pdf")
-    fig.tight_layout()
-    fig.savefig(path, bbox_inches="tight")
-    plt.close(fig)
-    return path
-
-
 def main():
     ensure_fig_dir()
     paths = [
@@ -738,12 +636,11 @@ def main():
         figure_digits_speedup(),
         figure_digits_quality_runtime(),
         figure_practical_suite(),
-        figure_salloc_pilot_comparison(),
         figure_strong_native_comparison(),
         figure_advantage_frontier(),
         figure_workload_taxonomy(),
-        figure_scale_out_gate(),
-        figure_scaling_summary(),
+        figure_weak_scaling(),
+        figure_strong_scaling(),
     ]
     for path in paths:
         if path:

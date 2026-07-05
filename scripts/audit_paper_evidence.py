@@ -325,14 +325,13 @@ def main():
     scaling_figures = [
         "paper/figures/intro_application_gap.pdf",
         "paper/figures/design_overview.pdf",
-        "paper/figures/scaling_summary.pdf",
-        "paper/figures/scale_out_gate.pdf",
+        "paper/figures/weak_scaling.pdf",
+        "paper/figures/strong_scaling.pdf",
         "paper/figures/strong_native_comparison.pdf",
         "paper/figures/practical_suite_summary.pdf",
         "paper/figures/digits_required_speedup.pdf",
         "paper/figures/digits_quality_speedup.pdf",
         "paper/figures/advantage_frontier.pdf",
-        "paper/figures/salloc_pilot_comparison.pdf",
         "paper/figures/workload_taxonomy.pdf",
     ]
     discovered_figures = [
@@ -374,10 +373,10 @@ def main():
             "practical_suite_table_numbers",
             "paper/4.Evaluation.tex",
             [
-                "ML & 2,048 & 3,726.4$\\times$ & 0.3125",
-                "Chemistry & 224 & 42,491.4$\\times$ & 0.0203",
-                "Optimization & 768 & 287,045.6$\\times$ & 0.2500",
-                "Simulation & 512 & 3,071.0$\\times$ & 0.0188",
+                "ML & 2,048 & 2.09 & 7.26 & 3,726.4$\\times$ & 0.3125",
+                "Chemistry & 224 & 0.170 & 7.14 & 42,491.4$\\times$ & 0.0203",
+                "Optimization & 768 & 0.024 & 7.02 & 287,045.6$\\times$ & 0.2500",
+                "Simulation & 512 & 2.08 & 6.89 & 3,071.0$\\times$ & 0.0188",
             ],
         ),
         check_text_contains(

@@ -381,19 +381,19 @@
       },
       "closest_template": "scaleqsim",
       "ours": {
-        "avg_paragraph_words": 113.36,
+        "avg_paragraph_words": 114.94,
         "figures": 7,
         "items": 0,
         "missing": false,
         "paragraphs": 36,
-        "paragraphs_per_heading": 3.27,
+        "paragraphs_per_heading": 2.77,
         "path": "paper/4.Evaluation.tex",
-        "subsections": 8,
-        "subsubsections": 3,
-        "tables": 11,
-        "textbf": 19,
-        "textbf_per_1000_words": 4.66,
-        "words": 4081
+        "subsections": 6,
+        "subsubsections": 7,
+        "tables": 10,
+        "textbf": 20,
+        "textbf_per_1000_words": 4.83,
+        "words": 4138
       },
       "paragraph_role_inventory": [
         {
@@ -415,61 +415,70 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 93,
-          "current_marker": "\\subsection{RQ1:",
-          "role": "RQ1",
+          "current_line": 92,
+          "current_marker": "\\subsection{End-to-End Threshold Landscape}",
+          "role": "threshold landscape",
           "template_line": 133,
-          "template_logic": "Native ML versus quantum-circuit ML",
+          "template_logic": "Native application paths versus quantum-circuit paths",
           "template_marker": "\\subsection{Performance with SOTA}",
           "template_source": "aurora"
         },
         {
-          "current_line": 141,
-          "current_marker": "\\subsection{RQ2:",
-          "role": "RQ2",
+          "current_line": 140,
+          "current_marker": "\\subsubsection{Quality Sensitivity}",
+          "role": "quality sensitivity",
           "template_line": 58,
-          "template_logic": "Quality sensitivity",
+          "template_logic": "Quality sensitivity before speed-only claims",
           "template_marker": "Comparison with \\textit{Qsim}",
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 165,
-          "current_marker": "\\subsection{RQ3:",
-          "role": "RQ3",
+          "current_line": 164,
+          "current_marker": "\\subsubsection{Practical Application Landscape}",
+          "role": "practical landscape",
           "template_line": 248,
           "template_logic": "Practical application suite",
           "template_marker": "Various Circuits.",
           "template_source": "aurora"
         },
         {
-          "current_line": 199,
-          "current_marker": "\\subsection{RQ4:",
-          "role": "RQ4",
+          "current_line": 200,
+          "current_marker": "\\subsection{Component and Baseline Analysis}",
+          "role": "component and baseline",
           "template_line": 247,
-          "template_logic": "Native baseline stress",
+          "template_logic": "Component mismatch and native baseline stress",
           "template_marker": "Performance and Scalability in Diverse",
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 259,
-          "current_marker": "\\subsection{RQ5:",
-          "role": "RQ5",
-          "template_line": 262,
-          "template_logic": "Weak and strong scaling",
-          "template_marker": "\\subsection{Scalability with SOTA}",
+          "current_line": 284,
+          "current_marker": "\\subsubsection{Weak Scaling}",
+          "role": "weak scaling",
+          "template_line": 269,
+          "template_logic": "Throughput scaling as nodes and work grow together",
+          "template_marker": "Weak Scalability.",
           "template_source": "aurora"
         },
         {
-          "current_line": 294,
-          "current_marker": "\\subsection{RQ6:",
-          "role": "RQ6",
+          "current_line": 297,
+          "current_marker": "\\subsubsection{Strong Scaling}",
+          "role": "strong scaling",
+          "template_line": 334,
+          "template_logic": "Fixed-work time-to-solution scaling",
+          "template_marker": "Strong Scalability.",
+          "template_source": "aurora"
+        },
+        {
+          "current_line": 310,
+          "current_marker": "\\subsection{Advantage Frontier and Bottleneck Analysis}",
+          "role": "advantage frontier",
           "template_line": 334,
           "template_logic": "Advantage frontier and hardware projection",
           "template_marker": "Strong Scalability.",
           "template_source": "aurora"
         },
         {
-          "current_line": 331,
+          "current_line": 382,
           "current_marker": "\\subsection{Operational Stability}",
           "role": "stability",
           "template_line": 413,
@@ -478,7 +487,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 380,
+          "current_line": 362,
           "current_marker": "Bottleneck Taxonomy",
           "role": "taxonomy and sensitivity",
           "template_line": 399,
@@ -488,14 +497,19 @@
         }
       ],
       "role_markers": {
-        "Advantage Frontier": 18069,
-        "Answer": 5498,
-        "Baselines": 1069,
-        "Benchmark": 768,
-        "Evaluation Questions": 3407,
-        "Evaluation Setup": 446,
-        "Feasibility": 1380,
-        "Hardware Specification": 482
+        "Advantage Frontier and Bottleneck Analysis": 19321,
+        "Baselines": 1027,
+        "Benchmark": 726,
+        "Component and Baseline Analysis": 11146,
+        "End-to-End Threshold Landscape": 4512,
+        "Evaluation Questions": 3365,
+        "Evaluation Setup": 404,
+        "Feasibility": 1338,
+        "Hardware Specification": 440,
+        "Operational Stability": 26744,
+        "Perlmutter Scaling Analysis": 16157,
+        "Strong Scaling": 18186,
+        "Weak Scaling": 17162
       },
       "role_markers_ordered": true,
       "scaleqsim": {
@@ -514,8 +528,8 @@
         "words": 5732
       },
       "template_distance": {
-        "aurora": 8.981,
-        "scaleqsim": 8.317
+        "aurora": 12.051,
+        "scaleqsim": 11.775
       }
     },
     "introduction": {

@@ -46,12 +46,12 @@
       "passed": true
     },
     {
-      "detail": "scriptsize=3, arraystretch=3",
+      "detail": "scriptsize=4, arraystretch=3",
       "name": "dense_table_style_present",
       "passed": true
     },
     {
-      "detail": "booktabs rules: 45",
+      "detail": "booktabs rules: 42",
       "name": "booktabs_table_style_present",
       "passed": true
     },
@@ -63,7 +63,7 @@
   ],
   "current_metrics": {
     "arraystretch": 3,
-    "booktabs_rules": 45,
+    "booktabs_rules": 42,
     "caption_before_label_ratio": 1.0,
     "caption_setup": 1,
     "figure": 9,
@@ -71,16 +71,16 @@
     "float_spacing": 3,
     "hline_rules": 0,
     "lowercase_noindent_textbf": [],
-    "noindent_textbf": 71,
-    "resizebox_column": 9,
-    "scriptsize": 3,
+    "noindent_textbf": 72,
+    "resizebox_column": 10,
+    "scriptsize": 4,
     "subfigure_environment": 2,
     "subfigures_with_caption": 2,
     "subfigures_with_label": 2,
     "subfloat": 0,
-    "table": 15,
+    "table": 14,
     "table_star": 0,
-    "textbf": 95,
+    "textbf": 96,
     "vspace": 0
   },
   "passed": true,

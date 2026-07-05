@@ -1,6 +1,6 @@
 \section{Evaluation}
 
-This section evaluates \SystemName in the same style as a systems performance paper: first the setup, then the end-to-end application comparison, then baseline sensitivity, Perlmutter scalability, and advantage analysis. The result is not a claim that quantum wins today. The result is a measured threshold model that explains how fast and how accurate the future quantum path must be to beat native HPC paths.
+This section evaluates \SystemName in the same style as our previous systems papers: first the setup, then end-to-end behavior, then component analysis, scaling, and sensitivity. The result is not a claim that quantum wins today. The result is a measured threshold model that explains how fast and how accurate the future quantum path must be to beat native HPC paths.
 
 \subsection{Evaluation Setup}
 
@@ -78,19 +78,18 @@ Table~\ref{tab:eval-questions} summarizes the evaluation flow. Each question map
 \toprule
 Question & Goal & Main evidence \\
 \midrule
-RQ1 & Compare native ML and quantum-circuit ML & Table~\ref{tab:expanded-summary}, Fig.~\ref{fig:digits-results} \\
-RQ2 & Test quality sensitivity & Table~\ref{tab:class-sensitivity} \\
-RQ3 & Cover practical application families & Table~\ref{tab:practical-suite}, Fig.~\ref{fig:practical-suite} \\
-RQ4 & Stress the native baseline & Fig.~\ref{fig:strong-native} \\
-RQ5 & Scale on Perlmutter GPU nodes & Table~\ref{tab:scaling}, Fig.~\ref{fig:scaling-summary} \\
-RQ6 & Project advantage regions & Fig.~\ref{fig:advantage-frontier}, Table~\ref{tab:projection-fractions}, Fig.~\ref{fig:workload-taxonomy} \\
+Q1 & Measure end-to-end threshold landscape & Table~\ref{tab:expanded-summary}, Fig.~\ref{fig:digits-results}, Fig.~\ref{fig:practical-suite} \\
+Q2 & Explain component and baseline effects & Table~\ref{tab:practical-suite}, Fig.~\ref{fig:strong-native} \\
+Q3 & Validate application coverage & Table~\ref{tab:accept-baselines}, Table~\ref{tab:chem-coverage} \\
+Q4 & Separate weak and strong scaling & Fig.~\ref{fig:weak-scaling}, Fig.~\ref{fig:strong-scaling}, Table~\ref{tab:scaling} \\
+Q5 & Project advantage regions & Fig.~\ref{fig:advantage-frontier}, Table~\ref{tab:projection-fractions}, Fig.~\ref{fig:workload-taxonomy} \\
 \bottomrule
 \end{tabular}
 }
 \label{tab:eval-questions}
 \end{table}
 
-\subsection{RQ1: Native ML versus Quantum-Circuit ML}
+\subsection{End-to-End Threshold Landscape}
 
 Table~\ref{tab:expanded-summary} summarizes the expanded sweep. Native ML remains strong across the workload. Quantum kernels sometimes reach high quality, but the measured circuit path still requires hundreds of times faster projected execution to match the native path. QNN/VQC has a smaller required speedup in many cases, but its quality is usually below the native baseline.
 
@@ -138,7 +137,7 @@ The digits circuits use one qubit per PCA feature dimension. Thus, the controlle
 \label{fig:digits-results}
 \end{figure}
 
-\subsection{RQ2: Quality Sensitivity}
+\subsubsection{Quality Sensitivity}
 
 Table~\ref{tab:class-sensitivity} shows that the threshold depends on the data pair. The easy pair, 0-vs-1, gives high quantum-kernel accuracy. Harder pairs such as 3-vs-8 and 5-vs-8 reduce quality and make a simple speedup claim invalid. This is exactly why \SystemName keeps quality and runtime together.
 
@@ -162,47 +161,49 @@ Class pair & Kernel acc. & QNN/VQC acc. \\
 \noindent\textbf{Answer.}
 Quality changes the interpretation of speed. A lower runtime threshold does not imply advantage if the quantum model misses the native target quality.
 
-\subsection{RQ3: Practical Application Suite}
+\subsubsection{Practical Application Landscape}
 
 The digits workload is useful because it is controlled, cheap, and easy to repeat. It is not enough for a practical quantum-advantage claim. Real users care about broader applications: AI pipelines, molecular energy estimation for drug discovery, optimization, and scientific simulation. These workloads have different native baselines and different quantum overheads.
 
 \SystemName also evaluates a practical suite beyond the controlled binary digits sweep. The suite covers ML classification, VQE-style chemistry, QAOA-style optimization, and Hamiltonian simulation. These workloads represent the application classes where users often expect quantum advantage, but the measured result shows that the threshold is application dependent and usually large. The main practical-suite result below uses the large 3,552-case profile on 32 GPU nodes. ML selects among six native classifiers, and optimization selects among exact, greedy, local-search, and annealing baselines. Chemistry and simulation use native numerical baselines on the same Hamiltonian instances and compare them with quantum-circuit executions simulated through \cuQuantum.
 
 \begin{table}[t]
-\caption{Large practical suite summary over 3,552 cases. Values are medians.}
+\caption{Large practical suite component summary over 3,552 cases. Values are medians.}
 \centering
-\small
-\begin{tabular}{lccc}
+\scriptsize
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lrrrrr}
 \toprule
-Workload & Cases & Required speedup & Quality gap \\
+Workload & Cases & Native ms & QSim s & Required speedup & Quality gap \\
 \midrule
-ML & 2,048 & 3,726.4$\times$ & 0.3125 \\
-Chemistry & 224 & 42,491.4$\times$ & 0.0203 \\
-Optimization & 768 & 287,045.6$\times$ & 0.2500 \\
-Simulation & 512 & 3,071.0$\times$ & 0.0188 \\
+ML & 2,048 & 2.09 & 7.26 & 3,726.4$\times$ & 0.3125 \\
+Chemistry & 224 & 0.170 & 7.14 & 42,491.4$\times$ & 0.0203 \\
+Optimization & 768 & 0.024 & 7.02 & 287,045.6$\times$ & 0.2500 \\
+Simulation & 512 & 2.08 & 6.89 & 3,071.0$\times$ & 0.0188 \\
 \bottomrule
 \end{tabular}
+}
 \label{tab:practical-suite}
 \end{table}
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figures/practical_suite_summary.pdf}
-\Description{Bar chart summarizing median required speedup and quality gap for ML, chemistry, optimization, and simulation.}
-\caption{Large practical suite over 3,552 cases. Each bar compares the selected native HPC-style baseline with a quantum-circuit application path simulated through cuQuantum. All families currently require faster projected quantum execution, but the threshold differs by application class.}
+\Description{Scatter and CDF views of required speedup and quality gap for all 3,552 measured practical-suite cases.}
+\caption{Large practical-suite landscape over 3,552 cases. The left panel keeps both axes that matter for advantage: required speedup and quality gap. The right panel shows the full threshold distribution rather than only one bar per workload.}
 \label{fig:practical-suite}
 \end{figure}
 
 \noindent\textbf{Answer.}
-The practical suite confirms that the gap is not an ML-only artifact. Every family remains outside the current advantage region, but the reason differs by family. Chemistry and simulation are often closer in quality but still require large execution improvement, while ML and optimization are frequently quality-limited. The range is also large: the median threshold is 3,071.0$\times$ for simulation, 3,726.4$\times$ for ML, 42,491.4$\times$ for chemistry, and 287,045.6$\times$ for optimization.
+The practical suite confirms that the gap is not an ML-only artifact. Every family remains outside the current advantage region, but the reason differs by family. The table shows the component mismatch directly: native paths often finish in microseconds to milliseconds, while the simulated quantum-circuit path takes about seven seconds per case. Chemistry and simulation are often closer in quality but still require large execution improvement, while ML and optimization are frequently quality-limited. The range is also large: the median threshold is 3,071.0$\times$ for simulation, 3,726.4$\times$ for ML, 42,491.4$\times$ for chemistry, and 287,045.6$\times$ for optimization.
 
-\subsection{RQ4: Native Baseline Stress Test}
+\subsection{Component and Baseline Analysis}
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figures/strong_native_comparison.pdf}
-\Description{Bar chart comparing required speedup before and after strengthening native baselines.}
-\caption{Native baseline stress test. Strengthening the native side makes the ML threshold 6.6$\times$ larger and the optimization threshold 2.3$\times$ larger than the initial native-baseline sweep. This confirms that \SystemName must treat native-baseline strength as part of the advantage model.}
+\Description{Slope graph comparing required speedup and quality gap before and after strengthening native baselines.}
+\caption{Native baseline stress test. The slope view shows how each workload moves when the native path is strengthened, instead of hiding the shift inside grouped bars. Strengthening the native side makes the ML threshold 6.6$\times$ larger and the optimization threshold 2.3$\times$ larger than the initial native-baseline sweep.}
 \label{fig:strong-native}
 \end{figure}
 
@@ -256,7 +257,7 @@ H$_2$O active & 8 & 12 & 788.0$\times$ & 1.0916 \\
 
 The last column is a tolerance-scaled error gap, not a probability or bounded accuracy loss. Values above one mean that the measured circuit path is more than one workload tolerance away from the native/reference target. This distinction is important for H$_2$O active-space rows: they are useful as failure evidence, but they are not near-quality advantage cases.
 
-\subsection{RQ5: Perlmutter Weak and Strong Scaling}
+\subsection{Perlmutter Scaling Analysis}
 
 The large-profile suite contains 3,552 application cases. We evaluate two scaling modes. In weak scaling, each GPU receives roughly 28 cases, so total work grows with the number of GPUs. In fixed-work scaling, every run executes the same 3,552 cases and the chunk slots are striped across the available GPUs. Both modes use one Slurm task per A100 GPU and independent application cases; this is throughput scaling, not distributed single-circuit simulation.
 
@@ -280,18 +281,33 @@ Full profile & 32 & 128 & 3,552 & 4:17 \\
 \label{tab:scaling}
 \end{table}
 
+\subsubsection{Weak Scaling}
+
 \begin{figure}[t]
 \centering
-\includegraphics[width=\linewidth]{figures/scaling_summary.pdf}
-\Description{Weak and strong scaling plot showing case throughput and elapsed time across Perlmutter GPU node counts.}
-\caption{Large-profile scaling. Weak scaling keeps per-GPU work nearly fixed and increases total throughput. Fixed-work scaling runs the full 3,552-case workload and measures time-to-solution speedup relative to four nodes.}
-\label{fig:scaling-summary}
+\includegraphics[width=\linewidth]{figures/weak_scaling.pdf}
+\Description{Weak scaling plot showing total throughput and normalized per-GPU throughput from 8 to 32 Perlmutter GPU nodes.}
+\caption{Weak scaling of the large-profile application suite. Total throughput grows nearly linearly from 8 to 32 nodes while normalized per-GPU throughput remains close to the 8-node reference.}
+\label{fig:weak-scaling}
 \end{figure}
 
 \noindent\textbf{Answer.}
-All scale-out jobs used by this table completed with exit code 0:0. The generated raw JSON counts match the expected case counts: 896, 1,792, and 3,552 for the weak-scaling runs, and 3,552 for each fixed-work run. No failed case, traceback, or timeout was recorded in the task logs. The weak-scaling results keep per-GPU throughput close to stable from 8 to 32 nodes. The fixed-work result reduces time-to-solution from 30 minutes 55 seconds on four nodes to 4 minutes 17 seconds on the matching 32-node full-profile point, a 7.2$\times$ speedup over an 8$\times$ node increase. This validates the bundled multi-node execution path for the advantage-modeling workflow.
+All weak-scaling jobs completed with exit code 0:0. The generated raw JSON counts match the expected case counts: 896, 1,792, and 3,552. No failed case, traceback, or timeout was recorded in the task logs. The result is the desired throughput behavior for this workflow: total throughput grows with nodes while the per-GPU rate stays close to stable. This matters because the advantage model is produced by many independent application cases, so throughput scaling determines how quickly the frontier can be mapped.
 
-\subsection{RQ6: Advantage Frontier and Hardware Projection}
+\subsubsection{Strong Scaling}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/strong_scaling.pdf}
+\Description{Strong scaling plot showing elapsed time, speedup, and efficiency for the fixed 3,552-case suite from 4 to 32 Perlmutter GPU nodes.}
+\caption{Strong scaling of the fixed 3,552-case application suite. The run reduces time-to-solution from 30 minutes 55 seconds on four nodes to 4 minutes 17 seconds on 32 nodes.}
+\label{fig:strong-scaling}
+\end{figure}
+
+\noindent\textbf{Answer.}
+The fixed-work result measures time-to-solution for the same 3,552 cases. It reduces elapsed time from 30 minutes 55 seconds on four nodes to 4 minutes 17 seconds on the matching 32-node full-profile point, a 7.2$\times$ speedup over an 8$\times$ node increase. The non-ideal 16-node point exposes a useful systems fact rather than a paper problem: application-level sweeps inherit chunk imbalance and per-case variability even when the Slurm layout is correct. This validates the bundled multi-node execution path and also motivates reporting both weak and strong scaling instead of compressing them into one bar chart.
+
+\subsection{Advantage Frontier and Bottleneck Analysis}
 
 The practical-suite result gives one speed threshold per case, but a speed-only threshold is still incomplete. A practical advantage claim also needs comparable output quality. We therefore convert each measured case into an advantage frontier over two axes: projected quantum execution speedup and quality-gap recovery. A point is in the advantage region only if the projected quantum path is no slower than the selected native path and the remaining quality gap is within a small workload tolerance.
 
@@ -328,40 +344,6 @@ Simulation & 0.01 & 54.9\% & 71.9\% & 71.9\% & 100.0\% & 100.0\% \\
 \label{tab:projection-fractions}
 \end{table}
 
-\subsection{Operational Stability}
-
-The official practical sweep was first run as multiple shared-GPU jobs. We then validated a bundled allocation path using \texttt{salloc} with two A100 GPUs. This pilot is not a new advantage claim. It checks that \SystemName can run multiple chunks inside one allocation, keep the GPUs busy with independent workload cases, and produce the same summary format used by the official sweep.
-
-\begin{table}[t]
-\caption{Bundled \texttt{salloc} pilot over 96 cases. Values are medians.}
-\centering
-\small
-\begin{tabular}{lccc}
-\toprule
-Workload & Cases & Required speedup & Quality gap \\
-\midrule
-ML & 54 & 615.7$\times$ & 0.2865 \\
-Chemistry & 6 & 49,476.5$\times$ & 0.2446 \\
-Optimization & 18 & 210,056.9$\times$ & 0.2500 \\
-Simulation & 18 & 11,629.0$\times$ & 0.0250 \\
-\bottomrule
-\end{tabular}
-\label{tab:salloc-pilot}
-\end{table}
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=\linewidth]{figures/salloc_pilot_comparison.pdf}
-\Description{Comparison of median required speedups between the official practical sweep and a bundled salloc pilot.}
-\caption{Official 190-case sweep versus the 96-case bundled \texttt{salloc} pilot. The pilot uses two A100 GPUs inside one allocation and reproduces the same qualitative conclusion: every workload family remains outside the current advantage region, but the required hardware improvement differs by family.}
-\label{fig:salloc-pilot}
-\end{figure}
-
-The pilot completed in 6 minutes and 54 seconds with 96 raw JSON outputs and empty stderr logs. Its main systems result is operational: the correct bundled pattern is a single \texttt{srun} step with multiple tasks, where each task selects a chunk using \texttt{SLURM\_PROCID}. Launching multiple overlapping \texttt{srun} steps was less reliable because of step-level resource ownership.
-
-\noindent\textbf{Timing Gate.}
-Finally, we run a small warmup-separated repeat-timing gate to check that the measured path is not dominated by one first-use timing sample. The gate uses one \Perlmutter GPU node with four A100 tasks. Each task runs one workload family, discards one warmup case, and records three measured trials. Job 55516885 completed in 58 seconds with exit code 0:0 and empty stderr. Across the 12 measured trials, the maximum quantum-runtime CV is 0.0400. This gate is not a replacement for the large 3,552-case sweep; it is a timing-stability check for the submitted evidence package.
-
 \subsubsection{Hardware Projection Model}
 
 The projection model uses the measured native runtime, measured quantum-circuit simulation runtime, and measured tolerance-scaled quality gap for each case. For a projected quantum speedup $S$ and quality-gap recovery $R$, a case enters the advantage region only if $S$ is at least the measured required speedup and the residual quality gap is below the workload tolerance. Formally, a case is counted as advantaged when
@@ -396,3 +378,12 @@ This classification is the practical insight. If a workload is speed-limited, fa
 \subsubsection{Sensitivity Scope}
 
 The expanded digits sweep covers class pair, sample count, PCA dimension, circuit depth, and seed. The practical suite adds workload family, native-baseline choice, chemistry grid size, circuit layer count, graph family, simulation model, and Perlmutter node count. These dimensions are sufficient for the paper's central claim: advantage thresholds are workload-specific and depend jointly on runtime and quality. The sensitivity space is still incomplete for a final hardware-roadmap study. Warmup-separated timing, repeated hardware trials, shot sensitivity, ansatz sensitivity, optimizer sensitivity, and explicit error-mitigation overhead remain outside the measured scope and are treated as threats rather than hidden assumptions.
+
+\subsection{Operational Stability}
+
+The official practical sweep was first run as multiple shared-GPU jobs. We then validated a bundled allocation path using \texttt{salloc} with two A100 GPUs. This pilot is not a new advantage claim. It checks that \SystemName can run multiple chunks inside one allocation, keep the GPUs busy with independent workload cases, and produce the same summary format used by the official sweep.
+
+The pilot completed in 6 minutes and 54 seconds with 96 raw JSON outputs and empty stderr logs. Its main systems result is operational: the correct bundled pattern is a single \texttt{srun} step with multiple tasks, where each task selects a chunk using \texttt{SLURM\_PROCID}. Launching multiple overlapping \texttt{srun} steps was less reliable because of step-level resource ownership.
+
+\noindent\textbf{Timing Gate.}
+Finally, we run a small warmup-separated repeat-timing gate to check that the measured path is not dominated by one first-use timing sample. The gate uses one \Perlmutter GPU node with four A100 tasks. Each task runs one workload family, discards one warmup case, and records three measured trials. Job 55516885 completed in 58 seconds with exit code 0:0 and empty stderr. Across the 12 measured trials, the maximum quantum-runtime CV is 0.0400. This gate is not a replacement for the large 3,552-case sweep; it is a timing-stability check for the submitted evidence package.
