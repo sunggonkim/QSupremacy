@@ -47,6 +47,7 @@ The paper-ready artifacts are:
 - artifact manifest: `data/processed/perlmutter/paper_artifact_manifest.md`
 - reviewer-risk notes: `paper/reviewer_readiness.md`
 - previous-paper alignment: `paper/previous_paper_alignment.md`
+- previous-paper alignment metrics: `data/processed/perlmutter/previous_paper_alignment_metrics.md`
 - evidence audit: `data/processed/perlmutter/paper_evidence_audit.md`
 - readiness audit: `data/processed/perlmutter/submission_readiness_audit.md`
 - main 32-node summary: `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv`
@@ -58,12 +59,14 @@ Run the paper checks from the repository root:
 
 ```bash
 make -B -C paper
+python3 scripts/audit_previous_paper_alignment.py
 python3 scripts/audit_paper_evidence.py
 python3 scripts/audit_submission_readiness.py
 ```
 
 Expected current result: `paper/main.pdf` builds as a 12-page manuscript,
-`scripts/audit_paper_evidence.py` reports PASS, and
+`scripts/audit_previous_paper_alignment.py` writes the previous-paper count
+metrics, `scripts/audit_paper_evidence.py` reports PASS, and
 `scripts/audit_submission_readiness.py` reports `SUBMISSION_READY`. The paper
 claim-to-artifact map is tracked in
 `data/processed/perlmutter/paper_artifact_manifest.md` and checked by the

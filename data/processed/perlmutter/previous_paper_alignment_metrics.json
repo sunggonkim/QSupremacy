@@ -1,0 +1,317 @@
+{
+  "checks": {
+    "background_two_subsections": true,
+    "design_scaleqsim_subsection_count": true,
+    "evaluation_previous_shape": true,
+    "intro_role_and_size": true,
+    "previous_sources_available": true,
+    "role_markers_ordered": true
+  },
+  "known_gaps": [
+    {
+      "closest_template": "aurora",
+      "ours_words": 1625,
+      "section": "design",
+      "target_words": 3497,
+      "word_ratio": 0.465
+    }
+  ],
+  "sections": {
+    "background": {
+      "aurora": {
+        "figures": 3,
+        "items": 0,
+        "missing": false,
+        "paragraphs": 11,
+        "path": "paper/PreviousPapers/AURORA_Q_ICDCS26/2.Background.tex",
+        "subsections": 2,
+        "subsubsections": 0,
+        "tables": 0,
+        "textbf": 2,
+        "words": 746
+      },
+      "closest_template": "scaleqsim",
+      "ours": {
+        "figures": 0,
+        "items": 0,
+        "missing": false,
+        "paragraphs": 8,
+        "path": "paper/2.Background.tex",
+        "subsections": 2,
+        "subsubsections": 0,
+        "tables": 0,
+        "textbf": 5,
+        "words": 617
+      },
+      "role_markers": {
+        "Break-even condition": 3528,
+        "Practical application families": 963,
+        "Repeated execution": 536,
+        "\\subsection": 22
+      },
+      "role_markers_ordered": true,
+      "scaleqsim": {
+        "figures": 1,
+        "items": 0,
+        "missing": false,
+        "paragraphs": 8,
+        "path": "paper/PreviousPapers/ScaleQsim_SIGMETRICS26/2.Background.tex",
+        "subsections": 2,
+        "subsubsections": 0,
+        "tables": 0,
+        "textbf": 2,
+        "words": 989
+      },
+      "template_distance": {
+        "aurora": 2.859,
+        "scaleqsim": 2.688
+      }
+    },
+    "conclusion": {
+      "aurora": {
+        "figures": 0,
+        "items": 0,
+        "missing": false,
+        "paragraphs": 1,
+        "path": "paper/PreviousPapers/AURORA_Q_ICDCS26/6.Conclusion.tex",
+        "subsections": 0,
+        "subsubsections": 0,
+        "tables": 0,
+        "textbf": 0,
+        "words": 89
+      },
+      "closest_template": "scaleqsim",
+      "ours": {
+        "figures": 0,
+        "items": 0,
+        "missing": false,
+        "paragraphs": 2,
+        "path": "paper/6.Conclusion.tex",
+        "subsections": 0,
+        "subsubsections": 0,
+        "tables": 0,
+        "textbf": 0,
+        "words": 87
+      },
+      "scaleqsim": {
+        "figures": 0,
+        "items": 0,
+        "missing": false,
+        "paragraphs": 2,
+        "path": "paper/PreviousPapers/ScaleQsim_SIGMETRICS26/6.Conclusion.tex",
+        "subsections": 0,
+        "subsubsections": 0,
+        "tables": 0,
+        "textbf": 0,
+        "words": 111
+      },
+      "template_distance": {
+        "aurora": 1.011,
+        "scaleqsim": 0.108
+      }
+    },
+    "design": {
+      "aurora": {
+        "figures": 3,
+        "items": 0,
+        "missing": false,
+        "paragraphs": 37,
+        "path": "paper/PreviousPapers/AURORA_Q_ICDCS26/3.Design.tex",
+        "subsections": 5,
+        "subsubsections": 0,
+        "tables": 0,
+        "textbf": 33,
+        "words": 3497
+      },
+      "closest_template": "scaleqsim",
+      "ours": {
+        "figures": 1,
+        "items": 0,
+        "missing": false,
+        "paragraphs": 26,
+        "path": "paper/3.Design.tex",
+        "subsections": 6,
+        "subsubsections": 4,
+        "tables": 2,
+        "textbf": 28,
+        "words": 1625
+      },
+      "role_markers": {
+        "Overview of": 47,
+        "\\subsection{Advantage Claim Checklist}": 9285,
+        "\\subsection{Application Path Execution}": 4298,
+        "\\subsection{Measurement and Threshold Analysis}": 7365,
+        "\\subsection{Overall Procedure}": 1733,
+        "\\subsection{Shared Workload Control}": 2731,
+        "\\subsection{Workload Suite}": 10718
+      },
+      "role_markers_ordered": true,
+      "scaleqsim": {
+        "figures": 4,
+        "items": 0,
+        "missing": false,
+        "paragraphs": 36,
+        "path": "paper/PreviousPapers/ScaleQsim_SIGMETRICS26/3.Design.tex",
+        "subsections": 6,
+        "subsubsections": 0,
+        "tables": 0,
+        "textbf": 23,
+        "words": 4581
+      },
+      "template_distance": {
+        "aurora": 7.583,
+        "scaleqsim": 7.568
+      }
+    },
+    "evaluation": {
+      "aurora": {
+        "figures": 9,
+        "items": 0,
+        "missing": false,
+        "paragraphs": 27,
+        "path": "paper/PreviousPapers/AURORA_Q_ICDCS26/4.Evaluation.tex",
+        "subsections": 5,
+        "subsubsections": 0,
+        "tables": 2,
+        "textbf": 26,
+        "words": 3666
+      },
+      "closest_template": "scaleqsim",
+      "ours": {
+        "figures": 7,
+        "items": 0,
+        "missing": false,
+        "paragraphs": 33,
+        "path": "paper/4.Evaluation.tex",
+        "subsections": 8,
+        "subsubsections": 3,
+        "tables": 11,
+        "textbf": 17,
+        "words": 3818
+      },
+      "role_markers": {
+        "Advantage Frontier": 17186,
+        "Answer": 5418,
+        "Baselines": 1069,
+        "Benchmark": 768,
+        "Evaluation Setup": 446,
+        "Evaluation questions": 3367,
+        "Feasibility": 1380,
+        "Hardware specification": 482
+      },
+      "role_markers_ordered": true,
+      "scaleqsim": {
+        "figures": 7,
+        "items": 0,
+        "missing": false,
+        "paragraphs": 47,
+        "path": "paper/PreviousPapers/ScaleQsim_SIGMETRICS26/4.Evaluation.tex",
+        "subsections": 7,
+        "subsubsections": 0,
+        "tables": 2,
+        "textbf": 27,
+        "words": 5732
+      },
+      "template_distance": {
+        "aurora": 8.911,
+        "scaleqsim": 8.478
+      }
+    },
+    "introduction": {
+      "aurora": {
+        "figures": 1,
+        "items": 0,
+        "missing": false,
+        "paragraphs": 7,
+        "path": "paper/PreviousPapers/AURORA_Q_ICDCS26/1.Introduction.tex",
+        "subsections": 0,
+        "subsubsections": 0,
+        "tables": 1,
+        "textbf": 7,
+        "words": 1023
+      },
+      "closest_template": "aurora",
+      "ours": {
+        "figures": 1,
+        "items": 0,
+        "missing": false,
+        "paragraphs": 8,
+        "path": "paper/1.Introduction.tex",
+        "subsections": 0,
+        "subsubsections": 0,
+        "tables": 1,
+        "textbf": 15,
+        "words": 953
+      },
+      "role_markers": {
+        "Key idea": 4754,
+        "Observation 1": 2341,
+        "Quantum computing is often described": 24,
+        "This paper makes the following contributions": 5748,
+        "\\begin{figure}": 1471,
+        "\\begin{table}": 4159
+      },
+      "role_markers_ordered": true,
+      "scaleqsim": {
+        "figures": 1,
+        "items": 0,
+        "missing": false,
+        "paragraphs": 10,
+        "path": "paper/PreviousPapers/ScaleQsim_SIGMETRICS26/1.introduction.tex",
+        "subsections": 0,
+        "subsubsections": 0,
+        "tables": 1,
+        "textbf": 6,
+        "words": 1510
+      },
+      "template_distance": {
+        "aurora": 1.32,
+        "scaleqsim": 1.884
+      }
+    },
+    "related": {
+      "aurora": {
+        "figures": 0,
+        "items": 0,
+        "missing": false,
+        "paragraphs": 2,
+        "path": "paper/PreviousPapers/AURORA_Q_ICDCS26/5.Related work.tex",
+        "subsections": 0,
+        "subsubsections": 0,
+        "tables": 0,
+        "textbf": 2,
+        "words": 317
+      },
+      "closest_template": "aurora",
+      "ours": {
+        "figures": 0,
+        "items": 0,
+        "missing": false,
+        "paragraphs": 2,
+        "path": "paper/5.RelatedWork.tex",
+        "subsections": 0,
+        "subsubsections": 0,
+        "tables": 0,
+        "textbf": 2,
+        "words": 207
+      },
+      "scaleqsim": {
+        "figures": 0,
+        "items": 0,
+        "missing": false,
+        "paragraphs": 6,
+        "path": "paper/PreviousPapers/ScaleQsim_SIGMETRICS26/5.Related Work.tex",
+        "subsections": 2,
+        "subsubsections": 0,
+        "tables": 0,
+        "textbf": 0,
+        "words": 512
+      },
+      "template_distance": {
+        "aurora": 0.174,
+        "scaleqsim": 3.965
+      }
+    }
+  },
+  "status": "TRACKED_WITH_KNOWN_GAPS"
+}

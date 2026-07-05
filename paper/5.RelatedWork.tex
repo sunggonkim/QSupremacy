@@ -1,42 +1,7 @@
 \section{Related Work}
 
-\begin{table}[t]
-\caption{Related-work positioning.}
-\centering
-\small
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{lcccc}
-\toprule
-Area & HPC simulation & Native baseline & App quality & HW threshold \\
-\midrule
-Large-scale circuit simulators & \checkmark &  &  &  \\
-Quantum ML studies & \checkmark & Partial & \checkmark &  \\
-Quantum application studies & Partial & Partial & \checkmark & Partial \\
-Native HPC/ML baselines &  & \checkmark & \checkmark &  \\
-\textbf{\SystemName} & \checkmark & \checkmark & \checkmark & \checkmark \\
-\bottomrule
-\end{tabular}
-}
-\label{tab:related-position}
-\end{table}
+\noindent\textbf{Quantum simulation and NISQ systems.}
+Large-scale quantum circuit simulators such as ScaleQsim and AURORA-Q show how HPC systems can extend full state-vector simulation through distributed execution, GPU acceleration, tiered memory, and asynchronous data movement~\cite{scaleqsim,auroraq}. \cuQuantum provides optimized GPU primitives for these measurements~\cite{cuquantum}. Quantum supremacy and NISQ studies show both the promise and the limits of current devices~\cite{arute2019quantum,preskill2018quantum}. \SystemName uses this simulation substrate for a different question: not which simulator is fastest, but what hardware and quality threshold would let a quantum-circuit application beat a native HPC application.
 
-\noindent\textbf{Large-scale quantum circuit simulation.}
-ScaleQsim and AURORA-Q demonstrate that quantum circuit simulation can be scaled on leadership-class HPC systems~\cite{scaleqsim,auroraq}. ScaleQsim focuses on scalable distributed full state-vector simulation, while AURORA-Q addresses memory capacity limitations with tiered memory and asynchronous offloading. These systems make larger quantum-circuit measurements possible. \SystemName uses that capability for a different systems question. It does not ask whether one simulator is faster than another simulator. It asks whether the quantum-circuit application, after encoding, repeated execution, measurement, and postprocessing, could beat the native HPC application on the same task and quality target.
-
-\noindent\textbf{Quantum supremacy and NISQ computing.}
-Quantum supremacy demonstrations show that quantum processors can outperform classical computation on carefully chosen sampling tasks~\cite{arute2019quantum}. NISQ-era studies also make clear that useful application-level advantage requires more than raw device progress~\cite{preskill2018quantum}. Noise, limited qubit counts, and repeated measurement overhead remain central constraints. \SystemName complements these efforts: it does not claim a new quantum device result, but asks what application-level hardware threshold would be required to beat a strong native HPC path.
-
-\noindent\textbf{Quantum machine-learning systems.}
-Quantum kernels and variational quantum classifiers are common approaches for quantum machine learning~\cite{biamonte2017quantum,cerezo2022challenges}. These methods can express feature spaces differently from native ML models, but they also introduce data encoding, repeated circuit execution, measurement, and optimizer overheads. \SystemName treats these overheads as first-class systems costs and evaluates them through \cuQuantum~\cite{cuquantum}.
-
-\noindent\textbf{Quantum applications beyond ML.}
-Quantum computing is also discussed for chemistry, drug discovery, combinatorial optimization, and scientific simulation. VQE-style chemistry, QAOA-style optimization, and Hamiltonian simulation are among the most common candidates for practical advantage~\cite{kandala2017hardware,farhi2014qaoa,georgescu2014quantum,daley2022practical}. These domains are important because they motivate many practical claims about future quantum computers. However, each domain has strong native baselines and different quality metrics. \SystemName therefore treats each domain as a separate threshold-modeling problem rather than assuming one generic quantum speedup applies to all workloads.
-
-\noindent\textbf{Native HPC and ML baselines.}
-Native ML frameworks and classical algorithms are strong baselines. A fair quantum supremacy claim must compare against optimized native paths at the same target quality. \SystemName therefore includes logistic regression, MLP, RBF kernel ridge, nearest-centroid, kNN, exact optimization, greedy search, local search, and annealing-style baselines~\cite{scikit-learn}. This choice also changes the interpretation of the result. If a stronger native path raises the required quantum speedup, that is not a failed experiment; it is evidence that the advantage threshold was previously underestimated.
-
-\noindent\textbf{Hardware projection and resource accounting.}
-Prior work often discusses quantum speedup at the algorithmic level. \SystemName instead connects measured application costs to hardware requirements, including logical gate time, shot throughput, quality-gap recovery, error overhead, and allocation cost. This makes the threshold actionable for HPC users and quantum hardware roadmaps.
-
-\noindent\textbf{Summary.}
-The closest prior systems work improves the measurement substrate for quantum circuits, while the closest application work studies individual quantum algorithms or workloads. \SystemName connects these two lines by using HPC simulation as instrumentation for a native-versus-quantum application break-even model. The output is not a new simulator speed record or a claim of current advantage. The output is the hardware and quality frontier required for practical advantage.
+\noindent\textbf{Quantum applications and native baselines.}
+Quantum kernels, variational classifiers, VQE-style chemistry, QAOA-style optimization, and Hamiltonian simulation are common candidates for practical advantage~\cite{biamonte2017quantum,cerezo2022challenges,kandala2017hardware,farhi2014qaoa,georgescu2014quantum,daley2022practical}. These studies motivate application-level comparisons, but each domain also has strong native baselines and different quality metrics. This makes the comparison a systems problem, because runtime, quality, application overhead, and workload scale must be measured together. It also makes one workload insufficient for evidence. \SystemName therefore compares each quantum-circuit path against native ML, chemistry, optimization, and simulation paths under the same workload and target quality~\cite{scikit-learn}.

@@ -20,7 +20,7 @@
       "severity": "error"
     },
     {
-      "detail": "current page count is 12; typical systems submissions need a target-specific page budget",
+      "detail": "current page count is 11; typical systems submissions need a target-specific page budget",
       "name": "page_count_atc_style",
       "passed": true,
       "severity": "warning"
@@ -108,9 +108,15 @@
       "name": "previous_paper_alignment_documented",
       "passed": true,
       "severity": "warning"
+    },
+    {
+      "detail": "previous-paper word, paragraph, heading, and role-marker metrics are generated and linked",
+      "name": "previous_paper_alignment_metrics",
+      "passed": true,
+      "severity": "warning"
     }
   ],
-  "page_count": 12,
+  "page_count": 11,
   "status": "SUBMISSION_READY",
   "warning_count": 0
 }

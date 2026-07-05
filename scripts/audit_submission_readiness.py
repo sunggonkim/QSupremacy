@@ -17,6 +17,13 @@ OUT_MD = os.path.join(
 REPEAT_GATE_JSON = os.path.join(
     ROOT, "data", "processed", "perlmutter", "repeat_timing_gate_latest.json"
 )
+PREVIOUS_ALIGNMENT_JSON = os.path.join(
+    ROOT,
+    "data",
+    "processed",
+    "perlmutter",
+    "previous_paper_alignment_metrics.json",
+)
 
 
 def read_text(rel_path):
@@ -125,6 +132,13 @@ def main():
                 repeat_gate = json.load(f)
         except ValueError:
             repeat_gate = {}
+    previous_alignment_metrics = {}
+    if os.path.exists(PREVIOUS_ALIGNMENT_JSON):
+        try:
+            with open(PREVIOUS_ALIGNMENT_JSON, errors="replace") as f:
+                previous_alignment_metrics = json.load(f)
+        except ValueError:
+            previous_alignment_metrics = {}
 
     main_tex = read_text("paper/0.Main.tex")
     main_log = read_text("paper/main.log") if exists("paper/main.log") else ""
@@ -364,6 +378,19 @@ def main():
             and "paper/previous_paper_alignment.md" in paper_readme,
             "warning",
             "previous-paper paragraph and style alignment is documented and linked",
+        ),
+        check(
+            "previous_paper_alignment_metrics",
+            exists("scripts/audit_previous_paper_alignment.py")
+            and exists("data/processed/perlmutter/previous_paper_alignment_metrics.json")
+            and exists("data/processed/perlmutter/previous_paper_alignment_metrics.md")
+            and "scripts/audit_previous_paper_alignment.py" in root_readme
+            and "scripts/audit_previous_paper_alignment.py" in paper_readme
+            and "previous_paper_alignment_metrics.md" in root_readme
+            and "previous_paper_alignment_metrics.md" in paper_readme
+            and all(previous_alignment_metrics.get("checks", {}).values()),
+            "warning",
+            "previous-paper word, paragraph, heading, and role-marker metrics are generated and linked",
         ),
     ]
 
