@@ -21,7 +21,7 @@ Status: **ALIGNED_BY_COUNTS**
 
 | Section | Paper | Words | Paragraphs | textbf | Subsections | Subsubsections | Figures | Tables | Items |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| introduction | ours | 975 | 8 | 15 | 0 | 0 | 1 | 1 | 0 |
+| introduction | ours | 979 | 8 | 15 | 0 | 0 | 1 | 1 | 0 |
 | introduction | aurora | 1023 | 7 | 7 | 0 | 0 | 1 | 1 | 0 |
 | introduction | scaleqsim | 1510 | 10 | 6 | 0 | 0 | 1 | 1 | 0 |
 | background | ours | 622 | 8 | 5 | 2 | 0 | 0 | 0 | 0 |
@@ -30,7 +30,7 @@ Status: **ALIGNED_BY_COUNTS**
 | design | ours | 2712 | 37 | 39 | 6 | 4 | 1 | 2 | 0 |
 | design | aurora | 3497 | 37 | 33 | 5 | 0 | 3 | 0 | 0 |
 | design | scaleqsim | 4581 | 36 | 23 | 6 | 0 | 4 | 0 | 0 |
-| evaluation | ours | 4062 | 36 | 19 | 8 | 3 | 7 | 11 | 0 |
+| evaluation | ours | 4081 | 36 | 19 | 8 | 3 | 7 | 11 | 0 |
 | evaluation | aurora | 3666 | 27 | 26 | 5 | 0 | 9 | 2 | 0 |
 | evaluation | scaleqsim | 5732 | 47 | 27 | 7 | 0 | 7 | 2 | 0 |
 | related | ours | 408 | 5 | 5 | 0 | 0 | 0 | 0 | 0 |
@@ -48,7 +48,7 @@ No large word-count gaps under the current threshold.
 
 | Section | Paper | Avg paragraph words | textbf / 1000 words | Paragraphs / heading |
 | --- | --- | ---: | ---: | ---: |
-| introduction | ours | 121.88 | 15.38 | 8.0 |
+| introduction | ours | 122.38 | 15.32 | 8.0 |
 | introduction | aurora | 146.14 | 6.84 | 7.0 |
 | introduction | scaleqsim | 151.0 | 3.97 | 10.0 |
 | background | ours | 77.75 | 8.04 | 4.0 |
@@ -57,7 +57,7 @@ No large word-count gaps under the current threshold.
 | design | ours | 73.3 | 14.38 | 3.7 |
 | design | aurora | 94.51 | 9.44 | 7.4 |
 | design | scaleqsim | 127.25 | 5.02 | 6.0 |
-| evaluation | ours | 112.83 | 4.68 | 3.27 |
+| evaluation | ours | 113.36 | 4.66 | 3.27 |
 | evaluation | aurora | 135.78 | 7.09 | 5.4 |
 | evaluation | scaleqsim | 121.96 | 4.71 | 6.71 |
 | related | ours | 81.6 | 12.25 | 5.0 |
@@ -81,8 +81,8 @@ No large style-fingerprint gaps under the current threshold.
 | introduction | 4 | 15 | aurora:31 | observations | Bold observations before positioning table |
 | introduction | 5 | 17 | aurora:45 | application diversity | Why one toy workload cannot support broad quantum claims |
 | introduction | 6 | 21 | aurora:47 | positioning table | Early related-work table before final pitch |
-| introduction | 7 | 41 | aurora:73 | key idea | Break-even threshold model |
-| introduction | 8 | 46 | aurora:77 | paper statement and contributions | System statement followed by contribution list |
+| introduction | 7 | 42 | aurora:73 | key idea | Break-even threshold model |
+| introduction | 8 | 47 | aurora:77 | paper statement and contributions | System statement followed by contribution list |
 | background | 1 | 3 | scaleqsim:2 | application paths | Define quantum-circuit application families |
 | background | 2 | 7 | scaleqsim:8 | repeated execution | Explain why one circuit run is not the full application |
 | background | 3 | 10 | scaleqsim:11 | practical families | ML, chemistry, optimization, simulation |
@@ -102,14 +102,14 @@ No large style-fingerprint gaps under the current threshold.
 | design | 10 | 172 | scaleqsim:306 | workload suite | Measured application families |
 | evaluation | 1 | 5 | aurora:58 | setup | Hardware, benchmark, baselines, feasibility |
 | evaluation | 2 | 19 | aurora:9 | campaign summary | Evidence table and evaluation questions |
-| evaluation | 3 | 91 | aurora:133 | RQ1 | Native ML versus quantum-circuit ML |
-| evaluation | 4 | 132 | scaleqsim:58 | RQ2 | Quality sensitivity |
-| evaluation | 5 | 156 | aurora:248 | RQ3 | Practical application suite |
-| evaluation | 6 | 190 | scaleqsim:247 | RQ4 | Native baseline stress |
-| evaluation | 7 | 250 | aurora:262 | RQ5 | Weak and strong scaling |
-| evaluation | 8 | 285 | aurora:334 | RQ6 | Advantage frontier and hardware projection |
-| evaluation | 9 | 322 | scaleqsim:413 | stability | Operational and repeat-timing checks |
-| evaluation | 10 | 371 | aurora:399 | taxonomy and sensitivity | Bottleneck classes and remaining scope |
+| evaluation | 3 | 93 | aurora:133 | RQ1 | Native ML versus quantum-circuit ML |
+| evaluation | 4 | 141 | scaleqsim:58 | RQ2 | Quality sensitivity |
+| evaluation | 5 | 165 | aurora:248 | RQ3 | Practical application suite |
+| evaluation | 6 | 199 | scaleqsim:247 | RQ4 | Native baseline stress |
+| evaluation | 7 | 259 | aurora:262 | RQ5 | Weak and strong scaling |
+| evaluation | 8 | 294 | aurora:334 | RQ6 | Advantage frontier and hardware projection |
+| evaluation | 9 | 331 | scaleqsim:413 | stability | Operational and repeat-timing checks |
+| evaluation | 10 | 380 | aurora:399 | taxonomy and sensitivity | Bottleneck classes and remaining scope |
 | related | 1 | 3 | aurora:3 | simulation and NISQ | Simulation substrate and current-device limits |
 | related | 2 | 9 | aurora:6 | applications and baselines | Application families and native comparisons |
 | conclusion | 1 | 3 | scaleqsim:8 | paper result | Framework and measured thresholds |

@@ -20,7 +20,7 @@
       "severity": "error"
     },
     {
-      "detail": "references start on page 12; HPCA 2027 allows an 11-page body before references",
+      "detail": "references start on page 11; HPCA 2027 allows an 11-page body before references",
       "name": "page_count_hpca_body",
       "passed": true,
       "severity": "warning"
@@ -152,6 +152,12 @@
       "severity": "warning"
     },
     {
+      "detail": "previous-paper LaTeX idioms are machine-audited for textbf lead-ins, subfigure syntax, captions, dense tables, and float spacing",
+      "name": "previous_paper_style_audit",
+      "passed": true,
+      "severity": "warning"
+    },
+    {
       "detail": "previous-paper completion audit covers logic, line, paragraph, word-count, and style requirements",
       "name": "previous_paper_completion_audit",
       "passed": true,
@@ -160,7 +166,7 @@
   ],
   "line_spacing_points": 12.001982142857143,
   "page_count": 13,
-  "references_start_page": 12,
+  "references_start_page": 11,
   "status": "SUBMISSION_READY",
   "warning_count": 0
 }

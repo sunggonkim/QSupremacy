@@ -24,6 +24,13 @@ PREVIOUS_ALIGNMENT_JSON = os.path.join(
     "perlmutter",
     "previous_paper_alignment_metrics.json",
 )
+PREVIOUS_STYLE_JSON = os.path.join(
+    ROOT,
+    "data",
+    "processed",
+    "perlmutter",
+    "previous_paper_style_audit.json",
+)
 REVIEWER_RESPONSE_AUDIT_JSON = os.path.join(
     ROOT,
     "data",
@@ -188,6 +195,13 @@ def main():
                 previous_alignment_metrics = json.load(f)
         except ValueError:
             previous_alignment_metrics = {}
+    previous_style_audit = {}
+    if os.path.exists(PREVIOUS_STYLE_JSON):
+        try:
+            with open(PREVIOUS_STYLE_JSON, errors="replace") as f:
+                previous_style_audit = json.load(f)
+        except ValueError:
+            previous_style_audit = {}
     reviewer_response_audit = {}
     if os.path.exists(REVIEWER_RESPONSE_AUDIT_JSON):
         try:
@@ -552,6 +566,20 @@ def main():
             and all(previous_alignment_metrics.get("checks", {}).values()),
             "warning",
             "previous-paper word, paragraph, heading, style, role-marker, paragraph-role, current-line, and template-line metrics are generated and linked",
+        ),
+        check(
+            "previous_paper_style_audit",
+            exists("scripts/audit_previous_paper_style.py")
+            and exists("data/processed/perlmutter/previous_paper_style_audit.json")
+            and exists("data/processed/perlmutter/previous_paper_style_audit.md")
+            and bool(previous_style_audit.get("passed"))
+            and "scripts/audit_previous_paper_style.py" in root_readme
+            and "scripts/audit_previous_paper_style.py" in paper_readme
+            and "previous_paper_style_audit.md" in root_readme
+            and "previous_paper_style_audit.md" in paper_readme
+            and "Previous-Paper Style Audit" in previous_completion,
+            "warning",
+            "previous-paper LaTeX idioms are machine-audited for textbf lead-ins, subfigure syntax, captions, dense tables, and float spacing",
         ),
         check(
             "previous_paper_completion_audit",

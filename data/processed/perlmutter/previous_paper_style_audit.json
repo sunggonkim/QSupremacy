@@ -1,0 +1,112 @@
+{
+  "checks": [
+    {
+      "detail": "missing previous: []; missing current: []",
+      "name": "previous_sources_available",
+      "passed": true
+    },
+    {
+      "detail": "previous subfigure environments: 30",
+      "name": "accepted_sources_use_subfigure_style",
+      "passed": true
+    },
+    {
+      "detail": "current main preamble uses subcaption package",
+      "name": "current_uses_subcaption_package",
+      "passed": true
+    },
+    {
+      "detail": "current subfigure environments: 2",
+      "name": "current_uses_subfigure_environment",
+      "passed": true
+    },
+    {
+      "detail": "current subfloat commands: 0",
+      "name": "current_avoids_legacy_subfloat",
+      "passed": true
+    },
+    {
+      "detail": "subfigures=2, captions=2, labels=2",
+      "name": "subfigures_have_caption_and_label",
+      "passed": true
+    },
+    {
+      "detail": "caption-before-label ratio: 1.00",
+      "name": "caption_before_label_order",
+      "passed": true
+    },
+    {
+      "detail": "captionsetup=1, float spacing setlengths=3",
+      "name": "float_spacing_matches_previous_idiom",
+      "passed": true
+    },
+    {
+      "detail": "lowercase lead-ins: []",
+      "name": "title_case_noindent_textbf",
+      "passed": true
+    },
+    {
+      "detail": "scriptsize=3, arraystretch=3",
+      "name": "dense_table_style_present",
+      "passed": true
+    },
+    {
+      "detail": "booktabs rules: 45",
+      "name": "booktabs_table_style_present",
+      "passed": true
+    },
+    {
+      "detail": "evaluation setup lead-ins match AURORA-Q title-case rhythm",
+      "name": "evaluation_setup_leadins_title_case",
+      "passed": true
+    }
+  ],
+  "current_metrics": {
+    "arraystretch": 3,
+    "booktabs_rules": 45,
+    "caption_before_label_ratio": 1.0,
+    "caption_setup": 1,
+    "figure": 9,
+    "figure_star": 0,
+    "float_spacing": 3,
+    "hline_rules": 0,
+    "lowercase_noindent_textbf": [],
+    "noindent_textbf": 71,
+    "resizebox_column": 9,
+    "scriptsize": 3,
+    "subfigure_environment": 2,
+    "subfigures_with_caption": 2,
+    "subfigures_with_label": 2,
+    "subfloat": 0,
+    "table": 15,
+    "table_star": 0,
+    "textbf": 95,
+    "vspace": 0
+  },
+  "passed": true,
+  "previous_metrics": {
+    "arraystretch": 1,
+    "booktabs_rules": 7,
+    "caption_before_label_ratio": 0.8888888888888888,
+    "caption_setup": 3,
+    "figure": 24,
+    "figure_star": 5,
+    "float_spacing": 3,
+    "hline_rules": 15,
+    "lowercase_noindent_textbf": [
+      "\\# of Nodes.",
+      "\\# of Nodes."
+    ],
+    "noindent_textbf": 71,
+    "resizebox_column": 3,
+    "scriptsize": 6,
+    "subfigure_environment": 30,
+    "subfigures_with_caption": 28,
+    "subfigures_with_label": 28,
+    "subfloat": 12,
+    "table": 7,
+    "table_star": 0,
+    "textbf": 168,
+    "vspace": 83
+  }
+}

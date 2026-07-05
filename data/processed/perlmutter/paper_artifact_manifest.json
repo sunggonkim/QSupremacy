@@ -204,7 +204,7 @@
     },
     {
       "id": "submission_package",
-      "claim": "The paper package builds to an HPCA 2027-style double-blind PDF with references starting on page 12 after an 11-page body, evidence/readiness checks passing, and all-author references.",
+      "claim": "The paper package builds to an HPCA 2027-style double-blind PDF with references starting on page 11 within the 11-page body limit, evidence/readiness checks passing, and all-author references.",
       "paper_locations": [
         "paper/main.pdf",
         "paper/README.md",

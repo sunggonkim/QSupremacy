@@ -4,7 +4,7 @@ This section evaluates \SystemName in the same style as a systems performance pa
 
 \subsection{Evaluation Setup}
 
-\noindent\textbf{Hardware specification.}
+\noindent\textbf{Hardware Specification.}
 Experiments run on NERSC \Perlmutter. Login-node smoke tests validate correctness, while performance experiments run through Slurm. GPU-node runs use A100 GPUs and record JSON outputs, Slurm metadata, elapsed time, and allocation information.
 
 \noindent\textbf{Benchmark.}
@@ -16,13 +16,14 @@ Native paths are selected from workload-specific candidates. ML selects among si
 \noindent\textbf{Feasibility.}
 Short login runs are only correctness gates. Performance evidence must come from Slurm jobs with accounting records, raw JSON counts, and completed exit status. The completed campaign below separates calibration, application coverage, baseline stress, scaling, and timing stability.
 
-\noindent\textbf{Campaign summary.}
+\noindent\textbf{Campaign Summary.}
 Table~\ref{tab:campaign-summary} lists the completed evidence used by the paper. The first two rows provide the main accuracy and threshold results. The next rows stress native-baseline strength, application coverage, scale-out behavior, and timing stability. This organization separates correctness gates from performance evidence and avoids treating a short smoke test as a performance claim.
 
 \begin{table}[t]
 \caption{Completed Perlmutter evidence campaign.}
 \centering
-\small
+\scriptsize
+\renewcommand{\arraystretch}{1.15}
 \resizebox{\columnwidth}{!}{%
 \begin{tabular}{lrrl}
 \toprule
@@ -64,13 +65,14 @@ Cases & 160 \\
 \label{tab:eval-setup}
 \end{table}
 
-\noindent\textbf{Evaluation questions.}
+\noindent\textbf{Evaluation Questions.}
 Table~\ref{tab:eval-questions} summarizes the evaluation flow. Each question maps to a measured table or figure, following the comparison--scalability--analysis structure used by our prior systems papers.
 
 \begin{table}[t]
 \caption{Evaluation roadmap.}
 \centering
-\small
+\scriptsize
+\renewcommand{\arraystretch}{1.15}
 \resizebox{\columnwidth}{!}{%
 \begin{tabular}{lll}
 \toprule
@@ -113,18 +115,25 @@ QNN/VQC required speedup & 21.1$\times$ & 64.9$\times$ & 171.7$\times$ \\
 \noindent\textbf{Answer.}
 The first result supports the main thesis: the useful output is not ``quantum is faster'' or ``quantum is slower.'' The useful output is the hardware requirement. For this workload, even when quantum kernels achieve good accuracy, the projected execution must improve by a median 421.9$\times$ to reach native time. For QNN/VQC, the median threshold is 64.9$\times$, but the model usually fails to match native accuracy.
 
-\noindent\textbf{Qubit accounting.}
+\noindent\textbf{Qubit Accounting.}
 The digits circuits use one qubit per PCA feature dimension. Thus, the controlled sweep uses 4, 8, 12, and 16 qubits, matching Table~\ref{tab:eval-setup}. Figures~\ref{fig:digits-speedup} and~\ref{fig:digits-quality} are not hardware-roadmap plots over 50--1000 qubits; they are generated from the 160 measured case records and summarize threshold and quality versus the measured circuit configuration.
 
 \begin{figure}[t]
 \centering
-\subfloat[Threshold distribution.\label{fig:digits-speedup}]{%
-    \includegraphics[width=0.48\linewidth]{figures/digits_required_speedup.pdf}
-    \Description{Distribution of required projected speedup for quantum-kernel and QNN/VQC digits cases.}}
-\hfill
-\subfloat[Quality vs. threshold.\label{fig:digits-quality}]{%
-    \includegraphics[width=0.48\linewidth]{figures/digits_quality_speedup.pdf}
-    \Description{Scatter plot relating quantum model quality to required projected speedup for expanded digits cases.}}
+\begin{subfigure}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/digits_required_speedup.pdf}
+    \caption{Threshold distribution.}
+    \label{fig:digits-speedup}
+    \Description{Distribution of required projected speedup for quantum-kernel and QNN/VQC digits cases.}
+\end{subfigure}
+\begin{subfigure}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/digits_quality_speedup.pdf}
+    \caption{Quality vs. threshold.}
+    \label{fig:digits-quality}
+    \Description{Scatter plot relating quantum model quality to required projected speedup for expanded digits cases.}
+\end{subfigure}
 \caption{Expanded digits results over 160 cases. The quantum-kernel path often reaches useful accuracy but needs hundreds of times faster execution, while QNN/VQC has a lower threshold but usually lower quality.}
 \label{fig:digits-results}
 \end{figure}
@@ -200,7 +209,7 @@ The practical suite confirms that the gap is not an ML-only artifact. Every fami
 \noindent\textbf{Answer.}
 The native baseline is part of the model. Strengthening the native side increases the ML threshold by 6.6$\times$ and the optimization threshold by 2.3$\times$ relative to the initial native-baseline sweep. The strong-native run completed as a one-node, four-GPU bundled allocation on \Perlmutter. The job finished 190 cases in 6 minutes and 59 seconds with exit code 0:0, 190 raw JSON outputs, and empty stderr logs. The selected ML baselines were RBF kernel ridge, nearest centroid, kNN, softmax regression, and linear ridge depending on the case; the selected optimization baselines were mostly greedy assignment, with exact enumeration selected when it was fastest at the best cut value.
 
-\noindent\textbf{Baseline coverage gate.}
+\noindent\textbf{Baseline Coverage Gate.}
 We also run a separate accept-profile gate to strengthen the two application families that are easiest to criticize as toy baselines: chemistry and scientific simulation. The chemistry gate includes OpenFermion and PySCF-generated H$_2$, LiH, and H$_2$O active-space Hamiltonians, in addition to the built-in minimal H$_2$ and molecular-chain surrogate. The committed fixture set now includes LiH and H$_2$O active spaces at 4, 6, and 8 qubits; the 6--8 qubit fixtures pass a login-node smoke gate before larger allocation runs. The simulation gate compares dense exact evolution with sparse Krylov evolution on TFIM and Heisenberg Hamiltonians from 4 to 8 qubits.
 
 \begin{table}[t]
@@ -223,7 +232,7 @@ Simulation & 60 & 4,185.2$\times$ & 0.0237 & Dense exact: 26; sparse Krylov: 34 
 \noindent\textbf{Answer.}
 Table~\ref{tab:accept-baselines} shows that the strengthened chemistry and simulation baselines execute correctly in the same bundled one-node run. The job completed 116 cases in 6 minutes and 5 seconds with exit code 0:0; each of the four A100 tasks completed 29 cases, and stderr logs were empty. For chemistry, both dense exact and sparse Lanczos/eigensolver candidates were evaluated for every case. The selected runtime baseline is dense exact for all 56 cases because these active-space Hamiltonians are still small, but the run now uses OpenFermion and PySCF instances instead of only a hand-written surrogate. For simulation, sparse Krylov becomes the selected native method in 34 of 60 cases, especially at 6--8 qubits, showing that the native path is no longer a single dense solver.
 
-\noindent\textbf{Chemistry active-space coverage.}
+\noindent\textbf{Chemistry Active-space Coverage.}
 We then run the expanded chemistry-only accept profile with the 4--8 qubit OpenFermion and PySCF fixture set. Job 55515248 completed 104 chemistry cases on one \Perlmutter GPU node in 5 minutes and 23 seconds with exit code 0:0, 104 raw JSON outputs, and empty stderr. Table~\ref{tab:chem-coverage} shows the larger active-space subset. Dense exact remains the selected runtime baseline because these fixtures are still small, but sparse Lanczos is the best-quality native method in 62 of 104 cases. This result upgrades the chemistry evidence from a login smoke to a completed GPU coverage gate, while still reporting the limitation that these are active-space instances rather than production drug-discovery scale.
 
 \begin{table}[t]
@@ -297,7 +306,7 @@ The practical-suite result gives one speed threshold per case, but a speed-only 
 \noindent\textbf{Answer.}
 The frontier separates speed-limited and quality-limited workloads. Chemistry and simulation often have small quality gaps, so their frontier is mostly pushed right by runtime. ML has a lower runtime threshold in some cases, but the quality gap must shrink before speed alone becomes meaningful. Optimization is far from the advantage region on both axes for the current QAOA configuration. This is the central point of \SystemName: quantum advantage is a feasible region, not a single speedup slogan.
 
-\noindent\textbf{Tolerance sensitivity.}
+\noindent\textbf{Tolerance Sensitivity.}
 The projection table reports the tolerance used for each family. These values are intentionally strict and are treated as model inputs, not universal domain standards. A looser tolerance moves quality-limited cases toward the frontier; a stricter tolerance moves them away. The raw projection artifact records the full grid so the table can be regenerated under other tolerances without rerunning the Perlmutter jobs.
 
 \begin{table}[t]
@@ -350,7 +359,7 @@ Simulation & 18 & 11,629.0$\times$ & 0.0250 \\
 
 The pilot completed in 6 minutes and 54 seconds with 96 raw JSON outputs and empty stderr logs. Its main systems result is operational: the correct bundled pattern is a single \texttt{srun} step with multiple tasks, where each task selects a chunk using \texttt{SLURM\_PROCID}. Launching multiple overlapping \texttt{srun} steps was less reliable because of step-level resource ownership.
 
-\noindent\textbf{Timing gate.}
+\noindent\textbf{Timing Gate.}
 Finally, we run a small warmup-separated repeat-timing gate to check that the measured path is not dominated by one first-use timing sample. The gate uses one \Perlmutter GPU node with four A100 tasks. Each task runs one workload family, discards one warmup case, and records three measured trials. Job 55516885 completed in 58 seconds with exit code 0:0 and empty stderr. Across the 12 measured trials, the maximum quantum-runtime CV is 0.0400. This gate is not a replacement for the large 3,552-case sweep; it is a timing-stability check for the submitted evidence package.
 
 \subsubsection{Hardware Projection Model}

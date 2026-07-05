@@ -51,6 +51,7 @@ The paper-ready artifacts are:
 - previous-paper alignment: `paper/previous_paper_alignment.md`
 - previous-paper completion audit: `paper/previous_paper_completion_audit.md`
 - previous-paper alignment metrics: `data/processed/perlmutter/previous_paper_alignment_metrics.md`
+- previous-paper LaTeX style audit: `data/processed/perlmutter/previous_paper_style_audit.md`
 - evidence audit: `data/processed/perlmutter/paper_evidence_audit.md`
 - readiness audit: `data/processed/perlmutter/submission_readiness_audit.md`
 - main 32-node summary: `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv`
@@ -63,6 +64,7 @@ Run the paper checks from the repository root:
 ```bash
 make -B -C paper
 python3 scripts/audit_previous_paper_alignment.py
+python3 scripts/audit_previous_paper_style.py
 python3 scripts/audit_reviewer_response.py
 python3 scripts/audit_paper_evidence.py
 python3 scripts/audit_submission_readiness.py
@@ -70,14 +72,16 @@ python3 scripts/audit_submission_readiness.py
 
 Expected current result: `paper/main.pdf` builds as an HPCA 2027-style
 double-blind manuscript, `scripts/audit_previous_paper_alignment.py` writes the
-previous-paper count metrics, `scripts/audit_reviewer_response.py` reports PASS,
-`scripts/audit_paper_evidence.py` reports PASS, and
-`scripts/audit_submission_readiness.py` reports `SUBMISSION_READY`. The
-current PDF has references starting on page 12, so the body is exactly HPCA's
-11-page limit excluding references; the AI-use appendix is placed after the
-references. The readiness audit also checks inferred 12pt line spacing,
-all-author references, source anonymity, and PDF metadata anonymity. Replace
-`NaN` in the HPCA title banner with the HotCRP submission number after
+previous-paper count metrics, `scripts/audit_previous_paper_style.py` checks the
+accepted-paper LaTeX idioms for `\textbf{}` lead-ins, `subfigure` syntax,
+caption/label order, dense tables, and float spacing,
+`scripts/audit_reviewer_response.py` reports PASS, `scripts/audit_paper_evidence.py`
+reports PASS, and `scripts/audit_submission_readiness.py` reports
+`SUBMISSION_READY`. The current PDF has references starting on page 11, so the
+body is within HPCA's 11-page limit excluding references; the AI-use appendix is
+placed after the references. The readiness audit also checks inferred 12pt line
+spacing, all-author references, source anonymity, and PDF metadata anonymity.
+Replace `NaN` in the HPCA title banner with the HotCRP submission number after
 registration. The paper claim-to-artifact map is tracked in
 `data/processed/perlmutter/paper_artifact_manifest.md` and checked by the
 paper evidence audit.

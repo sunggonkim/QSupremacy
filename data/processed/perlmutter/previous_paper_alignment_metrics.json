@@ -57,7 +57,7 @@
         },
         {
           "current_line": 7,
-          "current_marker": "Repeated execution",
+          "current_marker": "Repeated Execution",
           "role": "repeated execution",
           "template_line": 8,
           "template_logic": "Explain why one circuit run is not the full application",
@@ -66,7 +66,7 @@
         },
         {
           "current_line": 10,
-          "current_marker": "Practical application families",
+          "current_marker": "Practical Application Families",
           "role": "practical families",
           "template_line": 11,
           "template_logic": "ML, chemistry, optimization, simulation",
@@ -102,7 +102,7 @@
         },
         {
           "current_line": 23,
-          "current_marker": "Break-even condition",
+          "current_marker": "Break-even Condition",
           "role": "break-even equations",
           "template_line": 84,
           "template_logic": "Native, simulated quantum, projected hardware paths",
@@ -111,9 +111,9 @@
         }
       ],
       "role_markers": {
-        "Break-even condition": 3545,
-        "Practical application families": 963,
-        "Repeated execution": 536,
+        "Break-even Condition": 3545,
+        "Practical Application Families": 963,
+        "Repeated Execution": 536,
         "\\subsection": 22
       },
       "role_markers_ordered": true,
@@ -381,7 +381,7 @@
       },
       "closest_template": "scaleqsim",
       "ours": {
-        "avg_paragraph_words": 112.83,
+        "avg_paragraph_words": 113.36,
         "figures": 7,
         "items": 0,
         "missing": false,
@@ -392,8 +392,8 @@
         "subsubsections": 3,
         "tables": 11,
         "textbf": 19,
-        "textbf_per_1000_words": 4.68,
-        "words": 4062
+        "textbf_per_1000_words": 4.66,
+        "words": 4081
       },
       "paragraph_role_inventory": [
         {
@@ -407,7 +407,7 @@
         },
         {
           "current_line": 19,
-          "current_marker": "Campaign summary",
+          "current_marker": "Campaign Summary",
           "role": "campaign summary",
           "template_line": 9,
           "template_logic": "Evidence table and evaluation questions",
@@ -415,7 +415,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 91,
+          "current_line": 93,
           "current_marker": "\\subsection{RQ1:",
           "role": "RQ1",
           "template_line": 133,
@@ -424,7 +424,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 132,
+          "current_line": 141,
           "current_marker": "\\subsection{RQ2:",
           "role": "RQ2",
           "template_line": 58,
@@ -433,7 +433,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 156,
+          "current_line": 165,
           "current_marker": "\\subsection{RQ3:",
           "role": "RQ3",
           "template_line": 248,
@@ -442,7 +442,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 190,
+          "current_line": 199,
           "current_marker": "\\subsection{RQ4:",
           "role": "RQ4",
           "template_line": 247,
@@ -451,7 +451,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 250,
+          "current_line": 259,
           "current_marker": "\\subsection{RQ5:",
           "role": "RQ5",
           "template_line": 262,
@@ -460,7 +460,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 285,
+          "current_line": 294,
           "current_marker": "\\subsection{RQ6:",
           "role": "RQ6",
           "template_line": 334,
@@ -469,7 +469,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 322,
+          "current_line": 331,
           "current_marker": "\\subsection{Operational Stability}",
           "role": "stability",
           "template_line": 413,
@@ -478,7 +478,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 371,
+          "current_line": 380,
           "current_marker": "Bottleneck Taxonomy",
           "role": "taxonomy and sensitivity",
           "template_line": 399,
@@ -488,14 +488,14 @@
         }
       ],
       "role_markers": {
-        "Advantage Frontier": 17864,
-        "Answer": 5418,
+        "Advantage Frontier": 18069,
+        "Answer": 5498,
         "Baselines": 1069,
         "Benchmark": 768,
+        "Evaluation Questions": 3407,
         "Evaluation Setup": 446,
-        "Evaluation questions": 3367,
         "Feasibility": 1380,
-        "Hardware specification": 482
+        "Hardware Specification": 482
       },
       "role_markers_ordered": true,
       "scaleqsim": {
@@ -514,8 +514,8 @@
         "words": 5732
       },
       "template_distance": {
-        "aurora": 8.979,
-        "scaleqsim": 8.319
+        "aurora": 8.981,
+        "scaleqsim": 8.317
       }
     },
     "introduction": {
@@ -536,7 +536,7 @@
       },
       "closest_template": "aurora",
       "ours": {
-        "avg_paragraph_words": 121.88,
+        "avg_paragraph_words": 122.38,
         "figures": 1,
         "items": 0,
         "missing": false,
@@ -547,8 +547,8 @@
         "subsubsections": 0,
         "tables": 1,
         "textbf": 15,
-        "textbf_per_1000_words": 15.38,
-        "words": 975
+        "textbf_per_1000_words": 15.32,
+        "words": 979
       },
       "paragraph_role_inventory": [
         {
@@ -606,8 +606,8 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 41,
-          "current_marker": "Key idea",
+          "current_line": 42,
+          "current_marker": "Key Idea",
           "role": "key idea",
           "template_line": 73,
           "template_logic": "Break-even threshold model",
@@ -615,7 +615,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 46,
+          "current_line": 47,
           "current_marker": "This paper makes the following contributions",
           "role": "paper statement and contributions",
           "template_line": 77,
@@ -625,10 +625,10 @@
         }
       ],
       "role_markers": {
-        "Key idea": 4926,
+        "Key Idea": 4966,
         "Observation 1": 2341,
         "Quantum computing is often described": 24,
-        "This paper makes the following contributions": 5930,
+        "This paper makes the following contributions": 5970,
         "\\begin{figure}": 1471,
         "\\begin{table}": 4311
       },
@@ -649,8 +649,8 @@
         "words": 1510
       },
       "template_distance": {
-        "aurora": 1.309,
-        "scaleqsim": 1.877
+        "aurora": 1.307,
+        "scaleqsim": 1.876
       }
     },
     "related": {
@@ -688,7 +688,7 @@
       "paragraph_role_inventory": [
         {
           "current_line": 3,
-          "current_marker": "Quantum simulation and NISQ systems",
+          "current_marker": "Quantum Simulation and NISQ Systems",
           "role": "simulation and NISQ",
           "template_line": 3,
           "template_logic": "Simulation substrate and current-device limits",
@@ -697,7 +697,7 @@
         },
         {
           "current_line": 9,
-          "current_marker": "Quantum applications and native baselines",
+          "current_marker": "Quantum Applications and Native Baselines",
           "role": "applications and baselines",
           "template_line": 6,
           "template_logic": "Application families and native comparisons",

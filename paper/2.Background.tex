@@ -4,10 +4,10 @@
 
 Quantum-circuit applications map input data or problem instances into a sequence of quantum gates. In quantum machine learning, common paths include quantum feature maps, quantum kernels, and variational quantum circuits. A feature-map pipeline encodes classical features into circuit parameters and extracts observables or kernel values. A QNN/VQC pipeline additionally optimizes trainable circuit parameters through repeated circuit evaluations.
 
-\noindent\textbf{Repeated execution.}
+\noindent\textbf{Repeated Execution.}
 The key systems implication is repetition. A single circuit execution is rarely the full application. Training and evaluation require many samples, classes, optimizer steps, shots, and circuit variants. Therefore, the cost of a quantum application must include encoding, circuit construction, repeated simulation or execution, measurement, loss computation, and classical postprocessing.
 
-\noindent\textbf{Practical application families.}
+\noindent\textbf{Practical Application Families.}
 \SystemName treats the first ML workload as a calibration workload, not as the whole target. Practical quantum claims usually appear in four application families. First, quantum ML claims include classification, kernel methods, and variational classifiers. Second, chemistry and drug-discovery claims include molecular energy estimation, Hamiltonian simulation, and candidate screening loops. Third, optimization claims include portfolio, routing, scheduling, and QAOA-style objective minimization. Fourth, scientific simulation claims include quantum dynamics and materials workloads. These families have different native baselines and different quantum costs. A useful advantage model must therefore report a threshold per workload family, not one global number for all quantum computing.
 
 \noindent\textbf{Terminology.}
@@ -20,7 +20,7 @@ Native HPC/ML baselines execute the same task directly on CPUs or GPUs. For the 
 \noindent\textbf{Perlmutter and cuQuantum.}
 \Perlmutter provides GPU nodes for quantum-circuit simulation with \cuQuantum and cuStateVec~\cite{cuquantum}. Our environment uses an existing \cuQuantum installation and validates it through login-node smoke tests before any allocation-consuming job. Login-node tests are used only for correctness and pipeline validation. Performance experiments run through Slurm and record queue time, elapsed time, allocation resources, and charged node-hours.
 
-\noindent\textbf{Break-even condition.}
+\noindent\textbf{Break-even Condition.}
 For a fixed task, dataset split, target quality, and system budget, the native application path is:
 
 \begin{align}

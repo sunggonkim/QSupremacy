@@ -15,6 +15,7 @@ verification note, not submitted paper text.
 | Paragraph-by-paragraph roles | `data/processed/perlmutter/previous_paper_alignment_metrics.md` includes the ordered paragraph-role inventory for introduction, background, design, evaluation, related work, and conclusion. | PASS |
 | Word-count alignment | `scripts/audit_previous_paper_alignment.py` reports `ALIGNED_BY_COUNTS` and no large word-count gaps. | PASS |
 | Style alignment | `scripts/audit_previous_paper_alignment.py` reports no large style-fingerprint gaps for average paragraph length, bold-lead density, and paragraphs per heading. | PASS |
+| Previous-Paper Style Audit | `scripts/audit_previous_paper_style.py` reports PASS for title-case `\textbf{}` lead-ins, `subfigure` syntax, caption/label order, dense tables, booktabs, caption setup, and float spacing. | PASS |
 | Previous-paper references available | The alignment audit reads both `paper/PreviousPapers/AURORA_Q_ICDCS26` and `paper/PreviousPapers/ScaleQsim_SIGMETRICS26`. | PASS |
 | Submission safety | `scripts/audit_submission_readiness.py` reports `SUBMISSION_READY`; LaTeX has no overfull, undefined-reference, citation, or BibTeX warning hits. | PASS |
 
@@ -24,6 +25,8 @@ The authoritative generated evidence is:
 
 - `data/processed/perlmutter/previous_paper_alignment_metrics.md`
 - `data/processed/perlmutter/previous_paper_alignment_metrics.json`
+- `data/processed/perlmutter/previous_paper_style_audit.md`
+- `data/processed/perlmutter/previous_paper_style_audit.json`
 
 The current generated status is `ALIGNED_BY_COUNTS`. The generated checks pass:
 
@@ -37,6 +40,19 @@ The current generated status is `ALIGNED_BY_COUNTS`. The generated checks pass:
 - `paragraph_role_lines_present`
 - `template_role_lines_present`
 - `style_fingerprint_no_large_gaps`
+
+The previous-paper style audit also passes its LaTeX idiom checks:
+
+- `current_uses_subcaption_package`
+- `current_uses_subfigure_environment`
+- `current_avoids_legacy_subfloat`
+- `subfigures_have_caption_and_label`
+- `caption_before_label_order`
+- `float_spacing_matches_previous_idiom`
+- `title_case_noindent_textbf`
+- `dense_table_style_present`
+- `booktabs_table_style_present`
+- `evaluation_setup_leadins_title_case`
 
 ## Non-Copying Boundary
 

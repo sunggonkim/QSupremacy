@@ -4,7 +4,7 @@ Status: **SUBMISSION_READY**
 
 Page count: `13`
 
-References start page: `12`
+References start page: `11`
 
 Inferred line spacing: `12.00` pt
 
@@ -13,7 +13,7 @@ Inferred line spacing: `12.00` pt
 | main_pdf_exists | error | PASS | paper/main.pdf exists |
 | page_count_known | error | PASS | PDF page count can be read from pdfinfo or the LaTeX log |
 | main_pdf_fresh | error | PASS | paper/main.pdf and paper/main.log are newer than paper sources and figures |
-| page_count_hpca_body | warning | PASS | references start on page 12; HPCA 2027 allows an 11-page body before references |
+| page_count_hpca_body | warning | PASS | references start on page 11; HPCA 2027 allows an 11-page body before references |
 | line_spacing_hpca | warning | PASS | LaTeX log implies 12.00pt leading from the HPCA text block |
 | latex_no_undefined | error | PASS | LaTeX log has no undefined references or citations |
 | latex_no_overfull_hbox | warning | PASS | LaTeX log has no overfull hbox warnings |
@@ -35,4 +35,5 @@ Inferred line spacing: `12.00` pt
 | reviewer_risk_evidence_paths_valid | warning | PASS | reviewer-risk evidence paths are present and tracked: 22 paths |
 | previous_paper_alignment_documented | warning | PASS | previous-paper paragraph and style alignment is documented and linked |
 | previous_paper_alignment_metrics | warning | PASS | previous-paper word, paragraph, heading, style, role-marker, paragraph-role, current-line, and template-line metrics are generated and linked |
+| previous_paper_style_audit | warning | PASS | previous-paper LaTeX idioms are machine-audited for textbf lead-ins, subfigure syntax, captions, dense tables, and float spacing |
 | previous_paper_completion_audit | warning | PASS | previous-paper completion audit covers logic, line, paragraph, word-count, and style requirements |

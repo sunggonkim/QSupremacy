@@ -17,7 +17,7 @@ and pass the same accounting and artifact audits.
 
 | Gate | Current status | Evidence |
 | --- | --- | --- |
-| Paper build | PASS, HPCA-style PDF; references start on page 12 after an 11-page body | `make -B -C paper` |
+| Paper build | PASS, HPCA-style PDF; references start on page 11 within the 11-page body limit | `make -B -C paper` |
 | Paper evidence audit | PASS | `scripts/audit_paper_evidence.py` |
 | Submission readiness | `SUBMISSION_READY`, warning 0 | `scripts/audit_submission_readiness.py` |
 | Previous-paper alignment | `ALIGNED_BY_COUNTS` | `scripts/audit_previous_paper_alignment.py` |
@@ -229,6 +229,7 @@ The paper-ready artifact set is:
 | Line-by-line reviewer response audit | `data/processed/perlmutter/reviewer_response_audit.md` |
 | Previous-paper alignment map | `paper/previous_paper_alignment.md` |
 | Previous-paper alignment metrics | `data/processed/perlmutter/previous_paper_alignment_metrics.md` |
+| Previous-paper LaTeX style audit | `data/processed/perlmutter/previous_paper_style_audit.md` |
 | Previous-paper completion audit | `paper/previous_paper_completion_audit.md` |
 | Advantage projection | `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.md` |
 | Workload taxonomy | `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_taxonomy.json` |
@@ -239,6 +240,7 @@ Current validation commands:
 ```bash
 make -B -C paper
 python3 scripts/audit_previous_paper_alignment.py
+python3 scripts/audit_previous_paper_style.py
 python3 scripts/audit_reviewer_response.py
 python3 scripts/audit_paper_evidence.py
 python3 scripts/audit_submission_readiness.py
@@ -247,8 +249,9 @@ python3 scripts/audit_submission_readiness.py
 Expected result:
 
 ```text
-paper/main.pdf: HPCA-style double-blind PDF, references start on page 12 after an 11-page body
+paper/main.pdf: HPCA-style double-blind PDF, references start on page 11 within the 11-page body limit
 previous-paper alignment: ALIGNED_BY_COUNTS
+previous-paper style audit: PASS
 reviewer response audit: PASS
 paper evidence audit: PASS
 submission readiness: SUBMISSION_READY, warning_count 0
@@ -280,6 +283,7 @@ Previous-paper alignment evidence:
 | Paragraph-by-paragraph roles | `previous_paper_alignment_metrics.md` role inventory | PASS |
 | Word-count alignment | `ALIGNED_BY_COUNTS`, no known gaps | PASS |
 | Style alignment | no style-fingerprint gaps | PASS |
+| LaTeX style idioms | `previous_paper_style_audit.md` checks `\textbf{}`, `subfigure`, captions, dense tables, and float spacing | PASS |
 | Non-copying boundary | `paper/previous_paper_completion_audit.md` | PASS |
 
 ## 9. Evaluation Narrative

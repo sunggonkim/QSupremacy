@@ -21,7 +21,8 @@ Many previous studies focus on one part of this stack. Table~\ref{tab:intro-posi
 \begin{table}[t]
 \caption{Positioning of \SystemName relative to prior work.}
 \centering
-\small
+\scriptsize
+\renewcommand{\arraystretch}{1.15}
 \resizebox{\columnwidth}{!}{%
 \begin{tabular}{lcccc}
 \toprule
@@ -38,7 +39,7 @@ Native baselines &  & \checkmark &  &  \\
 \label{tab:intro-position}
 \end{table}
 
-\noindent\textbf{Key idea.}
+\noindent\textbf{Key Idea.}
 \SystemName treats practical quantum advantage as a modeling and analysis problem. The advantage threshold is the point where the projected quantum-circuit path becomes faster than the measured native HPC and ML path under the same workload and quality target. For each workload, \SystemName records the cost of each stage and then projects the quantum hardware region where this condition holds.
 
 We present \SystemName, a quantum-advantage modeling and analysis study for HPC systems. \SystemName starts with a controlled ML workload: \texttt{sklearn digits} native ML baselines, quantum kernel classifiers, and QNN/VQC classifiers. This first workload validates the measurement pipeline. We then scale the study to a practical suite with ML, molecular energy estimation, combinatorial optimization, and Hamiltonian simulation. The evaluation first exposes the bottleneck, then studies baseline sensitivity, scaling behavior, hardware projection, and workload-specific advantage frontiers.
