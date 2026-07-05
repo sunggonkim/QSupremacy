@@ -7,7 +7,8 @@
     "paragraph_role_inventory_present": true,
     "paragraph_role_lines_present": true,
     "previous_sources_available": true,
-    "role_markers_ordered": true
+    "role_markers_ordered": true,
+    "template_role_lines_present": true
   },
   "known_gaps": [],
   "sections": {
@@ -42,43 +43,64 @@
           "current_line": 3,
           "current_marker": "\\subsection{Quantum-Circuit Application Paths}",
           "role": "application paths",
-          "template_logic": "Define quantum-circuit application families"
+          "template_line": 2,
+          "template_logic": "Define quantum-circuit application families",
+          "template_marker": "\\subsection{Quantum Circuit Simulation}",
+          "template_source": "scaleqsim"
         },
         {
           "current_line": 7,
           "current_marker": "Repeated execution",
           "role": "repeated execution",
-          "template_logic": "Explain why one circuit run is not the full application"
+          "template_line": 8,
+          "template_logic": "Explain why one circuit run is not the full application",
+          "template_marker": "Amplitude sampling simulation",
+          "template_source": "scaleqsim"
         },
         {
           "current_line": 10,
           "current_marker": "Practical application families",
           "role": "practical families",
-          "template_logic": "ML, chemistry, optimization, simulation"
+          "template_line": 11,
+          "template_logic": "ML, chemistry, optimization, simulation",
+          "template_marker": "Full state vector simulation",
+          "template_source": "scaleqsim"
         },
         {
           "current_line": 13,
           "current_marker": "Terminology",
           "role": "terminology",
-          "template_logic": "Threshold and advantage-region definitions"
+          "template_line": 16,
+          "template_logic": "Threshold and advantage-region definitions",
+          "template_marker": "Since full state vector simulation",
+          "template_source": "scaleqsim"
         },
         {
           "current_line": 16,
           "current_marker": "\\subsection{Native Baselines and Threshold Model}",
           "role": "native baselines",
-          "template_logic": "Classical target path"
+          "template_line": 22,
+          "template_logic": "Classical target path",
+          "template_marker": "\\subsection{Distributed Architecture",
+          "template_source": "scaleqsim"
         },
         {
           "current_line": 20,
           "current_marker": "Perlmutter and cuQuantum",
           "role": "Perlmutter/cuQuantum",
-          "template_logic": "Measurement platform"
+          "template_line": 80,
+          "template_logic": "Measurement platform",
+          "template_marker": "\\subsection{Hardware Constraints",
+          "template_source": "aurora"
         },
         {
           "current_line": 23,
           "current_marker": "Break-even condition",
           "role": "break-even equations",
-          "template_logic": "Native, simulated quantum, projected hardware paths"
+          "template_line": 84,
+          "template_logic": "Native, simulated quantum, projected hardware paths",
+          "template_marker": "Bandwidth Gap and Execution Time",
+          "template_source": "aurora"
         }
       ],
       "role_markers": {
@@ -136,13 +158,19 @@
           "current_line": 3,
           "current_marker": "In this paper",
           "role": "paper result",
-          "template_logic": "Framework and measured thresholds"
+          "template_line": 8,
+          "template_logic": "Framework and measured thresholds",
+          "template_marker": "In this paper",
+          "template_source": "scaleqsim"
         },
         {
           "current_line": 5,
           "current_marker": "The main lesson",
           "role": "main lesson",
-          "template_logic": "Frontier and bottleneck taxonomy instead of slogan"
+          "template_line": 15,
+          "template_logic": "Frontier and bottleneck taxonomy instead of slogan",
+          "template_marker": "Our evaluations across",
+          "template_source": "scaleqsim"
         }
       ],
       "scaleqsim": {
@@ -193,61 +221,91 @@
           "current_line": 3,
           "current_marker": "Overview of",
           "role": "overview and boundary",
-          "template_logic": "State what the system is and is not"
+          "template_line": 3,
+          "template_logic": "State what the system is and is not",
+          "template_marker": "Overview of \\AURORA",
+          "template_source": "aurora"
         },
         {
           "current_line": 17,
           "current_marker": "\\subsection{Overall Procedure}",
           "role": "overall procedure",
-          "template_logic": "Measurement then supremacy analysis"
+          "template_line": 8,
+          "template_logic": "Measurement then supremacy analysis",
+          "template_marker": "\\subsection{Overall Procedure}",
+          "template_source": "scaleqsim"
         },
         {
           "current_line": 24,
           "current_marker": "Config Record",
           "role": "configuration record",
-          "template_logic": "Stable work representation before execution"
+          "template_line": 18,
+          "template_logic": "Stable work representation before execution",
+          "template_marker": "Initialization.",
+          "template_source": "scaleqsim"
         },
         {
           "current_line": 30,
           "current_marker": "Failure Handling",
           "role": "failure handling",
-          "template_logic": "Failed paths remain measured evidence"
+          "template_line": 41,
+          "template_logic": "Failed paths remain measured evidence",
+          "template_marker": "Execution.",
+          "template_source": "scaleqsim"
         },
         {
           "current_line": 33,
           "current_marker": "\\subsection{Shared Workload Control}",
           "role": "shared workload control",
-          "template_logic": "Same input, instance identity, and quality target"
+          "template_line": 54,
+          "template_logic": "Same input, instance identity, and quality target",
+          "template_marker": "Two-phase State Space Partitioning",
+          "template_source": "scaleqsim"
         },
         {
           "current_line": 53,
           "current_marker": "\\subsection{Application Path Execution}",
           "role": "application paths",
-          "template_logic": "Native, kernel, and QNN/VQC execution rules"
+          "template_line": 95,
+          "template_logic": "Native, kernel, and QNN/VQC execution rules",
+          "template_marker": "Task-based Qubit State Management",
+          "template_source": "scaleqsim"
         },
         {
           "current_line": 94,
           "current_marker": "\\subsection{Measurement and Threshold Analysis}",
           "role": "measurement records",
-          "template_logic": "JSON, summary path, and allocation accounting"
+          "template_line": 140,
+          "template_logic": "JSON, summary path, and allocation accounting",
+          "template_marker": "Manage statespace structure",
+          "template_source": "scaleqsim"
         },
         {
           "current_line": 105,
           "current_marker": "\\subsubsection{Threshold Analysis}",
           "role": "threshold analysis",
-          "template_logic": "Execution model, break-even search, and frontier classification"
+          "template_line": 165,
+          "template_logic": "Execution model, break-even search, and frontier classification",
+          "template_marker": "Two-phase Mapping and Kernel Execution",
+          "template_source": "scaleqsim"
         },
         {
           "current_line": 134,
           "current_marker": "\\subsection{Advantage Claim Checklist}",
           "role": "claim checklist",
-          "template_logic": "Systems checks before an advantage claim"
+          "template_line": 237,
+          "template_logic": "Systems checks before an advantage claim",
+          "template_marker": "Adaptive Kernel Parameter Adjustment",
+          "template_source": "scaleqsim"
         },
         {
           "current_line": 160,
           "current_marker": "\\subsection{Workload Suite}",
           "role": "workload suite",
-          "template_logic": "Measured application families"
+          "template_line": 306,
+          "template_logic": "Measured application families",
+          "template_marker": "\\ScaleQsim Implementation",
+          "template_source": "scaleqsim"
         }
       ],
       "role_markers": {
@@ -308,61 +366,91 @@
           "current_line": 5,
           "current_marker": "\\subsection{Evaluation Setup}",
           "role": "setup",
-          "template_logic": "Hardware, benchmark, baselines, feasibility"
+          "template_line": 58,
+          "template_logic": "Hardware, benchmark, baselines, feasibility",
+          "template_marker": "\\subsection{Evaluation Setup}",
+          "template_source": "aurora"
         },
         {
           "current_line": 19,
           "current_marker": "Campaign summary",
           "role": "campaign summary",
-          "template_logic": "Evidence table and evaluation questions"
+          "template_line": 9,
+          "template_logic": "Evidence table and evaluation questions",
+          "template_marker": "\\begin{table}",
+          "template_source": "aurora"
         },
         {
           "current_line": 91,
           "current_marker": "\\subsection{RQ1:",
           "role": "RQ1",
-          "template_logic": "Native ML versus quantum-circuit ML"
+          "template_line": 133,
+          "template_logic": "Native ML versus quantum-circuit ML",
+          "template_marker": "\\subsection{Performance with SOTA}",
+          "template_source": "aurora"
         },
         {
           "current_line": 137,
           "current_marker": "\\subsection{RQ2:",
           "role": "RQ2",
-          "template_logic": "Quality sensitivity"
+          "template_line": 58,
+          "template_logic": "Quality sensitivity",
+          "template_marker": "Comparison with \\textit{Qsim}",
+          "template_source": "scaleqsim"
         },
         {
           "current_line": 161,
           "current_marker": "\\subsection{RQ3:",
           "role": "RQ3",
-          "template_logic": "Practical application suite"
+          "template_line": 248,
+          "template_logic": "Practical application suite",
+          "template_marker": "Various Circuits.",
+          "template_source": "aurora"
         },
         {
           "current_line": 195,
           "current_marker": "\\subsection{RQ4:",
           "role": "RQ4",
-          "template_logic": "Native baseline stress"
+          "template_line": 247,
+          "template_logic": "Native baseline stress",
+          "template_marker": "Performance and Scalability in Diverse",
+          "template_source": "scaleqsim"
         },
         {
           "current_line": 253,
           "current_marker": "\\subsection{RQ5:",
           "role": "RQ5",
-          "template_logic": "Weak and strong scaling"
+          "template_line": 262,
+          "template_logic": "Weak and strong scaling",
+          "template_marker": "\\subsection{Scalability with SOTA}",
+          "template_source": "aurora"
         },
         {
           "current_line": 288,
           "current_marker": "\\subsection{RQ6:",
           "role": "RQ6",
-          "template_logic": "Advantage frontier and hardware projection"
+          "template_line": 334,
+          "template_logic": "Advantage frontier and hardware projection",
+          "template_marker": "Strong Scalability.",
+          "template_source": "aurora"
         },
         {
           "current_line": 322,
           "current_marker": "\\subsection{Operational Stability}",
           "role": "stability",
-          "template_logic": "Operational and repeat-timing checks"
+          "template_line": 413,
+          "template_logic": "Operational and repeat-timing checks",
+          "template_marker": "Performance Variability and Stability",
+          "template_source": "scaleqsim"
         },
         {
           "current_line": 371,
           "current_marker": "Bottleneck Taxonomy",
           "role": "taxonomy and sensitivity",
-          "template_logic": "Bottleneck classes and remaining scope"
+          "template_line": 399,
+          "template_logic": "Bottleneck classes and remaining scope",
+          "template_marker": "\\subsection{Sensitivity Analysis}",
+          "template_source": "aurora"
         }
       ],
       "role_markers": {
@@ -424,49 +512,73 @@
           "current_line": 3,
           "current_marker": "Quantum computing is often described",
           "role": "opening motivation",
-          "template_logic": "Broad promise, practical HPC question, hardware limit"
+          "template_line": 2,
+          "template_logic": "Broad promise, practical HPC question, hardware limit",
+          "template_marker": "Quantum computing offers",
+          "template_source": "aurora"
         },
         {
           "current_line": 5,
           "current_marker": "Existing simulation systems provide",
           "role": "prior simulator boundary",
-          "template_logic": "Simulation systems help, but simulator speed is not application speed"
+          "template_line": 12,
+          "template_logic": "Simulation systems help, but simulator speed is not application speed",
+          "template_marker": "To overcome these limitations",
+          "template_source": "aurora"
         },
         {
           "current_line": 7,
           "current_marker": "\\begin{figure}",
           "role": "intro figure",
-          "template_logic": "First visual statement of native path versus quantum path"
+          "template_line": 23,
+          "template_logic": "First visual statement of native path versus quantum path",
+          "template_marker": "\\begin{figure}",
+          "template_source": "aurora"
         },
         {
           "current_line": 15,
           "current_marker": "Observation 1",
           "role": "observations",
-          "template_logic": "Bold observations before positioning table"
+          "template_line": 31,
+          "template_logic": "Bold observations before positioning table",
+          "template_marker": "Figure~\\ref{intro_fig} shows",
+          "template_source": "aurora"
         },
         {
           "current_line": 17,
           "current_marker": "The same issue becomes stronger",
           "role": "application diversity",
-          "template_logic": "Why one toy workload cannot support broad quantum claims"
+          "template_line": 45,
+          "template_logic": "Why one toy workload cannot support broad quantum claims",
+          "template_marker": "Many previous studies",
+          "template_source": "aurora"
         },
         {
           "current_line": 21,
           "current_marker": "\\begin{table}",
           "role": "positioning table",
-          "template_logic": "Early related-work table before final pitch"
+          "template_line": 47,
+          "template_logic": "Early related-work table before final pitch",
+          "template_marker": "\\begin{table}",
+          "template_source": "aurora"
         },
         {
           "current_line": 41,
           "current_marker": "Key idea",
           "role": "key idea",
-          "template_logic": "Break-even threshold model"
+          "template_line": 73,
+          "template_logic": "Break-even threshold model",
+          "template_marker": "\\AURORA distinguishes itself",
+          "template_source": "aurora"
         },
         {
           "current_line": 46,
           "current_marker": "This paper makes the following contributions",
           "role": "paper statement and contributions",
-          "template_logic": "System statement followed by contribution list"
+          "template_line": 77,
+          "template_logic": "System statement followed by contribution list",
+          "template_marker": "In this paper, we propose",
+          "template_source": "aurora"
         }
       ],
       "role_markers": {
@@ -526,13 +638,19 @@
           "current_line": 3,
           "current_marker": "Quantum simulation and NISQ systems",
           "role": "simulation and NISQ",
-          "template_logic": "Simulation substrate and current-device limits"
+          "template_line": 3,
+          "template_logic": "Simulation substrate and current-device limits",
+          "template_marker": "Quantum Simulation Beyond Memory Limits",
+          "template_source": "aurora"
         },
         {
           "current_line": 6,
           "current_marker": "Quantum applications and native baselines",
           "role": "applications and baselines",
-          "template_logic": "Application families and native comparisons"
+          "template_line": 6,
+          "template_logic": "Application families and native comparisons",
+          "template_marker": "Memory and I/O Optimization in HPC Systems",
+          "template_source": "aurora"
         }
       ],
       "scaleqsim": {

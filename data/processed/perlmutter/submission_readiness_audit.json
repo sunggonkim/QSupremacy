@@ -110,7 +110,7 @@
       "severity": "warning"
     },
     {
-      "detail": "previous-paper word, paragraph, heading, role-marker, paragraph-role, and source-line metrics are generated and linked",
+      "detail": "previous-paper word, paragraph, heading, role-marker, paragraph-role, current-line, and template-line metrics are generated and linked",
       "name": "previous_paper_alignment_metrics",
       "passed": true,
       "severity": "warning"

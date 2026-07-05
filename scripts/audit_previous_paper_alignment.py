@@ -196,6 +196,61 @@ ROLE_CURRENT_MARKERS = {
 }
 
 
+ROLE_TEMPLATE_MARKERS = {
+    "introduction": {
+        "opening motivation": ("aurora", "Quantum computing offers"),
+        "prior simulator boundary": ("aurora", "To overcome these limitations"),
+        "intro figure": ("aurora", "\\begin{figure}"),
+        "observations": ("aurora", "Figure~\\ref{intro_fig} shows"),
+        "application diversity": ("aurora", "Many previous studies"),
+        "positioning table": ("aurora", "\\begin{table}"),
+        "key idea": ("aurora", "\\AURORA distinguishes itself"),
+        "paper statement and contributions": ("aurora", "In this paper, we propose"),
+    },
+    "background": {
+        "application paths": ("scaleqsim", "\\subsection{Quantum Circuit Simulation}"),
+        "repeated execution": ("scaleqsim", "Amplitude sampling simulation"),
+        "practical families": ("scaleqsim", "Full state vector simulation"),
+        "terminology": ("scaleqsim", "Since full state vector simulation"),
+        "native baselines": ("scaleqsim", "\\subsection{Distributed Architecture"),
+        "Perlmutter/cuQuantum": ("aurora", "\\subsection{Hardware Constraints"),
+        "break-even equations": ("aurora", "Bandwidth Gap and Execution Time"),
+    },
+    "design": {
+        "overview and boundary": ("aurora", "Overview of \\AURORA"),
+        "overall procedure": ("scaleqsim", "\\subsection{Overall Procedure}"),
+        "configuration record": ("scaleqsim", "Initialization."),
+        "failure handling": ("scaleqsim", "Execution."),
+        "shared workload control": ("scaleqsim", "Two-phase State Space Partitioning"),
+        "application paths": ("scaleqsim", "Task-based Qubit State Management"),
+        "measurement records": ("scaleqsim", "Manage statespace structure"),
+        "threshold analysis": ("scaleqsim", "Two-phase Mapping and Kernel Execution"),
+        "claim checklist": ("scaleqsim", "Adaptive Kernel Parameter Adjustment"),
+        "workload suite": ("scaleqsim", "\\ScaleQsim Implementation"),
+    },
+    "evaluation": {
+        "setup": ("aurora", "\\subsection{Evaluation Setup}"),
+        "campaign summary": ("aurora", "\\begin{table}"),
+        "RQ1": ("aurora", "\\subsection{Performance with SOTA}"),
+        "RQ2": ("scaleqsim", "Comparison with \\textit{Qsim}"),
+        "RQ3": ("aurora", "Various Circuits."),
+        "RQ4": ("scaleqsim", "Performance and Scalability in Diverse"),
+        "RQ5": ("aurora", "\\subsection{Scalability with SOTA}"),
+        "RQ6": ("aurora", "Strong Scalability."),
+        "stability": ("scaleqsim", "Performance Variability and Stability"),
+        "taxonomy and sensitivity": ("aurora", "\\subsection{Sensitivity Analysis}"),
+    },
+    "related": {
+        "simulation and NISQ": ("aurora", "Quantum Simulation Beyond Memory Limits"),
+        "applications and baselines": ("aurora", "Memory and I/O Optimization in HPC Systems"),
+    },
+    "conclusion": {
+        "paper result": ("scaleqsim", "In this paper"),
+        "main lesson": ("scaleqsim", "Our evaluations across"),
+    },
+}
+
+
 def read_rel(rel_path):
     path = os.path.join(ROOT, rel_path)
     if not os.path.exists(path):
@@ -297,8 +352,12 @@ def main():
             section_data["role_markers"] = positions
             section_data["role_markers_ordered"] = ordered_markers(positions)
         if section in ROLE_INVENTORY:
-            section_data["paragraph_role_inventory"] = [
-                {
+            role_rows = []
+            for role, template_logic in ROLE_INVENTORY[section]:
+                template_source, template_marker = ROLE_TEMPLATE_MARKERS.get(section, {}).get(
+                    role, (None, None)
+                )
+                role_rows.append({
                     "role": role,
                     "template_logic": template_logic,
                     "current_marker": ROLE_CURRENT_MARKERS.get(section, {}).get(role),
@@ -306,9 +365,14 @@ def main():
                         texts.get("ours", ""),
                         ROLE_CURRENT_MARKERS.get(section, {}).get(role),
                     ),
-                }
-                for role, template_logic in ROLE_INVENTORY[section]
-            ]
+                    "template_source": template_source,
+                    "template_marker": template_marker,
+                    "template_line": marker_line(
+                        texts.get(template_source, ""),
+                        template_marker,
+                    ),
+                })
+            section_data["paragraph_role_inventory"] = role_rows
 
         sections[section] = section_data
 
@@ -348,6 +412,10 @@ def main():
         ),
         "paragraph_role_lines_present": all(
             all(item.get("current_line") for item in sections[section].get("paragraph_role_inventory", []))
+            for section in SECTION_FILES
+        ),
+        "template_role_lines_present": all(
+            all(item.get("template_line") for item in sections[section].get("paragraph_role_inventory", []))
             for section in SECTION_FILES
         ),
     }
@@ -441,15 +509,20 @@ def main():
         else:
             f.write("No large word-count gaps under the current threshold.\n")
         f.write("\n## Paragraph Role Inventory\n\n")
-        f.write("| Section | Order | Current source line | Current paragraph role | Previous-paper logic followed |\n")
-        f.write("| --- | ---: | ---: | --- | --- |\n")
+        f.write("| Section | Order | Current source line | Template source line | Current paragraph role | Previous-paper logic followed |\n")
+        f.write("| --- | ---: | ---: | --- | --- | --- |\n")
         for section, data in sections.items():
             for index, item in enumerate(data.get("paragraph_role_inventory", []), start=1):
+                template_ref = "{}:{}".format(
+                    item.get("template_source") or "",
+                    item.get("template_line") or "",
+                )
                 f.write(
-                    "| {} | {} | {} | {} | {} |\n".format(
+                    "| {} | {} | {} | {} | {} | {} |\n".format(
                         section,
                         index,
                         item.get("current_line") or "",
+                        template_ref,
                         item["role"],
                         item["template_logic"],
                     )
