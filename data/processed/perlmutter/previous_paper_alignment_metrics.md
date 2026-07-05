@@ -12,6 +12,7 @@ Status: **ALIGNED_BY_COUNTS**
 | design_scaleqsim_subsection_count | PASS |
 | evaluation_previous_shape | PASS |
 | role_markers_ordered | PASS |
+| paragraph_role_inventory_present | PASS |
 
 ## Section Counts
 
@@ -39,3 +40,47 @@ Status: **ALIGNED_BY_COUNTS**
 ## Known Gaps
 
 No large word-count gaps under the current threshold.
+
+## Paragraph Role Inventory
+
+| Section | Order | Current paragraph role | Previous-paper logic followed |
+| --- | ---: | --- | --- |
+| introduction | 1 | opening motivation | Broad promise, practical HPC question, hardware limit |
+| introduction | 2 | prior simulator boundary | Simulation systems help, but simulator speed is not application speed |
+| introduction | 3 | intro figure | First visual statement of native path versus quantum path |
+| introduction | 4 | observations | Bold observations before positioning table |
+| introduction | 5 | application diversity | Why one toy workload cannot support broad quantum claims |
+| introduction | 6 | positioning table | Early related-work table before final pitch |
+| introduction | 7 | key idea | Break-even threshold model |
+| introduction | 8 | paper statement and contributions | System statement followed by contribution list |
+| background | 1 | application paths | Define quantum-circuit application families |
+| background | 2 | repeated execution | Explain why one circuit run is not the full application |
+| background | 3 | practical families | ML, chemistry, optimization, simulation |
+| background | 4 | terminology | Threshold and advantage-region definitions |
+| background | 5 | native baselines | Classical target path |
+| background | 6 | Perlmutter/cuQuantum | Measurement platform |
+| background | 7 | break-even equations | Native, simulated quantum, projected hardware paths |
+| design | 1 | overview and boundary | State what the system is and is not |
+| design | 2 | overall procedure | Measurement then supremacy analysis |
+| design | 3 | configuration record | Stable work representation before execution |
+| design | 4 | failure handling | Failed paths remain measured evidence |
+| design | 5 | shared workload control | Same input, instance identity, and quality target |
+| design | 6 | application paths | Native, kernel, and QNN/VQC execution rules |
+| design | 7 | measurement records | JSON, summary path, and allocation accounting |
+| design | 8 | threshold analysis | Execution model, break-even search, and frontier classification |
+| design | 9 | claim checklist | Systems checks before an advantage claim |
+| design | 10 | workload suite | Measured application families |
+| evaluation | 1 | setup | Hardware, benchmark, baselines, feasibility |
+| evaluation | 2 | campaign summary | Evidence table and evaluation questions |
+| evaluation | 3 | RQ1 | Native ML versus quantum-circuit ML |
+| evaluation | 4 | RQ2 | Quality sensitivity |
+| evaluation | 5 | RQ3 | Practical application suite |
+| evaluation | 6 | RQ4 | Native baseline stress |
+| evaluation | 7 | RQ5 | Weak and strong scaling |
+| evaluation | 8 | RQ6 | Advantage frontier and hardware projection |
+| evaluation | 9 | stability | Operational and repeat-timing checks |
+| evaluation | 10 | taxonomy and sensitivity | Bottleneck classes and remaining scope |
+| related | 1 | simulation and NISQ | Simulation substrate and current-device limits |
+| related | 2 | applications and baselines | Application families and native comparisons |
+| conclusion | 1 | paper result | Framework and measured thresholds |
+| conclusion | 2 | main lesson | Frontier and bottleneck taxonomy instead of slogan |

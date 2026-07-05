@@ -86,6 +86,61 @@ ROLE_MARKERS = {
 }
 
 
+ROLE_INVENTORY = {
+    "introduction": [
+        ("opening motivation", "Broad promise, practical HPC question, hardware limit"),
+        ("prior simulator boundary", "Simulation systems help, but simulator speed is not application speed"),
+        ("intro figure", "First visual statement of native path versus quantum path"),
+        ("observations", "Bold observations before positioning table"),
+        ("application diversity", "Why one toy workload cannot support broad quantum claims"),
+        ("positioning table", "Early related-work table before final pitch"),
+        ("key idea", "Break-even threshold model"),
+        ("paper statement and contributions", "System statement followed by contribution list"),
+    ],
+    "background": [
+        ("application paths", "Define quantum-circuit application families"),
+        ("repeated execution", "Explain why one circuit run is not the full application"),
+        ("practical families", "ML, chemistry, optimization, simulation"),
+        ("terminology", "Threshold and advantage-region definitions"),
+        ("native baselines", "Classical target path"),
+        ("Perlmutter/cuQuantum", "Measurement platform"),
+        ("break-even equations", "Native, simulated quantum, projected hardware paths"),
+    ],
+    "design": [
+        ("overview and boundary", "State what the system is and is not"),
+        ("overall procedure", "Measurement then supremacy analysis"),
+        ("configuration record", "Stable work representation before execution"),
+        ("failure handling", "Failed paths remain measured evidence"),
+        ("shared workload control", "Same input, instance identity, and quality target"),
+        ("application paths", "Native, kernel, and QNN/VQC execution rules"),
+        ("measurement records", "JSON, summary path, and allocation accounting"),
+        ("threshold analysis", "Execution model, break-even search, and frontier classification"),
+        ("claim checklist", "Systems checks before an advantage claim"),
+        ("workload suite", "Measured application families"),
+    ],
+    "evaluation": [
+        ("setup", "Hardware, benchmark, baselines, feasibility"),
+        ("campaign summary", "Evidence table and evaluation questions"),
+        ("RQ1", "Native ML versus quantum-circuit ML"),
+        ("RQ2", "Quality sensitivity"),
+        ("RQ3", "Practical application suite"),
+        ("RQ4", "Native baseline stress"),
+        ("RQ5", "Weak and strong scaling"),
+        ("RQ6", "Advantage frontier and hardware projection"),
+        ("stability", "Operational and repeat-timing checks"),
+        ("taxonomy and sensitivity", "Bottleneck classes and remaining scope"),
+    ],
+    "related": [
+        ("simulation and NISQ", "Simulation substrate and current-device limits"),
+        ("applications and baselines", "Application families and native comparisons"),
+    ],
+    "conclusion": [
+        ("paper result", "Framework and measured thresholds"),
+        ("main lesson", "Frontier and bottleneck taxonomy instead of slogan"),
+    ],
+}
+
+
 def read_rel(rel_path):
     path = os.path.join(ROOT, rel_path)
     if not os.path.exists(path):
@@ -177,6 +232,11 @@ def main():
             positions = marker_positions(texts["ours"], ROLE_MARKERS[section])
             section_data["role_markers"] = positions
             section_data["role_markers_ordered"] = ordered_markers(positions)
+        if section in ROLE_INVENTORY:
+            section_data["paragraph_role_inventory"] = [
+                {"role": role, "template_logic": template_logic}
+                for role, template_logic in ROLE_INVENTORY[section]
+            ]
 
         sections[section] = section_data
 
@@ -209,6 +269,10 @@ def main():
         "role_markers_ordered": all(
             sections[section].get("role_markers_ordered", True)
             for section in ROLE_MARKERS
+        ),
+        "paragraph_role_inventory_present": all(
+            len(sections[section].get("paragraph_role_inventory", [])) > 0
+            for section in SECTION_FILES
         ),
     }
 
@@ -300,6 +364,19 @@ def main():
                 )
         else:
             f.write("No large word-count gaps under the current threshold.\n")
+        f.write("\n## Paragraph Role Inventory\n\n")
+        f.write("| Section | Order | Current paragraph role | Previous-paper logic followed |\n")
+        f.write("| --- | ---: | --- | --- |\n")
+        for section, data in sections.items():
+            for index, item in enumerate(data.get("paragraph_role_inventory", []), start=1):
+                f.write(
+                    "| {} | {} | {} | {} |\n".format(
+                        section,
+                        index,
+                        item["role"],
+                        item["template_logic"],
+                    )
+                )
 
     print(json.dumps(summary, indent=2, sort_keys=True))
 
