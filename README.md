@@ -49,6 +49,26 @@ The paper-ready artifacts are:
 - main 32-node summary: `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv`
 - advantage projection: `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.md`
 
+## Paper Readiness Quickstart
+
+Run the paper checks from the repository root:
+
+```bash
+make -B -C paper
+python3 scripts/audit_paper_evidence.py
+python3 scripts/audit_submission_readiness.py
+```
+
+Expected current result: `paper/main.pdf` builds as a 12-page manuscript,
+`scripts/audit_paper_evidence.py` reports PASS, and
+`scripts/audit_submission_readiness.py` reports `SUBMISSION_READY`.
+
+For allocation-free correctness validation before any new GPU job:
+
+```bash
+scripts/run_login_smoke.sh
+```
+
 ## Repeat Timing Gate
 
 The large sweep already contains repeated seeds and workload-level medians. For

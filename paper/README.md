@@ -93,10 +93,35 @@ python3 scripts/audit_submission_readiness.py
 make -B -C paper
 ```
 
+## Artifact Quickstart
+
+From the repository root, the shortest paper-readiness check is:
+
+```bash
+make -B -C paper
+python3 scripts/audit_paper_evidence.py
+python3 scripts/audit_submission_readiness.py
+```
+
+The expected state is a 12-page `paper/main.pdf`, a PASS paper-evidence audit,
+and a `SUBMISSION_READY` readiness audit. The audits check the committed
+processed summaries, accounting records, figures, page count, citations,
+anonymous template metadata, and repeat-timing evidence.
+
+For a low-cost rerun on Perlmutter, use the login smoke gate first:
+
+```bash
+scripts/run_login_smoke.sh
+```
+
+This validates imports, cuQuantum availability, small state-vector correctness,
+and the application-level native-versus-quantum workload path without spending
+GPU allocation.
+
 ## Repeat Timing Gate
 
-The remaining timing-confidence check is intentionally small and allocation
-safe:
+The completed timing-confidence check is intentionally small and allocation
+safe, so it can be rerun when the software stack changes:
 
 ```bash
 sbatch jobs/perlmutter/practical_suite_repeat_timing_gate.sbatch
