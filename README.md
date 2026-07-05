@@ -68,6 +68,9 @@ The core comparison is not simulator vs simulator. The comparison is:
 - Advantage-projection summary added:
   `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.json`
   and matching Markdown table.
+- Paper evidence audit added:
+  `scripts/audit_paper_evidence.py` currently reports PASS and writes
+  `data/processed/perlmutter/paper_evidence_audit.json`.
 - Workload taxonomy added:
   `paper/figures/workload_taxonomy.pdf` and
   `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_taxonomy.json`.

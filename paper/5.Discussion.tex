@@ -17,3 +17,25 @@ Small quantum-circuit experiments can be affected by Python overhead, CUDA initi
 
 \noindent\textbf{Artifact and reproducibility.}
 The repository contains the workload runner, Slurm launch scripts, processed summaries, accounting records, and plotting inputs used by the paper. The large-profile result is generated through \texttt{QS\_SWEEP\_PROFILE=large}; the accept-profile baseline gate uses \texttt{QS\_SWEEP\_PROFILE=accept}. Raw per-case JSON is intentionally not all committed because large sweep chunks produce many files, but the processed summaries and accounting records are sufficient to reproduce the paper tables and figures. New chemistry coverage runs can be converted into per-molecule evidence with \texttt{scripts/summarize\_chemistry\_coverage.py}.
+
+\begin{table}[t]
+\caption{Claim-to-artifact map for the main paper results.}
+\centering
+\small
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lll}
+\toprule
+Claim & Primary artifact & Audit check \\
+\midrule
+Digits thresholds & \texttt{digits\_expanded\_...\_summary.json} & 160 cases; medians match Table~\ref{tab:expanded-summary} \\
+Large practical suite & \texttt{strongnative\_32node\_...\_summary.json} & 3,552 cases; workload counts match Table~\ref{tab:practical-suite} \\
+Advantage frontier & \texttt{...\_advantage\_projection.json} & Projection fractions match Table~\ref{tab:projection-fractions} \\
+Bottleneck taxonomy & \texttt{...\_taxonomy.json} & Counts match Fig.~\ref{fig:workload-taxonomy} \\
+Chemistry coverage & \texttt{chem\_active\_...\_coverage.json} & 104 cases; accounting completed \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:artifact-map}
+\end{table}
+
+The repository audit script checks these artifacts, verifies key case counts and table values, and emits the paper evidence audit JSON and Markdown artifacts under the processed Perlmutter data directory. The current audit status is PASS.
