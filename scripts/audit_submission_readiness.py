@@ -115,6 +115,11 @@ def main():
     main_tex = read_text("paper/0.Main.tex")
     main_log = read_text("paper/main.log") if exists("paper/main.log") else ""
     blg = read_text("paper/main.blg") if exists("paper/main.blg") else ""
+    overfull_hits = [
+        "{}".format(index)
+        for index, line in enumerate(main_log.splitlines(), start=1)
+        if "Overfull \\hbox" in line
+    ]
     root_readme = read_text("README.md") if exists("README.md") else ""
     paper_readme = read_text("paper/README.md") if exists("paper/README.md") else ""
     reviewer_notes = (
@@ -173,6 +178,20 @@ def main():
             ),
             "error",
             "LaTeX log has no undefined references or citations",
+        ),
+        check(
+            "latex_no_overfull_hbox",
+            len(overfull_hits) == 0,
+            "warning",
+            "LaTeX log has no overfull hbox warnings{}".format(
+                "" if not overfull_hits else ": lines {}".format(", ".join(overfull_hits))
+            ),
+        ),
+        check(
+            "latex_no_lmod_noise",
+            "ERROR:: command not found" not in main_log,
+            "warning",
+            "LaTeX log has no Lmod initialization noise",
         ),
         check(
             "bibtex_no_warnings",

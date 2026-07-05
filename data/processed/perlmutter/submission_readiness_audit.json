@@ -26,6 +26,18 @@
       "severity": "error"
     },
     {
+      "detail": "LaTeX log has no overfull hbox warnings",
+      "name": "latex_no_overfull_hbox",
+      "passed": true,
+      "severity": "warning"
+    },
+    {
+      "detail": "LaTeX log has no Lmod initialization noise",
+      "name": "latex_no_lmod_noise",
+      "passed": true,
+      "severity": "warning"
+    },
+    {
       "detail": "BibTeX log has no warnings",
       "name": "bibtex_no_warnings",
       "passed": true,
