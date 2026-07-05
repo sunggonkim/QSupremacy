@@ -1,0 +1,471 @@
+{
+  "active_indices": [
+    3,
+    4,
+    5,
+    6
+  ],
+  "basis": "sto-3g",
+  "charge": 0,
+  "description": "OpenFermion/PySCF H2O STO-3G 8-qubit active-space Hamiltonian.",
+  "geometry": [
+    {
+      "atom": "O",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "atom": "H",
+      "xyz": [
+        0.0,
+        0.757,
+        0.586
+      ]
+    },
+    {
+      "atom": "H",
+      "xyz": [
+        0.0,
+        -0.757,
+        0.586
+      ]
+    }
+  ],
+  "hf_energy": -74.96294665653876,
+  "multiplicity": 1,
+  "n_electrons": 10,
+  "n_orbitals": 7,
+  "n_qubits": 8,
+  "name": "h2o_sto3g_active_8q",
+  "occupied_indices": [
+    0,
+    1,
+    2
+  ],
+  "source": "OpenFermion 1.7.1 + PySCF 2.13.1",
+  "terms": [
+    {
+      "coefficient": -73.11232506315957,
+      "pauli": "IIIIIIII"
+    },
+    {
+      "coefficient": -0.013982119315013874,
+      "pauli": "XXYYIIII"
+    },
+    {
+      "coefficient": -0.017158745728251476,
+      "pauli": "XXIIYYII"
+    },
+    {
+      "coefficient": -0.017239406903073372,
+      "pauli": "XXIIIIYY"
+    },
+    {
+      "coefficient": 0.013982119315013874,
+      "pauli": "XYYXIIII"
+    },
+    {
+      "coefficient": 0.017158745728251476,
+      "pauli": "XYIIYXII"
+    },
+    {
+      "coefficient": 0.017239406903073372,
+      "pauli": "XYIIIIYX"
+    },
+    {
+      "coefficient": -0.00044123157035045446,
+      "pauli": "XZXXZXII"
+    },
+    {
+      "coefficient": -0.00044123157035045446,
+      "pauli": "XZXYZYII"
+    },
+    {
+      "coefficient": -0.04248347993858287,
+      "pauli": "XZZZXIII"
+    },
+    {
+      "coefficient": -0.011142937522715788,
+      "pauli": "XZZZXZII"
+    },
+    {
+      "coefficient": -0.024855626181676072,
+      "pauli": "XZZZXIZI"
+    },
+    {
+      "coefficient": -0.010379490023772166,
+      "pauli": "XZZZXIIZ"
+    },
+    {
+      "coefficient": 0.014476136157903906,
+      "pauli": "XZZZZXYY"
+    },
+    {
+      "coefficient": -0.014476136157903906,
+      "pauli": "XZZZZYYX"
+    },
+    {
+      "coefficient": -0.029046531078325274,
+      "pauli": "XZZIXIII"
+    },
+    {
+      "coefficient": -0.02948776264867573,
+      "pauli": "XZIZXIII"
+    },
+    {
+      "coefficient": -0.030327540329561687,
+      "pauli": "XIZZXIII"
+    },
+    {
+      "coefficient": 0.013982119315013874,
+      "pauli": "YXXYIIII"
+    },
+    {
+      "coefficient": 0.017158745728251476,
+      "pauli": "YXIIXYII"
+    },
+    {
+      "coefficient": 0.017239406903073372,
+      "pauli": "YXIIIIXY"
+    },
+    {
+      "coefficient": -0.013982119315013874,
+      "pauli": "YYXXIIII"
+    },
+    {
+      "coefficient": -0.017158745728251476,
+      "pauli": "YYIIXXII"
+    },
+    {
+      "coefficient": -0.017239406903073372,
+      "pauli": "YYIIIIXX"
+    },
+    {
+      "coefficient": -0.00044123157035045446,
+      "pauli": "YZYXZXII"
+    },
+    {
+      "coefficient": -0.00044123157035045446,
+      "pauli": "YZYYZYII"
+    },
+    {
+      "coefficient": -0.04248347993858287,
+      "pauli": "YZZZYIII"
+    },
+    {
+      "coefficient": -0.011142937522715788,
+      "pauli": "YZZZYZII"
+    },
+    {
+      "coefficient": -0.024855626181676072,
+      "pauli": "YZZZYIZI"
+    },
+    {
+      "coefficient": -0.010379490023772166,
+      "pauli": "YZZZYIIZ"
+    },
+    {
+      "coefficient": -0.014476136157903906,
+      "pauli": "YZZZZXXY"
+    },
+    {
+      "coefficient": 0.014476136157903906,
+      "pauli": "YZZZZYXX"
+    },
+    {
+      "coefficient": -0.029046531078325274,
+      "pauli": "YZZIYIII"
+    },
+    {
+      "coefficient": -0.02948776264867573,
+      "pauli": "YZIZYIII"
+    },
+    {
+      "coefficient": -0.030327540329561687,
+      "pauli": "YIZZYIII"
+    },
+    {
+      "coefficient": 0.2284576706796236,
+      "pauli": "ZIIIIIII"
+    },
+    {
+      "coefficient": -0.030327540329561684,
+      "pauli": "ZXZZZXII"
+    },
+    {
+      "coefficient": -0.030327540329561684,
+      "pauli": "ZYZZZYII"
+    },
+    {
+      "coefficient": 0.19573177288269672,
+      "pauli": "ZZIIIIII"
+    },
+    {
+      "coefficient": 0.1682695861601267,
+      "pauli": "ZIZIIIII"
+    },
+    {
+      "coefficient": 0.18225170547514052,
+      "pauli": "ZIIZIIII"
+    },
+    {
+      "coefficient": 0.12010708822375513,
+      "pauli": "ZIIIZIII"
+    },
+    {
+      "coefficient": 0.13726583395200662,
+      "pauli": "ZIIIIZII"
+    },
+    {
+      "coefficient": 0.13484133649749314,
+      "pauli": "ZIIIIIZI"
+    },
+    {
+      "coefficient": 0.15208074340056651,
+      "pauli": "ZIIIIIIZ"
+    },
+    {
+      "coefficient": 0.00044123157035045446,
+      "pauli": "IXXYYIII"
+    },
+    {
+      "coefficient": -0.00044123157035045446,
+      "pauli": "IXYYXIII"
+    },
+    {
+      "coefficient": 0.014476136157903906,
+      "pauli": "IXZZXIXX"
+    },
+    {
+      "coefficient": 0.014476136157903906,
+      "pauli": "IXZZYIYX"
+    },
+    {
+      "coefficient": -0.04248347993858287,
+      "pauli": "IXZZZXII"
+    },
+    {
+      "coefficient": -0.010379490023772166,
+      "pauli": "IXZZZXZI"
+    },
+    {
+      "coefficient": -0.024855626181676072,
+      "pauli": "IXZZZXIZ"
+    },
+    {
+      "coefficient": -0.011142937522715788,
+      "pauli": "IXZZIXII"
+    },
+    {
+      "coefficient": -0.02948776264867573,
+      "pauli": "IXZIZXII"
+    },
+    {
+      "coefficient": -0.029046531078325274,
+      "pauli": "IXIZZXII"
+    },
+    {
+      "coefficient": -0.00044123157035045446,
+      "pauli": "IYXXYIII"
+    },
+    {
+      "coefficient": 0.00044123157035045446,
+      "pauli": "IYYXXIII"
+    },
+    {
+      "coefficient": 0.014476136157903906,
+      "pauli": "IYZZXIXY"
+    },
+    {
+      "coefficient": 0.014476136157903906,
+      "pauli": "IYZZYIYY"
+    },
+    {
+      "coefficient": -0.04248347993858287,
+      "pauli": "IYZZZYII"
+    },
+    {
+      "coefficient": -0.010379490023772166,
+      "pauli": "IYZZZYZI"
+    },
+    {
+      "coefficient": -0.024855626181676072,
+      "pauli": "IYZZZYIZ"
+    },
+    {
+      "coefficient": -0.011142937522715788,
+      "pauli": "IYZZIYII"
+    },
+    {
+      "coefficient": -0.02948776264867573,
+      "pauli": "IYZIZYII"
+    },
+    {
+      "coefficient": -0.029046531078325274,
+      "pauli": "IYIZZYII"
+    },
+    {
+      "coefficient": 0.22845767067962358,
+      "pauli": "IZIIIIII"
+    },
+    {
+      "coefficient": 0.18225170547514052,
+      "pauli": "IZZIIIII"
+    },
+    {
+      "coefficient": 0.1682695861601267,
+      "pauli": "IZIZIIII"
+    },
+    {
+      "coefficient": 0.13726583395200662,
+      "pauli": "IZIIZIII"
+    },
+    {
+      "coefficient": 0.12010708822375513,
+      "pauli": "IZIIIZII"
+    },
+    {
+      "coefficient": 0.15208074340056651,
+      "pauli": "IZIIIIZI"
+    },
+    {
+      "coefficient": 0.13484133649749314,
+      "pauli": "IZIIIIIZ"
+    },
+    {
+      "coefficient": -0.009651234083134008,
+      "pauli": "IIXXYYII"
+    },
+    {
+      "coefficient": -0.006087544308422782,
+      "pauli": "IIXXIIYY"
+    },
+    {
+      "coefficient": 0.009651234083134008,
+      "pauli": "IIXYYXII"
+    },
+    {
+      "coefficient": 0.006087544308422782,
+      "pauli": "IIXYIIYX"
+    },
+    {
+      "coefficient": 0.009651234083134008,
+      "pauli": "IIYXXYII"
+    },
+    {
+      "coefficient": 0.006087544308422782,
+      "pauli": "IIYXIIXY"
+    },
+    {
+      "coefficient": -0.009651234083134008,
+      "pauli": "IIYYXXII"
+    },
+    {
+      "coefficient": -0.006087544308422782,
+      "pauli": "IIYYIIXX"
+    },
+    {
+      "coefficient": 0.17491705046651845,
+      "pauli": "IIZIIIII"
+    },
+    {
+      "coefficient": 0.22003977334376112,
+      "pauli": "IIZZIIII"
+    },
+    {
+      "coefficient": 0.13758739161056652,
+      "pauli": "IIZIZIII"
+    },
+    {
+      "coefficient": 0.1472386256937005,
+      "pauli": "IIZIIZII"
+    },
+    {
+      "coefficient": 0.15017593870983142,
+      "pauli": "IIZIIIZI"
+    },
+    {
+      "coefficient": 0.1562634830182542,
+      "pauli": "IIZIIIIZ"
+    },
+    {
+      "coefficient": 0.17491705046651845,
+      "pauli": "IIIZIIII"
+    },
+    {
+      "coefficient": 0.1472386256937005,
+      "pauli": "IIIZZIII"
+    },
+    {
+      "coefficient": 0.13758739161056652,
+      "pauli": "IIIZIZII"
+    },
+    {
+      "coefficient": 0.1562634830182542,
+      "pauli": "IIIZIIZI"
+    },
+    {
+      "coefficient": 0.15017593870983142,
+      "pauli": "IIIZIIIZ"
+    },
+    {
+      "coefficient": -0.028832018326492702,
+      "pauli": "IIIIXXYY"
+    },
+    {
+      "coefficient": 0.028832018326492702,
+      "pauli": "IIIIXYYX"
+    },
+    {
+      "coefficient": 0.028832018326492702,
+      "pauli": "IIIIYXXY"
+    },
+    {
+      "coefficient": -0.028832018326492702,
+      "pauli": "IIIIYYXX"
+    },
+    {
+      "coefficient": -0.1642137098903006,
+      "pauli": "IIIIZIII"
+    },
+    {
+      "coefficient": 0.1492845512104096,
+      "pauli": "IIIIZZII"
+    },
+    {
+      "coefficient": 0.1127539973001888,
+      "pauli": "IIIIZIZI"
+    },
+    {
+      "coefficient": 0.1415860156266815,
+      "pauli": "IIIIZIIZ"
+    },
+    {
+      "coefficient": -0.1642137098903006,
+      "pauli": "IIIIIZII"
+    },
+    {
+      "coefficient": 0.1415860156266815,
+      "pauli": "IIIIIZZI"
+    },
+    {
+      "coefficient": 0.1127539973001888,
+      "pauli": "IIIIIZIZ"
+    },
+    {
+      "coefficient": -0.187001585216998,
+      "pauli": "IIIIIIZI"
+    },
+    {
+      "coefficient": 0.1549006147788374,
+      "pauli": "IIIIIIZZ"
+    },
+    {
+      "coefficient": -0.1870015852169981,
+      "pauli": "IIIIIIIZ"
+    }
+  ]
+}

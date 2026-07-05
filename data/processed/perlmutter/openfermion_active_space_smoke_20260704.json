@@ -1,0 +1,52 @@
+{
+  "date": "2026-07-04",
+  "host": "Perlmutter login node",
+  "purpose": "Login-safe smoke validation for larger OpenFermion/PySCF chemistry active-space fixtures before spending GPU allocation.",
+  "command_shape": "module load cudatoolkit/12.9; run_practical_suite.py --workloads chemistry --chem-grid 3/5 --chem-layers 1 --chem-hamiltonian-json <fixture>",
+  "fixtures": [
+    {
+      "problem": "lih_sto3g_active_6q",
+      "qubits": 6,
+      "pauli_terms": 62,
+      "selected_native_model": "exact_dense_diagonalization_numpy",
+      "best_quality_model": "sparse_lanczos_eigsh_scipy",
+      "native_runtime_sec": 0.0005111939972266555,
+      "quantum_runtime_sec": 7.551836578990333,
+      "absolute_energy_error": 0.34647076691836265,
+      "total_runtime_sec": 7.586884416989051
+    },
+    {
+      "problem": "h2o_sto3g_active_6q",
+      "qubits": 6,
+      "pauli_terms": 62,
+      "selected_native_model": "exact_dense_diagonalization_numpy",
+      "best_quality_model": "sparse_lanczos_eigsh_scipy",
+      "native_runtime_sec": 0.00047754100523889065,
+      "quantum_runtime_sec": 7.5516872999724,
+      "absolute_energy_error": 1.5536064638174167,
+      "total_runtime_sec": 7.586229323991574
+    },
+    {
+      "problem": "lih_sto3g_active_8q",
+      "qubits": 8,
+      "pauli_terms": 105,
+      "selected_native_model": "exact_dense_diagonalization_numpy",
+      "best_quality_model": "sparse_lanczos_eigsh_scipy",
+      "native_runtime_sec": 0.01214554300531745,
+      "quantum_runtime_sec": 7.696969162032474,
+      "absolute_energy_error": 0.6987646519498503,
+      "total_runtime_sec": 7.956075056979898
+    },
+    {
+      "problem": "h2o_sto3g_active_8q",
+      "qubits": 8,
+      "pauli_terms": 105,
+      "selected_native_model": "exact_dense_diagonalization_numpy",
+      "best_quality_model": "exact_dense_diagonalization_numpy",
+      "native_runtime_sec": 0.009894950955640525,
+      "quantum_runtime_sec": 7.59861499798717,
+      "absolute_energy_error": 1.8580377536020904,
+      "total_runtime_sec": 7.858125830010977
+    }
+  ]
+}

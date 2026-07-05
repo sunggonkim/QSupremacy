@@ -32,6 +32,24 @@ MOLECULES = {
         "active_indices": [1, 2],
         "description": "OpenFermion/PySCF LiH STO-3G active-space Hamiltonian.",
     },
+    "lih_sto3g_active_6q": {
+        "geometry": [("Li", (0.0, 0.0, 0.0)), ("H", (0.0, 0.0, 1.45))],
+        "basis": "sto-3g",
+        "multiplicity": 1,
+        "charge": 0,
+        "occupied_indices": [0],
+        "active_indices": [1, 2, 3],
+        "description": "OpenFermion/PySCF LiH STO-3G 6-qubit active-space Hamiltonian.",
+    },
+    "lih_sto3g_active_8q": {
+        "geometry": [("Li", (0.0, 0.0, 0.0)), ("H", (0.0, 0.0, 1.45))],
+        "basis": "sto-3g",
+        "multiplicity": 1,
+        "charge": 0,
+        "occupied_indices": [0],
+        "active_indices": [1, 2, 3, 4],
+        "description": "OpenFermion/PySCF LiH STO-3G 8-qubit active-space Hamiltonian.",
+    },
     "h2o_sto3g_active_4q": {
         "geometry": [
             ("O", (0.0, 0.0, 0.0)),
@@ -44,6 +62,32 @@ MOLECULES = {
         "occupied_indices": [0, 1, 2, 3],
         "active_indices": [4, 5],
         "description": "OpenFermion/PySCF H2O STO-3G active-space Hamiltonian.",
+    },
+    "h2o_sto3g_active_6q": {
+        "geometry": [
+            ("O", (0.0, 0.0, 0.0)),
+            ("H", (0.0, 0.757, 0.586)),
+            ("H", (0.0, -0.757, 0.586)),
+        ],
+        "basis": "sto-3g",
+        "multiplicity": 1,
+        "charge": 0,
+        "occupied_indices": [0, 1, 2],
+        "active_indices": [3, 4, 5],
+        "description": "OpenFermion/PySCF H2O STO-3G 6-qubit active-space Hamiltonian.",
+    },
+    "h2o_sto3g_active_8q": {
+        "geometry": [
+            ("O", (0.0, 0.0, 0.0)),
+            ("H", (0.0, 0.757, 0.586)),
+            ("H", (0.0, -0.757, 0.586)),
+        ],
+        "basis": "sto-3g",
+        "multiplicity": 1,
+        "charge": 0,
+        "occupied_indices": [0, 1, 2],
+        "active_indices": [3, 4, 5, 6],
+        "description": "OpenFermion/PySCF H2O STO-3G 8-qubit active-space Hamiltonian.",
     },
 }
 

@@ -51,6 +51,10 @@ The core comparison is not simulator vs simulator. The comparison is:
   6 minutes 5 seconds elapsed, exit `0:0`, empty stderr logs. The run exercises
   OpenFermion/PySCF chemistry fixtures and the sparse/Lanczos/Krylov native
   baseline path.
+- Larger OpenFermion/PySCF chemistry fixtures added and login-smoked:
+  LiH/H2O active-space Hamiltonians now cover 4, 6, and 8 qubits. The 6q/8q
+  smoke evidence is stored in
+  `data/processed/perlmutter/openfermion_active_space_smoke_20260704.md`.
 - Accept-profile result helper added:
   `scripts/summarize_accept_baselines.py` converts the completed accept-profile
   CSV into compact JSON/Markdown evidence for paper tables.
@@ -137,6 +141,18 @@ Example:
   --chem-grid 9 \
   --entangle
 ```
+
+Current OpenFermion/PySCF fixtures:
+
+| Molecule | Active-space fixture | Qubits | Pauli terms |
+| --- | --- | ---: | ---: |
+| H2 | `h2_sto3g_4q.json` | 4 | 15 |
+| LiH | `lih_sto3g_active_4q.json` | 4 | 27 |
+| LiH | `lih_sto3g_active_6q.json` | 6 | 62 |
+| LiH | `lih_sto3g_active_8q.json` | 8 | 105 |
+| H2O | `h2o_sto3g_active_4q.json` | 4 | 15 |
+| H2O | `h2o_sto3g_active_6q.json` | 6 | 62 |
+| H2O | `h2o_sto3g_active_8q.json` | 8 | 105 |
 
 Validate the suite:
 
@@ -353,6 +369,20 @@ Accept-profile baseline-coverage gate:
 | --- | ---: | ---: | ---: | --- |
 | Chemistry | 56 | 63,566.8x | 0.4468 | dense exact 56 |
 | Simulation | 60 | 4,185.2x | 0.0237 | dense exact 26, sparse Krylov 34 |
+
+Larger chemistry active-space smoke:
+
+| Problem | Qubits | Pauli terms | Selected native | Best quality native | Quantum time |
+| --- | ---: | ---: | --- | --- | ---: |
+| LiH active 6q | 6 | 62 | dense exact | sparse Lanczos | 7.5518s |
+| H2O active 6q | 6 | 62 | dense exact | sparse Lanczos | 7.5517s |
+| LiH active 8q | 8 | 105 | dense exact | sparse Lanczos | 7.6970s |
+| H2O active 8q | 8 | 105 | dense exact | dense exact | 7.5986s |
+
+Note: the completed accept-profile run above used the earlier 4-qubit
+chemistry fixture set. The current accept profile now includes the 6q/8q
+fixtures for the next chemistry coverage run; a login preflight reports 104
+chemistry case templates, or 26 cases per chunk with `QS_CHUNK_COUNT=4`.
 
 Accept-profile artifacts:
 

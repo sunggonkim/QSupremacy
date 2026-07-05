@@ -87,6 +87,7 @@ Current artifact status:
 | Large manifest | Implemented as `QS_SWEEP_PROFILE=large`; preflight reports 3,552 case templates |
 | Accept-profile stronger baselines | Completed as job `55498688`: 1 GPU node, 4 A100 tasks, 116 chemistry+simulation cases, OpenFermion/PySCF fixtures plus sparse/Lanczos/Krylov native baselines |
 | Accept-profile result helper | Added as `scripts/summarize_accept_baselines.py`; emits compact JSON/Markdown evidence from the completed summary CSV |
+| Larger chemistry fixtures | Added LiH/H2O OpenFermion/PySCF 6q and 8q active-space fixtures; login smoke validates dense exact plus sparse Lanczos native candidates |
 
 ## 3. Current Evidence
 
@@ -694,7 +695,7 @@ The initial 190-case result was enough for a first threshold-modeling result, bu
 | --- | --- | --- | --- |
 | Binary digits ML | Logistic regression, MLP | Quantum kernel, QNN/VQC | Good calibration baseline |
 | Practical ML | Softmax, MLP, linear ridge, RBF kernel ridge, kNN, nearest centroid | Quantum feature circuit + softmax head | Strengthened and measured in job `55468746` |
-| Chemistry | Dense exact diagonalization for H2 and 4-qubit Pauli Hamiltonian | VQE-style ansatz on cuStateVec | Good correctness baseline, not production chemistry |
+| Chemistry | Dense exact plus sparse Lanczos for OpenFermion/PySCF H2, LiH, and H2O active-space Hamiltonians from 4 to 8 qubits | VQE-style ansatz on cuStateVec | Strengthened and smoke-validated; still active-space chemistry, not production drug discovery |
 | Optimization | Exact enumeration, greedy assignment, local search, simulated annealing | QAOA p=1 grid search | Strengthened and measured in job `55468746`; larger instances pending |
 | Simulation | Dense exact eigendecomposition for 4/5/6-qubit TFIM/Heisenberg | First-order Trotter circuit | Good small-instance baseline, not scalable simulation |
 
@@ -716,8 +717,8 @@ Still needed before the final 32-node paper run:
 | --- | --- | --- |
 | ML | GPU/PyTorch MLP or stronger tree/boosting baseline if available in a stable Perlmutter env | Avoid comparing quantum ML against only small NumPy models |
 | ML | Larger datasets: MNIST/Fashion-MNIST or OpenML tabular if available locally | `sklearn_digits` is useful but too small for a main large-scale claim |
-| Chemistry | PySCF/OpenFermion-generated molecular Hamiltonians, at least LiH/H2O small active spaces | The current 4-qubit fixture is a pipeline test, not a drug-discovery benchmark |
-| Chemistry | Sparse/Lanczos eigensolver baseline for Hamiltonians that exceed dense diagonalization | Dense exact diagonalization becomes an unfair or impossible native baseline at larger qubit counts |
+| Chemistry | Larger molecules or wider active spaces beyond 8 qubits if allocation budget permits | 4-8 qubit active spaces validate the pipeline, but not production drug discovery scale |
+| Chemistry | Continue sparse/Lanczos as the required native candidate for larger Hamiltonians | Dense exact remains fastest at current fixture sizes, but will not remain viable as qubits grow |
 | Optimization | MILP/HiGHS if available, larger graph generators, and portfolio/scheduling instances | Practical claims are not only 4/5-node MaxCut |
 | Optimization | Larger MaxCut plus portfolio/scheduling instances | Practical claims are not only 4/5-node MaxCut |
 | Simulation | Sparse Krylov `expm_multiply`, TEBD/MPS if available, and dense exact only for validation | Dense eigendecomposition is not the strong baseline for larger chains |
@@ -1033,6 +1034,35 @@ Accept-profile result:
 | --- | ---: | ---: | ---: | --- |
 | Chemistry | 56 | `63,566.8x` | `0.4468` | dense exact 56 |
 | Scientific simulation | 60 | `4,185.2x` | `0.0237` | dense exact 26, sparse Krylov 34 |
+
+Larger OpenFermion/PySCF chemistry fixture smoke:
+
+| Problem | Qubits | Pauli terms | Selected native | Best quality native | Quantum time | Energy error |
+| --- | ---: | ---: | --- | --- | ---: | ---: |
+| LiH active 6q | 6 | 62 | dense exact | sparse Lanczos | `7.5518s` | `0.3465` |
+| H2O active 6q | 6 | 62 | dense exact | sparse Lanczos | `7.5517s` | `1.5536` |
+| LiH active 8q | 8 | 105 | dense exact | sparse Lanczos | `7.6970s` | `0.6988` |
+| H2O active 8q | 8 | 105 | dense exact | dense exact | `7.5986s` | `1.8580` |
+
+Evidence:
+
+```text
+data/processed/perlmutter/openfermion_active_space_smoke_20260704.json
+data/processed/perlmutter/openfermion_active_space_smoke_20260704.md
+benchmarks/workloads/hamiltonians/lih_sto3g_active_6q.json
+benchmarks/workloads/hamiltonians/lih_sto3g_active_8q.json
+benchmarks/workloads/hamiltonians/h2o_sto3g_active_6q.json
+benchmarks/workloads/hamiltonians/h2o_sto3g_active_8q.json
+```
+
+Current accept-profile note:
+
+```text
+Completed job 55498688 used the earlier 4-qubit chemistry fixture set.
+The current accept profile includes the new 6q/8q fixtures.
+Login preflight: QS_SWEEP_PROFILE=accept, chemistry only, QS_CHUNK_COUNT=4
+reports 104 case templates, or 26 cases per chunk.
+```
 
 Accept-profile result ingestion command:
 

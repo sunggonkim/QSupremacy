@@ -155,7 +155,11 @@ elif [[ "${SWEEP_PROFILE}" == "accept" ]]; then
   CHEM_JSON_FILES=(
     benchmarks/workloads/hamiltonians/h2_sto3g_4q.json
     benchmarks/workloads/hamiltonians/lih_sto3g_active_4q.json
+    benchmarks/workloads/hamiltonians/lih_sto3g_active_6q.json
+    benchmarks/workloads/hamiltonians/lih_sto3g_active_8q.json
     benchmarks/workloads/hamiltonians/h2o_sto3g_active_4q.json
+    benchmarks/workloads/hamiltonians/h2o_sto3g_active_6q.json
+    benchmarks/workloads/hamiltonians/h2o_sto3g_active_8q.json
     benchmarks/workloads/hamiltonians/molecular_chain_4q.json
   )
 else
