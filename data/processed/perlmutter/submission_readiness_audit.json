@@ -60,6 +60,12 @@
       "name": "repeated_hardware_trials",
       "passed": true,
       "severity": "warning"
+    },
+    {
+      "detail": "README files document paper-readiness audits and the allocation-free login smoke gate",
+      "name": "artifact_quickstart_documented",
+      "passed": true,
+      "severity": "warning"
     }
   ],
   "page_count": 12,

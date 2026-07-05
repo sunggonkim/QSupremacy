@@ -16,3 +16,4 @@ Page count: `12`
 | anonymous_submission | warning | PASS | current manuscript uses an anonymous Paper ID author block |
 | target_template_selected | warning | PASS | current manuscript uses the ATC 2026 recommended ACM SIGPLAN-style acmart template with CCS and keywords |
 | repeated_hardware_trials | warning | PASS | warmup-separated repeat timing gate passed with 12 measured cases and max quantum runtime CV 0.0400 |
+| artifact_quickstart_documented | warning | PASS | README files document paper-readiness audits and the allocation-free login smoke gate |

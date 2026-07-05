@@ -97,6 +97,8 @@ def main():
     main_tex = read_text("paper/0.Main.tex")
     main_log = read_text("paper/main.log") if exists("paper/main.log") else ""
     blg = read_text("paper/main.blg") if exists("paper/main.blg") else ""
+    root_readme = read_text("README.md") if exists("README.md") else ""
+    paper_readme = read_text("paper/README.md") if exists("paper/README.md") else ""
     pages = pdf_pages()
 
     paper_sources = [
@@ -181,6 +183,19 @@ def main():
                 if repeat_gate.get("passed")
                 else "explicit warmup-separated repeated hardware trials are not yet measured"
             ),
+        ),
+        check(
+            "artifact_quickstart_documented",
+            "Paper Readiness Quickstart" in root_readme
+            and "Artifact Quickstart" in paper_readme
+            and "scripts/audit_paper_evidence.py" in root_readme
+            and "scripts/audit_submission_readiness.py" in root_readme
+            and "scripts/run_login_smoke.sh" in root_readme
+            and "scripts/audit_paper_evidence.py" in paper_readme
+            and "scripts/audit_submission_readiness.py" in paper_readme
+            and "scripts/run_login_smoke.sh" in paper_readme,
+            "warning",
+            "README files document paper-readiness audits and the allocation-free login smoke gate",
         ),
     ]
 
