@@ -31,6 +31,13 @@ PREVIOUS_STYLE_JSON = os.path.join(
     "perlmutter",
     "previous_paper_style_audit.json",
 )
+PREVIOUS_DEEP_TRACE_JSON = os.path.join(
+    ROOT,
+    "data",
+    "processed",
+    "perlmutter",
+    "previous_paper_deep_trace.json",
+)
 REVIEWER_RESPONSE_AUDIT_JSON = os.path.join(
     ROOT,
     "data",
@@ -202,6 +209,13 @@ def main():
                 previous_style_audit = json.load(f)
         except ValueError:
             previous_style_audit = {}
+    previous_deep_trace = {}
+    if os.path.exists(PREVIOUS_DEEP_TRACE_JSON):
+        try:
+            with open(PREVIOUS_DEEP_TRACE_JSON, errors="replace") as f:
+                previous_deep_trace = json.load(f)
+        except ValueError:
+            previous_deep_trace = {}
     reviewer_response_audit = {}
     if os.path.exists(REVIEWER_RESPONSE_AUDIT_JSON):
         try:
@@ -582,11 +596,27 @@ def main():
             "previous-paper LaTeX idioms are machine-audited for textbf lead-ins, subfigure syntax, captions, dense tables, and float spacing",
         ),
         check(
+            "previous_paper_deep_trace",
+            exists("scripts/audit_previous_paper_deep_trace.py")
+            and exists("data/processed/perlmutter/previous_paper_deep_trace.json")
+            and exists("data/processed/perlmutter/previous_paper_deep_trace.md")
+            and bool(previous_deep_trace.get("passed"))
+            and previous_deep_trace.get("total_traced_blocks", 0) >= 90
+            and "scripts/audit_previous_paper_deep_trace.py" in root_readme
+            and "scripts/audit_previous_paper_deep_trace.py" in paper_readme
+            and "previous_paper_deep_trace.md" in root_readme
+            and "previous_paper_deep_trace.md" in paper_readme
+            and "Previous-Paper Deep Trace" in previous_completion,
+            "warning",
+            "line-by-line and paragraph-by-paragraph previous-paper trace is generated, linked, and covers all manuscript sections",
+        ),
+        check(
             "previous_paper_completion_audit",
             exists("paper/previous_paper_completion_audit.md")
             and "Requirement Audit" in previous_completion
             and "Line-by-line traceability" in previous_completion
             and "Paragraph-by-paragraph roles" in previous_completion
+            and "Previous-Paper Deep Trace" in previous_completion
             and "Word-count alignment" in previous_completion
             and "Style alignment" in previous_completion
             and "ALIGNED_BY_COUNTS" in previous_completion

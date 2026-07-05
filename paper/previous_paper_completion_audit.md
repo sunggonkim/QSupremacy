@@ -13,6 +13,7 @@ verification note, not submitted paper text.
 | Same logic structure | `paper/previous_paper_alignment.md` maps abstract, introduction, background, design, evaluation, related work, and conclusion roles to previous-paper roles. | PASS |
 | Line-by-line traceability | `data/processed/perlmutter/previous_paper_alignment_metrics.md` lists current source lines and template source lines for each section role. | PASS |
 | Paragraph-by-paragraph roles | `data/processed/perlmutter/previous_paper_alignment_metrics.md` includes the ordered paragraph-role inventory for introduction, background, design, evaluation, related work, and conclusion. | PASS |
+| Previous-Paper Deep Trace | `scripts/audit_previous_paper_deep_trace.py` reports PASS and lists every meaningful current paragraph or structural block with source line span, followed role, and previous-paper template anchor. | PASS |
 | Word-count alignment | `scripts/audit_previous_paper_alignment.py` reports `ALIGNED_BY_COUNTS` and no large word-count gaps. | PASS |
 | Style alignment | `scripts/audit_previous_paper_alignment.py` reports no large style-fingerprint gaps for average paragraph length, bold-lead density, and paragraphs per heading. | PASS |
 | Previous-Paper Style Audit | `scripts/audit_previous_paper_style.py` reports PASS for title-case `\textbf{}` lead-ins, `subfigure` syntax, caption/label order, dense tables, booktabs, caption setup, and float spacing. | PASS |
@@ -25,6 +26,8 @@ The authoritative generated evidence is:
 
 - `data/processed/perlmutter/previous_paper_alignment_metrics.md`
 - `data/processed/perlmutter/previous_paper_alignment_metrics.json`
+- `data/processed/perlmutter/previous_paper_deep_trace.md`
+- `data/processed/perlmutter/previous_paper_deep_trace.json`
 - `data/processed/perlmutter/previous_paper_style_audit.md`
 - `data/processed/perlmutter/previous_paper_style_audit.json`
 
@@ -40,6 +43,15 @@ The current generated status is `ALIGNED_BY_COUNTS`. The generated checks pass:
 - `paragraph_role_lines_present`
 - `template_role_lines_present`
 - `style_fingerprint_no_large_gaps`
+
+The previous-paper deep trace also passes its line/paragraph checks:
+
+- `all_sections_traced`
+- `all_current_blocks_have_roles`
+- `all_current_blocks_have_template_lines`
+- `line_level_trace_present`
+- `paragraph_and_structure_kinds_present`
+- `style_features_traced`
 
 The previous-paper style audit also passes its LaTeX idiom checks:
 

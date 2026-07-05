@@ -158,6 +158,12 @@
       "severity": "warning"
     },
     {
+      "detail": "line-by-line and paragraph-by-paragraph previous-paper trace is generated, linked, and covers all manuscript sections",
+      "name": "previous_paper_deep_trace",
+      "passed": true,
+      "severity": "warning"
+    },
+    {
       "detail": "previous-paper completion audit covers logic, line, paragraph, word-count, and style requirements",
       "name": "previous_paper_completion_audit",
       "passed": true,

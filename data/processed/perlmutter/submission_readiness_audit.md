@@ -36,4 +36,5 @@ Inferred line spacing: `12.00` pt
 | previous_paper_alignment_documented | warning | PASS | previous-paper paragraph and style alignment is documented and linked |
 | previous_paper_alignment_metrics | warning | PASS | previous-paper word, paragraph, heading, style, role-marker, paragraph-role, current-line, and template-line metrics are generated and linked |
 | previous_paper_style_audit | warning | PASS | previous-paper LaTeX idioms are machine-audited for textbf lead-ins, subfigure syntax, captions, dense tables, and float spacing |
+| previous_paper_deep_trace | warning | PASS | line-by-line and paragraph-by-paragraph previous-paper trace is generated, linked, and covers all manuscript sections |
 | previous_paper_completion_audit | warning | PASS | previous-paper completion audit covers logic, line, paragraph, word-count, and style requirements |

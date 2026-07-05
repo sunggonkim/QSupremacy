@@ -229,6 +229,7 @@ The paper-ready artifact set is:
 | Line-by-line reviewer response audit | `data/processed/perlmutter/reviewer_response_audit.md` |
 | Previous-paper alignment map | `paper/previous_paper_alignment.md` |
 | Previous-paper alignment metrics | `data/processed/perlmutter/previous_paper_alignment_metrics.md` |
+| Previous-paper deep trace | `data/processed/perlmutter/previous_paper_deep_trace.md` |
 | Previous-paper LaTeX style audit | `data/processed/perlmutter/previous_paper_style_audit.md` |
 | Previous-paper completion audit | `paper/previous_paper_completion_audit.md` |
 | Advantage projection | `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.md` |
@@ -240,6 +241,7 @@ Current validation commands:
 ```bash
 make -B -C paper
 python3 scripts/audit_previous_paper_alignment.py
+python3 scripts/audit_previous_paper_deep_trace.py
 python3 scripts/audit_previous_paper_style.py
 python3 scripts/audit_reviewer_response.py
 python3 scripts/audit_paper_evidence.py
@@ -251,6 +253,7 @@ Expected result:
 ```text
 paper/main.pdf: HPCA-style double-blind PDF, references start on page 11 within the 11-page body limit
 previous-paper alignment: ALIGNED_BY_COUNTS
+previous-paper deep trace: PASS
 previous-paper style audit: PASS
 reviewer response audit: PASS
 paper evidence audit: PASS
@@ -280,6 +283,7 @@ Previous-paper alignment evidence:
 | --- | --- | --- |
 | Logic structure | `paper/previous_paper_alignment.md` | PASS |
 | Line-by-line mapping | `previous_paper_alignment_metrics.md` current/template source lines | PASS |
+| Line/paragraph deep trace | `previous_paper_deep_trace.md` traces every current paragraph or structural block to a previous-paper role anchor | PASS |
 | Paragraph-by-paragraph roles | `previous_paper_alignment_metrics.md` role inventory | PASS |
 | Word-count alignment | `ALIGNED_BY_COUNTS`, no known gaps | PASS |
 | Style alignment | no style-fingerprint gaps | PASS |
