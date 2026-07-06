@@ -68,6 +68,11 @@ without turning the paper into a point-by-point response.
 | C7 | Scaling plateau explanation | Explain 128--256 GPU strong-scaling plateau as independent-case task granularity and per-case floor, not distributed single-circuit synchronization. | Reflected; keep weak and strong scaling separated. |
 | C8 | Algorithmic flexibility | Avoid overclaiming fixed QAOA/VQC grids as final algorithms; explain the quality-vs-depth/evaluation tradeoff for richer ansatz and training. | Reflected; strengthen in taxonomy/discussion. |
 | C9 | Artifact credibility | Keep raw JSON/CSV/accounting artifacts, figure generation, and readiness audits connected to claims. | Reflected through manifest, evidence audit, and submission-readiness audit. |
+| C10 | ML native baseline ceiling | State that scikit-learn ML baselines are auditable but not a production GPU deep-learning or boosted-tree ceiling; add a future strong-native gate for PyTorch CNN/ResNet-style models and XGBoost/LightGBM-style baselines. | Reflected in Evaluation; actual SOTA gate remains future work. |
+| C11 | Native hardware utilization proof | Do not claim Tensor Core or memory-bandwidth saturation without counters; plan a Roofline/Nsight Compute gate for native ML and optimization kernels. | Reflected as a required next profiling gate, not fabricated evidence. |
+| C12 | Scaling plateau profiling | Current 128--256 GPU plateau is supported by Slurm/task-granularity evidence, but not an Nsight Systems Gantt breakdown. | Reflected as profiling boundary and next experiment. |
+| C13 | Physical speed axis readability | Put effective quantum execution time on the Figure 13 secondary x-axis so $10^4$--$10^6\times$ reads as time, not only a dimensionless speedup. | Reflected in regenerated Figure 13 and caption. |
+| C14 | Energy and power projection | Extend the future-hardware frontier with parameterized native GPU energy and quantum decoder/fridge/control energy terms; do not instantiate with unmeasured power values. | Reflected in Discussion as a parameterized energy model. |
 
 ## Validation Commands
 

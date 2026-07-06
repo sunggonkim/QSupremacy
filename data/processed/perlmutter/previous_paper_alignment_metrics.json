@@ -396,7 +396,7 @@
       },
       "closest_template": "aurora",
       "ours": {
-        "avg_paragraph_words": 135.11,
+        "avg_paragraph_words": 136.17,
         "figures": 11,
         "items": 0,
         "missing": false,
@@ -407,8 +407,8 @@
         "subsubsections": 7,
         "tables": 0,
         "textbf": 21,
-        "textbf_per_1000_words": 4.44,
-        "words": 4729
+        "textbf_per_1000_words": 4.41,
+        "words": 4766
       },
       "paragraph_role_inventory": [
         {
@@ -512,7 +512,7 @@
         }
       ],
       "role_markers": {
-        "Advantage Frontier and Bottleneck Analysis": 23082,
+        "Advantage Frontier and Bottleneck Analysis": 23166,
         "Baselines": 1145,
         "Benchmark": 844,
         "Component and Baseline Analysis": 12095,
@@ -521,10 +521,10 @@
         "Evaluation Setup": 504,
         "Feasibility": 1456,
         "Hardware Specification": 540,
-        "Leadership-scale Scaling Analysis": 17639,
-        "Operational Stability": 32388,
-        "Strong Scaling": 20739,
-        "Weak Scaling": 19338
+        "Leadership-scale Scaling Analysis": 17692,
+        "Operational Stability": 32594,
+        "Strong Scaling": 20792,
+        "Weak Scaling": 19391
       },
       "role_markers_ordered": true,
       "scaleqsim": {
@@ -543,8 +543,8 @@
         "words": 5732
       },
       "template_distance": {
-        "aurora": 9.056,
-        "scaleqsim": 9.279
+        "aurora": 9.061,
+        "scaleqsim": 9.276
       }
     },
     "introduction": {

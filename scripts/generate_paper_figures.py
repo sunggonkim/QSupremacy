@@ -1162,6 +1162,8 @@ def figure_advantage_frontier():
     max_power = max(6, int(math.ceil(math.log10(max_speed * 1.25))))
     speedups = np.logspace(0, max_power, 121)
     recoveries = np.linspace(0.0, 1.0, 101)
+    time_ticks = [4, 5, 6]
+    time_tick_labels = ["0.7 ms", "70 us", "7 us"]
 
     panel_paths = []
     for panel_index, (workload, label, tolerance) in enumerate(workloads):
@@ -1212,13 +1214,22 @@ def figure_advantage_frontier():
         ax.set_xticklabels(["$10^{}$".format(tick) for tick in ticks])
         if panel_index >= 2:
             ax.set_xlabel("Projected speedup (x)")
+            top_margin = 0.98
         else:
             ax.tick_params(axis="x", labelbottom=False)
+            top = ax.secondary_xaxis("top")
+            top_ticks = [tick for tick in time_ticks if tick <= max_power]
+            top.set_xticks(top_ticks)
+            top.set_xticklabels(time_tick_labels[: len(top_ticks)])
+            top.set_xlabel("Eff. q time")
+            top.tick_params(axis="x", labelsize=5.5, pad=0.8, width=0.6)
+            top.xaxis.label.set_size(5.7)
+            top_margin = 0.86
         ax.tick_params(axis="both", labelsize=6.3, pad=1.0)
         cbar = fig.colorbar(image, ax=ax, shrink=0.88, pad=0.018)
         cbar.set_ticks([0.0, 0.5, 1.0])
         cbar.ax.tick_params(labelsize=6.1, pad=1.0)
-        fig.subplots_adjust(left=0.15, right=0.89, bottom=0.27, top=0.98)
+        fig.subplots_adjust(left=0.15, right=0.89, bottom=0.27, top=top_margin)
         suffix = "ml" if workload == "ml" else workload
         filename = (
             "advantage_frontier.pdf"
