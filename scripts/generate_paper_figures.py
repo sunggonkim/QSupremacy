@@ -1262,6 +1262,97 @@ def figure_tolerance_sensitivity():
     return path
 
 
+def figure_ft_shot_sensitivity():
+    if not os.path.exists(os.path.join(ROOT, STRONG_NATIVE_SUMMARY_CSV)):
+        return None
+
+    rows = read_csv(STRONG_NATIVE_SUMMARY_CSV)
+    workload_specs = [
+        ("ml", "ML", COLORS["blue"], 0.02),
+        ("chemistry", "Chem.", COLORS["teal"], 0.01),
+        ("optimization", "Opt.", COLORS["red"], 0.02),
+        ("simulation", "Sim.", COLORS["green"], 0.01),
+    ]
+    shot_parallel = np.array([1.0, 1.0e2, 1.0e4, 1.0e6])
+    recovery = 0.90
+
+    # Illustrative surface-code lower-bound stack used only for sensitivity.
+    distance = 25.0
+    cycle_sec = 1.0e-6
+    k1, k2, km = 1.0, 4.0, 1.0
+    decoder_sec_per_eval = 5.0e-6
+    control_queue_sec_per_eval = 50.0e-6
+
+    fig, axes = plt.subplots(2, 1, figsize=(COLUMN_WIDTH, 2.75), sharex=True)
+    handles = []
+    labels = []
+    for workload, label, color, tolerance in workload_specs:
+        subset = [row for row in rows if row["workload"] == workload]
+        median_times_ms = []
+        advantaged_frac = []
+        for parallel in shot_parallel:
+            times = []
+            advantaged = []
+            for row in subset:
+                d1 = float(row["one_qubit_gates"])
+                d2 = float(row["two_qubit_gates"])
+                dm = float(row["measurement_ops"])
+                evals = max(1.0, float(row["circuit_evaluations"]))
+                native = float(row["native_runtime_sec"])
+                gap = max(0.0, float(row["quality_gap"]))
+                logical_per_eval = (
+                    d1 * k1 * distance * cycle_sec
+                    + d2 * k2 * distance * cycle_sec
+                    + dm * km * distance * cycle_sec
+                )
+                parallel_time = evals * logical_per_eval / parallel
+                serial_error_time = evals * (decoder_sec_per_eval + control_queue_sec_per_eval)
+                projected = parallel_time + serial_error_time
+                times.append(projected)
+                advantaged.append(
+                    projected < native and gap * (1.0 - recovery) <= tolerance
+                )
+            median_times_ms.append(1.0e3 * float(np.median(times)) if times else 0.0)
+            advantaged_frac.append(100.0 * float(np.mean(advantaged)) if advantaged else 0.0)
+
+        line = axes[0].plot(
+            shot_parallel,
+            median_times_ms,
+            marker="o",
+            linewidth=1.55,
+            markersize=3.5,
+            color=color,
+        )[0]
+        axes[1].plot(
+            shot_parallel,
+            advantaged_frac,
+            marker="o",
+            linewidth=1.55,
+            markersize=3.5,
+            color=color,
+        )
+        handles.append(line)
+        labels.append(label)
+
+    for ax in axes:
+        ax.set_xscale("log")
+        ax.set_xticks(shot_parallel)
+        ax.set_xticklabels(["1", "$10^2$", "$10^4$", "$10^6$"])
+        style_axis(ax, grid="both")
+    axes[0].set_yscale("log")
+    axes[0].set_ylabel("Median FT\ntime (ms)")
+    axes[0].set_ylim(0.025, 2.5e5)
+    axes[1].set_ylabel("Cases advantaged\nat 90% R (%)")
+    axes[1].set_xlabel("Effective $P_{shots}$")
+    axes[1].set_ylim(-3, 103)
+    add_top_legend(fig, handles, labels, ncol=4, y=1.02, fontsize=6.0)
+    fig.subplots_adjust(top=0.84, bottom=0.17, left=0.23, right=0.98, hspace=0.18)
+    path = os.path.join(FIG_DIR, "ft_shot_sensitivity.pdf")
+    fig.savefig(path)
+    plt.close(fig)
+    return path
+
+
 def figure_architecture_focus_matrix():
     workloads = ["ML", "Chem.", "Opt.", "Sim."]
     resources = ["Quality\nencoding", "Logical\nspeed", "Shot\nparallel", "Native\nco-design"]
@@ -1624,6 +1715,7 @@ def main():
         figure_workload_growth(),
         figure_advantage_frontier(),
         figure_tolerance_sensitivity(),
+        figure_ft_shot_sensitivity(),
         figure_architecture_focus_matrix(),
         figure_workload_taxonomy(),
         figure_weak_scaling(),

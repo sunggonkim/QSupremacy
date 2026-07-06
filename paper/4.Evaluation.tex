@@ -322,6 +322,17 @@ The projection uses strict family tolerances: 0.02 for ML and optimization and 0
 \label{fig:tolerance-sensitivity}
 \end{figure}
 
+\noindent\textbf{Shot and FT-stack Sensitivity.}
+Figure~\ref{fig:ft-shot-sensitivity} instantiates the symbolic projection terms for a concrete subset-style check using every practical-suite case. The sensitivity uses the measured gate/evaluation metadata with an illustrative surface-code lower-bound stack: $d=25$, $\tau_c=1\,\mu$s, $k_1=1$, $k_2=4$, $k_m=1$, $5\,\mu$s decoder latency per circuit evaluation, and $50\,\mu$s of residual control/queue overhead per evaluation. Only the logical gate portion is divided by effective shot parallelism; decoder/control overhead remains serial in this lower-bound model. This prevents the seven-second simulator floor from being treated as a logical-gate budget and exposes when increasing $P_{\mathrm{shots}}$ stops helping.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.96\linewidth]{figures/ft_shot_sensitivity.pdf}
+\Description{Two-panel sensitivity plot showing median instantiated fault-tolerant runtime and advantaged case fraction as effective shot parallelism increases.}
+\caption{Concrete FT-stack and shot-parallelism sensitivity. The same measured metadata is evaluated under a stylized surface-code stack. Runtime falls as $P_{\mathrm{shots}}$ increases, but the serial decoder/control floor and quality gate leave chemistry, ML, and optimization constrained even when logical gate work is highly parallel.}
+\label{fig:ft-shot-sensitivity}
+\end{figure}
+
 \subsubsection{Hardware Projection Model}
 
 The projection model uses the measured native runtime, measured quantum-circuit simulation runtime, and measured tolerance-scaled quality gap for each case. For a projected quantum speedup $S$ and quality-gap recovery $R$, a case enters the advantage region only if $S$ is at least the measured required speedup and the residual quality gap is below the workload tolerance. Formally, a case is counted as advantaged when
@@ -334,10 +345,10 @@ where $\Delta Q$ is the measured quality gap in the workload's natural units and
 
 The frontier turns measured runs into concrete hardware targets. Simulation is the closest family: with 90\% quality-gap recovery, a $10^4\times$ projected execution improvement covers 54.9\% of measured simulation cases. Chemistry needs a larger runtime shift: at the same recovery level, $10^5\times$ covers 57.1\% of chemistry cases. ML shows the opposite behavior. A $10^5\times$ speed improvement covers only 9.8\% of ML cases at 90\% recovery, but almost all cases if the quality gap is fully closed. Optimization is the hardest family in the current suite; even $10^6\times$ speedup covers only 22.9\% of cases at 90\% recovery and requires full quality recovery to cover all cases.
 
-The speed axis is dimensionless in the figure, but it has a physical interpretation. Since the measured circuit path is about seven seconds per case, $10^4\times$, $10^5\times$, and $10^6\times$ correspond to roughly 0.7 ms, 70 $\mu$s, and 7 $\mu$s of effective end-to-end quantum execution per measured case before residual host and error terms. A fault-tolerant instantiation reaches that budget only if logical cycle time, code distance, decoder bandwidth, magic-state throughput, and effective shot parallelism jointly satisfy the decomposed model in Section~III. Shot parallelism is a control and scheduling target: the useful rate is bounded by QPUs, decoders, controller fanout, queue policy, and available circuit evaluations. The frontier should therefore be read as a microarchitecture target, not a simulator speedup wish.
+The speed axis is dimensionless in the figure, but it has a physical interpretation. Since the measured circuit path is about seven seconds per case, $10^4\times$, $10^5\times$, and $10^6\times$ correspond to roughly 0.7 ms, 70 $\mu$s, and 7 $\mu$s of effective end-to-end quantum execution per measured case before residual host and error terms. This conversion is not a claim that a Python/cuQuantum run can be scaled down into a quantum device. It is a normalization target: a fault-tolerant instantiation reaches that budget only if logical cycle time, code distance, decoder bandwidth, magic-state throughput, controller scheduling, and effective shot parallelism jointly satisfy the decomposed model in Section~III. Shot parallelism is a control and scheduling target: the useful rate is bounded by QPUs, decoders, controller fanout, queue policy, and available circuit evaluations. The frontier should therefore be read as a microarchitecture target, not a simulator speedup wish.
 
 \begin{observationbox}
-\textbf{Observation 6:} The frontier converts measurements into design guidance. Faster logical operations and shot-level parallelism are most valuable for simulation and part of chemistry. For ML and optimization, the priority shifts to quality-preserving encodings, error suppression, better ansatz structure, and reducing classical-quantum iteration overhead; faster gates alone do not create advantage.
+\textbf{Observation 6:} The frontier converts measurements into design guidance. Faster logical operations and shot-level parallelism are most valuable for simulation and part of chemistry, but the concrete FT-stack sensitivity shows that decoder/control overhead and finite evaluation parallelism create a floor. For ML and optimization, the priority shifts to quality-preserving encodings, error suppression, better ansatz structure, and reducing classical-quantum iteration overhead; faster gates alone do not create advantage.
 \end{observationbox}
 
 \subsubsection{Bottleneck Taxonomy}

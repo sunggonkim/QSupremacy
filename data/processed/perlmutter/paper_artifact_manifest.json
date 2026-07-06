@@ -120,7 +120,8 @@
         "paper/figures/advantage_frontier_chemistry.pdf",
         "paper/figures/advantage_frontier_optimization.pdf",
         "paper/figures/advantage_frontier_simulation.pdf",
-        "paper/figures/tolerance_sensitivity.pdf"
+        "paper/figures/tolerance_sensitivity.pdf",
+        "paper/figures/ft_shot_sensitivity.pdf"
       ],
       "id": "advantage_projection",
       "paper_locations": [
@@ -236,6 +237,7 @@
         "paper/figures/advantage_frontier_optimization.pdf",
         "paper/figures/advantage_frontier_simulation.pdf",
         "paper/figures/tolerance_sensitivity.pdf",
+        "paper/figures/ft_shot_sensitivity.pdf",
         "paper/figures/workload_taxonomy.pdf"
       ],
       "audit_item": "paper_figures",
@@ -271,6 +273,7 @@
         "paper/figures/advantage_frontier_optimization.pdf",
         "paper/figures/advantage_frontier_simulation.pdf",
         "paper/figures/tolerance_sensitivity.pdf",
+        "paper/figures/ft_shot_sensitivity.pdf",
         "paper/figures/workload_taxonomy.pdf"
       ],
       "id": "paper_figures",

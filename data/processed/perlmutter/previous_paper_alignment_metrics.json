@@ -14,13 +14,6 @@
   "known_gaps": [
     {
       "closest_template": "aurora",
-      "ours_words": 204,
-      "section": "related",
-      "target_words": 317,
-      "word_ratio": 0.644
-    },
-    {
-      "closest_template": "aurora",
       "ours_words": 45,
       "section": "conclusion",
       "target_words": 89,
@@ -242,7 +235,7 @@
       },
       "closest_template": "scaleqsim",
       "ours": {
-        "avg_paragraph_words": 81.1,
+        "avg_paragraph_words": 81.76,
         "figures": 2,
         "items": 0,
         "missing": false,
@@ -253,8 +246,8 @@
         "subsubsections": 4,
         "tables": 1,
         "textbf": 15,
-        "textbf_per_1000_words": 4.4,
-        "words": 3406
+        "textbf_per_1000_words": 4.37,
+        "words": 3434
       },
       "paragraph_role_inventory": [
         {
@@ -330,7 +323,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 184,
+          "current_line": 185,
           "current_marker": "\\subsection{Advantage Claim Checklist}",
           "role": "claim checklist",
           "template_line": 237,
@@ -339,7 +332,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 188,
+          "current_line": 189,
           "current_marker": "\\subsection{Workload Suite}",
           "role": "workload suite",
           "template_line": 306,
@@ -350,12 +343,12 @@
       ],
       "role_markers": {
         "Overview of": 47,
-        "\\subsection{Advantage Claim Checklist}": 21323,
+        "\\subsection{Advantage Claim Checklist}": 21510,
         "\\subsection{Application Path Execution}": 10619,
         "\\subsection{Measurement and Threshold Analysis}": 15588,
         "\\subsection{Overall Procedure}": 1724,
         "\\subsection{Shared Workload Control}": 7425,
-        "\\subsection{Workload Suite}": 21935
+        "\\subsection{Workload Suite}": 22122
       },
       "role_markers_ordered": true,
       "scaleqsim": {
@@ -374,8 +367,8 @@
         "words": 4581
       },
       "template_distance": {
-        "aurora": 6.227,
-        "scaleqsim": 6.143
+        "aurora": 6.223,
+        "scaleqsim": 6.14
       }
     },
     "evaluation": {
@@ -396,19 +389,19 @@
       },
       "closest_template": "scaleqsim",
       "ours": {
-        "avg_paragraph_words": 133.13,
-        "figures": 11,
+        "avg_paragraph_words": 136.38,
+        "figures": 12,
         "items": 0,
         "missing": false,
-        "paragraphs": 38,
-        "paragraphs_per_heading": 2.92,
+        "paragraphs": 39,
+        "paragraphs_per_heading": 3.0,
         "path": "paper/4.Evaluation.tex",
         "subsections": 6,
         "subsubsections": 7,
         "tables": 1,
-        "textbf": 27,
-        "textbf_per_1000_words": 5.34,
-        "words": 5059
+        "textbf": 28,
+        "textbf_per_1000_words": 5.26,
+        "words": 5319
       },
       "paragraph_role_inventory": [
         {
@@ -493,7 +486,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 363,
+          "current_line": 374,
           "current_marker": "\\subsection{Operational Stability}",
           "role": "stability",
           "template_line": 413,
@@ -502,7 +495,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 343,
+          "current_line": 354,
           "current_marker": "Bottleneck Taxonomy",
           "role": "taxonomy and sensitivity",
           "template_line": 399,
@@ -522,7 +515,7 @@
         "Feasibility": 1456,
         "Hardware Specification": 540,
         "Leadership-scale Scaling Analysis": 20313,
-        "Operational Stability": 35404,
+        "Operational Stability": 37104,
         "Strong Scaling": 23425,
         "Weak Scaling": 22018
       },
@@ -543,8 +536,8 @@
         "words": 5732
       },
       "template_distance": {
-        "aurora": 8.558,
-        "scaleqsim": 8.464
+        "aurora": 8.78,
+        "scaleqsim": 8.6
       }
     },
     "introduction": {
@@ -700,7 +693,7 @@
       },
       "closest_template": "aurora",
       "ours": {
-        "avg_paragraph_words": 102.0,
+        "avg_paragraph_words": 129.5,
         "figures": 0,
         "items": 0,
         "missing": false,
@@ -711,8 +704,8 @@
         "subsubsections": 0,
         "tables": 0,
         "textbf": 2,
-        "textbf_per_1000_words": 9.8,
-        "words": 204
+        "textbf_per_1000_words": 7.72,
+        "words": 259
       },
       "paragraph_role_inventory": [
         {
@@ -750,8 +743,8 @@
         "words": 512
       },
       "template_distance": {
-        "aurora": 0.178,
-        "scaleqsim": 3.967
+        "aurora": 0.091,
+        "scaleqsim": 3.914
       }
     }
   },

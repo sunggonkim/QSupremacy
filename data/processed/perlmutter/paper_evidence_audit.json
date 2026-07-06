@@ -279,6 +279,12 @@
           "passed": true
         },
         {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/ft_shot_sensitivity.pdf",
+          "passed": true
+        },
+        {
           "actual": 3552,
           "expected": 3552,
           "label": "projection_cases",
@@ -306,7 +312,8 @@
         "paper/figures/advantage_frontier_chemistry.pdf",
         "paper/figures/advantage_frontier_optimization.pdf",
         "paper/figures/advantage_frontier_simulation.pdf",
-        "paper/figures/tolerance_sensitivity.pdf"
+        "paper/figures/tolerance_sensitivity.pdf",
+        "paper/figures/ft_shot_sensitivity.pdf"
       ],
       "name": "advantage_projection",
       "passed": true
@@ -528,6 +535,7 @@
             "paper/figures/digits_quality_speedup.pdf",
             "paper/figures/digits_required_speedup.pdf",
             "paper/figures/evaluation_evidence_flow.pdf",
+            "paper/figures/ft_shot_sensitivity.pdf",
             "paper/figures/intro_comparison_paths.pdf",
             "paper/figures/intro_threshold_summary.pdf",
             "paper/figures/ml_native_profile_combined.pdf",
@@ -561,6 +569,7 @@
             "paper/figures/digits_quality_speedup.pdf",
             "paper/figures/digits_required_speedup.pdf",
             "paper/figures/evaluation_evidence_flow.pdf",
+            "paper/figures/ft_shot_sensitivity.pdf",
             "paper/figures/intro_comparison_paths.pdf",
             "paper/figures/intro_threshold_summary.pdf",
             "paper/figures/ml_native_profile_combined.pdf",
@@ -1008,6 +1017,20 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
+            "size_bytes": 42350
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/ft_shot_sensitivity.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
             "size_bytes": 28553
           },
           "expected": {
@@ -1051,6 +1074,7 @@
         "paper/figures/advantage_frontier_optimization.pdf",
         "paper/figures/advantage_frontier_simulation.pdf",
         "paper/figures/tolerance_sensitivity.pdf",
+        "paper/figures/ft_shot_sensitivity.pdf",
         "paper/figures/workload_taxonomy.pdf"
       ],
       "name": "paper_figures",
@@ -1562,6 +1586,12 @@
         {
           "actual": true,
           "expected": true,
+          "label": "exists: paper/figures/ft_shot_sensitivity.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
           "label": "audit_item_declared: advantage_projection",
           "passed": true
         },
@@ -1880,6 +1910,12 @@
         {
           "actual": true,
           "expected": true,
+          "label": "exists: paper/figures/ft_shot_sensitivity.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
           "label": "exists: paper/figures/workload_taxonomy.pdf",
           "passed": true
         },
@@ -2061,6 +2097,12 @@
           "actual": true,
           "expected": true,
           "label": "exists: paper/figures/tolerance_sensitivity.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/ft_shot_sensitivity.pdf",
           "passed": true
         },
         {
