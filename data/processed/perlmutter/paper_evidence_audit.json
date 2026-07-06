@@ -599,7 +599,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 18471
+            "size_bytes": 28623
           },
           "expected": {
             "exists": true,
@@ -613,7 +613,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 25235
+            "size_bytes": 28416
           },
           "expected": {
             "exists": true,
@@ -739,7 +739,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 13610
+            "size_bytes": 14245
           },
           "expected": {
             "exists": true,
@@ -767,7 +767,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 8335
+            "size_bytes": 9112
           },
           "expected": {
             "exists": true,
@@ -837,7 +837,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 24237
+            "size_bytes": 24219
           },
           "expected": {
             "exists": true,
@@ -851,7 +851,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 11926
+            "size_bytes": 12969
           },
           "expected": {
             "exists": true,
@@ -865,7 +865,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 17240
+            "size_bytes": 17600
           },
           "expected": {
             "exists": true,
@@ -879,7 +879,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 8340
+            "size_bytes": 9090
           },
           "expected": {
             "exists": true,
@@ -963,7 +963,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 33603
+            "size_bytes": 33661
           },
           "expected": {
             "exists": true,
@@ -1019,7 +1019,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 30202
+            "size_bytes": 30200
           },
           "expected": {
             "exists": true,
@@ -1033,7 +1033,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 42445
+            "size_bytes": 43078
           },
           "expected": {
             "exists": true,
@@ -1047,7 +1047,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 28553
+            "size_bytes": 28969
           },
           "expected": {
             "exists": true,
@@ -1126,12 +1126,12 @@
           "expected": {
             "contains": [
               "median native path is 2.09 ms for ML",
-              "0.170 ms for chemistry",
-              "0.024 ms for optimization",
+              "0.170 ms for molecule",
+              "0.024 ms for MaxCut",
               "3,726.4$\\times$ for ML",
-              "42,491.4$\\times$ for chemistry",
-              "287,045.6$\\times$ for optimization",
-              "3,071.0$\\times$ for simulation",
+              "42,491.4$\\times$ for molecule",
+              "287,045.6$\\times$ for MaxCut",
+              "3,071.0$\\times$ for HamSim",
               "7,104-case larger-workload gate",
               "256-GPU run completes 7,104 cases in 514 seconds",
               "4 minutes 21 seconds",
@@ -1152,8 +1152,8 @@
           },
           "expected": {
             "contains": [
-              "54.9\\% of measured simulation cases",
-              "57.1\\% of chemistry cases",
+              "54.9\\% of measured HamSim cases",
+              "57.1\\% of molecule cases",
               "22.9\\% of cases at 90\\% recovery",
               "maximum quantum-runtime CV is 0.0400"
             ]
@@ -1171,8 +1171,8 @@
               "421.9$\\times$",
               "64.9$\\times$",
               "3,552 cases",
-              "54.9\\% of simulation cases",
-              "57.1\\% of chemistry cases"
+              "54.9\\% of HamSim cases",
+              "57.1\\% of molecule cases"
             ]
           },
           "label": "conclusion_frontier_numbers",

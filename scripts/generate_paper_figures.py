@@ -366,9 +366,9 @@ def figure_intro_paths():
     fig, ax = plt.subplots(figsize=(INTRO_PATH_WIDTH, 1.28))
     rows = [
         ("ML", "native\nmodels", "QKernel\nQNN/VQC\nfeature", COLORS["blue"], COLORS["orange"]),
-        ("Chem.", "exact\nLanczos", "VQE", COLORS["teal"], COLORS["teal"]),
-        ("Opt.", "exact\nheur.", "QAOA", COLORS["red"], COLORS["red"]),
-        ("Sim.", "dense\nKrylov", "Trotter", COLORS["green"], COLORS["green"]),
+        ("Mol.", "exact\nLanczos", "VQE", COLORS["teal"], COLORS["teal"]),
+        ("MaxCut", "exact\nheur.", "QAOA", COLORS["red"], COLORS["red"]),
+        ("HamSim", "dense\nKrylov", "Trotter", COLORS["green"], COLORS["green"]),
     ]
     y_positions = [0.80, 0.60, 0.40, 0.20]
     for (family, native, circuit, native_color, circuit_color), y0 in zip(rows, y_positions):
@@ -653,13 +653,13 @@ def figure_practical_suite_legend():
     ax.axis("off")
     fig.legend(
         handles,
-        ["ML", "Chem.", "Opt.", "Sim."],
+        ["ML", "Molecule", "MaxCut", "HamSim"],
         ncol=4,
         loc="center",
         frameon=False,
-        fontsize=6.4,
-        handletextpad=0.30,
-        columnspacing=0.85,
+        fontsize=5.8,
+        handletextpad=0.25,
+        columnspacing=0.55,
     )
     path = os.path.join(FIG_DIR, "practical_suite_legend.pdf")
     fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
@@ -714,9 +714,9 @@ def figure_practical_suite():
     rows = read_csv(rel_path)
     workloads = [
         ("ml", "ML", COLORS["blue"], 0.02),
-        ("chemistry", "Chem.", COLORS["teal"], 0.01),
-        ("optimization", "Opt.", COLORS["red"], 0.02),
-        ("simulation", "Sim.", COLORS["green"], 0.01),
+        ("chemistry", "Molecule", COLORS["teal"], 0.01),
+        ("optimization", "MaxCut", COLORS["red"], 0.02),
+        ("simulation", "HamSim", COLORS["green"], 0.01),
     ]
 
     series = []
@@ -786,7 +786,7 @@ def figure_strong_native_comparison():
         return None
 
     workloads = ["ml", "chemistry", "optimization", "simulation"]
-    labels = ["ML", "Chem.", "Opt.", "Sim."]
+    labels = ["ML", "Molecule", "MaxCut", "HamSim"]
     official_speed = [
         float(official["by_workload"][workload]["speedup_required_median"])
         for workload in workloads
@@ -814,10 +814,10 @@ def figure_strong_native_comparison():
         ncol=4,
         loc="center",
         frameon=False,
-        fontsize=6.2,
+        fontsize=5.6,
         handlelength=1.0,
-        handletextpad=0.30,
-        columnspacing=0.85,
+        handletextpad=0.25,
+        columnspacing=0.55,
     )
     legend_path = os.path.join(FIG_DIR, "strong_native_legend.pdf")
     legend_fig.savefig(legend_path, bbox_inches="tight", pad_inches=0.01)
@@ -1190,9 +1190,9 @@ def figure_workload_growth():
 
     workloads = [
         ("ml", "ML", COLORS["blue"]),
-        ("chemistry", "Chem.", COLORS["teal"]),
-        ("optimization", "Opt.", COLORS["red"]),
-        ("simulation", "Sim.", COLORS["green"]),
+        ("chemistry", "Molecule", COLORS["teal"]),
+        ("optimization", "MaxCut", COLORS["red"]),
+        ("simulation", "HamSim", COLORS["green"]),
     ]
     rows_by_run = [read_csv(points[0][4]), read_csv(points[1][4])]
     fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.78))
@@ -1233,9 +1233,9 @@ def figure_circuit_operation_mix():
     rows = read_csv(STRONG_NATIVE_SUMMARY_CSV)
     workloads = [
         ("ml", "ML", COLORS["blue"]),
-        ("chemistry", "Chem.", COLORS["teal"]),
-        ("optimization", "Opt.", COLORS["red"]),
-        ("simulation", "Sim.", COLORS["green"]),
+        ("chemistry", "Molecule", COLORS["teal"]),
+        ("optimization", "MaxCut", COLORS["red"]),
+        ("simulation", "HamSim", COLORS["green"]),
     ]
     categories = [
         ("one_qubit_gates", "1Q gates", COLORS["blue"]),
@@ -1278,13 +1278,14 @@ def figure_circuit_operation_mix():
         left += values
     ax.set_yticks(y)
     ax.set_yticklabels([label for _, label, _ in workloads])
+    ax.invert_yaxis()
     ax.set_xlim(0, 1.0)
     ax.set_xlabel("Operation share")
     ax.set_xticks([0, 0.5, 1.0])
     ax.set_xticklabels(["0", "50%", "100%"])
     style_axis(ax, grid="x")
     add_top_legend(fig, handles, labels, ncol=3, y=1.03, fontsize=5.5)
-    fig.subplots_adjust(left=0.25, right=0.98, bottom=0.24, top=0.70)
+    fig.subplots_adjust(left=0.40, right=0.98, bottom=0.24, top=0.70)
     path = os.path.join(FIG_DIR, "circuit_operation_mix.pdf")
     fig.savefig(path)
     plt.close(fig)
@@ -1298,9 +1299,9 @@ def figure_threshold_tail_pressure():
     rows = read_csv(STRONG_NATIVE_SUMMARY_CSV)
     workloads = [
         ("ml", "ML", COLORS["blue"]),
-        ("chemistry", "Chem.", COLORS["teal"]),
-        ("optimization", "Opt.", COLORS["red"]),
-        ("simulation", "Sim.", COLORS["green"]),
+        ("chemistry", "Molecule", COLORS["teal"]),
+        ("optimization", "MaxCut", COLORS["red"]),
+        ("simulation", "HamSim", COLORS["green"]),
     ]
 
     fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.84))
@@ -1333,9 +1334,9 @@ def figure_tolerance_sensitivity():
     rows = read_csv(STRONG_NATIVE_SUMMARY_CSV)
     workload_specs = [
         ("ml", "ML $10^5$x", COLORS["blue"], 1.0e5, 0.02),
-        ("chemistry", "Chem. $10^5$x", COLORS["teal"], 1.0e5, 0.01),
-        ("optimization", "Opt. $10^6$x", COLORS["red"], 1.0e6, 0.02),
-        ("simulation", "Sim. $10^4$x", COLORS["green"], 1.0e4, 0.01),
+        ("chemistry", "Molecule $10^5$x", COLORS["teal"], 1.0e5, 0.01),
+        ("optimization", "MaxCut $10^6$x", COLORS["red"], 1.0e6, 0.02),
+        ("simulation", "HamSim $10^4$x", COLORS["green"], 1.0e4, 0.01),
     ]
     multipliers = np.array([0.5, 1.0, 2.0, 5.0], dtype=float)
     recovery = 0.90
@@ -1370,7 +1371,7 @@ def figure_tolerance_sensitivity():
     ax.set_xlabel("Tolerance multiplier")
     ax.set_ylabel("Cases advantaged\nat 90% recovery (%)")
     style_axis(ax, grid="both")
-    add_top_legend(fig, handles, labels, ncol=4, y=1.02, fontsize=5.7)
+    add_top_legend(fig, handles, labels, ncol=4, y=1.02, fontsize=4.9)
     fig.subplots_adjust(left=0.20, right=0.98, bottom=0.26, top=0.78)
     path = os.path.join(FIG_DIR, "tolerance_sensitivity.pdf")
     fig.savefig(path)
@@ -1385,9 +1386,9 @@ def figure_ft_shot_sensitivity():
     rows = read_csv(STRONG_NATIVE_SUMMARY_CSV)
     workload_specs = [
         ("ml", "ML", COLORS["blue"], 0.02),
-        ("chemistry", "Chem.", COLORS["teal"], 0.01),
-        ("optimization", "Opt.", COLORS["red"], 0.02),
-        ("simulation", "Sim.", COLORS["green"], 0.01),
+        ("chemistry", "Molecule", COLORS["teal"], 0.01),
+        ("optimization", "MaxCut", COLORS["red"], 0.02),
+        ("simulation", "HamSim", COLORS["green"], 0.01),
     ]
     shot_parallel = np.array([1.0, 1.0e2, 1.0e4, 1.0e6])
     recovery = 0.90
@@ -1461,7 +1462,7 @@ def figure_ft_shot_sensitivity():
     axes[1].set_ylabel("Adv. cases\nat 90% R (%)")
     axes[1].set_xlabel("Effective $P_{shots}$")
     axes[1].set_ylim(-3, 103)
-    add_top_legend(fig, handles, labels, ncol=4, y=1.01, fontsize=5.8)
+    add_top_legend(fig, handles, labels, ncol=4, y=1.01, fontsize=5.1)
     fig.subplots_adjust(top=0.83, bottom=0.17, left=0.24, right=0.98, hspace=0.30)
     path = os.path.join(FIG_DIR, "ft_shot_sensitivity.pdf")
     fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
@@ -1470,7 +1471,7 @@ def figure_ft_shot_sensitivity():
 
 
 def figure_architecture_focus_matrix():
-    workloads = ["ML", "Chem.", "Opt.", "Sim."]
+    workloads = ["ML", "Molecule", "MaxCut", "HamSim"]
     resources = ["Quality\nencoding", "Logical\nspeed", "Shot\nparallel", "Native\nco-design"]
     scores = np.array(
         [
@@ -1716,9 +1717,9 @@ def figure_advantage_frontier():
     rows = read_csv(rel_path)
     workloads = [
         ("ml", "ML", COLORS["blue"], 0.02),
-        ("chemistry", "Chem.", COLORS["teal"], 0.01),
-        ("optimization", "Opt.", COLORS["red"], 0.02),
-        ("simulation", "Sim.", COLORS["green"], 0.01),
+        ("chemistry", "Molecule", COLORS["teal"], 0.01),
+        ("optimization", "MaxCut", COLORS["red"], 0.02),
+        ("simulation", "HamSim", COLORS["green"], 0.01),
     ]
     max_speed = max(float(row["speedup_required"]) for row in rows)
     max_power = max(6, int(math.ceil(math.log10(max_speed * 1.25))))
@@ -1762,7 +1763,7 @@ def figure_advantage_frontier():
     top.set_xticks([1e4, 1e5, 1e6])
     top.set_xticklabels(["0.7 ms", "70 us", "7 us"])
     top.tick_params(axis="x", labelsize=5.8, pad=0.6, width=0.6)
-    add_top_legend(fig, handles, labels, ncol=4, y=1.08, fontsize=5.7)
+    add_top_legend(fig, handles, labels, ncol=4, y=1.08, fontsize=5.1)
     fig.subplots_adjust(left=0.24, right=0.98, bottom=0.24, top=0.72)
     path = os.path.join(FIG_DIR, "advantage_frontier.pdf")
     fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
@@ -1776,7 +1777,7 @@ def figure_workload_taxonomy():
         return None
 
     workloads = ["ml", "chemistry", "optimization", "simulation"]
-    labels = ["ML", "Chem.", "Opt.", "Sim."]
+    labels = ["ML", "Molecule", "MaxCut", "HamSim"]
     taxonomy_order = [
         "quality-limited",
         "speed-limited",
