@@ -1460,7 +1460,7 @@
           "template_line": 58,
           "template_marker": "\\subsection{Evaluation Setup}",
           "template_source": "aurora",
-          "word_count": 39
+          "word_count": 38
         },
         {
           "current_line": 5,
@@ -1802,7 +1802,7 @@
           "template_line": 248,
           "template_marker": "Various Circuits.",
           "template_source": "aurora",
-          "word_count": 106
+          "word_count": 105
         },
         {
           "current_line": 78,
@@ -2117,7 +2117,7 @@
           "has_resizebox": false,
           "has_subfigure": true,
           "kind": "figure",
-          "lead": "Work grows with nodes.",
+          "lead": "Work grows.",
           "order": 39,
           "role": "component and baseline",
           "section": "evaluation",
@@ -2125,7 +2125,7 @@
           "template_line": 247,
           "template_marker": "Performance and Scalability in Diverse",
           "template_source": "scaleqsim",
-          "word_count": 106
+          "word_count": 103
         },
         {
           "current_line": 186,
@@ -2163,7 +2163,7 @@
           "template_line": 269,
           "template_marker": "Weak Scalability.",
           "template_source": "aurora",
-          "word_count": 85
+          "word_count": 92
         },
         {
           "current_line": 186,
@@ -2220,7 +2220,7 @@
           "template_line": 334,
           "template_marker": "Strong Scalability.",
           "template_source": "aurora",
-          "word_count": 100
+          "word_count": 107
         },
         {
           "current_line": 210,
@@ -2581,7 +2581,7 @@
           "template_line": 399,
           "template_marker": "\\subsection{Sensitivity Analysis}",
           "template_source": "aurora",
-          "word_count": 103
+          "word_count": 102
         },
         {
           "current_line": 326,
@@ -2854,7 +2854,7 @@
           "template_line": 77,
           "template_marker": "In this paper, we propose",
           "template_source": "aurora",
-          "word_count": 158
+          "word_count": 157
         }
       ]
     },

@@ -264,7 +264,7 @@ def main():
     items.append(
         ok_item(
             "large_practical_suite",
-            "3,552-case strong-native suite plus 64-node fixed-work and larger-workload gates",
+            "3,552-case strong-native suite plus 256-GPU fixed-work and larger-workload gates",
             [large_json, large_csv, large_accounting],
             large_checks,
         )
@@ -445,7 +445,7 @@ def main():
                 "287,045.6$\\times$ for optimization",
                 "3,071.0$\\times$ for simulation",
                 "7,104-case larger-workload gate",
-                "64-node run completes 7,104 cases in 514 seconds",
+                "256-GPU run completes 7,104 cases in 514 seconds",
                 "4 minutes 21 seconds",
             ],
         ),

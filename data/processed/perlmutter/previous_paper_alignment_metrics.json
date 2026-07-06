@@ -381,7 +381,7 @@
       },
       "closest_template": "aurora",
       "ours": {
-        "avg_paragraph_words": 130.76,
+        "avg_paragraph_words": 131.0,
         "figures": 11,
         "items": 0,
         "missing": false,
@@ -393,7 +393,7 @@
         "tables": 0,
         "textbf": 20,
         "textbf_per_1000_words": 4.63,
-        "words": 4315
+        "words": 4323
       },
       "paragraph_role_inventory": [
         {
@@ -497,19 +497,19 @@
         }
       ],
       "role_markers": {
-        "Advantage Frontier and Bottleneck Analysis": 20554,
-        "Baselines": 1150,
-        "Benchmark": 849,
-        "Component and Baseline Analysis": 10874,
-        "End-to-End Threshold Landscape": 3350,
-        "Evaluation Questions": 2838,
+        "Advantage Frontier and Bottleneck Analysis": 20571,
+        "Baselines": 1145,
+        "Benchmark": 844,
+        "Component and Baseline Analysis": 10866,
+        "End-to-End Threshold Landscape": 3346,
+        "Evaluation Questions": 2834,
         "Evaluation Setup": 504,
-        "Feasibility": 1461,
+        "Feasibility": 1456,
         "Hardware Specification": 540,
-        "Leadership-scale Scaling Analysis": 15410,
-        "Operational Stability": 28651,
-        "Strong Scaling": 18500,
-        "Weak Scaling": 17121
+        "Leadership-scale Scaling Analysis": 15402,
+        "Operational Stability": 28663,
+        "Strong Scaling": 18502,
+        "Weak Scaling": 17101
       },
       "role_markers_ordered": true,
       "scaleqsim": {
@@ -528,8 +528,8 @@
         "words": 5732
       },
       "template_distance": {
-        "aurora": 8.964,
-        "scaleqsim": 9.395
+        "aurora": 8.965,
+        "scaleqsim": 9.394
       }
     },
     "introduction": {
@@ -550,7 +550,7 @@
       },
       "closest_template": "aurora",
       "ours": {
-        "avg_paragraph_words": 138.88,
+        "avg_paragraph_words": 138.75,
         "figures": 1,
         "items": 0,
         "missing": false,
@@ -561,8 +561,8 @@
         "subsubsections": 0,
         "tables": 1,
         "textbf": 13,
-        "textbf_per_1000_words": 11.7,
-        "words": 1111
+        "textbf_per_1000_words": 11.71,
+        "words": 1110
       },
       "paragraph_role_inventory": [
         {

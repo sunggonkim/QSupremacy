@@ -470,7 +470,7 @@ def figure_evaluation_evidence_flow():
         ("Calibrate", "160\nML cases", COLORS["blue"]),
         ("Main suite", "3,552\ncases", COLORS["green"]),
         ("Stress", "116 + 104\ncoverage", COLORS["teal"]),
-        ("Scale", "4-64\nnodes", COLORS["purple"]),
+        ("Scale", "16-256\nGPUs", COLORS["purple"]),
         ("Stability", "12\nrepeat trials", COLORS["orange"]),
     ]
     x_positions = np.linspace(0.08, 0.88, len(stages))
@@ -746,13 +746,13 @@ def figure_workload_growth():
         return None
 
     points = [
-        ("32 nodes\n3,552 cases", 3552, 257, STRONG_NATIVE_SUMMARY_CSV),
-        ("64 nodes\n7,104 cases", 7104, 514, STRONG_NATIVE_64_SUMMARY_CSV),
+        ("128 GPUs\n3,552 cases", 128, 3552, 257, STRONG_NATIVE_SUMMARY_CSV),
+        ("256 GPUs\n7,104 cases", 256, 7104, 514, STRONG_NATIVE_64_SUMMARY_CSV),
     ]
 
     fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.45))
-    cases = np.array([point[1] for point in points], dtype=float)
-    elapsed = np.array([point[2] for point in points], dtype=float)
+    cases = np.array([point[2] for point in points], dtype=float)
+    elapsed = np.array([point[3] for point in points], dtype=float)
     ax.plot(cases, elapsed, marker="o", color=COLORS["blue"], linewidth=1.8)
     ax.plot(
         cases,
@@ -780,7 +780,7 @@ def figure_workload_growth():
         ("optimization", "Opt.", COLORS["red"]),
         ("simulation", "Sim.", COLORS["green"]),
     ]
-    rows_by_run = [read_csv(points[0][3]), read_csv(points[1][3])]
+    rows_by_run = [read_csv(points[0][4]), read_csv(points[1][4])]
     fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.45))
     x = np.array([0, 1], dtype=float)
     for workload, label, color in workloads:
@@ -800,7 +800,7 @@ def figure_workload_growth():
             "simulation": 0.84,
         }[workload]
         ax.text(
-            1.05,
+            1.06,
             medians[-1] * label_scale,
             label,
             va="center",
@@ -810,12 +810,12 @@ def figure_workload_growth():
         )
     ax.set_yscale("log")
     ax.set_xticks(x)
-    ax.set_xticklabels(["32\nnodes", "64\nnodes"])
+    ax.set_xticklabels(["128\nGPUs", "256\nGPUs"])
     ax.set_ylabel("Median\nquality gap")
     ax.set_ylim(0.01, 0.55)
-    ax.set_xlim(-0.12, 1.45)
+    ax.set_xlim(-0.14, 1.42)
     style_axis(ax, grid="y")
-    fig.subplots_adjust(left=0.23, right=0.82, bottom=0.30, top=0.94)
+    fig.subplots_adjust(left=0.23, right=0.82, bottom=0.32, top=0.94)
     quality_path = os.path.join(FIG_DIR, "workload_growth_quality.pdf")
     fig.savefig(quality_path, bbox_inches="tight")
     plt.close(fig)
@@ -947,50 +947,49 @@ def figure_weak_scaling():
     if len(runs) < 2:
         return None
 
-    nodes = np.array([run["nodes"] for run in runs], dtype=float)
     gpus = np.array([run["gpus"] for run in runs], dtype=float)
     cases = np.array([run["cases"] for run in runs], dtype=float)
     elapsed = np.array([run["elapsed_sec"] for run in runs], dtype=float)
     throughput = cases / elapsed
-    ideal = throughput[0] * (nodes / nodes[0])
+    ideal = throughput[0] * (gpus / gpus[0])
     per_gpu = cases / (elapsed * gpus)
     efficiency = per_gpu / per_gpu[0]
 
     fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.34))
-    line_measured = ax.plot(nodes, throughput, marker="o", color=COLORS["blue"], label="measured")[0]
-    line_ideal = ax.plot(nodes, ideal, linestyle="--", color=COLORS["gray"], label="ideal linear")[0]
-    ax.text(nodes[-1] * 1.05, throughput[-1], "measured", color=COLORS["blue"], fontsize=6.0, va="center")
-    ax.text(nodes[-1] * 1.05, ideal[-1], "ideal", color=COLORS["gray"], fontsize=6.0, va="center")
+    line_measured = ax.plot(gpus, throughput, marker="o", color=COLORS["blue"], label="measured")[0]
+    line_ideal = ax.plot(gpus, ideal, linestyle="--", color=COLORS["gray"], label="ideal linear")[0]
+    ax.text(gpus[-1] * 1.05, throughput[-1] * 0.93, "measured", color=COLORS["blue"], fontsize=6.0, va="center")
+    ax.text(gpus[-1] * 1.05, ideal[-1] * 1.06, "ideal", color=COLORS["gray"], fontsize=6.0, va="center")
     ax.set_xscale("log", base=2)
-    ax.set_xticks(nodes)
-    ax.set_xticklabels([str(int(x)) for x in nodes])
-    ax.set_xlabel("GPU nodes")
+    ax.set_xticks([1, 4, 16, 32, 64, 128, 256])
+    ax.set_xticklabels(["1", "4", "16", "32", "64", "128", "256"])
+    ax.set_xlabel("GPUs")
     ax.set_ylabel("Throughput\n(cases/s)")
     style_axis(ax, grid="both")
-    ax.set_xlim(nodes[0] * 0.88, nodes[-1] * 1.62)
-    fig.subplots_adjust(top=0.98, bottom=0.30, left=0.22, right=0.88)
+    ax.set_xlim(1, 300)
+    fig.subplots_adjust(top=0.98, bottom=0.32, left=0.22, right=0.88)
     throughput_path = os.path.join(FIG_DIR, "weak_scaling.pdf")
     fig.savefig(throughput_path, bbox_inches="tight")
     plt.close(fig)
 
     fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.34))
     line_eff = ax.plot(
-        nodes,
+        gpus,
         efficiency,
         marker="s",
         color=COLORS["orange"],
         label="per-GPU throughput",
     )[0]
     ax.axhline(1.0, linestyle="--", color=COLORS["gray"], linewidth=1.0)
-    ax.text(nodes[-1] * 1.05, efficiency[-1], "per-GPU", color=COLORS["orange"], fontsize=6.0, va="center")
+    ax.text(gpus[-1] * 1.05, efficiency[-1], "per-GPU", color=COLORS["orange"], fontsize=6.0, va="center")
     ax.set_xscale("log", base=2)
-    ax.set_xticks(nodes)
-    ax.set_xticklabels([str(int(x)) for x in nodes])
-    ax.set_xlabel("GPU nodes")
+    ax.set_xticks([1, 4, 16, 32, 64, 128, 256])
+    ax.set_xticklabels(["1", "4", "16", "32", "64", "128", "256"])
+    ax.set_xlabel("GPUs")
     ax.set_ylabel("Norm. per-GPU\nthroughput")
     ax.set_ylim(0.82, 1.08)
     style_axis(ax, grid="both")
-    ax.set_xlim(nodes[0] * 0.88, nodes[-1] * 1.55)
+    ax.set_xlim(1, 300)
     fig.subplots_adjust(top=0.98, bottom=0.32, left=0.22, right=0.88)
     efficiency_path = os.path.join(FIG_DIR, "weak_scaling_efficiency.pdf")
     fig.savefig(efficiency_path, bbox_inches="tight")
@@ -1004,46 +1003,47 @@ def figure_strong_scaling():
         return None
 
     nodes = np.array([run["nodes"] for run in runs], dtype=float)
+    gpus = np.array([run["gpus"] for run in runs], dtype=float)
     elapsed = np.array([run["elapsed_sec"] for run in runs], dtype=float)
     speedup = elapsed[0] / elapsed
     ideal = nodes / nodes[0]
     efficiency = speedup / ideal
 
     fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.34))
-    line_time = ax.plot(nodes, elapsed / 60.0, marker="o", color=COLORS["blue"], label="measured")[0]
+    line_time = ax.plot(gpus, elapsed / 60.0, marker="o", color=COLORS["blue"], label="measured")[0]
     line_time_ideal = ax.plot(
-        nodes,
+        gpus,
         (elapsed[0] / ideal) / 60.0,
         linestyle="--",
         color=COLORS["gray"],
         label="ideal linear",
     )[0]
-    ax.text(nodes[-1] * 1.05, (elapsed / 60.0)[-1], "measured", color=COLORS["blue"], fontsize=6.0, va="center")
-    ax.text(nodes[-1] * 1.05, ((elapsed[0] / ideal) / 60.0)[-1], "ideal", color=COLORS["gray"], fontsize=6.0, va="center")
+    ax.text(gpus[-1] * 1.05, (elapsed / 60.0)[-1], "measured", color=COLORS["blue"], fontsize=6.0, va="center")
+    ax.text(gpus[-1] * 1.05, ((elapsed[0] / ideal) / 60.0)[-1], "ideal", color=COLORS["gray"], fontsize=6.0, va="center")
     ax.set_xscale("log", base=2)
-    ax.set_xticks(nodes)
-    ax.set_xticklabels([str(int(x)) for x in nodes])
+    ax.set_xticks([1, 4, 16, 32, 64, 128, 256])
+    ax.set_xticklabels(["1", "4", "16", "32", "64", "128", "256"])
     ax.set_ylabel("Elapsed time\n(min)")
-    ax.set_xlabel("GPU nodes")
+    ax.set_xlabel("GPUs")
     style_axis(ax, grid="both")
-    ax.set_xlim(nodes[0] * 0.88, nodes[-1] * 1.62)
+    ax.set_xlim(1, 300)
     fig.subplots_adjust(top=0.98, bottom=0.30, left=0.20, right=0.88)
     elapsed_path = os.path.join(FIG_DIR, "strong_scaling.pdf")
     fig.savefig(elapsed_path, bbox_inches="tight")
     plt.close(fig)
 
     fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.34))
-    line_speed = ax.plot(nodes, speedup, marker="o", color=COLORS["green"], label="measured")[0]
-    line_speed_ideal = ax.plot(nodes, ideal, linestyle="--", color=COLORS["gray"], label="ideal linear")[0]
-    ax.text(nodes[-1] * 1.05, speedup[-1], "measured", color=COLORS["green"], fontsize=6.0, va="center")
-    ax.text(nodes[-1] * 1.05, ideal[-1], "ideal", color=COLORS["gray"], fontsize=6.0, va="center")
+    line_speed = ax.plot(gpus, speedup, marker="o", color=COLORS["green"], label="measured")[0]
+    line_speed_ideal = ax.plot(gpus, ideal, linestyle="--", color=COLORS["gray"], label="ideal linear")[0]
+    ax.text(gpus[-1] * 1.05, speedup[-1], "measured", color=COLORS["green"], fontsize=6.0, va="center")
+    ax.text(gpus[-1] * 1.05, ideal[-1], "ideal", color=COLORS["gray"], fontsize=6.0, va="center")
     ax.set_xscale("log", base=2)
-    ax.set_xticks(nodes)
-    ax.set_xticklabels([str(int(x)) for x in nodes])
-    ax.set_xlabel("GPU nodes")
-    ax.set_ylabel("Speedup vs.\n4 nodes")
+    ax.set_xticks([1, 4, 16, 32, 64, 128, 256])
+    ax.set_xticklabels(["1", "4", "16", "32", "64", "128", "256"])
+    ax.set_xlabel("GPUs")
+    ax.set_ylabel("Speedup vs.\n16 GPUs")
     style_axis(ax, grid="both")
-    ax.set_xlim(nodes[0] * 0.88, nodes[-1] * 1.62)
+    ax.set_xlim(1, 300)
     fig.subplots_adjust(top=0.98, bottom=0.32, left=0.18, right=0.88)
     speedup_path = os.path.join(FIG_DIR, "strong_scaling_speedup.pdf")
     fig.savefig(speedup_path, bbox_inches="tight")

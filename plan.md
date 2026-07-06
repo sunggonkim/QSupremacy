@@ -24,9 +24,9 @@ strength, or algorithmic quality.
 | --- | --- |
 | Paper PDF | Built at `paper/main.pdf` |
 | HPCA body budget | References start on page 12 |
-| Main practical suite | 3,552 cases, 32 leadership-system GPU nodes |
-| 64-node fixed work | 3,552 cases in 261 seconds |
-| 64-node larger-workload gate | 7,104 cases in 514 seconds |
+| Main practical suite | 3,552 cases, 128 GPUs |
+| 256-GPU fixed work | 3,552 cases in 261 seconds |
+| 256-GPU larger-workload gate | 7,104 cases in 514 seconds |
 | Workload coverage | ML, chemistry, optimization, scientific simulation |
 | Previous-paper logic/style | JSON audits PASS |
 | Evidence audit | PASS |
@@ -64,9 +64,9 @@ submission readiness: SUBMISSION_READY, warning_count 0
 | Previous-paper alignment metrics | `data/processed/perlmutter/previous_paper_alignment_metrics.json` |
 | Previous-paper deep trace | `data/processed/perlmutter/previous_paper_deep_trace.json` |
 | Previous-paper style audit | `data/processed/perlmutter/previous_paper_style_audit.json` |
-| Main 32-node summary | `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.json` |
-| 64-node fixed-work summary | `data/processed/perlmutter/practical_suite_strongscale_64node_largefull_c0c255_20260705024742_summary.json` |
-| 64-node larger-workload summary | `data/processed/perlmutter/practical_suite_strongnative_64node_large256c0c255_20260705024742_summary.json` |
+| Main 128-GPU summary | `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.json` |
+| 256-GPU fixed-work summary | `data/processed/perlmutter/practical_suite_strongscale_64node_largefull_c0c255_20260705024742_summary.json` |
+| 256-GPU larger-workload summary | `data/processed/perlmutter/practical_suite_strongnative_64node_large256c0c255_20260705024742_summary.json` |
 | Advantage projection | `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.json` |
 
 ## Remaining Paper Work

@@ -61,6 +61,6 @@ This paper makes the following contributions:
     \item \textbf{Architecture threshold model.} We define practical quantum advantage as a same-task, same-quality break-even condition between a native HPC path and a quantum-circuit application path, then express the result as future-system requirements.
     \item \textbf{Logging framework.} We build a pipeline that records runtime breakdowns, quality, circuit metadata, GPU metadata, Slurm metadata, and repeat-timing evidence.
     \item \textbf{Practical workload evidence.} We evaluate controlled quantum ML and a suite covering ML, chemistry, optimization, and simulation, including a 3,552-case large profile, OpenFermion/PySCF chemistry, and sparse Krylov baselines.
-    \item \textbf{Scale-out validation.} We run the large profile up to 32 GPU nodes and report weak scaling, fixed-work scaling, bundled allocation behavior, and repeat timing.
+    \item \textbf{Scale-out validation.} We run the large profile up to 256 GPUs and report weak scaling, fixed-work scaling, bundled allocation behavior, and repeat timing.
     \item \textbf{Architecture-region analysis.} We convert measured circuit costs into required execution speed, shot throughput, and quality-gap recovery, then classify whether each workload is speed-limited, quality-limited, shot-limited, encoding-limited, or native-dominated.
 \end{itemize}
