@@ -1,6 +1,5 @@
 \section{\SystemName Design}
 
-\noindent\textbf{Design Goal.}
 \SystemName answers one architecture question: which future quantum-system resource must improve before a quantum-circuit application can beat the native HPC application for the same task? It is not a new simulator, compiler, or quantum algorithm. It is a measurement and projection framework that keeps the input, quality target, native baseline, quantum-circuit path, and hardware projection in one auditable record.
 
 \begin{figure}[t]
@@ -13,13 +12,13 @@
 
 \subsection{Controlled Application Record}
 
-\noindent\textbf{Shared Input and Quality.}
+\noindent\emph{Shared input and quality.}
 Figure~\ref{fig:design-overview} shows the core rule. Before any path runs, \SystemName creates one configuration record with workload family, instance ID, random seed, feature transform, native candidates, circuit family, circuit depth, shot setting, and quality metric. The native path and the quantum path receive this same record and append path-specific measurements. This prevents a quantum circuit from being compared against a different split, feature dimension, molecule, graph, Hamiltonian, or quality target.
 
-\noindent\textbf{Native Path.}
-The native path executes the best implemented non-quantum method for the same input. For ML, \SystemName supports softmax regression, MLP, linear ridge, RBF kernel ridge, k-nearest neighbors, and nearest-centroid classifiers, and a separate production-native gate adds PyTorch AMP CNN/MLP and XGBoost GPU-hist candidates on the same measured digits configurations. Chemistry uses dense exact and sparse Lanczos/eigensolver baselines on the same Pauli Hamiltonians. Optimization uses exact enumeration when feasible plus greedy, local-search, and simulated-annealing baselines. Simulation uses dense exact evolution and sparse Krylov-style evolution. The threshold always uses the fastest valid native candidate that reaches the best native quality within a small tolerance, so adding a stronger native method can only make the quantum target harder.
+\noindent\emph{Native path.}
+The native path executes the best implemented non-quantum method for the same input. ML includes classical classifiers plus a production-native gate with PyTorch AMP CNN/MLP and XGBoost GPU-hist on the same measured digits configurations. Chemistry uses dense exact and sparse Lanczos/eigensolver baselines, optimization uses exact enumeration when feasible plus greedy, local-search, and annealing baselines, and simulation uses dense exact and sparse Krylov-style evolution. The threshold always uses the fastest valid native candidate that reaches the best native quality within a small tolerance, so adding a stronger native method can only make the quantum target harder.
 
-\noindent\textbf{Quantum-Circuit Paths.}
+\noindent\emph{Quantum-circuit paths.}
 The quantum kernel path maps the same features into a quantum feature map, simulates the circuit evaluations needed to build a kernel matrix, and passes that matrix to a classical classifier. The QNN/VQC path maps the same features into a parameterized circuit and updates trainable parameters through a classical optimizer. \SystemName records application-level cost for both paths: encoding, circuit construction, \cuQuantum execution, kernel or observable extraction, optimizer iterations, classifier-head time, accuracy, gate counts, shots, and repeated evaluations. This makes repeated kernel entries and hybrid optimizer loops visible instead of reporting only one fast circuit kernel.
 
 \subsection{Projection Interface}
@@ -32,10 +31,10 @@ The quantum kernel path maps the same features into a quantum feature map, simul
     \label{fig:design-projection-flow}
 \end{figure}
 
-\noindent\textbf{Simulator-Hardware Separation.}
+\noindent\emph{Simulator-hardware separation.}
 The measured \cuQuantum runtime is not a physical quantum latency. It executes the quantum-circuit application path, produces output quality, and records circuit metadata. The projection then prices the same case under future logical-operation speed, effective shot parallelism, error/control overhead, and quality recovery. Thus Python orchestration, GPU setup time, and simulator state-vector behavior are measurement-stack evidence, not future-QPU schedule terms.
 
-\noindent\textbf{Execution Model.}
+\noindent\emph{Execution model.}
 Given the measured metadata, \SystemName estimates projected quantum execution time as
 \[
 T_{\mathrm{execute}} =
@@ -61,16 +60,16 @@ P_{\mathrm{queue}}, N_s N_{\mathrm{eval}}).
 \]
 This form is the hook for architecture studies: a surface-code stack can plug in code distance, cycle time, decoder bandwidth, and magic-state throughput, while a control-system study can change control and feedback terms.
 
-\noindent\textbf{Advantage Frontier.}
+\noindent\emph{Advantage frontier.}
 \SystemName inverts the model instead of assuming speedup. It asks what logical speed, shot throughput, overhead, and quality recovery are required for $T_{\mathrm{qhw}}<T_{\mathrm{native}}$ at the same quality. A case is speed-limited when quality is close enough but runtime remains large; quality-limited when faster gates do not help until the output gap closes; shot- or encoding-limited when repeated evaluations or data movement dominate; and native-dominated when a stronger classical path moves the break-even target.
 
 \subsection{Evidence Discipline}
 
-\noindent\textbf{Records and Audits.}
-Every run emits JSON records with dataset metadata, model metadata, runtime breakdowns, accuracy, circuit qubits, depth, gate counts, shots, GPU metadata, and Slurm metadata where available. Summarizers merge shards, validate expected case counts, compute quantiles, and write CSV/JSON artifacts used by the paper figures. The audit scripts then compare manuscript claims against those stored artifacts. Login-node tests are correctness gates only; performance evidence must come from Slurm jobs with accounting records and completed exit status.
+\noindent\emph{Records and audits.}
+Every run emits JSON records with dataset metadata, model metadata, runtime breakdowns, quality, circuit qubits, depth, gate counts, shots, GPU metadata, and Slurm metadata where available. Summarizers validate case counts and write CSV/JSON artifacts used by the figures; audit scripts then compare manuscript claims against those artifacts. Login-node tests are correctness gates only, while performance evidence must come from completed Slurm jobs.
 
-\noindent\textbf{Failure Handling.}
+\noindent\emph{Failure handling.}
 Failed paths remain measurement results. If a native candidate fails, the record keeps the error and continues with other candidates. If a quantum path fails, the record keeps available circuit metadata and marks the case as non-advantaged. This rule matters at scale because removing difficult cases would overstate the frontier.
 
-\noindent\textbf{Workload Scope.}
+\noindent\emph{Workload scope.}
 The controlled calibration workload is \texttt{sklearn digits}. The practical suite covers AI classification, VQE-style molecular energy estimation, QAOA-style optimization, and Hamiltonian simulation. These are the application classes where users often expect quantum advantage, but every row follows the same comparison discipline: same input, strongest auditable native path, measured quantum-circuit path, and explicit quality target.

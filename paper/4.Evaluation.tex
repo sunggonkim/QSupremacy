@@ -4,11 +4,7 @@ This section follows the evaluation style of our previous systems papers: setup 
 
 \subsection{Evaluation Setup}
 
-\noindent\textbf{Hardware Specification.}
-Experiments run on a \LeadershipSystem. Login-node smoke tests validate correctness, while performance experiments run through Slurm. GPU runs use four NVIDIA A100 GPUs per node and record JSON outputs, Slurm metadata, elapsed time, and allocation information.
-
-\noindent\textbf{Compared Application Paths.}
-The unit of comparison is a same-input application case. For each case, \SystemName measures a native HPC/ML path, measures a quantum-circuit application path on the simulator, records quality for both paths, and reports the required speedup $T_{\mathrm{qsim}}/T_{\mathrm{native}}$ only when the quality target is interpretable. The native path is never another quantum simulator.
+Experiments run on a \LeadershipSystem. Login-node smoke tests validate correctness, while performance experiments run through Slurm on GPU nodes with four NVIDIA A100 GPUs per node. The unit of comparison is a same-input application case: \SystemName measures a native HPC/ML path, measures a quantum-circuit application path on the simulator, records quality for both paths, and reports $T_{\mathrm{qsim}}/T_{\mathrm{native}}$ only when the quality target is interpretable. The native path is never another quantum simulator.
 
 \begin{table}[h]
 \caption{Workload names and compared application paths.}
@@ -32,17 +28,13 @@ HamSim-Trotter & Hamiltonian-simulation task; native HPC uses dense or sparse Ha
 \label{tab:evaluation-paths}
 \end{table}
 
-\noindent\textbf{Evidence Campaign.}
-The completed campaign contains a 160-case controlled ML calibration, a 3,552-case practical suite, 116-case and 104-case molecule/HamSim coverage gates, weak and fixed-work scaling from 1 to 256 GPUs including low-end pilot points, a 7,104-case larger-workload gate on 256 GPUs, and 12 warmup-separated repeat trials. Short login runs are only correctness gates. Performance evidence must come from Slurm jobs with accounting records, raw JSON counts, and completed exit status.
-
-\noindent\textbf{Evaluation Order.}
-The rest of the section is organized around the paper's architecture question. Section~IV-B reports the workload-level threshold landscape. Section~IV-C shows that the evidence is collected at leadership scale. Section~IV-D gives workload-specific detail. Section~IV-E answers \textit{where} the future system must improve by assigning bottleneck labels. Section~IV-F answers \textit{how much} those levers must improve by converting the labels into speed, quality-recovery, shot-parallelism, and control-overhead targets.
+The completed campaign contains a 160-case controlled ML calibration, a 3,552-case practical suite, 116-case and 104-case molecule/HamSim coverage gates, weak and fixed-work scaling from 1 to 256 GPUs, a 7,104-case larger-workload gate on 256 GPUs, and 12 warmup-separated repeat trials. Performance evidence comes from Slurm jobs with accounting records, raw JSON counts, and completed exit status.
 
 \subsection{Workload-Level Thresholds}
 
 The main result starts at the workload level because practical advantage is not a simulator-versus-simulator comparison. The large practical suite covers ML classification, molecular energy estimation, MaxCut optimization, and Hamiltonian simulation. Each row compares a native HPC/ML implementation with a quantum-circuit application path under the same input and quality metric.
 
-Figure~\ref{fig:practical-suite} shows the representative application-level threshold landscape beyond the controlled binary digits sweep. The main practical-suite result uses the large 3,552-case profile on 128 GPUs. ML selects among six native classifiers, MaxCut selects among exact, greedy, local-search, and annealing baselines, molecule uses dense exact and sparse Lanczos candidates, and HamSim uses dense exact and sparse Krylov candidates. The quantum paths are executed through the \cuQuantum/cuStateVec application pipeline.
+Figure~\ref{fig:practical-suite} shows the representative application-level threshold landscape beyond the controlled digits sweep. The main practical-suite result uses the 3,552-case profile on 128 GPUs. ML selects among six native classifiers, MaxCut selects among exact, greedy, local-search, and annealing baselines, molecule uses dense exact and sparse Lanczos candidates, and HamSim uses dense exact and sparse Krylov candidates. The quantum paths are executed through the \cuQuantum/cuStateVec application pipeline.
 
 \begin{figure}[t]
 \centering
@@ -56,11 +48,9 @@ Figure~\ref{fig:practical-suite} shows the representative application-level thre
 \label{fig:practical-suite}
 \end{figure}
 
-\noindent\textbf{Result.}
 As shown in Figure~\ref{fig:practical-suite}, native execution remains extremely fast: the median native path is 2.09 ms for ML, 0.170 ms for molecule, 0.024 ms for MaxCut, and 2.08 ms for HamSim. The simulated quantum-circuit path is roughly seven seconds per case. This creates median required speedups of 3,726.4$\times$ for ML, 42,491.4$\times$ for molecule, 287,045.6$\times$ for MaxCut, and 3,071.0$\times$ for HamSim. These numbers are not a final hardware claim; they are the measured input to the projection model.
 
-\noindent\textbf{Reason.}
-The threshold spread is caused by two different forces. First, the native side is already highly optimized for these small and medium input instances, often finishing in microseconds to milliseconds. Second, the quantum-circuit path pays the full application cost of encoding, repeated circuit evaluations, state-vector simulation, measurement extraction, and quality scoring. HamSim has the smallest median runtime threshold in the practical suite, molecule has a larger but often speed-dominated threshold, and MaxCut has the largest threshold because the native path is extremely fast while the current QAOA path also carries a quality gap. ML is split: some circuit paths have moderate runtime thresholds, but useful advantage still depends on closing the quality gap.
+The threshold spread is caused by two forces: the native side often finishes in microseconds to milliseconds, while the quantum-circuit path pays the application cost of encoding, repeated circuit evaluations, state-vector simulation, measurement extraction, and quality scoring. HamSim has the smallest median runtime threshold, molecule has a larger but often speed-dominated threshold, and MaxCut has the largest threshold because the native path is extremely fast while the current QAOA path also carries a quality gap. ML is split: some circuit paths have moderate runtime thresholds, but advantage still depends on closing the quality gap.
 
 \begin{observationbox}
 \textbf{Observation 1:} The practical-suite gap is workload-specific. Native paths often finish in microseconds to milliseconds, while the simulated quantum-circuit path takes about seven seconds per case. The architecture question is therefore not whether the simulator is slow; it is whether future quantum systems should buy speed, quality recovery, shot parallelism, or lower control overhead for each workload family.
@@ -71,8 +61,8 @@ The threshold spread is caused by two different forces. First, the native side i
 
 The large-profile suite contains independent application cases, so the scaling study measures campaign throughput rather than distributed single-circuit simulation. This distinction is important: \SystemName uses Perlmutter to generate a large evidence set for advantage modeling, not to claim that a future QPU should behave like a multi-GPU state-vector simulator.
 
-\noindent\textbf{Weak Scaling.}
-Figure~\ref{fig:weak-scaling} shows weak scaling for the application sweep. In weak scaling, each GPU receives roughly 28 cases, so total work grows with GPUs. The comparable-profile sweep reaches 8--256 GPUs, while completed 1-GPU and 4-GPU pilot points show the low-end launch behavior.
+\noindent\emph{Weak scaling.}
+Figure~\ref{fig:weak-scaling} shows weak scaling for the application sweep. Each GPU receives roughly 28 cases, so total work grows with GPUs. The comparable-profile sweep reaches 8--256 GPUs, while completed 1-GPU and 4-GPU pilot points show the low-end launch behavior.
 
 \begin{figure}[t]
 \centering
@@ -94,13 +84,11 @@ Figure~\ref{fig:weak-scaling} shows weak scaling for the application sweep. In w
 \label{fig:weak-scaling}
 \end{figure}
 
-\noindent\textbf{Result.}
 As shown in Figure~\ref{fig:weak-scaling}, all comparable weak-scaling jobs completed with exit code 0:0. The generated raw JSON counts match the expected case counts: 224, 448, 896, 1,792, 3,552, and 7,104. No failed case, traceback, or timeout was recorded in the task logs. Total throughput grows with GPU count while the per-GPU rate stays close to stable.
 
-\noindent\textbf{Reason.}
-The sweep scales in this regime because cases are independent and each GPU receives a similar amount of work. The measured behavior therefore validates the evidence-generation method: Perlmutter is being used to increase application-case throughput, not to hide a single-circuit communication bottleneck behind more GPUs.
+The sweep scales in this regime because cases are independent and each GPU receives a similar amount of work. This validates the evidence-generation method: Perlmutter increases application-case throughput rather than hiding a single-circuit communication bottleneck behind more GPUs.
 
-\noindent\textbf{Strong Scaling.}
+\noindent\emph{Strong scaling.}
 Figure~\ref{fig:strong-scaling} shows fixed-work strong scaling. Every full run executes the same 3,552 cases from 16 to 256 GPUs; the 1--8 GPU points are normalized from completed pilot/partial runs and marked separately.
 
 \begin{figure}[t]
@@ -123,13 +111,11 @@ Figure~\ref{fig:strong-scaling} shows fixed-work strong scaling. Every full run 
 \label{fig:strong-scaling}
 \end{figure}
 
-\noindent\textbf{Result.}
 As shown in Figure~\ref{fig:strong-scaling}, the fixed-work result reduces elapsed time from 30 minutes 55 seconds on 16 GPUs to 4 minutes 17 seconds on 128 GPUs. The 256-GPU run completes in 4 minutes 21 seconds, nearly identical to the 128-GPU result.
 
-\noindent\textbf{Reason.}
-The plateau is not distributed single-circuit MPI synchronization: every Slurm task owns independent cases on one A100. At 128 GPUs the sweep has about 28 cases per GPU; at 256 GPUs it has about 14. With a seven-second per-case floor, stragglers, Python process orchestration, and task-local file output dominate before more GPUs can help.
+The plateau is not distributed single-circuit MPI synchronization: every Slurm task owns independent cases on one A100. At 128 GPUs the sweep has about 28 cases per GPU; at 256 GPUs it has about 14. With a seven-second per-case floor, stragglers, Python orchestration, and task-local file output dominate before more GPUs can help.
 
-\noindent\textbf{Larger Workload Gate.}
+\noindent\emph{Larger workload gate.}
 Figure~\ref{fig:workload-growth} shows the larger-workload gate. The separate 256-GPU run doubles the completed case count to 7,104 and checks whether time and quality remain interpretable at that scale.
 
 \begin{figure}[t]
@@ -151,11 +137,9 @@ Figure~\ref{fig:workload-growth} shows the larger-workload gate. The separate 25
 \label{fig:workload-growth}
 \end{figure}
 
-\noindent\textbf{Result.}
 As shown in Figure~\ref{fig:workload-growth}, the 256-GPU larger run completes 7,104 cases in 514 seconds with empty stderr logs. The workload-level quality gaps remain stable relative to the 3,552-case profile.
 
-\noindent\textbf{Reason.}
-The larger run adds more independent application cases rather than changing the circuit model. The additional coverage therefore strengthens the evidence set while preserving the same advantage interpretation: runtime and quality must both move before any workload can enter the projected advantage region.
+The larger run adds more independent application cases rather than changing the circuit model, strengthening coverage while preserving the same interpretation: runtime and quality must both move before any workload can enter the projected advantage region.
 
 \begin{observationbox}
 \textbf{Observation 2:} More GPUs help until the application sweep runs out of useful task granularity. Weak scaling remains healthy through the 8--256 GPU comparable profile, but fixed-work strong scaling saturates after 128 GPUs. For this modeling workflow, architecture effort should improve per-case circuit execution and scheduling granularity, not only allocate more GPUs.
@@ -170,8 +154,7 @@ The workload-level result is the representative picture. This subsection gives t
 
 The controlled benchmark is the expanded \texttt{sklearn digits} sweep. It varies class pair, sample count, PCA dimension, circuit depth, and seed. The digits circuits use one qubit per PCA feature dimension, so the controlled sweep uses 4, 8, 12, and 16 qubits.
 
-\noindent\textbf{Compared Paths.}
-The native path is the fastest valid classical classifier among softmax regression, MLP, linear ridge, RBF kernel ridge, kNN, and nearest centroid on the same PCA features and train/test split. QKernel maps the same features into a quantum feature map, simulates the circuit evaluations needed to build a kernel matrix, and passes that matrix to a classical classifier. QNN/VQC maps the same features into a parameterized circuit and updates trainable parameters through a classical optimizer.
+The native path is the fastest valid classifier among softmax regression, MLP, linear ridge, RBF kernel ridge, kNN, and nearest centroid on the same PCA features and split. QKernel maps the same features into a quantum feature map, simulates the circuit evaluations needed to build a kernel matrix, and passes that matrix to a classical classifier. QNN/VQC maps the same features into a parameterized circuit and updates trainable parameters through a classical optimizer.
 
 Figure~\ref{fig:digits-results} shows the controlled ML result with both axes required for an advantage claim: runtime threshold and quantum-model quality.
 
@@ -202,10 +185,8 @@ Figure~\ref{fig:digits-results} shows the controlled ML result with both axes re
 \label{fig:digits-results}
 \end{figure}
 
-\noindent\textbf{Result.}
 As shown in Figure~\ref{fig:digits-results}, native ML remains strong across the workload, with native accuracy between 0.9219 and 1.0000. Quantum kernels sometimes reach high quality, with median accuracy 0.8750, but the measured circuit path still requires hundreds of times faster projected execution to match the native path. QNN/VQC has a smaller required speedup in many cases, but its median accuracy is 0.7500 and usually below the native baseline.
 
-\noindent\textbf{Reason.}
 The two quantum ML paths fail in different ways. QKernel preserves more classification structure because it builds a kernel matrix over the feature map, but it must evaluate many circuits. QNN/VQC evaluates fewer circuits but is more sensitive to optimizer and ansatz quality. The easy pair, 0-vs-1, gives high median quantum-kernel accuracy at 0.9688, while harder pairs such as 3-vs-8 and 5-vs-8 reduce the median to 0.8125.
 
 \begin{observationbox}
@@ -225,45 +206,37 @@ Figure~\ref{fig:ml-native-profile-gate} shows the resulting native-baseline gate
 \label{fig:ml-native-profile-gate}
 \end{figure}
 
-\noindent\textbf{Result.}
 As shown in Figure~\ref{fig:ml-native-profile-gate}, the production candidates reach median quality 1.0000. Among production candidates, the AMP CNN is selected in 25 of 32 cases, XGBoost in five, and the AMP MLP in two. When these candidates are combined with the previous suite baselines, however, the selected native path remains the previous microsecond baseline in 24 cases and switches to the AMP CNN in eight. The median threshold changes from 8,876.8$\times$ to 8,601.6$\times$; the production-only threshold is 49.3$\times$.
 
-\noindent\textbf{Reason.}
-The GPU models are accurate but overhead-heavy for 8$\times$8 digits, while the previous native baselines finish in microseconds on the same quantum-feasible input size. A larger ResNet-style ImageNet baseline would measure a different problem scale rather than the same-input comparison required by the paper.
+The GPU models are accurate but overhead-heavy for 8$\times$8 digits, while the previous native baselines finish in microseconds on the same quantum-feasible input size. A larger ResNet-style ImageNet baseline would measure a different problem scale rather than the required same-input comparison.
 
 \subsubsection{Molecule and HamSim Coverage}
 
 We run a separate accept-profile gate to strengthen the two application families that are easiest to criticize as toy baselines: molecular energy estimation and Hamiltonian simulation. The molecule gate includes OpenFermion and PySCF-generated H$_2$, LiH, and H$_2$O active-space Hamiltonians, in addition to the built-in minimal H$_2$ and molecular-chain surrogate. The HamSim gate compares dense exact evolution with sparse Krylov evolution on TFIM and Heisenberg Hamiltonians from 4 to 8 qubits.
 
-\noindent\textbf{Result.}
 The strengthened molecule and HamSim baselines execute correctly in the same bundled one-node run. The job completed 116 cases in 6 minutes and 5 seconds with exit code 0:0; each of the four A100 tasks completed 29 cases, and stderr logs were empty. Molecule reports a median 63,566.8$\times$ required speedup over 56 cases, and HamSim reports 4,185.2$\times$ over 60 cases.
 
-\noindent\textbf{Reason.}
 The stronger native side changes the interpretation because it prevents the quantum path from being compared against a single dense toy solver. For molecule, both dense exact and sparse Lanczos/eigensolver candidates are evaluated for every case. For HamSim, sparse Krylov becomes the selected native method in 34 of 60 cases, especially at 6--8 qubits.
 
-\noindent\textbf{H$_2$, LiH, and H$_2$O active-space gate.}
+\noindent\emph{H$_2$, LiH, and H$_2$O active-space gate.}
 We then run the expanded molecule-only accept profile with the 4--8 qubit OpenFermion and PySCF fixture set. The molecular integrals and Jordan-Wigner Hamiltonians are generated once into JSON fixtures before the timed application comparison; each timed case starts from the same stored Pauli Hamiltonian for both native and quantum paths.
 
-\noindent\textbf{Result.}
 Job 55515248 completed 104 molecule cases on one GPU node in 5 minutes and 23 seconds with exit code 0:0, 104 raw JSON outputs, and empty stderr. The larger active-space subset includes LiH and H$_2$O at 6 and 8 qubits. LiH active-space cases require 21,847.9$\times$ at 6 qubits and 821.5$\times$ at 8 qubits; H$_2$O requires 21,613.0$\times$ at 6 qubits and 788.0$\times$ at 8 qubits.
 
-\noindent\textbf{Reason.}
 Dense exact remains the selected runtime baseline because these fixtures are still small, but sparse Lanczos is the best-quality native method in 62 of 104 cases. This result keeps the comparison honest: the molecule path is no longer only H$_2$, but the native side still reflects the problem size actually executable by the quantum-circuit path.
 
 \subsubsection{MaxCut-QAOA}
 
 MaxCut is the hardest practical family in the current suite. The native side selects among exact enumeration, greedy assignment, local search, and simulated annealing, while the quantum path uses a QAOA-style circuit.
 
-\noindent\textbf{Result.}
 In the strong-native run, the selected optimization baselines are mostly greedy assignment, with exact enumeration selected when it is fastest at the best cut value. The large practical suite reports a median 287,045.6$\times$ required speedup for MaxCut.
 
-\noindent\textbf{Reason.}
 This number is high because the native path is extremely fast and the current QAOA grid has a large objective gap. MaxCut therefore behaves like a quality-first workload before faster quantum execution can matter.
 \FloatBarrier
 
 \subsection{Design Diagnosis: Where Must Architecture Improve?}
 
-The previous sections show the measured gaps. This subsection answers the design question that a raw runtime plot cannot answer: where should a future quantum computer improve? We map each workload to four architecture levers: a \textbf{native-baseline lever} when the classical competitor moves the threshold, an \textbf{algorithmic-quality lever} when better encodings, ansatzes, or hybrid training are needed, a \textbf{quantum-execution lever} when gate, measurement, shot, or repeated-evaluation work dominates, and a \textbf{control-stack lever} when host, decoder, or controller overhead becomes the floor.
+The previous sections show the measured gaps. This subsection answers the design question that a raw runtime plot cannot answer: where should a future quantum computer improve? We map each workload to four levers: native-baseline strength, algorithmic quality, quantum execution, and control-stack overhead.
 Figure~\ref{fig:tail-and-circuit-pressure} first shows why these levers differ by workload instead of using one global speedup target.
 
 \begin{figure}[t]
@@ -285,10 +258,8 @@ Figure~\ref{fig:tail-and-circuit-pressure} first shows why these levers differ b
 \label{fig:tail-and-circuit-pressure}
 \end{figure}
 
-\noindent\textbf{Result.}
 As shown in Figure~\ref{fig:tail-and-circuit-pressure}, median records are ML: 7.3K ops, 224 evals, 7.3s; molecule: 0.7K ops, 41 evals, 7.1s; MaxCut: 3.4K ops, 101 evals, 7.0s; and HamSim: 0.2K ops, one eval, 6.9s. The long tail is workload-specific: ML moves from 3.7K$\times$ median to 48.5K$\times$ at p90, MaxCut from 287.0K$\times$ to 424.2K$\times$, molecule stays high but tight at 42.5K--56.6K$\times$, and HamSim reaches 18.4K$\times$ at max.
 
-\noindent\textbf{Reason.}
 The quantum-runtime IQRs are narrow relative to the family differences in gate counts because the current application pipeline has a large per-case floor. After that floor is removed, the operation mix shows different pressure points: ML and MaxCut pay repeated-evaluation pressure, molecule pays energy-estimation and two-qubit-operation pressure, and HamSim is closer to a direct logical-evolution path.
 
 \begin{figure}[t]
@@ -318,16 +289,14 @@ The quantum-runtime IQRs are narrow relative to the family differences in gate c
 \label{fig:strong-native}
 \end{figure}
 
-\noindent\textbf{Native Baseline Strength.}
+\noindent\emph{Native baseline strength.}
 Figure~\ref{fig:strong-native} shows the native-baseline stress test as a slope view. The strong-native run completed as a one-node, four-GPU bundled allocation.
 
-\noindent\textbf{Result.}
 As shown in Figure~\ref{fig:strong-native}, the job finished 190 cases in 6 minutes and 59 seconds with exit code 0:0, 190 raw JSON outputs, and empty stderr logs. Strengthening the native side increases the ML threshold by 6.6$\times$ and the MaxCut threshold by 2.3$\times$.
 
-\noindent\textbf{Reason.}
 A future quantum architecture competes against the native software stack available at deployment time, not against a frozen toy baseline. This is why the same quantum-circuit measurements can imply a different advantage threshold when the native candidate set is strengthened.
 
-\noindent\textbf{Host and GPU Profiling.}
+\noindent\emph{Host and GPU profiling.}
 Nsight Systems records 53 CUDA kernel rows in the PyTorch AMP gate, including 16 tensor-family kernels with \texttt{xmma}, \texttt{wmma}, \texttt{tensorop}, and \texttt{ampere\_fp16} names. Tensor-family kernels account for 15.2\% of GPU kernel time, but GPU kernels occupy 0.8\% of the run, or 48.4 ms of a 6.07 s profiled gate. The remaining 99.2\% is host orchestration, data movement, Python framework overhead, and process/file activity around very small training jobs. \texttt{nvidia-smi dmon} shows 2.3\% average SM utilization, a 33\% peak, and no memory-bandwidth saturation signal. Nsight Compute/Roofline counter collection was attempted, but the driver reported an unavailable profiling resource; the artifact records the error instead of fabricating Tensor-Core utilization.
 
 \begin{figure}[t]
@@ -338,13 +307,11 @@ Nsight Systems records 53 CUDA kernel rows in the PyTorch AMP gate, including 16
 \label{fig:workload-taxonomy}
 \end{figure}
 
-\noindent\textbf{Workload Diagnosis.}
+\noindent\emph{Workload diagnosis.}
 Figure~\ref{fig:workload-taxonomy} classifies the 3,552-case large run using the same family tolerances as the projection frontier. This is the paper's direct answer to ``where must the architecture improve?''
 
-\noindent\textbf{Result.}
 As shown in Figure~\ref{fig:workload-taxonomy}, ML is quality-limited in all 2,048 cases, and MaxCut is quality-limited in all 768 cases. Molecule has 48 speed-limited cases and 176 quality-limited cases. HamSim splits evenly, with 256 speed-limited cases and 256 quality-limited cases.
 
-\noindent\textbf{Reason.}
 ML is quality-limited because the quantum feature path does not match the selected native classifier accuracy; its primary lever is algorithmic quality and hybrid-loop overhead. MaxCut is quality-limited because the current QAOA grid has a large objective gap; its primary lever is ansatz/search quality before gate speed. Molecule needs both execution speed and better energy accuracy. HamSim's useful region is the clearest target for logical-operation speed, shot parallelism, and control-stack overhead.
 
 \begin{observationbox}
@@ -365,7 +332,6 @@ Figure~\ref{fig:advantage-frontier} shows the primary frontier at 90\% quality-g
 \label{fig:advantage-frontier}
 \end{figure}
 
-\noindent\textbf{Projection Model.}
 For a projected quantum speedup $S$ and quality-gap recovery $R$, a case enters the advantage region only if
 \[
 S \geq \frac{T_{qsim}}{T_{native}}
@@ -374,14 +340,12 @@ S \geq \frac{T_{qsim}}{T_{native}}
 \]
 where $\Delta Q$ is the measured quality gap in the workload's natural units and $\epsilon_w$ is the workload tolerance. The recovery parameter $R$ is not a measured error-mitigation result; it is a requirement axis.
 
-\noindent\textbf{Result.}
 As shown in Figure~\ref{fig:advantage-frontier}, HamSim is the closest family: with 90\% quality-gap recovery, a $10^4\times$ projected execution improvement covers 54.9\% of measured HamSim cases. Molecule needs a larger runtime shift: at the same recovery level, $10^5\times$ covers 57.1\% of molecule cases. ML shows the opposite behavior. A $10^5\times$ speed improvement covers only 9.8\% of ML cases at 90\% recovery, but almost all cases if the quality gap is fully closed. MaxCut is the hardest family in the current suite; even $10^6\times$ speedup covers only 22.9\% of cases at 90\% recovery and requires full quality recovery to cover all cases.
 
-\noindent\textbf{Reason.}
 The frontier should be read as an architecture target sheet rather than a simulator score. HamSim points first to logical-operation latency, measurement latency, and shot scheduling. Molecule needs those speed levers plus energy-quality recovery. ML and MaxCut require algorithmic-quality recovery before a gate-speed investment can translate into application advantage. The FT-stack sensitivity below then asks whether shot parallelism and decoder/control overhead let the speed target survive in a concrete system model.
 \FloatBarrier
 
-\noindent\textbf{Tolerance Sensitivity.}
+\noindent\emph{Tolerance sensitivity.}
 Figure~\ref{fig:tolerance-sensitivity} sweeps tolerance multipliers without rerunning GPU jobs. The projection uses strict family tolerances: 0.02 for ML and MaxCut and 0.01 for molecule and HamSim. These values are model inputs, not universal domain standards.
 
 \begin{figure}[t]
@@ -392,14 +356,12 @@ Figure~\ref{fig:tolerance-sensitivity} sweeps tolerance multipliers without reru
 \label{fig:tolerance-sensitivity}
 \end{figure}
 
-\noindent\textbf{Result.}
 As shown in Figure~\ref{fig:tolerance-sensitivity}, at 90\% recovery, HamSim at $10^4\times$ moves from 46.9\% to 54.9\% to 68.9\% as the tolerance changes from 0.5$\times$ to 1$\times$ to 2$\times$. ML at $10^5\times$ is much more tolerance-sensitive, moving from 0.8\% to 9.8\% to 83.8\%. Molecule at $10^5\times$ is speed-bound under these tolerances, staying at 57.1\% until the tolerance becomes very loose.
 
-\noindent\textbf{Reason.}
 Relaxing the tolerance helps only when quality is the active bottleneck. ML changes sharply because many cases are close to the runtime target but fail the quality gate. Molecule changes little because many cases are still runtime-bound. MaxCut remains hard unless both the speedup and quality budget are relaxed.
 \FloatBarrier
 
-\noindent\textbf{Shot and FT-stack Sensitivity.}
+\noindent\emph{Shot and FT-stack sensitivity.}
 Figure~\ref{fig:ft-shot-sensitivity} instantiates the symbolic projection terms for a concrete subset-style check using every practical-suite case. The sensitivity uses the measured gate/evaluation metadata with an illustrative surface-code lower-bound stack: $d=25$, $\tau_c=1\,\mu$s, $k_1=1$, $k_2=4$, $k_m=1$, $5\,\mu$s decoder latency per circuit evaluation, and $50\,\mu$s of residual control/queue overhead per evaluation. Only the logical gate portion is divided by effective shot parallelism; decoder/control overhead remains serial in this lower-bound model.
 
 \begin{figure}[t]
@@ -410,10 +372,8 @@ Figure~\ref{fig:ft-shot-sensitivity} instantiates the symbolic projection terms 
 \label{fig:ft-shot-sensitivity}
 \end{figure}
 
-\noindent\textbf{Result.}
 As shown in Figure~\ref{fig:ft-shot-sensitivity}, runtime falls as effective shot parallelism increases, but the serial decoder/control floor prevents unbounded improvement. The speed axis is dimensionless, but it has a physical interpretation: since the measured circuit path is about seven seconds per case, $10^4\times$, $10^5\times$, and $10^6\times$ correspond to roughly 0.7 ms, 70 $\mu$s, and 7 $\mu$s of effective end-to-end quantum execution per measured case before residual host and error terms.
 
-\noindent\textbf{Reason.}
 This conversion is a normalization target, not a claim that gate speed alone reaches the target. A fault-tolerant instantiation reaches that budget only if logical cycle time, code distance, decoder bandwidth, magic-state throughput, controller scheduling, and effective shot parallelism jointly satisfy the decomposed model in Section~III. The model therefore exposes when increasing $P_{\mathrm{shots}}$ stops helping.
 
 \begin{observationbox}
@@ -421,43 +381,6 @@ This conversion is a normalization target, not a claim that gate speed alone rea
 \end{observationbox}
 \FloatBarrier
 
-\subsection{Simulator-Backend Ablation}
+\subsection{Backend and Stability Gates}
 
-The main evaluation uses the \cuQuantum/cuStateVec application pipeline for production records. This choice keeps the threshold model consistent: every case in the practical suite measures the same native path, the same quantum-circuit application logic, and the same simulator interface. To check whether the Perlmutter software environment can support other simulator paths, we also run a small backend-diversity gate. This gate is deliberately not used as the main performance result because it runs a tiny sanity circuit rather than the application workloads in Table~\ref{tab:evaluation-paths}.
-Table~\ref{tab:backend-ablation} shows the backend sanity result.
-
-\begin{table}[h]
-\caption{Small simulator-backend sanity gate on one GPU node.}
-\centering
-\scriptsize
-\renewcommand{\arraystretch}{1.10}
-\begin{tabular}{lrl}
-\toprule
-\textbf{Backend} & \textbf{Smoke time} & \textbf{Outcome} \\
-\midrule
-\cuQuantum/cuStateVec & 3.18 s & pass \\
-qsim CPU & 4.50 s & pass \\
-qsim GPU & 0.55 s & pass \\
-CUDA-Q cuStateVec & 6.02 s & pass \\
-Qiskit Aer CPU & 1.23 s & pass \\
-Qiskit Aer GPU & -- & unsupported device \\
-\bottomrule
-\end{tabular}
-\label{tab:backend-ablation}
-\end{table}
-
-\noindent\textbf{Result.}
-As shown in Table~\ref{tab:backend-ablation}, multiple simulator stacks are installed and callable on Perlmutter, including qsim GPU and CUDA-Q cuStateVec. The sanity circuit passes on \cuQuantum/cuStateVec, qsim CPU/GPU, CUDA-Q cuStateVec, and Qiskit Aer CPU; Qiskit Aer GPU is not supported in the current device stack.
-
-\noindent\textbf{Reason.}
-This gate does not imply that qsim GPU is faster for the full application suite. The application path includes encoding, repeated evaluations, optimizer/classifier logic, state extraction, quality measurement, and Slurm-recorded execution. Therefore simulator choice is an ablation gate in this paper, while the advantage-frontier conclusions are based on the complete \cuQuantum/cuStateVec application pipeline.
-
-\subsection{Operational Stability}
-
-The official practical sweep was first run as multiple shared-GPU jobs and then validated with one \texttt{salloc} allocation and one multi-task \texttt{srun}.
-
-\noindent\textbf{Result.}
-The bundled pilot completed in 6 minutes and 54 seconds with 96 raw JSON outputs and empty stderr logs, and job 55516885 completed 12 measured warmup-separated trials in 58 seconds with exit code 0:0, empty stderr, and the maximum quantum-runtime CV is 0.0400.
-
-\noindent\textbf{Reason.}
-These gates support the timing evidence without replacing the large 3,552-case sweep. They check repeatability, logging, and Slurm execution hygiene so that the paper can interpret the larger measurements as application evidence rather than one-off shell runs.
+The production records use the \cuQuantum/cuStateVec application pipeline so that every practical-suite case shares the same native path, quantum-circuit logic, simulator interface, and Slurm accounting path. A small backend-diversity gate confirms that other Perlmutter stacks are callable on sanity circuits: \cuQuantum/cuStateVec passes in 3.18 s, qsim CPU in 4.50 s, qsim GPU in 0.55 s, CUDA-Q cuStateVec in 6.02 s, and Qiskit Aer CPU in 1.23 s; Qiskit Aer GPU is unsupported in the current device stack. This is not used as a performance ranking because the full application path includes encoding, repeated evaluations, optimizer/classifier logic, state extraction, quality scoring, and Slurm-recorded execution. The official sweep is also validated with bundled Slurm runs: one \texttt{salloc}/\texttt{srun} pilot completed in 6 minutes 54 seconds with 96 raw JSON outputs and empty stderr, and job 55516885 completed 12 warmup-separated trials in 58 seconds with exit code 0:0; the maximum quantum-runtime CV is 0.0400.
