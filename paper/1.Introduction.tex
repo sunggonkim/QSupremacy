@@ -6,21 +6,9 @@ Existing simulation systems provide the first part of this stack. Libraries such
 
 \begin{figure}[t]
     \centering
-    \begin{subfigure}{0.44\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{figures/intro_comparison_paths.pdf}
-        \caption{Workload mapping.}
-        \label{fig:intro-gap-path}
-        \Description{Mapping from each workload family to the native HPC path and the quantum-circuit path used for threshold measurement.}
-    \end{subfigure}\hfill
-    \begin{subfigure}{0.52\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{figures/intro_threshold_summary.pdf}
-        \caption{Measured thresholds.}
-        \label{fig:intro-gap-threshold}
-        \Description{Summary of measured required speedups for controlled ML circuit methods and practical workload families.}
-    \end{subfigure}
-    \caption{Application-level comparison target. The key comparison is not simulator versus simulator. The key comparison is native application execution versus quantum-circuit application execution and projected quantum hardware execution. Panel (a) maps each workload family to the native path and quantum-circuit path. Panel (b) reports measured threshold examples, with ML split into controlled QNN/VQC, controlled QKernel, and practical feature-circuit cases, and Sim-Ham. denoting Hamiltonian simulation.}
+    \includegraphics[width=0.82\linewidth]{figures/intro_threshold_summary.pdf}
+    \Description{Summary of measured required speedups for controlled ML circuit methods and practical workload families.}
+    \caption{Application-level threshold examples. The key comparison is not simulator versus simulator. The key comparison is native application execution versus quantum-circuit application execution and projected quantum hardware execution. ML is split into controlled QNN/VQC, controlled QKernel, and practical feature-circuit cases; Sim-Ham. denotes Hamiltonian simulation.}
     \label{fig:intro-gap}
 \end{figure}
 

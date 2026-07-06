@@ -1850,7 +1850,6 @@ def main():
     apply_paper_style()
     ensure_fig_dir()
     paths = [
-        figure_intro_paths(),
         figure_intro_threshold_summary(),
         figure_design_overview(),
         figure_design_projection_flow(),
