@@ -30,31 +30,52 @@ After measurement, \SystemName reads the circuit metadata and runtime breakdown.
 \noindent\textbf{Architecture Variables.}
 The projection plane exposes four groups of future-system variables. The first group is \textit{logical execution speed}: one-qubit gate latency, two-qubit gate latency, measurement latency, and controller scheduling overhead. The second group is \textit{shot parallelism}: how many independent circuit evaluations can run concurrently without exceeding the device, decoder, or queue budget. The third group is \textit{quality recovery}: algorithmic improvement, error mitigation, or fault tolerance that reduces the measured output gap. The fourth group is \textit{host and data overhead}: encoding, compilation, optimizer feedback, and postprocessing that remain outside the quantum kernel. \SystemName keeps these variables separate so an advantage frontier can say whether an architecture needs faster logical gates, more parallel shots, lower error overhead, or a better algorithm before speed matters.
 
-\noindent\textbf{Failure Handling.}
+\begin{table}[t]
+\caption{Design outputs and the evaluation evidence they enable.}
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.12}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lll}
+\toprule
+Design output & Evaluation evidence & Architecture decision \\
+\midrule
+Native runtime floor & Fig.~\ref{fig:strong-native} & Baseline-aware speed target \\
+Circuit runtime and gates & Fig.~\ref{fig:digits-results}, Fig.~\ref{fig:practical-suite} & Logical-operation throughput \\
+Repeated evaluations/shots & Fig.~\ref{fig:weak-scaling} & Shot and sweep parallelism \\
+Quality gap & Fig.~\ref{fig:advantage-frontier}, Table~\ref{tab:architecture-guidance} & Error recovery or algorithm redesign \\
+Case-level bottleneck & Fig.~\ref{fig:workload-taxonomy} & Speed-, quality-, or native-limited class \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:design-eval-bridge}
+\end{table}
+
+\noindent\emph{Failure handling.}
 \SystemName treats failed paths as measurement results rather than silently dropping them. If a native candidate fails, the record keeps the error and continues with other native candidates. If a quantum path fails, the record keeps the circuit metadata available up to the failure point and marks the case as non-advantaged. This rule is important for large sweeps because feasibility is part of the systems question. A workload that only succeeds after removing difficult cases would overstate the advantage frontier.
 
 \subsection{Shared Workload Control}
 
-\noindent\textbf{Dataset Control.}
+\noindent\emph{Dataset control.}
 \SystemName first fixes the workload. The first full workload is \texttt{sklearn digits}. \SystemName uses a fixed train/test split and applies PCA to 4, 8, 12, and 16 dimensions. The same reduced features are used by every native and quantum model.
 
-\noindent\textbf{Instance Identity.}
+\noindent\emph{Instance identity.}
 Each measured case receives a deterministic identity. For ML, the identity includes the class pair, sample count, PCA dimension, circuit depth, and seed. For chemistry, it includes the molecule, basis, active-space setting, and circuit layer count. For optimization, it includes the graph family, graph size, seed, and QAOA layer count. For simulation, it includes the Hamiltonian model, number of qubits, evolution time, and approximation setting. This identity is used in filenames, JSON records, summaries, and paper figures. As a result, a figure bar can be traced back to the exact raw case that produced it.
 
-\noindent\textbf{Application Control.}
+\noindent\emph{Application control.}
 \SystemName then extends the same rule to practical workloads. For drug discovery, the native path may be a classical molecular simulation or learned surrogate, while the quantum path may be a VQE-style molecular energy circuit. For optimization, the native path may be a mixed-integer, local-search, or GPU heuristic baseline, while the quantum path may be a QAOA-style circuit. For simulation, the native path may be a classical numerical solver, while the quantum path may be a Hamiltonian simulation circuit. In every case, \SystemName keeps the task, input instance, output metric, and quality target fixed.
 
-\noindent\textbf{Quality Control.}
+\noindent\emph{Quality control.}
 \SystemName defines the target quality before execution. The target can be a fixed accuracy threshold or a time-to-best-quality curve. This is important because a quantum path with lower accuracy cannot be claimed faster than a native path with higher accuracy.
 
-\noindent\textbf{Quality Normalization.}
+\noindent\emph{Quality normalization.}
 Different application families expose different quality values, so \SystemName stores both the native metric and a tolerance-scaled gap. For higher-is-better metrics, the gap is the native score minus the quantum score. For lower-is-better metrics, it is the quantum error minus the native/reference error. The current paper uses $\epsilon_w=0.02$ for ML/optimization accuracy or objective gaps and $\epsilon_w=0.01$ for chemistry/simulation energy or observable gaps. These are not domain-final budgets; they are deliberately small thresholds for sensitivity analysis and are recorded in the projection artifacts. \SystemName compares the residual gap to the workload tolerance $\epsilon_w$:
 \[
 (1-R)\Delta Q_w \leq \epsilon_w .
 \]
 Here $R$ is a hypothetical recovery factor. $\Delta Q_w$ is not a probability and is not bounded by one; values above one mean that the measured quantum path is more than one tolerance unit away from the target.
 
-\noindent\textbf{Why This Matters.}
+\noindent\emph{Why this matters.}
 Without shared workload control, the comparison becomes ambiguous. A native model may use a different feature dimension or a different split from the quantum model. \SystemName avoids this by making the workload controller the first step in the pipeline.
 
 \subsection{Application Path Execution}
@@ -64,10 +85,10 @@ Without shared workload control, the comparison becomes ambiguous. A native mode
 \noindent\textbf{Classical Baselines.}
 The native path executes the best available non-quantum implementation for the same input. For ML, \SystemName supports softmax regression, MLP, linear ridge classification, RBF kernel ridge classification, k-nearest neighbors, and nearest-centroid baselines without requiring an external ML package. For chemistry, the native path computes molecular energy from the same Hamiltonian by exact dense diagonalization and, in the strengthened implementation, sparse Lanczos/eigensolver baselines for Pauli Hamiltonians. For optimization, \SystemName records exact enumeration when feasible and also greedy, local-search, and simulated-annealing baselines. For scientific simulation, the native path includes dense exact time evolution and a sparse Krylov-style evolution baseline. The native time used in the threshold is the fastest implemented model that reaches the best native quality within a small tolerance. This rule prevents a weak or low-quality native model from making the quantum path look artificially competitive.
 
-\noindent\textbf{Runtime Breakdown.}
+\noindent\emph{Runtime breakdown.}
 \SystemName records preprocessing time, training time, inference time, and total time. It also records accuracy and model metadata. These values define $T_{\mathrm{native}}$, which is the target that the projected quantum hardware path must beat.
 
-\noindent\textbf{Baseline Selection Rule.}
+\noindent\emph{Baseline selection rule.}
 The native path may produce several valid answers for one case. \SystemName first removes candidates that do not meet the family-specific quality rule. Among the remaining candidates, it selects the fastest one as the native baseline. If no native candidate reaches the quality target, the best-quality native candidate is still recorded, but the case is marked so that the threshold analysis does not create an artificial win. This selection rule is deliberately conservative: adding a stronger native method can only make the quantum threshold harder, not easier.
 
 \subsubsection{Quantum Kernel Path}
@@ -75,13 +96,13 @@ The native path may produce several valid answers for one case. \SystemName firs
 \noindent\textbf{Feature Map Execution.}
 The quantum kernel path maps each PCA feature vector into a quantum feature map. \cuQuantum simulates the circuit and produces state or observable data for kernel entries. A classical classifier then consumes the kernel matrix.
 
-\noindent\textbf{Cost Breakdown.}
+\noindent\emph{Cost breakdown.}
 \SystemName records encoding time, circuit construction time, \cuQuantum execution time, kernel matrix construction time, and classifier-head time. This path is useful because it separates circuit execution cost from trainable quantum-parameter optimization.
 
-\noindent\textbf{Expected Bottleneck.}
+\noindent\emph{Expected bottleneck.}
 The kernel path can become expensive because the kernel matrix grows with the number of samples. Therefore, \SystemName must report both sample scaling and feature-dimension scaling.
 
-\noindent\textbf{Kernel Accounting Rule.}
+\noindent\emph{Kernel accounting rule.}
 The kernel path is counted at the application level, not only at the circuit-kernel level. \SystemName records how many pairwise circuit evaluations are required, how many are actually executed, whether symmetry is used, and how the resulting matrix is consumed by the classifier. This matters because a circuit that is fast for one encoded sample can still be expensive after all sample pairs are evaluated. The design therefore exposes the sample-count multiplier instead of hiding it inside one aggregate runtime.
 
 \subsubsection{QNN/VQC Path}
@@ -89,29 +110,29 @@ The kernel path is counted at the application level, not only at the circuit-ker
 \noindent\textbf{Parameterized Circuit Execution.}
 The QNN/VQC path maps the same PCA features into a parameterized quantum circuit. It then updates trainable parameters through a classical optimizer. Each optimizer step can require many circuit evaluations.
 
-\noindent\textbf{Cost Breakdown.}
+\noindent\emph{Cost breakdown.}
 \SystemName records ansatz type, depth, gate count, number of parameters, optimizer iterations, observable extraction time, and accuracy. This path is expected to be more expensive than the quantum kernel path because training repeatedly evaluates the circuit.
 
-\noindent\textbf{Why This Matters.}
+\noindent\emph{Why this matters.}
 QNN/VQC models are often discussed as quantum machine-learning candidates. However, their systems cost is easy to underestimate. \SystemName makes the repeated circuit evaluations visible.
 
-\noindent\textbf{Optimizer Rule.}
+\noindent\emph{Optimizer rule.}
 For variational paths, \SystemName records the outer-loop optimizer separately from circuit execution. The record includes the number of parameter vectors, the number of observables, the number of shots per evaluation, and the measured time spent outside \cuQuantum. This separation is needed because future quantum hardware can reduce circuit execution time without removing the classical optimizer loop. If the optimizer or data movement dominates, the projected hardware speedup has limited effect.
 
 \subsection{Measurement and Threshold Analysis}
 
-\noindent\textbf{JSON Record.}
+\noindent\emph{JSON record.}
 Every run emits a JSON record. The record includes dataset metadata, model metadata, runtime breakdowns, accuracy, circuit qubits, circuit depth, gate counts, shots, GPU metadata, and Slurm metadata where available.
 
-\noindent\textbf{Summary Path.}
+\noindent\emph{Summary path.}
 \SystemName keeps raw case records separate from derived summaries. A sweep first writes one JSON object per case or per task shard. A summarizer then validates expected case counts, merges shards, computes medians and quantiles, and writes CSV/JSON summaries used by the figures. The paper audit reads these summaries and checks that the claims in the manuscript match the stored values. This design follows the same spirit as prior systems papers: the evaluation does not depend on hand-copied numbers.
 
-\noindent\textbf{Allocation Accounting.}
+\noindent\emph{Allocation accounting.}
 \SystemName separates login-node smoke tests from Slurm performance runs. Login-node tests are only for correctness. Slurm runs must record elapsed time, queue time, requested walltime, allocated GPUs, and charged node-hours. This prevents short sanity checks from being mistaken for valid performance experiments.
 
 \subsubsection{Threshold Analysis}
 
-\noindent\textbf{Execution Model.}
+\noindent\emph{Execution model.}
 Given circuit metadata, \SystemName estimates projected quantum execution time:
 
 \begin{align}
@@ -123,15 +144,15 @@ T_{\mathrm{execute}} =
 
 where $N_s$ is the shot count, $D_1$ and $D_2$ are one- and two-qubit gate depths, $D_m$ is measurement depth, $t_1$, $t_2$, and $t_m$ are logical operation times, and $P_{\mathrm{shots}}$ is shot-level parallelism.
 
-\noindent\textbf{Projection Scope.}
+\noindent\emph{Projection scope.}
 This model is a first-order lower bound, not a validated fault-tolerant schedule. $T_{\mathrm{error}}$ aggregates costs not decomposed here: compilation, mapping, routing, readout, feedback, mitigation, correction, and queue/device concurrency. A fault-tolerant version can replace it with a surface-code stack using code distance, cycle time, logical-error budget, magic-state cost, and decoder latency~\cite{fowler2012surface,litinski2019game}. We keep the result dimensionless so stronger hardware models can be plugged in later.
 
-\noindent\textbf{Worked Hardware Instantiation.}
+\noindent\emph{Worked hardware instantiation.}
 To make the abstraction concrete, the projection can be instantiated as
 $T_{\mathrm{error}}=T_{\mathrm{compile}}+T_{\mathrm{route}}+T_{\mathrm{decode}}+T_{\mathrm{mitigate}}$ and
 $t_i=k_i d\tau_c$, where $d$ is surface-code distance, $\tau_c$ is cycle time, and $k_i$ is the number of code cycles for the logical operation. For example, an illustrative lower-bound stack with $d=25$, $\tau_c=1\,\mu$s, $k_1=1$, $k_2=4$, $k_m=1$, $5\,\mu$s decoder latency per measured layer, and $P_{\mathrm{shots}}=10^4$ parallel shots maps each measured case to a concrete logical-runtime budget. Changing any of these parameters moves the same frontier rather than changing the native baseline.
 
-\noindent\textbf{Break-even Search.}
+\noindent\emph{Break-even search.}
 \SystemName inverts the model. Instead of assuming a quantum speedup, it asks what logical gate time, shot throughput, and error overhead are needed for:
 
 \begin{align}
@@ -140,10 +161,10 @@ T_{\mathrm{qhw}} < T_{\mathrm{native}}.
 
 This gives a hardware requirement rather than a vague claim of advantage. The requirement can be read as a design target. If a workload enters the advantage region only when $P_{\mathrm{shots}}$ is very large, the bottleneck is device-level or system-level parallelism. If it enters only when $T_{\mathrm{error}}$ is small, the bottleneck is the fault-tolerance and decoder stack. If it never enters until the quality gap closes, the bottleneck is not gate speed; it is algorithmic quality, noise resilience, or encoding.
 
-\noindent\textbf{Advantage Frontier.}
+\noindent\emph{Advantage frontier.}
 \SystemName does not reduce the result to one speedup number. It sweeps hardware assumptions and reports the feasible region where the projected quantum path beats the native path at the same quality. This region is the advantage frontier. If no reasonable region exists, the workload is classified by the limiting factor: quality, encoding, shots, error overhead, or native baseline strength.
 
-\noindent\textbf{Frontier Classification.}
+\noindent\emph{Frontier classification.}
 After the sweep, each case is assigned a primary limiting factor. A case is speed-limited when quality is close enough but the required runtime improvement is large. It is quality-limited when even aggressive speedup does not help unless the output gap closes. It is encoding- or shot-limited when non-kernel overhead dominates the projection. It is native-dominated when a strong native baseline makes the required improvement much larger than the quantum path can plausibly recover. This classification turns the frontier into a diagnostic result instead of only a plot.
 
 \subsection{Advantage Claim Checklist}

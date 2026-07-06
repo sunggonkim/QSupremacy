@@ -14,6 +14,7 @@
 \usepackage{xspace}
 \usepackage{enumitem}
 \usepackage{cite}
+\usepackage[most]{tcolorbox}
 
 \setlength{\columnsep}{0.1in}
 \captionsetup{font=small}
@@ -24,6 +25,18 @@
 \pagestyle{plain}
 \pagenumbering{arabic}
 \newcommand{\Description}[1]{}
+\newtcolorbox{observationbox}{
+  colback=gray!4,
+  colframe=black!45,
+  boxrule=0.4pt,
+  arc=0pt,
+  left=3pt,
+  right=3pt,
+  top=2pt,
+  bottom=2pt,
+  before skip=2pt,
+  after skip=2pt
+}
 
 \newcommand{\SystemName}{\textsc{QArchGauge}\xspace}
 \newcommand{\cuQuantum}{\texttt{cu\-Quantum}\xspace}

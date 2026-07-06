@@ -18,6 +18,9 @@ quality.
 ## Current Paper State
 
 The HPCA-style paper is built and evidence-backed.
+The current figures follow the previous-paper pattern of compact subfigures with
+shared legend panels, and the evaluation uses observation boxes for architecture
+bottleneck insights.
 
 | Item | Status |
 | --- | --- |

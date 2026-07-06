@@ -6,13 +6,25 @@ Existing simulation systems provide the first part of this stack. Libraries such
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.96\linewidth]{figures/intro_application_gap.pdf}
-    \Description{Pipeline diagram contrasting native application execution with quantum-circuit application execution, HPC simulation, and projected quantum hardware execution.}
+    \begin{subfigure}{0.39\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/intro_comparison_paths.pdf}
+        \caption{Comparison path.}
+        \label{fig:intro-gap-path}
+        \Description{Pipeline diagram contrasting native application execution with quantum-circuit application execution.}
+    \end{subfigure}
+    \begin{subfigure}{0.57\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/intro_threshold_summary.pdf}
+        \caption{Measured thresholds.}
+        \label{fig:intro-gap-threshold}
+        \Description{Summary of measured required speedups for controlled and practical workloads.}
+    \end{subfigure}
     \caption{Application-level comparison target. The key comparison is not simulator versus simulator. The key comparison is native application execution versus quantum-circuit application execution and projected quantum hardware execution.}
     \label{fig:intro-gap}
 \end{figure}
 
-Figure~\ref{fig:intro-gap} shows the comparison target of \SystemName. A circuit simulator is only one component of the quantum path. The full quantum path also includes application stages that do not disappear when the circuit kernel becomes faster. This creates three practical observations. \textbf{Observation 1: Simulator speed is not application speed.} Measuring only \cuQuantum time can hide encoding, measurement, optimization, and classical control. \textbf{Observation 2: Native baselines are an architecture constraint.} Native HPC/ML applications already use mature software stacks and efficient kernels, so a fair quantum claim must compare against a native implementation of the same workload. \textbf{Observation 3: Advantage is a design-space boundary.} The goal is not only to measure today's simulator time, but to invert the measurement and compute the required quantum gate time, shot throughput, error overhead, and quality recovery for future hardware.
+Figure~\ref{fig:intro-gap} shows the comparison target of \SystemName. A circuit simulator is only one component of the quantum path. The full quantum path also includes application stages that do not disappear when the circuit kernel becomes faster. Three points follow. First, simulator speed is not application speed: measuring only \cuQuantum time can hide encoding, measurement, optimization, and classical control. Second, native baselines are an architecture constraint because native HPC/ML applications already use mature software stacks and efficient kernels. Third, advantage is a design-space boundary: the goal is to invert today's measurement and compute the required quantum gate time, shot throughput, error overhead, and quality recovery for future hardware.
 
 The same issue becomes stronger when the workload moves beyond one small ML example. Public claims about quantum computing often jump from one successful example to broad expectations such as better AI, faster drug discovery, or better optimization. A systems paper cannot validate such claims with one toy workload. It must cover representative application families and show the threshold for each family. For a practical workload, quantum advantage depends on several conditions being true at the same time: the quantum path must reach the target quality, the native baseline must be strong, the circuit must fit the available logical qubits, shots must be parallelized enough, and error overhead must not erase the speedup. \SystemName therefore reports an advantage frontier rather than a single yes/no answer.
 

@@ -47,4 +47,5 @@ scripts/run_login_smoke.sh
 Accepted-paper sources used for structure and style reference are unpacked under
 `paper/PreviousPapers/` and are intentionally ignored by git. The paper follows
 their section rhythm, RQ-style evaluation structure, `subfigure` usage, compact
-table style, and `\textbf{}` lead-in rhythm without copying prose.
+table style, shared legend panels, and selective observation boxes without
+copying prose.

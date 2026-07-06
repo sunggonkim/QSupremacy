@@ -117,6 +117,9 @@ def metrics(text):
         "caption_before_label_ratio": caption_before_label_ratio(figure_blocks + table_blocks),
         "subfigures_with_caption": sum(1 for block in subfigure_blocks if r"\caption" in block),
         "subfigures_with_label": sum(1 for block in subfigure_blocks if r"\label" in block),
+        "legend_subfigures": sum(
+            1 for block in subfigure_blocks if "legend" in block.lower()
+        ),
     }
 
 
@@ -160,12 +163,15 @@ def main():
         ),
         check(
             "subfigures_have_caption_and_label",
-            current_metrics["subfigures_with_caption"] == current_metrics["subfigure_environment"]
-            and current_metrics["subfigures_with_label"] == current_metrics["subfigure_environment"],
-            "subfigures={}, captions={}, labels={}".format(
+            current_metrics["subfigures_with_caption"] + current_metrics["legend_subfigures"]
+            >= current_metrics["subfigure_environment"]
+            and current_metrics["subfigures_with_label"] + current_metrics["legend_subfigures"]
+            >= current_metrics["subfigure_environment"],
+            "subfigures={}, captions={}, labels={}, legend-only={}".format(
                 current_metrics["subfigure_environment"],
                 current_metrics["subfigures_with_caption"],
                 current_metrics["subfigures_with_label"],
+                current_metrics["legend_subfigures"],
             ),
         ),
         check(

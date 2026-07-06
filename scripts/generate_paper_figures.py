@@ -11,6 +11,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.lines import Line2D
 from matplotlib.patches import Rectangle
 
 
@@ -18,6 +19,9 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 FIG_DIR = os.path.join(ROOT, "paper", "figures")
 TEXT_WIDTH = 6.85
 COLUMN_WIDTH = 3.35
+INTRO_PATH_WIDTH = COLUMN_WIDTH * 0.39
+INTRO_THRESHOLD_WIDTH = COLUMN_WIDTH * 0.57
+SUBFIGURE_WIDTH = COLUMN_WIDTH * 0.48
 COLORS = {
     "blue": "#356CA5",
     "orange": "#E6862B",
@@ -184,6 +188,18 @@ def add_top_legend(fig, handles, labels, ncol, y=1.02, fontsize=None):
     )
 
 
+def legend_marker(color):
+    return Line2D(
+        [0],
+        [0],
+        marker="o",
+        color="none",
+        markerfacecolor=color,
+        markeredgecolor="none",
+        markersize=4.5,
+    )
+
+
 def read_csv(path):
     with open(os.path.join(ROOT, path), newline="") as f:
         return list(csv.DictReader(f))
@@ -224,38 +240,28 @@ def arrow(ax, start, end, color="#4A4A4A", lw=1.1):
     )
 
 
-def figure_intro_application_gap():
-    fig, axes = plt.subplots(
-        1,
-        2,
-        figsize=(COLUMN_WIDTH, 1.72),
-        gridspec_kw={"width_ratios": [1.08, 1.35], "wspace": 0.30},
-    )
-
-    ax = axes[0]
-    draw_box(ax, (0.03, 0.62), 0.30, 0.18, "Input\ninstance", COLORS["dark"], fontsize=6.4)
-    draw_box(ax, (0.47, 0.69), 0.38, 0.14, "Native HPC\napp", COLORS["blue"], fontsize=6.2)
-    draw_box(ax, (0.47, 0.42), 0.38, 0.14, "Quantum\ncircuit app", COLORS["orange"], fontsize=6.2)
-    arrow(ax, (0.22, 0.70), (0.34, 0.745))
-    arrow(ax, (0.33, 0.71), (0.47, 0.76))
-    arrow(ax, (0.22, 0.66), (0.34, 0.435))
-    arrow(ax, (0.33, 0.67), (0.47, 0.49))
-    draw_box(ax, (0.47, 0.16), 0.38, 0.12, "$T_n,Q_n$\n$T_q,Q_q$", COLORS["green"], fontsize=6.2)
-    arrow(ax, (0.66, 0.69), (0.66, 0.56))
-    arrow(ax, (0.66, 0.42), (0.66, 0.28))
-    ax.text(
-        0.47,
-        0.03,
-        "Advantage: projected quantum time < native time\nand residual quality gap <= tolerance",
-        ha="center",
-        va="bottom",
-        fontsize=5.8,
-        color=COLORS["dark"],
-    )
+def figure_intro_paths():
+    fig, ax = plt.subplots(figsize=(INTRO_PATH_WIDTH, 1.25))
+    draw_box(ax, (0.04, 0.42), 0.25, 0.23, "Input\ninstance", COLORS["dark"], fontsize=6.7)
+    draw_box(ax, (0.40, 0.66), 0.34, 0.20, "Native HPC\napp", COLORS["blue"], fontsize=6.5)
+    draw_box(ax, (0.40, 0.20), 0.34, 0.20, "Quantum\ncircuit app", COLORS["orange"], fontsize=6.5)
+    draw_box(ax, (0.80, 0.66), 0.17, 0.20, "$T_n,Q_n$", COLORS["blue"], fontsize=6.3)
+    draw_box(ax, (0.80, 0.20), 0.17, 0.20, "$T_q,Q_q$", COLORS["green"], fontsize=6.3)
+    arrow(ax, (0.28, 0.58), (0.40, 0.76))
+    arrow(ax, (0.28, 0.48), (0.40, 0.30))
+    arrow(ax, (0.74, 0.76), (0.80, 0.76))
+    arrow(ax, (0.74, 0.30), (0.80, 0.30))
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     ax.axis("off")
+    path = os.path.join(FIG_DIR, "intro_comparison_paths.pdf")
+    fig.subplots_adjust(left=0.02, right=0.98, bottom=0.06, top=0.96)
+    fig.savefig(path, bbox_inches="tight")
+    plt.close(fig)
+    return path
 
+
+def figure_intro_threshold_summary():
     labels = ["QNN/VQC", "QKernel", "Sim.", "ML", "Chem.", "Opt."]
     values = [64.9, 421.9, 3071.0, 3726.4, 42491.4, 287045.6]
     colors = [
@@ -267,20 +273,20 @@ def figure_intro_application_gap():
         COLORS["red"],
     ]
     y = np.arange(len(labels))
-    axes[1].hlines(y, 1, values, color=colors, linewidth=2.1)
-    axes[1].scatter(values, y, s=28, color=colors, edgecolors="#222222", linewidths=0.45, zorder=3)
+    fig, ax = plt.subplots(figsize=(INTRO_THRESHOLD_WIDTH, 1.42))
+    ax.hlines(y, 1, values, color=colors, linewidth=2.1)
+    ax.scatter(values, y, s=30, color=colors, edgecolors="#222222", linewidths=0.45, zorder=3)
     for yi, value in zip(y, values):
-        axes[1].text(value * 1.20, yi, "{:,.0f}x".format(value), va="center", fontsize=5.8)
-    axes[1].set_xscale("log")
-    axes[1].set_yticks(y)
-    axes[1].set_yticklabels(labels)
-    axes[1].invert_yaxis()
-    axes[1].set_xlabel("Required quantum speedup (x)", labelpad=1.0)
-    axes[1].set_xlim(10, 2.2e6)
-    style_axis(axes[1], grid="x")
-
-    path = os.path.join(FIG_DIR, "intro_application_gap.pdf")
-    fig.subplots_adjust(left=0.04, right=0.99, bottom=0.22, top=0.95, wspace=0.32)
+        ax.text(value * 1.16, yi, "{:,.0f}x".format(value), va="center", fontsize=6.0)
+    ax.set_xscale("log")
+    ax.set_yticks(y)
+    ax.set_yticklabels(labels)
+    ax.invert_yaxis()
+    ax.set_xlabel("Required quantum speedup (x)", labelpad=1.0)
+    ax.set_xlim(10, 2.2e6)
+    style_axis(ax, grid="x")
+    path = os.path.join(FIG_DIR, "intro_threshold_summary.pdf")
+    fig.subplots_adjust(left=0.28, right=0.90, bottom=0.27, top=0.96)
     fig.savefig(path, bbox_inches="tight")
     plt.close(fig)
     return path
@@ -356,6 +362,54 @@ def figure_digits_speedup():
     return savefig("digits_required_speedup.pdf", fig=fig)
 
 
+def figure_digits_legend():
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 0.26))
+    handles = [
+        legend_marker(COLORS["blue"]),
+        legend_marker(COLORS["orange"]),
+    ]
+    ax.axis("off")
+    fig.legend(
+        handles,
+        ["QKernel", "QNN/VQC"],
+        ncol=2,
+        loc="center",
+        frameon=False,
+        fontsize=6.6,
+        handletextpad=0.35,
+        columnspacing=1.1,
+    )
+    path = os.path.join(FIG_DIR, "digits_legend.pdf")
+    fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
+    plt.close(fig)
+    return path
+
+
+def figure_practical_suite_legend():
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 0.26))
+    handles = [
+        legend_marker(COLORS["blue"]),
+        legend_marker(COLORS["teal"]),
+        legend_marker(COLORS["red"]),
+        legend_marker(COLORS["green"]),
+    ]
+    ax.axis("off")
+    fig.legend(
+        handles,
+        ["ML", "Chem.", "Opt.", "Sim."],
+        ncol=4,
+        loc="center",
+        frameon=False,
+        fontsize=6.4,
+        handletextpad=0.30,
+        columnspacing=0.85,
+    )
+    path = os.path.join(FIG_DIR, "practical_suite_legend.pdf")
+    fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
+    plt.close(fig)
+    return path
+
+
 def figure_digits_quality_runtime():
     rows = read_csv("data/processed/perlmutter/digits_expanded_55421321_55422142_summary.csv")
     fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 2.45))
@@ -382,9 +436,10 @@ def figure_digits_quality_runtime():
     ax.set_ylabel("Quantum model accuracy")
     ax.set_ylim(0.4, 1.03)
     style_axis(ax, grid="both")
-    handles, labels = ax.get_legend_handles_labels()
-    add_top_legend(fig, handles, labels, ncol=2, y=1.03)
-    fig.subplots_adjust(top=0.82)
+    legend = ax.get_legend()
+    if legend:
+        legend.remove()
+    fig.subplots_adjust(top=0.98)
     return savefig("digits_quality_speedup.pdf", fig=fig)
 
 
@@ -413,17 +468,9 @@ def figure_practical_suite():
         cdf = np.arange(1, sorted_speed.size + 1) / float(sorted_speed.size)
         series.append((label, color, speed, quality, sorted_speed, cdf))
 
-    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.50))
-    legend_handles = []
-    legend_labels = []
-    label_offsets = {
-        "ML": (4, 3, "left"),
-        "Chem.": (4, 3, "left"),
-        "Opt.": (-6, 3, "right"),
-        "Sim.": (4, 4, "left"),
-    }
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.58))
     for label, color, speed, quality, sorted_speed, cdf in series:
-        points = ax.scatter(
+        ax.scatter(
             speed,
             quality,
             s=9,
@@ -432,8 +479,6 @@ def figure_practical_suite():
             edgecolors="none",
             label=label,
         )
-        legend_handles.append(points)
-        legend_labels.append(label)
         ax.scatter(
             [np.median(speed)],
             [np.median(quality)],
@@ -443,43 +488,23 @@ def figure_practical_suite():
             linewidths=0.65,
             zorder=4,
         )
-        offset_x, offset_y, align = label_offsets.get(label, (4, 3, "left"))
-        ax.annotate(
-            label,
-            xy=(np.median(speed), np.median(quality)),
-            xytext=(offset_x, offset_y),
-            textcoords="offset points",
-            fontsize=5.8,
-            color=color,
-            weight="bold",
-            ha=align,
-        )
     ax.set_xscale("log")
     ax.tick_params(axis="x", labelbottom=False)
     ax.set_ylabel("Quality gap\nto native")
     style_axis(ax, grid="both")
-    fig.subplots_adjust(top=0.96, bottom=0.10, left=0.18, right=0.98)
+    fig.subplots_adjust(top=0.96, bottom=0.10, left=0.22, right=0.98)
     landscape_path = os.path.join(FIG_DIR, "practical_suite_summary.pdf")
     fig.savefig(landscape_path, bbox_inches="tight")
     plt.close(fig)
 
-    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.25))
-    for idx, (label, color, speed, quality, sorted_speed, cdf) in enumerate(series):
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.50))
+    for label, color, speed, quality, sorted_speed, cdf in series:
         ax.plot(sorted_speed, cdf, color=color, linewidth=1.8, label=label)
-        ax.text(
-            0.04 + 0.22 * idx,
-            0.12,
-            label,
-            transform=ax.transAxes,
-            fontsize=5.8,
-            color=color,
-            weight="bold",
-        )
     ax.set_xscale("log")
     ax.set_xlabel("Required speedup (x)")
     ax.set_ylabel("CDF")
     style_axis(ax, grid="both")
-    fig.subplots_adjust(bottom=0.30, left=0.18, right=0.98, top=0.98)
+    fig.subplots_adjust(bottom=0.32, left=0.22, right=0.98, top=0.98)
     cdf_path = os.path.join(FIG_DIR, "practical_suite_cdf.pdf")
     fig.savefig(cdf_path, bbox_inches="tight")
     plt.close(fig)
@@ -824,10 +849,13 @@ def main():
     apply_paper_style()
     ensure_fig_dir()
     paths = [
-        figure_intro_application_gap(),
+        figure_intro_paths(),
+        figure_intro_threshold_summary(),
         figure_design_overview(),
+        figure_digits_legend(),
         figure_digits_speedup(),
         figure_digits_quality_runtime(),
+        figure_practical_suite_legend(),
         figure_practical_suite(),
         figure_strong_native_comparison(),
         figure_advantage_frontier(),

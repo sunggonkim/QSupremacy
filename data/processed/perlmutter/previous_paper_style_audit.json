@@ -16,7 +16,7 @@
       "passed": true
     },
     {
-      "detail": "current subfigure environments: 14",
+      "detail": "current subfigure environments: 18",
       "name": "current_uses_subfigure_environment",
       "passed": true
     },
@@ -26,7 +26,7 @@
       "passed": true
     },
     {
-      "detail": "subfigures=14, captions=14, labels=14",
+      "detail": "subfigures=18, captions=16, labels=16, legend-only=2",
       "name": "subfigures_have_caption_and_label",
       "passed": true
     },
@@ -46,12 +46,12 @@
       "passed": true
     },
     {
-      "detail": "scriptsize=4, arraystretch=4",
+      "detail": "scriptsize=5, arraystretch=5",
       "name": "dense_table_style_present",
       "passed": true
     },
     {
-      "detail": "booktabs rules: 42",
+      "detail": "booktabs rules: 45",
       "name": "booktabs_table_style_present",
       "passed": true
     },
@@ -62,26 +62,27 @@
     }
   ],
   "current_metrics": {
-    "arraystretch": 4,
-    "booktabs_rules": 42,
+    "arraystretch": 5,
+    "booktabs_rules": 45,
     "caption_before_label_ratio": 1.0,
     "caption_setup": 2,
     "figure": 9,
     "figure_star": 0,
     "float_spacing": 3,
     "hline_rules": 0,
+    "legend_subfigures": 2,
     "lowercase_noindent_textbf": [],
-    "noindent_textbf": 75,
-    "resizebox_column": 9,
-    "scriptsize": 4,
-    "subfigure_environment": 14,
-    "subfigures_with_caption": 14,
-    "subfigures_with_label": 14,
+    "noindent_textbf": 31,
+    "resizebox_column": 10,
+    "scriptsize": 5,
+    "subfigure_environment": 18,
+    "subfigures_with_caption": 16,
+    "subfigures_with_label": 16,
     "subfloat": 0,
-    "table": 14,
+    "table": 15,
     "table_star": 0,
-    "textbf": 100,
-    "vspace": 6
+    "textbf": 58,
+    "vspace": 8
   },
   "passed": true,
   "previous_metrics": {
@@ -93,6 +94,7 @@
     "figure_star": 5,
     "float_spacing": 3,
     "hline_rules": 15,
+    "legend_subfigures": 2,
     "lowercase_noindent_textbf": [
       "\\# of Nodes.",
       "\\# of Nodes."

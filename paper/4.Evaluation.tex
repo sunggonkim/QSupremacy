@@ -112,14 +112,21 @@ QNN/VQC required speedup & 21.1$\times$ & 64.9$\times$ & 171.7$\times$ \\
 \label{tab:expanded-summary}
 \end{table}
 
-\noindent\textbf{Answer.}
-The first result supports the main thesis: the useful output is not ``quantum is faster'' or ``quantum is slower.'' The useful output is the hardware requirement. For this workload, even when quantum kernels achieve good accuracy, the projected execution must improve by a median 421.9$\times$ to reach native time. For QNN/VQC, the median threshold is 64.9$\times$, but the model usually fails to match native accuracy.
+\begin{observationbox}
+\textbf{Observation 1:} The useful output is not ``quantum is faster'' or ``quantum is slower.'' The useful output is the hardware requirement. On the controlled ML sweep, quantum kernels need a median 421.9$\times$ execution improvement to reach native time, while QNN/VQC needs only 64.9$\times$ but usually misses native quality. This separates a speed bottleneck from a quality bottleneck.
+\end{observationbox}
 
-\noindent\textbf{Qubit Accounting.}
 The digits circuits use one qubit per PCA feature dimension. Thus, the controlled sweep uses 4, 8, 12, and 16 qubits, matching Table~\ref{tab:eval-setup}. Figures~\ref{fig:digits-speedup} and~\ref{fig:digits-quality} are not hardware-roadmap plots over 50--1000 qubits; they are generated from the 160 measured case records and summarize threshold and quality versus the measured circuit configuration.
 
 \begin{figure}[t]
 \centering
+\begin{subfigure}{0.82\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/digits_legend.pdf}
+    \Description{Shared legend for quantum-kernel and QNN/VQC results.}
+\end{subfigure}
+\vspace{-0.55em}
+
 \begin{subfigure}{0.48\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figures/digits_required_speedup.pdf}
@@ -159,7 +166,6 @@ Class pair & Kernel acc. & QNN/VQC acc. \\
 \label{tab:class-sensitivity}
 \end{table}
 
-\noindent\textbf{Answer.}
 Quality changes the interpretation of speed. A lower runtime threshold does not imply advantage if the quantum model misses the native target quality.
 
 \subsubsection{Practical Application Landscape}
@@ -189,6 +195,13 @@ Simulation & 512 & 2.08 & 6.89 & 3,071.0$\times$ & 0.0188 \\
 
 \begin{figure}[t]
 \centering
+\begin{subfigure}{0.86\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/practical_suite_legend.pdf}
+    \Description{Shared legend for ML, chemistry, optimization, and simulation workloads.}
+\end{subfigure}
+\vspace{-0.55em}
+
 \begin{subfigure}{0.48\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figures/practical_suite_summary.pdf}
@@ -207,8 +220,9 @@ Simulation & 512 & 2.08 & 6.89 & 3,071.0$\times$ & 0.0188 \\
 \label{fig:practical-suite}
 \end{figure}
 
-\noindent\textbf{Answer.}
-The practical suite confirms that the gap is not an ML-only artifact. Every family remains outside the current advantage region, but the reason differs by family. The table shows the component mismatch directly: native paths often finish in microseconds to milliseconds, while the simulated quantum-circuit path takes about seven seconds per case. Chemistry and simulation are often closer in quality but still require large execution improvement, while ML and optimization are frequently quality-limited. The range is also large: the median threshold is 3,071.0$\times$ for simulation, 3,726.4$\times$ for ML, 42,491.4$\times$ for chemistry, and 287,045.6$\times$ for optimization.
+\begin{observationbox}
+\textbf{Observation 2:} The practical-suite gap is not an ML-only artifact. Native paths often finish in microseconds to milliseconds, while the simulated quantum-circuit path takes about seven seconds per case. However, the architecture bottleneck differs by family: simulation and chemistry mostly need faster logical execution and shot throughput after quality is controlled; ML and optimization first need better circuit output quality.
+\end{observationbox}
 
 \subsection{Component and Baseline Analysis}
 
@@ -232,8 +246,11 @@ The practical suite confirms that the gap is not an ML-only artifact. Every fami
 \label{fig:strong-native}
 \end{figure}
 
-\noindent\textbf{Answer.}
-The native baseline is part of the model. Strengthening the native side increases the ML threshold by 6.6$\times$ and the optimization threshold by 2.3$\times$ relative to the initial native-baseline sweep. The strong-native run completed as a one-node, four-GPU bundled allocation on \Perlmutter. The job finished 190 cases in 6 minutes and 59 seconds with exit code 0:0, 190 raw JSON outputs, and empty stderr logs. The selected ML baselines were RBF kernel ridge, nearest centroid, kNN, softmax regression, and linear ridge depending on the case; the selected optimization baselines were mostly greedy assignment, with exact enumeration selected when it was fastest at the best cut value.
+\begin{observationbox}
+\textbf{Observation 3:} The native baseline is an architecture constraint, not bookkeeping. Strengthening the native side increases the ML threshold by 6.6$\times$ and the optimization threshold by 2.3$\times$. A future quantum architecture therefore competes against the native software stack available at deployment time, not against a frozen toy baseline.
+\end{observationbox}
+
+The strong-native run completed as a one-node, four-GPU bundled allocation on \Perlmutter. The job finished 190 cases in 6 minutes and 59 seconds with exit code 0:0, 190 raw JSON outputs, and empty stderr logs. The selected ML baselines were RBF kernel ridge, nearest centroid, kNN, softmax regression, and linear ridge depending on the case; the selected optimization baselines were mostly greedy assignment, with exact enumeration selected when it was fastest at the best cut value.
 
 \noindent\textbf{Baseline Coverage Gate.}
 We also run a separate accept-profile gate to strengthen the two application families that are easiest to criticize as toy baselines: chemistry and scientific simulation. The chemistry gate includes OpenFermion and PySCF-generated H$_2$, LiH, and H$_2$O active-space Hamiltonians, in addition to the built-in minimal H$_2$ and molecular-chain surrogate. The committed fixture set now includes LiH and H$_2$O active spaces at 4, 6, and 8 qubits; the 6--8 qubit fixtures pass a login-node smoke gate before larger allocation runs. The simulation gate compares dense exact evolution with sparse Krylov evolution on TFIM and Heisenberg Hamiltonians from 4 to 8 qubits.
@@ -255,7 +272,6 @@ Simulation & 60 & 4,185.2$\times$ & 0.0237 & Dense exact: 26; sparse Krylov: 34 
 \label{tab:accept-baselines}
 \end{table}
 
-\noindent\textbf{Answer.}
 Table~\ref{tab:accept-baselines} shows that the strengthened chemistry and simulation baselines execute correctly in the same bundled one-node run. The job completed 116 cases in 6 minutes and 5 seconds with exit code 0:0; each of the four A100 tasks completed 29 cases, and stderr logs were empty. For chemistry, both dense exact and sparse Lanczos/eigensolver candidates were evaluated for every case. The selected runtime baseline is dense exact for all 56 cases because these active-space Hamiltonians are still small, but the run now uses OpenFermion and PySCF instances instead of only a hand-written surrogate. For simulation, sparse Krylov becomes the selected native method in 34 of 60 cases, especially at 6--8 qubits, showing that the native path is no longer a single dense solver.
 
 \noindent\textbf{Chemistry Active-space Coverage.}
@@ -328,7 +344,6 @@ Full profile & 32 & 128 & 3,552 & 4:17 \\
 \label{fig:weak-scaling}
 \end{figure}
 
-\noindent\textbf{Answer.}
 All weak-scaling jobs completed with exit code 0:0. The generated raw JSON counts match the expected case counts: 896, 1,792, and 3,552. No failed case, traceback, or timeout was recorded in the task logs. The result is the desired throughput behavior for this workflow: total throughput grows with nodes while the per-GPU rate stays close to stable. This matters because the advantage model is produced by many independent application cases, so throughput scaling determines how quickly the frontier can be mapped.
 
 \subsubsection{Strong Scaling}
@@ -353,7 +368,6 @@ All weak-scaling jobs completed with exit code 0:0. The generated raw JSON count
 \label{fig:strong-scaling}
 \end{figure}
 
-\noindent\textbf{Answer.}
 The fixed-work result measures time-to-solution for the same 3,552 cases. It reduces elapsed time from 30 minutes 55 seconds on four nodes to 4 minutes 17 seconds on the matching 32-node full-profile point, a 7.2$\times$ speedup over an 8$\times$ node increase. The non-ideal 16-node point exposes a useful systems fact rather than a paper problem: application-level sweeps inherit chunk imbalance and per-case variability even when the Slurm layout is correct. This validates the bundled multi-node execution path and also motivates reporting both weak and strong scaling instead of compressing them into one bar chart.
 
 \subsection{Advantage Frontier and Bottleneck Analysis}
@@ -393,8 +407,9 @@ The practical-suite result gives one speed threshold per case, but a speed-only 
 \label{fig:advantage-frontier}
 \end{figure}
 
-\noindent\textbf{Answer.}
-The frontier separates speed-limited and quality-limited workloads. Chemistry and simulation often have small quality gaps, so their frontier is mostly pushed right by runtime. ML has a lower runtime threshold in some cases, but the quality gap must shrink before speed alone becomes meaningful. Optimization is far from the advantage region on both axes for the current QAOA configuration. This is the central point of \SystemName: quantum advantage is a feasible region, not a single speedup slogan.
+\begin{observationbox}
+\textbf{Observation 4:} The frontier separates speed-limited and quality-limited workloads. Chemistry and simulation often have small quality gaps, so their frontier is mostly pushed right by runtime. ML and optimization require quality recovery before faster gates matter. Thus, the architecture target is a feasible region over speed and quality, not a single global speedup slogan.
+\end{observationbox}
 
 \noindent\textbf{Tolerance Sensitivity.}
 The projection table reports the tolerance used for each family. These values are intentionally strict and are treated as model inputs, not universal domain standards. A looser tolerance moves quality-limited cases toward the frontier; a stricter tolerance moves them away. The raw projection artifact records the full grid so the table can be regenerated under other tolerances without rerunning the Perlmutter jobs.
@@ -449,11 +464,9 @@ where $\Delta Q$ is the measured quality gap in the workload's natural units and
 
 Table~\ref{tab:projection-fractions} turns the frontier into concrete hardware targets. Simulation is the closest family: with 90\% quality-gap recovery, a $10^4\times$ projected execution improvement covers 54.9\% of measured simulation cases. Chemistry needs a larger runtime shift: at the same recovery level, $10^5\times$ covers 57.1\% of chemistry cases. ML shows the opposite behavior. A $10^5\times$ speed improvement covers only 9.8\% of ML cases at 90\% recovery, but almost all cases if the quality gap is fully closed. Optimization is the hardest family in the current suite; even $10^6\times$ speedup covers only 22.9\% of cases at 90\% recovery and requires full quality recovery to cover all cases.
 
-\noindent\textbf{Architecture Guidance.}
-Table~\ref{tab:architecture-guidance} converts the frontier into design guidance. The near-term architecture target is not universal ``faster quantum.'' Simulation is the clearest speed/shot-parallelism target because many cases have small quality gaps and move with execution improvement. Chemistry also benefits from runtime improvement, but only after the logical stack keeps the energy gap within tolerance. ML and optimization expose a different conclusion: a faster device alone does not create advantage when the circuit output is below the native target. For those families, the architecture priority shifts toward quality-preserving encodings, error suppression, better ansatz structure, and reducing classical-quantum iteration overhead.
-
-\noindent\textbf{Answer.}
-The hardware target is not one global number. The same projected speedup has different meaning depending on quality recovery and native-baseline strength. Faster gates help speed-limited families such as simulation and part of chemistry, but they do not rescue quality-limited ML and optimization without algorithmic improvement.
+\begin{observationbox}
+\textbf{Observation 5:} Table~\ref{tab:architecture-guidance} converts the frontier into design guidance. Faster logical operations and shot-level parallelism are most valuable for simulation and part of chemistry. For ML and optimization, the priority shifts to quality-preserving encodings, error suppression, better ansatz structure, and reducing classical-quantum iteration overhead; faster gates alone do not create advantage.
+\end{observationbox}
 
 \subsubsection{Bottleneck Taxonomy}
 

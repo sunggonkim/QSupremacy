@@ -225,9 +225,9 @@
         "textbf_per_1000_words": 9.44,
         "words": 3497
       },
-      "closest_template": "aurora",
+      "closest_template": "scaleqsim",
       "ours": {
-        "avg_paragraph_words": 77.89,
+        "avg_paragraph_words": 80.87,
         "figures": 1,
         "items": 0,
         "missing": false,
@@ -236,10 +236,10 @@
         "path": "paper/3.Design.tex",
         "subsections": 6,
         "subsubsections": 4,
-        "tables": 2,
-        "textbf": 40,
-        "textbf_per_1000_words": 13.51,
-        "words": 2960
+        "tables": 3,
+        "textbf": 16,
+        "textbf_per_1000_words": 5.21,
+        "words": 3073
       },
       "paragraph_role_inventory": [
         {
@@ -270,8 +270,8 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 33,
-          "current_marker": "Failure Handling",
+          "current_line": 54,
+          "current_marker": "Failure handling",
           "role": "failure handling",
           "template_line": 41,
           "template_logic": "Failed paths remain measured evidence",
@@ -279,7 +279,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 36,
+          "current_line": 57,
           "current_marker": "\\subsection{Shared Workload Control}",
           "role": "shared workload control",
           "template_line": 54,
@@ -288,7 +288,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 60,
+          "current_line": 81,
           "current_marker": "\\subsection{Application Path Execution}",
           "role": "application paths",
           "template_line": 95,
@@ -297,7 +297,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 101,
+          "current_line": 122,
           "current_marker": "\\subsection{Measurement and Threshold Analysis}",
           "role": "measurement records",
           "template_line": 140,
@@ -306,7 +306,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 112,
+          "current_line": 133,
           "current_marker": "\\subsubsection{Threshold Analysis}",
           "role": "threshold analysis",
           "template_line": 165,
@@ -315,7 +315,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 149,
+          "current_line": 170,
           "current_marker": "\\subsection{Advantage Claim Checklist}",
           "role": "claim checklist",
           "template_line": 237,
@@ -324,7 +324,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 176,
+          "current_line": 197,
           "current_marker": "\\subsection{Workload Suite}",
           "role": "workload suite",
           "template_line": 306,
@@ -335,12 +335,12 @@
       ],
       "role_markers": {
         "Overview of": 47,
-        "\\subsection{Advantage Claim Checklist}": 17937,
-        "\\subsection{Application Path Execution}": 8339,
-        "\\subsection{Measurement and Threshold Analysis}": 13113,
+        "\\subsection{Advantage Claim Checklist}": 18765,
+        "\\subsection{Application Path Execution}": 9201,
+        "\\subsection{Measurement and Threshold Analysis}": 13959,
         "\\subsection{Overall Procedure}": 1966,
-        "\\subsection{Shared Workload Control}": 5133,
-        "\\subsection{Workload Suite}": 19481
+        "\\subsection{Shared Workload Control}": 6007,
+        "\\subsection{Workload Suite}": 20309
       },
       "role_markers_ordered": true,
       "scaleqsim": {
@@ -359,8 +359,8 @@
         "words": 4581
       },
       "template_distance": {
-        "aurora": 7.183,
-        "scaleqsim": 7.722
+        "aurora": 8.469,
+        "scaleqsim": 8.274
       }
     },
     "evaluation": {
@@ -381,19 +381,19 @@
       },
       "closest_template": "scaleqsim",
       "ours": {
-        "avg_paragraph_words": 127.0,
+        "avg_paragraph_words": 143.94,
         "figures": 7,
         "items": 0,
         "missing": false,
-        "paragraphs": 36,
-        "paragraphs_per_heading": 2.77,
+        "paragraphs": 31,
+        "paragraphs_per_heading": 2.38,
         "path": "paper/4.Evaluation.tex",
         "subsections": 6,
         "subsubsections": 7,
         "tables": 11,
-        "textbf": 21,
-        "textbf_per_1000_words": 4.59,
-        "words": 4572
+        "textbf": 15,
+        "textbf_per_1000_words": 3.36,
+        "words": 4462
       },
       "paragraph_role_inventory": [
         {
@@ -424,7 +424,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 141,
+          "current_line": 148,
           "current_marker": "\\subsubsection{Quality Sensitivity}",
           "role": "quality sensitivity",
           "template_line": 58,
@@ -433,7 +433,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 165,
+          "current_line": 171,
           "current_marker": "\\subsubsection{Practical Application Landscape}",
           "role": "practical landscape",
           "template_line": 248,
@@ -442,7 +442,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 213,
+          "current_line": 227,
           "current_marker": "\\subsection{Component and Baseline Analysis}",
           "role": "component and baseline",
           "template_line": 247,
@@ -451,7 +451,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 309,
+          "current_line": 325,
           "current_marker": "\\subsubsection{Weak Scaling}",
           "role": "weak scaling",
           "template_line": 269,
@@ -460,7 +460,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 334,
+          "current_line": 349,
           "current_marker": "\\subsubsection{Strong Scaling}",
           "role": "strong scaling",
           "template_line": 334,
@@ -469,7 +469,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 359,
+          "current_line": 373,
           "current_marker": "\\subsection{Advantage Frontier and Bottleneck Analysis}",
           "role": "advantage frontier",
           "template_line": 334,
@@ -478,7 +478,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 478,
+          "current_line": 491,
           "current_marker": "\\subsection{Operational Stability}",
           "role": "stability",
           "template_line": 413,
@@ -487,7 +487,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 458,
+          "current_line": 471,
           "current_marker": "Bottleneck Taxonomy",
           "role": "taxonomy and sensitivity",
           "template_line": 399,
@@ -497,19 +497,19 @@
         }
       ],
       "role_markers": {
-        "Advantage Frontier and Bottleneck Analysis": 21023,
+        "Advantage Frontier and Bottleneck Analysis": 21291,
         "Baselines": 1127,
         "Benchmark": 826,
-        "Component and Baseline Analysis": 11753,
+        "Component and Baseline Analysis": 11928,
         "End-to-End Threshold Landscape": 4739,
         "Evaluation Questions": 3465,
         "Evaluation Setup": 504,
         "Feasibility": 1438,
         "Hardware Specification": 540,
-        "Operational Stability": 30861,
-        "Perlmutter Scaling Analysis": 17139,
-        "Strong Scaling": 19538,
-        "Weak Scaling": 18144
+        "Operational Stability": 30360,
+        "Perlmutter Scaling Analysis": 17459,
+        "Strong Scaling": 19832,
+        "Weak Scaling": 18464
       },
       "role_markers_ordered": true,
       "scaleqsim": {
@@ -528,8 +528,8 @@
         "words": 5732
       },
       "template_distance": {
-        "aurora": 12.571,
-        "scaleqsim": 12.2
+        "aurora": 12.602,
+        "scaleqsim": 12.539
       }
     },
     "introduction": {
@@ -550,7 +550,7 @@
       },
       "closest_template": "aurora",
       "ours": {
-        "avg_paragraph_words": 137.38,
+        "avg_paragraph_words": 138.88,
         "figures": 1,
         "items": 0,
         "missing": false,
@@ -560,9 +560,9 @@
         "subsections": 0,
         "subsubsections": 0,
         "tables": 1,
-        "textbf": 16,
-        "textbf_per_1000_words": 14.56,
-        "words": 1099
+        "textbf": 13,
+        "textbf_per_1000_words": 11.7,
+        "words": 1111
       },
       "paragraph_role_inventory": [
         {
@@ -593,16 +593,16 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 15,
-          "current_marker": "Observation 1",
+          "current_line": 27,
+          "current_marker": "Three points follow",
           "role": "observations",
           "template_line": 31,
-          "template_logic": "Bold observations before positioning table",
+          "template_logic": "Practical observations before positioning table",
           "template_marker": "Figure~\\ref{intro_fig} shows",
           "template_source": "aurora"
         },
         {
-          "current_line": 17,
+          "current_line": 29,
           "current_marker": "The same issue becomes stronger",
           "role": "application diversity",
           "template_line": 45,
@@ -611,7 +611,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 21,
+          "current_line": 33,
           "current_marker": "\\begin{table}",
           "role": "positioning table",
           "template_line": 47,
@@ -620,7 +620,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 42,
+          "current_line": 54,
           "current_marker": "Key Idea",
           "role": "key idea",
           "template_line": 73,
@@ -629,7 +629,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 47,
+          "current_line": 59,
           "current_marker": "This paper makes the following contributions",
           "role": "paper statement and contributions",
           "template_line": 77,
@@ -639,12 +639,12 @@
         }
       ],
       "role_markers": {
-        "Key Idea": 5509,
-        "Observation 1": 2589,
+        "Key Idea": 5739,
         "Quantum computing is often described": 24,
-        "This paper makes the following contributions": 6775,
+        "This paper makes the following contributions": 7005,
+        "Three points follow": 2968,
         "\\begin{figure}": 1715,
-        "\\begin{table}": 4793
+        "\\begin{table}": 5023
       },
       "role_markers_ordered": true,
       "scaleqsim": {
@@ -663,8 +663,8 @@
         "words": 1510
       },
       "template_distance": {
-        "aurora": 1.466,
-        "scaleqsim": 2.003
+        "aurora": 1.043,
+        "scaleqsim": 1.499
       }
     },
     "related": {

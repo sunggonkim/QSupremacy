@@ -332,7 +332,8 @@ def main():
     )
 
     scaling_figures = [
-        "paper/figures/intro_application_gap.pdf",
+        "paper/figures/intro_comparison_paths.pdf",
+        "paper/figures/intro_threshold_summary.pdf",
         "paper/figures/design_overview.pdf",
         "paper/figures/weak_scaling.pdf",
         "paper/figures/weak_scaling_efficiency.pdf",
@@ -340,8 +341,10 @@ def main():
         "paper/figures/strong_scaling_speedup.pdf",
         "paper/figures/strong_native_comparison.pdf",
         "paper/figures/strong_native_quality_shift.pdf",
+        "paper/figures/practical_suite_legend.pdf",
         "paper/figures/practical_suite_summary.pdf",
         "paper/figures/practical_suite_cdf.pdf",
+        "paper/figures/digits_legend.pdf",
         "paper/figures/digits_required_speedup.pdf",
         "paper/figures/digits_quality_speedup.pdf",
         "paper/figures/advantage_frontier.pdf",
