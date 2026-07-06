@@ -10,35 +10,14 @@ Experiments run on a \LeadershipSystem. Login-node smoke tests validate correctn
 \noindent\textbf{Benchmark.}
 The controlled benchmark is the expanded \texttt{sklearn digits} sweep. It varies class pair, sample count, PCA dimension, circuit depth, and seed. The practical benchmark suite then expands the same measurement discipline to ML, chemistry, optimization, and simulation.
 
-\noindent\textbf{Baselines.}
-Native paths are selected from workload-specific candidates. ML selects among six classifiers, optimization selects among exact and heuristic solvers, chemistry evaluates dense exact and sparse Lanczos candidates, and simulation evaluates dense exact and sparse Krylov candidates.
+\noindent\textbf{Baselines and Compared Paths.}
+The baseline is always the pure native HPC path for the same input and target quality, not another quantum simulator. ML selects among six classical classifiers, optimization selects among exact and heuristic solvers, chemistry evaluates dense exact and sparse Lanczos candidates, and simulation evaluates dense exact and sparse Krylov candidates. QKernel and QNN/VQC are the two quantum-circuit application paths: QKernel builds a simulated quantum kernel matrix for a classical classifier, while QNN/VQC trains a parameterized quantum circuit through a classical optimizer.
 
 \noindent\textbf{Feasibility.}
 Short login runs are only correctness gates. Performance evidence must come from Slurm jobs with accounting records, raw JSON counts, and completed exit status. The completed campaign below separates calibration, application coverage, baseline stress, scaling, and timing stability.
 
 \noindent\textbf{Campaign Summary.}
-Table~\ref{tab:evaluation-campaign} shows the completed evidence used by the paper. The campaign starts with a 160-case controlled ML calibration, expands to a 3,552-case practical suite, stresses chemistry/simulation coverage with 116-case and 104-case gates, scales fixed work from 16 to 256 GPUs, adds a 7,104-case larger-workload gate on 256 GPUs, and finishes with 12 warmup-separated repeat trials. This organization separates correctness gates from performance evidence and avoids treating a short smoke test as a performance claim.
-
-\begin{table}[t]
-\caption{Completed leadership-system evidence campaign.}
-\centering
-\scriptsize
-\renewcommand{\arraystretch}{1.08}
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{llll}
-\toprule
-\textbf{Gate} & \textbf{Scale} & \textbf{Purpose} & \textbf{Status} \\
-\midrule
-Controlled ML & 160 cases & threshold/quality calibration & complete \\
-Practical suite & 3,552 cases & ML, chemistry, optimization, simulation & complete \\
-Coverage gates & 116 + 104 cases & stronger chemistry/simulation evidence & complete \\
-Scaling & 16--256 GPUs & weak, strong, and larger-workload runs & complete \\
-Stability & 12 trials & warmup-separated timing repeatability & complete \\
-\bottomrule
-\end{tabular}
-}
-\label{tab:evaluation-campaign}
-\end{table}
+The completed evidence campaign contains a 160-case controlled ML calibration, a 3,552-case practical suite, 116-case and 104-case coverage gates for chemistry/simulation, weak and fixed-work scaling from 1 to 256 GPUs including pilot points, a 7,104-case larger-workload gate on 256 GPUs, and 12 warmup-separated repeat trials. This organization separates correctness gates from performance evidence and avoids treating a short smoke test as a performance claim.
 
 \noindent\textbf{Evaluation Questions.}
 The evaluation asks six questions in order: how large the end-to-end threshold is, how quality changes the interpretation, whether the practical suite behaves like the controlled case, how much native-baseline strength moves the target, whether bundled multi-node runs scale, and which future-system resource each workload needs. The answers are carried mainly by figures and observation boxes; tables are kept only where exact numeric summaries are more readable than prose.
@@ -46,6 +25,9 @@ The evaluation asks six questions in order: how large the end-to-end threshold i
 \subsection{End-to-End Threshold Landscape}
 
 The expanded sweep contains 160 controlled digits cases over four class pairs, two sample counts, four PCA dimensions, multiple depths, and seeds. The digits circuits use one qubit per PCA feature dimension, so the controlled sweep uses 4, 8, 12, and 16 qubits. Figures~\ref{fig:digits-speedup} and~\ref{fig:digits-quality} are generated from the measured case records and summarize threshold and quality versus the measured circuit configuration.
+
+\noindent\textbf{Compared Paths.}
+The baseline in this figure is not another quantum simulator. It is the native HPC/ML path: the fastest valid classical classifier among softmax regression, MLP, linear ridge, RBF kernel ridge, kNN, and nearest centroid on the same PCA features and train/test split. QKernel is the quantum-kernel path: the same classical features are encoded into a quantum feature map, \cuQuantum simulates the circuit evaluations needed to build a kernel matrix, and a classical classifier consumes that matrix. QNN/VQC is the variational quantum-circuit path: the same features feed a parameterized circuit whose trainable parameters are updated by a classical optimizer. Thus Fig.~\ref{fig:digits-results} compares each quantum-circuit application path against the pure native HPC/ML baseline through the required speedup $T_{\mathrm{qsim}}/T_{\mathrm{native}}$ and the measured quality gap.
 
 \begin{figure}[t]
 \centering
@@ -70,7 +52,7 @@ The expanded sweep contains 160 controlled digits cases over four class pairs, t
     \label{fig:digits-quality}
     \Description{Scatter plot relating quantum model quality to required projected speedup for expanded digits cases.}
 \end{subfigure}
-\caption{Expanded digits results over 160 cases. The quantum-kernel path often reaches useful accuracy but needs hundreds of times faster execution, while QNN/VQC has a lower threshold but usually lower quality.}
+\caption{Expanded digits results over 160 cases. Both quantum-circuit paths are compared against the selected native HPC/ML baseline on the same inputs. The quantum-kernel path often reaches useful accuracy but needs hundreds of times faster execution, while QNN/VQC has a lower threshold but usually lower quality.}
 \label{fig:digits-results}
 \end{figure}
 
@@ -146,6 +128,13 @@ The similar seven-second path is not interpreted as a future hardware latency. I
 
 \begin{figure}[t]
 \centering
+\begin{subfigure}[t]{0.82\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/strong_native_legend.pdf}
+    \Description{Shared legend for ML, chemistry, optimization, and simulation in the native-baseline stress test.}
+\end{subfigure}
+\vspace{-0.65em}
+
 \begin{subfigure}[t]{0.48\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figures/strong_native_comparison.pdf}
@@ -197,7 +186,7 @@ We then run the expanded chemistry-only accept profile with the 4--8 qubit OpenF
 
 \subsection{Leadership-scale Scaling Analysis}
 
-The large-profile suite contains 3,552 application cases. We evaluate two scaling modes and one larger-workload gate. In weak scaling, each GPU receives roughly 28 cases, so total work grows with the number of GPUs; this comparable-profile sweep covers 32--128 GPUs. In fixed-work scaling, every run executes the same 3,552 cases and the chunk slots are striped across the available GPUs from 16 to 256 GPUs. The separate 256-GPU larger-workload gate doubles the completed case count to 7,104 and checks whether time and quality remain interpretable at that scale. All modes use one Slurm task per A100 GPU and independent application cases; this is throughput scaling, not distributed single-circuit simulation.
+The large-profile suite contains 3,552 application cases. We evaluate two scaling modes and one larger-workload gate. In weak scaling, each GPU receives roughly 28 cases, so total work grows with GPUs; this comparable-profile sweep reaches 8--256 GPUs, while 1-GPU and 4-GPU pilot points show the low-end launch behavior. In fixed-work scaling, every full run executes the same 3,552 cases from 16 to 256 GPUs; the 1--8 GPU points are normalized from completed pilot/partial runs and marked separately. The separate 256-GPU larger-workload gate doubles the completed case count to 7,104 and checks whether time and quality remain interpretable at that scale. All modes use independent application cases, so this is throughput scaling, not distributed single-circuit simulation.
 
 \begin{figure}[t]
 \centering
@@ -236,11 +225,11 @@ The large-profile suite contains 3,552 application cases. We evaluate two scalin
 \end{subfigure}
 \vspace{-.1cm}
 \Description{Weak scaling plot showing total throughput and normalized per-GPU throughput from 32 to 128 GPUs on a 1-to-256 GPU x-axis.}
-\caption{Weak scaling of the comparable large-profile application suite. Total throughput grows nearly linearly from 32 to 128 GPUs while normalized per-GPU throughput remains close to the 32-GPU reference.}
+\caption{Weak scaling with low-end pilot points. Hollow markers show completed 1--4 GPU pilot evidence; solid markers show the comparable weak-scaling suite from 8 to 256 GPUs. Total throughput grows with GPU count while normalized per-GPU throughput remains close to the 8-GPU reference.}
 \label{fig:weak-scaling}
 \end{figure}
 
-All comparable weak-scaling jobs completed with exit code 0:0. The generated raw JSON counts match the expected case counts: 896, 1,792, and 3,552. No failed case, traceback, or timeout was recorded in the task logs. The result is the desired throughput behavior for this workflow: total throughput grows with GPUs while the per-GPU rate stays close to stable. This matters because the advantage model is produced by many independent application cases, so throughput scaling determines how quickly the frontier can be mapped.
+All comparable weak-scaling jobs completed with exit code 0:0. The generated raw JSON counts match the expected case counts: 224, 448, 896, 1,792, 3,552, and 7,104. The completed 1-GPU and 4-GPU pilot points add low-end evidence without being used as full-suite claims. No failed case, traceback, or timeout was recorded in the task logs. The result is the desired throughput behavior for this workflow: total throughput grows with GPUs while the per-GPU rate stays close to stable.
 
 \subsubsection{Strong Scaling}
 
@@ -260,52 +249,27 @@ All comparable weak-scaling jobs completed with exit code 0:0. The generated raw
 \end{subfigure}
 \vspace{-.1cm}
 \Description{Strong scaling plot showing elapsed time, speedup, and efficiency for the fixed 3,552-case suite from 16 to 256 GPUs on a 1-to-256 GPU x-axis.}
-\caption{Strong scaling of the fixed 3,552-case application suite. The run reduces time-to-solution from 30 minutes 55 seconds on 16 GPUs to about 4 minutes 20 seconds on 128--256 GPUs, where task granularity and case imbalance become the limit.}
+\caption{Strong scaling of the fixed 3,552-case application suite. Hollow markers normalize completed 1--8 GPU pilot/partial runs to a 3,552-case equivalent; solid markers are direct fixed-suite runs. The measured full run reduces time-to-solution from 30 minutes 55 seconds on 16 GPUs to about 4 minutes 20 seconds on 128--256 GPUs.}
 \label{fig:strong-scaling}
 \end{figure}
 
-The fixed-work result measures time-to-solution for the same 3,552 cases. It reduces elapsed time from 30 minutes 55 seconds on 16 GPUs to 4 minutes 17 seconds on 128 GPUs, a 7.2$\times$ speedup over an 8$\times$ GPU increase. The 256-GPU run completes in 4 minutes 21 seconds, nearly identical to the 128-GPU result. This plateau is not a failure of \cuQuantum and is not distributed single-circuit MPI synchronization: every Slurm task owns independent cases on one A100, and the workflow does not use inter-task circuit communication. At 128 GPUs the sweep still has about 28 cases per GPU; at 256 GPUs it has about 14 cases per GPU. With a seven-second per-case floor, stragglers, Python process orchestration, and task-local file output dominate before more GPUs can help. The ML profiling gate gives a representative small-case decomposition: GPU kernels occupy only 0.8\% of that profiled run while host orchestration occupies 99.2\%. We therefore diagnose the 128--256 GPU plateau as task granularity plus orchestration overhead, while still avoiding a stronger claim that we have a full 256-GPU Nsight Gantt trace.
+The fixed-work result measures time-to-solution for the same 3,552 cases. It reduces elapsed time from 30 minutes 55 seconds on 16 GPUs to 4 minutes 17 seconds on 128 GPUs. The 256-GPU run completes in 4 minutes 21 seconds, nearly identical to the 128-GPU result. This plateau is not distributed single-circuit MPI synchronization: every Slurm task owns independent cases on one A100. At 128 GPUs the sweep has about 28 cases per GPU; at 256 GPUs it has about 14. With a seven-second per-case floor, stragglers, Python process orchestration, and task-local file output dominate before more GPUs can help.
 
 \begin{observationbox}
-\textbf{Observation 4:} More GPUs help until the application sweep runs out of useful task granularity. Weak scaling remains healthy over the comparable 32--128 GPU profile, but fixed-work strong scaling saturates after 128 GPUs even though the 256-GPU larger-workload gate completes successfully. For this modeling workflow, architecture effort should improve per-case circuit execution and scheduling granularity, not only allocate more GPUs.
+\textbf{Observation 4:} More GPUs help until the application sweep runs out of useful task granularity. Weak scaling remains healthy through the 8--256 GPU comparable profile, with 1--4 GPU pilot points showing the low-end launch cost, but fixed-work strong scaling saturates after 128 GPUs even though the 256-GPU larger-workload gate completes successfully. For this modeling workflow, architecture effort should improve per-case circuit execution and scheduling granularity, not only allocate more GPUs.
 \end{observationbox}
 
 \subsection{Advantage Frontier and Bottleneck Analysis}
 
 The practical-suite result gives one speed threshold per case, but a speed-only threshold is still incomplete. A practical advantage claim also needs comparable output quality. We therefore convert each measured case into an advantage frontier over two axes: projected quantum execution speedup and quality-gap recovery. A point is in the advantage region only if the projected quantum path is no slower than the selected native path and the remaining quality gap is within a small workload tolerance.
 
-\begin{figure*}[t]
+\begin{figure}[t]
 \centering
-\begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{figures/advantage_frontier.pdf}
-    \caption{ML.}
-    \label{fig:advantage-frontier-ml}
-\end{subfigure}
-\begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{figures/advantage_frontier_chemistry.pdf}
-    \caption{Chemistry.}
-    \label{fig:advantage-frontier-chemistry}
-\end{subfigure}
-\vspace{-0.9em}
-\begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{figures/advantage_frontier_optimization.pdf}
-    \caption{Optimization.}
-    \label{fig:advantage-frontier-optimization}
-\end{subfigure}
-\begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{figures/advantage_frontier_simulation.pdf}
-    \caption{Simulation.}
-    \label{fig:advantage-frontier-simulation}
-\end{subfigure}
-\vspace{0.15em}
-\Description{Heatmap showing fraction of cases entering the projected advantage region as quantum speedup and quality recovery vary.}
-\caption{Advantage frontier over projected quantum speedup and quality-gap recovery. Color shows the fraction of measured cases in each family that would enter the advantage region under that hypothetical hardware and algorithmic improvement. The top-row secondary axis maps speedup to effective quantum execution time using the measured seven-second circuit path; the contour marks the 50\% frontier when it appears.}
+\includegraphics[width=0.96\linewidth]{figures/advantage_frontier.pdf}
+\Description{Line plot showing fraction of cases entering the projected advantage region at 90 percent quality-gap recovery as projected speedup changes.}
+\caption{Advantage frontier at 90\% quality-gap recovery. The curves show the fraction of measured cases in each workload family that would enter the advantage region as projected quantum execution speedup improves. The secondary axis maps representative speedups to effective quantum execution time using the measured seven-second circuit path.}
 \label{fig:advantage-frontier}
-\end{figure*}
+\end{figure}
 
 \begin{observationbox}
 \textbf{Observation 5:} The frontier separates speed-limited and quality-limited workloads. Chemistry and simulation often have small quality gaps, so their frontier is mostly pushed right by runtime. ML and optimization require quality recovery before faster gates matter. Thus, the architecture target is a feasible region over speed and quality, not a single global speedup slogan.

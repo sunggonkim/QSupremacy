@@ -545,6 +545,7 @@
             "paper/figures/practical_suite_legend.pdf",
             "paper/figures/practical_suite_summary.pdf",
             "paper/figures/strong_native_comparison.pdf",
+            "paper/figures/strong_native_legend.pdf",
             "paper/figures/strong_native_quality_shift.pdf",
             "paper/figures/strong_scaling.pdf",
             "paper/figures/strong_scaling_speedup.pdf",
@@ -579,6 +580,7 @@
             "paper/figures/practical_suite_legend.pdf",
             "paper/figures/practical_suite_summary.pdf",
             "paper/figures/strong_native_comparison.pdf",
+            "paper/figures/strong_native_legend.pdf",
             "paper/figures/strong_native_quality_shift.pdf",
             "paper/figures/strong_scaling.pdf",
             "paper/figures/strong_scaling_speedup.pdf",
@@ -611,7 +613,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 25241
+            "size_bytes": 25235
           },
           "expected": {
             "exists": true,
@@ -625,7 +627,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 47286
+            "size_bytes": 47380
           },
           "expected": {
             "exists": true,
@@ -639,7 +641,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 33286
+            "size_bytes": 33211
           },
           "expected": {
             "exists": true,
@@ -667,7 +669,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 22420
+            "size_bytes": 23380
           },
           "expected": {
             "exists": true,
@@ -681,7 +683,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 26016
+            "size_bytes": 27872
           },
           "expected": {
             "exists": true,
@@ -695,7 +697,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 21617
+            "size_bytes": 42128
           },
           "expected": {
             "exists": true,
@@ -709,7 +711,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 10809
+            "size_bytes": 30468
           },
           "expected": {
             "exists": true,
@@ -751,7 +753,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 29526
+            "size_bytes": 23403
           },
           "expected": {
             "exists": true,
@@ -765,7 +767,21 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 17709
+            "size_bytes": 8335
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/strong_native_legend.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 11590
           },
           "expected": {
             "exists": true,
@@ -821,7 +837,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 29905
+            "size_bytes": 24237
           },
           "expected": {
             "exists": true,
@@ -919,7 +935,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 22829
+            "size_bytes": 22162
           },
           "expected": {
             "exists": true,
@@ -933,7 +949,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 26149
+            "size_bytes": 25836
           },
           "expected": {
             "exists": true,
@@ -947,7 +963,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 24412
+            "size_bytes": 33603
           },
           "expected": {
             "exists": true,
@@ -1017,7 +1033,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 42350
+            "size_bytes": 42445
           },
           "expected": {
             "exists": true,
@@ -1056,6 +1072,7 @@
         "paper/figures/workload_growth_time.pdf",
         "paper/figures/workload_growth_quality.pdf",
         "paper/figures/strong_native_comparison.pdf",
+        "paper/figures/strong_native_legend.pdf",
         "paper/figures/strong_native_quality_shift.pdf",
         "paper/figures/ml_strong_native_gate.pdf",
         "paper/figures/ml_profile_breakdown.pdf",
@@ -1419,6 +1436,12 @@
           "actual": true,
           "expected": true,
           "label": "exists: paper/figures/strong_native_comparison.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/strong_native_legend.pdf",
           "passed": true
         },
         {
@@ -1802,6 +1825,12 @@
         {
           "actual": true,
           "expected": true,
+          "label": "exists: paper/figures/strong_native_legend.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
           "label": "exists: paper/figures/strong_native_quality_shift.pdf",
           "passed": true
         },
@@ -1989,6 +2018,12 @@
           "actual": true,
           "expected": true,
           "label": "exists: paper/figures/strong_native_comparison.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/strong_native_legend.pdf",
           "passed": true
         },
         {

@@ -467,6 +467,7 @@ def main():
         "paper/figures/workload_growth_time.pdf",
         "paper/figures/workload_growth_quality.pdf",
         "paper/figures/strong_native_comparison.pdf",
+        "paper/figures/strong_native_legend.pdf",
         "paper/figures/strong_native_quality_shift.pdf",
         "paper/figures/ml_strong_native_gate.pdf",
         "paper/figures/ml_profile_breakdown.pdf",
