@@ -240,10 +240,10 @@
         "textbf_per_1000_words": 9.44,
         "words": 3497
       },
-      "closest_template": "aurora",
+      "closest_template": "scaleqsim",
       "ours": {
-        "avg_paragraph_words": 80.45,
-        "figures": 3,
+        "avg_paragraph_words": 81.1,
+        "figures": 2,
         "items": 0,
         "missing": false,
         "paragraphs": 42,
@@ -251,10 +251,10 @@
         "path": "paper/3.Design.tex",
         "subsections": 6,
         "subsubsections": 4,
-        "tables": 0,
-        "textbf": 11,
-        "textbf_per_1000_words": 3.26,
-        "words": 3379
+        "tables": 1,
+        "textbf": 15,
+        "textbf_per_1000_words": 4.4,
+        "words": 3406
       },
       "paragraph_role_inventory": [
         {
@@ -374,8 +374,8 @@
         "words": 4581
       },
       "template_distance": {
-        "aurora": 5.019,
-        "scaleqsim": 5.07
+        "aurora": 6.227,
+        "scaleqsim": 6.143
       }
     },
     "evaluation": {
@@ -396,19 +396,19 @@
       },
       "closest_template": "aurora",
       "ours": {
-        "avg_paragraph_words": 137.68,
+        "avg_paragraph_words": 133.34,
         "figures": 12,
         "items": 0,
         "missing": false,
-        "paragraphs": 37,
-        "paragraphs_per_heading": 2.85,
+        "paragraphs": 38,
+        "paragraphs_per_heading": 2.92,
         "path": "paper/4.Evaluation.tex",
         "subsections": 6,
         "subsubsections": 7,
         "tables": 0,
         "textbf": 23,
-        "textbf_per_1000_words": 4.52,
-        "words": 5094
+        "textbf_per_1000_words": 4.54,
+        "words": 5067
       },
       "paragraph_role_inventory": [
         {
@@ -457,7 +457,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 141,
+          "current_line": 132,
           "current_marker": "\\subsection{Component and Baseline Analysis}",
           "role": "component and baseline",
           "template_line": 247,
@@ -466,7 +466,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 229,
+          "current_line": 220,
           "current_marker": "\\subsubsection{Weak Scaling}",
           "role": "weak scaling",
           "template_line": 269,
@@ -475,7 +475,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 253,
+          "current_line": 244,
           "current_marker": "\\subsubsection{Strong Scaling}",
           "role": "strong scaling",
           "template_line": 334,
@@ -484,7 +484,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 281,
+          "current_line": 272,
           "current_marker": "\\subsection{Advantage Frontier and Bottleneck Analysis}",
           "role": "advantage frontier",
           "template_line": 334,
@@ -493,7 +493,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 371,
+          "current_line": 362,
           "current_marker": "\\subsection{Operational Stability}",
           "role": "stability",
           "template_line": 413,
@@ -502,7 +502,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 351,
+          "current_line": 342,
           "current_marker": "Bottleneck Taxonomy",
           "role": "taxonomy and sensitivity",
           "template_line": 399,
@@ -512,19 +512,19 @@
         }
       ],
       "role_markers": {
-        "Advantage Frontier and Bottleneck Analysis": 26334,
+        "Advantage Frontier and Bottleneck Analysis": 26052,
         "Baselines": 1145,
         "Benchmark": 844,
-        "Component and Baseline Analysis": 12095,
+        "Component and Baseline Analysis": 11791,
         "End-to-End Threshold Landscape": 3346,
         "Evaluation Questions": 2834,
         "Evaluation Setup": 504,
         "Feasibility": 1456,
         "Hardware Specification": 540,
-        "Leadership-scale Scaling Analysis": 20703,
-        "Operational Stability": 35762,
-        "Strong Scaling": 23803,
-        "Weak Scaling": 22402
+        "Leadership-scale Scaling Analysis": 20421,
+        "Operational Stability": 35480,
+        "Strong Scaling": 23521,
+        "Weak Scaling": 22120
       },
       "role_markers_ordered": true,
       "scaleqsim": {
@@ -543,8 +543,8 @@
         "words": 5732
       },
       "template_distance": {
-        "aurora": 9.214,
-        "scaleqsim": 9.274
+        "aurora": 9.247,
+        "scaleqsim": 9.255
       }
     },
     "introduction": {
@@ -565,7 +565,7 @@
       },
       "closest_template": "aurora",
       "ours": {
-        "avg_paragraph_words": 138.75,
+        "avg_paragraph_words": 138.88,
         "figures": 1,
         "items": 0,
         "missing": false,
@@ -576,8 +576,8 @@
         "subsubsections": 0,
         "tables": 1,
         "textbf": 13,
-        "textbf_per_1000_words": 11.71,
-        "words": 1110
+        "textbf_per_1000_words": 11.7,
+        "words": 1111
       },
       "paragraph_role_inventory": [
         {
@@ -654,12 +654,12 @@
         }
       ],
       "role_markers": {
-        "Key Idea": 5739,
+        "Key Idea": 5745,
         "Quantum computing is often described": 24,
-        "This paper makes the following contributions": 7005,
-        "Three points follow": 2968,
+        "This paper makes the following contributions": 7011,
+        "Three points follow": 2974,
         "\\begin{figure}": 1715,
-        "\\begin{table}": 5023
+        "\\begin{table}": 5029
       },
       "role_markers_ordered": true,
       "scaleqsim": {

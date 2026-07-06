@@ -271,21 +271,21 @@ def arrow(ax, start, end, color="#4A4A4A", lw=1.1):
 
 
 def figure_intro_paths():
-    fig, ax = plt.subplots(figsize=(INTRO_PATH_WIDTH, 1.25))
-    draw_box(ax, (0.03, 0.40), 0.24, 0.24, "Input\ninstance", COLORS["dark"], fontsize=6.6)
-    draw_box(ax, (0.35, 0.66), 0.32, 0.20, "Native\nHPC", COLORS["blue"], fontsize=6.2)
-    draw_box(ax, (0.35, 0.16), 0.32, 0.20, "Quantum\ncircuit", COLORS["orange"], fontsize=6.0)
-    draw_box(ax, (0.75, 0.36), 0.22, 0.30, "Time /\nquality", COLORS["green"], fontsize=6.2)
-    arrow(ax, (0.27, 0.58), (0.35, 0.76))
-    arrow(ax, (0.27, 0.47), (0.35, 0.27))
-    arrow(ax, (0.67, 0.76), (0.75, 0.58))
-    arrow(ax, (0.67, 0.27), (0.75, 0.44))
+    fig, ax = plt.subplots(figsize=(INTRO_PATH_WIDTH, 1.38))
+    draw_box(ax, (0.03, 0.39), 0.26, 0.27, "Input\ninstance", COLORS["dark"], fontsize=6.6)
+    draw_box(ax, (0.39, 0.65), 0.34, 0.24, "Native\nHPC app", COLORS["blue"], fontsize=6.0)
+    draw_box(ax, (0.39, 0.16), 0.34, 0.24, "Quantum\ncircuit app", COLORS["orange"], fontsize=5.8)
+    draw_box(ax, (0.77, 0.37), 0.21, 0.31, "$T$, $Q$\nrecord", COLORS["green"], fontsize=6.0)
+    arrow(ax, (0.29, 0.58), (0.39, 0.77))
+    arrow(ax, (0.29, 0.47), (0.39, 0.28))
+    arrow(ax, (0.73, 0.77), (0.77, 0.58))
+    arrow(ax, (0.73, 0.28), (0.77, 0.46))
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     ax.axis("off")
     path = os.path.join(FIG_DIR, "intro_comparison_paths.pdf")
-    fig.subplots_adjust(left=0.02, right=0.98, bottom=0.06, top=0.96)
-    fig.savefig(path, bbox_inches="tight")
+    fig.subplots_adjust(left=0.02, right=0.98, bottom=0.08, top=0.96)
+    fig.savefig(path)
     plt.close(fig)
     return path
 
@@ -303,20 +303,27 @@ def figure_intro_threshold_summary():
     ]
     y = np.arange(len(labels))
     fig, ax = plt.subplots(figsize=(INTRO_THRESHOLD_WIDTH, 1.42))
-    ax.hlines(y, 1, values, color=colors, linewidth=2.1)
-    ax.scatter(values, y, s=30, color=colors, edgecolors="#222222", linewidths=0.45, zorder=3)
+    ax.axvspan(40, 1e3, color=COLORS["green"], alpha=0.06, linewidth=0)
+    ax.axvspan(1e3, 1e5, color=COLORS["orange"], alpha=0.06, linewidth=0)
+    ax.axvspan(1e5, 7e5, color=COLORS["red"], alpha=0.055, linewidth=0)
+    ax.hlines(y, 40, values, color=colors, linewidth=3.0, alpha=0.92)
+    ax.scatter(values, y, s=34, color=colors, edgecolors="#222222", linewidths=0.45, zorder=3)
     for yi, value in zip(y, values):
-        ax.text(value * 1.16, yi, "{:,.0f}x".format(value), va="center", fontsize=6.0)
+        if value > 1e5:
+            ax.text(value * 0.94, yi, "{:,.0f}x".format(value), va="center",
+                    ha="right", fontsize=6.0)
+        else:
+            ax.text(value * 1.12, yi, "{:,.0f}x".format(value), va="center", fontsize=6.0)
     ax.set_xscale("log")
     ax.set_yticks(y)
     ax.set_yticklabels(labels)
     ax.invert_yaxis()
-    ax.set_xlabel("Required quantum speedup (x)", labelpad=1.0)
-    ax.set_xlim(10, 2.2e6)
+    ax.set_xlabel("Required speedup (x)", labelpad=1.0)
+    ax.set_xlim(40, 7e5)
     style_axis(ax, grid="x")
     path = os.path.join(FIG_DIR, "intro_threshold_summary.pdf")
-    fig.subplots_adjust(left=0.28, right=0.90, bottom=0.27, top=0.96)
-    fig.savefig(path, bbox_inches="tight")
+    fig.subplots_adjust(left=0.29, right=0.98, bottom=0.27, top=0.96)
+    fig.savefig(path)
     plt.close(fig)
     return path
 
@@ -432,40 +439,6 @@ def figure_design_projection_flow():
     return path
 
 
-def figure_design_workload_paths():
-    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 2.25))
-    ax.set_xlim(0, 1)
-    ax.set_ylim(0, 1)
-    ax.axis("off")
-
-    ax.text(0.05, 0.94, "Family", fontsize=7.0, weight="bold", color=COLORS["dark"])
-    ax.text(0.28, 0.94, "Native path", fontsize=7.0, weight="bold", color=COLORS["dark"])
-    ax.text(0.59, 0.94, "Circuit path", fontsize=7.0, weight="bold", color=COLORS["dark"])
-    ax.text(0.86, 0.94, "Target", fontsize=7.0, weight="bold", color=COLORS["dark"])
-
-    rows = [
-        ("ML", "6 classifiers", "QKernel/QNN", "accuracy", COLORS["blue"]),
-        ("Chem.", "dense + sparse", "VQE", "energy", COLORS["teal"]),
-        ("Opt.", "exact + heuristic", "QAOA", "objective", COLORS["red"]),
-        ("Sim.", "dense + Krylov", "Trotter sim.", "observable", COLORS["green"]),
-    ]
-    for idx, (family, native, circuit, metric, color) in enumerate(rows):
-        y = 0.80 - idx * 0.18
-        ax.plot([0.04, 0.96], [y - 0.078, y - 0.078], color="#D6D6D6", linewidth=0.45)
-        draw_box(ax, (0.05, y - 0.045), 0.13, 0.09, family, color, fontsize=6.2)
-        ax.text(0.30, y, native, ha="center", va="center", fontsize=6.0, color=COLORS["dark"])
-        ax.text(0.60, y, circuit, ha="center", va="center", fontsize=6.0, color=COLORS["dark"])
-        ax.text(0.86, y, metric, ha="center", va="center", fontsize=6.0, color=COLORS["dark"])
-        arrow(ax, (0.39, y), (0.50, y), color="#777777", lw=0.75)
-        arrow(ax, (0.69, y), (0.78, y), color="#777777", lw=0.75)
-
-    path = os.path.join(FIG_DIR, "design_workload_paths.pdf")
-    fig.subplots_adjust(left=0.02, right=0.98, bottom=0.05, top=0.98)
-    fig.savefig(path, bbox_inches="tight")
-    plt.close(fig)
-    return path
-
-
 def figure_evaluation_evidence_flow():
     fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.65))
     ax.set_xlim(0, 1)
@@ -507,7 +480,7 @@ def figure_digits_speedup():
     rows = read_csv("data/processed/perlmutter/digits_expanded_55421321_55422142_summary.csv")
     kernel = [float(r["quantum_kernel_required_speedup"]) for r in rows]
     vqc = [float(r["qnn_vqc_required_speedup"]) for r in rows]
-    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 2.45))
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.72))
     box = ax.boxplot(
         [kernel, vqc],
         tick_labels=["QKernel", "QNN/VQC"],
@@ -525,7 +498,11 @@ def figure_digits_speedup():
     ax.set_yscale("log")
     ax.set_ylabel("Required quantum speedup (x)")
     style_axis(ax, grid="y")
-    return savefig("digits_required_speedup.pdf", fig=fig)
+    fig.subplots_adjust(left=0.28, right=0.98, bottom=0.17, top=0.98)
+    path = os.path.join(FIG_DIR, "digits_required_speedup.pdf")
+    fig.savefig(path)
+    plt.close(fig)
+    return path
 
 
 def figure_digits_legend():
@@ -578,7 +555,7 @@ def figure_practical_suite_legend():
 
 def figure_digits_quality_runtime():
     rows = read_csv("data/processed/perlmutter/digits_expanded_55421321_55422142_summary.csv")
-    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 2.45))
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.72))
     ax.scatter(
         [float(r["quantum_kernel_required_speedup"]) for r in rows],
         [float(r["quantum_kernel_accuracy"]) for r in rows],
@@ -605,8 +582,11 @@ def figure_digits_quality_runtime():
     legend = ax.get_legend()
     if legend:
         legend.remove()
-    fig.subplots_adjust(top=0.98)
-    return savefig("digits_quality_speedup.pdf", fig=fig)
+    fig.subplots_adjust(left=0.25, right=0.98, bottom=0.28, top=0.98)
+    path = os.path.join(FIG_DIR, "digits_quality_speedup.pdf")
+    fig.savefig(path)
+    plt.close(fig)
+    return path
 
 
 def figure_practical_suite():
@@ -710,36 +690,36 @@ def figure_strong_native_comparison():
         for workload in workloads
     ]
 
-    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.35))
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.62))
     colors = [COLORS["blue"], COLORS["teal"], COLORS["red"], COLORS["green"]]
     handles = []
     for label, color, initial, strong in zip(labels, colors, official_speed, strong_speed):
-        line = ax.plot([0, 1], [initial, strong], marker="o", color=color, linewidth=1.8)[0]
+        line = ax.plot([0, 1], [initial, strong], marker="o", color=color, linewidth=1.9)[0]
         handles.append(line)
-        ax.text(1.06, strong, label, fontsize=6.1, color=color, va="center", weight="bold")
+        ax.text(1.03, strong, label, fontsize=6.3, color=color, va="center", weight="bold")
     ax.set_yscale("log")
-    ax.set_xlim(-0.12, 1.32)
+    ax.set_xlim(-0.12, 1.24)
     ax.set_xticks([0, 1])
     ax.set_xticklabels(["Initial\nbaseline", "Strong\nbaseline"])
-    ax.set_ylabel("Median required\nspeedup (x)")
+    ax.set_ylabel("Median\nspeedup (x)")
     style_axis(ax, grid="y")
-    fig.subplots_adjust(top=0.98, bottom=0.34, left=0.18, right=0.90)
+    fig.subplots_adjust(top=0.96, bottom=0.31, left=0.38, right=0.88)
     speed_path = os.path.join(FIG_DIR, "strong_native_comparison.pdf")
-    fig.savefig(speed_path, bbox_inches="tight")
+    fig.savefig(speed_path)
     plt.close(fig)
 
-    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.25))
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.62))
     for label, color, initial, strong in zip(labels, colors, official_quality, strong_quality):
-        ax.plot([0, 1], [initial, strong], marker="o", color=color, linewidth=1.8)
-        ax.text(1.06, strong, label, fontsize=6.1, color=color, va="center", weight="bold")
-    ax.set_xlim(-0.12, 1.32)
+        ax.plot([0, 1], [initial, strong], marker="o", color=color, linewidth=1.9)
+        ax.text(1.03, strong, label, fontsize=6.3, color=color, va="center", weight="bold")
+    ax.set_xlim(-0.12, 1.24)
     ax.set_xticks([0, 1])
     ax.set_xticklabels(["Initial\nbaseline", "Strong\nbaseline"])
     ax.set_ylabel("Median\nquality gap")
     style_axis(ax, grid="y")
-    fig.subplots_adjust(bottom=0.34, left=0.18, right=0.90, top=0.98)
+    fig.subplots_adjust(bottom=0.31, left=0.38, right=0.88, top=0.96)
     quality_path = os.path.join(FIG_DIR, "strong_native_quality_shift.pdf")
-    fig.savefig(quality_path, bbox_inches="tight")
+    fig.savefig(quality_path)
     plt.close(fig)
     return [speed_path, quality_path]
 
@@ -750,30 +730,76 @@ def figure_ml_strong_native_gate():
         return None
     gate = gate.get("summary", gate)
 
-    labels = ["Previous\nsuite", "Combined\nselected", "GPU prod.\nonly"]
-    values = [
-        gate["previous_required_speedup_median"],
-        gate["combined_required_speedup_median"],
-        gate["production_required_speedup_median"],
-    ]
-    colors = [COLORS["gray"], COLORS["blue"], COLORS["orange"]]
+    total_cases = int(gate.get("case_count", 32))
+    combined = gate.get("combined_selected_counts", {})
+    production = gate.get("production_selected_counts", {})
+    previous_count = int(combined.get("previous_suite", 0))
+    cnn_count = int(combined.get("torch_amp_cnn", 0))
+    xgb_count = int(production.get("xgboost_gpu_hist", 0))
+    mlp_count = int(production.get("torch_amp_mlp", 0))
+    prod_cnn_count = int(production.get("torch_amp_cnn", 0))
 
-    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.42))
-    ypos = np.arange(len(labels))
-    ax.hlines(ypos, 1.0, values, color=colors, linewidth=2.0, alpha=0.65)
-    ax.scatter(values, ypos, s=28, color=colors, edgecolors=COLORS["dark"], linewidths=0.35)
-    for xval, yval in zip(values, ypos):
-        ax.text(xval * 1.15, yval, "{:,.0f}x".format(xval), va="center", fontsize=5.8)
-    ax.set_xscale("log")
-    ax.set_xlim(10, 20000)
-    ax.set_yticks(ypos)
-    ax.set_yticklabels(labels)
-    ax.set_xlabel("Median required speedup (x)")
+    rows = [
+        (
+            "Combined\nselected",
+            [previous_count, cnn_count],
+            [COLORS["gray"], COLORS["blue"]],
+            ["Previous suite", "AMP CNN"],
+            gate["combined_required_speedup_median"],
+        ),
+        (
+            "GPU prod.\nonly",
+            [prod_cnn_count, xgb_count, mlp_count],
+            [COLORS["blue"], COLORS["orange"], COLORS["purple"]],
+            ["AMP CNN", "XGBoost", "AMP MLP"],
+            gate["production_required_speedup_median"],
+        ),
+    ]
+
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.58))
+    handles = {}
+    y = np.arange(len(rows))
+    for ridx, (row_label, counts, colors, names, speedup) in enumerate(rows):
+        left = 0.0
+        for count, color, name in zip(counts, colors, names):
+            width = 100.0 * count / float(total_cases)
+            bar = ax.barh(ridx, width, left=left, height=0.50, color=color)
+            handles.setdefault(name, bar[0])
+            if width >= 14.0:
+                ax.text(
+                    left + width / 2.0,
+                    ridx,
+                    "{:d}/{}".format(count, total_cases),
+                    ha="center",
+                    va="center",
+                    fontsize=6.0,
+                    color="white" if color in {COLORS["gray"], COLORS["blue"], COLORS["purple"]} else "black",
+                    weight="bold",
+                )
+            left += width
+        ax.text(
+            100.0,
+            ridx,
+            " {:,.0f}x".format(speedup),
+            va="center",
+            ha="left",
+            fontsize=6.1,
+            color=COLORS["dark"],
+        )
+    ax.set_yticks(y)
+    ax.set_yticklabels([row[0] for row in rows])
+    ax.set_xlim(0, 128)
+    ax.set_xlabel("Selected baseline share (%)")
+    ax.set_xticks([0, 50, 100])
+    ax.set_xticklabels(["0", "50", "100"])
     ax.invert_yaxis()
     style_axis(ax, grid="x")
-    fig.subplots_adjust(left=0.31, right=0.90, bottom=0.30, top=0.96)
+    legend_order = ["Previous suite", "AMP CNN", "XGBoost", "AMP MLP"]
+    add_top_legend(fig, [handles[name] for name in legend_order if name in handles],
+                   [name for name in legend_order if name in handles], ncol=2, y=1.02, fontsize=5.2)
+    fig.subplots_adjust(left=0.36, right=0.83, bottom=0.29, top=0.68)
     path = os.path.join(FIG_DIR, "ml_strong_native_gate.pdf")
-    fig.savefig(path, bbox_inches="tight")
+    fig.savefig(path)
     plt.close(fig)
     return path
 
@@ -790,11 +816,11 @@ def figure_ml_profile_breakdown():
     tensor_frac = float(nsys.get("tensor_kernel_time_fraction") or 0.0)
     other_kernel_frac = max(0.0, 1.0 - tensor_frac)
     rows = [
-        ("Gate runtime", [host_frac, gpu_frac], [COLORS["gray"], COLORS["green"]], ["Host/orch.", "GPU kernels"]),
-        ("GPU kernels", [other_kernel_frac, tensor_frac], [COLORS["green"], COLORS["orange"]], ["Other", "Tensor fam."]),
+        ("Gate\nruntime", [host_frac, gpu_frac], [COLORS["gray"], COLORS["green"]], ["Host/orch.", "GPU kernels"]),
+        ("GPU\nkernels", [other_kernel_frac, tensor_frac], [COLORS["green"], COLORS["orange"]], ["Other", "Tensor fam."]),
     ]
 
-    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.42))
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.58))
     y = np.arange(len(rows))
     legend_handles = []
     legend_labels = []
@@ -833,13 +859,13 @@ def figure_ml_profile_breakdown():
     ax.text(0.01, 1.04, sm_note, transform=ax.transAxes, fontsize=5.5, color=COLORS["dark"])
     ax.set_yticks(y)
     ax.set_yticklabels([row[0] for row in rows])
-    ax.set_xlim(0, 100)
+    ax.set_xlim(0, 103)
     ax.set_xlabel("Time fraction (%)")
     style_axis(ax, grid="x")
-    add_top_legend(fig, legend_handles, legend_labels, ncol=2, y=1.04, fontsize=5.4)
-    fig.subplots_adjust(left=0.31, right=0.98, bottom=0.30, top=0.70)
+    add_top_legend(fig, legend_handles, legend_labels, ncol=2, y=1.02, fontsize=5.2)
+    fig.subplots_adjust(left=0.36, right=0.95, bottom=0.29, top=0.68)
     path = os.path.join(FIG_DIR, "ml_profile_breakdown.pdf")
-    fig.savefig(path, bbox_inches="tight")
+    fig.savefig(path)
     plt.close(fig)
     return path
 
@@ -856,7 +882,7 @@ def figure_workload_growth():
         ("256 GPUs\n7,104 cases", 256, 7104, 514, STRONG_NATIVE_64_SUMMARY_CSV),
     ]
 
-    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.45))
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.62))
     cases = np.array([point[2] for point in points], dtype=float)
     elapsed = np.array([point[3] for point in points], dtype=float)
     ax.plot(cases, elapsed, marker="o", color=COLORS["blue"], linewidth=1.8)
@@ -875,9 +901,9 @@ def figure_workload_growth():
     ax.set_ylabel("Elapsed time (s)")
     ax.set_ylim(0, 590)
     style_axis(ax, grid="both")
-    fig.subplots_adjust(left=0.23, right=0.98, bottom=0.28, top=0.94)
+    fig.subplots_adjust(left=0.27, right=0.98, bottom=0.28, top=0.94)
     time_path = os.path.join(FIG_DIR, "workload_growth_time.pdf")
-    fig.savefig(time_path, bbox_inches="tight")
+    fig.savefig(time_path)
     plt.close(fig)
 
     workloads = [
@@ -887,7 +913,9 @@ def figure_workload_growth():
         ("simulation", "Sim.", COLORS["green"]),
     ]
     rows_by_run = [read_csv(points[0][4]), read_csv(points[1][4])]
-    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.45))
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.62))
+    handles = []
+    legend_labels = []
     x = np.array([0, 1], dtype=float)
     for workload, label, color in workloads:
         medians = []
@@ -898,32 +926,20 @@ def figure_workload_growth():
                 if row["workload"] == workload
             ]
             medians.append(float(np.median(vals)))
-        ax.plot(x, medians, marker="o", color=color, linewidth=1.55)
-        label_scale = {
-            "ml": 1.10,
-            "optimization": 0.90,
-            "chemistry": 1.16,
-            "simulation": 0.84,
-        }[workload]
-        ax.text(
-            1.06,
-            medians[-1] * label_scale,
-            label,
-            va="center",
-            fontsize=5.8,
-            color=color,
-            weight="bold",
-        )
-    ax.set_yscale("log")
+        line = ax.plot(x, medians, marker="o", color=color, linewidth=1.55)[0]
+        handles.append(line)
+        legend_labels.append(label)
     ax.set_xticks(x)
     ax.set_xticklabels(["128\nGPUs", "256\nGPUs"])
     ax.set_ylabel("Median\nquality gap")
-    ax.set_ylim(0.01, 0.55)
-    ax.set_xlim(-0.14, 1.42)
+    ax.set_ylim(0.0, 0.34)
+    ax.set_yticks([0.0, 0.1, 0.2, 0.3])
+    ax.set_xlim(-0.14, 1.14)
     style_axis(ax, grid="y")
-    fig.subplots_adjust(left=0.23, right=0.82, bottom=0.32, top=0.94)
+    add_top_legend(fig, handles, legend_labels, ncol=4, y=0.99, fontsize=4.9)
+    fig.subplots_adjust(left=0.27, right=0.98, bottom=0.32, top=0.74)
     quality_path = os.path.join(FIG_DIR, "workload_growth_quality.pdf")
-    fig.savefig(quality_path, bbox_inches="tight")
+    fig.savefig(quality_path)
     plt.close(fig)
     return [time_path, quality_path]
 
@@ -955,7 +971,7 @@ def figure_circuit_operation_mix():
         total_ops = sum(med.values())
         fractions.append([med[key] / total_ops for key, _, _ in categories])
 
-    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.55))
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.68))
     y = np.arange(len(workloads))
     left = np.zeros(len(workloads))
     handles = []
@@ -986,9 +1002,9 @@ def figure_circuit_operation_mix():
     ax.set_xticklabels(["0", "50%", "100%"])
     style_axis(ax, grid="x")
     add_top_legend(fig, handles, labels, ncol=3, y=1.03, fontsize=5.5)
-    fig.subplots_adjust(left=0.23, right=0.98, bottom=0.27, top=0.68)
+    fig.subplots_adjust(left=0.25, right=0.98, bottom=0.27, top=0.68)
     path = os.path.join(FIG_DIR, "circuit_operation_mix.pdf")
-    fig.savefig(path, bbox_inches="tight")
+    fig.savefig(path)
     plt.close(fig)
     return path
 
@@ -1005,7 +1021,7 @@ def figure_threshold_tail_pressure():
         ("simulation", "Sim.", COLORS["green"]),
     ]
 
-    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.55))
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.68))
     y = np.arange(len(workloads))
     for ypos, (workload, label, color) in zip(y, workloads):
         subset = [row for row in rows if row["workload"] == workload]
@@ -1014,20 +1030,20 @@ def figure_threshold_tail_pressure():
         ax.hlines(ypos, p50, pmax, color=color, linewidth=1.4, alpha=0.55)
         ax.scatter([p50, p90, pmax], [ypos] * 3, s=[18, 24, 30], color=color,
                    edgecolors="#222222", linewidths=0.35, zorder=3)
-        ax.text(pmax * 1.08, ypos, label, va="center", fontsize=5.8,
+        ax.text(pmax * 1.04, ypos, label, va="center", fontsize=6.1,
                 color=color, weight="bold")
     ax.set_xscale("log")
     ax.set_yticks(y)
     ax.set_yticklabels(["", "", "", ""])
     ax.set_xlabel("Required speedup tail (x)")
-    ax.set_xlim(1e3, 8e5)
+    ax.set_xlim(1e3, 6.5e5)
     ax.invert_yaxis()
     style_axis(ax, grid="x")
     ax.text(0.05, 1.05, "dot: median / p90 / max", transform=ax.transAxes,
             fontsize=5.6, color=COLORS["dark"])
-    fig.subplots_adjust(left=0.20, right=0.78, bottom=0.27, top=0.84)
+    fig.subplots_adjust(left=0.18, right=0.88, bottom=0.27, top=0.84)
     path = os.path.join(FIG_DIR, "threshold_tail_pressure.pdf")
-    fig.savefig(path, bbox_inches="tight")
+    fig.savefig(path)
     plt.close(fig)
     return path
 
@@ -1038,10 +1054,10 @@ def figure_tolerance_sensitivity():
 
     rows = read_csv(STRONG_NATIVE_SUMMARY_CSV)
     workload_specs = [
-        ("ml", "ML @ $10^5$x", COLORS["blue"], 1.0e5, 0.02),
-        ("chemistry", "Chem. @ $10^5$x", COLORS["teal"], 1.0e5, 0.01),
-        ("optimization", "Opt. @ $10^6$x", COLORS["red"], 1.0e6, 0.02),
-        ("simulation", "Sim. @ $10^4$x", COLORS["green"], 1.0e4, 0.01),
+        ("ml", "ML $10^5$x", COLORS["blue"], 1.0e5, 0.02),
+        ("chemistry", "Chem. $10^5$x", COLORS["teal"], 1.0e5, 0.01),
+        ("optimization", "Opt. $10^6$x", COLORS["red"], 1.0e6, 0.02),
+        ("simulation", "Sim. $10^4$x", COLORS["green"], 1.0e4, 0.01),
     ]
     multipliers = np.array([0.5, 1.0, 2.0, 5.0], dtype=float)
     recovery = 0.90
@@ -1069,17 +1085,17 @@ def figure_tolerance_sensitivity():
         handles.append(line)
         labels.append(label)
 
-    ax.set_xscale("log")
     ax.set_xticks(multipliers)
     ax.set_xticklabels(["0.5x", "1x", "2x", "5x"])
+    ax.set_xlim(0.35, 5.15)
     ax.set_ylim(-3, 103)
     ax.set_xlabel("Tolerance multiplier")
     ax.set_ylabel("Cases advantaged\nat 90% recovery (%)")
     style_axis(ax, grid="both")
-    add_top_legend(fig, handles, labels, ncol=2, y=1.06, fontsize=5.8)
-    fig.subplots_adjust(left=0.20, right=0.98, bottom=0.29, top=0.70)
+    add_top_legend(fig, handles, labels, ncol=4, y=1.03, fontsize=5.6)
+    fig.subplots_adjust(left=0.20, right=0.98, bottom=0.29, top=0.76)
     path = os.path.join(FIG_DIR, "tolerance_sensitivity.pdf")
-    fig.savefig(path, bbox_inches="tight")
+    fig.savefig(path)
     plt.close(fig)
     return path
 
@@ -1151,25 +1167,25 @@ def figure_weak_scaling():
     ideal = throughput[0] * (gpus / gpus[0])
     per_gpu = cases / (elapsed * gpus)
     efficiency = per_gpu / per_gpu[0]
+    gpu_ticks = [1, 4, 16, 64, 256]
 
-    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.34))
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.72))
     line_measured = ax.plot(gpus, throughput, marker="o", color=COLORS["blue"], label="measured")[0]
     line_ideal = ax.plot(gpus, ideal, linestyle="--", color=COLORS["gray"], label="ideal linear")[0]
-    ax.text(gpus[-1] * 1.05, throughput[-1] * 0.93, "measured", color=COLORS["blue"], fontsize=6.0, va="center")
-    ax.text(gpus[-1] * 1.05, ideal[-1] * 1.06, "ideal", color=COLORS["gray"], fontsize=6.0, va="center")
     ax.set_xscale("log", base=2)
-    ax.set_xticks([1, 4, 16, 32, 64, 128, 256])
-    ax.set_xticklabels(["1", "4", "16", "32", "64", "128", "256"])
+    ax.set_xticks(gpu_ticks)
+    ax.set_xticklabels([str(tick) for tick in gpu_ticks])
     ax.set_xlabel("GPUs")
     ax.set_ylabel("Throughput\n(cases/s)")
     style_axis(ax, grid="both")
-    ax.set_xlim(1, 300)
-    fig.subplots_adjust(top=0.98, bottom=0.32, left=0.22, right=0.88)
+    ax.set_xlim(0.8, 330)
+    add_top_legend(fig, [line_measured, line_ideal], ["measured", "ideal"], ncol=2, y=1.00, fontsize=5.2)
+    fig.subplots_adjust(top=0.76, bottom=0.32, left=0.29, right=0.98)
     throughput_path = os.path.join(FIG_DIR, "weak_scaling.pdf")
-    fig.savefig(throughput_path, bbox_inches="tight")
+    fig.savefig(throughput_path)
     plt.close(fig)
 
-    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.34))
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.72))
     line_eff = ax.plot(
         gpus,
         efficiency,
@@ -1177,19 +1193,19 @@ def figure_weak_scaling():
         color=COLORS["orange"],
         label="per-GPU throughput",
     )[0]
-    ax.axhline(1.0, linestyle="--", color=COLORS["gray"], linewidth=1.0)
-    ax.text(gpus[-1] * 1.05, efficiency[-1], "per-GPU", color=COLORS["orange"], fontsize=6.0, va="center")
+    line_ref = ax.axhline(1.0, linestyle="--", color=COLORS["gray"], linewidth=1.0)
     ax.set_xscale("log", base=2)
-    ax.set_xticks([1, 4, 16, 32, 64, 128, 256])
-    ax.set_xticklabels(["1", "4", "16", "32", "64", "128", "256"])
+    ax.set_xticks(gpu_ticks)
+    ax.set_xticklabels([str(tick) for tick in gpu_ticks])
     ax.set_xlabel("GPUs")
     ax.set_ylabel("Norm. per-GPU\nthroughput")
     ax.set_ylim(0.82, 1.08)
     style_axis(ax, grid="both")
-    ax.set_xlim(1, 300)
-    fig.subplots_adjust(top=0.98, bottom=0.32, left=0.22, right=0.88)
+    ax.set_xlim(0.8, 330)
+    add_top_legend(fig, [line_eff, line_ref], ["per-GPU", "reference"], ncol=2, y=1.00, fontsize=5.2)
+    fig.subplots_adjust(top=0.76, bottom=0.32, left=0.31, right=0.98)
     efficiency_path = os.path.join(FIG_DIR, "weak_scaling_efficiency.pdf")
-    fig.savefig(efficiency_path, bbox_inches="tight")
+    fig.savefig(efficiency_path)
     plt.close(fig)
     return [throughput_path, efficiency_path]
 
@@ -1205,8 +1221,9 @@ def figure_strong_scaling():
     speedup = elapsed[0] / elapsed
     ideal = nodes / nodes[0]
     efficiency = speedup / ideal
+    gpu_ticks = [1, 4, 16, 64, 256]
 
-    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.34))
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.72))
     line_time = ax.plot(gpus, elapsed / 60.0, marker="o", color=COLORS["blue"], label="measured")[0]
     line_time_ideal = ax.plot(
         gpus,
@@ -1215,35 +1232,33 @@ def figure_strong_scaling():
         color=COLORS["gray"],
         label="ideal linear",
     )[0]
-    ax.text(gpus[-1] * 1.05, (elapsed / 60.0)[-1], "measured", color=COLORS["blue"], fontsize=6.0, va="center")
-    ax.text(gpus[-1] * 1.05, ((elapsed[0] / ideal) / 60.0)[-1], "ideal", color=COLORS["gray"], fontsize=6.0, va="center")
     ax.set_xscale("log", base=2)
-    ax.set_xticks([1, 4, 16, 32, 64, 128, 256])
-    ax.set_xticklabels(["1", "4", "16", "32", "64", "128", "256"])
-    ax.set_ylabel("Elapsed time\n(min)")
+    ax.set_xticks(gpu_ticks)
+    ax.set_xticklabels([str(tick) for tick in gpu_ticks])
+    ax.set_ylabel("Elapsed\n(min)")
     ax.set_xlabel("GPUs")
     style_axis(ax, grid="both")
-    ax.set_xlim(1, 300)
-    fig.subplots_adjust(top=0.98, bottom=0.30, left=0.20, right=0.88)
+    ax.set_xlim(0.8, 330)
+    add_top_legend(fig, [line_time, line_time_ideal], ["measured", "ideal"], ncol=2, y=1.00, fontsize=5.2)
+    fig.subplots_adjust(top=0.76, bottom=0.30, left=0.29, right=0.98)
     elapsed_path = os.path.join(FIG_DIR, "strong_scaling.pdf")
-    fig.savefig(elapsed_path, bbox_inches="tight")
+    fig.savefig(elapsed_path)
     plt.close(fig)
 
-    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.34))
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.72))
     line_speed = ax.plot(gpus, speedup, marker="o", color=COLORS["green"], label="measured")[0]
     line_speed_ideal = ax.plot(gpus, ideal, linestyle="--", color=COLORS["gray"], label="ideal linear")[0]
-    ax.text(gpus[-1] * 1.05, speedup[-1], "measured", color=COLORS["green"], fontsize=6.0, va="center")
-    ax.text(gpus[-1] * 1.05, ideal[-1], "ideal", color=COLORS["gray"], fontsize=6.0, va="center")
     ax.set_xscale("log", base=2)
-    ax.set_xticks([1, 4, 16, 32, 64, 128, 256])
-    ax.set_xticklabels(["1", "4", "16", "32", "64", "128", "256"])
+    ax.set_xticks(gpu_ticks)
+    ax.set_xticklabels([str(tick) for tick in gpu_ticks])
     ax.set_xlabel("GPUs")
-    ax.set_ylabel("Speedup vs.\n16 GPUs")
+    ax.set_ylabel("Speedup\nvs. 16 GPUs")
     style_axis(ax, grid="both")
-    ax.set_xlim(1, 300)
-    fig.subplots_adjust(top=0.98, bottom=0.32, left=0.18, right=0.88)
+    ax.set_xlim(0.8, 330)
+    add_top_legend(fig, [line_speed, line_speed_ideal], ["measured", "ideal"], ncol=2, y=1.00, fontsize=5.2)
+    fig.subplots_adjust(top=0.76, bottom=0.32, left=0.27, right=0.98)
     speedup_path = os.path.join(FIG_DIR, "strong_scaling_speedup.pdf")
-    fig.savefig(speedup_path, bbox_inches="tight")
+    fig.savefig(speedup_path)
     plt.close(fig)
     return [elapsed_path, speedup_path]
 
@@ -1268,8 +1283,8 @@ def figure_advantage_frontier():
     max_power = max(6, int(math.ceil(math.log10(max_speed * 1.25))))
     speedups = np.logspace(0, max_power, 121)
     recoveries = np.linspace(0.0, 1.0, 101)
-    time_ticks = [4, 5, 6]
-    time_tick_labels = ["0.7 ms", "70 us", "7 us"]
+    time_ticks = [4, 6]
+    time_tick_labels = ["0.7ms", "7us"]
 
     panel_paths = []
     for panel_index, (workload, label, tolerance) in enumerate(workloads):
@@ -1282,7 +1297,7 @@ def figure_advantage_frontier():
             for xi, speedup in enumerate(speedups):
                 advantaged = (speedup >= required) & (residual_gap <= tolerance)
                 frontier[yi, xi] = np.mean(advantaged) if advantaged.size else 0.0
-        fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.52))
+        fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.76))
         image = ax.imshow(
             frontier,
             origin="lower",
@@ -1307,7 +1322,7 @@ def figure_advantage_frontier():
             0.92,
             "tol={:.2g}".format(tolerance),
             transform=ax.transAxes,
-            fontsize=6.0,
+            fontsize=6.5,
             color="white",
             bbox={"facecolor": "black", "alpha": 0.35, "pad": 2, "edgecolor": "none"},
         )
@@ -1327,15 +1342,14 @@ def figure_advantage_frontier():
             top_ticks = [tick for tick in time_ticks if tick <= max_power]
             top.set_xticks(top_ticks)
             top.set_xticklabels(time_tick_labels[: len(top_ticks)])
-            top.set_xlabel("Eff. q time")
-            top.tick_params(axis="x", labelsize=5.5, pad=0.8, width=0.6)
-            top.xaxis.label.set_size(5.7)
+            top.set_xlabel("")
+            top.tick_params(axis="x", labelsize=4.9, pad=0.5, width=0.6)
             top_margin = 0.86
-        ax.tick_params(axis="both", labelsize=6.3, pad=1.0)
+        ax.tick_params(axis="both", labelsize=6.5, pad=1.0)
         cbar = fig.colorbar(image, ax=ax, shrink=0.88, pad=0.018)
         cbar.set_ticks([0.0, 0.5, 1.0])
-        cbar.ax.tick_params(labelsize=6.1, pad=1.0)
-        fig.subplots_adjust(left=0.15, right=0.89, bottom=0.27, top=top_margin)
+        cbar.ax.tick_params(labelsize=6.3, pad=1.0)
+        fig.subplots_adjust(left=0.22, right=0.86, bottom=0.29, top=top_margin)
         suffix = "ml" if workload == "ml" else workload
         filename = (
             "advantage_frontier.pdf"
@@ -1343,7 +1357,7 @@ def figure_advantage_frontier():
             else "advantage_frontier_{}.pdf".format(suffix)
         )
         panel_path = os.path.join(FIG_DIR, filename)
-        fig.savefig(panel_path, bbox_inches="tight")
+        fig.savefig(panel_path)
         plt.close(fig)
         panel_paths.append(panel_path)
     return panel_paths
@@ -1425,7 +1439,6 @@ def main():
         figure_intro_threshold_summary(),
         figure_design_overview(),
         figure_design_projection_flow(),
-        figure_design_workload_paths(),
         figure_evaluation_evidence_flow(),
         figure_digits_legend(),
         figure_digits_speedup(),

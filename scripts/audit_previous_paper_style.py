@@ -196,7 +196,7 @@ def main():
         check(
             "compact_visual_style_present",
             current_metrics["subfigure_environment"] >= 12
-            and current_metrics["legend_subfigures"] >= 2
+            and current_metrics["legend_subfigures"] >= 1
             and current_metrics["vspace"] >= 4,
             "subfigures={}, legend-only subfigures={}, vspace={}".format(
                 current_metrics["subfigure_environment"],

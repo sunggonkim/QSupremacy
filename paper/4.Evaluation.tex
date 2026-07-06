@@ -85,19 +85,10 @@ Across 3,552 cases, native execution remains extremely fast: the median native p
 
 \begin{figure}[t]
 \centering
-\begin{subfigure}{0.86\linewidth}
-    \centering
-    \includegraphics[width=\linewidth]{figures/practical_suite_legend.pdf}
-    \Description{Shared legend for ML, chemistry, optimization, and simulation workloads.}
-\end{subfigure}
+\includegraphics[width=0.76\linewidth]{figures/practical_suite_legend.pdf}
 \vspace{-0.55em}
 
-\begin{subfigure}{0.84\linewidth}
-    \centering
-    \includegraphics[width=\linewidth]{figures/practical_suite_summary.pdf}
-    \caption{Runtime-quality landscape.}
-    \label{fig:practical-suite-landscape}
-\end{subfigure}
+\includegraphics[width=0.86\linewidth]{figures/practical_suite_summary.pdf}
 \vspace{-.1cm}
 \Description{Scatter view of required speedup and quality gap for all 3,552 measured practical-suite cases.}
 \caption{Large practical-suite landscape over 3,552 cases. The plot keeps both axes that matter for advantage: required speedup and quality gap. A workload is not close to advantage unless it moves left in runtime and down in quality gap.}

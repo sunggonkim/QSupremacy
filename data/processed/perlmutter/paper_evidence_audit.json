@@ -461,7 +461,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 23803
+            "size_bytes": 25430
           },
           "expected": {
             "exists": true,
@@ -475,7 +475,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 29376
+            "size_bytes": 29412
           },
           "expected": {
             "exists": true,
@@ -509,7 +509,6 @@
             "paper/figures/circuit_operation_mix.pdf",
             "paper/figures/design_overview.pdf",
             "paper/figures/design_projection_flow.pdf",
-            "paper/figures/design_workload_paths.pdf",
             "paper/figures/digits_legend.pdf",
             "paper/figures/digits_quality_speedup.pdf",
             "paper/figures/digits_required_speedup.pdf",
@@ -542,7 +541,6 @@
             "paper/figures/circuit_operation_mix.pdf",
             "paper/figures/design_overview.pdf",
             "paper/figures/design_projection_flow.pdf",
-            "paper/figures/design_workload_paths.pdf",
             "paper/figures/digits_legend.pdf",
             "paper/figures/digits_quality_speedup.pdf",
             "paper/figures/digits_required_speedup.pdf",
@@ -573,7 +571,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 10003
+            "size_bytes": 13324
           },
           "expected": {
             "exists": true,
@@ -587,7 +585,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 24802
+            "size_bytes": 25341
           },
           "expected": {
             "exists": true,
@@ -629,20 +627,6 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 39093
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/design_workload_paths.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
             "size_bytes": 12622
           },
           "expected": {
@@ -657,7 +641,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 22221
+            "size_bytes": 22024
           },
           "expected": {
             "exists": true,
@@ -671,7 +655,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 10591
+            "size_bytes": 26012
           },
           "expected": {
             "exists": true,
@@ -685,7 +669,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 21840
+            "size_bytes": 21603
           },
           "expected": {
             "exists": true,
@@ -699,7 +683,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 10953
+            "size_bytes": 10786
           },
           "expected": {
             "exists": true,
@@ -713,7 +697,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 21498
+            "size_bytes": 21497
           },
           "expected": {
             "exists": true,
@@ -727,7 +711,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 28657
+            "size_bytes": 13608
           },
           "expected": {
             "exists": true,
@@ -741,7 +725,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 29637
+            "size_bytes": 29526
           },
           "expected": {
             "exists": true,
@@ -755,7 +739,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 17714
+            "size_bytes": 17709
           },
           "expected": {
             "exists": true,
@@ -769,7 +753,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 23803
+            "size_bytes": 25430
           },
           "expected": {
             "exists": true,
@@ -783,7 +767,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 29376
+            "size_bytes": 29412
           },
           "expected": {
             "exists": true,
@@ -797,7 +781,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 29998
+            "size_bytes": 29895
           },
           "expected": {
             "exists": true,
@@ -811,7 +795,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 11927
+            "size_bytes": 11923
           },
           "expected": {
             "exists": true,
@@ -895,7 +879,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 22850
+            "size_bytes": 22829
           },
           "expected": {
             "exists": true,
@@ -909,7 +893,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 27050
+            "size_bytes": 26149
           },
           "expected": {
             "exists": true,
@@ -923,7 +907,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 43490
+            "size_bytes": 24001
           },
           "expected": {
             "exists": true,
@@ -937,7 +921,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 29450
+            "size_bytes": 9594
           },
           "expected": {
             "exists": true,
@@ -951,7 +935,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 28560
+            "size_bytes": 28267
           },
           "expected": {
             "exists": true,
@@ -965,7 +949,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 27480
+            "size_bytes": 27380
           },
           "expected": {
             "exists": true,
@@ -979,7 +963,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 31466
+            "size_bytes": 29995
           },
           "expected": {
             "exists": true,
@@ -1010,7 +994,6 @@
         "paper/figures/intro_threshold_summary.pdf",
         "paper/figures/design_overview.pdf",
         "paper/figures/design_projection_flow.pdf",
-        "paper/figures/design_workload_paths.pdf",
         "paper/figures/evaluation_evidence_flow.pdf",
         "paper/figures/weak_scaling.pdf",
         "paper/figures/weak_scaling_efficiency.pdf",
@@ -1703,12 +1686,6 @@
         {
           "actual": true,
           "expected": true,
-          "label": "exists: paper/figures/design_workload_paths.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
           "label": "exists: paper/figures/evaluation_evidence_flow.pdf",
           "passed": true
         },
@@ -1884,12 +1861,6 @@
           "actual": true,
           "expected": true,
           "label": "exists: paper/figures/design_projection_flow.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/design_workload_paths.pdf",
           "passed": true
         },
         {

@@ -187,12 +187,24 @@ A practical quantum-advantage claim is accepted only if the native and quantum p
 
 \subsection{Workload Suite}
 
-Figure~\ref{fig:design-workload-paths} shows the measured workload suite. The digits workload is the controlled calibration case. The practical suite covers the application families that motivate many real-world quantum-computing claims: AI classification, molecular energy estimation, combinatorial optimization, and Hamiltonian simulation. Each row keeps the same comparison discipline: native path, quantum-circuit path, and quality target are fixed before runtime is interpreted.
+Table~\ref{tab:design-workload-paths} shows the measured workload suite. The digits workload is the controlled calibration case. The practical suite covers the application families that motivate many real-world quantum-computing claims: AI classification, molecular energy estimation, combinatorial optimization, and Hamiltonian simulation. Each row keeps the same comparison discipline: native path, quantum-circuit path, and quality target are fixed before runtime is interpreted.
 
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=0.98\linewidth]{figures/design_workload_paths.pdf}
-    \Description{Workload map showing native paths, quantum-circuit paths, and quality targets for ML, chemistry, optimization, and simulation.}
-    \caption{Measured workload paths. The suite covers practical application families while preserving same-input and same-quality comparisons.}
-    \label{fig:design-workload-paths}
-\end{figure}
+\begin{table}[t]
+\caption{Measured workload paths.}
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.13}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{llll}
+\toprule
+\textbf{Family} & \textbf{Native path} & \textbf{Circuit path} & \textbf{Quality target} \\
+\midrule
+ML & six classifiers; AMP/XGBoost gate & QKernel, QNN/VQC & accuracy gap \\
+Chemistry & dense exact; sparse Lanczos & VQE-style energy circuit & energy gap \\
+Optimization & exact, greedy, local search, annealing & QAOA-style circuit & objective gap \\
+Simulation & dense exact; sparse Krylov & Trotter/Hamiltonian simulation & observable gap \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:design-workload-paths}
+\end{table}

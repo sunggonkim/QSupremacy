@@ -455,7 +455,6 @@ def main():
         "paper/figures/intro_threshold_summary.pdf",
         "paper/figures/design_overview.pdf",
         "paper/figures/design_projection_flow.pdf",
-        "paper/figures/design_workload_paths.pdf",
         "paper/figures/evaluation_evidence_flow.pdf",
         "paper/figures/weak_scaling.pdf",
         "paper/figures/weak_scaling_efficiency.pdf",
