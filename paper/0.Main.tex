@@ -15,6 +15,7 @@
 \usepackage{enumitem}
 \usepackage{cite}
 \usepackage[most]{tcolorbox}
+\usepackage{placeins}
 
 \setlength{\columnsep}{0.1in}
 \captionsetup{font=small}
@@ -26,21 +27,22 @@
 \pagenumbering{arabic}
 \newcommand{\Description}[1]{}
 \newtcolorbox{observationbox}{
-  colback=gray!4,
-  colframe=black!45,
-  boxrule=0.4pt,
+  colback=gray!7,
+  colframe=gray!7,
+  boxrule=0pt,
   arc=0pt,
-  left=3pt,
-  right=3pt,
-  top=2pt,
-  bottom=2pt,
+  left=4pt,
+  right=2pt,
+  top=1pt,
+  bottom=1pt,
   before skip=2pt,
-  after skip=2pt
+  after skip=2pt,
+  borderline west={2pt}{0pt}{black!45}
 }
 
 \newcommand{\SystemName}{\textsc{QArchGauge}\xspace}
 \newcommand{\cuQuantum}{\texttt{cu\-Quantum}\xspace}
-\newcommand{\Perlmutter}{\texttt{Perl\-mutter}\xspace}
+\newcommand{\LeadershipSystem}{Top-20 TOP500 leadership-scale HPC system\xspace}
 \title{\normalsize HPCA 2027 Submission \#NaN\\
 Confidential Draft\\
 Do NOT Distribute!!\\[0.15in]
@@ -55,9 +57,9 @@ Do NOT Distribute!!\\[0.15in]
 \begin{abstract}
 \textbf{Problem.} Practical quantum advantage is often discussed as if faster quantum hardware will solve many applied problems automatically. This is not enough for computer architects. A useful claim must identify which future-system lever actually changes the outcome: logical gate latency, shot parallelism, error-correction overhead, readout/control latency, algorithmic quality, or the native HPC baseline. Without that decomposition, a speedup number does not tell architects where a quantum system should improve.
 
-\textbf{Approach.} We present \SystemName, a Perlmutter measurement and architecture-projection framework for this break-even test. \SystemName runs native baselines and quantum-circuit versions of the same workload with shared inputs and quality targets. It then converts measured circuit cost, quality gap, native runtime, circuit metadata, and repeated-execution structure into an advantage threshold over architecture variables: execution speed, shot throughput, quality recovery, and non-kernel overhead.
+\textbf{Approach.} We present \SystemName, a measurement and architecture-projection framework for this break-even test on a \LeadershipSystem. \SystemName runs native baselines and quantum-circuit versions of the same workload with shared inputs and quality targets. It then converts measured circuit cost, quality gap, native runtime, circuit metadata, and repeated-execution structure into an advantage threshold over architecture variables: execution speed, shot throughput, quality recovery, and non-kernel overhead.
 
-\textbf{Result.} On \Perlmutter, our expanded \texttt{sklearn digits} sweep runs 160 cases across class pairs, sample counts, PCA dimensions, depths, and seeds. Quantum kernels require a median 421.9$\times$ speedup to match the native path; QNN/VQC requires 64.9$\times$ but usually misses native quality. We then run a 3,552-case practical suite across ML, chemistry, optimization, and simulation on up to 32 GPU nodes, plus a 104-case OpenFermion/PySCF chemistry coverage gate. Median required speedups range from 3,071.0$\times$ for simulation to 287,045.6$\times$ for optimization. The architecture implication is workload-specific: at 90\% quality-gap recovery, $10^4\times$ projected execution improvement covers 54.9\% of simulation cases, while $10^5\times$ covers 57.1\% of chemistry cases; ML and optimization remain primarily quality-limited. These results do not claim quantum wins today. They show where future quantum architectures must spend effort before speed becomes useful.
+\textbf{Result.} On the leadership-scale system, our expanded \texttt{sklearn digits} sweep runs 160 cases across class pairs, sample counts, PCA dimensions, depths, and seeds. Quantum kernels require a median 421.9$\times$ speedup to match the native path; QNN/VQC requires 64.9$\times$ but usually misses native quality. We then run a 3,552-case practical suite across ML, chemistry, optimization, and simulation on up to 32 GPU nodes, plus a 104-case OpenFermion/PySCF chemistry coverage gate. Median required speedups range from 3,071.0$\times$ for simulation to 287,045.6$\times$ for optimization. The architecture implication is workload-specific: at 90\% quality-gap recovery, $10^4\times$ projected execution improvement covers 54.9\% of simulation cases, while $10^5\times$ covers 57.1\% of chemistry cases; ML and optimization remain primarily quality-limited. These results do not claim quantum wins today. They show where future quantum architectures must spend effort before speed becomes useful.
 \end{abstract}
 \thispagestyle{plain}
 

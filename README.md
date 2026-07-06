@@ -1,8 +1,8 @@
 # QSupremacy
 
 QSupremacy is the repository name. The HPCA manuscript now uses the display
-system name **QArchGauge**: a Perlmutter-based architecture-guided practical
-quantum-advantage modeling project.
+system name **QArchGauge**: an architecture-guided practical quantum-advantage
+modeling project evaluated on a Top-20 TOP500 leadership-scale HPC system.
 It compares native HPC/ML application paths against quantum-circuit versions of
 the same workloads, simulated with cuQuantum and projected to future quantum
 hardware.
@@ -26,7 +26,7 @@ bottleneck insights.
 | --- | --- |
 | Manuscript PDF | `paper/main.pdf` builds successfully |
 | Body budget | Main text through page 11; references start on page 12 |
-| Main suite | 3,552 cases on 32 Perlmutter GPU nodes |
+| Main suite | 3,552 cases on 32 leadership-system GPU nodes |
 | 64-node fixed work | 3,552 cases in 261 seconds |
 | 64-node larger-workload gate | 7,104 cases in 514 seconds |
 | Workloads | ML, chemistry, optimization, scientific simulation |

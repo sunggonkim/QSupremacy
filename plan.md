@@ -24,7 +24,7 @@ strength, or algorithmic quality.
 | --- | --- |
 | Paper PDF | Built at `paper/main.pdf` |
 | HPCA body budget | References start on page 12 |
-| Main practical suite | 3,552 cases, 32 Perlmutter GPU nodes |
+| Main practical suite | 3,552 cases, 32 leadership-system GPU nodes |
 | 64-node fixed work | 3,552 cases in 261 seconds |
 | 64-node larger-workload gate | 7,104 cases in 514 seconds |
 | Workload coverage | ML, chemistry, optimization, scientific simulation |
@@ -71,6 +71,6 @@ submission readiness: SUBMISSION_READY, warning_count 0
 
 ## Remaining Paper Work
 
-No additional Perlmutter experiments are required for the current paper claims.
+No additional leadership-system experiments are required for the current paper claims.
 Before submission, replace the HPCA `NaN` submission number and recheck the final
 conference template/instructions.

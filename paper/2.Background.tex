@@ -17,8 +17,8 @@ The project name is \SystemName, and the paper's technical object is a \textit{p
 
 Native HPC/ML baselines execute the same task directly on CPUs or GPUs. For the first \SystemName workload, the native path uses \texttt{sklearn digits} with PCA and classical classifiers such as logistic regression, MLP, and optionally SVM/RBF. These baselines are intentionally strong and simple: if a quantum-circuit model cannot beat a well-optimized native baseline at the same target quality, it does not satisfy the practical advantage threshold.
 
-\noindent\textbf{Perlmutter and cuQuantum.}
-\Perlmutter provides GPU nodes for quantum-circuit simulation with \cuQuantum and cuStateVec~\cite{cuquantum}. Our environment uses an existing \cuQuantum installation and validates it through login-node smoke tests before any allocation-consuming job. Login-node tests are used only for correctness and pipeline validation. Performance experiments run through Slurm and record queue time, elapsed time, allocation resources, and charged node-hours.
+\noindent\textbf{Leadership-scale GPU Platform and cuQuantum.}
+The measurement platform is a \LeadershipSystem with GPU nodes suitable for quantum-circuit simulation through \cuQuantum and cuStateVec~\cite{cuquantum}. Our environment uses an existing \cuQuantum installation and validates it through login-node smoke tests before any allocation-consuming job. Login-node tests are used only for correctness and pipeline validation. Performance experiments run through Slurm and record queue time, elapsed time, allocation resources, and charged node-hours.
 
 \noindent\textbf{Break-even Condition.}
 For a fixed task, dataset split, target quality, and system budget, the native application path is:

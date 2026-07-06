@@ -80,7 +80,7 @@ ROLE_MARKERS = {
         "Evaluation Questions",
         "End-to-End Threshold Landscape",
         "Component and Baseline Analysis",
-        "Perlmutter Scaling Analysis",
+        "Leadership-scale Scaling Analysis",
         "Weak Scaling",
         "Strong Scaling",
         "Advantage Frontier and Bottleneck Analysis",
@@ -106,7 +106,7 @@ ROLE_INVENTORY = {
         ("practical families", "ML, chemistry, optimization, simulation"),
         ("terminology", "Threshold and advantage-region definitions"),
         ("native baselines", "Classical target path"),
-        ("Perlmutter/cuQuantum", "Measurement platform"),
+        ("leadership/cuQuantum", "Measurement platform"),
         ("break-even equations", "Native, simulated quantum, projected hardware paths"),
     ],
     "design": [
@@ -162,7 +162,7 @@ ROLE_CURRENT_MARKERS = {
         "practical families": "Practical Application Families",
         "terminology": "Terminology",
         "native baselines": "\\subsection{Native Baselines and Threshold Model}",
-        "Perlmutter/cuQuantum": "Perlmutter and cuQuantum",
+        "leadership/cuQuantum": "Leadership-scale GPU Platform and cuQuantum",
         "break-even equations": "Break-even Condition",
     },
     "design": {
@@ -218,7 +218,7 @@ ROLE_TEMPLATE_MARKERS = {
         "practical families": ("scaleqsim", "Full state vector simulation"),
         "terminology": ("scaleqsim", "Since full state vector simulation"),
         "native baselines": ("scaleqsim", "\\subsection{Distributed Architecture"),
-        "Perlmutter/cuQuantum": ("aurora", "\\subsection{Hardware Constraints"),
+        "leadership/cuQuantum": ("aurora", "\\subsection{Hardware Constraints"),
         "break-even equations": ("aurora", "Bandwidth Gap and Execution Time"),
     },
     "design": {
