@@ -19,8 +19,8 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 FIG_DIR = os.path.join(ROOT, "paper", "figures")
 TEXT_WIDTH = 6.85
 COLUMN_WIDTH = 3.35
-INTRO_PATH_WIDTH = COLUMN_WIDTH * 0.42
-INTRO_THRESHOLD_WIDTH = COLUMN_WIDTH * 0.54
+INTRO_PATH_WIDTH = COLUMN_WIDTH * 0.46
+INTRO_THRESHOLD_WIDTH = COLUMN_WIDTH * 0.52
 SUBFIGURE_WIDTH = COLUMN_WIDTH * 0.48
 COLORS = {
     "blue": "#356CA5",
@@ -364,20 +364,19 @@ def arrow(ax, start, end, color="#4A4A4A", lw=1.1):
 
 def figure_intro_paths():
     fig, ax = plt.subplots(figsize=(INTRO_PATH_WIDTH, 1.28))
-    draw_box(ax, (0.02, 0.39), 0.20, 0.24, "Same\ninput", COLORS["dark"], fontsize=6.3)
-    draw_box(ax, (0.31, 0.66), 0.25, 0.20, "Native\nHPC", COLORS["blue"], fontsize=6.0)
-    draw_box(ax, (0.31, 0.39), 0.25, 0.20, "Circuit\napp", COLORS["orange"], fontsize=6.0)
-    draw_box(ax, (0.31, 0.12), 0.25, 0.20, "Quality\ntarget", COLORS["purple"], fontsize=5.8)
-    draw_box(ax, (0.66, 0.58), 0.30, 0.18, "$T_n,Q_n$", COLORS["blue"], fontsize=6.2)
-    draw_box(ax, (0.66, 0.30), 0.30, 0.18, "$T_q,Q_q$", COLORS["orange"], fontsize=6.2)
-    draw_box(ax, (0.66, 0.06), 0.30, 0.14, "Frontier", COLORS["green"], fontsize=6.1)
-    arrow(ax, (0.22, 0.54), (0.31, 0.76), lw=0.95)
-    arrow(ax, (0.22, 0.51), (0.31, 0.49), lw=0.95)
-    arrow(ax, (0.22, 0.47), (0.31, 0.22), lw=0.95)
-    arrow(ax, (0.56, 0.76), (0.66, 0.68), lw=0.95)
-    arrow(ax, (0.56, 0.49), (0.66, 0.40), lw=0.95)
-    arrow(ax, (0.81, 0.30), (0.81, 0.20), lw=0.95)
-    arrow(ax, (0.42, 0.12), (0.66, 0.13), lw=0.95)
+    rows = [
+        ("ML", "native\nmodels", "QKernel\nQNN/VQC\nfeature", COLORS["blue"], COLORS["orange"]),
+        ("Chem.", "exact\nLanczos", "VQE", COLORS["teal"], COLORS["teal"]),
+        ("Opt.", "exact\nheur.", "QAOA", COLORS["red"], COLORS["red"]),
+        ("Sim.", "dense\nKrylov", "Trotter", COLORS["green"], COLORS["green"]),
+    ]
+    y_positions = [0.80, 0.60, 0.40, 0.20]
+    for (family, native, circuit, native_color, circuit_color), y0 in zip(rows, y_positions):
+        draw_box(ax, (0.02, y0 - 0.06), 0.18, 0.12, family, COLORS["dark"], fontsize=6.1)
+        draw_box(ax, (0.29, y0 - 0.065), 0.29, 0.13, native, native_color, fontsize=5.6)
+        draw_box(ax, (0.68, y0 - 0.065), 0.29, 0.13, circuit, circuit_color, fontsize=5.45)
+        arrow(ax, (0.20, y0), (0.29, y0), lw=0.75)
+        arrow(ax, (0.58, y0), (0.68, y0), lw=0.75)
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     ax.axis("off")
@@ -389,7 +388,7 @@ def figure_intro_paths():
 
 
 def figure_intro_threshold_summary():
-    labels = ["QNN/VQC", "QKernel", "Sim.", "ML", "Chem.", "Opt."]
+    labels = ["ML-QNN", "ML-QKernel", "Sim-Trotter", "ML-Feature", "Chem-VQE", "Opt-QAOA"]
     values = [64.9, 421.9, 3071.0, 3726.4, 42491.4, 287045.6]
     colors = [
         COLORS["orange"],
@@ -400,7 +399,7 @@ def figure_intro_threshold_summary():
         COLORS["red"],
     ]
     y = np.arange(len(labels))
-    fig, ax = plt.subplots(figsize=(INTRO_THRESHOLD_WIDTH, 1.40))
+    fig, ax = plt.subplots(figsize=(INTRO_THRESHOLD_WIDTH, 1.52))
     ax.axvspan(40, 1e3, color=COLORS["green"], alpha=0.06, linewidth=0)
     ax.axvspan(1e3, 1e5, color=COLORS["orange"], alpha=0.06, linewidth=0)
     ax.axvspan(1e5, 7e5, color=COLORS["red"], alpha=0.055, linewidth=0)
@@ -437,7 +436,7 @@ def figure_intro_threshold_summary():
     ax.set_xlim(10, 7e5)
     style_axis(ax, grid="x")
     path = os.path.join(FIG_DIR, "intro_threshold_summary.pdf")
-    fig.subplots_adjust(left=0.30, right=0.95, bottom=0.30, top=0.96)
+    fig.subplots_adjust(left=0.42, right=0.95, bottom=0.28, top=0.97)
     fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
     plt.close(fig)
     return path
