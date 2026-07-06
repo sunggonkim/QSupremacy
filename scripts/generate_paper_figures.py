@@ -389,12 +389,12 @@ def figure_intro_paths():
 
 def figure_intro_threshold_summary():
     labels = [
-        "sklearn / QNN",
-        "sklearn / QKernel",
-        "Krylov / Trotter",
-        "native ML / QFeature",
-        "Lanczos / VQE",
-        "native Opt. / QAOA",
+        "ML: scikit / QNN",
+        "ML: scikit / QKernel",
+        "HamSim: Krylov / Trotter",
+        "ML: scikit / QFeature",
+        "Molecule: Lanczos / VQE",
+        "MaxCut: heuristic / QAOA",
     ]
     values = [64.9, 421.9, 3071.0, 3726.4, 42491.4, 287045.6]
     colors = [
@@ -434,7 +434,7 @@ def figure_intro_threshold_summary():
     ax.set_xlim(10, 1.05e6)
     style_axis(ax, grid="x")
     path = os.path.join(FIG_DIR, "intro_threshold_summary.pdf")
-    fig.subplots_adjust(left=0.34, right=0.94, bottom=0.30, top=0.98)
+    fig.subplots_adjust(left=0.41, right=0.94, bottom=0.30, top=0.98)
     fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
     plt.close(fig)
     return path
