@@ -51,6 +51,22 @@ STRONG_NATIVE_TAXONOMY_JSON = (
     "data/processed/perlmutter/"
     "practical_suite_strongnative_32node_large128c0c127_20260704060230_taxonomy.json"
 )
+STRONG_NATIVE_64_SUMMARY_JSON = (
+    "data/processed/perlmutter/"
+    "practical_suite_strongnative_64node_large256c0c255_20260705024742_summary.json"
+)
+STRONG_NATIVE_64_SUMMARY_CSV = (
+    "data/processed/perlmutter/"
+    "practical_suite_strongnative_64node_large256c0c255_20260705024742_summary.csv"
+)
+STRONG_SCALE_64_SUMMARY_JSON = (
+    "data/processed/perlmutter/"
+    "practical_suite_strongscale_64node_largefull_c0c255_20260705024742_summary.json"
+)
+STRONG_SCALE_64_SUMMARY_CSV = (
+    "data/processed/perlmutter/"
+    "practical_suite_strongscale_64node_largefull_c0c255_20260705024742_summary.csv"
+)
 STRONG_NATIVE_1NODE_SUMMARY_JSON = (
     "data/processed/perlmutter/"
     "practical_suite_strongnative_1node_int_20260704012008_summary.json"
@@ -136,6 +152,14 @@ STRONG_SCALING_RUNS = [
             "data/processed/perlmutter/"
             "practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.json"
         ),
+    },
+    {
+        "label": "64 nodes",
+        "nodes": 64,
+        "gpus": 256,
+        "cases": 3552,
+        "elapsed_sec": 261,
+        "summary": STRONG_SCALE_64_SUMMARY_JSON,
     },
 ]
 
@@ -337,6 +361,143 @@ def figure_design_overview():
     return path
 
 
+def figure_design_projection_flow():
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 2.15))
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.axis("off")
+
+    ax.text(0.04, 0.93, "Measured case", fontsize=7.4, weight="bold", color=COLORS["dark"])
+    ax.text(0.39, 0.93, "Projection engine", fontsize=7.4, weight="bold", color=COLORS["dark"])
+    ax.text(0.72, 0.93, "Design output", fontsize=7.4, weight="bold", color=COLORS["dark"])
+
+    draw_box(ax, (0.04, 0.72), 0.24, 0.11, "Native path\n$T_n, Q_n$", COLORS["blue"], fontsize=6.2)
+    draw_box(ax, (0.04, 0.54), 0.24, 0.11, "Circuit path\n$T_s, Q_q$", COLORS["orange"], fontsize=6.2)
+    draw_box(ax, (0.04, 0.36), 0.24, 0.11, "Circuit metadata\nqubits, gates, shots", COLORS["teal"], fontsize=5.8)
+    draw_box(ax, (0.04, 0.18), 0.24, 0.11, "Quality gap\n$\\Delta Q$", COLORS["purple"], fontsize=6.1)
+
+    draw_box(
+        ax,
+        (0.38, 0.58),
+        0.24,
+        0.16,
+        "Break-even\n$T_{qhw}<T_n$",
+        COLORS["dark"],
+        fontsize=6.4,
+    )
+    draw_box(
+        ax,
+        (0.38, 0.32),
+        0.24,
+        0.16,
+        "Frontier sweep\n$S, R, P_{shots}$",
+        "#F4F4F4",
+        text_color=COLORS["dark"],
+        fontsize=6.1,
+    )
+    ax.text(
+        0.50,
+        0.22,
+        "same input\nsame quality target",
+        ha="center",
+        va="center",
+        fontsize=6.1,
+        color=COLORS["dark"],
+    )
+
+    for y in [0.775, 0.595, 0.415, 0.235]:
+        arrow(ax, (0.28, y), (0.38, 0.66 if y > 0.50 else 0.40), lw=0.9)
+    arrow(ax, (0.50, 0.58), (0.50, 0.48), lw=0.9)
+
+    outputs = [
+        ("Speed-limited", COLORS["green"]),
+        ("Quality-limited", COLORS["red"]),
+        ("Shot-limited", COLORS["purple"]),
+        ("Native-limited", COLORS["gray"]),
+    ]
+    for idx, (label, color) in enumerate(outputs):
+        y = 0.72 - idx * 0.16
+        draw_box(ax, (0.72, y), 0.23, 0.09, label, color, fontsize=5.9)
+        arrow(ax, (0.62, 0.66 if idx < 2 else 0.40), (0.72, y + 0.045), lw=0.9)
+
+    path = os.path.join(FIG_DIR, "design_projection_flow.pdf")
+    fig.subplots_adjust(left=0.02, right=0.98, bottom=0.05, top=0.96)
+    fig.savefig(path, bbox_inches="tight")
+    plt.close(fig)
+    return path
+
+
+def figure_design_workload_paths():
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 2.25))
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.axis("off")
+
+    ax.text(0.05, 0.94, "Family", fontsize=7.0, weight="bold", color=COLORS["dark"])
+    ax.text(0.28, 0.94, "Native path", fontsize=7.0, weight="bold", color=COLORS["dark"])
+    ax.text(0.59, 0.94, "Circuit path", fontsize=7.0, weight="bold", color=COLORS["dark"])
+    ax.text(0.86, 0.94, "Target", fontsize=7.0, weight="bold", color=COLORS["dark"])
+
+    rows = [
+        ("ML", "6 classifiers", "QKernel/QNN", "accuracy", COLORS["blue"]),
+        ("Chem.", "dense + sparse", "VQE", "energy", COLORS["teal"]),
+        ("Opt.", "exact + heuristic", "QAOA", "objective", COLORS["red"]),
+        ("Sim.", "dense + Krylov", "Trotter sim.", "observable", COLORS["green"]),
+    ]
+    for idx, (family, native, circuit, metric, color) in enumerate(rows):
+        y = 0.80 - idx * 0.18
+        ax.plot([0.04, 0.96], [y - 0.078, y - 0.078], color="#D6D6D6", linewidth=0.45)
+        draw_box(ax, (0.05, y - 0.045), 0.13, 0.09, family, color, fontsize=6.2)
+        ax.text(0.30, y, native, ha="center", va="center", fontsize=6.0, color=COLORS["dark"])
+        ax.text(0.60, y, circuit, ha="center", va="center", fontsize=6.0, color=COLORS["dark"])
+        ax.text(0.86, y, metric, ha="center", va="center", fontsize=6.0, color=COLORS["dark"])
+        arrow(ax, (0.39, y), (0.50, y), color="#777777", lw=0.75)
+        arrow(ax, (0.69, y), (0.78, y), color="#777777", lw=0.75)
+
+    path = os.path.join(FIG_DIR, "design_workload_paths.pdf")
+    fig.subplots_adjust(left=0.02, right=0.98, bottom=0.05, top=0.98)
+    fig.savefig(path, bbox_inches="tight")
+    plt.close(fig)
+    return path
+
+
+def figure_evaluation_evidence_flow():
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.65))
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.axis("off")
+
+    stages = [
+        ("Calibrate", "160\nML cases", COLORS["blue"]),
+        ("Main suite", "3,552\ncases", COLORS["green"]),
+        ("Stress", "116 + 104\ncoverage", COLORS["teal"]),
+        ("Scale", "4-64\nnodes", COLORS["purple"]),
+        ("Stability", "12\nrepeat trials", COLORS["orange"]),
+    ]
+    x_positions = np.linspace(0.08, 0.88, len(stages))
+    for idx, ((title, detail, color), x) in enumerate(zip(stages, x_positions)):
+        draw_box(ax, (x - 0.07, 0.46), 0.14, 0.22, title, color, fontsize=5.9)
+        ax.text(x, 0.30, detail, ha="center", va="center", fontsize=6.0, color=COLORS["dark"])
+        if idx < len(stages) - 1:
+            arrow(ax, (x + 0.07, 0.57), (x_positions[idx + 1] - 0.07, 0.57), lw=0.85)
+
+    ax.text(
+        0.50,
+        0.10,
+        "correctness gates -> application thresholds -> scaling -> timing evidence",
+        ha="center",
+        va="center",
+        fontsize=6.1,
+        color=COLORS["dark"],
+    )
+
+    path = os.path.join(FIG_DIR, "evaluation_evidence_flow.pdf")
+    fig.subplots_adjust(left=0.02, right=0.98, bottom=0.06, top=0.96)
+    fig.savefig(path, bbox_inches="tight")
+    plt.close(fig)
+    return path
+
+
 def figure_digits_speedup():
     rows = read_csv("data/processed/perlmutter/digits_expanded_55421321_55422142_summary.csv")
     kernel = [float(r["quantum_kernel_required_speedup"]) for r in rows]
@@ -468,7 +629,7 @@ def figure_practical_suite():
         cdf = np.arange(1, sorted_speed.size + 1) / float(sorted_speed.size)
         series.append((label, color, speed, quality, sorted_speed, cdf))
 
-    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.58))
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.74))
     for label, color, speed, quality, sorted_speed, cdf in series:
         ax.scatter(
             speed,
@@ -492,7 +653,7 @@ def figure_practical_suite():
     ax.tick_params(axis="x", labelbottom=False)
     ax.set_ylabel("Quality gap\nto native")
     style_axis(ax, grid="both")
-    fig.subplots_adjust(top=0.96, bottom=0.10, left=0.22, right=0.98)
+    fig.subplots_adjust(top=0.96, bottom=0.13, left=0.18, right=0.98)
     landscape_path = os.path.join(FIG_DIR, "practical_suite_summary.pdf")
     fig.savefig(landscape_path, bbox_inches="tight")
     plt.close(fig)
@@ -576,6 +737,216 @@ def figure_strong_native_comparison():
     fig.savefig(quality_path, bbox_inches="tight")
     plt.close(fig)
     return [speed_path, quality_path]
+
+
+def figure_workload_growth():
+    if not (
+        os.path.exists(os.path.join(ROOT, STRONG_NATIVE_SUMMARY_CSV))
+        and os.path.exists(os.path.join(ROOT, STRONG_NATIVE_64_SUMMARY_CSV))
+    ):
+        return None
+
+    points = [
+        ("32 nodes\n3,552 cases", 3552, 257, STRONG_NATIVE_SUMMARY_CSV),
+        ("64 nodes\n7,104 cases", 7104, 514, STRONG_NATIVE_64_SUMMARY_CSV),
+    ]
+
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.45))
+    cases = np.array([point[1] for point in points], dtype=float)
+    elapsed = np.array([point[2] for point in points], dtype=float)
+    ax.plot(cases, elapsed, marker="o", color=COLORS["blue"], linewidth=1.8)
+    ax.plot(
+        cases,
+        elapsed[0] * cases / cases[0],
+        linestyle="--",
+        color=COLORS["gray"],
+        linewidth=1.1,
+    )
+    for xval, yval in zip(cases, elapsed):
+        ax.text(xval, yval + 16, "{}s".format(int(yval)), ha="center", fontsize=5.9)
+    ax.set_xticks(cases)
+    ax.set_xticklabels(["3.6K", "7.1K"])
+    ax.set_xlabel("Application cases")
+    ax.set_ylabel("Elapsed time (s)")
+    ax.set_ylim(0, 590)
+    style_axis(ax, grid="both")
+    fig.subplots_adjust(left=0.23, right=0.98, bottom=0.28, top=0.94)
+    time_path = os.path.join(FIG_DIR, "workload_growth_time.pdf")
+    fig.savefig(time_path, bbox_inches="tight")
+    plt.close(fig)
+
+    workloads = [
+        ("ml", "ML", COLORS["blue"]),
+        ("chemistry", "Chem.", COLORS["teal"]),
+        ("optimization", "Opt.", COLORS["red"]),
+        ("simulation", "Sim.", COLORS["green"]),
+    ]
+    rows_by_run = [read_csv(points[0][3]), read_csv(points[1][3])]
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.45))
+    x = np.array([0, 1], dtype=float)
+    for workload, label, color in workloads:
+        medians = []
+        for rows in rows_by_run:
+            vals = [
+                float(row["quality_gap"])
+                for row in rows
+                if row["workload"] == workload
+            ]
+            medians.append(float(np.median(vals)))
+        ax.plot(x, medians, marker="o", color=color, linewidth=1.55)
+        label_scale = {
+            "ml": 1.10,
+            "optimization": 0.90,
+            "chemistry": 1.16,
+            "simulation": 0.84,
+        }[workload]
+        ax.text(
+            1.05,
+            medians[-1] * label_scale,
+            label,
+            va="center",
+            fontsize=5.8,
+            color=color,
+            weight="bold",
+        )
+    ax.set_yscale("log")
+    ax.set_xticks(x)
+    ax.set_xticklabels(["32\nnodes", "64\nnodes"])
+    ax.set_ylabel("Median\nquality gap")
+    ax.set_ylim(0.01, 0.55)
+    ax.set_xlim(-0.12, 1.45)
+    style_axis(ax, grid="y")
+    fig.subplots_adjust(left=0.23, right=0.82, bottom=0.30, top=0.94)
+    quality_path = os.path.join(FIG_DIR, "workload_growth_quality.pdf")
+    fig.savefig(quality_path, bbox_inches="tight")
+    plt.close(fig)
+    return [time_path, quality_path]
+
+
+def figure_circuit_operation_mix():
+    if not os.path.exists(os.path.join(ROOT, STRONG_NATIVE_SUMMARY_CSV)):
+        return None
+
+    rows = read_csv(STRONG_NATIVE_SUMMARY_CSV)
+    workloads = [
+        ("ml", "ML", COLORS["blue"]),
+        ("chemistry", "Chem.", COLORS["teal"]),
+        ("optimization", "Opt.", COLORS["red"]),
+        ("simulation", "Sim.", COLORS["green"]),
+    ]
+    categories = [
+        ("one_qubit_gates", "1Q gates", COLORS["blue"]),
+        ("two_qubit_gates", "2Q gates", COLORS["orange"]),
+        ("measurement_ops", "meas.", COLORS["purple"]),
+    ]
+
+    fractions = []
+    annotations = []
+    for workload, label, color in workloads:
+        subset = [row for row in rows if row["workload"] == workload]
+        med = {
+            key: float(np.median([float(row[key]) for row in subset]))
+            for key, _, _ in categories
+        }
+        total_ops = sum(med.values())
+        fractions.append([med[key] / total_ops for key, _, _ in categories])
+        evals = float(np.median([float(row["circuit_evaluations"]) for row in subset]))
+        qtime = float(np.median([float(row["quantum_runtime_sec"]) for row in subset]))
+        annotations.append("{:.1f}k ops, {:.0f} evals, {:.1f}s".format(total_ops / 1000.0, evals, qtime))
+
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.78))
+    y = np.arange(len(workloads))
+    left = np.zeros(len(workloads))
+    handles = []
+    labels = []
+    frac_array = np.array(fractions)
+    for idx, (_, label, color) in enumerate(categories):
+        values = frac_array[:, idx]
+        bars = ax.barh(y, values, left=left, color=color, height=0.58)
+        handles.append(bars[0])
+        labels.append(label)
+        for ypos, value, base in zip(y, values, left):
+            if value >= 0.18:
+                ax.text(
+                    base + value / 2.0,
+                    ypos,
+                    "{:.0f}%".format(value * 100.0),
+                    ha="center",
+                    va="center",
+                    fontsize=5.8,
+                    color="white" if idx != 1 else "black",
+                )
+        left += values
+    for ypos, note in zip(y, annotations):
+        ax.text(1.03, ypos, note, va="center", fontsize=5.7, color=COLORS["dark"])
+    ax.set_yticks(y)
+    ax.set_yticklabels([label for _, label, _ in workloads])
+    ax.set_xlim(0, 1.42)
+    ax.set_xlabel("Median circuit-operation share")
+    ax.set_xticks([0, 0.5, 1.0])
+    ax.set_xticklabels(["0", "50%", "100%"])
+    style_axis(ax, grid="x")
+    add_top_legend(fig, handles, labels, ncol=3, y=1.03, fontsize=6.0)
+    fig.subplots_adjust(left=0.18, right=0.74, bottom=0.22, top=0.72)
+    path = os.path.join(FIG_DIR, "circuit_operation_mix.pdf")
+    fig.savefig(path, bbox_inches="tight")
+    plt.close(fig)
+    return path
+
+
+def figure_architecture_focus_matrix():
+    workloads = ["ML", "Chem.", "Opt.", "Sim."]
+    resources = ["Quality\nencoding", "Logical\nspeed", "Shot\nparallel", "Native\nco-design"]
+    scores = np.array(
+        [
+            [3, 1, 1, 2],
+            [2, 3, 2, 1],
+            [3, 1, 1, 2],
+            [2, 3, 3, 2],
+        ],
+        dtype=float,
+    )
+    colors = [COLORS["blue"], COLORS["teal"], COLORS["red"], COLORS["green"]]
+
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.9))
+    for yidx, color in enumerate(colors):
+        for xidx in range(len(resources)):
+            score = scores[yidx, xidx]
+            ax.scatter(
+                xidx,
+                yidx,
+                s=42 + 58 * score,
+                color=color,
+                alpha=0.22 + 0.18 * score,
+                edgecolors=COLORS["dark"],
+                linewidths=0.45,
+            )
+            ax.text(
+                xidx,
+                yidx,
+                ["L", "M", "H"][int(score) - 1],
+                ha="center",
+                va="center",
+                fontsize=5.8,
+                color=COLORS["dark"],
+                weight="bold",
+            )
+    ax.set_xticks(np.arange(len(resources)))
+    ax.set_xticklabels(resources)
+    ax.set_yticks(np.arange(len(workloads)))
+    ax.set_yticklabels(workloads)
+    ax.set_xlim(-0.55, len(resources) - 0.45)
+    ax.set_ylim(-0.55, len(workloads) - 0.45)
+    ax.invert_yaxis()
+    ax.grid(axis="both", linestyle=":", linewidth=0.45, color="#B9B9B9")
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+    ax.tick_params(axis="both", length=0, labelsize=6.2, pad=2)
+    fig.subplots_adjust(left=0.18, right=0.98, bottom=0.23, top=0.96)
+    path = os.path.join(FIG_DIR, "architecture_focus_matrix.pdf")
+    fig.savefig(path, bbox_inches="tight")
+    plt.close(fig)
+    return path
 
 
 def figure_weak_scaling():
@@ -852,13 +1223,19 @@ def main():
         figure_intro_paths(),
         figure_intro_threshold_summary(),
         figure_design_overview(),
+        figure_design_projection_flow(),
+        figure_design_workload_paths(),
+        figure_evaluation_evidence_flow(),
         figure_digits_legend(),
         figure_digits_speedup(),
         figure_digits_quality_runtime(),
         figure_practical_suite_legend(),
         figure_practical_suite(),
         figure_strong_native_comparison(),
+        figure_circuit_operation_mix(),
+        figure_workload_growth(),
         figure_advantage_frontier(),
+        figure_architecture_focus_matrix(),
         figure_workload_taxonomy(),
         figure_weak_scaling(),
         figure_strong_scaling(),

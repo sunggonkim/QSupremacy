@@ -25,8 +25,10 @@ bottleneck insights.
 | Item | Status |
 | --- | --- |
 | Manuscript PDF | `paper/main.pdf` builds successfully |
-| Body budget | 13 total pages; references start on page 12 |
+| Body budget | Main text through page 11; references start on page 12 |
 | Main suite | 3,552 cases on 32 Perlmutter GPU nodes |
+| 64-node fixed work | 3,552 cases in 261 seconds |
+| 64-node larger-workload gate | 7,104 cases in 514 seconds |
 | Workloads | ML, chemistry, optimization, scientific simulation |
 | Previous-paper structure audit | PASS via JSON artifacts |
 | Previous-paper LaTeX style audit | PASS via JSON artifacts |
@@ -82,6 +84,8 @@ scripts/run_login_smoke.sh
 | Previous-paper deep trace | `data/processed/perlmutter/previous_paper_deep_trace.json` |
 | Previous-paper style audit | `data/processed/perlmutter/previous_paper_style_audit.json` |
 | Main 32-node summary | `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.json` |
+| 64-node fixed-work summary | `data/processed/perlmutter/practical_suite_strongscale_64node_largefull_c0c255_20260705024742_summary.json` |
+| 64-node larger-workload summary | `data/processed/perlmutter/practical_suite_strongnative_64node_large256c0c255_20260705024742_summary.json` |
 | Advantage projection | `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.json` |
 | Workload taxonomy | `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_taxonomy.json` |
 

@@ -201,14 +201,52 @@ def main():
         "data/raw/perlmutter/accounting/"
         "sacct_practical_suite_strongnative_32node_large128c0c127_20260704060230.txt"
     )
+    large_64_json = (
+        "data/processed/perlmutter/"
+        "practical_suite_strongnative_64node_large256c0c255_20260705024742_summary.json"
+    )
+    large_64_csv = (
+        "data/processed/perlmutter/"
+        "practical_suite_strongnative_64node_large256c0c255_20260705024742_summary.csv"
+    )
+    strong_64_json = (
+        "data/processed/perlmutter/"
+        "practical_suite_strongscale_64node_largefull_c0c255_20260705024742_summary.json"
+    )
+    strong_64_csv = (
+        "data/processed/perlmutter/"
+        "practical_suite_strongscale_64node_largefull_c0c255_20260705024742_summary.csv"
+    )
+    large_64_accounting = (
+        "data/raw/perlmutter/accounting/"
+        "sacct_practical_suite_strongnative_64node_large256c0c255_20260705024742.txt"
+    )
+    strong_64_accounting = (
+        "data/raw/perlmutter/accounting/"
+        "sacct_practical_suite_strongscale_64node_largefull_c0c255_20260705024742.txt"
+    )
     large = load_json(large_json)
+    large_64 = load_json(large_64_json)
+    strong_64 = load_json(strong_64_json)
     large_checks = [
         check_exists(large_json),
         check_exists(large_csv),
         check_exists(large_accounting),
+        check_exists(large_64_json),
+        check_exists(large_64_csv),
+        check_exists(large_64_accounting),
+        check_exists(strong_64_json),
+        check_exists(strong_64_csv),
+        check_exists(strong_64_accounting),
         check_equals("summary_cases", large["cases"], 3552),
         check_equals("csv_cases", count_csv(large_csv), 3552),
+        check_equals("large_64_summary_cases", large_64["cases"], 7104),
+        check_equals("large_64_csv_cases", count_csv(large_64_csv), 7104),
+        check_equals("strong_64_summary_cases", strong_64["cases"], 3552),
+        check_equals("strong_64_csv_cases", count_csv(strong_64_csv), 3552),
         check_equals("accounting_completed", completed_accounting(large_accounting), True),
+        check_equals("large_64_accounting_completed", completed_accounting(large_64_accounting), True),
+        check_equals("strong_64_accounting_completed", completed_accounting(strong_64_accounting), True),
     ]
     for workload, cases in [
         ("ml", 2048),
@@ -226,7 +264,7 @@ def main():
     items.append(
         ok_item(
             "large_practical_suite",
-            "3,552-case strong-native practical suite on 32 Perlmutter GPU nodes",
+            "3,552-case strong-native suite plus 64-node fixed-work and larger-workload gates",
             [large_json, large_csv, large_accounting],
             large_checks,
         )
@@ -335,12 +373,19 @@ def main():
         "paper/figures/intro_comparison_paths.pdf",
         "paper/figures/intro_threshold_summary.pdf",
         "paper/figures/design_overview.pdf",
+        "paper/figures/design_projection_flow.pdf",
+        "paper/figures/design_workload_paths.pdf",
+        "paper/figures/evaluation_evidence_flow.pdf",
         "paper/figures/weak_scaling.pdf",
         "paper/figures/weak_scaling_efficiency.pdf",
         "paper/figures/strong_scaling.pdf",
         "paper/figures/strong_scaling_speedup.pdf",
+        "paper/figures/workload_growth_time.pdf",
+        "paper/figures/workload_growth_quality.pdf",
         "paper/figures/strong_native_comparison.pdf",
         "paper/figures/strong_native_quality_shift.pdf",
+        "paper/figures/circuit_operation_mix.pdf",
+        "paper/figures/architecture_focus_matrix.pdf",
         "paper/figures/practical_suite_legend.pdf",
         "paper/figures/practical_suite_summary.pdf",
         "paper/figures/practical_suite_cdf.pdf",
@@ -389,21 +434,28 @@ def main():
             ],
         ),
         check_text_contains(
-            "practical_suite_table_numbers",
+            "practical_suite_prose_numbers",
             "paper/4.Evaluation.tex",
             [
-                "ML & 2,048 & 2.09 & 7.26 & 3,726.4$\\times$ & 0.3125",
-                "Chemistry & 224 & 0.170 & 7.14 & 42,491.4$\\times$ & 0.0203",
-                "Optimization & 768 & 0.024 & 7.02 & 287,045.6$\\times$ & 0.2500",
-                "Simulation & 512 & 2.08 & 6.89 & 3,071.0$\\times$ & 0.0188",
+                "median native path is 2.09 ms for ML",
+                "0.170 ms for chemistry",
+                "0.024 ms for optimization",
+                "3,726.4$\\times$ for ML",
+                "42,491.4$\\times$ for chemistry",
+                "287,045.6$\\times$ for optimization",
+                "3,071.0$\\times$ for simulation",
+                "7,104-case larger-workload gate",
+                "64-node run completes 7,104 cases in 514 seconds",
+                "4 minutes 21 seconds",
             ],
         ),
         check_text_contains(
             "projection_and_repeat_numbers",
             "paper/4.Evaluation.tex",
             [
-                "Simulation & 0.01 & 54.9\\% & 71.9\\% & 71.9\\% & 100.0\\% & 100.0\\%",
-                "Chemistry & 0.01 & 0.0\\% & 57.1\\% & 57.1\\% & 100.0\\% & 100.0\\%",
+                "54.9\\% of measured simulation cases",
+                "57.1\\% of chemistry cases",
+                "22.9\\% of cases at 90\\% recovery",
                 "maximum quantum-runtime CV is 0.0400",
             ],
         ),

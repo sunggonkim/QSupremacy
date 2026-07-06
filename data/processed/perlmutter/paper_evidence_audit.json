@@ -64,6 +64,42 @@
           "passed": true
         },
         {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_strongnative_64node_large256c0c255_20260705024742_summary.json",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_strongnative_64node_large256c0c255_20260705024742_summary.csv",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_strongnative_64node_large256c0c255_20260705024742.txt",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_strongscale_64node_largefull_c0c255_20260705024742_summary.json",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_strongscale_64node_largefull_c0c255_20260705024742_summary.csv",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_strongscale_64node_largefull_c0c255_20260705024742.txt",
+          "passed": true
+        },
+        {
           "actual": 3552,
           "expected": 3552,
           "label": "summary_cases",
@@ -76,9 +112,45 @@
           "passed": true
         },
         {
+          "actual": 7104,
+          "expected": 7104,
+          "label": "large_64_summary_cases",
+          "passed": true
+        },
+        {
+          "actual": 7104,
+          "expected": 7104,
+          "label": "large_64_csv_cases",
+          "passed": true
+        },
+        {
+          "actual": 3552,
+          "expected": 3552,
+          "label": "strong_64_summary_cases",
+          "passed": true
+        },
+        {
+          "actual": 3552,
+          "expected": 3552,
+          "label": "strong_64_csv_cases",
+          "passed": true
+        },
+        {
           "actual": true,
           "expected": true,
           "label": "accounting_completed",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "large_64_accounting_completed",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "strong_64_accounting_completed",
           "passed": true
         },
         {
@@ -106,7 +178,7 @@
           "passed": true
         }
       ],
-      "claim": "3,552-case strong-native practical suite on 32 Perlmutter GPU nodes",
+      "claim": "3,552-case strong-native suite plus 64-node fixed-work and larger-workload gates",
       "evidence": [
         "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.json",
         "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv",
@@ -281,10 +353,15 @@
             "paper/figures/advantage_frontier_chemistry.pdf",
             "paper/figures/advantage_frontier_optimization.pdf",
             "paper/figures/advantage_frontier_simulation.pdf",
+            "paper/figures/architecture_focus_matrix.pdf",
+            "paper/figures/circuit_operation_mix.pdf",
             "paper/figures/design_overview.pdf",
+            "paper/figures/design_projection_flow.pdf",
+            "paper/figures/design_workload_paths.pdf",
             "paper/figures/digits_legend.pdf",
             "paper/figures/digits_quality_speedup.pdf",
             "paper/figures/digits_required_speedup.pdf",
+            "paper/figures/evaluation_evidence_flow.pdf",
             "paper/figures/intro_comparison_paths.pdf",
             "paper/figures/intro_threshold_summary.pdf",
             "paper/figures/practical_suite_cdf.pdf",
@@ -296,6 +373,8 @@
             "paper/figures/strong_scaling_speedup.pdf",
             "paper/figures/weak_scaling.pdf",
             "paper/figures/weak_scaling_efficiency.pdf",
+            "paper/figures/workload_growth_quality.pdf",
+            "paper/figures/workload_growth_time.pdf",
             "paper/figures/workload_taxonomy.pdf"
           ],
           "expected": [
@@ -303,10 +382,15 @@
             "paper/figures/advantage_frontier_chemistry.pdf",
             "paper/figures/advantage_frontier_optimization.pdf",
             "paper/figures/advantage_frontier_simulation.pdf",
+            "paper/figures/architecture_focus_matrix.pdf",
+            "paper/figures/circuit_operation_mix.pdf",
             "paper/figures/design_overview.pdf",
+            "paper/figures/design_projection_flow.pdf",
+            "paper/figures/design_workload_paths.pdf",
             "paper/figures/digits_legend.pdf",
             "paper/figures/digits_quality_speedup.pdf",
             "paper/figures/digits_required_speedup.pdf",
+            "paper/figures/evaluation_evidence_flow.pdf",
             "paper/figures/intro_comparison_paths.pdf",
             "paper/figures/intro_threshold_summary.pdf",
             "paper/figures/practical_suite_cdf.pdf",
@@ -318,6 +402,8 @@
             "paper/figures/strong_scaling_speedup.pdf",
             "paper/figures/weak_scaling.pdf",
             "paper/figures/weak_scaling_efficiency.pdf",
+            "paper/figures/workload_growth_quality.pdf",
+            "paper/figures/workload_growth_time.pdf",
             "paper/figures/workload_taxonomy.pdf"
           ],
           "label": "all_generated_figures_audited",
@@ -369,6 +455,48 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
+            "size_bytes": 28750
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/design_projection_flow.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 20390
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/design_workload_paths.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 11459
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/evaluation_evidence_flow.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
             "size_bytes": 8637
           },
           "expected": {
@@ -397,7 +525,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 9598
+            "size_bytes": 9288
           },
           "expected": {
             "exists": true,
@@ -411,7 +539,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 10429
+            "size_bytes": 10753
           },
           "expected": {
             "exists": true,
@@ -419,6 +547,34 @@
             "min_bytes": 1024
           },
           "label": "valid_pdf: paper/figures/strong_scaling_speedup.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 10532
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/workload_growth_time.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 16855
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/workload_growth_quality.pdf",
           "passed": true
         },
         {
@@ -453,6 +609,34 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
+            "size_bytes": 12817
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/circuit_operation_mix.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 16699
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/architecture_focus_matrix.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
             "size_bytes": 8044
           },
           "expected": {
@@ -467,7 +651,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 45073
+            "size_bytes": 45643
           },
           "expected": {
             "exists": true,
@@ -609,12 +793,19 @@
         "paper/figures/intro_comparison_paths.pdf",
         "paper/figures/intro_threshold_summary.pdf",
         "paper/figures/design_overview.pdf",
+        "paper/figures/design_projection_flow.pdf",
+        "paper/figures/design_workload_paths.pdf",
+        "paper/figures/evaluation_evidence_flow.pdf",
         "paper/figures/weak_scaling.pdf",
         "paper/figures/weak_scaling_efficiency.pdf",
         "paper/figures/strong_scaling.pdf",
         "paper/figures/strong_scaling_speedup.pdf",
+        "paper/figures/workload_growth_time.pdf",
+        "paper/figures/workload_growth_quality.pdf",
         "paper/figures/strong_native_comparison.pdf",
         "paper/figures/strong_native_quality_shift.pdf",
+        "paper/figures/circuit_operation_mix.pdf",
+        "paper/figures/architecture_focus_matrix.pdf",
         "paper/figures/practical_suite_legend.pdf",
         "paper/figures/practical_suite_summary.pdf",
         "paper/figures/practical_suite_cdf.pdf",
@@ -658,13 +849,19 @@
           },
           "expected": {
             "contains": [
-              "ML & 2,048 & 2.09 & 7.26 & 3,726.4$\\times$ & 0.3125",
-              "Chemistry & 224 & 0.170 & 7.14 & 42,491.4$\\times$ & 0.0203",
-              "Optimization & 768 & 0.024 & 7.02 & 287,045.6$\\times$ & 0.2500",
-              "Simulation & 512 & 2.08 & 6.89 & 3,071.0$\\times$ & 0.0188"
+              "median native path is 2.09 ms for ML",
+              "0.170 ms for chemistry",
+              "0.024 ms for optimization",
+              "3,726.4$\\times$ for ML",
+              "42,491.4$\\times$ for chemistry",
+              "287,045.6$\\times$ for optimization",
+              "3,071.0$\\times$ for simulation",
+              "7,104-case larger-workload gate",
+              "64-node run completes 7,104 cases in 514 seconds",
+              "4 minutes 21 seconds"
             ]
           },
-          "label": "practical_suite_table_numbers",
+          "label": "practical_suite_prose_numbers",
           "passed": true
         },
         {
@@ -674,8 +871,9 @@
           },
           "expected": {
             "contains": [
-              "Simulation & 0.01 & 54.9\\% & 71.9\\% & 71.9\\% & 100.0\\% & 100.0\\%",
-              "Chemistry & 0.01 & 0.0\\% & 57.1\\% & 57.1\\% & 100.0\\% & 100.0\\%",
+              "54.9\\% of measured simulation cases",
+              "57.1\\% of chemistry cases",
+              "22.9\\% of cases at 90\\% recovery",
               "maximum quantum-runtime CV is 0.0400"
             ]
           },
@@ -858,6 +1056,42 @@
         {
           "actual": true,
           "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_strongnative_64node_large256c0c255_20260705024742_summary.json",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_strongnative_64node_large256c0c255_20260705024742_summary.csv",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_strongnative_64node_large256c0c255_20260705024742.txt",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_strongscale_64node_largefull_c0c255_20260705024742_summary.json",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_strongscale_64node_largefull_c0c255_20260705024742_summary.csv",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_strongscale_64node_largefull_c0c255_20260705024742.txt",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
           "label": "exists: paper/figures/practical_suite_legend.pdf",
           "passed": true
         },
@@ -871,6 +1105,24 @@
           "actual": true,
           "expected": true,
           "label": "exists: paper/figures/practical_suite_cdf.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/circuit_operation_mix.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/workload_growth_time.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/workload_growth_quality.pdf",
           "passed": true
         },
         {
@@ -1122,6 +1374,24 @@
         {
           "actual": true,
           "expected": true,
+          "label": "exists: paper/figures/design_projection_flow.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/design_workload_paths.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/evaluation_evidence_flow.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
           "label": "exists: paper/figures/weak_scaling.pdf",
           "passed": true
         },
@@ -1146,6 +1416,18 @@
         {
           "actual": true,
           "expected": true,
+          "label": "exists: paper/figures/workload_growth_time.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/workload_growth_quality.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
           "label": "exists: paper/figures/strong_native_comparison.pdf",
           "passed": true
         },
@@ -1153,6 +1435,18 @@
           "actual": true,
           "expected": true,
           "label": "exists: paper/figures/strong_native_quality_shift.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/circuit_operation_mix.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/architecture_focus_matrix.pdf",
           "passed": true
         },
         {
@@ -1242,6 +1536,24 @@
         {
           "actual": true,
           "expected": true,
+          "label": "exists: paper/figures/design_projection_flow.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/design_workload_paths.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/evaluation_evidence_flow.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
           "label": "exists: paper/figures/weak_scaling.pdf",
           "passed": true
         },
@@ -1266,6 +1578,18 @@
         {
           "actual": true,
           "expected": true,
+          "label": "exists: paper/figures/workload_growth_time.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/workload_growth_quality.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
           "label": "exists: paper/figures/strong_native_comparison.pdf",
           "passed": true
         },
@@ -1273,6 +1597,18 @@
           "actual": true,
           "expected": true,
           "label": "exists: paper/figures/strong_native_quality_shift.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/circuit_operation_mix.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/architecture_focus_matrix.pdf",
           "passed": true
         },
         {

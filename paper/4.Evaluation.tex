@@ -17,106 +17,28 @@ Native paths are selected from workload-specific candidates. ML selects among si
 Short login runs are only correctness gates. Performance evidence must come from Slurm jobs with accounting records, raw JSON counts, and completed exit status. The completed campaign below separates calibration, application coverage, baseline stress, scaling, and timing stability.
 
 \noindent\textbf{Campaign Summary.}
-Table~\ref{tab:campaign-summary} lists the completed evidence used by the paper. The first two rows provide the main accuracy and threshold results. The next rows stress native-baseline strength, application coverage, scale-out behavior, and timing stability. This organization separates correctness gates from performance evidence and avoids treating a short smoke test as a performance claim.
+Figure~\ref{fig:evaluation-evidence-flow} shows the completed evidence used by the paper. The campaign starts with a 160-case controlled ML calibration, expands to a 3,552-case practical suite, stresses chemistry/simulation coverage with 116-case and 104-case gates, scales fixed work from 4 to 64 nodes, adds a 7,104-case larger-workload gate on 64 nodes, and finishes with 12 warmup-separated repeat trials. This organization separates correctness gates from performance evidence and avoids treating a short smoke test as a performance claim.
 
-\begin{table}[t]
-\caption{Completed Perlmutter evidence campaign.}
+\begin{figure}[t]
 \centering
-\scriptsize
-\renewcommand{\arraystretch}{1.15}
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{lrrl}
-\toprule
-Evidence & Nodes & Cases & Role \\
-\midrule
-Digits calibration & 1 & 160 & Controlled ML threshold \\
-Practical suite & 32 & 3,552 & Main application evidence \\
-Accept baseline gate & 1 & 116 & Chemistry/simulation baseline stress \\
-Chemistry coverage & 1 & 104 & OpenFermion/PySCF active spaces \\
-Weak scaling & 8--32 & 896--3,552 & Throughput scaling \\
-Fixed-work scaling & 4--32 & 3,552 & Time-to-solution scaling \\
-Repeat timing gate & 1 & 12 & Warmup-separated stability \\
-\bottomrule
-\end{tabular}
-}
-\label{tab:campaign-summary}
-\end{table}
-
-\begin{table}[t]
-\caption{Measured setup for the expanded digits sweep.}
-\centering
-\small
-\begin{tabular}{ll}
-\toprule
-Item & Value \\
-\midrule
-System & NERSC Perlmutter \\
-GPU & NVIDIA A100, 1 GPU per chunk \\
-cuQuantum & 26.01.0 \\
-Dataset & \texttt{sklearn digits} \\
-Class pairs & 0-vs-1, 3-vs-8, 4-vs-9, 5-vs-8 \\
-Samples & 128, 256 \\
-PCA dimensions & 4, 8, 12, 16 \\
-Native models & Logistic regression, MLP \\
-Quantum models & Quantum kernel, QNN/VQC \\
-Cases & 160 \\
-\bottomrule
-\end{tabular}
-\label{tab:eval-setup}
-\end{table}
+\includegraphics[width=0.98\linewidth]{figures/evaluation_evidence_flow.pdf}
+\Description{Evidence campaign flow from controlled calibration to main suite, coverage gates, scaling, and repeat timing.}
+\caption{Completed Perlmutter evidence campaign. The figure separates correctness, application coverage, scaling, and timing evidence instead of compressing the evaluation plan into a table.}
+\label{fig:evaluation-evidence-flow}
+\end{figure}
 
 \noindent\textbf{Evaluation Questions.}
-Table~\ref{tab:eval-questions} summarizes the evaluation flow. Each question maps to a measured table or figure, following the comparison--scalability--analysis structure used by our prior systems papers.
-
-\begin{table}[t]
-\caption{Evaluation roadmap.}
-\centering
-\scriptsize
-\renewcommand{\arraystretch}{1.15}
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{lll}
-\toprule
-Question & Goal & Main evidence \\
-\midrule
-Q1 & Measure end-to-end threshold landscape & Table~\ref{tab:expanded-summary}, Fig.~\ref{fig:digits-results}, Fig.~\ref{fig:practical-suite} \\
-Q2 & Explain component and baseline effects & Table~\ref{tab:practical-suite}, Fig.~\ref{fig:strong-native} \\
-Q3 & Validate application coverage & Table~\ref{tab:accept-baselines}, Table~\ref{tab:chem-coverage} \\
-Q4 & Separate weak and strong scaling & Fig.~\ref{fig:weak-scaling}, Fig.~\ref{fig:strong-scaling}, Table~\ref{tab:scaling} \\
-Q5 & Project advantage regions & Fig.~\ref{fig:advantage-frontier}, Table~\ref{tab:projection-fractions}, Fig.~\ref{fig:workload-taxonomy} \\
-Q6 & Translate results into architecture guidance & Table~\ref{tab:architecture-guidance}, Fig.~\ref{fig:workload-taxonomy} \\
-\bottomrule
-\end{tabular}
-}
-\label{tab:eval-questions}
-\end{table}
+The evaluation asks six questions in order: how large the end-to-end threshold is, how quality changes the interpretation, whether the practical suite behaves like the controlled case, how much native-baseline strength moves the target, whether bundled Perlmutter runs scale, and which future-system resource each workload needs. The answers are carried mainly by figures and observation boxes; tables are kept only where exact numeric summaries are more readable than prose.
 
 \subsection{End-to-End Threshold Landscape}
 
-Table~\ref{tab:expanded-summary} summarizes the expanded sweep. Native ML remains strong across the workload. Quantum kernels sometimes reach high quality, but the measured circuit path still requires hundreds of times faster projected execution to match the native path. QNN/VQC has a smaller required speedup in many cases, but its quality is usually below the native baseline.
-
-\begin{table}[t]
-\caption{Expanded digits sweep summary over 160 cases.}
-\centering
-\small
-\begin{tabular}{lccc}
-\toprule
-Metric & Min & Median & Max \\
-\midrule
-Native accuracy & 0.9219 & 1.0000 & 1.0000 \\
-Quantum kernel accuracy & 0.5312 & 0.8750 & 1.0000 \\
-QNN/VQC accuracy & 0.4688 & 0.7500 & 0.9531 \\
-Kernel required speedup & 338.6$\times$ & 421.9$\times$ & 1038.7$\times$ \\
-QNN/VQC required speedup & 21.1$\times$ & 64.9$\times$ & 171.7$\times$ \\
-\bottomrule
-\end{tabular}
-\label{tab:expanded-summary}
-\end{table}
+The expanded sweep contains 160 controlled digits cases over four class pairs, two sample counts, four PCA dimensions, multiple depths, and seeds. Native ML remains strong across the workload, with native accuracy between 0.9219 and 1.0000. Quantum kernels sometimes reach high quality, with median accuracy 0.8750, but the measured circuit path still requires hundreds of times faster projected execution to match the native path. QNN/VQC has a smaller required speedup in many cases, but its median accuracy is 0.7500 and usually below the native baseline.
 
 \begin{observationbox}
 \textbf{Observation 1:} The useful output is not ``quantum is faster'' or ``quantum is slower.'' The useful output is the hardware requirement. On the controlled ML sweep, quantum kernels need a median 421.9$\times$ execution improvement to reach native time, while QNN/VQC needs only 64.9$\times$ but usually misses native quality. This separates a speed bottleneck from a quality bottleneck.
 \end{observationbox}
 
-The digits circuits use one qubit per PCA feature dimension. Thus, the controlled sweep uses 4, 8, 12, and 16 qubits, matching Table~\ref{tab:eval-setup}. Figures~\ref{fig:digits-speedup} and~\ref{fig:digits-quality} are not hardware-roadmap plots over 50--1000 qubits; they are generated from the 160 measured case records and summarize threshold and quality versus the measured circuit configuration.
+The digits circuits use one qubit per PCA feature dimension. Thus, the controlled sweep uses 4, 8, 12, and 16 qubits. Figures~\ref{fig:digits-speedup} and~\ref{fig:digits-quality} are not hardware-roadmap plots over 50--1000 qubits; they are generated from the 160 measured case records and summarize threshold and quality versus the measured circuit configuration.
 
 \begin{figure}[t]
 \centering
@@ -147,26 +69,7 @@ The digits circuits use one qubit per PCA feature dimension. Thus, the controlle
 
 \subsubsection{Quality Sensitivity}
 
-Table~\ref{tab:class-sensitivity} shows that the threshold depends on the data pair. The easy pair, 0-vs-1, gives high quantum-kernel accuracy. Harder pairs such as 3-vs-8 and 5-vs-8 reduce quality and make a simple speedup claim invalid. This is exactly why \SystemName keeps quality and runtime together.
-
-\begin{table}[t]
-\caption{Class-pair sensitivity. Values are medians.}
-\centering
-\small
-\begin{tabular}{lcc}
-\toprule
-Class pair & Kernel acc. & QNN/VQC acc. \\
-\midrule
-0-vs-1 & 0.9688 & 0.8750 \\
-3-vs-8 & 0.8125 & 0.7266 \\
-4-vs-9 & 0.9375 & 0.7812 \\
-5-vs-8 & 0.8125 & 0.6562 \\
-\bottomrule
-\end{tabular}
-\label{tab:class-sensitivity}
-\end{table}
-
-Quality changes the interpretation of speed. A lower runtime threshold does not imply advantage if the quantum model misses the native target quality.
+The threshold depends on the data pair. The easy pair, 0-vs-1, gives high median quantum-kernel accuracy at 0.9688, while harder pairs such as 3-vs-8 and 5-vs-8 reduce the median to 0.8125. QNN/VQC follows the same pattern but at lower quality: 0.8750 on 0-vs-1 and 0.6562 on 5-vs-8. Quality therefore changes the interpretation of speed. A lower runtime threshold does not imply advantage if the quantum model misses the native target quality.
 
 \subsubsection{Practical Application Landscape}
 
@@ -174,24 +77,7 @@ The digits workload is useful because it is controlled, cheap, and easy to repea
 
 \SystemName also evaluates a practical suite beyond the controlled binary digits sweep. The suite covers ML classification, VQE-style chemistry, QAOA-style optimization, and Hamiltonian simulation. These workloads represent the application classes where users often expect quantum advantage, but the measured result shows that the threshold is application dependent and usually large. The main practical-suite result below uses the large 3,552-case profile on 32 GPU nodes. ML selects among six native classifiers, and optimization selects among exact, greedy, local-search, and annealing baselines. Chemistry and simulation use native numerical baselines on the same Hamiltonian instances and compare them with quantum-circuit executions simulated through \cuQuantum.
 
-\begin{table}[t]
-\caption{Large practical suite component summary over 3,552 cases. Values are medians.}
-\centering
-\scriptsize
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{lrrrrr}
-\toprule
-Workload & Cases & Native ms & QSim s & Required speedup & Quality gap \\
-\midrule
-ML & 2,048 & 2.09 & 7.26 & 3,726.4$\times$ & 0.3125 \\
-Chemistry & 224 & 0.170 & 7.14 & 42,491.4$\times$ & 0.0203 \\
-Optimization & 768 & 0.024 & 7.02 & 287,045.6$\times$ & 0.2500 \\
-Simulation & 512 & 2.08 & 6.89 & 3,071.0$\times$ & 0.0188 \\
-\bottomrule
-\end{tabular}
-}
-\label{tab:practical-suite}
-\end{table}
+Across 3,552 cases, native execution remains extremely fast: the median native path is 2.09 ms for ML, 0.170 ms for chemistry, 0.024 ms for optimization, and 2.08 ms for simulation. The simulated circuit path is roughly seven seconds per case. This creates median required speedups of 3,726.4$\times$ for ML, 42,491.4$\times$ for chemistry, 287,045.6$\times$ for optimization, and 3,071.0$\times$ for simulation. These numbers are not a final hardware claim; they are the measured input to the projection model.
 
 \begin{figure}[t]
 \centering
@@ -202,22 +88,24 @@ Simulation & 512 & 2.08 & 6.89 & 3,071.0$\times$ & 0.0188 \\
 \end{subfigure}
 \vspace{-0.55em}
 
-\begin{subfigure}{0.48\linewidth}
+\begin{subfigure}{0.84\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figures/practical_suite_summary.pdf}
     \caption{Runtime-quality landscape.}
     \label{fig:practical-suite-landscape}
 \end{subfigure}
-\begin{subfigure}{0.48\linewidth}
-    \centering
-    \includegraphics[width=\linewidth]{figures/practical_suite_cdf.pdf}
-    \caption{Threshold distribution.}
-    \label{fig:practical-suite-cdf}
-\end{subfigure}
 \vspace{-.1cm}
-\Description{Scatter and CDF views of required speedup and quality gap for all 3,552 measured practical-suite cases.}
-\caption{Large practical-suite landscape over 3,552 cases. The first panel keeps both axes that matter for advantage: required speedup and quality gap. The second panel shows the full threshold distribution rather than only one bar per workload.}
+\Description{Scatter view of required speedup and quality gap for all 3,552 measured practical-suite cases.}
+\caption{Large practical-suite landscape over 3,552 cases. The plot keeps both axes that matter for advantage: required speedup and quality gap. A workload is not close to advantage unless it moves left in runtime and down in quality gap.}
 \label{fig:practical-suite}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.98\linewidth]{figures/circuit_operation_mix.pdf}
+\Description{Stacked operation mix by workload showing one-qubit gates, two-qubit gates, measurements, circuit evaluations, and median simulated runtime.}
+\caption{Circuit-operation pressure by workload. The measured circuit path spends work differently across families: ML is dominated by feature-map evaluations, optimization by repeated QAOA grids, chemistry by VQE term evaluation, and simulation by fewer but state-evolution-heavy circuits.}
+\label{fig:circuit-operation-mix}
 \end{figure}
 
 \begin{observationbox}
@@ -255,72 +143,33 @@ The strong-native run completed as a one-node, four-GPU bundled allocation on \P
 \noindent\textbf{Baseline Coverage Gate.}
 We also run a separate accept-profile gate to strengthen the two application families that are easiest to criticize as toy baselines: chemistry and scientific simulation. The chemistry gate includes OpenFermion and PySCF-generated H$_2$, LiH, and H$_2$O active-space Hamiltonians, in addition to the built-in minimal H$_2$ and molecular-chain surrogate. The committed fixture set now includes LiH and H$_2$O active spaces at 4, 6, and 8 qubits; the 6--8 qubit fixtures pass a login-node smoke gate before larger allocation runs. The simulation gate compares dense exact evolution with sparse Krylov evolution on TFIM and Heisenberg Hamiltonians from 4 to 8 qubits.
 
-\begin{table}[t]
-\caption{Accept-profile baseline-coverage gate on one \Perlmutter GPU node.}
-\centering
-\small
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{lcccl}
-\toprule
-Workload & Cases & Required speedup & Quality gap & Selected native model \\
-\midrule
-Chemistry & 56 & 63,566.8$\times$ & 0.4468 & Dense exact: 56 \\
-Simulation & 60 & 4,185.2$\times$ & 0.0237 & Dense exact: 26; sparse Krylov: 34 \\
-\bottomrule
-\end{tabular}
-}
-\label{tab:accept-baselines}
-\end{table}
-
-Table~\ref{tab:accept-baselines} shows that the strengthened chemistry and simulation baselines execute correctly in the same bundled one-node run. The job completed 116 cases in 6 minutes and 5 seconds with exit code 0:0; each of the four A100 tasks completed 29 cases, and stderr logs were empty. For chemistry, both dense exact and sparse Lanczos/eigensolver candidates were evaluated for every case. The selected runtime baseline is dense exact for all 56 cases because these active-space Hamiltonians are still small, but the run now uses OpenFermion and PySCF instances instead of only a hand-written surrogate. For simulation, sparse Krylov becomes the selected native method in 34 of 60 cases, especially at 6--8 qubits, showing that the native path is no longer a single dense solver.
+The strengthened chemistry and simulation baselines execute correctly in the same bundled one-node run. The job completed 116 cases in 6 minutes and 5 seconds with exit code 0:0; each of the four A100 tasks completed 29 cases, and stderr logs were empty. Chemistry reports a median 63,566.8$\times$ required speedup over 56 cases, and simulation reports 4,185.2$\times$ over 60 cases. For chemistry, both dense exact and sparse Lanczos/eigensolver candidates are evaluated for every case. The selected runtime baseline is dense exact for these small active-space Hamiltonians, but the run now uses OpenFermion and PySCF instances instead of only a hand-written surrogate. For simulation, sparse Krylov becomes the selected native method in 34 of 60 cases, especially at 6--8 qubits, showing that the native path is no longer a single dense solver.
 
 \noindent\textbf{Chemistry Active-space Coverage.}
-We then run the expanded chemistry-only accept profile with the 4--8 qubit OpenFermion and PySCF fixture set. Job 55515248 completed 104 chemistry cases on one \Perlmutter GPU node in 5 minutes and 23 seconds with exit code 0:0, 104 raw JSON outputs, and empty stderr. Table~\ref{tab:chem-coverage} shows the larger active-space subset. Dense exact remains the selected runtime baseline because these fixtures are still small, but sparse Lanczos is the best-quality native method in 62 of 104 cases. This result upgrades the chemistry evidence from a login smoke to a completed GPU coverage gate, while still reporting the limitation that these are active-space instances rather than production drug-discovery scale.
-
-\begin{table}[t]
-\caption{OpenFermion and PySCF chemistry active-space coverage gate.}
-\centering
-\small
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{lcccc}
-\toprule
-Problem & Qubits & Cases & Required speedup & Tol.-scaled gap \\
-\midrule
-LiH active & 6 & 12 & 21,847.9$\times$ & 0.3030 \\
-LiH active & 8 & 12 & 821.5$\times$ & 0.6299 \\
-H$_2$O active & 6 & 12 & 21,613.0$\times$ & 1.0365 \\
-H$_2$O active & 8 & 12 & 788.0$\times$ & 1.0916 \\
-\bottomrule
-\end{tabular}
-}
-\label{tab:chem-coverage}
-\end{table}
-
-The last column is a tolerance-scaled error gap, not a probability or bounded accuracy loss. Values above one mean that the measured circuit path is more than one workload tolerance away from the native/reference target. This distinction is important for H$_2$O active-space rows: they are useful as failure evidence, but they are not near-quality advantage cases.
+We then run the expanded chemistry-only accept profile with the 4--8 qubit OpenFermion and PySCF fixture set. Job 55515248 completed 104 chemistry cases on one \Perlmutter GPU node in 5 minutes and 23 seconds with exit code 0:0, 104 raw JSON outputs, and empty stderr. The larger active-space subset includes LiH and H$_2$O at 6 and 8 qubits. LiH active-space cases require 21,847.9$\times$ at 6 qubits and 821.5$\times$ at 8 qubits; H$_2$O requires 21,613.0$\times$ at 6 qubits and 788.0$\times$ at 8 qubits. Dense exact remains the selected runtime baseline because these fixtures are still small, but sparse Lanczos is the best-quality native method in 62 of 104 cases. This result upgrades the chemistry evidence from a login smoke to a completed GPU coverage gate, while still reporting the limitation that these are active-space instances rather than production drug-discovery scale. The tolerance-scaled H$_2$O gaps exceed one, so those rows are useful failure evidence rather than near-quality advantage cases.
 
 \subsection{Perlmutter Scaling Analysis}
 
-The large-profile suite contains 3,552 application cases. We evaluate two scaling modes. In weak scaling, each GPU receives roughly 28 cases, so total work grows with the number of GPUs. In fixed-work scaling, every run executes the same 3,552 cases and the chunk slots are striped across the available GPUs. Both modes use one Slurm task per A100 GPU and independent application cases; this is throughput scaling, not distributed single-circuit simulation.
+The large-profile suite contains 3,552 application cases. We evaluate two scaling modes and one larger-workload gate. In weak scaling, each GPU receives roughly 28 cases, so total work grows with the number of GPUs; this comparable-profile sweep covers 8--32 nodes. In fixed-work scaling, every run executes the same 3,552 cases and the chunk slots are striped across the available GPUs from 4 to 64 nodes. The separate 64-node larger-workload gate doubles the completed case count to 7,104 and checks whether time and quality remain interpretable at that scale. All modes use one Slurm task per A100 GPU and independent application cases; this is throughput scaling, not distributed single-circuit simulation.
 
-\begin{table}[t]
-\caption{Large-profile weak and fixed-work scaling on \Perlmutter.}
+\begin{figure}[t]
 \centering
-\small
-\begin{tabular}{lrrrr}
-\toprule
-Mode & Nodes & GPUs & Cases & Elapsed \\
-\midrule
-Weak & 8 & 32 & 896 & 4:05 \\
-Weak & 16 & 64 & 1,792 & 4:04 \\
-Weak & 32 & 128 & 3,552 & 4:17 \\
-Fixed work & 4 & 16 & 3,552 & 30:55 \\
-Fixed work & 8 & 32 & 3,552 & 15:13 \\
-Fixed work & 16 & 64 & 3,552 & 11:05 \\
-Full profile & 32 & 128 & 3,552 & 4:17 \\
-\bottomrule
-\end{tabular}
-\label{tab:scaling}
-\end{table}
+\begin{subfigure}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/workload_growth_time.pdf}
+    \caption{Work grows with nodes.}
+    \label{fig:workload-growth-time}
+\end{subfigure}
+\begin{subfigure}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/workload_growth_quality.pdf}
+    \caption{Quality remains stable.}
+    \label{fig:workload-growth-quality}
+\end{subfigure}
+\Description{Workload-growth results comparing 32 and 64 node runs. Elapsed time doubles as cases double, while median quality gaps remain stable by workload.}
+\caption{Larger-workload gate on 64 \Perlmutter GPU nodes. The 64-node run completes 7,104 cases in 514 seconds with empty stderr logs. The larger run preserves the workload-level quality interpretation, so the extra cases increase evidence coverage rather than changing the advantage conclusion.}
+\label{fig:workload-growth}
+\end{figure}
 
 \subsubsection{Weak Scaling}
 
@@ -340,11 +189,11 @@ Full profile & 32 & 128 & 3,552 & 4:17 \\
 \end{subfigure}
 \vspace{-.1cm}
 \Description{Weak scaling plot showing total throughput and normalized per-GPU throughput from 8 to 32 Perlmutter GPU nodes.}
-\caption{Weak scaling of the large-profile application suite. Total throughput grows nearly linearly from 8 to 32 nodes while normalized per-GPU throughput remains close to the 8-node reference.}
+\caption{Weak scaling of the comparable large-profile application suite. Total throughput grows nearly linearly from 8 to 32 nodes while normalized per-GPU throughput remains close to the 8-node reference.}
 \label{fig:weak-scaling}
 \end{figure}
 
-All weak-scaling jobs completed with exit code 0:0. The generated raw JSON counts match the expected case counts: 896, 1,792, and 3,552. No failed case, traceback, or timeout was recorded in the task logs. The result is the desired throughput behavior for this workflow: total throughput grows with nodes while the per-GPU rate stays close to stable. This matters because the advantage model is produced by many independent application cases, so throughput scaling determines how quickly the frontier can be mapped.
+All comparable weak-scaling jobs completed with exit code 0:0. The generated raw JSON counts match the expected case counts: 896, 1,792, and 3,552. No failed case, traceback, or timeout was recorded in the task logs. The result is the desired throughput behavior for this workflow: total throughput grows with nodes while the per-GPU rate stays close to stable. This matters because the advantage model is produced by many independent application cases, so throughput scaling determines how quickly the frontier can be mapped.
 
 \subsubsection{Strong Scaling}
 
@@ -363,12 +212,16 @@ All weak-scaling jobs completed with exit code 0:0. The generated raw JSON count
     \label{fig:strong-scaling-speedup}
 \end{subfigure}
 \vspace{-.1cm}
-\Description{Strong scaling plot showing elapsed time, speedup, and efficiency for the fixed 3,552-case suite from 4 to 32 Perlmutter GPU nodes.}
-\caption{Strong scaling of the fixed 3,552-case application suite. The run reduces time-to-solution from 30 minutes 55 seconds on four nodes to 4 minutes 17 seconds on 32 nodes.}
+\Description{Strong scaling plot showing elapsed time, speedup, and efficiency for the fixed 3,552-case suite from 4 to 64 Perlmutter GPU nodes.}
+\caption{Strong scaling of the fixed 3,552-case application suite. The run reduces time-to-solution from 30 minutes 55 seconds on four nodes to about 4 minutes 20 seconds on 32--64 nodes, where task granularity and case imbalance become the limit.}
 \label{fig:strong-scaling}
 \end{figure}
 
-The fixed-work result measures time-to-solution for the same 3,552 cases. It reduces elapsed time from 30 minutes 55 seconds on four nodes to 4 minutes 17 seconds on the matching 32-node full-profile point, a 7.2$\times$ speedup over an 8$\times$ node increase. The non-ideal 16-node point exposes a useful systems fact rather than a paper problem: application-level sweeps inherit chunk imbalance and per-case variability even when the Slurm layout is correct. This validates the bundled multi-node execution path and also motivates reporting both weak and strong scaling instead of compressing them into one bar chart.
+The fixed-work result measures time-to-solution for the same 3,552 cases. It reduces elapsed time from 30 minutes 55 seconds on four nodes to 4 minutes 17 seconds on 32 nodes, a 7.2$\times$ speedup over an 8$\times$ node increase. The 64-node run completes in 4 minutes 21 seconds, nearly identical to the 32-node result. This plateau is not a failure of \cuQuantum; it is a workflow-level limit. Once chunks are small, orchestration overhead and per-case variability dominate the bundled application sweep. This validates the bundled multi-node execution path and also motivates reporting both weak and strong scaling instead of compressing them into one bar chart.
+
+\begin{observationbox}
+\textbf{Observation 4:} More nodes help until the application sweep runs out of useful task granularity. Weak scaling remains healthy over the comparable 8--32 node profile, but fixed-work strong scaling saturates after 32 nodes even though the 64-node larger-workload gate completes successfully. For this modeling workflow, architecture effort should improve per-case circuit execution and scheduling granularity, not only allocate more GPUs.
+\end{observationbox}
 
 \subsection{Advantage Frontier and Bottleneck Analysis}
 
@@ -408,49 +261,19 @@ The practical-suite result gives one speed threshold per case, but a speed-only 
 \end{figure}
 
 \begin{observationbox}
-\textbf{Observation 4:} The frontier separates speed-limited and quality-limited workloads. Chemistry and simulation often have small quality gaps, so their frontier is mostly pushed right by runtime. ML and optimization require quality recovery before faster gates matter. Thus, the architecture target is a feasible region over speed and quality, not a single global speedup slogan.
+\textbf{Observation 5:} The frontier separates speed-limited and quality-limited workloads. Chemistry and simulation often have small quality gaps, so their frontier is mostly pushed right by runtime. ML and optimization require quality recovery before faster gates matter. Thus, the architecture target is a feasible region over speed and quality, not a single global speedup slogan.
 \end{observationbox}
 
 \noindent\textbf{Tolerance Sensitivity.}
-The projection table reports the tolerance used for each family. These values are intentionally strict and are treated as model inputs, not universal domain standards. A looser tolerance moves quality-limited cases toward the frontier; a stricter tolerance moves them away. The raw projection artifact records the full grid so the table can be regenerated under other tolerances without rerunning the Perlmutter jobs.
+The projection uses strict family tolerances: 0.02 for ML and optimization and 0.01 for chemistry and simulation. These values are model inputs, not universal domain standards. A looser tolerance moves quality-limited cases toward the frontier; a stricter tolerance moves them away. The raw projection artifact records the full grid so the analysis can be regenerated under other tolerances without rerunning the Perlmutter jobs.
 
-\begin{table}[t]
-\caption{Projected advantage fraction from the 3,552-case strong-native suite.}
+\begin{figure}[t]
 \centering
-\small
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{lcccccc}
-\toprule
-Workload & Tol. & $10^4\times$, 90\% & $10^5\times$, 90\% & $10^6\times$, 90\% & $10^5\times$, 100\% & $10^6\times$, 100\% \\
-\midrule
-ML & 0.02 & 6.6\% & 9.8\% & 9.8\% & 99.9\% & 100.0\% \\
-Chemistry & 0.01 & 0.0\% & 57.1\% & 57.1\% & 100.0\% & 100.0\% \\
-Optimization & 0.02 & 0.0\% & 0.0\% & 22.9\% & 0.4\% & 100.0\% \\
-Simulation & 0.01 & 54.9\% & 71.9\% & 71.9\% & 100.0\% & 100.0\% \\
-\bottomrule
-\end{tabular}
-}
-\label{tab:projection-fractions}
-\end{table}
-
-\begin{table}[t]
-\caption{Architecture guidance implied by the measured frontier.}
-\centering
-\footnotesize
-\renewcommand{\arraystretch}{1.12}
-\setlength{\tabcolsep}{2pt}
-\begin{tabular}{@{}llp{0.46\columnwidth}@{}}
-\toprule
-Workload & Primary limiter & Future-system implication \\
-\midrule
-ML & Quality gap & Gate speed has low value until encoding/noise/ansatz quality improves \\
-Chemistry & Speed then quality & Prioritize logical-gate throughput, decoder overhead, and chemistry-quality recovery \\
-Optimization & Quality and depth & Improve ansatz/objective quality before spending area only on faster execution \\
-Simulation & Speed and shots & Best early target for faster logical operations and shot-level parallelism \\
-\bottomrule
-\end{tabular}
-\label{tab:architecture-guidance}
-\end{table}
+\includegraphics[width=0.96\linewidth]{figures/architecture_focus_matrix.pdf}
+\Description{Architecture focus matrix showing low, medium, and high priorities for quality encoding, logical speed, shot parallelism, and native co-design across workloads.}
+\caption{Architecture focus implied by the measured frontier and bottleneck taxonomy. L/M/H labels summarize where future-system effort is likely to matter first for each workload family.}
+\label{fig:architecture-focus}
+\end{figure}
 
 \subsubsection{Hardware Projection Model}
 
@@ -462,10 +285,10 @@ S \geq \frac{T_{qsim}}{T_{native}}
 \]
 where $\Delta Q$ is the measured quality gap in the workload's natural units and $\epsilon_w$ is the workload tolerance. The recovery parameter $R$ is not a measured error-mitigation result; it is a requirement axis. Thus, a point on the frontier says how much algorithmic, mitigation, or fault-tolerance improvement would be needed before runtime speedup matters.
 
-Table~\ref{tab:projection-fractions} turns the frontier into concrete hardware targets. Simulation is the closest family: with 90\% quality-gap recovery, a $10^4\times$ projected execution improvement covers 54.9\% of measured simulation cases. Chemistry needs a larger runtime shift: at the same recovery level, $10^5\times$ covers 57.1\% of chemistry cases. ML shows the opposite behavior. A $10^5\times$ speed improvement covers only 9.8\% of ML cases at 90\% recovery, but almost all cases if the quality gap is fully closed. Optimization is the hardest family in the current suite; even $10^6\times$ speedup covers only 22.9\% of cases at 90\% recovery and requires full quality recovery to cover all cases.
+The frontier turns measured runs into concrete hardware targets. Simulation is the closest family: with 90\% quality-gap recovery, a $10^4\times$ projected execution improvement covers 54.9\% of measured simulation cases. Chemistry needs a larger runtime shift: at the same recovery level, $10^5\times$ covers 57.1\% of chemistry cases. ML shows the opposite behavior. A $10^5\times$ speed improvement covers only 9.8\% of ML cases at 90\% recovery, but almost all cases if the quality gap is fully closed. Optimization is the hardest family in the current suite; even $10^6\times$ speedup covers only 22.9\% of cases at 90\% recovery and requires full quality recovery to cover all cases.
 
 \begin{observationbox}
-\textbf{Observation 5:} Table~\ref{tab:architecture-guidance} converts the frontier into design guidance. Faster logical operations and shot-level parallelism are most valuable for simulation and part of chemistry. For ML and optimization, the priority shifts to quality-preserving encodings, error suppression, better ansatz structure, and reducing classical-quantum iteration overhead; faster gates alone do not create advantage.
+\textbf{Observation 6:} Figure~\ref{fig:architecture-focus} converts the frontier into design guidance. Faster logical operations and shot-level parallelism are most valuable for simulation and part of chemistry. For ML and optimization, the priority shifts to quality-preserving encodings, error suppression, better ansatz structure, and reducing classical-quantum iteration overhead; faster gates alone do not create advantage.
 \end{observationbox}
 
 \subsubsection{Bottleneck Taxonomy}
@@ -480,7 +303,7 @@ The main evaluation output is not that the simulator is slow. The simulator is t
 \label{fig:workload-taxonomy}
 \end{figure}
 
-Figure~\ref{fig:workload-taxonomy} shows this classification for the 3,552-case large run using the same family tolerances as Table~\ref{tab:projection-fractions}. ML is quality-limited in all 2,048 cases because the quantum feature path does not match the selected native classifier accuracy. Optimization is also quality-limited in all 768 cases because the current QAOA grid has a large objective gap. Chemistry has 48 speed-limited cases and 176 quality-limited cases. Simulation splits evenly, with 256 speed-limited cases and 256 quality-limited cases.
+Figure~\ref{fig:workload-taxonomy} shows this classification for the 3,552-case large run using the same family tolerances as the projection frontier. ML is quality-limited in all 2,048 cases because the quantum feature path does not match the selected native classifier accuracy. Optimization is also quality-limited in all 768 cases because the current QAOA grid has a large objective gap. Chemistry has 48 speed-limited cases and 176 quality-limited cases. Simulation splits evenly, with 256 speed-limited cases and 256 quality-limited cases.
 
 This classification is the practical insight. If a workload is speed-limited, faster logical gates or more shot parallelism may move it into the advantage region. If it is quality-limited, faster hardware alone is not enough. If it is native-dominated, the correct conclusion is that the native HPC baseline remains the better application path unless the quantum algorithm changes.
 

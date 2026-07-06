@@ -1,7 +1,7 @@
 \section{\SystemName Design}
 
 \noindent\textbf{Overview of \SystemName's Design.}
-\SystemName is designed to answer one architecture question: which future quantum-system resource must improve before a quantum-circuit application can beat the native HPC application for the same task? Figure~\ref{fig:design-overview} summarizes the key components. First, \SystemName uses \textit{Shared Workload Control} to ensure that all paths use the same input instance and quality target. Second, it uses \textit{Native Path Execution} to establish a strong classical baseline. Third, it uses \textit{Quantum Path Execution} to run quantum kernels, QNN/VQC, VQE, QAOA, and Hamiltonian simulation circuits with \cuQuantum. Finally, it uses \textit{Architecture Projection} to estimate the logical-operation speed, shot throughput, quality recovery, and non-kernel overhead budgets required by future quantum systems.
+\SystemName is designed to answer one architecture question: which future quantum-system resource must improve before a quantum-circuit application can beat the native HPC application for the same task? Figure~\ref{fig:design-overview} summarizes the execution path, and Figure~\ref{fig:design-projection-flow} shows how measurements become a bottleneck decision. First, \SystemName fixes the input and quality target. It then measures a native path and a quantum-circuit path, records the circuit metadata, and projects the hardware region where the quantum path would break even.
 
 \noindent\textbf{Design Boundary.}
 \SystemName is not a new quantum circuit simulator, compiler, or quantum algorithm. It treats existing simulators and native methods as execution engines behind a controlled workload interface. The design contribution is the measurement discipline and projection interface: same input, same quality metric, strongest valid native path, measured quantum-circuit path, and explicit architecture bottleneck classification. This boundary is important because faster simulation alone does not answer whether a future quantum computer would beat the native application or which architecture knob would make the difference.
@@ -30,26 +30,15 @@ After measurement, \SystemName reads the circuit metadata and runtime breakdown.
 \noindent\textbf{Architecture Variables.}
 The projection plane exposes four groups of future-system variables. The first group is \textit{logical execution speed}: one-qubit gate latency, two-qubit gate latency, measurement latency, and controller scheduling overhead. The second group is \textit{shot parallelism}: how many independent circuit evaluations can run concurrently without exceeding the device, decoder, or queue budget. The third group is \textit{quality recovery}: algorithmic improvement, error mitigation, or fault tolerance that reduces the measured output gap. The fourth group is \textit{host and data overhead}: encoding, compilation, optimizer feedback, and postprocessing that remain outside the quantum kernel. \SystemName keeps these variables separate so an advantage frontier can say whether an architecture needs faster logical gates, more parallel shots, lower error overhead, or a better algorithm before speed matters.
 
-\begin{table}[t]
-\caption{Design outputs and the evaluation evidence they enable.}
-\centering
-\scriptsize
-\renewcommand{\arraystretch}{1.12}
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{lll}
-\toprule
-Design output & Evaluation evidence & Architecture decision \\
-\midrule
-Native runtime floor & Fig.~\ref{fig:strong-native} & Baseline-aware speed target \\
-Circuit runtime and gates & Fig.~\ref{fig:digits-results}, Fig.~\ref{fig:practical-suite} & Logical-operation throughput \\
-Repeated evaluations/shots & Fig.~\ref{fig:weak-scaling} & Shot and sweep parallelism \\
-Quality gap & Fig.~\ref{fig:advantage-frontier}, Table~\ref{tab:architecture-guidance} & Error recovery or algorithm redesign \\
-Case-level bottleneck & Fig.~\ref{fig:workload-taxonomy} & Speed-, quality-, or native-limited class \\
-\bottomrule
-\end{tabular}
-}
-\label{tab:design-eval-bridge}
-\end{table}
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/design_projection_flow.pdf}
+    \Description{Projection flow from measured native and circuit paths to break-even search, frontier sweep, and bottleneck labels.}
+    \caption{Projection flow in \SystemName. Measurements are not the final answer; they are inverted into speed, quality, shot, and native-baseline requirements.}
+    \label{fig:design-projection-flow}
+\end{figure}
+
+The important output is a bottleneck label, not another timing table. A speed-limited case points to logical-operation throughput or shot parallelism. A quality-limited case points to encoding, ansatz, noise, mitigation, or fault-tolerance quality. A native-limited case says that the classical software stack moved the break-even target and the quantum algorithm must change.
 
 \noindent\emph{Failure handling.}
 \SystemName treats failed paths as measurement results rather than silently dropping them. If a native candidate fails, the record keeps the error and continues with other native candidates. If a quantum path fails, the record keeps the circuit metadata available up to the failure point and marks the case as non-advantaged. This rule is important for large sweeps because feasibility is part of the systems question. A workload that only succeeds after removing difficult cases would overstate the advantage frontier.
@@ -169,50 +158,16 @@ After the sweep, each case is assigned a primary limiting factor. A case is spee
 
 \subsection{Advantage Claim Checklist}
 
-A practical quantum-advantage claim should pass a small set of systems checks before it is treated as meaningful. Table~\ref{tab:claim-checklist} lists the checks used by \SystemName. The checklist is intentionally strict because a weak native baseline, a different input instance, or a lower-quality quantum output can all create a false impression of advantage.
-
-\begin{table}[t]
-\caption{Checklist for a practical quantum-advantage claim.}
-\centering
-\small
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{lll}
-\toprule
-\textbf{Check} & \textbf{Question} & \textbf{\SystemName evidence} \\
-\midrule
-Same task & Are native and quantum paths solving the same input? & Shared workload config \\
-Same quality & Does the quantum path meet the native target? & Accuracy, energy, objective, observable gap \\
-Strong native & Is the native path the fastest valid baseline? & Baseline selection rule \\
-End-to-end cost & Are encoding, execution, measurement, and postprocess included? & Runtime breakdown and metadata \\
-Hardware projection & What future quantum speed is required? & Required speedup and frontier \\
-Error/shot overhead & Could shots or error correction erase speedup? & Projection parameters and sensitivity \\
-Architecture bottleneck & Which future-system resource matters most? & Frontier classification and taxonomy \\
-Repeatability & Can the result be regenerated on the system? & Slurm scripts, summaries, accounting \\
-\bottomrule
-\end{tabular}
-}
-\label{tab:claim-checklist}
-\end{table}
+A practical quantum-advantage claim is accepted only if the native and quantum paths solve the same input, use the same quality target, include end-to-end application cost, and compare against the strongest valid native baseline available in the experiment. \SystemName then asks whether the remaining requirement is speed, shots, error/control overhead, quality recovery, or algorithmic change. This is stricter than reporting a fast circuit kernel, but it prevents a different input, a weaker native path, or a lower-quality quantum output from looking like advantage.
 
 \subsection{Workload Suite}
 
-Table~\ref{tab:workload-suite} shows the measured workload suite. The digits workload is the controlled calibration case. The practical suite covers the application families that motivate many real-world quantum-computing claims.
+Figure~\ref{fig:design-workload-paths} shows the measured workload suite. The digits workload is the controlled calibration case. The practical suite covers the application families that motivate many real-world quantum-computing claims: AI classification, molecular energy estimation, combinatorial optimization, and Hamiltonian simulation. Each row keeps the same comparison discipline: native path, quantum-circuit path, and quality target are fixed before runtime is interpreted.
 
-\begin{table}[t]
-\caption{Measured workload suite.}
-\centering
-\small
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{llll}
-\toprule
-\textbf{Family} & \textbf{Native path} & \textbf{Quantum path} & \textbf{Quality target} \\
-\midrule
-ML classification & Logistic/MLP/SVM & Kernel, QNN/VQC & Accuracy, loss \\
-Drug discovery & Classical energy/surrogate & VQE energy circuit & Energy error, rank quality \\
-Optimization & MILP/heuristic/GPU search & QAOA circuit & Objective gap \\
-Scientific simulation & Classical solver & Hamiltonian simulation & State/error metric \\
-\bottomrule
-\end{tabular}
-}
-\label{tab:workload-suite}
-\end{table}
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/design_workload_paths.pdf}
+    \Description{Workload map showing native paths, quantum-circuit paths, and quality targets for ML, chemistry, optimization, and simulation.}
+    \caption{Measured workload paths. The suite covers practical application families while preserving same-input and same-quality comparisons.}
+    \label{fig:design-workload-paths}
+\end{figure}

@@ -194,16 +194,26 @@ def main():
             "lowercase lead-ins: {}".format(current_metrics["lowercase_noindent_textbf"]),
         ),
         check(
-            "dense_table_style_present",
-            current_metrics["scriptsize"] >= 2 and current_metrics["arraystretch"] >= 2,
-            "scriptsize={}, arraystretch={}".format(
-                current_metrics["scriptsize"], current_metrics["arraystretch"]
+            "compact_visual_style_present",
+            current_metrics["subfigure_environment"] >= 12
+            and current_metrics["legend_subfigures"] >= 2
+            and current_metrics["vspace"] >= 4,
+            "subfigures={}, legend-only subfigures={}, vspace={}".format(
+                current_metrics["subfigure_environment"],
+                current_metrics["legend_subfigures"],
+                current_metrics["vspace"],
             ),
         ),
         check(
-            "booktabs_table_style_present",
-            current_metrics["booktabs_rules"] >= 20,
-            "booktabs rules: {}".format(current_metrics["booktabs_rules"]),
+            "limited_tables_use_booktabs",
+            current_metrics["table"] <= 2
+            and current_metrics["booktabs_rules"] >= 3
+            and current_metrics["hline_rules"] == 0,
+            "tables={}, booktabs rules={}, hline rules={}".format(
+                current_metrics["table"],
+                current_metrics["booktabs_rules"],
+                current_metrics["hline_rules"],
+            ),
         ),
         check(
             "evaluation_setup_leadins_title_case",
