@@ -389,12 +389,12 @@ def figure_intro_paths():
 
 def figure_intro_threshold_summary():
     labels = [
-        "scikit vs QNN",
-        "scikit vs QKernel",
-        "Native Sim. vs Trotter",
-        "Native ML vs QFeature",
-        "Native Chem. vs VQE",
-        "Native Opt. vs QAOA",
+        "ML: QNN",
+        "ML: QKernel",
+        "Sim.: Trotter",
+        "ML: QFeature",
+        "Mol.: VQE",
+        "Opt.: QAOA",
     ]
     values = [64.9, 421.9, 3071.0, 3726.4, 42491.4, 287045.6]
     colors = [
@@ -415,36 +415,26 @@ def figure_intro_threshold_summary():
     ax.hlines(y, left, values, color=colors, linewidth=2.8, alpha=0.95)
     ax.scatter(values, y, s=30, color=colors, edgecolors="#222222", linewidths=0.45, zorder=3)
     for yi, value in zip(y, values):
-        if value > 1e5:
-            ax.annotate(
-                "{:,.0f}x".format(value),
-                xy=(value, yi),
-                xytext=(-8, 0),
-                textcoords="offset points",
-                va="center",
-                ha="right",
-                fontsize=5.2,
-            )
-        else:
-            ax.annotate(
-                "{:,.0f}x".format(value),
-                xy=(value, yi),
-                xytext=(7, 0),
-                textcoords="offset points",
-                va="center",
-                ha="left",
-                fontsize=5.2,
-            )
+        ax.annotate(
+            "{:,.0f}x".format(value),
+            xy=(value, yi),
+            xytext=(7, 0),
+            textcoords="offset points",
+            va="center",
+            ha="left",
+            fontsize=5.2,
+            bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.78, "pad": 0.2},
+        )
     ax.set_xscale("log")
     ax.set_yticks(y)
     ax.set_yticklabels(labels)
     ax.tick_params(axis="y", labelsize=5.6)
     ax.invert_yaxis()
     ax.set_xlabel("Req. speedup over native (x)", labelpad=1.0)
-    ax.set_xlim(10, 7e5)
+    ax.set_xlim(10, 1.05e6)
     style_axis(ax, grid="x")
     path = os.path.join(FIG_DIR, "intro_threshold_summary.pdf")
-    fig.subplots_adjust(left=0.38, right=0.95, bottom=0.30, top=0.98)
+    fig.subplots_adjust(left=0.24, right=0.94, bottom=0.30, top=0.98)
     fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
     plt.close(fig)
     return path
