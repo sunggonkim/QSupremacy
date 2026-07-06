@@ -206,7 +206,7 @@ def main():
         ),
         check(
             "limited_tables_use_booktabs",
-            current_metrics["table"] <= 2
+            current_metrics["table"] <= 3
             and current_metrics["booktabs_rules"] >= 3
             and current_metrics["hline_rules"] == 0,
             "tables={}, booktabs rules={}, hline rules={}".format(

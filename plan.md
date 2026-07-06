@@ -121,3 +121,62 @@ No additional leadership-system experiments are required for the current claims 
 written. Before submission, compress the expanded evidence draft back to the
 11-page HPCA body budget, replace the HPCA `NaN` submission number, and recheck
 the final conference template/instructions.
+
+## New Review: SOSP-style External Review
+
+### Weaknesses
+
+#### Technical limitations or concerns
+The “quality recovery” axis (R) is a hypothetical requirement rather than demonstrated progress; no concrete mitigation/FT instantiation is exercised end-to-end to show how much R can be achieved at what cost in depth/overheads.
+The execution model keeps T_error and P_shots largely abstract; only an illustrative fault-tolerant mapping is given without a full resource-estimation pipeline (code distances, factory throughput, decoder scaling) instantiated per case.
+Measured simulator runtime exhibits a roughly seven-second floor dominated by orchestration; projecting this down to ms/µs “effective quantum time” risks conflating host-stack artifacts with logical-operation budgets if not normalized carefully.
+
+#### Experimental gaps or methodological issues
+Workloads remain at small qubit counts and toy input scales (e.g., 4–16 qubits, sklearn digits, small active spaces). While methodologically disciplined, external validity to production-scale problems is limited.
+Native baselines, while strengthened and diversified, omit some domain-SOTA methods that could further tighten thresholds (e.g., advanced MILP for larger optimization instances, domain-optimized tensor-network or projector-QMC baselines, CCSD(T)-quality references for chemistry).
+Limited exploration of shots and mitigation strategies; shot-parallelism limits are acknowledged but not deeply stressed with realistic decoder/control constraints or empirical queue contention models.
+
+#### Clarity or presentation issues
+Some equations and tables show minor extraction/formatting artifacts; while not blocking, the paper could further streamline the mapping from measured cuQuantum time to logical-time projections to avoid possible misinterpretation of the seven-second floor.
+
+#### Missing related work or comparisons
+While Azure’s resource estimator and surface-code works are cited, the paper could better connect to recent end-to-end FT resource estimates for concrete algorithms (e.g., large-scale chemistry/factoring studies) and to domain-optimized classical baselines (e.g., TN/QMC in physics simulation).
+Additional discussion of queueing/scheduling models in hybrid runtimes and hardware-constrained shot concurrency (device, decoder, control bandwidth) would strengthen the P_shots realism.
+
+### Detailed Comments
+
+#### Technical soundness evaluation
+The same-input, same-quality discipline and explicit break-even condition are technically sound and address common pitfalls in quantum/classical comparisons.
+The decomposition T_execute = Ns(D1 t1 + D2 t2 + Dm tm)/P_shots + T_error is reasonable as a first-order model and is clearly positioned as a lower bound; the microarchitecture map is a useful hook.
+However, leaving T_error and P_shots mostly symbolic in the main results limits the conclusiveness of architecture guidance. A minimal FT instantiation (even if stylized) per family, with decoder bandwidth and magic-state constraints, would provide stronger, more concrete targets.
+The use of a simulator-dominated constant floor to back out “effective quantum times” can be misleading if readers conflate host orchestration time with logical gate costs. The paper mitigates this by emphasizing dimensionless speedups, but the narrative could better isolate per-circuit kernel contributions from Python/process overhead in the projection.
+
+#### Experimental evaluation assessment
+The breadth of the suite and the rigor of logging, provenance, and failure accounting are excellent. The scale-out analysis, weak/strong scaling, and the larger-workload gate add credibility to the methodology as a system.
+Native-baseline stress tests are thoughtfully designed; the profiling gate is particularly helpful in demonstrating where host orchestration dominates at small scales.
+External validity is the main concern: qubit counts, problem sizes, and chemistry active spaces are small. The conclusions are framed carefully as “architecture requirements,” but readers could overgeneralize from small, structured inputs.
+The bottleneck taxonomy is compelling: simulation/chemistry trend toward speed/shot limits; ML/optimization toward quality limits. This is a key practical insight that is well supported by the data.
+
+#### Comparison with related work
+Relative to ScaleQsim/AURORA-Q/cuQuantum and benchmark suites (SupermarQ, QASMBench, MQT Bench, QAOAKit), QARCHGAUGE focuses on application-level advantage thresholds with strong native baselines and explicit quality targets—an important and complementary direction.
+Compared to application-oriented benchmarks (e.g., Lubinski et al.), this paper adds a break-even frontier and an architectural lens (t1/t2/tm, P_shots, T_error decomposition) and enforces same-input/same-quality discipline.
+Resource-estimation works (Azure estimator, surface-code studies) are appropriately cited; however, the paper stops short of fully instantiating them for its workloads. Integrating a baseline FT instantiation for a subset of cases would elevate the contribution.
+
+#### Broader impact and significance
+The work helps the community move from “quantum is faster/slower” rhetoric to concrete, testable architecture goals. It also exposes when faster gates won’t help because quality limits dominate—valuable guidance for co-design.
+It risks misinterpretation if readers treat the reported dimensionless speedups as immediately actionable without the FT/mitigation costs; the paper’s repeated caveats are appreciated but stronger normalization and a worked FT example would help.
+The methodology—especially the logging/provenance discipline, failure accounting, and bottleneck taxonomy—could outlive specific workloads and be adopted across labs, fostering more honest and comparable claims.
+
+### Questions for Authors
+How sensitive are the advantage frontiers to shot count and measurement strategy? Can you provide a sensitivity sweep that varies Ns and P_shots under plausible decoder/control limits to quantify shot-limited regions more concretely?
+Can you instantiate a minimal, concrete FT stack (e.g., distance, cycle time, factory throughput, decoder BW) for a subset of chemistry/simulation cases to translate S into logical times and show how T_error and P_shots tighten the frontier?
+How does the seven-second per-case floor vary with circuit size, depth, and number of evaluations? Would using a compiled, lower-overhead driver (e.g., C++ orchestrator) materially change the inferred speedups?
+For ML and optimization, what algorithmic or mitigation steps plausibly contribute to 50–90% “quality recovery,” and what depth/iteration overheads would they add? Can you map R to expected increases in D1/D2/Neval?
+For physics simulation, have you compared against domain-optimized classical baselines (e.g., tensor-network, projector-QMC) on your specific small Hamiltonians to bound how much the native frontier could still move?
+Would you consider releasing the full artifact (JSON logs, scripts, Slurm configs) to enable re-analysis of tolerance, baselines, and projection parameters by others?
+How do queueing and device contention affect P_shots in realistic multi-tenant settings (e.g., shared decoders/controllers)? Could you add a simple queueing model to bound effective P_shots under contention?
+
+### Overall Assessment
+QARCHGAUGE addresses an important, often conflated question: not whether a simulator is fast, but what concrete architectural and algorithmic improvements are necessary for practical quantum advantage on real tasks. The same-input/same-quality discipline, explicit frontier over speed and quality recovery, and the bottleneck taxonomy provide actionable insights that can guide hardware architects and algorithm designers. The evaluation is unusually thorough in systems terms: large case coverage, strong provenance, baseline stress tests, and scaling evidence. The principal limitations are external validity (small qubit counts and toy-scale inputs) and the largely symbolic treatment of fault-tolerant parameters (T_error, P_shots) and quality recovery (R). Even so, the paper is careful in claims and turns measurement into design guidance instead of hype.
+
+For SOSP, this sits at the intersection of systems measurement, architecture projection, and quantum-classical workflow design. While some aspects may feel more HPCA/ASPLOS-oriented, the methodology and findings are of broad systems interest. I recommend acceptance, contingent on strengthening the connection to a concrete FT instantiation for a subset of cases and clarifying the sensitivity of frontiers to shots and host orchestration. The work would provide valuable and timely guidance to the community.

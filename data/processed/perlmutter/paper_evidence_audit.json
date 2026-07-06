@@ -484,6 +484,20 @@
           },
           "label": "valid_pdf: paper/figures/ml_profile_breakdown.pdf",
           "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 35722
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/ml_native_profile_combined.pdf",
+          "passed": true
         }
       ],
       "claim": "Production-style ML native gate with PyTorch AMP CNN/MLP, XGBoost GPU-hist, and Nsight/dmon profiling evidence",
@@ -492,7 +506,8 @@
         "data/processed/perlmutter/ml_strong_native_gate_latest.csv",
         "data/processed/perlmutter/ml_strong_native_profile_latest.json",
         "paper/figures/ml_strong_native_gate.pdf",
-        "paper/figures/ml_profile_breakdown.pdf"
+        "paper/figures/ml_profile_breakdown.pdf",
+        "paper/figures/ml_native_profile_combined.pdf"
       ],
       "name": "ml_strong_native_gate",
       "passed": true
@@ -515,6 +530,7 @@
             "paper/figures/evaluation_evidence_flow.pdf",
             "paper/figures/intro_comparison_paths.pdf",
             "paper/figures/intro_threshold_summary.pdf",
+            "paper/figures/ml_native_profile_combined.pdf",
             "paper/figures/ml_profile_breakdown.pdf",
             "paper/figures/ml_strong_native_gate.pdf",
             "paper/figures/practical_suite_cdf.pdf",
@@ -547,6 +563,7 @@
             "paper/figures/evaluation_evidence_flow.pdf",
             "paper/figures/intro_comparison_paths.pdf",
             "paper/figures/intro_threshold_summary.pdf",
+            "paper/figures/ml_native_profile_combined.pdf",
             "paper/figures/ml_profile_breakdown.pdf",
             "paper/figures/ml_strong_native_gate.pdf",
             "paper/figures/practical_suite_cdf.pdf",
@@ -571,7 +588,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 13324
+            "size_bytes": 18471
           },
           "expected": {
             "exists": true,
@@ -585,7 +602,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 25341
+            "size_bytes": 25241
           },
           "expected": {
             "exists": true,
@@ -641,7 +658,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 22024
+            "size_bytes": 22420
           },
           "expected": {
             "exists": true,
@@ -655,7 +672,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 26012
+            "size_bytes": 26016
           },
           "expected": {
             "exists": true,
@@ -669,7 +686,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 21603
+            "size_bytes": 21617
           },
           "expected": {
             "exists": true,
@@ -683,7 +700,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 10786
+            "size_bytes": 10809
           },
           "expected": {
             "exists": true,
@@ -697,7 +714,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 21497
+            "size_bytes": 21628
           },
           "expected": {
             "exists": true,
@@ -711,7 +728,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 13608
+            "size_bytes": 13610
           },
           "expected": {
             "exists": true,
@@ -781,7 +798,21 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 29895
+            "size_bytes": 35722
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/ml_native_profile_combined.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 29905
           },
           "expected": {
             "exists": true,
@@ -795,7 +826,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 11923
+            "size_bytes": 11926
           },
           "expected": {
             "exists": true,
@@ -907,7 +938,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 24001
+            "size_bytes": 24412
           },
           "expected": {
             "exists": true,
@@ -921,7 +952,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 9594
+            "size_bytes": 9993
           },
           "expected": {
             "exists": true,
@@ -935,7 +966,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 28267
+            "size_bytes": 28830
           },
           "expected": {
             "exists": true,
@@ -949,7 +980,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 27380
+            "size_bytes": 27727
           },
           "expected": {
             "exists": true,
@@ -963,7 +994,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 29995
+            "size_bytes": 30202
           },
           "expected": {
             "exists": true,
@@ -977,7 +1008,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 28215
+            "size_bytes": 28553
           },
           "expected": {
             "exists": true,
@@ -1005,6 +1036,7 @@
         "paper/figures/strong_native_quality_shift.pdf",
         "paper/figures/ml_strong_native_gate.pdf",
         "paper/figures/ml_profile_breakdown.pdf",
+        "paper/figures/ml_native_profile_combined.pdf",
         "paper/figures/threshold_tail_pressure.pdf",
         "paper/figures/circuit_operation_mix.pdf",
         "paper/figures/architecture_focus_matrix.pdf",
@@ -1464,6 +1496,12 @@
         {
           "actual": true,
           "expected": true,
+          "label": "exists: paper/figures/ml_native_profile_combined.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
           "label": "audit_item_declared: ml_strong_native_gate",
           "passed": true
         },
@@ -1752,6 +1790,12 @@
         {
           "actual": true,
           "expected": true,
+          "label": "exists: paper/figures/ml_native_profile_combined.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
           "label": "exists: paper/figures/threshold_tail_pressure.pdf",
           "passed": true
         },
@@ -1927,6 +1971,12 @@
           "actual": true,
           "expected": true,
           "label": "exists: paper/figures/ml_profile_breakdown.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/ml_native_profile_combined.pdf",
           "passed": true
         },
         {

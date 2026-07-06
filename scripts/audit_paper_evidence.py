@@ -390,6 +390,7 @@ def main():
                 ml_profile_json,
                 "paper/figures/ml_strong_native_gate.pdf",
                 "paper/figures/ml_profile_breakdown.pdf",
+                "paper/figures/ml_native_profile_combined.pdf",
             ],
             [
                 check_exists(ml_gate_json),
@@ -446,6 +447,7 @@ def main():
                 check_close("dmon_sm_max_pct", profile_dmon["sm_max_pct"], 33.0),
                 check_pdf_artifact("paper/figures/ml_strong_native_gate.pdf"),
                 check_pdf_artifact("paper/figures/ml_profile_breakdown.pdf"),
+                check_pdf_artifact("paper/figures/ml_native_profile_combined.pdf"),
             ],
         )
     )
@@ -466,6 +468,7 @@ def main():
         "paper/figures/strong_native_quality_shift.pdf",
         "paper/figures/ml_strong_native_gate.pdf",
         "paper/figures/ml_profile_breakdown.pdf",
+        "paper/figures/ml_native_profile_combined.pdf",
         "paper/figures/threshold_tail_pressure.pdf",
         "paper/figures/circuit_operation_mix.pdf",
         "paper/figures/architecture_focus_matrix.pdf",

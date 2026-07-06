@@ -91,7 +91,8 @@
       "claim": "Same-input ML production-native candidates and profiler evidence test whether PyTorch AMP and XGBoost GPU paths change the small-digits native baseline.",
       "figures_tables": [
         "paper/figures/ml_strong_native_gate.pdf",
-        "paper/figures/ml_profile_breakdown.pdf"
+        "paper/figures/ml_profile_breakdown.pdf",
+        "paper/figures/ml_native_profile_combined.pdf"
       ],
       "id": "ml_strong_native_gate",
       "paper_locations": [
@@ -220,6 +221,7 @@
         "paper/figures/strong_native_quality_shift.pdf",
         "paper/figures/ml_strong_native_gate.pdf",
         "paper/figures/ml_profile_breakdown.pdf",
+        "paper/figures/ml_native_profile_combined.pdf",
         "paper/figures/threshold_tail_pressure.pdf",
         "paper/figures/circuit_operation_mix.pdf",
         "paper/figures/architecture_focus_matrix.pdf",
@@ -254,6 +256,7 @@
         "paper/figures/strong_native_quality_shift.pdf",
         "paper/figures/ml_strong_native_gate.pdf",
         "paper/figures/ml_profile_breakdown.pdf",
+        "paper/figures/ml_native_profile_combined.pdf",
         "paper/figures/threshold_tail_pressure.pdf",
         "paper/figures/circuit_operation_mix.pdf",
         "paper/figures/architecture_focus_matrix.pdf",
@@ -288,7 +291,7 @@
         "data/processed/perlmutter/submission_readiness_audit.json"
       ],
       "audit_item": "submission_readiness",
-      "claim": "The paper package builds to an HPCA 2027-style double-blind PDF with references starting on page 12 within the 11-page body limit, evidence/readiness checks passing, and all-author references.",
+      "claim": "The paper package builds to an HPCA 2027-style double-blind PDF with evidence/readiness checks passing, all-author references, and the remaining body-length warning recorded by the submission readiness audit.",
       "figures_tables": [],
       "id": "submission_package",
       "paper_locations": [

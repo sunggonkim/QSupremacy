@@ -17,15 +17,28 @@ Native paths are selected from workload-specific candidates. ML selects among si
 Short login runs are only correctness gates. Performance evidence must come from Slurm jobs with accounting records, raw JSON counts, and completed exit status. The completed campaign below separates calibration, application coverage, baseline stress, scaling, and timing stability.
 
 \noindent\textbf{Campaign Summary.}
-Figure~\ref{fig:evaluation-evidence-flow} shows the completed evidence used by the paper. The campaign starts with a 160-case controlled ML calibration, expands to a 3,552-case practical suite, stresses chemistry/simulation coverage with 116-case and 104-case gates, scales fixed work from 16 to 256 GPUs, adds a 7,104-case larger-workload gate on 256 GPUs, and finishes with 12 warmup-separated repeat trials. This organization separates correctness gates from performance evidence and avoids treating a short smoke test as a performance claim.
+Table~\ref{tab:evaluation-campaign} shows the completed evidence used by the paper. The campaign starts with a 160-case controlled ML calibration, expands to a 3,552-case practical suite, stresses chemistry/simulation coverage with 116-case and 104-case gates, scales fixed work from 16 to 256 GPUs, adds a 7,104-case larger-workload gate on 256 GPUs, and finishes with 12 warmup-separated repeat trials. This organization separates correctness gates from performance evidence and avoids treating a short smoke test as a performance claim.
 
-\begin{figure}[t]
+\begin{table}[t]
+\caption{Completed leadership-system evidence campaign.}
 \centering
-\includegraphics[width=0.98\linewidth]{figures/evaluation_evidence_flow.pdf}
-\Description{Evidence campaign flow from controlled calibration to main suite, coverage gates, scaling, and repeat timing.}
-\caption{Completed leadership-system evidence campaign. The figure separates correctness, application coverage, scaling, and timing evidence instead of compressing the evaluation plan into a table.}
-\label{fig:evaluation-evidence-flow}
-\end{figure}
+\scriptsize
+\renewcommand{\arraystretch}{1.08}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{llll}
+\toprule
+\textbf{Gate} & \textbf{Scale} & \textbf{Purpose} & \textbf{Status} \\
+\midrule
+Controlled ML & 160 cases & threshold/quality calibration & complete \\
+Practical suite & 3,552 cases & ML, chemistry, optimization, simulation & complete \\
+Coverage gates & 116 + 104 cases & stronger chemistry/simulation evidence & complete \\
+Scaling & 16--256 GPUs & weak, strong, and larger-workload runs & complete \\
+Stability & 12 trials & warmup-separated timing repeatability & complete \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:evaluation-campaign}
+\end{table}
 
 \noindent\textbf{Evaluation Questions.}
 The evaluation asks six questions in order: how large the end-to-end threshold is, how quality changes the interpretation, whether the practical suite behaves like the controlled case, how much native-baseline strength moves the target, whether bundled multi-node runs scale, and which future-system resource each workload needs. The answers are carried mainly by figures and observation boxes; tables are kept only where exact numeric summaries are more readable than prose.
@@ -36,21 +49,21 @@ The expanded sweep contains 160 controlled digits cases over four class pairs, t
 
 \begin{figure}[t]
 \centering
-\begin{subfigure}{0.82\linewidth}
+\begin{subfigure}[t]{0.82\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figures/digits_legend.pdf}
     \Description{Shared legend for quantum-kernel and QNN/VQC results.}
 \end{subfigure}
 \vspace{-0.55em}
 
-\begin{subfigure}{0.48\linewidth}
+\begin{subfigure}[t]{0.48\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figures/digits_required_speedup.pdf}
     \caption{Threshold distribution.}
     \label{fig:digits-speedup}
     \Description{Distribution of required projected speedup for quantum-kernel and QNN/VQC digits cases.}
 \end{subfigure}
-\begin{subfigure}{0.48\linewidth}
+\begin{subfigure}[t]{0.48\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figures/digits_quality_speedup.pdf}
     \caption{Quality vs. threshold.}
@@ -97,13 +110,13 @@ Across 3,552 cases, native execution remains extremely fast: the median native p
 
 \begin{figure}[t]
 \centering
-\begin{subfigure}{0.48\linewidth}
+\begin{subfigure}[t]{0.48\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figures/threshold_tail_pressure.pdf}
     \caption{Threshold tail.}
     \label{fig:threshold-tail-pressure}
 \end{subfigure}
-\begin{subfigure}{0.48\linewidth}
+\begin{subfigure}[t]{0.48\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figures/circuit_operation_mix.pdf}
     \caption{Operation mix.}
@@ -133,13 +146,13 @@ The similar seven-second path is not interpreted as a future hardware latency. I
 
 \begin{figure}[t]
 \centering
-\begin{subfigure}{0.48\linewidth}
+\begin{subfigure}[t]{0.48\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figures/strong_native_comparison.pdf}
     \caption{Runtime threshold shift.}
     \label{fig:strong-native-speed}
 \end{subfigure}
-\begin{subfigure}{0.48\linewidth}
+\begin{subfigure}[t]{0.48\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figures/strong_native_quality_shift.pdf}
     \caption{Quality gap shift.}
@@ -159,20 +172,8 @@ The strong-native run completed as a one-node, four-GPU bundled allocation on th
 
 \begin{figure}[t]
 \centering
-\begin{subfigure}{0.48\linewidth}
-    \centering
-    \includegraphics[width=\linewidth]{figures/ml_strong_native_gate.pdf}
-    \caption{ML native gate.}
-    \label{fig:ml-strong-native-gate}
-\end{subfigure}
-\begin{subfigure}{0.48\linewidth}
-    \centering
-    \includegraphics[width=\linewidth]{figures/ml_profile_breakdown.pdf}
-    \caption{Profiling gate.}
-    \label{fig:ml-profile-breakdown}
-\end{subfigure}
-\vspace{-.1cm}
-\Description{Two subfigures showing the ML production-native gate thresholds and Nsight/dmon profiling breakdown.}
+\includegraphics[width=0.98\linewidth]{figures/ml_native_profile_combined.pdf}
+\Description{Combined ML production-native gate and profiling breakdown.}
 \caption{ML production-native and profiling gate. PyTorch AMP and XGBoost candidates reach native-level quality, but the small digits task remains dominated by previous microsecond baselines and by host orchestration in the profiled GPU gate.}
 \label{fig:ml-native-profile-gate}
 \end{figure}
@@ -200,13 +201,13 @@ The large-profile suite contains 3,552 application cases. We evaluate two scalin
 
 \begin{figure}[t]
 \centering
-\begin{subfigure}{0.48\linewidth}
+\begin{subfigure}[t]{0.48\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figures/workload_growth_time.pdf}
     \caption{Work grows.}
     \label{fig:workload-growth-time}
 \end{subfigure}
-\begin{subfigure}{0.48\linewidth}
+\begin{subfigure}[t]{0.48\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figures/workload_growth_quality.pdf}
     \caption{Quality remains stable.}
@@ -221,13 +222,13 @@ The large-profile suite contains 3,552 application cases. We evaluate two scalin
 
 \begin{figure}[t]
 \centering
-\begin{subfigure}{0.48\linewidth}
+\begin{subfigure}[t]{0.48\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figures/weak_scaling.pdf}
     \caption{Total throughput.}
     \label{fig:weak-scaling-throughput}
 \end{subfigure}
-\begin{subfigure}{0.48\linewidth}
+\begin{subfigure}[t]{0.48\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figures/weak_scaling_efficiency.pdf}
     \caption{Per-GPU stability.}
@@ -245,13 +246,13 @@ All comparable weak-scaling jobs completed with exit code 0:0. The generated raw
 
 \begin{figure}[t]
 \centering
-\begin{subfigure}{0.48\linewidth}
+\begin{subfigure}[t]{0.48\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figures/strong_scaling.pdf}
     \caption{Elapsed time.}
     \label{fig:strong-scaling-time}
 \end{subfigure}
-\begin{subfigure}{0.48\linewidth}
+\begin{subfigure}[t]{0.48\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figures/strong_scaling_speedup.pdf}
     \caption{Speedup.}
@@ -273,28 +274,28 @@ The fixed-work result measures time-to-solution for the same 3,552 cases. It red
 
 The practical-suite result gives one speed threshold per case, but a speed-only threshold is still incomplete. A practical advantage claim also needs comparable output quality. We therefore convert each measured case into an advantage frontier over two axes: projected quantum execution speedup and quality-gap recovery. A point is in the advantage region only if the projected quantum path is no slower than the selected native path and the remaining quality gap is within a small workload tolerance.
 
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
-\begin{subfigure}{0.48\linewidth}
+\begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics[width=\linewidth]{figures/advantage_frontier.pdf}
     \caption{ML.}
     \label{fig:advantage-frontier-ml}
 \end{subfigure}
-\begin{subfigure}{0.48\linewidth}
+\begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics[width=\linewidth]{figures/advantage_frontier_chemistry.pdf}
     \caption{Chemistry.}
     \label{fig:advantage-frontier-chemistry}
 \end{subfigure}
 \vspace{-0.9em}
-\begin{subfigure}{0.48\linewidth}
+\begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics[width=\linewidth]{figures/advantage_frontier_optimization.pdf}
     \caption{Optimization.}
     \label{fig:advantage-frontier-optimization}
 \end{subfigure}
-\begin{subfigure}{0.48\linewidth}
+\begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics[width=\linewidth]{figures/advantage_frontier_simulation.pdf}
     \caption{Simulation.}
@@ -304,7 +305,7 @@ The practical-suite result gives one speed threshold per case, but a speed-only 
 \Description{Heatmap showing fraction of cases entering the projected advantage region as quantum speedup and quality recovery vary.}
 \caption{Advantage frontier over projected quantum speedup and quality-gap recovery. Color shows the fraction of measured cases in each family that would enter the advantage region under that hypothetical hardware and algorithmic improvement. The top-row secondary axis maps speedup to effective quantum execution time using the measured seven-second circuit path; the contour marks the 50\% frontier when it appears.}
 \label{fig:advantage-frontier}
-\end{figure}
+\end{figure*}
 
 \begin{observationbox}
 \textbf{Observation 5:} The frontier separates speed-limited and quality-limited workloads. Chemistry and simulation often have small quality gaps, so their frontier is mostly pushed right by runtime. ML and optimization require quality recovery before faster gates matter. Thus, the architecture target is a feasible region over speed and quality, not a single global speedup slogan.
