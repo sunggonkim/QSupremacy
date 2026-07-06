@@ -1,0 +1,71 @@
+{
+  "dmon_summary": {
+    "exists": true,
+    "mem_avg_pct": 0.0,
+    "mem_max_pct": 0.0,
+    "power_avg_w": 47.833333333333336,
+    "power_max_w": 50.0,
+    "samples": 30,
+    "sm_avg_pct": 2.3,
+    "sm_max_pct": 33.0
+  },
+  "gate_json": "data/raw/perlmutter/ml_strong_native/ml_strong_native_manual_20260706034227.json",
+  "gate_summary": {
+    "case_count": 32,
+    "combined_native_quality_median": 1.0,
+    "combined_native_runtime_sec_median": 0.0008155714895110577,
+    "combined_required_speedup_median": 8601.600644667848,
+    "model_failure_counts": {},
+    "previous_native_quality_median": 1.0,
+    "previous_native_runtime_sec_median": 0.0008137380063999444,
+    "previous_required_speedup_median": 8876.825399953243,
+    "production_native_quality_median": 1.0,
+    "production_native_runtime_sec_median": 0.14854085599654354,
+    "production_required_speedup_median": 49.267014250506136,
+    "selected_combined_counts": {
+      "suite_previous_selected": 24,
+      "torch_cnn_amp_raw": 8
+    },
+    "selected_production_counts": {
+      "torch_cnn_amp_raw": 25,
+      "torch_mlp_amp_pca": 2,
+      "xgboost_gpu_hist_pca": 5
+    }
+  },
+  "ncu_summary": {
+    "counter_collection_succeeded": false,
+    "errors": [
+      "==ERROR== An error was reported by the driver:",
+      "==ERROR== Profiling failed because a driver resource was unavailable. Ensure that no other tool (like DCGM) is concurrently collecting profiling data. See https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#faq for more details.",
+      "==ERROR== Failed to profile \"distribution_elementwise_grid...\" in process 2203996",
+      "==ERROR== The application returned an error code (9)."
+    ],
+    "exists": true,
+    "metric_name_count": 0,
+    "tensor_metric_examples": [],
+    "tensor_metric_name_count": 0
+  },
+  "nsys_kernel_summary": {
+    "exists": true,
+    "gpu_kernel_runtime_fraction": 0.007982148769692417,
+    "gpu_kernel_time_sec": 0.048418461,
+    "host_orchestration_runtime_fraction": 0.9920178512303076,
+    "kernel_rows": 53,
+    "profiled_gate_runtime_sec": 6.0658429699833505,
+    "tensor_kernel_examples": [
+      "sm80_xmma_wgrad_implicit_gemm_indexed_wo_smem_tf32f32_tf32f32_f32_nhwckrsc_nhwc_tilesize32x16x64_stage1_warpsize2x1x1_g1_tensor16x8x8_aligna8_alignc8_execute_kernel__5x_cudnn",
+      "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_128x2_tn_align1>(T1::Params)",
+      "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_64x1_nt_align1>(T1::Params)",
+      "sm80_xmma_fprop_implicit_gemm_indexed_wo_smem_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize128x16x64_stage1_warpsize4x1x1_g1_tensor16x8x16_alignc2_execute_kernel__5x_cudnn",
+      "void cutlass::Kernel2<cutlass_75_wmma_tensorop_f16_s161616gemm_f16_32x32_64x1_nn_align1>(T1::Params)",
+      "sm80_xmma_dgrad_implicit_gemm_f16f16_f16f32_f32_nhwckrsc_nhwc_tilesize128x32x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cudnn",
+      "void cutlass::Kernel2<cutlass_80_wmma_tensorop_f16_s161616gemm_f16_32x32_128x1_nn_align8>(T1::Params)",
+      "ampere_fp16_s16816gemm_fp16_128x64_ldg8_f2f_stages_32x6_nt",
+      "void cudnn::cnn::conv2d_grouped_direct_kernel<(bool)0, (bool)1, (bool)0, (bool)0, (bool)0, (bool)0, (int)0, (int)0, int, float, __half, __half, __half, float, __half>(cudnn::cnn::GroupedDirectFpropParams, const T11 *, const T13 *, T12 *, T14, T14, const T14 *, const T14 *, const T12 *, const T15 *, cudnnActivationStruct)",
+      "void cutlass::Kernel2<cutlass_80_tensorop_s16816gemm_f16_64x64_32x6_tn_align8>(T1::Params)"
+    ],
+    "tensor_kernel_rows": 16,
+    "tensor_kernel_time_fraction": 0.1520596245304038,
+    "tensor_kernel_time_sec": 0.007362493
+  }
+}

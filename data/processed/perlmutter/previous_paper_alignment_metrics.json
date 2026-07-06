@@ -242,7 +242,7 @@
       },
       "closest_template": "aurora",
       "ours": {
-        "avg_paragraph_words": 79.67,
+        "avg_paragraph_words": 80.45,
         "figures": 3,
         "items": 0,
         "missing": false,
@@ -253,8 +253,8 @@
         "subsubsections": 4,
         "tables": 0,
         "textbf": 11,
-        "textbf_per_1000_words": 3.29,
-        "words": 3346
+        "textbf_per_1000_words": 3.26,
+        "words": 3379
       },
       "paragraph_role_inventory": [
         {
@@ -350,12 +350,12 @@
       ],
       "role_markers": {
         "Overview of": 47,
-        "\\subsection{Advantage Claim Checklist}": 21112,
+        "\\subsection{Advantage Claim Checklist}": 21323,
         "\\subsection{Application Path Execution}": 10619,
-        "\\subsection{Measurement and Threshold Analysis}": 15377,
+        "\\subsection{Measurement and Threshold Analysis}": 15588,
         "\\subsection{Overall Procedure}": 1724,
         "\\subsection{Shared Workload Control}": 7425,
-        "\\subsection{Workload Suite}": 21724
+        "\\subsection{Workload Suite}": 21935
       },
       "role_markers_ordered": true,
       "scaleqsim": {
@@ -374,8 +374,8 @@
         "words": 4581
       },
       "template_distance": {
-        "aurora": 5.023,
-        "scaleqsim": 5.073
+        "aurora": 5.019,
+        "scaleqsim": 5.07
       }
     },
     "evaluation": {
@@ -396,19 +396,19 @@
       },
       "closest_template": "aurora",
       "ours": {
-        "avg_paragraph_words": 136.17,
-        "figures": 11,
+        "avg_paragraph_words": 137.68,
+        "figures": 12,
         "items": 0,
         "missing": false,
-        "paragraphs": 35,
-        "paragraphs_per_heading": 2.69,
+        "paragraphs": 37,
+        "paragraphs_per_heading": 2.85,
         "path": "paper/4.Evaluation.tex",
         "subsections": 6,
         "subsubsections": 7,
         "tables": 0,
-        "textbf": 21,
-        "textbf_per_1000_words": 4.41,
-        "words": 4766
+        "textbf": 23,
+        "textbf_per_1000_words": 4.52,
+        "words": 5094
       },
       "paragraph_role_inventory": [
         {
@@ -466,7 +466,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 203,
+          "current_line": 229,
           "current_marker": "\\subsubsection{Weak Scaling}",
           "role": "weak scaling",
           "template_line": 269,
@@ -475,7 +475,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 227,
+          "current_line": 253,
           "current_marker": "\\subsubsection{Strong Scaling}",
           "role": "strong scaling",
           "template_line": 334,
@@ -484,7 +484,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 255,
+          "current_line": 281,
           "current_marker": "\\subsection{Advantage Frontier and Bottleneck Analysis}",
           "role": "advantage frontier",
           "template_line": 334,
@@ -493,7 +493,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 345,
+          "current_line": 371,
           "current_marker": "\\subsection{Operational Stability}",
           "role": "stability",
           "template_line": 413,
@@ -502,7 +502,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 325,
+          "current_line": 351,
           "current_marker": "Bottleneck Taxonomy",
           "role": "taxonomy and sensitivity",
           "template_line": 399,
@@ -512,7 +512,7 @@
         }
       ],
       "role_markers": {
-        "Advantage Frontier and Bottleneck Analysis": 23166,
+        "Advantage Frontier and Bottleneck Analysis": 26334,
         "Baselines": 1145,
         "Benchmark": 844,
         "Component and Baseline Analysis": 12095,
@@ -521,10 +521,10 @@
         "Evaluation Setup": 504,
         "Feasibility": 1456,
         "Hardware Specification": 540,
-        "Leadership-scale Scaling Analysis": 17692,
-        "Operational Stability": 32594,
-        "Strong Scaling": 20792,
-        "Weak Scaling": 19391
+        "Leadership-scale Scaling Analysis": 20703,
+        "Operational Stability": 35762,
+        "Strong Scaling": 23803,
+        "Weak Scaling": 22402
       },
       "role_markers_ordered": true,
       "scaleqsim": {
@@ -543,8 +543,8 @@
         "words": 5732
       },
       "template_distance": {
-        "aurora": 9.061,
-        "scaleqsim": 9.276
+        "aurora": 9.214,
+        "scaleqsim": 9.274
       }
     },
     "introduction": {

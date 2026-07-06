@@ -71,6 +71,12 @@ STRONG_NATIVE_1NODE_SUMMARY_JSON = (
     "data/processed/perlmutter/"
     "practical_suite_strongnative_1node_int_20260704012008_summary.json"
 )
+ML_STRONG_NATIVE_GATE_JSON = (
+    "data/processed/perlmutter/ml_strong_native_gate_latest.json"
+)
+ML_STRONG_NATIVE_PROFILE_JSON = (
+    "data/processed/perlmutter/ml_strong_native_profile_latest.json"
+)
 
 WEAK_SCALING_RUNS = [
     {
@@ -738,6 +744,106 @@ def figure_strong_native_comparison():
     return [speed_path, quality_path]
 
 
+def figure_ml_strong_native_gate():
+    gate = load_summary(ML_STRONG_NATIVE_GATE_JSON)
+    if gate is None:
+        return None
+    gate = gate.get("summary", gate)
+
+    labels = ["Previous\nsuite", "Combined\nselected", "GPU prod.\nonly"]
+    values = [
+        gate["previous_required_speedup_median"],
+        gate["combined_required_speedup_median"],
+        gate["production_required_speedup_median"],
+    ]
+    colors = [COLORS["gray"], COLORS["blue"], COLORS["orange"]]
+
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.42))
+    ypos = np.arange(len(labels))
+    ax.hlines(ypos, 1.0, values, color=colors, linewidth=2.0, alpha=0.65)
+    ax.scatter(values, ypos, s=28, color=colors, edgecolors=COLORS["dark"], linewidths=0.35)
+    for xval, yval in zip(values, ypos):
+        ax.text(xval * 1.15, yval, "{:,.0f}x".format(xval), va="center", fontsize=5.8)
+    ax.set_xscale("log")
+    ax.set_xlim(10, 20000)
+    ax.set_yticks(ypos)
+    ax.set_yticklabels(labels)
+    ax.set_xlabel("Median required speedup (x)")
+    ax.invert_yaxis()
+    style_axis(ax, grid="x")
+    fig.subplots_adjust(left=0.31, right=0.90, bottom=0.30, top=0.96)
+    path = os.path.join(FIG_DIR, "ml_strong_native_gate.pdf")
+    fig.savefig(path, bbox_inches="tight")
+    plt.close(fig)
+    return path
+
+
+def figure_ml_profile_breakdown():
+    profile = load_summary(ML_STRONG_NATIVE_PROFILE_JSON)
+    if profile is None:
+        return None
+
+    nsys = profile.get("nsys_kernel_summary", {})
+    dmon = profile.get("dmon_summary", {})
+    gpu_frac = float(nsys.get("gpu_kernel_runtime_fraction") or 0.0)
+    host_frac = max(0.0, 1.0 - gpu_frac)
+    tensor_frac = float(nsys.get("tensor_kernel_time_fraction") or 0.0)
+    other_kernel_frac = max(0.0, 1.0 - tensor_frac)
+    rows = [
+        ("Gate runtime", [host_frac, gpu_frac], [COLORS["gray"], COLORS["green"]], ["Host/orch.", "GPU kernels"]),
+        ("GPU kernels", [other_kernel_frac, tensor_frac], [COLORS["green"], COLORS["orange"]], ["Other", "Tensor fam."]),
+    ]
+
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.42))
+    y = np.arange(len(rows))
+    legend_handles = []
+    legend_labels = []
+    for ridx, (label, values, colors, names) in enumerate(rows):
+        left = 0.0
+        for value, color, name in zip(values, colors, names):
+            bar = ax.barh(ridx, value * 100.0, left=left * 100.0, height=0.52, color=color)
+            if name not in legend_labels:
+                legend_handles.append(bar[0])
+                legend_labels.append(name)
+            if value >= 0.06:
+                ax.text(
+                    (left + value / 2.0) * 100.0,
+                    ridx,
+                    "{:.0f}%".format(value * 100.0),
+                    ha="center",
+                    va="center",
+                    fontsize=5.8,
+                    color="white" if color in {COLORS["gray"], COLORS["green"]} else "black",
+                )
+            left += value
+    if gpu_frac > 0:
+        ax.text(
+            max(98.0, host_frac * 100.0),
+            0,
+            "{:.1f}%".format(gpu_frac * 100.0),
+            ha="right",
+            va="center",
+            fontsize=5.5,
+            color=COLORS["dark"],
+        )
+    sm_note = "SM avg {:.1f}%, max {:.0f}%".format(
+        float(dmon.get("sm_avg_pct") or 0.0),
+        float(dmon.get("sm_max_pct") or 0.0),
+    )
+    ax.text(0.01, 1.04, sm_note, transform=ax.transAxes, fontsize=5.5, color=COLORS["dark"])
+    ax.set_yticks(y)
+    ax.set_yticklabels([row[0] for row in rows])
+    ax.set_xlim(0, 100)
+    ax.set_xlabel("Time fraction (%)")
+    style_axis(ax, grid="x")
+    add_top_legend(fig, legend_handles, legend_labels, ncol=2, y=1.04, fontsize=5.4)
+    fig.subplots_adjust(left=0.31, right=0.98, bottom=0.30, top=0.70)
+    path = os.path.join(FIG_DIR, "ml_profile_breakdown.pdf")
+    fig.savefig(path, bbox_inches="tight")
+    plt.close(fig)
+    return path
+
+
 def figure_workload_growth():
     if not (
         os.path.exists(os.path.join(ROOT, STRONG_NATIVE_SUMMARY_CSV))
@@ -1327,6 +1433,8 @@ def main():
         figure_practical_suite_legend(),
         figure_practical_suite(),
         figure_strong_native_comparison(),
+        figure_ml_strong_native_gate(),
+        figure_ml_profile_breakdown(),
         figure_threshold_tail_pressure(),
         figure_circuit_operation_mix(),
         figure_workload_growth(),

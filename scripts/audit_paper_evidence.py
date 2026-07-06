@@ -132,6 +132,7 @@ def manifest_checks(manifest_rel_path):
         "advantage_projection",
         "workload_taxonomy",
         "chemistry_active_space",
+        "ml_strong_native_gate",
         "repeat_timing",
         "paper_figures",
         "submission_package",
@@ -371,6 +372,84 @@ def main():
         )
     )
 
+    ml_gate_json = "data/processed/perlmutter/ml_strong_native_gate_latest.json"
+    ml_gate_csv = "data/processed/perlmutter/ml_strong_native_gate_latest.csv"
+    ml_profile_json = "data/processed/perlmutter/ml_strong_native_profile_latest.json"
+    ml_gate = load_json(ml_gate_json)["summary"]
+    ml_profile = load_json(ml_profile_json)
+    profile_nsys = ml_profile["nsys_kernel_summary"]
+    profile_ncu = ml_profile["ncu_summary"]
+    profile_dmon = ml_profile["dmon_summary"]
+    items.append(
+        ok_item(
+            "ml_strong_native_gate",
+            "Production-style ML native gate with PyTorch AMP CNN/MLP, XGBoost GPU-hist, and Nsight/dmon profiling evidence",
+            [
+                ml_gate_json,
+                ml_gate_csv,
+                ml_profile_json,
+                "paper/figures/ml_strong_native_gate.pdf",
+                "paper/figures/ml_profile_breakdown.pdf",
+            ],
+            [
+                check_exists(ml_gate_json),
+                check_exists(ml_gate_csv),
+                check_exists(ml_profile_json),
+                check_equals("ml_gate_cases", ml_gate["case_count"], 32),
+                check_equals("ml_gate_csv_cases", count_csv(ml_gate_csv), 32),
+                check_close(
+                    "ml_previous_speedup_median",
+                    ml_gate["previous_required_speedup_median"],
+                    8876.825399953243,
+                ),
+                check_close(
+                    "ml_combined_speedup_median",
+                    ml_gate["combined_required_speedup_median"],
+                    8601.600644667848,
+                ),
+                check_close(
+                    "ml_production_speedup_median",
+                    ml_gate["production_required_speedup_median"],
+                    49.267014250506136,
+                ),
+                check_equals(
+                    "ml_combined_torch_cnn_selected",
+                    ml_gate["selected_combined_counts"]["torch_cnn_amp_raw"],
+                    8,
+                ),
+                check_equals(
+                    "ml_production_cnn_selected",
+                    ml_gate["selected_production_counts"]["torch_cnn_amp_raw"],
+                    25,
+                ),
+                check_equals(
+                    "nsys_tensor_kernel_rows",
+                    profile_nsys["tensor_kernel_rows"],
+                    16,
+                ),
+                check_close(
+                    "nsys_gpu_kernel_fraction",
+                    profile_nsys["gpu_kernel_runtime_fraction"],
+                    0.007982148769692417,
+                ),
+                check_close(
+                    "nsys_tensor_kernel_fraction",
+                    profile_nsys["tensor_kernel_time_fraction"],
+                    0.1520596245304038,
+                ),
+                check_equals(
+                    "ncu_counter_collection_succeeded",
+                    profile_ncu["counter_collection_succeeded"],
+                    False,
+                ),
+                check_close("dmon_sm_avg_pct", profile_dmon["sm_avg_pct"], 2.3),
+                check_close("dmon_sm_max_pct", profile_dmon["sm_max_pct"], 33.0),
+                check_pdf_artifact("paper/figures/ml_strong_native_gate.pdf"),
+                check_pdf_artifact("paper/figures/ml_profile_breakdown.pdf"),
+            ],
+        )
+    )
+
     scaling_figures = [
         "paper/figures/intro_comparison_paths.pdf",
         "paper/figures/intro_threshold_summary.pdf",
@@ -386,6 +465,8 @@ def main():
         "paper/figures/workload_growth_quality.pdf",
         "paper/figures/strong_native_comparison.pdf",
         "paper/figures/strong_native_quality_shift.pdf",
+        "paper/figures/ml_strong_native_gate.pdf",
+        "paper/figures/ml_profile_breakdown.pdf",
         "paper/figures/threshold_tail_pressure.pdf",
         "paper/figures/circuit_operation_mix.pdf",
         "paper/figures/architecture_focus_matrix.pdf",
@@ -451,6 +532,11 @@ def main():
                 "7,104-case larger-workload gate",
                 "256-GPU run completes 7,104 cases in 514 seconds",
                 "4 minutes 21 seconds",
+                "32-case production-style ML native gate",
+                "8,601.6$\\times$",
+                "49.3$\\times$",
+                "Tensor-family kernels account for 15.2\\%",
+                "GPU kernels occupy 0.8\\%",
             ],
         ),
         check_text_contains(

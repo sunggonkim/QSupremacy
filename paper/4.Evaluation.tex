@@ -166,11 +166,37 @@ The similar seven-second path is not interpreted as a future hardware latency. I
 
 The strong-native run completed as a one-node, four-GPU bundled allocation on the leadership-scale system. The job finished 190 cases in 6 minutes and 59 seconds with exit code 0:0, 190 raw JSON outputs, and empty stderr logs. The selected ML baselines were RBF kernel ridge, nearest centroid, kNN, softmax regression, and linear ridge depending on the case; the selected optimization baselines were mostly greedy assignment, with exact enumeration selected when it was fastest at the best cut value.
 
+\begin{figure}[t]
+\centering
+\begin{subfigure}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/ml_strong_native_gate.pdf}
+    \caption{ML native gate.}
+    \label{fig:ml-strong-native-gate}
+\end{subfigure}
+\begin{subfigure}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/ml_profile_breakdown.pdf}
+    \caption{Profiling gate.}
+    \label{fig:ml-profile-breakdown}
+\end{subfigure}
+\vspace{-.1cm}
+\Description{Two subfigures showing the ML production-native gate thresholds and Nsight/dmon profiling breakdown.}
+\caption{ML production-native and profiling gate. PyTorch AMP and XGBoost candidates reach native-level quality, but the small digits task remains dominated by previous microsecond baselines and by host orchestration in the profiled GPU gate.}
+\label{fig:ml-native-profile-gate}
+\end{figure}
+
+\noindent\textbf{ML Production-native Gate.}
+The main suite intentionally uses auditable small-task ML baselines because the quantum-circuit version is also constrained to small feature dimensions and 4--16 qubits. To test the reviewer concern directly, we add a 32-case production-style ML native gate over measured digits configurations with PyTorch AMP CNN/MLP candidates and XGBoost GPU-hist. The production candidates reach median quality 1.0000. Among production candidates, the AMP CNN is selected in 25 of 32 cases, XGBoost in five, and the AMP MLP in two. When these candidates are combined with the previous suite baselines, however, the selected native path remains the previous microsecond baseline in 24 cases and switches to the AMP CNN in eight. The median threshold changes from 8,876.8$\times$ to 8,601.6$\times$; the production-only threshold is 49.3$\times$ because the GPU models are accurate but overhead-heavy for 8$\times$8 digits. A larger ResNet-style ImageNet baseline would be the wrong task for this quantum-feasible input size; the measured gate answers the fairer question of whether a production GPU stack changes $T_{\mathrm{native}}$ on the same inputs.
+
+\noindent\textbf{Native Profiling Gate.}
+We also profile the PyTorch AMP gate. Nsight Systems records 53 CUDA kernel rows, including 16 tensor-family kernels with \texttt{xmma}, \texttt{wmma}, \texttt{tensorop}, and \texttt{ampere\_fp16} names. Tensor-family kernels account for 15.2\% of GPU kernel time, but GPU kernels occupy 0.8\% of the run, or 48.4 ms of a 6.07 s profiled gate. The remaining 99.2\% is host orchestration, data movement, Python framework overhead, and process/file activity around very small training jobs. \texttt{nvidia-smi dmon} agrees with this interpretation: 30 one-second samples show 2.3\% average SM utilization, a 33\% peak, and no memory-bandwidth saturation signal. Nsight Compute/Roofline counter collection was attempted, but the driver reported an unavailable profiling resource, likely due a site-level concurrent collector; the artifact records the error instead of fabricating Tensor-Core utilization. Therefore the paper claims tensor-family execution was observed, but it does not claim Roofline saturation.
+
 \noindent\textbf{Baseline Coverage Gate.}
 We also run a separate accept-profile gate to strengthen the two application families that are easiest to criticize as toy baselines: chemistry and scientific simulation. The chemistry gate includes OpenFermion and PySCF-generated H$_2$, LiH, and H$_2$O active-space Hamiltonians, in addition to the built-in minimal H$_2$ and molecular-chain surrogate. The committed fixture set now includes LiH and H$_2$O active spaces at 4, 6, and 8 qubits; the 6--8 qubit fixtures pass a login-node smoke gate before larger allocation runs. The simulation gate compares dense exact evolution with sparse Krylov evolution on TFIM and Heisenberg Hamiltonians from 4 to 8 qubits.
 
 \noindent\textbf{Baseline Boundary.}
-This stress test is not a claim that the native side is final domain SOTA or fully optimized for every accelerator feature. The ML path is still an auditable scikit-learn-style baseline rather than a production GPU deep-learning or boosted-tree ceiling; a PyTorch CNN/ResNet-style gate, XGBoost/LightGBM-style gate, and native Roofline/Nsight counter pass should be added before claiming ML-native saturation. Tuned MILP and domain heuristics for optimization, tensor-network or projector-QMC methods for simulation, and CCSD(T)-class chemistry references can also move $T_{\mathrm{native}}$ and quality targets. \SystemName's rule is to report the strongest implemented, auditable native path, state its boundary, and expose how much the frontier moves when the native side is strengthened.
+This stress test is not a claim that the native side is final domain SOTA or fully optimized for every accelerator feature. The added ML gate shows that PyTorch AMP and XGBoost candidates do not tighten this tiny digits threshold, but that result is specific to the same small inputs used by the quantum-circuit path. Tuned MILP and domain heuristics for optimization, tensor-network or projector-QMC methods for simulation, larger ML datasets, and CCSD(T)-class chemistry references can still move $T_{\mathrm{native}}$ and quality targets. \SystemName's rule is to report the strongest implemented, auditable native path, state its boundary, and expose how much the frontier moves when the native side is strengthened.
 
 The strengthened chemistry and simulation baselines execute correctly in the same bundled one-node run. The job completed 116 cases in 6 minutes and 5 seconds with exit code 0:0; each of the four A100 tasks completed 29 cases, and stderr logs were empty. Chemistry reports a median 63,566.8$\times$ required speedup over 56 cases, and simulation reports 4,185.2$\times$ over 60 cases. For chemistry, both dense exact and sparse Lanczos/eigensolver candidates are evaluated for every case. The selected runtime baseline is dense exact for these small active-space Hamiltonians, but the run now uses OpenFermion and PySCF instances instead of only a hand-written surrogate. For simulation, sparse Krylov becomes the selected native method in 34 of 60 cases, especially at 6--8 qubits, showing that the native path is no longer a single dense solver.
 
@@ -246,7 +272,7 @@ All comparable weak-scaling jobs completed with exit code 0:0. The generated raw
 \label{fig:strong-scaling}
 \end{figure}
 
-The fixed-work result measures time-to-solution for the same 3,552 cases. It reduces elapsed time from 30 minutes 55 seconds on 16 GPUs to 4 minutes 17 seconds on 128 GPUs, a 7.2$\times$ speedup over an 8$\times$ GPU increase. The 256-GPU run completes in 4 minutes 21 seconds, nearly identical to the 128-GPU result. This plateau is not a failure of \cuQuantum and is not distributed single-circuit MPI synchronization: every Slurm task owns independent cases on one A100, and the workflow does not use inter-task circuit communication. At 128 GPUs the sweep still has about 28 cases per GPU; at 256 GPUs it has about 14 cases per GPU. With a seven-second per-case floor, stragglers, Python process orchestration, and task-local file output dominate before more GPUs can help. The evidence here is workflow and Slurm evidence, not an Nsight Systems Gantt trace; the next profiling gate should attach Python, CUDA, and file-output fractions to this same scaling run.
+The fixed-work result measures time-to-solution for the same 3,552 cases. It reduces elapsed time from 30 minutes 55 seconds on 16 GPUs to 4 minutes 17 seconds on 128 GPUs, a 7.2$\times$ speedup over an 8$\times$ GPU increase. The 256-GPU run completes in 4 minutes 21 seconds, nearly identical to the 128-GPU result. This plateau is not a failure of \cuQuantum and is not distributed single-circuit MPI synchronization: every Slurm task owns independent cases on one A100, and the workflow does not use inter-task circuit communication. At 128 GPUs the sweep still has about 28 cases per GPU; at 256 GPUs it has about 14 cases per GPU. With a seven-second per-case floor, stragglers, Python process orchestration, and task-local file output dominate before more GPUs can help. The ML profiling gate gives a representative small-case decomposition: GPU kernels occupy only 0.8\% of that profiled run while host orchestration occupies 99.2\%. We therefore diagnose the 128--256 GPU plateau as task granularity plus orchestration overhead, while still avoiding a stronger claim that we have a full 256-GPU Nsight Gantt trace.
 
 \begin{observationbox}
 \textbf{Observation 4:} More GPUs help until the application sweep runs out of useful task granularity. Weak scaling remains healthy over the comparable 32--128 GPU profile, but fixed-work strong scaling saturates after 128 GPUs even though the 256-GPU larger-workload gate completes successfully. For this modeling workflow, architecture effort should improve per-case circuit execution and scheduling granularity, not only allocate more GPUs.

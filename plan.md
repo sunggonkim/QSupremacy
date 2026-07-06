@@ -23,14 +23,16 @@ strength, or algorithmic quality.
 | Area | Status |
 | --- | --- |
 | Paper PDF | Built at `paper/main.pdf` |
-| HPCA body budget | References start on page 12 |
+| HPCA body budget | Expanded evidence draft; references start on page 13 |
 | Main practical suite | 3,552 cases, 128 GPUs |
 | 256-GPU fixed work | 3,552 cases in 261 seconds |
 | 256-GPU larger-workload gate | 7,104 cases in 514 seconds |
+| ML production-native gate | 32 cases with PyTorch AMP CNN/MLP and XGBoost GPU-hist |
+| ML profiling gate | Nsight Systems + dmon captured; Nsight Compute counters attempted and recorded as unavailable |
 | Workload coverage | ML, chemistry, optimization, scientific simulation |
 | Previous-paper logic/style | JSON audits PASS |
 | Evidence audit | PASS |
-| Submission readiness | `SUBMISSION_READY`, warning count 0 |
+| Submission readiness | `EVIDENCE_READY_WITH_SUBMISSION_RISKS`, warning count 1 |
 
 ## Critical Review Integration Map
 
@@ -68,9 +70,9 @@ without turning the paper into a point-by-point response.
 | C7 | Scaling plateau explanation | Explain 128--256 GPU strong-scaling plateau as independent-case task granularity and per-case floor, not distributed single-circuit synchronization. | Reflected; keep weak and strong scaling separated. |
 | C8 | Algorithmic flexibility | Avoid overclaiming fixed QAOA/VQC grids as final algorithms; explain the quality-vs-depth/evaluation tradeoff for richer ansatz and training. | Reflected; strengthen in taxonomy/discussion. |
 | C9 | Artifact credibility | Keep raw JSON/CSV/accounting artifacts, figure generation, and readiness audits connected to claims. | Reflected through manifest, evidence audit, and submission-readiness audit. |
-| C10 | ML native baseline ceiling | State that scikit-learn ML baselines are auditable but not a production GPU deep-learning or boosted-tree ceiling; add a future strong-native gate for PyTorch CNN/ResNet-style models and XGBoost/LightGBM-style baselines. | Reflected in Evaluation; actual SOTA gate remains future work. |
-| C11 | Native hardware utilization proof | Do not claim Tensor Core or memory-bandwidth saturation without counters; plan a Roofline/Nsight Compute gate for native ML and optimization kernels. | Reflected as a required next profiling gate, not fabricated evidence. |
-| C12 | Scaling plateau profiling | Current 128--256 GPU plateau is supported by Slurm/task-granularity evidence, but not an Nsight Systems Gantt breakdown. | Reflected as profiling boundary and next experiment. |
+| C10 | ML native baseline ceiling | Add same-input production-style ML native candidates and report whether they change the threshold. | Completed with 32-case PyTorch AMP CNN/MLP + XGBoost GPU-hist gate; combined median threshold is 8,601.6x and production-only median threshold is 49.3x. |
+| C11 | Native hardware utilization proof | Do not claim Tensor Core or memory-bandwidth saturation without evidence; collect profiler evidence where possible. | Completed as a bounded claim: Nsight Systems captured tensor-family kernels, dmon shows low SM utilization, and Nsight Compute counter failure is recorded rather than converted into a saturation claim. |
+| C12 | Scaling plateau profiling | Quantify whether small-case GPU work is kernel-bound or orchestration-bound, and connect that to the 128--256 GPU plateau without overclaiming. | Completed with a representative profiling gate: GPU kernels are 0.8% of the profiled run and host orchestration is 99.2%; no full 256-GPU Gantt trace is claimed. |
 | C13 | Physical speed axis readability | Put effective quantum execution time on the Figure 13 secondary x-axis so $10^4$--$10^6\times$ reads as time, not only a dimensionless speedup. | Reflected in regenerated Figure 13 and caption. |
 | C14 | Energy and power projection | Extend the future-hardware frontier with parameterized native GPU energy and quantum decoder/fridge/control energy terms; do not instantiate with unmeasured power values. | Reflected in Discussion as a parameterized energy model. |
 
@@ -93,7 +95,7 @@ previous-paper alignment: checks pass with TRACKED_WITH_KNOWN_GAPS status
 previous-paper deep trace: PASS
 previous-paper style audit: PASS
 paper evidence audit: PASS
-submission readiness: SUBMISSION_READY, warning_count 0, references_start_page 12
+submission readiness: EVIDENCE_READY_WITH_SUBMISSION_RISKS, warning_count 1, references_start_page 13
 ```
 
 ## Authoritative JSON Artifacts
@@ -109,10 +111,13 @@ submission readiness: SUBMISSION_READY, warning_count 0, references_start_page 1
 | Main 128-GPU summary | `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.json` |
 | 256-GPU fixed-work summary | `data/processed/perlmutter/practical_suite_strongscale_64node_largefull_c0c255_20260705024742_summary.json` |
 | 256-GPU larger-workload summary | `data/processed/perlmutter/practical_suite_strongnative_64node_large256c0c255_20260705024742_summary.json` |
+| ML production-native gate | `data/processed/perlmutter/ml_strong_native_gate_latest.json` |
+| ML profiling gate | `data/processed/perlmutter/ml_strong_native_profile_latest.json` |
 | Advantage projection | `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.json` |
 
 ## Remaining Paper Work
 
-No additional leadership-system experiments are required for the current paper claims.
-Before submission, replace the HPCA `NaN` submission number and recheck the final
-conference template/instructions.
+No additional leadership-system experiments are required for the current claims as
+written. Before submission, compress the expanded evidence draft back to the
+11-page HPCA body budget, replace the HPCA `NaN` submission number, and recheck
+the final conference template/instructions.

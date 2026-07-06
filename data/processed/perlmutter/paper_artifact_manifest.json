@@ -79,6 +79,37 @@
     },
     {
       "artifacts": [
+        "data/processed/perlmutter/ml_strong_native_gate_latest.json",
+        "data/processed/perlmutter/ml_strong_native_gate_latest.csv",
+        "data/processed/perlmutter/ml_strong_native_profile_latest.json",
+        "data/raw/perlmutter/ml_strong_native/ml_strong_native_manual_20260706034227.json",
+        "data/raw/perlmutter/profiles/ml_strong_native_manual_20260706034227_nsys_kernel_cuda_gpu_kern_sum.csv",
+        "data/raw/perlmutter/profiles/ml_strong_native_manual_20260706034227_ncu.csv",
+        "data/raw/perlmutter/profiles/ml_strong_native_manual_20260706034227_dmon.csv"
+      ],
+      "audit_item": "ml_strong_native_gate",
+      "claim": "Same-input ML production-native candidates and profiler evidence test whether PyTorch AMP and XGBoost GPU paths change the small-digits native baseline.",
+      "figures_tables": [
+        "paper/figures/ml_strong_native_gate.pdf",
+        "paper/figures/ml_profile_breakdown.pdf"
+      ],
+      "id": "ml_strong_native_gate",
+      "paper_locations": [
+        "paper/3.Design.tex",
+        "paper/4.Evaluation.tex",
+        "paper/5.Discussion.tex"
+      ],
+      "source_jobs": [
+        "jobs/perlmutter/ml_strong_native_profile_1gpu_debug.sbatch"
+      ],
+      "source_scripts": [
+        "benchmarks/workloads/run_ml_strong_native_gate.py",
+        "scripts/summarize_ml_native_profiles.py",
+        "scripts/generate_paper_figures.py"
+      ]
+    },
+    {
+      "artifacts": [
         "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.json"
       ],
       "audit_item": "advantage_projection",
@@ -188,6 +219,8 @@
         "paper/figures/workload_growth_quality.pdf",
         "paper/figures/strong_native_comparison.pdf",
         "paper/figures/strong_native_quality_shift.pdf",
+        "paper/figures/ml_strong_native_gate.pdf",
+        "paper/figures/ml_profile_breakdown.pdf",
         "paper/figures/threshold_tail_pressure.pdf",
         "paper/figures/circuit_operation_mix.pdf",
         "paper/figures/architecture_focus_matrix.pdf",
@@ -221,6 +254,8 @@
         "paper/figures/workload_growth_quality.pdf",
         "paper/figures/strong_native_comparison.pdf",
         "paper/figures/strong_native_quality_shift.pdf",
+        "paper/figures/ml_strong_native_gate.pdf",
+        "paper/figures/ml_profile_breakdown.pdf",
         "paper/figures/threshold_tail_pressure.pdf",
         "paper/figures/circuit_operation_mix.pdf",
         "paper/figures/architecture_focus_matrix.pdf",

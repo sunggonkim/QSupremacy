@@ -12,7 +12,9 @@ PDF is `paper/main.pdf`.
 make -B -C paper
 ```
 
-The current build produces a 13-page PDF with references starting on page 12.
+The current expanded-evidence build produces a 15-page PDF with references
+starting on page 13. The evidence is complete, but the final submission draft
+must be compressed back to the 11-page HPCA body budget.
 
 ## Artifact Quickstart
 
@@ -33,7 +35,7 @@ Expected state:
 paper/main.pdf builds
 paper evidence audit PASS
 previous-paper alignment/deep-trace/style audits PASS
-submission readiness SUBMISSION_READY
+submission readiness EVIDENCE_READY_WITH_SUBMISSION_RISKS, warning_count 1
 ```
 
 For a low-cost environment check:

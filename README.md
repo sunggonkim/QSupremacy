@@ -25,15 +25,17 @@ bottleneck insights.
 | Item | Status |
 | --- | --- |
 | Manuscript PDF | `paper/main.pdf` builds successfully |
-| Body budget | Main text through page 11; references start on page 12 |
+| Body budget | Expanded evidence draft; references start on page 13 |
 | Main suite | 3,552 cases on 128 GPUs |
 | 256-GPU fixed work | 3,552 cases in 261 seconds |
 | 256-GPU larger-workload gate | 7,104 cases in 514 seconds |
+| ML production-native gate | 32 same-input cases with PyTorch AMP CNN/MLP and XGBoost GPU-hist |
+| ML profiling gate | Nsight Systems + dmon captured; Nsight Compute counter failure recorded |
 | Workloads | ML, chemistry, optimization, scientific simulation |
 | Previous-paper structure audit | PASS via JSON artifacts |
 | Previous-paper LaTeX style audit | PASS via JSON artifacts |
 | Paper evidence audit | PASS |
-| Submission readiness audit | `SUBMISSION_READY`, 0 blocking errors, 0 warnings |
+| Submission readiness audit | `EVIDENCE_READY_WITH_SUBMISSION_RISKS`, 0 blocking errors, 1 length warning |
 
 Main 3,552-case medians:
 
@@ -43,6 +45,19 @@ Main 3,552-case medians:
 | Chemistry / drug-discovery proxy | 224 | 42,491.4x | 0.0203 |
 | Optimization | 768 | 287,045.6x | 0.2500 |
 | Scientific simulation | 512 | 3,071.0x | 0.0188 |
+
+ML production-native gate:
+
+| Item | Result |
+| --- | ---: |
+| Cases | 32 |
+| Previous selected-native median threshold | 8,876.8x |
+| Combined selected-native median threshold | 8,601.6x |
+| Production-only median threshold | 49.3x |
+| Combined selections | 24 previous suite, 8 PyTorch AMP CNN |
+| Production selections | 25 PyTorch AMP CNN, 5 XGBoost GPU-hist, 2 PyTorch AMP MLP |
+| Profiled GPU-kernel fraction | 0.8% |
+| Profiled host-orchestration fraction | 99.2% |
 
 ## Paper Readiness Quickstart
 
@@ -64,7 +79,7 @@ previous-paper alignment: ALIGNED_BY_COUNTS
 previous-paper deep trace: PASS
 previous-paper style audit: PASS
 paper evidence audit: PASS
-submission readiness: SUBMISSION_READY, warning_count 0
+submission readiness: EVIDENCE_READY_WITH_SUBMISSION_RISKS, warning_count 1
 ```
 
 For allocation-free sanity checks:
@@ -86,6 +101,8 @@ scripts/run_login_smoke.sh
 | Main 128-GPU summary | `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.json` |
 | 256-GPU fixed-work summary | `data/processed/perlmutter/practical_suite_strongscale_64node_largefull_c0c255_20260705024742_summary.json` |
 | 256-GPU larger-workload summary | `data/processed/perlmutter/practical_suite_strongnative_64node_large256c0c255_20260705024742_summary.json` |
+| ML production-native gate | `data/processed/perlmutter/ml_strong_native_gate_latest.json` |
+| ML profiling gate | `data/processed/perlmutter/ml_strong_native_profile_latest.json` |
 | Advantage projection | `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.json` |
 | Workload taxonomy | `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_taxonomy.json` |
 
