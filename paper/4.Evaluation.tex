@@ -13,29 +13,27 @@ The controlled benchmark is the expanded \texttt{sklearn digits} sweep. It varie
 \noindent\textbf{Evaluation Objects.}
 The unit of comparison is always a same-input application case. For each case, \SystemName measures a native HPC path, measures a quantum-circuit application path on the simulator, records quality for both paths, and reports the required speedup $T_{\mathrm{qsim}}/T_{\mathrm{native}}$ only when the quality target is interpretable. The native path is never another quantum simulator.
 
-\begin{table}[t]
-\caption{Application paths used in the evaluation.}
+\begin{table}[h]
+\caption{Workload names and compared application paths.}
 \centering
 \scriptsize
-\renewcommand{\arraystretch}{1.12}
+\renewcommand{\arraystretch}{1.18}
 \resizebox{\columnwidth}{!}{%
-\begin{tabular}{llll}
+\begin{tabular}{p{0.18\columnwidth}p{0.76\columnwidth}}
 \toprule
-\textbf{Family} & \textbf{Native HPC path} & \textbf{Quantum-circuit path} & \textbf{Quality signal} \\
+\textbf{Name} & \textbf{Meaning in this evaluation} \\
 \midrule
-Controlled ML & selected classical classifier & QKernel or QNN/VQC & test accuracy \\
-Practical ML & selected classical classifier & feature circuit + softmax head & test accuracy \\
-Chemistry & dense exact or sparse Lanczos & VQE-style ansatz & energy error \\
-Optimization & exact, greedy, local, annealing & QAOA MaxCut circuit & objective gap \\
-Simulation & dense exact or sparse Krylov & Trotterized dynamics & observable error \\
+ML-QNN/VQC & Machine-learning task solved with a parameterized quantum circuit; a classical optimizer learns circuit parameters, and quality is test accuracy. \\
+ML-QKernel & Machine-learning task converted to a quantum feature map/kernel; many circuit evaluations build a kernel matrix consumed by a classical classifier. \\
+ML-Feature & Practical-suite ML path; a quantum feature circuit transforms data and a softmax head performs classification. \\
+Chem-VQE & Molecular-energy task; native HPC uses exact diagonalization or sparse Lanczos, while the quantum path uses a VQE-style ansatz circuit. \\
+Opt-QAOA & Combinatorial optimization task such as MaxCut; native HPC uses exact, greedy, local-search, or simulated-annealing solvers, while the quantum path uses a QAOA-style circuit. \\
+Sim-Ham. & Hamiltonian-simulation task; native HPC uses dense or sparse Hamiltonian time evolution, while the quantum path uses a Trotterized Hamiltonian simulation circuit. \\
 \bottomrule
 \end{tabular}
 }
 \label{tab:evaluation-paths}
 \end{table}
-
-\noindent\textbf{Simulator Tool Gate.}
-Production application results use the \cuQuantum/cuStateVec path because it is the implemented end-to-end pipeline for all practical-suite records. We separately run a small backend-diversity sanity gate on Perlmutter: \cuQuantum, qsim CPU/GPU, CUDA-Q cuStateVec, and Qiskit Aer CPU complete the smoke circuit, while Qiskit Aer GPU reports that the GPU device is unsupported. This gate checks installation and portability; it is not mixed into Fig.~\ref{fig:practical-suite} because a tiny sanity circuit is not the same workload as the application paths in Table~\ref{tab:evaluation-paths}.
 
 \noindent\textbf{Feasibility.}
 Short login runs are only correctness gates. Performance evidence must come from Slurm jobs with accounting records, raw JSON counts, and completed exit status. The completed campaign below separates calibration, application coverage, baseline stress, scaling, and timing stability.
@@ -358,6 +356,33 @@ This classification is the practical insight. If a workload is speed-limited, fa
 \subsubsection{Sensitivity Scope}
 
 The expanded digits sweep covers class pair, sample count, PCA dimension, circuit depth, and seed; the practical suite adds workload family, native-baseline choice, chemistry grid size, circuit layer count, graph family, simulation model, and GPU count. These dimensions support the central claim that thresholds are workload-specific, while shot, ansatz, optimizer, mitigation, and repeated hardware trials remain explicit future sensitivity axes.
+
+\subsection{Simulator-Backend Ablation}
+
+The main evaluation uses the \cuQuantum/cuStateVec application pipeline for production records. This choice keeps the threshold model consistent: every case in the practical suite measures the same native path, the same quantum-circuit application logic, and the same simulator interface. To check whether the Perlmutter software environment can support other simulator paths, we also run a small backend-diversity gate. This gate is deliberately not used as the main performance result because it runs a tiny sanity circuit rather than the application workloads in Table~\ref{tab:evaluation-paths}.
+
+\begin{table}[h]
+\caption{Small simulator-backend sanity gate on one GPU node.}
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.10}
+\begin{tabular}{lrl}
+\toprule
+\textbf{Backend} & \textbf{Smoke time} & \textbf{Outcome} \\
+\midrule
+\cuQuantum/cuStateVec & 3.18 s & pass \\
+qsim CPU & 4.50 s & pass \\
+qsim GPU & 0.55 s & pass \\
+CUDA-Q cuStateVec & 6.02 s & pass \\
+Qiskit Aer CPU & 1.23 s & pass \\
+Qiskit Aer GPU & -- & unsupported device \\
+\bottomrule
+\end{tabular}
+\label{tab:backend-ablation}
+\end{table}
+
+\noindent\textbf{Interpretation.}
+The sanity gate shows that multiple simulator stacks are installed and callable on Perlmutter, including qsim GPU and CUDA-Q cuStateVec. It does not imply that qsim GPU is faster for the full application suite: the application path includes encoding, repeated evaluations, optimizer/classifier logic, state extraction, quality measurement, and Slurm-recorded execution. Therefore simulator choice is an ablation gate in this paper, while the advantage-frontier conclusions are based on the complete \cuQuantum/cuStateVec application pipeline.
 
 \subsection{Operational Stability}
 

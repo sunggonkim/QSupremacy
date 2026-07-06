@@ -388,7 +388,7 @@ def figure_intro_paths():
 
 
 def figure_intro_threshold_summary():
-    labels = ["ML-QNN", "ML-QKernel", "Sim-Trotter", "ML-Feature", "Chem-VQE", "Opt-QAOA"]
+    labels = ["ML-QNN", "ML-QKernel", "Sim-Ham.", "ML-Feature", "Chem-VQE", "Opt-QAOA"]
     values = [64.9, 421.9, 3071.0, 3726.4, 42491.4, 287045.6]
     colors = [
         COLORS["orange"],
