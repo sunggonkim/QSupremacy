@@ -51,6 +51,24 @@ component procedure; evaluation figure first, then data and systems
 interpretation; use observation boxes for synthesized insight rather than
 tables of raw facts.
 
+## Review Checkpoint Ledger
+
+The appended reviews are consolidated into checkpoints rather than preserved as
+raw rebuttal text. Each checkpoint should strengthen the manuscript narrative
+without turning the paper into a point-by-point response.
+
+| ID | Checkpoint | Manuscript-level action | Current status |
+| --- | --- | --- | --- |
+| C1 | HPCA framing and prior-paper style | Keep the paper architecture-facing: design figures before procedures, evaluation figures before interpretation, and observation boxes for synthesized lessons. | Reflected through `paper/3.Design.tex`, `paper/4.Evaluation.tex`, and previous-paper audits. |
+| C2 | Projection model physicality | Decompose `T_error`, bound effective shot parallelism, and state how surface-code distance, cycle time, decoder latency, magic-state throughput, control, data loading, and queueing plug into the same frontier. | Reflected; strengthen with clearer simulator/hardware separation and physical speed-axis interpretation. |
+| C3 | Shot parallelism and hybrid-loop limits | Treat `P_shots` as a bounded system resource and make QNN/QAOA host-device iteration overhead visible through metadata and prose. | Partly reflected; add concise text tying shot parallelism to control/decoder/queue limits. |
+| C4 | Native baseline strength | State the strongest implemented auditable baselines, show how stronger native paths move thresholds, and explicitly avoid claiming final domain SOTA. | Reflected; strengthen with hardware-utilization boundary and moving-target language. |
+| C5 | Simulator versus future hardware | Make clear that cuQuantum measures the circuit application path and metadata; projected hardware latency is not state-vector runtime. | Partly reflected; add explicit contamination boundary in Design/Evaluation. |
+| C6 | Long-tail and tolerance sensitivity | Do not rely only on medians. Show or describe p90/max threshold pressure, tolerance sensitivity, and why some tails are native-fast or quality-limited. | Partly reflected; add tail-pressure figure/prose and preserve tolerance-sensitivity figure. |
+| C7 | Scaling plateau explanation | Explain 128--256 GPU strong-scaling plateau as independent-case task granularity and per-case floor, not distributed single-circuit synchronization. | Reflected; keep weak and strong scaling separated. |
+| C8 | Algorithmic flexibility | Avoid overclaiming fixed QAOA/VQC grids as final algorithms; explain the quality-vs-depth/evaluation tradeoff for richer ansatz and training. | Reflected; strengthen in taxonomy/discussion. |
+| C9 | Artifact credibility | Keep raw JSON/CSV/accounting artifacts, figure generation, and readiness audits connected to claims. | Reflected through manifest, evidence audit, and submission-readiness audit. |
+
 ## Validation Commands
 
 ```bash
@@ -66,11 +84,11 @@ Expected result:
 
 ```text
 paper/main.pdf: builds successfully
-previous-paper alignment: ALIGNED_BY_COUNTS
+previous-paper alignment: checks pass with TRACKED_WITH_KNOWN_GAPS status
 previous-paper deep trace: PASS
 previous-paper style audit: PASS
 paper evidence audit: PASS
-submission readiness: SUBMISSION_READY, warning_count 0
+submission readiness: SUBMISSION_READY, warning_count 0, references_start_page 12
 ```
 
 ## Authoritative JSON Artifacts
@@ -93,4 +111,3 @@ submission readiness: SUBMISSION_READY, warning_count 0
 No additional leadership-system experiments are required for the current paper claims.
 Before submission, replace the HPCA `NaN` submission number and recheck the final
 conference template/instructions.
-

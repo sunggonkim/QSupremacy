@@ -16,7 +16,7 @@
       "passed": true
     },
     {
-      "detail": "current subfigure environments: 19",
+      "detail": "current subfigure environments: 21",
       "name": "current_uses_subfigure_environment",
       "passed": true
     },
@@ -26,7 +26,7 @@
       "passed": true
     },
     {
-      "detail": "subfigures=19, captions=17, labels=17, legend-only=2",
+      "detail": "subfigures=21, captions=19, labels=19, legend-only=2",
       "name": "subfigures_have_caption_and_label",
       "passed": true
     },
@@ -46,7 +46,7 @@
       "passed": true
     },
     {
-      "detail": "subfigures=19, legend-only subfigures=2, vspace=8",
+      "detail": "subfigures=21, legend-only subfigures=2, vspace=8",
       "name": "compact_visual_style_present",
       "passed": true
     },
@@ -75,9 +75,9 @@
     "noindent_textbf": 34,
     "resizebox_column": 1,
     "scriptsize": 1,
-    "subfigure_environment": 19,
-    "subfigures_with_caption": 17,
-    "subfigures_with_label": 17,
+    "subfigure_environment": 21,
+    "subfigures_with_caption": 19,
+    "subfigures_with_label": 19,
     "subfloat": 0,
     "table": 1,
     "table_star": 0,

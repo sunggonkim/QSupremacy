@@ -849,7 +849,7 @@ def figure_circuit_operation_mix():
         total_ops = sum(med.values())
         fractions.append([med[key] / total_ops for key, _, _ in categories])
 
-    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.60))
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.55))
     y = np.arange(len(workloads))
     left = np.zeros(len(workloads))
     handles = []
@@ -875,13 +875,52 @@ def figure_circuit_operation_mix():
     ax.set_yticks(y)
     ax.set_yticklabels([label for _, label, _ in workloads])
     ax.set_xlim(0, 1.0)
-    ax.set_xlabel("Median circuit-operation share")
+    ax.set_xlabel("Operation share")
     ax.set_xticks([0, 0.5, 1.0])
     ax.set_xticklabels(["0", "50%", "100%"])
     style_axis(ax, grid="x")
-    add_top_legend(fig, handles, labels, ncol=3, y=1.03, fontsize=6.2)
-    fig.subplots_adjust(left=0.18, right=0.98, bottom=0.25, top=0.70)
+    add_top_legend(fig, handles, labels, ncol=3, y=1.03, fontsize=5.5)
+    fig.subplots_adjust(left=0.23, right=0.98, bottom=0.27, top=0.68)
     path = os.path.join(FIG_DIR, "circuit_operation_mix.pdf")
+    fig.savefig(path, bbox_inches="tight")
+    plt.close(fig)
+    return path
+
+
+def figure_threshold_tail_pressure():
+    if not os.path.exists(os.path.join(ROOT, STRONG_NATIVE_SUMMARY_CSV)):
+        return None
+
+    rows = read_csv(STRONG_NATIVE_SUMMARY_CSV)
+    workloads = [
+        ("ml", "ML", COLORS["blue"]),
+        ("chemistry", "Chem.", COLORS["teal"]),
+        ("optimization", "Opt.", COLORS["red"]),
+        ("simulation", "Sim.", COLORS["green"]),
+    ]
+
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.55))
+    y = np.arange(len(workloads))
+    for ypos, (workload, label, color) in zip(y, workloads):
+        subset = [row for row in rows if row["workload"] == workload]
+        speed = np.array([float(row["speedup_required"]) for row in subset])
+        p50, p90, pmax = np.percentile(speed, [50, 90, 100])
+        ax.hlines(ypos, p50, pmax, color=color, linewidth=1.4, alpha=0.55)
+        ax.scatter([p50, p90, pmax], [ypos] * 3, s=[18, 24, 30], color=color,
+                   edgecolors="#222222", linewidths=0.35, zorder=3)
+        ax.text(pmax * 1.08, ypos, label, va="center", fontsize=5.8,
+                color=color, weight="bold")
+    ax.set_xscale("log")
+    ax.set_yticks(y)
+    ax.set_yticklabels(["", "", "", ""])
+    ax.set_xlabel("Required speedup tail (x)")
+    ax.set_xlim(1e3, 8e5)
+    ax.invert_yaxis()
+    style_axis(ax, grid="x")
+    ax.text(0.05, 1.05, "dot: median / p90 / max", transform=ax.transAxes,
+            fontsize=5.6, color=COLORS["dark"])
+    fig.subplots_adjust(left=0.20, right=0.78, bottom=0.27, top=0.84)
+    path = os.path.join(FIG_DIR, "threshold_tail_pressure.pdf")
     fig.savefig(path, bbox_inches="tight")
     plt.close(fig)
     return path
@@ -1277,6 +1316,7 @@ def main():
         figure_practical_suite_legend(),
         figure_practical_suite(),
         figure_strong_native_comparison(),
+        figure_threshold_tail_pressure(),
         figure_circuit_operation_mix(),
         figure_workload_growth(),
         figure_advantage_frontier(),

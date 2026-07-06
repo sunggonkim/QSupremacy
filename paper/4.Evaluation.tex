@@ -106,15 +106,29 @@ Across 3,552 cases, native execution remains extremely fast: the median native p
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.98\linewidth]{figures/circuit_operation_mix.pdf}
-\Description{Stacked operation mix by workload showing one-qubit gates, two-qubit gates, measurements, circuit evaluations, and median simulated runtime.}
-\caption{Circuit-operation pressure by workload. The measured circuit path spends work differently across families: ML is dominated by feature-map evaluations, optimization by repeated QAOA grids, chemistry by VQE term evaluation, and simulation by fewer but state-evolution-heavy circuits.}
-\label{fig:circuit-operation-mix}
+\begin{subfigure}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/threshold_tail_pressure.pdf}
+    \caption{Threshold tail.}
+    \label{fig:threshold-tail-pressure}
+\end{subfigure}
+\begin{subfigure}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/circuit_operation_mix.pdf}
+    \caption{Operation mix.}
+    \label{fig:circuit-operation-mix}
+\end{subfigure}
+\Description{Two subfigures showing median, 90th percentile, and maximum required speedup by workload and stacked circuit-operation share by workload.}
+\caption{Tail and circuit pressure by workload. The left plot shows median, 90th percentile, and maximum threshold pressure; the right plot separates one-qubit, two-qubit, and measurement pressure after the fixed simulation floor is removed.}
+\label{fig:tail-and-circuit-pressure}
 \end{figure}
 \FloatBarrier
 
 \noindent\textbf{Circuit Data.}
 Median records are ML: 7.3K ops, 224 evals, 7.3s; chemistry: 0.7K ops, 41 evals, 7.1s; optimization: 3.4K ops, 101 evals, 7.0s; and simulation: 0.2K ops, one eval, 6.9s. The quantum-runtime IQRs are narrow relative to the family differences in gate counts: ML is 6.97--7.74s, chemistry is 6.87--7.35s, optimization is 6.77--7.20s, and simulation is 6.72--7.06s.
+
+\noindent\textbf{Tail Data.}
+The long tail is workload-specific: ML moves from 3.7K$\times$ median to 48.5K$\times$ at p90, optimization from 287.0K$\times$ to 424.2K$\times$, chemistry stays high but tight at 42.5K--56.6K$\times$, and simulation reaches 18.4K$\times$ at max. The largest ratios are usually native-fast cases combined with the fixed small-circuit simulation floor, not a single unusually slow circuit kernel.
 
 \noindent\textbf{Interpretation.}
 The similar seven-second path is not interpreted as a future hardware latency. It is the measured end-to-end application floor of this small-circuit simulation stack, including Python orchestration, simulator setup, repeated circuit invocation, state extraction, and host-side objective logic. The operation mix explains which architectural lever would matter after that fixed floor is removed: a workload dominated by repeated circuit evaluations needs shot-level and scheduling parallelism, while a workload with fewer but heavier state-evolution circuits is more sensitive to logical execution speed and simulator/hardware kernel efficiency.
@@ -156,7 +170,7 @@ The strong-native run completed as a one-node, four-GPU bundled allocation on th
 We also run a separate accept-profile gate to strengthen the two application families that are easiest to criticize as toy baselines: chemistry and scientific simulation. The chemistry gate includes OpenFermion and PySCF-generated H$_2$, LiH, and H$_2$O active-space Hamiltonians, in addition to the built-in minimal H$_2$ and molecular-chain surrogate. The committed fixture set now includes LiH and H$_2$O active spaces at 4, 6, and 8 qubits; the 6--8 qubit fixtures pass a login-node smoke gate before larger allocation runs. The simulation gate compares dense exact evolution with sparse Krylov evolution on TFIM and Heisenberg Hamiltonians from 4 to 8 qubits.
 
 \noindent\textbf{Baseline Boundary.}
-This stress test is not a claim that the native side is final domain SOTA. CNNs or boosted trees for ML, tuned MILP and domain heuristics for optimization, tensor-network or projector-QMC methods for simulation, and CCSD(T)-class chemistry references can all move $T_{\mathrm{native}}$ and quality targets. \SystemName's rule is to report the strongest implemented, auditable native path and then expose how much the frontier moves when the native side is strengthened. Stronger native software therefore raises the bar instead of invalidating the measurement discipline.
+This stress test is not a claim that the native side is final domain SOTA or fully optimized for every accelerator feature. CNNs or boosted trees for ML, tuned MILP and domain heuristics for optimization, tensor-network or projector-QMC methods for simulation, and CCSD(T)-class chemistry references can all move $T_{\mathrm{native}}$ and quality targets. \SystemName's rule is to report the strongest implemented, auditable native path, state its boundary, and expose how much the frontier moves when the native side is strengthened. Stronger native software therefore raises the bar instead of invalidating the measurement discipline; a production deployment should rerun the same artifact pipeline with the best available native stack.
 
 The strengthened chemistry and simulation baselines execute correctly in the same bundled one-node run. The job completed 116 cases in 6 minutes and 5 seconds with exit code 0:0; each of the four A100 tasks completed 29 cases, and stderr logs were empty. Chemistry reports a median 63,566.8$\times$ required speedup over 56 cases, and simulation reports 4,185.2$\times$ over 60 cases. For chemistry, both dense exact and sparse Lanczos/eigensolver candidates are evaluated for every case. The selected runtime baseline is dense exact for these small active-space Hamiltonians, but the run now uses OpenFermion and PySCF instances instead of only a hand-written surrogate. For simulation, sparse Krylov becomes the selected native method in 34 of 60 cases, especially at 6--8 qubits, showing that the native path is no longer a single dense solver.
 
@@ -232,7 +246,7 @@ All comparable weak-scaling jobs completed with exit code 0:0. The generated raw
 \label{fig:strong-scaling}
 \end{figure}
 
-The fixed-work result measures time-to-solution for the same 3,552 cases. It reduces elapsed time from 30 minutes 55 seconds on 16 GPUs to 4 minutes 17 seconds on 128 GPUs, a 7.2$\times$ speedup over an 8$\times$ GPU increase. The 256-GPU run completes in 4 minutes 21 seconds, nearly identical to the 128-GPU result. This plateau is not a failure of \cuQuantum and is not distributed single-circuit MPI synchronization: every Slurm task owns independent cases on one A100. At 128 GPUs the sweep still has about 28 cases per GPU; at 256 GPUs it has about 14 cases per GPU. With a seven-second per-case floor, stragglers, Python process orchestration, and task-local file output dominate before more GPUs can help. This validates the bundled multi-GPU execution path and also motivates reporting both weak and strong scaling instead of compressing them into one bar chart.
+The fixed-work result measures time-to-solution for the same 3,552 cases. It reduces elapsed time from 30 minutes 55 seconds on 16 GPUs to 4 minutes 17 seconds on 128 GPUs, a 7.2$\times$ speedup over an 8$\times$ GPU increase. The 256-GPU run completes in 4 minutes 21 seconds, nearly identical to the 128-GPU result. This plateau is not a failure of \cuQuantum and is not distributed single-circuit MPI synchronization: every Slurm task owns independent cases on one A100, and the workflow does not use inter-task circuit communication. At 128 GPUs the sweep still has about 28 cases per GPU; at 256 GPUs it has about 14 cases per GPU. With a seven-second per-case floor, stragglers, Python process orchestration, and task-local file output dominate before more GPUs can help. This validates the bundled multi-GPU execution path and also motivates reporting both weak and strong scaling instead of compressing them into one bar chart.
 
 \begin{observationbox}
 \textbf{Observation 4:} More GPUs help until the application sweep runs out of useful task granularity. Weak scaling remains healthy over the comparable 32--128 GPU profile, but fixed-work strong scaling saturates after 128 GPUs even though the 256-GPU larger-workload gate completes successfully. For this modeling workflow, architecture effort should improve per-case circuit execution and scheduling granularity, not only allocate more GPUs.
@@ -302,7 +316,7 @@ where $\Delta Q$ is the measured quality gap in the workload's natural units and
 
 The frontier turns measured runs into concrete hardware targets. Simulation is the closest family: with 90\% quality-gap recovery, a $10^4\times$ projected execution improvement covers 54.9\% of measured simulation cases. Chemistry needs a larger runtime shift: at the same recovery level, $10^5\times$ covers 57.1\% of chemistry cases. ML shows the opposite behavior. A $10^5\times$ speed improvement covers only 9.8\% of ML cases at 90\% recovery, but almost all cases if the quality gap is fully closed. Optimization is the hardest family in the current suite; even $10^6\times$ speedup covers only 22.9\% of cases at 90\% recovery and requires full quality recovery to cover all cases.
 
-The speed axis is dimensionless in the figure, but it has a physical interpretation. Since the measured circuit path is about seven seconds per case, $10^4\times$, $10^5\times$, and $10^6\times$ correspond to roughly 0.7 ms, 70 $\mu$s, and 7 $\mu$s of effective end-to-end quantum execution per measured case before residual host and error terms. A fault-tolerant instantiation reaches that budget only if logical cycle time, code distance, decoder bandwidth, magic-state throughput, and effective shot parallelism jointly satisfy the decomposed model in Section~III. The frontier should therefore be read as a microarchitecture target, not a simulator speedup wish.
+The speed axis is dimensionless in the figure, but it has a physical interpretation. Since the measured circuit path is about seven seconds per case, $10^4\times$, $10^5\times$, and $10^6\times$ correspond to roughly 0.7 ms, 70 $\mu$s, and 7 $\mu$s of effective end-to-end quantum execution per measured case before residual host and error terms. A fault-tolerant instantiation reaches that budget only if logical cycle time, code distance, decoder bandwidth, magic-state throughput, and effective shot parallelism jointly satisfy the decomposed model in Section~III. Shot parallelism is a control and scheduling target: the useful rate is bounded by QPUs, decoders, controller fanout, queue policy, and available circuit evaluations. The frontier should therefore be read as a microarchitecture target, not a simulator speedup wish.
 
 \begin{observationbox}
 \textbf{Observation 6:} The frontier converts measurements into design guidance. Faster logical operations and shot-level parallelism are most valuable for simulation and part of chemistry. For ML and optimization, the priority shifts to quality-preserving encodings, error suppression, better ansatz structure, and reducing classical-quantum iteration overhead; faster gates alone do not create advantage.
@@ -322,15 +336,12 @@ The main evaluation output is not that the simulator is slow. The simulator is t
 
 Figure~\ref{fig:workload-taxonomy} shows this classification for the 3,552-case large run using the same family tolerances as the projection frontier. ML is quality-limited in all 2,048 cases because the quantum feature path does not match the selected native classifier accuracy. Optimization is also quality-limited in all 768 cases because the current QAOA grid has a large objective gap. Chemistry has 48 speed-limited cases and 176 quality-limited cases. Simulation splits evenly, with 256 speed-limited cases and 256 quality-limited cases.
 
-This classification is the practical insight. If a workload is speed-limited, faster logical gates or more shot parallelism may move it into the advantage region. If it is quality-limited, faster hardware alone is not enough. If it is native-dominated, the correct conclusion is that the native HPC baseline remains the better application path unless the quantum algorithm changes.
+This classification is the practical insight. If a workload is speed-limited, faster logical gates or more shot parallelism may move it into the advantage region. If it is quality-limited, faster hardware alone is not enough; richer ansatzes, warm starts, parameter transfer, or noise-aware encodings must be priced as changes in depth, two-qubit pressure, optimizer evaluations, or classical-quantum feedback. If it is native-dominated, the native HPC path remains better unless the quantum algorithm moves along the frontier.
 
 \subsubsection{Sensitivity Scope}
 
-The expanded digits sweep covers class pair, sample count, PCA dimension, circuit depth, and seed. The practical suite adds workload family, native-baseline choice, chemistry grid size, circuit layer count, graph family, simulation model, and GPU count. These dimensions support the central claim that advantage thresholds are workload-specific and depend jointly on runtime and quality. Full hardware-roadmap sensitivity still needs shot, ansatz, optimizer, mitigation, and repeated hardware trials; these remain threats rather than hidden assumptions.
+The expanded digits sweep covers class pair, sample count, PCA dimension, circuit depth, and seed; the practical suite adds workload family, native-baseline choice, chemistry grid size, circuit layer count, graph family, simulation model, and GPU count. These dimensions support the central claim that thresholds are workload-specific, while shot, ansatz, optimizer, mitigation, and repeated hardware trials remain explicit future sensitivity axes.
 
 \subsection{Operational Stability}
 
-The official practical sweep was first run as multiple shared-GPU jobs and then validated with one \texttt{salloc} allocation and one multi-task \texttt{srun}. The bundled pilot completed in 6 minutes and 54 seconds with 96 raw JSON outputs and empty stderr logs, confirming that task-local chunks selected by \texttt{SLURM\_PROCID} keep independent cases on allocated GPUs.
-
-\noindent\textbf{Timing Gate.}
-Finally, a warmup-separated repeat-timing gate checks that one first-use sample does not dominate the measured path. Job 55516885 completed 12 measured trials in 58 seconds with exit code 0:0 and empty stderr; the maximum quantum-runtime CV is 0.0400, supporting the timing evidence without replacing the large 3,552-case sweep.
+The official practical sweep was first run as multiple shared-GPU jobs and then validated with one \texttt{salloc} allocation and one multi-task \texttt{srun}. The bundled pilot completed in 6 minutes and 54 seconds with 96 raw JSON outputs and empty stderr logs, and job 55516885 completed 12 measured warmup-separated trials in 58 seconds with exit code 0:0, empty stderr, and the maximum quantum-runtime CV is 0.0400. These gates support the timing evidence without replacing the large 3,552-case sweep.

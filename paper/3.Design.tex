@@ -49,6 +49,9 @@ P_{\mathrm{queue}}, N_s N_{\mathrm{eval}}).
 \]
 This map is the connection between the measured application record and a future quantum computer architecture. A surface-code study can plug in code distance, cycle time, decoder bandwidth, and magic-state factory throughput; a control-system study can instead change the control and feedback terms. The same measured case then moves on the same frontier.
 
+\noindent\textbf{Simulator-Hardware Separation.}
+The measured \cuQuantum runtime is not a physical quantum latency. It executes the quantum-circuit application path, produces output quality, and records circuit metadata; the hardware projection then prices the same case with logical counts, repeated evaluations, effective shots, and explicit overhead terms. Thus state-vector memory behavior, Python process cost, and GPU setup time are measurement-stack evidence, not future-QPU schedule terms.
+
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.98\linewidth]{figures/design_projection_flow.pdf}
@@ -153,7 +156,7 @@ T_{\mathrm{execute}} =
 where $N_s$ is the shot count, $D_1$ and $D_2$ are one- and two-qubit gate depths, $D_m$ is measurement depth, $t_1$, $t_2$, and $t_m$ are logical operation times, and $P_{\mathrm{shots}}$ is shot-level parallelism.
 
 \noindent\emph{Projection scope.}
-This model is a first-order lower bound, not a validated fault-tolerant schedule. The default sweep reports a dimensionless speedup so that the result is not tied to one vendor stack. The decomposed form above is the hardware hook: a fault-tolerant version can replace $t_i$, $P_{\mathrm{shots}}$, and $T_{\mathrm{error}}$ with a surface-code stack using code distance, cycle time, logical-error budget, magic-state cost, decoder latency, and control bandwidth~\cite{fowler2012surface,litinski2019game}. If a workload only wins after setting these terms unrealistically low, the conclusion is not advantage; it is a hardware requirement.
+This model is a first-order lower bound, not a validated fault-tolerant schedule. The default sweep reports a dimensionless speedup so that the result is not tied to one vendor stack. The decomposed form above is the hardware hook: a fault-tolerant version can replace $t_i$, $P_{\mathrm{shots}}$, and $T_{\mathrm{error}}$ with a surface-code stack using code distance, cycle time, logical-error budget, magic-state cost, decoder latency, and control bandwidth~\cite{fowler2012surface,litinski2019game}. The effective $P_{\mathrm{shots}}$ must be bounded by physical devices, decoders, control links, queue slots, and finite circuit evaluations; it is not an arbitrary multiplier. If a workload only wins after setting these terms unrealistically low, the conclusion is not advantage; it is a hardware requirement.
 
 \noindent\emph{Worked hardware instantiation.}
 To make the abstraction concrete, the projection can be instantiated as

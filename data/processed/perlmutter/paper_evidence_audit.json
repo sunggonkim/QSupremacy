@@ -378,6 +378,7 @@
             "paper/figures/strong_native_quality_shift.pdf",
             "paper/figures/strong_scaling.pdf",
             "paper/figures/strong_scaling_speedup.pdf",
+            "paper/figures/threshold_tail_pressure.pdf",
             "paper/figures/tolerance_sensitivity.pdf",
             "paper/figures/weak_scaling.pdf",
             "paper/figures/weak_scaling_efficiency.pdf",
@@ -408,6 +409,7 @@
             "paper/figures/strong_native_quality_shift.pdf",
             "paper/figures/strong_scaling.pdf",
             "paper/figures/strong_scaling_speedup.pdf",
+            "paper/figures/threshold_tail_pressure.pdf",
             "paper/figures/tolerance_sensitivity.pdf",
             "paper/figures/weak_scaling.pdf",
             "paper/figures/weak_scaling_efficiency.pdf",
@@ -618,7 +620,21 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 11899
+            "size_bytes": 18658
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/threshold_tail_pressure.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 11427
           },
           "expected": {
             "exists": true,
@@ -827,6 +843,7 @@
         "paper/figures/workload_growth_quality.pdf",
         "paper/figures/strong_native_comparison.pdf",
         "paper/figures/strong_native_quality_shift.pdf",
+        "paper/figures/threshold_tail_pressure.pdf",
         "paper/figures/circuit_operation_mix.pdf",
         "paper/figures/architecture_focus_matrix.pdf",
         "paper/figures/practical_suite_legend.pdf",
@@ -1188,6 +1205,12 @@
         {
           "actual": true,
           "expected": true,
+          "label": "exists: paper/figures/threshold_tail_pressure.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
           "label": "audit_item_declared: large_practical_suite",
           "passed": true
         },
@@ -1470,6 +1493,12 @@
         {
           "actual": true,
           "expected": true,
+          "label": "exists: paper/figures/threshold_tail_pressure.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
           "label": "exists: paper/figures/circuit_operation_mix.pdf",
           "passed": true
         },
@@ -1633,6 +1662,12 @@
           "actual": true,
           "expected": true,
           "label": "exists: paper/figures/strong_native_quality_shift.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/threshold_tail_pressure.pdf",
           "passed": true
         },
         {

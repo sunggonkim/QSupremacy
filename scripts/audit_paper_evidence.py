@@ -386,6 +386,7 @@ def main():
         "paper/figures/workload_growth_quality.pdf",
         "paper/figures/strong_native_comparison.pdf",
         "paper/figures/strong_native_quality_shift.pdf",
+        "paper/figures/threshold_tail_pressure.pdf",
         "paper/figures/circuit_operation_mix.pdf",
         "paper/figures/architecture_focus_matrix.pdf",
         "paper/figures/practical_suite_legend.pdf",
