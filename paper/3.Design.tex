@@ -30,6 +30,25 @@ After measurement, \SystemName reads the circuit metadata and runtime breakdown.
 \noindent\textbf{Architecture Variables.}
 The projection plane exposes four groups of future-system variables. The first group is \textit{logical execution speed}: one-qubit gate latency, two-qubit gate latency, measurement latency, and controller scheduling overhead. The second group is \textit{shot parallelism}: how many independent circuit evaluations can run concurrently without exceeding the device, decoder, or queue budget. The third group is \textit{quality recovery}: algorithmic improvement, error mitigation, or fault tolerance that reduces the measured output gap. The fourth group is \textit{host and data overhead}: encoding, compilation, optimizer feedback, and postprocessing that remain outside the quantum kernel. \SystemName keeps these variables separate so an advantage frontier can say whether an architecture needs faster logical gates, more parallel shots, lower error overhead, or a better algorithm before speed matters.
 
+\noindent\textbf{Microarchitecture Map.}
+The variables are intentionally architecture-facing. The runtime overhead term is not a single magic constant; it can be expanded as
+\[
+\begin{aligned}
+T_{\mathrm{error}} =
+&T_{\mathrm{compile}} + T_{\mathrm{map}} + T_{\mathrm{route}} +
+T_{\mathrm{decode}} \\
+&+ T_{\mathrm{ms}} + T_{\mathrm{io}} + T_{\mathrm{cq}} +
+T_{\mathrm{queue}},
+\end{aligned}
+\]
+where the terms capture compilation, logical placement, routing, decoder latency, magic-state preparation/injection, data loading or QRAM-style access, classical-quantum feedback, and queueing or device contention. Likewise, the useful shot rate is bounded by the slowest system resource:
+\[
+P_{\mathrm{shots}}^{\mathrm{eff}} =
+\min(P_{\mathrm{device}}, P_{\mathrm{decode}}, P_{\mathrm{control}},
+P_{\mathrm{queue}}, N_s N_{\mathrm{eval}}).
+\]
+This map is the connection between the measured application record and a future quantum computer architecture. A surface-code study can plug in code distance, cycle time, decoder bandwidth, and magic-state factory throughput; a control-system study can instead change the control and feedback terms. The same measured case then moves on the same frontier.
+
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.98\linewidth]{figures/design_projection_flow.pdf}
@@ -134,12 +153,15 @@ T_{\mathrm{execute}} =
 where $N_s$ is the shot count, $D_1$ and $D_2$ are one- and two-qubit gate depths, $D_m$ is measurement depth, $t_1$, $t_2$, and $t_m$ are logical operation times, and $P_{\mathrm{shots}}$ is shot-level parallelism.
 
 \noindent\emph{Projection scope.}
-This model is a first-order lower bound, not a validated fault-tolerant schedule. $T_{\mathrm{error}}$ aggregates costs not decomposed here: compilation, mapping, routing, readout, feedback, mitigation, correction, and queue/device concurrency. A fault-tolerant version can replace it with a surface-code stack using code distance, cycle time, logical-error budget, magic-state cost, and decoder latency~\cite{fowler2012surface,litinski2019game}. We keep the result dimensionless so stronger hardware models can be plugged in later.
+This model is a first-order lower bound, not a validated fault-tolerant schedule. The default sweep reports a dimensionless speedup so that the result is not tied to one vendor stack. The decomposed form above is the hardware hook: a fault-tolerant version can replace $t_i$, $P_{\mathrm{shots}}$, and $T_{\mathrm{error}}$ with a surface-code stack using code distance, cycle time, logical-error budget, magic-state cost, decoder latency, and control bandwidth~\cite{fowler2012surface,litinski2019game}. If a workload only wins after setting these terms unrealistically low, the conclusion is not advantage; it is a hardware requirement.
 
 \noindent\emph{Worked hardware instantiation.}
 To make the abstraction concrete, the projection can be instantiated as
-$T_{\mathrm{error}}=T_{\mathrm{compile}}+T_{\mathrm{route}}+T_{\mathrm{decode}}+T_{\mathrm{mitigate}}$ and
-$t_i=k_i d\tau_c$, where $d$ is surface-code distance, $\tau_c$ is cycle time, and $k_i$ is the number of code cycles for the logical operation. For example, an illustrative lower-bound stack with $d=25$, $\tau_c=1\,\mu$s, $k_1=1$, $k_2=4$, $k_m=1$, $5\,\mu$s decoder latency per measured layer, and $P_{\mathrm{shots}}=10^4$ parallel shots maps each measured case to a concrete logical-runtime budget. Changing any of these parameters moves the same frontier rather than changing the native baseline.
+$T_{\mathrm{error}}=T_{\mathrm{compile}}+T_{\mathrm{map}}+T_{\mathrm{route}}+T_{\mathrm{decode}}+T_{\mathrm{ms}}+T_{\mathrm{io}}+T_{\mathrm{cq}}$ and
+$t_i=k_i d\tau_c$, where $d$ is surface-code distance, $\tau_c$ is cycle time, and $k_i$ is the number of code cycles for the logical operation. For example, an illustrative lower-bound stack with $d=25$, $\tau_c=1\,\mu$s, $k_1=1$, $k_2=4$, $k_m=1$, $5\,\mu$s decoder latency per measured layer, a finite magic-state budget $T_{\mathrm{ms}}$, and $P_{\mathrm{shots}}^{\mathrm{eff}}=10^4$ parallel shots maps each measured case to a concrete logical-runtime budget. Changing any of these parameters moves the same frontier rather than changing the native baseline.
+
+\noindent\emph{Encoding and hybrid-loop rule.}
+Data loading and algorithmic recovery are not free vertical moves on the frontier. If a QRAM or load-store quantum architecture reduces $T_{\mathrm{io}}$, the case moves left; if richer encodings, deeper ansatz layers, or more optimizer steps improve quality, they also increase $D_1$, $D_2$, $D_m$, $N_{\mathrm{eval}}$, or $T_{\mathrm{cq}}$. \SystemName therefore treats quality recovery as a requirement axis and reports the circuit metadata needed to price a co-designed algorithmic change.
 
 \noindent\emph{Break-even search.}
 \SystemName inverts the model. Instead of assuming a quantum speedup, it asks what logical gate time, shot throughput, and error overhead are needed for:

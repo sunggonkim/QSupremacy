@@ -887,6 +887,58 @@ def figure_circuit_operation_mix():
     return path
 
 
+def figure_tolerance_sensitivity():
+    if not os.path.exists(os.path.join(ROOT, STRONG_NATIVE_SUMMARY_CSV)):
+        return None
+
+    rows = read_csv(STRONG_NATIVE_SUMMARY_CSV)
+    workload_specs = [
+        ("ml", "ML @ $10^5$x", COLORS["blue"], 1.0e5, 0.02),
+        ("chemistry", "Chem. @ $10^5$x", COLORS["teal"], 1.0e5, 0.01),
+        ("optimization", "Opt. @ $10^6$x", COLORS["red"], 1.0e6, 0.02),
+        ("simulation", "Sim. @ $10^4$x", COLORS["green"], 1.0e4, 0.01),
+    ]
+    multipliers = np.array([0.5, 1.0, 2.0, 5.0], dtype=float)
+    recovery = 0.90
+
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.70))
+    handles = []
+    labels = []
+    for workload, label, color, speedup, base_tol in workload_specs:
+        subset = [row for row in rows if row["workload"] == workload]
+        required = np.array([float(row["speedup_required"]) for row in subset])
+        gaps = np.array([max(0.0, float(row["quality_gap"])) for row in subset])
+        values = []
+        for multiplier in multipliers:
+            tolerance = base_tol * multiplier
+            advantaged = (speedup >= required) & (gaps * (1.0 - recovery) <= tolerance)
+            values.append(100.0 * float(np.mean(advantaged)) if advantaged.size else 0.0)
+        line = ax.plot(
+            multipliers,
+            values,
+            marker="o",
+            linewidth=1.6,
+            markersize=3.6,
+            color=color,
+        )[0]
+        handles.append(line)
+        labels.append(label)
+
+    ax.set_xscale("log")
+    ax.set_xticks(multipliers)
+    ax.set_xticklabels(["0.5x", "1x", "2x", "5x"])
+    ax.set_ylim(-3, 103)
+    ax.set_xlabel("Tolerance multiplier")
+    ax.set_ylabel("Cases advantaged\nat 90% recovery (%)")
+    style_axis(ax, grid="both")
+    add_top_legend(fig, handles, labels, ncol=2, y=1.06, fontsize=5.8)
+    fig.subplots_adjust(left=0.20, right=0.98, bottom=0.29, top=0.70)
+    path = os.path.join(FIG_DIR, "tolerance_sensitivity.pdf")
+    fig.savefig(path, bbox_inches="tight")
+    plt.close(fig)
+    return path
+
+
 def figure_architecture_focus_matrix():
     workloads = ["ML", "Chem.", "Opt.", "Sim."]
     resources = ["Quality\nencoding", "Logical\nspeed", "Shot\nparallel", "Native\nco-design"]
@@ -1228,6 +1280,7 @@ def main():
         figure_circuit_operation_mix(),
         figure_workload_growth(),
         figure_advantage_frontier(),
+        figure_tolerance_sensitivity(),
         figure_architecture_focus_matrix(),
         figure_workload_taxonomy(),
         figure_weak_scaling(),

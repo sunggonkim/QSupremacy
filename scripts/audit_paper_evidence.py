@@ -323,6 +323,7 @@ def main():
                 "paper/figures/advantage_frontier_chemistry.pdf",
                 "paper/figures/advantage_frontier_optimization.pdf",
                 "paper/figures/advantage_frontier_simulation.pdf",
+                "paper/figures/tolerance_sensitivity.pdf",
             ],
             [
                 check_exists(projection_json),
@@ -330,6 +331,7 @@ def main():
                 check_exists("paper/figures/advantage_frontier_chemistry.pdf"),
                 check_exists("paper/figures/advantage_frontier_optimization.pdf"),
                 check_exists("paper/figures/advantage_frontier_simulation.pdf"),
+                check_exists("paper/figures/tolerance_sensitivity.pdf"),
                 check_equals("projection_cases", projection["cases"], 3552),
                 check_close(
                     "simulation_1e4_90pct_recovery",
@@ -396,6 +398,7 @@ def main():
         "paper/figures/advantage_frontier_chemistry.pdf",
         "paper/figures/advantage_frontier_optimization.pdf",
         "paper/figures/advantage_frontier_simulation.pdf",
+        "paper/figures/tolerance_sensitivity.pdf",
         "paper/figures/workload_taxonomy.pdf",
     ]
     discovered_figures = [

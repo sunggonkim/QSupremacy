@@ -72,7 +72,7 @@
     "hline_rules": 0,
     "legend_subfigures": 2,
     "lowercase_noindent_textbf": [],
-    "noindent_textbf": 35,
+    "noindent_textbf": 34,
     "resizebox_column": 1,
     "scriptsize": 1,
     "subfigure_environment": 19,
@@ -81,7 +81,7 @@
     "subfloat": 0,
     "table": 1,
     "table_star": 0,
-    "textbf": 56,
+    "textbf": 55,
     "vspace": 8
   },
   "passed": true,
