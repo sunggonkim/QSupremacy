@@ -2,7 +2,8 @@
 
 ## Goal
 
-Model practical quantum advantage as an application-level break-even condition:
+Model practical quantum advantage as an architecture-guided application-level
+break-even condition. The paper display system name is **QArchGauge**.
 
 ```text
 native HPC/ML application path
@@ -11,15 +12,18 @@ same workload converted to a quantum-circuit application path,
 simulated with cuQuantum, then projected to future quantum hardware
 ```
 
-The paper should answer how fast and how accurate future quantum hardware must
-be before each workload family can beat the native path.
+The paper should answer how fast, how parallel, and how accurate future quantum
+hardware must be before each workload family can beat the native path. It should
+also identify the computer-architecture bottleneck: logical gate throughput,
+shot parallelism, error/quality recovery, host-control overhead, native baseline
+strength, or algorithmic quality.
 
 ## Current Status
 
 | Area | Status |
 | --- | --- |
 | Paper PDF | Built at `paper/main.pdf` |
-| HPCA body budget | References start on page 11 |
+| HPCA body budget | References start on page 12 |
 | Main practical suite | 3,552 cases, 32 Perlmutter GPU nodes |
 | Workload coverage | ML, chemistry, optimization, scientific simulation |
 | Previous-paper logic/style | JSON audits PASS |

@@ -46,12 +46,12 @@
       "passed": true
     },
     {
-      "detail": "scriptsize=4, arraystretch=3",
+      "detail": "scriptsize=4, arraystretch=4",
       "name": "dense_table_style_present",
       "passed": true
     },
     {
-      "detail": "booktabs rules: 39",
+      "detail": "booktabs rules: 42",
       "name": "booktabs_table_style_present",
       "passed": true
     },
@@ -62,8 +62,8 @@
     }
   ],
   "current_metrics": {
-    "arraystretch": 3,
-    "booktabs_rules": 39,
+    "arraystretch": 4,
+    "booktabs_rules": 42,
     "caption_before_label_ratio": 1.0,
     "caption_setup": 2,
     "figure": 9,
@@ -71,16 +71,16 @@
     "float_spacing": 3,
     "hline_rules": 0,
     "lowercase_noindent_textbf": [],
-    "noindent_textbf": 72,
+    "noindent_textbf": 75,
     "resizebox_column": 9,
     "scriptsize": 4,
     "subfigure_environment": 14,
     "subfigures_with_caption": 14,
     "subfigures_with_label": 14,
     "subfloat": 0,
-    "table": 13,
+    "table": 14,
     "table_star": 0,
-    "textbf": 96,
+    "textbf": 100,
     "vspace": 6
   },
   "passed": true,

@@ -1,6 +1,8 @@
 # QSupremacy
 
-QSupremacy is a Perlmutter-based practical quantum-advantage modeling project.
+QSupremacy is the repository name. The HPCA manuscript now uses the display
+system name **QArchGauge**: a Perlmutter-based architecture-guided practical
+quantum-advantage modeling project.
 It compares native HPC/ML application paths against quantum-circuit versions of
 the same workloads, simulated with cuQuantum and projected to future quantum
 hardware.
@@ -8,6 +10,10 @@ hardware.
 The paper claim is intentionally not "quantum is faster today." The measured
 result is a threshold model: how much faster and more accurate future quantum
 systems must become before a workload can beat a strong native path.
+The architecture result is the bottleneck label behind that threshold: whether a
+future quantum system should prioritize logical gate throughput, shot
+parallelism, error/quality recovery, host-control overhead, or algorithmic
+quality.
 
 ## Current Paper State
 
@@ -16,7 +22,7 @@ The HPCA-style paper is built and evidence-backed.
 | Item | Status |
 | --- | --- |
 | Manuscript PDF | `paper/main.pdf` builds successfully |
-| Body budget | 13 total pages; references start on page 11 |
+| Body budget | 13 total pages; references start on page 12 |
 | Main suite | 3,552 cases on 32 Perlmutter GPU nodes |
 | Workloads | ML, chemistry, optimization, scientific simulation |
 | Previous-paper structure audit | PASS via JSON artifacts |

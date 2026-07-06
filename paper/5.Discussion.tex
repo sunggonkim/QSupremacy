@@ -1,7 +1,7 @@
 \section{Discussion and Threats to Validity}
 
 \noindent\textbf{What the Results Prove.}
-\SystemName does not prove practical quantum advantage on current hardware. It proves a systems point: once the task, quality target, and native baseline are fixed, the advantage question becomes a measured threshold. That threshold differs across ML, chemistry, optimization, and simulation, so one quantum-speedup claim is not enough.
+\SystemName does not prove practical quantum advantage on current hardware. It proves a computer-architecture point: once the task, quality target, and native baseline are fixed, the advantage question becomes a measured design-space boundary. That boundary differs across ML, chemistry, optimization, and simulation, so one quantum-speedup claim is not enough. A useful result must say whether the next architecture dollar should buy faster logical gates, more parallel shots, lower error overhead, better controller/runtime support, or better algorithmic quality.
 
 \noindent\textbf{Native Baseline Strength.}
 The largest threat is an underpowered native baseline. We reduce it by selecting the fastest valid method among six ML classifiers, exact/heuristic optimization, dense/sparse chemistry solvers, and dense/sparse simulation solvers. Stronger natives still exist, including CNNs or boosted trees, tuned MILP/domain heuristics, tensor networks, and CCSD(T)-class chemistry references. Adding them would usually move the frontier rightward, so our thresholds are conservative with respect to implemented baselines, not final domain limits.
@@ -19,7 +19,7 @@ The measured quantum path uses \cuQuantum on \Perlmutter as instrumentation. Rea
 The main measurements use state-vector \cuQuantum for stable GPU instrumentation. Tensor-network, path-integral, stabilizer, or QAOA-specialized simulators could reduce $T_{\mathrm{qc\_sim}}$ for some circuits; swapping them changes the measured quantum path but preserves the native baseline and quality test.
 
 \noindent\textbf{Name and Scope.}
-The repository name is historical. The submitted manuscript uses the neutral display name \SystemName and frames the result as practical quantum-advantage modeling, not quantum supremacy.
+The repository name is historical. The submitted manuscript uses the architecture-oriented display name \SystemName and frames the result as practical quantum-advantage modeling, not quantum supremacy.
 
 \noindent\textbf{Timing Stability.}
 Small quantum-circuit experiments can be affected by Python overhead, CUDA initialization, and first-use costs. We reduce this risk with bundled Slurm runs, repeated cases, workload-level medians, login-node smoke gates, and a warmup-separated repeat gate. The gate records 12 measured trials with zero failures and maximum quantum-runtime CV 0.0400. The thresholds are therefore end-to-end application thresholds on the measured stack, not isolated kernel microbenchmarks.

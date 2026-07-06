@@ -1,15 +1,15 @@
 \section{\SystemName Design}
 
 \noindent\textbf{Overview of \SystemName's Design.}
-\SystemName is designed to answer one question: what quantum hardware speed is required for a quantum-circuit application to beat the native HPC application for the same task? Figure~\ref{fig:design-overview} summarizes the key components. First, \SystemName uses \textit{Shared Workload Control} to ensure that all paths use the same input instance and quality target. Second, it uses \textit{Native Path Execution} to establish a strong classical baseline. Third, it uses \textit{Quantum Path Execution} to run quantum kernels, QNN/VQC, VQE, QAOA, and Hamiltonian simulation circuits with \cuQuantum. Finally, it uses \textit{Advantage Threshold Analysis} to estimate the future quantum hardware requirements.
+\SystemName is designed to answer one architecture question: which future quantum-system resource must improve before a quantum-circuit application can beat the native HPC application for the same task? Figure~\ref{fig:design-overview} summarizes the key components. First, \SystemName uses \textit{Shared Workload Control} to ensure that all paths use the same input instance and quality target. Second, it uses \textit{Native Path Execution} to establish a strong classical baseline. Third, it uses \textit{Quantum Path Execution} to run quantum kernels, QNN/VQC, VQE, QAOA, and Hamiltonian simulation circuits with \cuQuantum. Finally, it uses \textit{Architecture Projection} to estimate the logical-operation speed, shot throughput, quality recovery, and non-kernel overhead budgets required by future quantum systems.
 
 \noindent\textbf{Design Boundary.}
-\SystemName is not a new quantum circuit simulator, compiler, or quantum algorithm. It treats existing simulators and native methods as execution engines behind a controlled workload interface. The design contribution is the measurement discipline: same input, same quality metric, strongest valid native path, measured quantum-circuit path, and explicit hardware projection. This boundary is important because faster simulation alone does not answer whether a future quantum computer would beat the native application.
+\SystemName is not a new quantum circuit simulator, compiler, or quantum algorithm. It treats existing simulators and native methods as execution engines behind a controlled workload interface. The design contribution is the measurement discipline and projection interface: same input, same quality metric, strongest valid native path, measured quantum-circuit path, and explicit architecture bottleneck classification. This boundary is important because faster simulation alone does not answer whether a future quantum computer would beat the native application or which architecture knob would make the difference.
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=\linewidth]{figures/design_overview.pdf}
-    \Description{Block diagram of QAdvantage with shared workload control, native path execution, quantum path execution, measurement logging, and advantage threshold analysis.}
+    \includegraphics[width=0.94\linewidth]{figures/design_overview.pdf}
+    \Description{Block diagram of QArchGauge with shared workload control, native path execution, quantum path execution, measurement logging, architecture projection, and design guidance outputs.}
     \caption{Architecture and procedure of \SystemName.}
     \label{fig:design-overview}
 \end{figure}
@@ -26,6 +26,9 @@ Before any path is executed, \SystemName materializes a single configuration rec
 
 \noindent\textbf{Advantage Analysis.}
 After measurement, \SystemName reads the circuit metadata and runtime breakdown. It extracts the number of qubits, circuit depth, one-qubit gates, two-qubit gates, shots, and optimizer iterations. Using this information, \SystemName computes the quantum hardware speed required to make the projected quantum path faster than the measured native path.
+
+\noindent\textbf{Architecture Variables.}
+The projection plane exposes four groups of future-system variables. The first group is \textit{logical execution speed}: one-qubit gate latency, two-qubit gate latency, measurement latency, and controller scheduling overhead. The second group is \textit{shot parallelism}: how many independent circuit evaluations can run concurrently without exceeding the device, decoder, or queue budget. The third group is \textit{quality recovery}: algorithmic improvement, error mitigation, or fault tolerance that reduces the measured output gap. The fourth group is \textit{host and data overhead}: encoding, compilation, optimizer feedback, and postprocessing that remain outside the quantum kernel. \SystemName keeps these variables separate so an advantage frontier can say whether an architecture needs faster logical gates, more parallel shots, lower error overhead, or a better algorithm before speed matters.
 
 \noindent\textbf{Failure Handling.}
 \SystemName treats failed paths as measurement results rather than silently dropping them. If a native candidate fails, the record keeps the error and continues with other native candidates. If a quantum path fails, the record keeps the circuit metadata available up to the failure point and marks the case as non-advantaged. This rule is important for large sweeps because feasibility is part of the systems question. A workload that only succeeds after removing difficult cases would overstate the advantage frontier.
@@ -135,7 +138,7 @@ $t_i=k_i d\tau_c$, where $d$ is surface-code distance, $\tau_c$ is cycle time, a
 T_{\mathrm{qhw}} < T_{\mathrm{native}}.
 \end{align}
 
-This gives a hardware requirement rather than a vague claim of advantage.
+This gives a hardware requirement rather than a vague claim of advantage. The requirement can be read as a design target. If a workload enters the advantage region only when $P_{\mathrm{shots}}$ is very large, the bottleneck is device-level or system-level parallelism. If it enters only when $T_{\mathrm{error}}$ is small, the bottleneck is the fault-tolerance and decoder stack. If it never enters until the quality gap closes, the bottleneck is not gate speed; it is algorithmic quality, noise resilience, or encoding.
 
 \noindent\textbf{Advantage Frontier.}
 \SystemName does not reduce the result to one speedup number. It sweeps hardware assumptions and reports the feasible region where the projected quantum path beats the native path at the same quality. This region is the advantage frontier. If no reasonable region exists, the workload is classified by the limiting factor: quality, encoding, shots, error overhead, or native baseline strength.
@@ -162,6 +165,7 @@ Strong native & Is the native path the fastest valid baseline? & Baseline select
 End-to-end cost & Are encoding, execution, measurement, and postprocess included? & Runtime breakdown and metadata \\
 Hardware projection & What future quantum speed is required? & Required speedup and frontier \\
 Error/shot overhead & Could shots or error correction erase speedup? & Projection parameters and sensitivity \\
+Architecture bottleneck & Which future-system resource matters most? & Frontier classification and taxonomy \\
 Repeatability & Can the result be regenerated on the system? & Slurm scripts, summaries, accounting \\
 \bottomrule
 \end{tabular}

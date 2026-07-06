@@ -1,6 +1,7 @@
 # Paper
 
-Target: HPCA-style practical quantum-advantage modeling and analysis paper.
+Target: HPCA-style architecture-guided practical quantum-advantage modeling and
+analysis paper. The submitted display system name is QArchGauge.
 
 The manuscript is in `paper/0.Main.tex` with numbered section files. The built
 PDF is `paper/main.pdf`.
@@ -11,7 +12,7 @@ PDF is `paper/main.pdf`.
 make -B -C paper
 ```
 
-The current build produces a 13-page PDF with references starting on page 11.
+The current build produces a 13-page PDF with references starting on page 12.
 
 ## Artifact Quickstart
 

@@ -218,7 +218,7 @@
         "data/processed/perlmutter/submission_readiness_audit.json"
       ],
       "audit_item": "submission_readiness",
-      "claim": "The paper package builds to an HPCA 2027-style double-blind PDF with references starting on page 11 within the 11-page body limit, evidence/readiness checks passing, and all-author references.",
+      "claim": "The paper package builds to an HPCA 2027-style double-blind PDF with references starting on page 12 within the 11-page body limit, evidence/readiness checks passing, and all-author references.",
       "figures_tables": [],
       "id": "submission_package",
       "paper_locations": [

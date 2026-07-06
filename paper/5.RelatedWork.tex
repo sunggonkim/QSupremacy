@@ -1,5 +1,8 @@
 \section{Related Work}
 
+\noindent\textbf{Computer Architecture Evaluation.}
+Computer architecture research has long used measurement, modeling, simulation, and benchmarking to reason about systems that are too expensive or immature to build directly~\cite{skadron2003challenges}. \SystemName follows this methodology for quantum systems: it does not claim that the simulated stack is the final hardware, but uses measured application paths to expose the architecture design space that future quantum systems must satisfy.
+
 \noindent\textbf{Quantum Simulation and NISQ Systems.}
 Large-scale simulators such as ScaleQsim and AURORA-Q show how HPC systems extend state-vector simulation through distribution, GPUs, tiered memory, and asynchronous data movement~\cite{scaleqsim,auroraq}. \cuQuantum provides optimized GPU primitives~\cite{cuquantum}, while NISQ studies show current-device limits~\cite{preskill2018quantum}. \SystemName uses this substrate for a different question: what hardware and quality threshold would let a quantum-circuit application beat a native HPC application?
 

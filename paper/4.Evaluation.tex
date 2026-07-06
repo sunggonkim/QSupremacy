@@ -1,6 +1,6 @@
 \section{Evaluation}
 
-This section evaluates \SystemName in the same style as our previous systems papers: first the setup, then end-to-end behavior, then component analysis, scaling, and sensitivity. The result is not a claim that quantum wins today. The result is a measured threshold model that explains how fast and how accurate the future quantum path must be to beat native HPC paths.
+This section evaluates \SystemName in the same style as our previous systems papers: first the setup, then end-to-end behavior, then component analysis, scaling, and sensitivity. The result is not a claim that quantum wins today. The result is a measured architecture model that explains how fast, how parallel, and how accurate the future quantum path must be to beat native HPC paths, and which quantum-system resource should be prioritized for each workload family.
 
 \subsection{Evaluation Setup}
 
@@ -83,6 +83,7 @@ Q2 & Explain component and baseline effects & Table~\ref{tab:practical-suite}, F
 Q3 & Validate application coverage & Table~\ref{tab:accept-baselines}, Table~\ref{tab:chem-coverage} \\
 Q4 & Separate weak and strong scaling & Fig.~\ref{fig:weak-scaling}, Fig.~\ref{fig:strong-scaling}, Table~\ref{tab:scaling} \\
 Q5 & Project advantage regions & Fig.~\ref{fig:advantage-frontier}, Table~\ref{tab:projection-fractions}, Fig.~\ref{fig:workload-taxonomy} \\
+Q6 & Translate results into architecture guidance & Table~\ref{tab:architecture-guidance}, Fig.~\ref{fig:workload-taxonomy} \\
 \bottomrule
 \end{tabular}
 }
@@ -417,6 +418,25 @@ Simulation & 0.01 & 54.9\% & 71.9\% & 71.9\% & 100.0\% & 100.0\% \\
 \label{tab:projection-fractions}
 \end{table}
 
+\begin{table}[t]
+\caption{Architecture guidance implied by the measured frontier.}
+\centering
+\footnotesize
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{@{}llp{0.46\columnwidth}@{}}
+\toprule
+Workload & Primary limiter & Future-system implication \\
+\midrule
+ML & Quality gap & Gate speed has low value until encoding/noise/ansatz quality improves \\
+Chemistry & Speed then quality & Prioritize logical-gate throughput, decoder overhead, and chemistry-quality recovery \\
+Optimization & Quality and depth & Improve ansatz/objective quality before spending area only on faster execution \\
+Simulation & Speed and shots & Best early target for faster logical operations and shot-level parallelism \\
+\bottomrule
+\end{tabular}
+\label{tab:architecture-guidance}
+\end{table}
+
 \subsubsection{Hardware Projection Model}
 
 The projection model uses the measured native runtime, measured quantum-circuit simulation runtime, and measured tolerance-scaled quality gap for each case. For a projected quantum speedup $S$ and quality-gap recovery $R$, a case enters the advantage region only if $S$ is at least the measured required speedup and the residual quality gap is below the workload tolerance. Formally, a case is counted as advantaged when
@@ -429,6 +449,9 @@ where $\Delta Q$ is the measured quality gap in the workload's natural units and
 
 Table~\ref{tab:projection-fractions} turns the frontier into concrete hardware targets. Simulation is the closest family: with 90\% quality-gap recovery, a $10^4\times$ projected execution improvement covers 54.9\% of measured simulation cases. Chemistry needs a larger runtime shift: at the same recovery level, $10^5\times$ covers 57.1\% of chemistry cases. ML shows the opposite behavior. A $10^5\times$ speed improvement covers only 9.8\% of ML cases at 90\% recovery, but almost all cases if the quality gap is fully closed. Optimization is the hardest family in the current suite; even $10^6\times$ speedup covers only 22.9\% of cases at 90\% recovery and requires full quality recovery to cover all cases.
 
+\noindent\textbf{Architecture Guidance.}
+Table~\ref{tab:architecture-guidance} converts the frontier into design guidance. The near-term architecture target is not universal ``faster quantum.'' Simulation is the clearest speed/shot-parallelism target because many cases have small quality gaps and move with execution improvement. Chemistry also benefits from runtime improvement, but only after the logical stack keeps the energy gap within tolerance. ML and optimization expose a different conclusion: a faster device alone does not create advantage when the circuit output is below the native target. For those families, the architecture priority shifts toward quality-preserving encodings, error suppression, better ansatz structure, and reducing classical-quantum iteration overhead.
+
 \noindent\textbf{Answer.}
 The hardware target is not one global number. The same projected speedup has different meaning depending on quality recovery and native-baseline strength. Faster gates help speed-limited families such as simulation and part of chemistry, but they do not rescue quality-limited ML and optimization without algorithmic improvement.
 
@@ -438,7 +461,7 @@ The main evaluation output is not that the simulator is slow. The simulator is t
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.90\linewidth]{figures/workload_taxonomy.pdf}
+\includegraphics[width=0.82\linewidth]{figures/workload_taxonomy.pdf}
 \Description{Stacked workload taxonomy chart classifying measured cases as quality-limited, speed-limited, or other bottleneck categories.}
 \caption{Primary bottleneck taxonomy for the strong-native practical suite. ML and optimization are quality-limited in the current circuit configurations. Chemistry is mostly speed-limited, while simulation splits between speed and quality limits.}
 \label{fig:workload-taxonomy}

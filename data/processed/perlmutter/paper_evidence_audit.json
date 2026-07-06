@@ -321,7 +321,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 25698
+            "size_bytes": 24214
           },
           "expected": {
             "exists": true,
@@ -335,7 +335,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 27662
+            "size_bytes": 31043
           },
           "expected": {
             "exists": true,
@@ -349,7 +349,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 8377
+            "size_bytes": 8637
           },
           "expected": {
             "exists": true,
@@ -363,7 +363,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 10548
+            "size_bytes": 9900
           },
           "expected": {
             "exists": true,
@@ -377,7 +377,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 9471
+            "size_bytes": 9598
           },
           "expected": {
             "exists": true,
@@ -391,7 +391,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 11015
+            "size_bytes": 10429
           },
           "expected": {
             "exists": true,
@@ -405,7 +405,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 13382
+            "size_bytes": 17143
           },
           "expected": {
             "exists": true,
@@ -419,7 +419,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 10792
+            "size_bytes": 16971
           },
           "expected": {
             "exists": true,
@@ -433,7 +433,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 47481
+            "size_bytes": 51598
           },
           "expected": {
             "exists": true,
@@ -447,7 +447,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 13933
+            "size_bytes": 19833
           },
           "expected": {
             "exists": true,
@@ -461,7 +461,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 10926
+            "size_bytes": 10928
           },
           "expected": {
             "exists": true,
@@ -475,7 +475,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 17278
+            "size_bytes": 17306
           },
           "expected": {
             "exists": true,
@@ -489,7 +489,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 12488
+            "size_bytes": 12652
           },
           "expected": {
             "exists": true,
@@ -503,7 +503,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 8625
+            "size_bytes": 8528
           },
           "expected": {
             "exists": true,
@@ -517,7 +517,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 17432
+            "size_bytes": 17248
           },
           "expected": {
             "exists": true,
@@ -531,7 +531,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 16448
+            "size_bytes": 16497
           },
           "expected": {
             "exists": true,
@@ -545,7 +545,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 12746
+            "size_bytes": 12694
           },
           "expected": {
             "exists": true,

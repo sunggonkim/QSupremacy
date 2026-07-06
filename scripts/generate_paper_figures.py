@@ -144,16 +144,16 @@ def apply_paper_style():
     plt.rcParams.update(
         {
             "font.family": "serif",
-            "font.size": 8.0,
-            "axes.labelsize": 8.0,
-            "axes.titlesize": 8.0,
+            "font.size": 7.3,
+            "axes.labelsize": 7.1,
+            "axes.titlesize": 7.1,
             "axes.titleweight": "bold",
-            "xtick.labelsize": 7.2,
-            "ytick.labelsize": 7.2,
-            "legend.fontsize": 7.2,
+            "xtick.labelsize": 6.4,
+            "ytick.labelsize": 6.4,
+            "legend.fontsize": 6.3,
             "axes.linewidth": 0.7,
-            "lines.linewidth": 1.35,
-            "lines.markersize": 4.3,
+            "lines.linewidth": 1.25,
+            "lines.markersize": 3.9,
             "pdf.fonttype": 42,
             "ps.fonttype": 42,
         }
@@ -161,7 +161,7 @@ def apply_paper_style():
 
 
 def style_axis(ax, grid="both"):
-    ax.tick_params(axis="both", labelsize=7.2, pad=1.5, width=0.7)
+    ax.tick_params(axis="both", labelsize=6.4, pad=1.2, width=0.7)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     if grid:
@@ -226,29 +226,30 @@ def arrow(ax, start, end, color="#4A4A4A", lw=1.1):
 
 def figure_intro_application_gap():
     fig, axes = plt.subplots(
-        2,
         1,
-        figsize=(COLUMN_WIDTH, 3.45),
-        gridspec_kw={"height_ratios": [1.05, 1.35], "hspace": 0.42},
+        2,
+        figsize=(COLUMN_WIDTH, 1.72),
+        gridspec_kw={"width_ratios": [1.08, 1.35], "wspace": 0.30},
     )
 
     ax = axes[0]
-    draw_box(ax, (0.02, 0.61), 0.20, 0.19, "Input\ninstance", COLORS["dark"], fontsize=7.5)
-    draw_box(ax, (0.34, 0.67), 0.28, 0.15, "Native HPC\napp", COLORS["blue"], fontsize=7.4)
-    draw_box(ax, (0.74, 0.67), 0.22, 0.15, "$T_n, Q_n$", COLORS["blue"], fontsize=7.4)
-    draw_box(ax, (0.34, 0.36), 0.28, 0.15, "Quantum\ncircuit app", COLORS["orange"], fontsize=7.4)
-    draw_box(ax, (0.74, 0.36), 0.22, 0.15, "$T_q, Q_q$", COLORS["green"], fontsize=7.4)
+    draw_box(ax, (0.03, 0.62), 0.30, 0.18, "Input\ninstance", COLORS["dark"], fontsize=6.4)
+    draw_box(ax, (0.47, 0.69), 0.38, 0.14, "Native HPC\napp", COLORS["blue"], fontsize=6.2)
+    draw_box(ax, (0.47, 0.42), 0.38, 0.14, "Quantum\ncircuit app", COLORS["orange"], fontsize=6.2)
     arrow(ax, (0.22, 0.70), (0.34, 0.745))
-    arrow(ax, (0.62, 0.745), (0.74, 0.745))
+    arrow(ax, (0.33, 0.71), (0.47, 0.76))
     arrow(ax, (0.22, 0.66), (0.34, 0.435))
-    arrow(ax, (0.62, 0.435), (0.74, 0.435))
+    arrow(ax, (0.33, 0.67), (0.47, 0.49))
+    draw_box(ax, (0.47, 0.16), 0.38, 0.12, "$T_n,Q_n$\n$T_q,Q_q$", COLORS["green"], fontsize=6.2)
+    arrow(ax, (0.66, 0.69), (0.66, 0.56))
+    arrow(ax, (0.66, 0.42), (0.66, 0.28))
     ax.text(
-        0.50,
-        0.12,
-        "Advantage if projected quantum time < native time\nand residual quality gap <= tolerance",
+        0.47,
+        0.03,
+        "Advantage: projected quantum time < native time\nand residual quality gap <= tolerance",
         ha="center",
-        va="center",
-        fontsize=7.3,
+        va="bottom",
+        fontsize=5.8,
         color=COLORS["dark"],
     )
     ax.set_xlim(0, 1)
@@ -267,96 +268,64 @@ def figure_intro_application_gap():
     ]
     y = np.arange(len(labels))
     axes[1].hlines(y, 1, values, color=colors, linewidth=2.1)
-    axes[1].scatter(values, y, s=40, color=colors, edgecolors="#222222", linewidths=0.45, zorder=3)
+    axes[1].scatter(values, y, s=28, color=colors, edgecolors="#222222", linewidths=0.45, zorder=3)
     for yi, value in zip(y, values):
-        axes[1].text(value * 1.18, yi, "{:,.0f}x".format(value), va="center", fontsize=7.4)
+        axes[1].text(value * 1.20, yi, "{:,.0f}x".format(value), va="center", fontsize=5.8)
     axes[1].set_xscale("log")
     axes[1].set_yticks(y)
     axes[1].set_yticklabels(labels)
     axes[1].invert_yaxis()
-    axes[1].set_xlabel("Required quantum speedup (x)")
+    axes[1].set_xlabel("Required quantum speedup (x)", labelpad=1.0)
     axes[1].set_xlim(10, 2.2e6)
     style_axis(axes[1], grid="x")
 
     path = os.path.join(FIG_DIR, "intro_application_gap.pdf")
-    fig.subplots_adjust(left=0.20, right=0.98, bottom=0.11, top=0.94, hspace=0.48)
+    fig.subplots_adjust(left=0.04, right=0.99, bottom=0.22, top=0.95, wspace=0.32)
     fig.savefig(path, bbox_inches="tight")
     plt.close(fig)
     return path
 
 
 def figure_design_overview():
-    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 3.70))
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 3.38))
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     ax.axis("off")
 
-    ax.text(0.06, 0.95, "Measurement", fontsize=9.5, weight="bold", color=COLORS["dark"])
-    ax.text(0.62, 0.95, "Analysis", fontsize=9.5, weight="bold", color=COLORS["dark"])
-    ax.plot([0.55, 0.55], [0.30, 0.92], color="#777777", linewidth=0.9, linestyle=":")
+    ax.text(0.04, 0.96, "Measurement plane", fontsize=8.0, weight="bold", color=COLORS["dark"])
+    ax.text(0.58, 0.96, "Architecture projection", fontsize=8.0, weight="bold", color=COLORS["dark"])
+    ax.plot([0.52, 0.52], [0.17, 0.92], color="#777777", linewidth=0.85, linestyle=":")
 
-    draw_box(ax, (0.06, 0.80), 0.42, 0.11, "Shared\nworkload record", COLORS["dark"], fontsize=7.5)
-    draw_box(ax, (0.04, 0.62), 0.22, 0.11, "Native\nbaseline", COLORS["blue"], fontsize=7.4)
-    draw_box(ax, (0.30, 0.62), 0.22, 0.11, "Quantum\ncircuit", COLORS["orange"], fontsize=7.4)
-    draw_box(ax, (0.04, 0.47), 0.22, 0.09, "$T_n, Q_n$", COLORS["blue"], fontsize=7.5)
-    draw_box(ax, (0.30, 0.47), 0.22, 0.09, "$T_s, Q_q$", COLORS["orange"], fontsize=7.5)
-    arrow(ax, (0.20, 0.80), (0.15, 0.73))
-    arrow(ax, (0.34, 0.80), (0.41, 0.73))
-    arrow(ax, (0.15, 0.62), (0.15, 0.56))
-    arrow(ax, (0.41, 0.62), (0.41, 0.56))
+    draw_box(ax, (0.06, 0.82), 0.38, 0.10, "Shared task\ninput + quality", COLORS["dark"], fontsize=6.5)
+    draw_box(ax, (0.05, 0.65), 0.18, 0.10, "Native\npath", COLORS["blue"], fontsize=6.5)
+    draw_box(ax, (0.27, 0.65), 0.18, 0.10, "Circuit\npath", COLORS["orange"], fontsize=6.5)
+    draw_box(ax, (0.05, 0.50), 0.18, 0.09, "$T_n, Q_n$", COLORS["blue"], fontsize=6.6)
+    draw_box(ax, (0.27, 0.50), 0.18, 0.09, "$T_s, Q_q$", COLORS["orange"], fontsize=6.6)
+    draw_box(ax, (0.07, 0.34), 0.36, 0.09, "Case record\nruntime, gates, shots", COLORS["teal"], fontsize=6.0)
+    arrow(ax, (0.18, 0.82), (0.14, 0.75))
+    arrow(ax, (0.32, 0.82), (0.36, 0.75))
+    arrow(ax, (0.14, 0.65), (0.14, 0.59))
+    arrow(ax, (0.36, 0.65), (0.36, 0.59))
+    arrow(ax, (0.14, 0.50), (0.22, 0.43))
+    arrow(ax, (0.36, 0.50), (0.31, 0.43))
 
-    draw_box(ax, (0.62, 0.75), 0.33, 0.10, "Case record\n$T$, $Q$, gates", COLORS["teal"], fontsize=7.3)
-    draw_box(ax, (0.62, 0.55), 0.33, 0.10, "Threshold\nspeedup + recovery", COLORS["green"], fontsize=7.0)
-    draw_box(ax, (0.62, 0.35), 0.33, 0.10, "Outputs\nfrontier + taxonomy", COLORS["purple"], fontsize=7.0)
-    arrow(ax, (0.26, 0.515), (0.62, 0.80))
-    arrow(ax, (0.52, 0.515), (0.62, 0.80))
-    arrow(ax, (0.785, 0.75), (0.785, 0.65))
-    arrow(ax, (0.785, 0.55), (0.785, 0.45))
+    draw_box(ax, (0.60, 0.80), 0.34, 0.09, "Logical op speed\n$t_1,t_2,t_m$", COLORS["green"], fontsize=6.2)
+    draw_box(ax, (0.60, 0.66), 0.34, 0.09, "Shot parallelism\n$P_{shots}$", COLORS["purple"], fontsize=6.2)
+    draw_box(ax, (0.60, 0.52), 0.34, 0.09, "Error + control\n$T_{error}$, recovery", COLORS["red"], fontsize=6.1)
+    draw_box(ax, (0.60, 0.35), 0.34, 0.10, "Break-even search\n$T_{qhw}<T_{native}$", COLORS["dark"], fontsize=6.2)
+    arrow(ax, (0.43, 0.39), (0.60, 0.84))
+    arrow(ax, (0.43, 0.39), (0.60, 0.70))
+    arrow(ax, (0.43, 0.39), (0.60, 0.56))
+    arrow(ax, (0.77, 0.52), (0.77, 0.45))
 
-    draw_box(
-        ax,
-        (0.04, 0.14),
-        0.20,
-        0.10,
-        "Control\ninput, seed",
-        "#F3F3F3",
-        text_color=COLORS["dark"],
-        fontsize=7.0,
-    )
-    draw_box(
-        ax,
-        (0.28, 0.14),
-        0.20,
-        0.10,
-        "Native\ncandidates",
-        "#F3F3F3",
-        text_color=COLORS["dark"],
-        fontsize=7.0,
-    )
-    draw_box(
-        ax,
-        (0.52, 0.14),
-        0.20,
-        0.10,
-        "Quantum\ncandidates",
-        "#F3F3F3",
-        text_color=COLORS["dark"],
-        fontsize=7.0,
-    )
-    draw_box(
-        ax,
-        (0.76, 0.14),
-        0.20,
-        0.10,
-        "Audit\nartifacts",
-        "#F3F3F3",
-        text_color=COLORS["dark"],
-        fontsize=7.0,
-    )
+    draw_box(ax, (0.12, 0.14), 0.28, 0.10, "Advantage\nfrontier", "#F3F3F3", text_color=COLORS["dark"], fontsize=6.2)
+    draw_box(ax, (0.60, 0.14), 0.34, 0.10, "Design guidance\nspeed / quality / shots", "#F3F3F3", text_color=COLORS["dark"], fontsize=5.9)
+    arrow(ax, (0.77, 0.35), (0.77, 0.24))
+    arrow(ax, (0.60, 0.19), (0.40, 0.19))
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     path = os.path.join(FIG_DIR, "design_overview.pdf")
-    fig.subplots_adjust(left=0.03, right=0.98, bottom=0.05, top=0.95)
+    fig.subplots_adjust(left=0.03, right=0.98, bottom=0.05, top=0.96)
     fig.savefig(path, bbox_inches="tight")
     plt.close(fig)
     return path
@@ -447,6 +416,12 @@ def figure_practical_suite():
     fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.50))
     legend_handles = []
     legend_labels = []
+    label_offsets = {
+        "ML": (4, 3, "left"),
+        "Chem.": (4, 3, "left"),
+        "Opt.": (-6, 3, "right"),
+        "Sim.": (4, 4, "left"),
+    }
     for label, color, speed, quality, sorted_speed, cdf in series:
         points = ax.scatter(
             speed,
@@ -468,19 +443,38 @@ def figure_practical_suite():
             linewidths=0.65,
             zorder=4,
         )
+        offset_x, offset_y, align = label_offsets.get(label, (4, 3, "left"))
+        ax.annotate(
+            label,
+            xy=(np.median(speed), np.median(quality)),
+            xytext=(offset_x, offset_y),
+            textcoords="offset points",
+            fontsize=5.8,
+            color=color,
+            weight="bold",
+            ha=align,
+        )
     ax.set_xscale("log")
     ax.tick_params(axis="x", labelbottom=False)
     ax.set_ylabel("Quality gap\nto native")
     style_axis(ax, grid="both")
-    add_top_legend(fig, legend_handles, legend_labels, ncol=4, y=1.03, fontsize=6.4)
-    fig.subplots_adjust(top=0.72, bottom=0.10, left=0.18, right=0.98)
+    fig.subplots_adjust(top=0.96, bottom=0.10, left=0.18, right=0.98)
     landscape_path = os.path.join(FIG_DIR, "practical_suite_summary.pdf")
     fig.savefig(landscape_path, bbox_inches="tight")
     plt.close(fig)
 
     fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.25))
-    for label, color, speed, quality, sorted_speed, cdf in series:
+    for idx, (label, color, speed, quality, sorted_speed, cdf) in enumerate(series):
         ax.plot(sorted_speed, cdf, color=color, linewidth=1.8, label=label)
+        ax.text(
+            0.04 + 0.22 * idx,
+            0.12,
+            label,
+            transform=ax.transAxes,
+            fontsize=5.8,
+            color=color,
+            weight="bold",
+        )
     ax.set_xscale("log")
     ax.set_xlabel("Required speedup (x)")
     ax.set_ylabel("CDF")
@@ -531,14 +525,14 @@ def figure_strong_native_comparison():
     for label, color, initial, strong in zip(labels, colors, official_speed, strong_speed):
         line = ax.plot([0, 1], [initial, strong], marker="o", color=color, linewidth=1.8)[0]
         handles.append(line)
+        ax.text(1.06, strong, label, fontsize=5.9, color=color, va="center", weight="bold")
     ax.set_yscale("log")
-    ax.set_xlim(-0.12, 1.12)
+    ax.set_xlim(-0.12, 1.32)
     ax.set_xticks([0, 1])
     ax.set_xticklabels([])
     ax.set_ylabel("Median required\nspeedup (x)")
     style_axis(ax, grid="y")
-    add_top_legend(fig, handles, labels, ncol=4, y=1.04, fontsize=6.4)
-    fig.subplots_adjust(top=0.70, bottom=0.10, left=0.18, right=0.98)
+    fig.subplots_adjust(top=0.98, bottom=0.10, left=0.18, right=0.90)
     speed_path = os.path.join(FIG_DIR, "strong_native_comparison.pdf")
     fig.savefig(speed_path, bbox_inches="tight")
     plt.close(fig)
@@ -546,12 +540,13 @@ def figure_strong_native_comparison():
     fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.25))
     for label, color, initial, strong in zip(labels, colors, official_quality, strong_quality):
         ax.plot([0, 1], [initial, strong], marker="o", color=color, linewidth=1.8)
-    ax.set_xlim(-0.12, 1.12)
+        ax.text(1.06, strong, label, fontsize=5.9, color=color, va="center", weight="bold")
+    ax.set_xlim(-0.12, 1.32)
     ax.set_xticks([0, 1])
     ax.set_xticklabels(["Initial\nbaseline", "Strong\nbaseline"])
     ax.set_ylabel("Median\nquality gap")
     style_axis(ax, grid="y")
-    fig.subplots_adjust(bottom=0.34, left=0.18, right=0.98, top=0.98)
+    fig.subplots_adjust(bottom=0.34, left=0.18, right=0.90, top=0.98)
     quality_path = os.path.join(FIG_DIR, "strong_native_quality_shift.pdf")
     fig.savefig(quality_path, bbox_inches="tight")
     plt.close(fig)
@@ -575,14 +570,16 @@ def figure_weak_scaling():
     fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.25))
     line_measured = ax.plot(nodes, throughput, marker="o", color=COLORS["blue"], label="measured")[0]
     line_ideal = ax.plot(nodes, ideal, linestyle="--", color=COLORS["gray"], label="ideal linear")[0]
+    ax.text(nodes[-1] * 1.05, throughput[-1], "measured", color=COLORS["blue"], fontsize=5.8, va="center")
+    ax.text(nodes[-1] * 1.05, ideal[-1], "ideal", color=COLORS["gray"], fontsize=5.8, va="center")
     ax.set_xscale("log", base=2)
     ax.set_xticks(nodes)
     ax.set_xticklabels([str(int(x)) for x in nodes])
     ax.tick_params(axis="x", labelbottom=False)
     ax.set_ylabel("Cases/s")
     style_axis(ax, grid="both")
-    add_top_legend(fig, [line_measured, line_ideal], ["measured", "ideal"], ncol=2, y=1.04, fontsize=6.5)
-    fig.subplots_adjust(top=0.76, bottom=0.10, left=0.18, right=0.98)
+    ax.set_xlim(nodes[0] * 0.88, nodes[-1] * 1.62)
+    fig.subplots_adjust(top=0.98, bottom=0.10, left=0.18, right=0.88)
     throughput_path = os.path.join(FIG_DIR, "weak_scaling.pdf")
     fig.savefig(throughput_path, bbox_inches="tight")
     plt.close(fig)
@@ -596,6 +593,7 @@ def figure_weak_scaling():
         label="per-GPU throughput",
     )[0]
     ax.axhline(1.0, linestyle="--", color=COLORS["gray"], linewidth=1.0)
+    ax.text(nodes[-1] * 1.05, efficiency[-1], "per-GPU", color=COLORS["orange"], fontsize=5.8, va="center")
     ax.set_xscale("log", base=2)
     ax.set_xticks(nodes)
     ax.set_xticklabels([str(int(x)) for x in nodes])
@@ -603,8 +601,8 @@ def figure_weak_scaling():
     ax.set_ylabel("Norm. per-GPU\nthroughput")
     ax.set_ylim(0.82, 1.08)
     style_axis(ax, grid="both")
-    add_top_legend(fig, [line_eff], ["per-GPU normalized"], ncol=1, y=1.04, fontsize=6.5)
-    fig.subplots_adjust(top=0.76, bottom=0.32, left=0.22, right=0.98)
+    ax.set_xlim(nodes[0] * 0.88, nodes[-1] * 1.55)
+    fig.subplots_adjust(top=0.98, bottom=0.32, left=0.22, right=0.88)
     efficiency_path = os.path.join(FIG_DIR, "weak_scaling_efficiency.pdf")
     fig.savefig(efficiency_path, bbox_inches="tight")
     plt.close(fig)
@@ -631,14 +629,16 @@ def figure_strong_scaling():
         color=COLORS["gray"],
         label="ideal linear",
     )[0]
+    ax.text(nodes[-1] * 1.05, (elapsed / 60.0)[-1], "measured", color=COLORS["blue"], fontsize=5.8, va="center")
+    ax.text(nodes[-1] * 1.05, ((elapsed[0] / ideal) / 60.0)[-1], "ideal", color=COLORS["gray"], fontsize=5.8, va="center")
     ax.set_xscale("log", base=2)
     ax.set_xticks(nodes)
     ax.set_xticklabels([str(int(x)) for x in nodes])
     ax.set_ylabel("Elapsed time\n(min)")
     ax.tick_params(axis="x", labelbottom=False)
     style_axis(ax, grid="both")
-    add_top_legend(fig, [line_time, line_time_ideal], ["measured", "ideal"], ncol=2, y=1.04, fontsize=6.5)
-    fig.subplots_adjust(top=0.76, bottom=0.10, left=0.18, right=0.98)
+    ax.set_xlim(nodes[0] * 0.88, nodes[-1] * 1.62)
+    fig.subplots_adjust(top=0.98, bottom=0.10, left=0.18, right=0.88)
     elapsed_path = os.path.join(FIG_DIR, "strong_scaling.pdf")
     fig.savefig(elapsed_path, bbox_inches="tight")
     plt.close(fig)
@@ -646,14 +646,16 @@ def figure_strong_scaling():
     fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.20))
     line_speed = ax.plot(nodes, speedup, marker="o", color=COLORS["green"], label="measured")[0]
     line_speed_ideal = ax.plot(nodes, ideal, linestyle="--", color=COLORS["gray"], label="ideal linear")[0]
+    ax.text(nodes[-1] * 1.05, speedup[-1], "measured", color=COLORS["green"], fontsize=5.8, va="center")
+    ax.text(nodes[-1] * 1.05, ideal[-1], "ideal", color=COLORS["gray"], fontsize=5.8, va="center")
     ax.set_xscale("log", base=2)
     ax.set_xticks(nodes)
     ax.set_xticklabels([str(int(x)) for x in nodes])
     ax.set_xlabel("GPU nodes")
     ax.set_ylabel("Speedup vs.\n4 nodes")
     style_axis(ax, grid="both")
-    add_top_legend(fig, [line_speed, line_speed_ideal], ["measured", "ideal"], ncol=2, y=1.04, fontsize=6.5)
-    fig.subplots_adjust(top=0.76, bottom=0.32, left=0.18, right=0.98)
+    ax.set_xlim(nodes[0] * 0.88, nodes[-1] * 1.62)
+    fig.subplots_adjust(top=0.98, bottom=0.32, left=0.18, right=0.88)
     speedup_path = os.path.join(FIG_DIR, "strong_scaling_speedup.pdf")
     fig.savefig(speedup_path, bbox_inches="tight")
     plt.close(fig)
@@ -692,7 +694,7 @@ def figure_advantage_frontier():
             for xi, speedup in enumerate(speedups):
                 advantaged = (speedup >= required) & (residual_gap <= tolerance)
                 frontier[yi, xi] = np.mean(advantaged) if advantaged.size else 0.0
-        fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.55))
+        fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.42))
         image = ax.imshow(
             frontier,
             origin="lower",
@@ -717,7 +719,7 @@ def figure_advantage_frontier():
             0.92,
             "tol={:.2g}".format(tolerance),
             transform=ax.transAxes,
-            fontsize=6.2,
+            fontsize=5.6,
             color="white",
             bbox={"facecolor": "black", "alpha": 0.35, "pad": 2, "edgecolor": "none"},
         )
@@ -732,10 +734,10 @@ def figure_advantage_frontier():
             ax.set_xlabel("Projected speedup (x)")
         else:
             ax.tick_params(axis="x", labelbottom=False)
-        ax.tick_params(axis="both", labelsize=6.6, pad=1.2)
-        cbar = fig.colorbar(image, ax=ax, shrink=0.90, pad=0.02)
+        ax.tick_params(axis="both", labelsize=5.9, pad=1.0)
+        cbar = fig.colorbar(image, ax=ax, shrink=0.88, pad=0.018)
         cbar.set_ticks([0.0, 0.5, 1.0])
-        cbar.ax.tick_params(labelsize=6.4)
+        cbar.ax.tick_params(labelsize=5.8, pad=1.0)
         fig.subplots_adjust(left=0.15, right=0.89, bottom=0.27, top=0.98)
         suffix = "ml" if workload == "ml" else workload
         filename = (
@@ -772,7 +774,7 @@ def figure_workload_taxonomy():
         "native-dominated": COLORS["purple"],
     }
 
-    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.85))
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.55))
     x = np.arange(len(workloads))
     bottom = np.zeros(len(workloads))
     legend_handles = []
@@ -800,7 +802,7 @@ def figure_workload_taxonomy():
                     "{:.0f}%".format(value * 100.0),
                     ha="center",
                     va="center",
-                    fontsize=6.4,
+                    fontsize=5.7,
                     color="white" if label in {"quality-limited", "speed-limited", "native-dominated"} else "black",
                 )
         bottom += np.array(values)
@@ -810,8 +812,8 @@ def figure_workload_taxonomy():
     ax.set_ylabel("Case fraction")
     ax.set_ylim(0.0, 1.0)
     style_axis(ax, grid="y")
-    add_top_legend(fig, legend_handles, legend_labels, ncol=2, y=0.995, fontsize=6.5)
-    fig.subplots_adjust(top=0.68, bottom=0.18, left=0.24, right=0.98)
+    add_top_legend(fig, legend_handles, legend_labels, ncol=3, y=0.995, fontsize=5.8)
+    fig.subplots_adjust(top=0.62, bottom=0.20, left=0.22, right=0.98)
     path = os.path.join(FIG_DIR, "workload_taxonomy.pdf")
     fig.savefig(path, bbox_inches="tight")
     plt.close(fig)
