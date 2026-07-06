@@ -20,7 +20,7 @@ FIG_DIR = os.path.join(ROOT, "paper", "figures")
 TEXT_WIDTH = 6.85
 COLUMN_WIDTH = 3.35
 INTRO_PATH_WIDTH = COLUMN_WIDTH * 0.46
-INTRO_THRESHOLD_WIDTH = COLUMN_WIDTH * 0.52
+INTRO_THRESHOLD_WIDTH = COLUMN_WIDTH * 0.92
 SUBFIGURE_WIDTH = COLUMN_WIDTH * 0.48
 COLORS = {
     "blue": "#356CA5",
@@ -388,7 +388,14 @@ def figure_intro_paths():
 
 
 def figure_intro_threshold_summary():
-    labels = ["ML-QNN", "ML-QKernel", "Sim-Ham.", "ML-Feature", "Chem-VQE", "Opt-QAOA"]
+    labels = [
+        "scikit vs QNN",
+        "scikit vs QKernel",
+        "Native Sim. vs Trotter",
+        "Native ML vs QFeature",
+        "Native Chem. vs VQE",
+        "Native Opt. vs QAOA",
+    ]
     values = [64.9, 421.9, 3071.0, 3726.4, 42491.4, 287045.6]
     colors = [
         COLORS["orange"],
@@ -399,14 +406,14 @@ def figure_intro_threshold_summary():
         COLORS["red"],
     ]
     y = np.arange(len(labels))
-    fig, ax = plt.subplots(figsize=(INTRO_THRESHOLD_WIDTH, 1.52))
+    fig, ax = plt.subplots(figsize=(INTRO_THRESHOLD_WIDTH, 1.10))
     ax.axvspan(40, 1e3, color=COLORS["green"], alpha=0.06, linewidth=0)
     ax.axvspan(1e3, 1e5, color=COLORS["orange"], alpha=0.06, linewidth=0)
     ax.axvspan(1e5, 7e5, color=COLORS["red"], alpha=0.055, linewidth=0)
     left = 10.0
-    ax.barh(y, np.array(values) - left, left=left, height=0.54, color=colors, alpha=0.20)
+    ax.barh(y, np.array(values) - left, left=left, height=0.45, color=colors, alpha=0.20)
     ax.hlines(y, left, values, color=colors, linewidth=2.8, alpha=0.95)
-    ax.scatter(values, y, s=34, color=colors, edgecolors="#222222", linewidths=0.45, zorder=3)
+    ax.scatter(values, y, s=30, color=colors, edgecolors="#222222", linewidths=0.45, zorder=3)
     for yi, value in zip(y, values):
         if value > 1e5:
             ax.annotate(
@@ -416,7 +423,7 @@ def figure_intro_threshold_summary():
                 textcoords="offset points",
                 va="center",
                 ha="right",
-                fontsize=5.6,
+                fontsize=5.2,
             )
         else:
             ax.annotate(
@@ -426,17 +433,18 @@ def figure_intro_threshold_summary():
                 textcoords="offset points",
                 va="center",
                 ha="left",
-                fontsize=5.6,
+                fontsize=5.2,
             )
     ax.set_xscale("log")
     ax.set_yticks(y)
     ax.set_yticklabels(labels)
+    ax.tick_params(axis="y", labelsize=5.6)
     ax.invert_yaxis()
-    ax.set_xlabel("Req. quantum speedup (x)", labelpad=1.0)
+    ax.set_xlabel("Req. speedup over native (x)", labelpad=1.0)
     ax.set_xlim(10, 7e5)
     style_axis(ax, grid="x")
     path = os.path.join(FIG_DIR, "intro_threshold_summary.pdf")
-    fig.subplots_adjust(left=0.42, right=0.95, bottom=0.28, top=0.97)
+    fig.subplots_adjust(left=0.38, right=0.95, bottom=0.30, top=0.98)
     fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
     plt.close(fig)
     return path
