@@ -1,0 +1,4 @@
+JobID|JobName|State|ExitCode|Elapsed|Submit|Start|End|AllocTRES
+55782694|qsup-review-stress|RUNNING|0:0|00:01:45|2026-07-10T19:09:22|2026-07-10T19:10:38|Unknown|billing=128,cpu=128,gres/gpu:a100=4,gres/gpu=4,mem=229902M,node=1
+55782694.batch|batch|RUNNING|0:0|00:01:45|2026-07-10T19:10:38|2026-07-10T19:10:38|Unknown|cpu=128,gres/gpu:a100=4,gres/gpu=4,mem=229902M,node=1
+55782694.extern|extern|RUNNING|0:0|00:01:45|2026-07-10T19:10:38|2026-07-10T19:10:38|Unknown|billing=128,cpu=128,gres/gpu:a100=4,gres/gpu=4,mem=229902M,node=1

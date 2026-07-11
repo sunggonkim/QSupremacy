@@ -435,108 +435,88 @@ def figure_intro_threshold_summary():
 
 
 def figure_design_overview():
-    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 3.50))
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 3.25))
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     ax.axis("off")
 
-    ax.text(0.04, 0.965, "Measurement plane", fontsize=7.5, weight="bold", color=COLORS["dark"])
-    ax.text(0.57, 0.965, "Architecture projection", fontsize=7.5, weight="bold", color=COLORS["dark"])
-    ax.plot([0.52, 0.52], [0.17, 0.92], color="#777777", linewidth=0.85, linestyle=":")
+    def step_badge(x, y, text):
+        circle = plt.Circle((x, y), 0.025, facecolor="white", edgecolor=COLORS["dark"], linewidth=0.8, zorder=4)
+        ax.add_patch(circle)
+        ax.text(x, y - 0.001, text, ha="center", va="center", fontsize=5.5, weight="bold", color=COLORS["dark"], zorder=5)
 
-    draw_box(ax, (0.06, 0.82), 0.38, 0.105, "Shared task\ninput + quality", COLORS["dark"], fontsize=6.0)
-    draw_box(ax, (0.05, 0.65), 0.18, 0.105, "Native\npath", COLORS["blue"], fontsize=6.0)
-    draw_box(ax, (0.27, 0.65), 0.18, 0.105, "Circuit\npath", COLORS["orange"], fontsize=6.0)
-    draw_box(ax, (0.05, 0.50), 0.18, 0.095, "$T_n, Q_n$", COLORS["blue"], fontsize=6.0)
-    draw_box(ax, (0.27, 0.50), 0.18, 0.095, "$T_s, Q_q$", COLORS["orange"], fontsize=6.0)
-    draw_box(ax, (0.07, 0.34), 0.36, 0.10, "Case record\nruntime, gates, shots", COLORS["teal"], fontsize=5.6)
-    arrow(ax, (0.18, 0.82), (0.14, 0.75))
-    arrow(ax, (0.32, 0.82), (0.36, 0.75))
-    arrow(ax, (0.14, 0.65), (0.14, 0.59))
-    arrow(ax, (0.36, 0.65), (0.36, 0.59))
-    arrow(ax, (0.14, 0.50), (0.22, 0.43))
-    arrow(ax, (0.36, 0.50), (0.31, 0.43))
+    ax.text(0.04, 0.955, "QArchGauge procedure", fontsize=7.4, weight="bold", color=COLORS["dark"])
+    ax.text(0.04, 0.905, "same input, native deadline, quantum circuit metadata, and projection knobs stay in one case record",
+            fontsize=4.9, color=COLORS["dark"])
 
-    draw_box(ax, (0.59, 0.80), 0.36, 0.10, "Logical op speed\n$t_1,t_2,t_m$", COLORS["green"], fontsize=5.8)
-    draw_box(ax, (0.59, 0.66), 0.36, 0.10, "Shot parallelism\n$P_{shots}$", COLORS["purple"], fontsize=5.8)
-    draw_box(ax, (0.59, 0.52), 0.36, 0.10, "Error + control\n$T_{error}$, recovery", COLORS["red"], fontsize=5.6)
-    draw_box(ax, (0.59, 0.35), 0.36, 0.11, "Break-even search\n$T_{qhw}<T_{native}$", COLORS["dark"], fontsize=5.7)
-    arrow(ax, (0.43, 0.39), (0.60, 0.84))
-    arrow(ax, (0.43, 0.39), (0.60, 0.70))
-    arrow(ax, (0.43, 0.39), (0.60, 0.56))
-    arrow(ax, (0.77, 0.52), (0.77, 0.45))
+    draw_box(ax, (0.06, 0.77), 0.88, 0.09, "1. Shared application case: input, seed, quality metric, tolerance", COLORS["dark"], fontsize=5.5)
+    step_badge(0.075, 0.86, "1")
 
-    draw_box(ax, (0.12, 0.14), 0.28, 0.105, "Advantage\nfrontier", "#F3F3F3", text_color=COLORS["dark"], fontsize=5.9)
-    draw_box(ax, (0.59, 0.14), 0.36, 0.105, "Design guidance\nspeed / quality / shots", "#F3F3F3", text_color=COLORS["dark"], fontsize=5.4)
-    arrow(ax, (0.77, 0.35), (0.77, 0.24))
-    arrow(ax, (0.60, 0.19), (0.40, 0.19))
+    draw_box(ax, (0.07, 0.60), 0.34, 0.105, "2. Native HPC path\n$T_{native}, Q_{native}$\nexact / Krylov / heur.", COLORS["blue"], fontsize=5.0)
+    draw_box(ax, (0.59, 0.60), 0.34, 0.105, "3. Quantum-circuit path\n$T_{qsim}, Q_q$\nVQE / QAOA / Trotter", COLORS["orange"], fontsize=5.0)
+    step_badge(0.085, 0.705, "2")
+    step_badge(0.605, 0.705, "3")
+    arrow(ax, (0.28, 0.77), (0.24, 0.705), lw=0.9)
+    arrow(ax, (0.72, 0.77), (0.76, 0.705), lw=0.9)
+
+    draw_box(ax, (0.20, 0.43), 0.60, 0.105, "4. Auditable case record\nruntime, quality gap,\ngates, shots, evals", COLORS["teal"], fontsize=5.0)
+    step_badge(0.255, 0.535, "4")
+    arrow(ax, (0.24, 0.60), (0.38, 0.535), lw=0.9)
+    arrow(ax, (0.76, 0.60), (0.62, 0.535), lw=0.9)
+
+    levers = [
+        ("Logical ops\n$t_1,t_2,t_m$", COLORS["green"], 0.07),
+        ("Shot lanes\n$P_{shots}$", COLORS["purple"], 0.295),
+        ("Decode/control\n$T_{err}$", COLORS["red"], 0.52),
+        ("Quality recovery\n$R_q$", COLORS["gray"], 0.745),
+    ]
+    for label, color, x in levers:
+        draw_box(ax, (x, 0.25), 0.19, 0.08, label, color, fontsize=4.9)
+        arrow(ax, (0.50, 0.43), (x + 0.095, 0.33), lw=0.75)
+
+    draw_box(ax, (0.13, 0.08), 0.31, 0.085, "Runtime gate\n$T_{qhw}<T_{native}$", "#F3F3F3", text_color=COLORS["dark"], fontsize=5.0)
+    draw_box(ax, (0.56, 0.08), 0.31, 0.085, "Target map\namount + location", "#F3F3F3", text_color=COLORS["dark"], fontsize=5.0)
+    step_badge(0.145, 0.165, "5")
+    arrow(ax, (0.25, 0.25), (0.28, 0.165), lw=0.75)
+    arrow(ax, (0.74, 0.25), (0.72, 0.165), lw=0.75)
+    arrow(ax, (0.44, 0.122), (0.56, 0.122), lw=0.85)
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     path = os.path.join(FIG_DIR, "design_overview.pdf")
-    fig.subplots_adjust(left=0.03, right=0.98, bottom=0.05, top=0.96)
+    fig.subplots_adjust(left=0.02, right=0.985, bottom=0.04, top=0.97)
     fig.savefig(path, bbox_inches="tight")
     plt.close(fig)
     return path
 
 
 def figure_design_projection_flow():
-    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 2.30))
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 2.12))
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     ax.axis("off")
 
-    ax.text(0.04, 0.94, "Measured case", fontsize=6.8, weight="bold", color=COLORS["dark"])
-    ax.text(0.38, 0.94, "Projection engine", fontsize=6.8, weight="bold", color=COLORS["dark"])
-    ax.text(0.72, 0.94, "Design output", fontsize=6.8, weight="bold", color=COLORS["dark"])
+    ax.text(0.035, 0.93, "Projection equation", fontsize=7.1, weight="bold", color=COLORS["dark"])
+    ax.text(0.035, 0.875, "recorded circuit metadata is priced by explicit hardware terms", fontsize=5.0, color=COLORS["dark"])
 
-    draw_box(ax, (0.04, 0.72), 0.24, 0.115, "Native path\n$T_n, Q_n$", COLORS["blue"], fontsize=5.8)
-    draw_box(ax, (0.04, 0.54), 0.24, 0.115, "Circuit path\n$T_s, Q_q$", COLORS["orange"], fontsize=5.8)
-    draw_box(ax, (0.04, 0.36), 0.24, 0.12, "Circuit metadata\nqubits, gates, shots", COLORS["teal"], fontsize=5.2)
-    draw_box(ax, (0.04, 0.18), 0.24, 0.115, "Quality gap\n$\\Delta Q$", COLORS["purple"], fontsize=5.8)
+    draw_box(ax, (0.045, 0.70), 0.20, 0.10, "case record\n$D_1,D_2,D_m,N_e$", COLORS["teal"], fontsize=5.3)
+    draw_box(ax, (0.045, 0.50), 0.20, 0.10, "native deadline\n$T_{native}$", COLORS["blue"], fontsize=5.3)
+    draw_box(ax, (0.045, 0.30), 0.20, 0.10, "quality gap\n$\\Delta Q,\\epsilon_w$", COLORS["purple"], fontsize=5.3)
 
-    draw_box(
-        ax,
-        (0.37, 0.58),
-        0.24,
-        0.16,
-        "Break-even\n$T_{qhw}<T_n$",
-        COLORS["dark"],
-        fontsize=5.8,
-    )
-    draw_box(
-        ax,
-        (0.37, 0.32),
-        0.24,
-        0.16,
-        "Frontier sweep\n$S, R, P_{shots}$",
-        "#F4F4F4",
-        text_color=COLORS["dark"],
-        fontsize=5.6,
-    )
-    ax.text(
-        0.50,
-        0.22,
-        "same input\nsame quality target",
-        ha="center",
-        va="center",
-        fontsize=5.4,
-        color=COLORS["dark"],
-    )
-
-    for y in [0.775, 0.595, 0.415, 0.235]:
-        arrow(ax, (0.28, y), (0.37, 0.66 if y > 0.50 else 0.40), lw=0.9)
-    arrow(ax, (0.50, 0.58), (0.50, 0.48), lw=0.9)
-
-    outputs = [
-        ("Speed-limited", COLORS["green"]),
-        ("Quality-limited", COLORS["red"]),
-        ("Shot-limited", COLORS["purple"]),
-        ("Native-limited", COLORS["gray"]),
+    term_specs = [
+        ("logical ops\n$N_e(D_1t_1+D_2t_2+D_mt_m)/P_{shots}$", COLORS["green"], 0.46, 0.66),
+        ("serial floor\n$N_e(T_{decode}+T_{ctrl}+T_{io})$", COLORS["red"], 0.46, 0.46),
+        ("quality gate\n$(1-R_q)\\Delta Q\\leq\\epsilon_w$", COLORS["gray"], 0.46, 0.26),
     ]
-    for idx, (label, color) in enumerate(outputs):
-        y = 0.72 - idx * 0.16
-        draw_box(ax, (0.72, y), 0.23, 0.095, label, color, fontsize=5.4)
-        arrow(ax, (0.61, 0.66 if idx < 2 else 0.40), (0.72, y + 0.047), lw=0.9)
+    for label, color, x, y in term_specs:
+        draw_box(ax, (x, y), 0.47, 0.105, label, color, fontsize=4.9)
+    for y in [0.75, 0.55, 0.35]:
+        arrow(ax, (0.245, y), (0.46, y - 0.03), lw=0.85)
+
+    draw_box(ax, (0.31, 0.08), 0.23, 0.095, "frontier\nspeed + $R_q$", "#F4F4F4", text_color=COLORS["dark"], fontsize=5.1)
+    draw_box(ax, (0.62, 0.08), 0.32, 0.095, "target map\nspeed / shots /\ncontrol / quality", COLORS["dark"], fontsize=4.7)
+    arrow(ax, (0.58, 0.26), (0.45, 0.17), lw=0.8)
+    arrow(ax, (0.78, 0.26), (0.80, 0.17), lw=0.8)
+    arrow(ax, (0.54, 0.125), (0.62, 0.125), lw=0.8)
 
     path = os.path.join(FIG_DIR, "design_projection_flow.pdf")
     fig.subplots_adjust(left=0.02, right=0.98, bottom=0.05, top=0.96)
@@ -1862,7 +1842,6 @@ def figure_strong_scaling():
     if len(runs) < 2:
         return None
 
-    nodes = np.array([run["nodes"] for run in runs], dtype=float)
     gpus = np.array([run["gpus"] for run in runs], dtype=float)
     cases = np.array([run["cases"] for run in runs], dtype=float)
     elapsed = np.array([run["elapsed_sec"] for run in runs], dtype=float)
@@ -1871,19 +1850,15 @@ def figure_strong_scaling():
     normalized_elapsed = elapsed * (fixed_cases / cases)
     speedup = normalized_elapsed[0] / normalized_elapsed
     ideal = gpus / gpus[0]
+    order = np.argsort(gpus)
+    gpus = gpus[order]
+    normalized_elapsed = normalized_elapsed[order]
+    speedup = speedup[order]
+    ideal = ideal[order]
     gpu_ticks = [1, 4, 16, 64, 256]
 
     fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 2.02))
-    line_time_pilot = ax.plot(
-        gpus[~fixed_mask],
-        normalized_elapsed[~fixed_mask] / 60.0,
-        marker="o",
-        markerfacecolor="white",
-        markeredgecolor=COLORS["blue"],
-        linestyle=":",
-        color=COLORS["blue"],
-    )[0]
-    line_time = ax.plot(gpus[fixed_mask], normalized_elapsed[fixed_mask] / 60.0, marker="o", color=COLORS["blue"])[0]
+    line_time = ax.plot(gpus, normalized_elapsed / 60.0, marker="o", color=COLORS["blue"])[0]
     line_time_ideal = ax.plot(
         gpus,
         (normalized_elapsed[0] / ideal) / 60.0,
@@ -1894,7 +1869,7 @@ def figure_strong_scaling():
     ax.set_yscale("log")
     ax.set_xticks(gpu_ticks)
     ax.set_xticklabels([str(tick) for tick in gpu_ticks])
-    ax.set_ylabel("Norm. TTS\n(min)")
+    ax.set_ylabel("Actual TTS\n(min)")
     ax.set_xlabel("GPUs")
     style_axis(ax, grid="both")
     ax.set_xlim(0.8, 330)
@@ -1902,11 +1877,11 @@ def figure_strong_scaling():
                 max(normalized_elapsed / 60.0) * 1.35)
     add_top_legend(
         fig,
-        [line_time_pilot, line_time, line_time_ideal],
-        ["pilot", "fixed", "ideal"],
-        ncol=3,
+        [line_time, line_time_ideal],
+        ["actual", "ideal"],
+        ncol=2,
         y=1.00,
-        fontsize=5.1,
+        fontsize=5.4,
     )
     fig.subplots_adjust(top=0.76, bottom=0.27, left=0.33, right=0.98)
     elapsed_path = os.path.join(FIG_DIR, "strong_scaling.pdf")
@@ -1914,16 +1889,7 @@ def figure_strong_scaling():
     plt.close(fig)
 
     fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 2.02))
-    line_speed_pilot = ax.plot(
-        gpus[~fixed_mask],
-        speedup[~fixed_mask],
-        marker="o",
-        markerfacecolor="white",
-        markeredgecolor=COLORS["green"],
-        linestyle=":",
-        color=COLORS["green"],
-    )[0]
-    line_speed = ax.plot(gpus[fixed_mask], speedup[fixed_mask], marker="o", color=COLORS["green"])[0]
+    line_speed = ax.plot(gpus, speedup, marker="o", color=COLORS["green"])[0]
     line_speed_ideal = ax.plot(gpus, ideal, linestyle="--", color=COLORS["gray"], label="ideal linear")[0]
     ax.set_xscale("log", base=2)
     ax.set_xticks(gpu_ticks)
@@ -1934,11 +1900,11 @@ def figure_strong_scaling():
     ax.set_xlim(0.8, 330)
     add_top_legend(
         fig,
-        [line_speed_pilot, line_speed, line_speed_ideal],
-        ["pilot", "fixed", "ideal"],
-        ncol=3,
+        [line_speed, line_speed_ideal],
+        ["actual", "ideal"],
+        ncol=2,
         y=1.00,
-        fontsize=5.1,
+        fontsize=5.4,
     )
     fig.subplots_adjust(top=0.76, bottom=0.28, left=0.31, right=0.98)
     speedup_path = os.path.join(FIG_DIR, "strong_scaling_speedup.pdf")
@@ -2082,84 +2048,113 @@ def figure_advantage_frontier():
     fig_total.savefig(path_total, bbox_inches="tight", pad_inches=0.01)
     plt.close(fig_total)
 
-    fig_target, ax_target = plt.subplots(figsize=(COLUMN_WIDTH, 1.56))
-    target_specs = [
-        ("error_ratio", "$T_{err}$"),
-        ("one_meas_ratio", "$1Q$\n$+meas.$"),
-        ("twoq_ratio", "$2Q$"),
-        ("all_terms", "all\nterms"),
+    taxonomy = load_summary(STRONG_NATIVE_TAXONOMY_JSON)
+    tolerances = {
+        "ml": 0.02,
+        "chemistry": 0.01,
+        "optimization": 0.02,
+        "simulation": 0.01,
+    }
+    pressure_rows = []
+    pressure_text = []
+    for workload, label, _color in workloads:
+        subset = [row for row in rows if row["workload"] == workload]
+        quality_fraction = 0.0
+        if taxonomy is not None:
+            quality_fraction = 100.0 * float(
+                taxonomy["by_workload"][workload]["fractions"].get("quality-limited", 0.0)
+            )
+        evals = float(np.median([float(row["circuit_evaluations"]) for row in subset]))
+        recoveries = []
+        decode_shares = []
+        twoq_shares = []
+        total_ratios = []
+        for row in subset:
+            oneq = float(row["one_qubit_gates"])
+            twoq = 4.0 * float(row["two_qubit_gates"])
+            meas = float(row["measurement_ops"])
+            serial = float(row["circuit_evaluations"]) * 55.0
+            total_cycles = max(1.0, oneq + twoq + meas + serial)
+            decode_shares.append(100.0 * serial / total_cycles)
+            twoq_shares.append(100.0 * twoq / total_cycles)
+            gap = max(0.0, float(row["quality_gap"]))
+            tol = tolerances[workload]
+            recoveries.append(0.0 if gap <= tol else 100.0 * (1.0 - tol / gap))
+        matching_point = next(point for point in points if point["label"] == label)
+        total_ratios.append(matching_point["ratio"])
+        pressure_rows.append(
+            [
+                float(np.median(recoveries)),
+                quality_fraction,
+                evals,
+                float(np.median(decode_shares)),
+                float(np.median(twoq_shares)),
+                float(np.median(total_ratios)),
+            ]
+        )
+        pressure_text.append(
+            [
+                "{:.0f}%".format(float(np.median(recoveries))),
+                "{:.0f}%".format(quality_fraction),
+                "{:.0f}".format(evals),
+                "{:.0f}%".format(float(np.median(decode_shares))),
+                "{:.0f}%".format(float(np.median(twoq_shares))),
+                "{:.1f}x".format(float(np.median(total_ratios)))
+                if float(np.median(total_ratios)) >= 1.0
+                else "{:.2f}x".format(float(np.median(total_ratios))),
+            ]
+        )
+
+    raw = np.array(pressure_rows, dtype=float)
+    matrix = np.zeros_like(raw)
+    for col in range(raw.shape[1]):
+        column = raw[:, col]
+        span = float(np.max(column) - np.min(column))
+        if span > 0.0:
+            matrix[:, col] = (column - float(np.min(column))) / span
+
+    fig_target, ax_target = plt.subplots(figsize=(COLUMN_WIDTH, 1.66))
+    image = ax_target.imshow(matrix, cmap="YlOrRd", vmin=0.0, vmax=1.0, aspect="auto")
+    col_labels = [
+        "Req.\n$R_q$",
+        "Qual.\nlimited",
+        "Hybrid\n$N_e$",
+        "Decode/\nctrl.",
+        "2Q\nexec.",
+        "Total /\nnative",
     ]
-    max_target = max(
-        value
-        for point in points
-        for value in point["single_targets"].values()
-        if value is not None
-    )
-
-    for row_idx, point in enumerate(points):
-        row_color = point["color"]
-        for col_idx, (key, _label) in enumerate(target_specs):
-            target = point["single_targets"][key]
-            if target is None:
-                rect = Rectangle(
-                    (col_idx, row_idx),
-                    1.0,
-                    1.0,
-                    facecolor=blend_with_white(row_color, 0.10),
-                    edgecolor=blend_with_white(row_color, 0.70),
-                    linewidth=0.38,
-                    hatch="////",
-                )
-                ax_target.add_patch(rect)
-                ax_target.text(
-                    col_idx + 0.5,
-                    row_idx + 0.5,
-                    "--",
-                    ha="center",
-                    va="center",
-                    fontsize=5.6,
-                    color=COLORS["dark"],
-                )
-            else:
-                norm = 0.0 if max_target <= 1.0 else math.log10(max(target, 1.0)) / math.log10(max_target)
-                alpha = 0.16 + 0.72 * norm
-                face = blend_with_white(row_color, alpha)
-                rect = Rectangle(
-                    (col_idx, row_idx),
-                    1.0,
-                    1.0,
-                    facecolor=face,
-                    edgecolor="white",
-                    linewidth=0.50,
-                )
-                ax_target.add_patch(rect)
-                label = "1x" if target <= 1.01 else "{:.0f}x".format(target)
-                text_color = "white" if norm > 0.56 else COLORS["dark"]
-                ax_target.text(
-                    col_idx + 0.5,
-                    row_idx + 0.5,
-                    label,
-                    ha="center",
-                    va="center",
-                    fontsize=5.35,
-                    color=text_color,
-                    fontweight="bold" if norm > 0.38 else "normal",
-                )
-
-    ax_target.set_xlim(0, len(target_specs))
-    ax_target.set_ylim(len(points), 0)
-    ax_target.set_xticks(np.arange(len(target_specs)) + 0.5)
-    ax_target.set_xticklabels([label for _key, label in target_specs])
-    ax_target.xaxis.tick_top()
-    ax_target.tick_params(axis="x", length=0, pad=2)
-    ax_target.set_yticks(np.arange(len(points)) + 0.5)
-    ax_target.set_yticklabels([point["label"] for point in points])
-    ax_target.set_xlabel("Single-lever speedup for parity (x)", labelpad=3.0)
-    ax_target.xaxis.set_label_position("bottom")
+    row_labels = [label for _workload, label, _color in workloads]
+    ax_target.set_xticks(np.arange(len(col_labels)))
+    ax_target.set_xticklabels(col_labels)
+    ax_target.set_yticks(np.arange(len(row_labels)))
+    ax_target.set_yticklabels(row_labels)
+    ax_target.tick_params(axis="x", top=True, bottom=False, labeltop=True, labelbottom=False, pad=2)
+    ax_target.tick_params(axis="y", length=0, pad=2)
+    for row_idx in range(matrix.shape[0]):
+        for col_idx in range(matrix.shape[1]):
+            value = matrix[row_idx, col_idx]
+            ax_target.text(
+                col_idx,
+                row_idx,
+                pressure_text[row_idx][col_idx],
+                ha="center",
+                va="center",
+                fontsize=5.55,
+                weight="bold" if value >= 0.82 else "normal",
+                color="white" if value >= 0.63 else COLORS["dark"],
+            )
+    ax_target.set_xticks(np.arange(-0.5, len(col_labels), 1), minor=True)
+    ax_target.set_yticks(np.arange(-0.5, len(row_labels), 1), minor=True)
+    ax_target.grid(which="minor", color="white", linestyle="-", linewidth=1.0)
+    ax_target.tick_params(which="minor", bottom=False, left=False)
     for spine in ax_target.spines.values():
-        spine.set_visible(False)
-    ax_target.tick_params(axis="y", length=0)
-    fig_target.subplots_adjust(left=0.19, right=0.96, bottom=0.18, top=0.78)
+        spine.set_linewidth(0.6)
+        spine.set_color("#555555")
+    cbar = fig_target.colorbar(image, ax=ax_target, fraction=0.036, pad=0.025)
+    cbar.set_ticks([0.0, 0.5, 1.0])
+    cbar.set_ticklabels(["low", "mid", "high"])
+    cbar.ax.tick_params(labelsize=5.0, width=0.5, pad=1.0)
+    fig_target.subplots_adjust(left=0.13, right=0.91, bottom=0.08, top=0.79)
     path_target = os.path.join(FIG_DIR, "advantage_component_targets.pdf")
     fig_target.savefig(path_target, bbox_inches="tight", pad_inches=0.01)
     plt.close(fig_target)
