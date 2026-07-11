@@ -1023,7 +1023,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 23593
+            "size_bytes": 23644
           },
           "expected": {
             "exists": true,
@@ -1037,7 +1037,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 27781
+            "size_bytes": 23178
           },
           "expected": {
             "exists": true,
@@ -1051,7 +1051,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 23031
+            "size_bytes": 43071
           },
           "expected": {
             "exists": true,
@@ -1065,7 +1065,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 11124
+            "size_bytes": 31678
           },
           "expected": {
             "exists": true,

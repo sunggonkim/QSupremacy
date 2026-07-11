@@ -30,6 +30,7 @@ bottleneck insights.
 | 256-GPU larger-workload gate | 7,104 cases in 576 seconds |
 | Regular weak-scaling ladder | 64/128/256 GPUs completed with 1,776 / 3,552 / 7,104 ok cases |
 | Regular strong-scaling ladder | Paper uses direct 32/64/128/256-GPU fixed-work runs with 7,104 ok cases each; 32-GPU direct extension job 55792240 completed with exit 0:0 |
+| Low-GPU direct strong-scaling extension | Full 7,104-case 1/4/8/16-GPU direct fixed-work jobs submitted as 55803679, 55803680, 55803681, and 55803682 |
 | ML production-native gate | 32 same-input cases with PyTorch AMP CNN/MLP and XGBoost GPU-hist |
 | ML profiling gate | Nsight Systems + dmon captured; Nsight Compute counter failure recorded |
 | Workloads | ML, chemistry, optimization, scientific simulation |

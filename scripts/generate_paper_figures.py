@@ -126,6 +126,23 @@ DIRECT_STRONG_8_SUMMARY_JSON = (
     "data/processed/perlmutter/"
     "practical_suite_direct32_strong_8n_32g_7104_20260711082639_summary.json"
 )
+LOW_GPU_STRONG_TAG = "20260711213724"
+DIRECT_STRONG_1_SUMMARY_JSON = (
+    "data/processed/perlmutter/"
+    "practical_suite_direct1_strong_1g_7104_{}_summary.json".format(LOW_GPU_STRONG_TAG)
+)
+DIRECT_STRONG_4_SUMMARY_JSON = (
+    "data/processed/perlmutter/"
+    "practical_suite_direct4_strong_1n_4g_7104_{}_summary.json".format(LOW_GPU_STRONG_TAG)
+)
+DIRECT_STRONG_8GPU_SUMMARY_JSON = (
+    "data/processed/perlmutter/"
+    "practical_suite_direct8_strong_2n_8g_7104_{}_summary.json".format(LOW_GPU_STRONG_TAG)
+)
+DIRECT_STRONG_16GPU_SUMMARY_JSON = (
+    "data/processed/perlmutter/"
+    "practical_suite_direct16_strong_4n_16g_7104_{}_summary.json".format(LOW_GPU_STRONG_TAG)
+)
 WEAK_SCALING_RUNS = [
     {
         "label": "1 GPU context",
@@ -209,12 +226,64 @@ WEAK_SCALING_RUNS = [
 
 STRONG_SCALING_RUNS = [
     {
+        "label": "1 GPU",
+        "nodes": 0.25,
+        "gpus": 1,
+        "cases": 7104,
+        "summary": DIRECT_STRONG_1_SUMMARY_JSON,
+        "accounting": (
+            "data/raw/perlmutter/accounting/"
+            "sacct_practical_suite_direct1_strong_1g_7104_{}.txt".format(LOW_GPU_STRONG_TAG)
+        ),
+        "kind": "fixed",
+    },
+    {
+        "label": "1 node",
+        "nodes": 1,
+        "gpus": 4,
+        "cases": 7104,
+        "summary": DIRECT_STRONG_4_SUMMARY_JSON,
+        "accounting": (
+            "data/raw/perlmutter/accounting/"
+            "sacct_practical_suite_direct4_strong_1n_4g_7104_{}.txt".format(LOW_GPU_STRONG_TAG)
+        ),
+        "kind": "fixed",
+    },
+    {
+        "label": "2 nodes",
+        "nodes": 2,
+        "gpus": 8,
+        "cases": 7104,
+        "summary": DIRECT_STRONG_8GPU_SUMMARY_JSON,
+        "accounting": (
+            "data/raw/perlmutter/accounting/"
+            "sacct_practical_suite_direct8_strong_2n_8g_7104_{}.txt".format(LOW_GPU_STRONG_TAG)
+        ),
+        "kind": "fixed",
+    },
+    {
+        "label": "4 nodes",
+        "nodes": 4,
+        "gpus": 16,
+        "cases": 7104,
+        "summary": DIRECT_STRONG_16GPU_SUMMARY_JSON,
+        "accounting": (
+            "data/raw/perlmutter/accounting/"
+            "sacct_practical_suite_direct16_strong_4n_16g_7104_{}.txt".format(LOW_GPU_STRONG_TAG)
+        ),
+        "kind": "fixed",
+    },
+    {
         "label": "8 nodes",
         "nodes": 8,
         "gpus": 32,
         "cases": 7104,
         "elapsed_sec": 2894,
         "summary": DIRECT_STRONG_8_SUMMARY_JSON,
+        "accounting": (
+            "data/raw/perlmutter/accounting/"
+            "sacct_practical_suite_direct32_strong_8n_32g_7104_20260711082639.txt"
+        ),
         "kind": "fixed",
     },
     {
@@ -224,6 +293,7 @@ STRONG_SCALING_RUNS = [
         "cases": 7104,
         "elapsed_sec": 1713,
         "summary": SCALE_STRONG_16_SUMMARY_JSON,
+        "accounting": "data/raw/perlmutter/accounting/sacct_practical_suite_55731032_scale_16n_64g.txt",
         "kind": "fixed",
     },
     {
@@ -233,6 +303,7 @@ STRONG_SCALING_RUNS = [
         "cases": 7104,
         "elapsed_sec": 954,
         "summary": SCALE_STRONG_32_SUMMARY_JSON,
+        "accounting": "data/raw/perlmutter/accounting/sacct_practical_suite_55731033_scale_32n_128g.txt",
         "kind": "fixed",
     },
     {
@@ -242,6 +313,7 @@ STRONG_SCALING_RUNS = [
         "cases": 7104,
         "elapsed_sec": 418,
         "summary": SCALE_STRONG_64_SUMMARY_JSON,
+        "accounting": "data/raw/perlmutter/accounting/sacct_practical_suite_55731034_scale_64n_256g.txt",
         "kind": "fixed",
     },
 ]
@@ -888,6 +960,53 @@ def load_summary(rel_path):
         return None
     with open(path) as f:
         return json.load(f)
+
+
+def parse_slurm_elapsed(text):
+    if not text:
+        return None
+    value = text.strip()
+    if not value or value == "Unknown":
+        return None
+    days = 0
+    if "-" in value:
+        day_text, value = value.split("-", 1)
+        days = int(day_text)
+    parts = [int(part) for part in value.split(":")]
+    if len(parts) == 3:
+        hours, minutes, seconds = parts
+    elif len(parts) == 2:
+        hours = 0
+        minutes, seconds = parts
+    else:
+        return None
+    return days * 86400 + hours * 3600 + minutes * 60 + seconds
+
+
+def accounting_elapsed_seconds(rel_path):
+    if not rel_path:
+        return None
+    path = os.path.join(ROOT, rel_path)
+    if not os.path.exists(path):
+        return None
+    with open(path, newline="") as f:
+        reader = csv.DictReader(f, delimiter="|")
+        for row in reader:
+            job_id = row.get("JobID", "")
+            state = row.get("State", "")
+            if "." in job_id:
+                continue
+            if state not in {"COMPLETED", "RUNNING", "TIMEOUT"}:
+                continue
+            return parse_slurm_elapsed(row.get("Elapsed", ""))
+    return None
+
+
+def run_elapsed_seconds(run):
+    from_accounting = accounting_elapsed_seconds(run.get("accounting"))
+    if from_accounting is not None:
+        return from_accounting
+    return run.get("elapsed_sec")
 
 
 def figure_strong_native_comparison():
@@ -1817,7 +1936,8 @@ def figure_weak_scaling():
     ideal = throughput[weak_ref_idx] * (gpus / gpus[weak_ref_idx])
     per_gpu = cases / (elapsed * gpus)
     regular_median = float(np.median(per_gpu[weak_mask]))
-    gpu_labels = [str(int(gpu)) for gpu in gpus]
+    gpu_ticks = [1, 4, 8, 16, 32, 64, 128, 256]
+    gpu_labels = [str(tick) for tick in gpu_ticks]
 
     fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.86))
     ax.plot(gpus, throughput, color=COLORS["blue"], linewidth=0.85, alpha=0.45, zorder=1)
@@ -1841,9 +1961,9 @@ def figure_weak_scaling():
         label="context",
         zorder=3,
     )[0]
-    line_ideal = ax.plot(gpus, ideal, linestyle="--", color=COLORS["gray"], label="ideal")[0]
+    line_ideal = ax.plot(gpus, ideal, linestyle="--", color=COLORS["gray"])[0]
     ax.set_xscale("log", base=2)
-    ax.set_xticks(gpus)
+    ax.set_xticks(gpu_ticks)
     ax.set_xticklabels(gpu_labels)
     ax.set_xlabel("GPUs")
     ax.set_ylabel("Throughput\n(cases/s)")
@@ -1856,7 +1976,7 @@ def figure_weak_scaling():
     add_top_legend(
         fig,
         [line_context, line_weak, line_ideal],
-        ["context", "regular", "ideal"],
+        ["context", "regular", "linear guide"],
         ncol=3,
         y=1.00,
         fontsize=5.1,
@@ -1888,7 +2008,7 @@ def figure_weak_scaling():
     )[0]
     line_ref = ax.axhline(regular_median, linestyle="--", color=COLORS["gray"], linewidth=1.0)
     ax.set_xscale("log", base=2)
-    ax.set_xticks(gpus)
+    ax.set_xticks(gpu_ticks)
     ax.set_xticklabels(gpu_labels)
     ax.set_xlabel("GPUs")
     ax.set_ylabel("Per-GPU rate\n(cases/s/GPU)")
@@ -1905,7 +2025,7 @@ def figure_weak_scaling():
     add_top_legend(
         fig,
         [line_rate_context, line_rate, line_ref],
-        ["context", "regular", "ref."],
+        ["context", "regular", "median guide"],
         ncol=3,
         y=1.00,
         fontsize=5.1,
@@ -1919,7 +2039,11 @@ def figure_weak_scaling():
 
 def figure_strong_scaling():
     runs = sorted(
-        [run for run in STRONG_SCALING_RUNS if load_summary(run["summary"]) is not None],
+        [
+            run
+            for run in STRONG_SCALING_RUNS
+            if load_summary(run["summary"]) is not None and run_elapsed_seconds(run) is not None
+        ],
         key=lambda run: run["gpus"],
     )
     if len(runs) < 2:
@@ -1927,7 +2051,7 @@ def figure_strong_scaling():
 
     gpus = np.array([run["gpus"] for run in runs], dtype=float)
     cases = np.array([run["cases"] for run in runs], dtype=float)
-    elapsed = np.array([run["elapsed_sec"] for run in runs], dtype=float)
+    elapsed = np.array([run_elapsed_seconds(run) for run in runs], dtype=float)
     fixed_mask = np.array([run.get("kind") == "fixed" for run in runs], dtype=bool)
     fixed_cases = float(np.max(cases[fixed_mask])) if np.any(fixed_mask) else float(np.max(cases))
     fixed_elapsed = elapsed * (fixed_cases / cases)
@@ -1936,7 +2060,7 @@ def figure_strong_scaling():
     base_elapsed = float(fixed_elapsed[base_idx])
     speedup = base_elapsed / fixed_elapsed
     ideal = gpus / base_gpu
-    gpu_ticks = [32, 64, 128, 256]
+    gpu_ticks = [1, 4, 8, 16, 32, 64, 128, 256]
 
     fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 2.02))
     ax.plot(gpus, fixed_elapsed / 60.0, color=COLORS["blue"], linewidth=0.85, alpha=0.45, zorder=1)
@@ -1968,18 +2092,18 @@ def figure_strong_scaling():
     ax.set_yscale("log")
     ax.set_xticks(gpu_ticks)
     ax.set_xticklabels([str(tick) for tick in gpu_ticks])
-    ax.set_ylabel("Actual TTS\n(min)")
+    ax.set_ylabel("Time to solution\n(min)")
     ax.set_xlabel("GPUs")
     style_axis(ax, grid="both")
     ax.tick_params(axis="x", labelsize=5.3, pad=0)
     for label in ax.get_xticklabels():
         label.set_rotation(42)
         label.set_ha("right")
-    ax.set_xlim(26, 315)
+    ax.set_xlim(0.78, 330)
     ax.set_ylim(max(1.0, float(np.min(fixed_elapsed / 60.0)) * 0.70),
                 max(fixed_elapsed / 60.0) * 1.35)
     legend_handles = [line_time, line_time_ideal]
-    legend_labels = ["direct", "ideal"]
+    legend_labels = ["fixed-work", "linear guide"]
     if np.any(~fixed_mask):
         legend_handles.insert(0, line_time_context)
         legend_labels.insert(0, "context")
@@ -2020,9 +2144,9 @@ def figure_strong_scaling():
     for label in ax.get_xticklabels():
         label.set_rotation(42)
         label.set_ha("right")
-    ax.set_xlim(26, 315)
+    ax.set_xlim(0.78, 330)
     legend_handles = [line_speed, line_speed_ideal]
-    legend_labels = ["direct", "ideal"]
+    legend_labels = ["fixed-work", "linear guide"]
     if np.any(~fixed_mask):
         legend_handles.insert(0, line_speed_context)
         legend_labels.insert(0, "context")

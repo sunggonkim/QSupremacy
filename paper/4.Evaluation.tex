@@ -8,7 +8,7 @@ This section uses a systems evaluation order: setup first, then the representati
 Experiments run on a \LeadershipSystem. Login-node smoke tests validate correctness, while performance experiments run through Slurm on GPU nodes with four NVIDIA A100 GPUs per node.
 
 \noindent\textbf{Benchmark.}
-The unit of comparison is a same-input application case: \SystemName measures a native HPC/ML path, measures a quantum-circuit application path on the simulator, records quality for both paths, and reports $T_{\mathrm{qsim}}/T_{\mathrm{native}}$ only when the quality target is interpretable. The completed campaign contains a 160-case controlled ML calibration, a 3,552-case practical suite, 116-case and 104-case Chem/Sim. coverage gates, weak scaling through 7,104 cases on 256 GPUs, direct fixed-work scaling from 64 to 256 GPUs, a four-workload larger stress gate, and 12 warmup-separated repeat trials.
+The unit of comparison is a same-input application case: \SystemName measures a native HPC/ML path, measures a quantum-circuit application path on the simulator, records quality for both paths, and reports $T_{\mathrm{qsim}}/T_{\mathrm{native}}$ only when the quality target is interpretable. The completed campaign contains a 160-case controlled ML calibration, a 3,552-case practical suite, 116-case and 104-case Chem/Sim. coverage gates, weak scaling through 7,104 cases on 256 GPUs, direct fixed-work scaling from 32 to 256 GPUs, a four-workload larger stress gate, and 12 warmup-separated repeat trials.
 
 \noindent\textbf{Baselines.}
 A case is one concrete input/configuration tuple, such as an ML class pair and circuit depth, a molecule and ansatz, a graph and QAOA setting, or a Hamiltonian and Trotter setting. The native path is never another quantum simulator; it is the fastest valid non-quantum candidate implemented for the same input and quality metric.
@@ -85,7 +85,7 @@ This subsection uses Perlmutter scaling to test measurement throughput, not to c
 \end{subfigure}
 \vspace{-.1cm}
 \Description{Weak scaling plot showing total throughput and raw per-GPU throughput on a log GPU-count axis from 1 to 256 GPUs with context and regular-ladder points connected in one evidence ladder.}
-\caption{Weak scaling from 1 to 256 GPUs. The log GPU-count axis keeps the completed 1--32 GPU context ladder connected to the 64--256 GPU regular ladder instead of dropping the low-end runs. Hollow markers denote context runs with smaller per-GPU work; solid markers denote the regular large-profile weak-scaling regime. The right plot reports raw per-GPU rate, with the dashed line marking the regular-ladder median.}
+\caption{Weak scaling from 1 to 256 GPUs. Both subfigures keep the full 1/4/8/16/32/64/128/256 GPU labels. Hollow markers denote context runs with smaller per-GPU work; solid markers denote the regular large-profile weak-scaling regime. Dashed lines are visual guides, not additional measured runs.}
 \label{fig:weak-scaling}
 \end{figure}
 
@@ -107,7 +107,7 @@ This subsection uses Perlmutter scaling to test measurement throughput, not to c
 \end{subfigure}
 \vspace{-.1cm}
 \Description{Strong scaling plot showing elapsed time and speedup for direct fixed-work runs of the 7,104-case suite from 32 to 256 GPUs.}
-\caption{Strong scaling of the fixed 7,104-case application suite. All markers are direct fixed-suite regular-queue runs on 32, 64, 128, and 256 GPUs. The direct run reduces time-to-solution from 48 minutes 14 seconds on 32 GPUs to 6 minutes 58 seconds on 256 GPUs.}
+\caption{Strong scaling of the fixed 7,104-case application suite. Both subfigures keep the full 1/4/8/16/32/64/128/256 GPU labels, while measured fixed-work markers begin at 32 GPUs. The direct run reduces time-to-solution from 48 minutes 14 seconds on 32 GPUs to 6 minutes 58 seconds on 256 GPUs. Dashed lines are visual guides, not additional measured runs.}
 \label{fig:strong-scaling}
 \end{figure}
 
