@@ -31,13 +31,13 @@ strength, or algorithmic quality.
 | Medium scale-ladder gate | 180 Chem/Opt./Sim. cases on 4 nodes / 16 A100 GPUs; Slurm job 55710745 completed in 5 minutes 16 seconds with exit 0:0 and empty stderr logs |
 | Large scale-ladder gate | 888 `large`-profile cases across ML/Chem/Opt./Sim. on 8 nodes / 32 A100 GPUs; Slurm job 55730074 completed in 12 minutes 45 seconds with exit 0:0 and empty stderr logs |
 | Regular weak-scaling ladder | Completed 16/32/64-node `large` jobs 55731013, 55731014, and 55731015 with 1,776 / 3,552 / 7,104 `ok` cases |
-| Regular strong-scaling ladder | Completed 8-node / 32-GPU lower-end anchor job 55782768 with 3,552 `ok` cases, plus 16/32/64-node fixed-work `large` jobs 55731032, 55731033, and 55731034 with 7,104 `ok` cases each |
+| Regular strong-scaling ladder | Paper uses completed 16/32/64-node fixed-work `large` jobs 55731032, 55731033, and 55731034 with 7,104 `ok` cases each; optional 8-node / 32-GPU fixed-work extension job 55792240 is pending |
 | Deployment-scale proxy boundary | Added as manuscript table plus JSON/CSV artifact; larger ML/Chem/Opt./Sim. extensions are scoped as proxy records, not full deployment-scale state-vector claims |
 | ML production-native gate | 32 cases with PyTorch AMP CNN/MLP and XGBoost GPU-hist |
 | ML profiling gate | Nsight Systems + dmon captured; Nsight Compute counters attempted and recorded as unavailable |
 | Workload coverage | ML, chemistry, optimization, scientific simulation |
 | Previous-paper logic/style | LaTeX style PASS; deep trace PASS; all section/role alignment checks PASS; design has one non-blocking length note in the JSON metrics |
-| Evidence audit | PASS |
+| Evidence audit | PASS on current tracked evidence |
 | Submission readiness | `SUBMISSION_READY`, warning count 0, no blocking errors |
 | PDF readability spot check | PASS: readiness audit checks clean `QArchGauge` PDF text and Fig. 5/6 order; rendered contact sheets inspected |
 
@@ -273,7 +273,7 @@ PDF text/readability spot check: `pdf_text_readability` PASS; no `QA RCH`/`QARCH
 | Weak-scaling 16-node summary | `data/processed/perlmutter/practical_suite_55731013_scale_16n_64g_summary.json` |
 | Weak-scaling 32-node summary | `data/processed/perlmutter/practical_suite_55731014_scale_32n_128g_summary.json` |
 | Weak-scaling 64-node summary | `data/processed/perlmutter/practical_suite_55731015_scale_64n_256g_summary.json` |
-| Strong-scaling 8-node normalized anchor | `data/processed/perlmutter/practical_suite_review_strong_8n_32g_7104_20260711021411_summary.json` |
+| Strong-scaling 8-node direct extension | Optional pending Slurm job 55792240; expected artifact `data/processed/perlmutter/practical_suite_direct32_strong_8n_32g_7104_20260711082639_summary.json` |
 | Strong-scaling 16-node summary | `data/processed/perlmutter/practical_suite_55731032_scale_16n_64g_summary.json` |
 | Strong-scaling 32-node summary | `data/processed/perlmutter/practical_suite_55731033_scale_32n_128g_summary.json` |
 | Strong-scaling 64-node summary | `data/processed/perlmutter/practical_suite_55731034_scale_64n_256g_summary.json` |

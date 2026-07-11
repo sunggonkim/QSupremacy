@@ -194,6 +194,10 @@ def main():
         if "Overfull \\hbox" in line
     ]
     todo_hits = grep_any(r"\b(TODO|TBD|placeholder|undefined citation)\b", paper_sources)
+    reviewer_sensitive_hits = grep_any(
+        r"\btoy\b|our previous|lower-end|normalized from completed|completed lower-end",
+        paper_sources,
+    )
     anonymity_sources = [
         rel_path for rel_path in paper_sources if rel_path != "paper/references.bib"
     ] + ["paper/README.md"]
@@ -265,6 +269,14 @@ def main():
             len(todo_hits) == 0,
             "error",
             "paper TODO/TBD/placeholder hits: {}".format(", ".join(todo_hits) if todo_hits else "none"),
+        ),
+        check(
+            "paper_no_reviewer_sensitive_shortcuts",
+            len(reviewer_sensitive_hits) == 0,
+            "error",
+            "reviewer-sensitive shortcut hits: {}".format(
+                ", ".join(reviewer_sensitive_hits) if reviewer_sensitive_hits else "none"
+            ),
         ),
         check("evidence_audit_pass", bool(evidence.get("passed")), "error", "paper evidence audit reports PASS"),
         check(

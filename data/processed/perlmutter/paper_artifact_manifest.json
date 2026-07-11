@@ -52,9 +52,6 @@
         "data/processed/perlmutter/practical_suite_55731015_scale_64n_256g_summary.json",
         "data/processed/perlmutter/practical_suite_55731015_scale_64n_256g_summary.csv",
         "data/raw/perlmutter/accounting/sacct_practical_suite_55731015_scale_64n_256g.txt",
-        "data/processed/perlmutter/practical_suite_review_strong_8n_32g_7104_20260711021411_summary.json",
-        "data/processed/perlmutter/practical_suite_review_strong_8n_32g_7104_20260711021411_summary.csv",
-        "data/raw/perlmutter/accounting/sacct_practical_suite_review_strong_8n_32g_7104_20260711021411.txt",
         "data/processed/perlmutter/practical_suite_55731032_scale_16n_64g_summary.json",
         "data/processed/perlmutter/practical_suite_55731032_scale_16n_64g_summary.csv",
         "data/raw/perlmutter/accounting/sacct_practical_suite_55731032_scale_16n_64g.txt",
@@ -66,7 +63,7 @@
         "data/raw/perlmutter/accounting/sacct_practical_suite_55731034_scale_64n_256g.txt"
       ],
       "audit_item": "large_practical_suite",
-      "claim": "3,552-case strong-native practical suite plus regular 16/32/64-node weak scaling and 32/64/128/256-GPU fixed-work scaling anchors across ML, chemistry, optimization, and simulation.",
+      "claim": "3,552-case strong-native practical suite plus regular 16/32/64-node weak scaling and direct 64/128/256-GPU fixed-work scaling anchors across ML, chemistry, optimization, and simulation.",
       "figures_tables": [
         "paper/figures/practical_suite_legend.pdf",
         "paper/figures/practical_suite_summary.pdf",

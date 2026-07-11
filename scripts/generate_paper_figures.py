@@ -116,11 +116,6 @@ SCALE_STRONG_32_SUMMARY_JSON = (
 SCALE_STRONG_64_SUMMARY_JSON = (
     "data/processed/perlmutter/practical_suite_55731034_scale_64n_256g_summary.json"
 )
-SCALE_STRONG_8_REVIEW_SUMMARY_JSON = (
-    "data/processed/perlmutter/"
-    "practical_suite_review_strong_8n_32g_7104_20260711021411_summary.json"
-)
-
 WEAK_SCALING_RUNS = [
     {
         "label": "1 GPU pilot",
@@ -203,33 +198,6 @@ WEAK_SCALING_RUNS = [
 ]
 
 STRONG_SCALING_RUNS = [
-    {
-        "label": "1 GPU pilot",
-        "nodes": 0.25,
-        "gpus": 1,
-        "cases": 190,
-        "elapsed_sec": 1702,
-        "summary": ONE_GPU_PILOT_SUMMARY_JSON,
-        "kind": "normalized",
-    },
-    {
-        "label": "1 node pilot",
-        "nodes": 1,
-        "gpus": 4,
-        "cases": 190,
-        "elapsed_sec": 419,
-        "summary": STRONG_NATIVE_1NODE_SUMMARY_JSON,
-        "kind": "normalized",
-    },
-    {
-        "label": "8 nodes",
-        "nodes": 8,
-        "gpus": 32,
-        "cases": 3552,
-        "elapsed_sec": 2034,
-        "summary": SCALE_STRONG_8_REVIEW_SUMMARY_JSON,
-        "kind": "normalized",
-    },
     {
         "label": "16 nodes",
         "nodes": 16,
@@ -1860,21 +1828,21 @@ def figure_strong_scaling():
     elapsed = np.array([run["elapsed_sec"] for run in runs], dtype=float)
     fixed_mask = np.array([run.get("kind") == "fixed" for run in runs], dtype=bool)
     fixed_cases = float(np.max(cases[fixed_mask])) if np.any(fixed_mask) else float(np.max(cases))
-    normalized_elapsed = elapsed * (fixed_cases / cases)
-    speedup = normalized_elapsed[0] / normalized_elapsed
+    fixed_elapsed = elapsed * (fixed_cases / cases)
+    speedup = fixed_elapsed[0] / fixed_elapsed
     ideal = gpus / gpus[0]
     order = np.argsort(gpus)
     gpus = gpus[order]
-    normalized_elapsed = normalized_elapsed[order]
+    fixed_elapsed = fixed_elapsed[order]
     speedup = speedup[order]
     ideal = ideal[order]
-    gpu_ticks = [1, 4, 32, 128, 256]
+    gpu_ticks = [64, 128, 256]
 
     fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 2.02))
-    line_time = ax.plot(gpus, normalized_elapsed / 60.0, marker="o", color=COLORS["blue"])[0]
+    line_time = ax.plot(gpus, fixed_elapsed / 60.0, marker="o", color=COLORS["blue"])[0]
     line_time_ideal = ax.plot(
         gpus,
-        (normalized_elapsed[0] / ideal) / 60.0,
+        (fixed_elapsed[0] / ideal) / 60.0,
         linestyle="--",
         color=COLORS["gray"],
     )[0]
@@ -1889,9 +1857,9 @@ def figure_strong_scaling():
     for label in ax.get_xticklabels():
         label.set_rotation(42)
         label.set_ha("right")
-    ax.set_xlim(0.8, 330)
-    ax.set_ylim(max(1.0, float(np.min(normalized_elapsed / 60.0)) * 0.70),
-                max(normalized_elapsed / 60.0) * 1.35)
+    ax.set_xlim(52, 315)
+    ax.set_ylim(max(1.0, float(np.min(fixed_elapsed / 60.0)) * 0.70),
+                max(fixed_elapsed / 60.0) * 1.35)
     add_top_legend(
         fig,
         [line_time, line_time_ideal],
@@ -1912,13 +1880,13 @@ def figure_strong_scaling():
     ax.set_xticks(gpu_ticks)
     ax.set_xticklabels([str(tick) for tick in gpu_ticks])
     ax.set_xlabel("GPUs")
-    ax.set_ylabel("Speedup\nvs. 1 GPU")
+    ax.set_ylabel("Speedup\nvs. 64 GPUs")
     style_axis(ax, grid="both")
     ax.tick_params(axis="x", labelsize=5.3, pad=0)
     for label in ax.get_xticklabels():
         label.set_rotation(42)
         label.set_ha("right")
-    ax.set_xlim(0.8, 330)
+    ax.set_xlim(52, 315)
     add_top_legend(
         fig,
         [line_speed, line_speed_ideal],

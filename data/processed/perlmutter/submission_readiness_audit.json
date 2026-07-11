@@ -56,6 +56,12 @@
       "severity": "error"
     },
     {
+      "detail": "reviewer-sensitive shortcut hits: none",
+      "name": "paper_no_reviewer_sensitive_shortcuts",
+      "passed": true,
+      "severity": "error"
+    },
+    {
       "detail": "paper evidence audit reports PASS",
       "name": "evidence_audit_pass",
       "passed": true,
