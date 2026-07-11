@@ -84,12 +84,12 @@ This subsection uses Perlmutter scaling to separate parallel work from serial ov
     \label{fig:weak-scaling-efficiency}
 \end{subfigure}
 \vspace{-.1cm}
-\Description{Weak scaling plot showing total throughput and normalized per-GPU throughput from 8 to 256 GPUs with pilot points on the same axis.}
-\caption{Weak scaling with pilot points. Hollow markers show completed 1--32 GPU pilot/debug evidence; solid markers show the regular large-profile weak-scaling ladder from 64 to 256 GPUs. The regular 64/128/256-GPU runs complete 1,776, 3,552, and 7,104 cases, respectively.}
+\Description{Weak scaling plot showing total throughput and normalized per-GPU throughput from 1 to 256 GPUs with context and regular-ladder points on the same axis.}
+\caption{Weak scaling from 1 to 256 GPUs. Hollow markers show completed 1--32 GPU context runs used to expose low-end launch behavior; solid markers show the regular large-profile weak-scaling ladder from 64 to 256 GPUs. The regular 64/128/256-GPU runs complete 1,776, 3,552, and 7,104 cases, respectively.}
 \label{fig:weak-scaling}
 \end{figure}
 
-\noindent\textbf{Weak scaling.} Figure~\ref{fig:weak-scaling} shows weak scaling for the application sweep. Each GPU receives roughly 28 large-profile cases, so total work grows with GPU count. The regular ladder reaches 64, 128, and 256 GPUs, while completed 1--32 GPU pilot/debug points show launch behavior before the regular queue run. The regular 64/128/256-GPU jobs completed with exit code 0:0 and generated exactly 1,776, 3,552, and 7,104 `ok' cases; the only nonempty stderr line was a benign NERSC monitoring warning. Throughput grows because cases are independent and each GPU receives similar work. This means the measurement workflow has enough case-level parallelism to build a large evidence set; it does not mean that one circuit became faster by adding GPUs.
+\noindent\textbf{Weak scaling.} Figure~\ref{fig:weak-scaling} shows weak scaling for the application sweep from 1 to 256 GPUs. Each regular-ladder GPU receives roughly 28 large-profile cases, so total work grows with GPU count. The completed 1--32 GPU context points show low-end launch behavior, while the regular ladder reaches 64, 128, and 256 GPUs under the same large-profile weak-scaling rule. The regular 64/128/256-GPU jobs completed with exit code 0:0 and generated exactly 1,776, 3,552, and 7,104 `ok' cases; the only nonempty stderr line was a benign NERSC monitoring warning. Throughput grows because cases are independent and each GPU receives similar work. This means the measurement workflow has enough case-level parallelism to build a large evidence set; it does not mean that one circuit became faster by adding GPUs.
 
 \begin{figure}[H]
 \centering

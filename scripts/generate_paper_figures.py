@@ -118,22 +118,22 @@ SCALE_STRONG_64_SUMMARY_JSON = (
 )
 WEAK_SCALING_RUNS = [
     {
-        "label": "1 GPU pilot",
+        "label": "1 GPU context",
         "nodes": 0.25,
         "gpus": 1,
         "cases": 190,
         "elapsed_sec": 1702,
         "summary": ONE_GPU_PILOT_SUMMARY_JSON,
-        "kind": "pilot",
+        "kind": "context",
     },
     {
-        "label": "1 node pilot",
+        "label": "1 node context",
         "nodes": 1,
         "gpus": 4,
         "cases": 190,
         "elapsed_sec": 419,
         "summary": STRONG_NATIVE_1NODE_SUMMARY_JSON,
-        "kind": "pilot",
+        "kind": "context",
     },
     {
         "label": "2 nodes",
@@ -145,7 +145,7 @@ WEAK_SCALING_RUNS = [
             "data/processed/perlmutter/"
             "practical_suite_strongnative_2node_large128c0c7_fix_20260704022146_summary.json"
         ),
-        "kind": "pilot",
+        "kind": "context",
     },
     {
         "label": "4 nodes",
@@ -157,7 +157,7 @@ WEAK_SCALING_RUNS = [
             "data/processed/perlmutter/"
             "practical_suite_strongnative_4node_large128c0c15_20260704024223_summary.json"
         ),
-        "kind": "pilot",
+        "kind": "context",
     },
     {
         "label": "8 nodes",
@@ -166,7 +166,7 @@ WEAK_SCALING_RUNS = [
         "cases": 888,
         "elapsed_sec": 765,
         "summary": SCALE_LARGE_8_SUMMARY_JSON,
-        "kind": "pilot",
+        "kind": "context",
     },
     {
         "label": "16 nodes",
@@ -1747,7 +1747,7 @@ def figure_weak_scaling():
     ideal = throughput[weak_ref_idx] * (gpus / gpus[weak_ref_idx])
     per_gpu = cases / (elapsed * gpus)
     efficiency = per_gpu / per_gpu[weak_ref_idx]
-    gpu_ticks = [1, 4, 16, 64, 256]
+    gpu_ticks = [1, 4, 8, 16, 32, 64, 128, 256]
 
     fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 2.02))
     line_weak = ax.plot(
@@ -1755,9 +1755,9 @@ def figure_weak_scaling():
         throughput[weak_mask],
         marker="o",
         color=COLORS["blue"],
-        label="weak suite",
+        label="regular weak",
     )[0]
-    line_pilot = ax.plot(
+    line_context = ax.plot(
         gpus[~weak_mask],
         throughput[~weak_mask],
         marker="o",
@@ -1765,7 +1765,7 @@ def figure_weak_scaling():
         markeredgecolor=COLORS["blue"],
         linestyle=":",
         color=COLORS["blue"],
-        label="pilot",
+        label="context",
     )[0]
     line_ideal = ax.plot(gpus, ideal, linestyle="--", color=COLORS["gray"], label="ideal")[0]
     ax.set_xscale("log", base=2)
@@ -1777,8 +1777,8 @@ def figure_weak_scaling():
     ax.set_xlim(0.8, 330)
     add_top_legend(
         fig,
-        [line_pilot, line_weak, line_ideal],
-        ["pilot", "weak", "ideal"],
+        [line_context, line_weak, line_ideal],
+        ["context", "regular", "ideal"],
         ncol=3,
         y=1.00,
         fontsize=5.1,
@@ -1790,24 +1790,37 @@ def figure_weak_scaling():
 
     fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 2.02))
     line_eff = ax.plot(gpus[weak_mask], efficiency[weak_mask], marker="s", color=COLORS["orange"])[0]
+    line_eff_context = ax.plot(
+        gpus[~weak_mask],
+        efficiency[~weak_mask],
+        marker="s",
+        markerfacecolor="white",
+        markeredgecolor=COLORS["orange"],
+        linestyle=":",
+        color=COLORS["orange"],
+    )[0]
     line_ref = ax.axhline(1.0, linestyle="--", color=COLORS["gray"], linewidth=1.0)
     ax.set_xscale("log", base=2)
-    ax.set_xticks([64, 128, 256])
-    ax.set_xticklabels(["64", "128", "256"])
+    ax.set_xticks(gpu_ticks)
+    ax.set_xticklabels([str(tick) for tick in gpu_ticks])
     ax.set_xlabel("GPUs")
     ax.set_ylabel("Norm. per-GPU\nthroughput")
-    efficiency_main = efficiency[weak_mask]
+    efficiency_main = efficiency
     ax.set_ylim(
         max(0.0, float(np.min(efficiency_main)) * 0.90),
         max(1.12, float(np.max(efficiency_main)) * 1.08),
     )
     style_axis(ax, grid="both")
-    ax.set_xlim(48, 330)
+    ax.tick_params(axis="x", labelsize=5.3, pad=0)
+    for label in ax.get_xticklabels():
+        label.set_rotation(42)
+        label.set_ha("right")
+    ax.set_xlim(0.8, 330)
     add_top_legend(
         fig,
-        [line_eff, line_ref],
-        ["weak", "ref."],
-        ncol=2,
+        [line_eff_context, line_eff, line_ref],
+        ["context", "regular", "ref."],
+        ncol=3,
         y=1.00,
         fontsize=5.1,
     )
