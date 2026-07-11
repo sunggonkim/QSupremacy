@@ -892,7 +892,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 31000
+            "size_bytes": 34181
           },
           "expected": {
             "exists": true,
@@ -906,7 +906,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 28724
+            "size_bytes": 30729
           },
           "expected": {
             "exists": true,
@@ -962,7 +962,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 13791
+            "size_bytes": 11588
           },
           "expected": {
             "exists": true,
@@ -976,7 +976,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 12204
+            "size_bytes": 10280
           },
           "expected": {
             "exists": true,
@@ -1284,7 +1284,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 27763
+            "size_bytes": 24928
           },
           "expected": {
             "exists": true,
