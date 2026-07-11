@@ -122,9 +122,9 @@ SCALE_STRONG_32_SUMMARY_JSON = (
 SCALE_STRONG_64_SUMMARY_JSON = (
     "data/processed/perlmutter/practical_suite_55731034_scale_64n_256g_summary.json"
 )
-REVIEW_STRONG_8_SUMMARY_JSON = (
+DIRECT_STRONG_8_SUMMARY_JSON = (
     "data/processed/perlmutter/"
-    "practical_suite_review_strong_8n_32g_7104_20260711021411_summary.json"
+    "practical_suite_direct32_strong_8n_32g_7104_20260711082639_summary.json"
 )
 WEAK_SCALING_RUNS = [
     {
@@ -209,13 +209,13 @@ WEAK_SCALING_RUNS = [
 
 STRONG_SCALING_RUNS = [
     {
-        "label": "8 nodes context",
+        "label": "8 nodes",
         "nodes": 8,
         "gpus": 32,
-        "cases": 3552,
-        "elapsed_sec": 2034,
-        "summary": REVIEW_STRONG_8_SUMMARY_JSON,
-        "kind": "context",
+        "cases": 7104,
+        "elapsed_sec": 2894,
+        "summary": DIRECT_STRONG_8_SUMMARY_JSON,
+        "kind": "fixed",
     },
     {
         "label": "16 nodes",
@@ -1978,14 +1978,12 @@ def figure_strong_scaling():
     ax.set_xlim(26, 315)
     ax.set_ylim(max(1.0, float(np.min(fixed_elapsed / 60.0)) * 0.70),
                 max(fixed_elapsed / 60.0) * 1.35)
-    add_top_legend(
-        fig,
-        [line_time_context, line_time, line_time_ideal],
-        ["context", "direct", "ideal"],
-        ncol=3,
-        y=1.00,
-        fontsize=5.1,
-    )
+    legend_handles = [line_time, line_time_ideal]
+    legend_labels = ["direct", "ideal"]
+    if np.any(~fixed_mask):
+        legend_handles.insert(0, line_time_context)
+        legend_labels.insert(0, "context")
+    add_top_legend(fig, legend_handles, legend_labels, ncol=len(legend_handles), y=1.00, fontsize=5.1)
     fig.subplots_adjust(top=0.76, bottom=0.27, left=0.33, right=0.98)
     elapsed_path = os.path.join(FIG_DIR, "strong_scaling.pdf")
     fig.savefig(elapsed_path, bbox_inches="tight", pad_inches=0.01)
@@ -2016,21 +2014,19 @@ def figure_strong_scaling():
     ax.set_xticks(gpu_ticks)
     ax.set_xticklabels([str(tick) for tick in gpu_ticks])
     ax.set_xlabel("GPUs")
-    ax.set_ylabel("Speedup\nvs. 64 GPUs")
+    ax.set_ylabel("Speedup\nvs. {:g} GPUs".format(base_gpu))
     style_axis(ax, grid="both")
     ax.tick_params(axis="x", labelsize=5.3, pad=0)
     for label in ax.get_xticklabels():
         label.set_rotation(42)
         label.set_ha("right")
     ax.set_xlim(26, 315)
-    add_top_legend(
-        fig,
-        [line_speed_context, line_speed, line_speed_ideal],
-        ["context", "direct", "ideal"],
-        ncol=3,
-        y=1.00,
-        fontsize=5.1,
-    )
+    legend_handles = [line_speed, line_speed_ideal]
+    legend_labels = ["direct", "ideal"]
+    if np.any(~fixed_mask):
+        legend_handles.insert(0, line_speed_context)
+        legend_labels.insert(0, "context")
+    add_top_legend(fig, legend_handles, legend_labels, ncol=len(legend_handles), y=1.00, fontsize=5.1)
     fig.subplots_adjust(top=0.76, bottom=0.28, left=0.31, right=0.98)
     speedup_path = os.path.join(FIG_DIR, "strong_scaling_speedup.pdf")
     fig.savefig(speedup_path, bbox_inches="tight", pad_inches=0.01)

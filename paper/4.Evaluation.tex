@@ -106,12 +106,12 @@ This subsection uses Perlmutter scaling to test measurement throughput, not to c
     \label{fig:strong-scaling-speedup}
 \end{subfigure}
 \vspace{-.1cm}
-\Description{Strong scaling plot showing elapsed time and speedup for the fixed 7,104-case suite with a hollow 32-GPU half-suite context point and direct 64-to-256 GPU fixed-work points.}
-\caption{Strong scaling of the fixed 7,104-case application suite. The hollow 32-GPU marker is a completed 3,552-case context run normalized to the 7,104-case suite size; solid markers are direct fixed-suite regular-queue runs on 64, 128, and 256 GPUs. The direct run reduces time-to-solution from 28 minutes 33 seconds on 64 GPUs to 6 minutes 58 seconds on 256 GPUs.}
+\Description{Strong scaling plot showing elapsed time and speedup for direct fixed-work runs of the 7,104-case suite from 32 to 256 GPUs.}
+\caption{Strong scaling of the fixed 7,104-case application suite. All markers are direct fixed-suite regular-queue runs on 32, 64, 128, and 256 GPUs. The direct run reduces time-to-solution from 48 minutes 14 seconds on 32 GPUs to 6 minutes 58 seconds on 256 GPUs.}
 \label{fig:strong-scaling}
 \end{figure}
 
-\noindent\textbf{Strong scaling.} Figure~\ref{fig:strong-scaling} shows the fixed-work trend without hiding the lower end. The hollow 32-GPU point completed the proportional 3,552-case half suite in 33 minutes 54 seconds and is normalized to the 7,104-case size only for visual context; the solid 64/128/256-GPU points are direct fixed-work runs. Direct elapsed time falls from 28 minutes 33 seconds to 15 minutes 54 seconds and then 6 minutes 58 seconds. This is case-level parallelism, not distributed single-circuit execution: every Slurm task owns independent cases on one A100. The systems condition is granularity. At 256 GPUs the suite still provides roughly 28 cases/GPU, enough to amortize launch, Python orchestration, and task-local output; much smaller per-GPU work would again expose orchestration overhead.
+\noindent\textbf{Strong scaling.} Figure~\ref{fig:strong-scaling} shows the fixed-work trend without hiding the lower end. The completed 32/64/128/256-GPU jobs all execute the same 7,104-case suite; no point is normalized from a smaller case count. Direct elapsed time falls from 48 minutes 14 seconds to 28 minutes 33 seconds, 15 minutes 54 seconds, and then 6 minutes 58 seconds. This is case-level parallelism, not distributed single-circuit execution: every Slurm task owns independent cases on one A100. The systems condition is granularity. At 256 GPUs the suite still provides roughly 28 cases/GPU, enough to amortize launch, Python orchestration, and task-local output; much smaller per-GPU work would again expose orchestration overhead.
 
 \begin{figure}[H]
 \centering

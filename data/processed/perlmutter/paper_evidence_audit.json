@@ -264,37 +264,37 @@
         {
           "actual": true,
           "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_review_strong_8n_32g_7104_20260711021411_summary.json",
+          "label": "exists: data/processed/perlmutter/practical_suite_direct32_strong_8n_32g_7104_20260711082639_summary.json",
           "passed": true
         },
         {
           "actual": true,
           "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_review_strong_8n_32g_7104_20260711021411_summary.csv",
+          "label": "exists: data/processed/perlmutter/practical_suite_direct32_strong_8n_32g_7104_20260711082639_summary.csv",
           "passed": true
         },
         {
           "actual": true,
           "expected": true,
-          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_review_strong_8n_32g_7104_20260711021411.txt",
+          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_direct32_strong_8n_32g_7104_20260711082639.txt",
           "passed": true
         },
         {
-          "actual": 3552,
-          "expected": 3552,
-          "label": "strong_context_8_summary_cases",
+          "actual": 7104,
+          "expected": 7104,
+          "label": "strong_8_summary_cases",
           "passed": true
         },
         {
-          "actual": 3552,
-          "expected": 3552,
-          "label": "strong_context_8_csv_cases",
+          "actual": 7104,
+          "expected": 7104,
+          "label": "strong_8_csv_cases",
           "passed": true
         },
         {
           "actual": true,
           "expected": true,
-          "label": "strong_context_8_accounting_completed",
+          "label": "strong_8_accounting_completed",
           "passed": true
         },
         {
@@ -430,7 +430,7 @@
           "passed": true
         }
       ],
-      "claim": "3,552-case suite plus regular weak-scaling gates, a 32-GPU strong-scaling context run, and direct 64/128/256-GPU fixed-work scaling anchors",
+      "claim": "3,552-case suite plus regular weak-scaling gates and direct 32/64/128/256-GPU fixed-work scaling anchors",
       "evidence": [
         "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.json",
         "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv",
@@ -1051,7 +1051,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 24045
+            "size_bytes": 23031
           },
           "expected": {
             "exists": true,
@@ -1065,7 +1065,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 12220
+            "size_bytes": 11124
           },
           "expected": {
             "exists": true,
@@ -1857,19 +1857,19 @@
         {
           "actual": true,
           "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_review_strong_8n_32g_7104_20260711021411_summary.json",
+          "label": "exists: data/processed/perlmutter/practical_suite_direct32_strong_8n_32g_7104_20260711082639_summary.json",
           "passed": true
         },
         {
           "actual": true,
           "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_review_strong_8n_32g_7104_20260711021411_summary.csv",
+          "label": "exists: data/processed/perlmutter/practical_suite_direct32_strong_8n_32g_7104_20260711082639_summary.csv",
           "passed": true
         },
         {
           "actual": true,
           "expected": true,
-          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_review_strong_8n_32g_7104_20260711021411.txt",
+          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_direct32_strong_8n_32g_7104_20260711082639.txt",
           "passed": true
         },
         {

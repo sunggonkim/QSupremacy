@@ -29,7 +29,7 @@ bottleneck insights.
 | Main suite | 3,552 cases on 128 GPUs |
 | 256-GPU larger-workload gate | 7,104 cases in 576 seconds |
 | Regular weak-scaling ladder | 64/128/256 GPUs completed with 1,776 / 3,552 / 7,104 ok cases |
-| Regular strong-scaling ladder | Paper uses direct 64/128/256-GPU fixed-work runs with 7,104 ok cases each; completed 32-GPU half-suite context run 55782768 is shown as a hollow normalized context point |
+| Regular strong-scaling ladder | Paper uses direct 32/64/128/256-GPU fixed-work runs with 7,104 ok cases each; 32-GPU direct extension job 55792240 completed with exit 0:0 |
 | ML production-native gate | 32 same-input cases with PyTorch AMP CNN/MLP and XGBoost GPU-hist |
 | ML profiling gate | Nsight Systems + dmon captured; Nsight Compute counter failure recorded |
 | Workloads | ML, chemistry, optimization, scientific simulation |
@@ -111,8 +111,7 @@ QS_SWEEP_PROFILE=large QS_REPEAT_COUNT=2 QS_SCALE_MODE=weak QS_CHUNK_COUNT=64 sb
 QS_SWEEP_PROFILE=large QS_REPEAT_COUNT=4 QS_SCALE_MODE=weak QS_CHUNK_COUNT=128 sbatch -q regular -t 01:00:00 -N 32 jobs/perlmutter/practical_suite_scale_nodes.sbatch
 QS_SWEEP_PROFILE=large QS_REPEAT_COUNT=8 QS_SCALE_MODE=weak QS_CHUNK_COUNT=256 sbatch -q regular -t 01:00:00 -N 64 jobs/perlmutter/practical_suite_scale_nodes.sbatch
 
-# Strong scaling: completed 32-GPU half-suite context plus direct fixed-work
-# evidence on 64 / 128 / 256 GPUs.
+# Strong scaling: completed direct fixed-work evidence on 32 / 64 / 128 / 256 GPUs.
 QS_SWEEP_PROFILE=large QS_REPEAT_COUNT=8 QS_SCALE_MODE=strong QS_CHUNK_COUNT=256 sbatch -q regular -t 01:15:00 -N 16 jobs/perlmutter/practical_suite_scale_nodes.sbatch
 QS_SWEEP_PROFILE=large QS_REPEAT_COUNT=8 QS_SCALE_MODE=strong QS_CHUNK_COUNT=256 sbatch -q regular -t 01:00:00 -N 32 jobs/perlmutter/practical_suite_scale_nodes.sbatch
 QS_SWEEP_PROFILE=large QS_REPEAT_COUNT=8 QS_SCALE_MODE=strong QS_CHUNK_COUNT=256 sbatch -q regular -t 01:00:00 -N 64 jobs/perlmutter/practical_suite_scale_nodes.sbatch
@@ -133,7 +132,7 @@ QS_SWEEP_PROFILE=large QS_REPEAT_COUNT=8 QS_SCALE_MODE=strong QS_CHUNK_COUNT=256
 | Weak-scaling 16-node summary | `data/processed/perlmutter/practical_suite_55731013_scale_16n_64g_summary.json` |
 | Weak-scaling 32-node summary | `data/processed/perlmutter/practical_suite_55731014_scale_32n_128g_summary.json` |
 | Weak-scaling 64-node summary | `data/processed/perlmutter/practical_suite_55731015_scale_64n_256g_summary.json` |
-| Strong-scaling 8-node context | `data/processed/perlmutter/practical_suite_review_strong_8n_32g_7104_20260711021411_summary.json` |
+| Strong-scaling 8-node summary | `data/processed/perlmutter/practical_suite_direct32_strong_8n_32g_7104_20260711082639_summary.json` |
 | Strong-scaling 16-node summary | `data/processed/perlmutter/practical_suite_55731032_scale_16n_64g_summary.json` |
 | Strong-scaling 32-node summary | `data/processed/perlmutter/practical_suite_55731033_scale_32n_128g_summary.json` |
 | Strong-scaling 64-node summary | `data/processed/perlmutter/practical_suite_55731034_scale_64n_256g_summary.json` |

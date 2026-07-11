@@ -17,10 +17,9 @@ so the body fits the 11-page HPCA submission budget. The title-page submission
 number remains `NaN` until HotCRP assigns the real paper number.
 
 The current evaluation includes the completed regular 16/32/64-node weak-scaling
-ladder and direct 7,104-case fixed-work runs on 64, 128, and 256 GPUs. The
-strong-scaling figure also keeps the completed 32-GPU proportional half-suite
-run as a hollow context point, normalized only for visual comparison with the
-7,104-case suite.
+ladder and direct 7,104-case fixed-work runs on 32, 64, 128, and 256 GPUs. The
+strong-scaling figure uses only direct fixed-suite runs, so no strong-scaling
+point is normalized from a smaller case count.
 
 ## Artifact Quickstart
 
