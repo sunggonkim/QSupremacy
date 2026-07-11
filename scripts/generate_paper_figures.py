@@ -218,6 +218,15 @@ STRONG_SCALING_RUNS = [
         "kind": "normalized",
     },
     {
+        "label": "8 nodes",
+        "nodes": 8,
+        "gpus": 32,
+        "cases": 888,
+        "elapsed_sec": 765,
+        "summary": SCALE_LARGE_8_SUMMARY_JSON,
+        "kind": "normalized",
+    },
+    {
         "label": "16 nodes",
         "nodes": 16,
         "gpus": 64,
@@ -1855,7 +1864,7 @@ def figure_strong_scaling():
     normalized_elapsed = normalized_elapsed[order]
     speedup = speedup[order]
     ideal = ideal[order]
-    gpu_ticks = [1, 4, 16, 64, 256]
+    gpu_ticks = [1, 4, 32, 128, 256]
 
     fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 2.02))
     line_time = ax.plot(gpus, normalized_elapsed / 60.0, marker="o", color=COLORS["blue"])[0]
@@ -1872,6 +1881,10 @@ def figure_strong_scaling():
     ax.set_ylabel("Actual TTS\n(min)")
     ax.set_xlabel("GPUs")
     style_axis(ax, grid="both")
+    ax.tick_params(axis="x", labelsize=5.3, pad=0)
+    for label in ax.get_xticklabels():
+        label.set_rotation(42)
+        label.set_ha("right")
     ax.set_xlim(0.8, 330)
     ax.set_ylim(max(1.0, float(np.min(normalized_elapsed / 60.0)) * 0.70),
                 max(normalized_elapsed / 60.0) * 1.35)
@@ -1897,6 +1910,10 @@ def figure_strong_scaling():
     ax.set_xlabel("GPUs")
     ax.set_ylabel("Speedup\nvs. 1 GPU")
     style_axis(ax, grid="both")
+    ax.tick_params(axis="x", labelsize=5.3, pad=0)
+    for label in ax.get_xticklabels():
+        label.set_rotation(42)
+        label.set_ha("right")
     ax.set_xlim(0.8, 330)
     add_top_legend(
         fig,
