@@ -621,6 +621,59 @@
         {
           "actual": true,
           "expected": true,
+          "label": "exists: data/processed/perlmutter/deployment_scale_proxy.json",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/deployment_scale_proxy.csv",
+          "passed": true
+        },
+        {
+          "actual": 4,
+          "expected": 4,
+          "label": "proxy_rows_json",
+          "passed": true
+        },
+        {
+          "actual": 4,
+          "expected": 4,
+          "label": "proxy_rows_csv",
+          "passed": true
+        },
+        {
+          "actual": {
+            "file": "paper/5.Discussion.tex",
+            "missing": []
+          },
+          "expected": {
+            "contains": [
+              "Deployment-Scale Proxy Boundary",
+              "Table~\\ref{tab:deployment-proxy}",
+              "20-node MaxCut QAOA stress case",
+              "12-qubit 16-step Heisenberg stress case",
+              "not a deployment-scale state-vector claim"
+            ]
+          },
+          "label": "discussion_deployment_proxy_boundary",
+          "passed": true
+        }
+      ],
+      "claim": "Deployment-scale proxy boundary keeps larger workload claims scoped to proxy records rather than full state-vector simulation",
+      "evidence": [
+        "data/processed/perlmutter/deployment_scale_proxy.json",
+        "data/processed/perlmutter/deployment_scale_proxy.csv",
+        "paper/5.Discussion.tex"
+      ],
+      "name": "deployment_proxy",
+      "passed": true
+    },
+    {
+      "checks": [
+        {
+          "actual": true,
+          "expected": true,
           "label": "exists: data/processed/perlmutter/ml_strong_native_gate_latest.json",
           "passed": true
         },
@@ -1537,6 +1590,7 @@
           "actual": [
             "advantage_projection",
             "chemistry_active_space",
+            "deployment_proxy",
             "expanded_digits",
             "large_practical_suite",
             "ml_strong_native_gate",
@@ -1548,6 +1602,7 @@
           "expected": [
             "advantage_projection",
             "chemistry_active_space",
+            "deployment_proxy",
             "expanded_digits",
             "large_practical_suite",
             "ml_strong_native_gate",
@@ -2199,6 +2254,48 @@
           "actual": true,
           "expected": true,
           "label": "audit_item_declared: chemistry_active_space",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: jobs/perlmutter/practical_suite_review_stress_1node.sbatch",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: scripts/audit_paper_evidence.py",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/deployment_scale_proxy.json",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/deployment_scale_proxy.csv",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_55782694_review_stress_1n_4g_summary.json",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_55782694_review_stress_1n_4g_summary.csv",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "audit_item_declared: deployment_proxy",
           "passed": true
         },
         {

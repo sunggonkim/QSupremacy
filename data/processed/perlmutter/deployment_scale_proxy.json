@@ -1,0 +1,42 @@
+{
+  "artifact": "deployment_scale_proxy",
+  "purpose": "Define how QArchGauge should extend beyond exact state-vector-executable cases without claiming that every deployment-scale case was fully simulated.",
+  "source_evidence": [
+    "data/processed/perlmutter/practical_suite_55782694_review_stress_1n_4g_summary.csv",
+    "data/processed/perlmutter/practical_suite_55782694_review_stress_1n_4g_summary.json",
+    "data/processed/perlmutter/practical_suite_55730074_scale_8n_32g_summary.json",
+    "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.json",
+    "data/processed/perlmutter/practical_suite_chem_active_6q8q_1node_20260704233824_chemistry_coverage.json",
+    "data/processed/perlmutter/ml_strong_native_gate_latest.json"
+  ],
+  "rows": [
+    {
+      "workload": "ML",
+      "current_exact_anchor": "512-sample 12-feature depth-3 stress case plus PyTorch/XGBoost native gate",
+      "proxy_scale_axis": "larger samples/features, richer kernels, deeper trainable circuits",
+      "architecture_signal": "hybrid evaluation count, feature loading, batch/feedback latency, native deadline shift",
+      "boundary": "proxy record, not deployment-scale state-vector claim"
+    },
+    {
+      "workload": "Chem",
+      "current_exact_anchor": "H2O 8-qubit layer-3 VQE stress case plus 104 OpenFermion/PySCF cases",
+      "proxy_scale_axis": "larger active spaces, Pauli-term grouping, richer ansatz families",
+      "architecture_signal": "energy quality gap, Pauli-evaluation count, decoder/control and observable batching pressure",
+      "boundary": "proxy record, not deployment-scale state-vector claim"
+    },
+    {
+      "workload": "Opt.",
+      "current_exact_anchor": "20-node MaxCut QAOA stress case plus small-graph practical suite",
+      "proxy_scale_axis": "50-100 node graph families with tuned native heuristics/MILP and QAOA metadata",
+      "architecture_signal": "search budget, circuit evaluations, objective gap, annealing or gate-model suitability",
+      "boundary": "proxy record, not deployment-scale state-vector claim"
+    },
+    {
+      "workload": "Sim.",
+      "current_exact_anchor": "12-qubit 16-step Heisenberg stress case plus Trotter practical suite",
+      "proxy_scale_axis": "16-20 qubit sparse/tensor native checks and higher Trotter/observable ladders",
+      "architecture_signal": "two-qubit depth, observable quality, Krylov/tensor native deadline, analog/digital simulation fit",
+      "boundary": "proxy record, not deployment-scale state-vector claim"
+    }
+  ]
+}

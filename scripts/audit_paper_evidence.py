@@ -133,6 +133,7 @@ def manifest_checks(manifest_rel_path):
         "workload_taxonomy",
         "chemistry_active_space",
         "ml_strong_native_gate",
+        "deployment_proxy",
         "repeat_timing",
         "paper_figures",
         "submission_package",
@@ -461,6 +462,38 @@ def main():
                 check_equals("chemistry_cases", chemistry["cases"], 104),
                 check_equals("chemistry_problem_count", chemistry["problem_count"], 9),
                 check_equals("accounting_completed", completed_accounting(chemistry_accounting), True),
+            ],
+        )
+    )
+
+    deployment_proxy_json = "data/processed/perlmutter/deployment_scale_proxy.json"
+    deployment_proxy_csv = "data/processed/perlmutter/deployment_scale_proxy.csv"
+    deployment_proxy = load_json(deployment_proxy_json)
+    items.append(
+        ok_item(
+            "deployment_proxy",
+            "Deployment-scale proxy boundary keeps larger workload claims scoped to proxy records rather than full state-vector simulation",
+            [
+                deployment_proxy_json,
+                deployment_proxy_csv,
+                "paper/5.Discussion.tex",
+            ],
+            [
+                check_exists(deployment_proxy_json),
+                check_exists(deployment_proxy_csv),
+                check_equals("proxy_rows_json", len(deployment_proxy["rows"]), 4),
+                check_equals("proxy_rows_csv", count_csv(deployment_proxy_csv), 4),
+                check_text_contains(
+                    "discussion_deployment_proxy_boundary",
+                    "paper/5.Discussion.tex",
+                    [
+                        "Deployment-Scale Proxy Boundary",
+                        "Table~\\ref{tab:deployment-proxy}",
+                        "20-node MaxCut QAOA stress case",
+                        "12-qubit 16-step Heisenberg stress case",
+                        "not a deployment-scale state-vector claim",
+                    ],
+                ),
             ],
         )
     )

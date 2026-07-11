@@ -32,6 +32,7 @@ strength, or algorithmic quality.
 | Large scale-ladder gate | 888 `large`-profile cases across ML/Chem/Opt./Sim. on 8 nodes / 32 A100 GPUs; Slurm job 55730074 completed in 12 minutes 45 seconds with exit 0:0 and empty stderr logs |
 | Regular weak-scaling ladder | Completed 16/32/64-node `large` jobs 55731013, 55731014, and 55731015 with 1,776 / 3,552 / 7,104 `ok` cases |
 | Regular strong-scaling ladder | Completed 16/32/64-node fixed-work `large` jobs 55731032, 55731033, and 55731034 with 7,104 `ok` cases each |
+| Deployment-scale proxy boundary | Added as manuscript table plus JSON/CSV artifact; larger ML/Chem/Opt./Sim. extensions are scoped as proxy records, not full deployment-scale state-vector claims |
 | ML production-native gate | 32 cases with PyTorch AMP CNN/MLP and XGBoost GPU-hist |
 | ML profiling gate | Nsight Systems + dmon captured; Nsight Compute counters attempted and recorded as unavailable |
 | Workload coverage | ML, chemistry, optimization, scientific simulation |
@@ -275,6 +276,7 @@ PDF text/readability spot check: `pdf_text_readability` PASS; no `QA RCH`/`QARCH
 | Strong-scaling 16-node summary | `data/processed/perlmutter/practical_suite_55731032_scale_16n_64g_summary.json` |
 | Strong-scaling 32-node summary | `data/processed/perlmutter/practical_suite_55731033_scale_32n_128g_summary.json` |
 | Strong-scaling 64-node summary | `data/processed/perlmutter/practical_suite_55731034_scale_64n_256g_summary.json` |
+| Deployment-scale proxy boundary | `data/processed/perlmutter/deployment_scale_proxy.json`, `data/processed/perlmutter/deployment_scale_proxy.csv` |
 | ML production-native gate | `data/processed/perlmutter/ml_strong_native_gate_latest.json` |
 | ML profiling gate | `data/processed/perlmutter/ml_strong_native_profile_latest.json` |
 | Advantage projection | `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.json` |

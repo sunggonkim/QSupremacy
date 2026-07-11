@@ -212,6 +212,28 @@
     },
     {
       "artifacts": [
+        "data/processed/perlmutter/deployment_scale_proxy.json",
+        "data/processed/perlmutter/deployment_scale_proxy.csv",
+        "data/processed/perlmutter/practical_suite_55782694_review_stress_1n_4g_summary.json",
+        "data/processed/perlmutter/practical_suite_55782694_review_stress_1n_4g_summary.csv"
+      ],
+      "audit_item": "deployment_proxy",
+      "claim": "Deployment-scale extensions are scoped as proxy records that preserve native deadline, circuit metadata, quality target, and projection knobs without claiming full state-vector simulation at deployment scale.",
+      "figures_tables": [],
+      "id": "deployment_proxy",
+      "paper_locations": [
+        "paper/5.Discussion.tex",
+        "data/processed/perlmutter/deployment_scale_proxy.json"
+      ],
+      "source_jobs": [
+        "jobs/perlmutter/practical_suite_review_stress_1node.sbatch"
+      ],
+      "source_scripts": [
+        "scripts/audit_paper_evidence.py"
+      ]
+    },
+    {
+      "artifacts": [
         "data/processed/perlmutter/repeat_timing_gate_latest.json",
         "data/processed/perlmutter/repeat_timing_gate_55516885_repeat_timing_gate.json"
       ],
@@ -353,5 +375,5 @@
     "source_entry": "paper/0.Main.tex",
     "target_style": "HPCA 2027 IEEEtran-style double-blind submission"
   },
-  "updated_utc": "2026-07-08"
+  "updated_utc": "2026-07-11"
 }
