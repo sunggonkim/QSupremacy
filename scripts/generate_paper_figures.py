@@ -1390,34 +1390,6 @@ def figure_workload_growth():
         ("128 GPUs\n3,552 cases", 128, 3552, 419, SCALE_WEAK_32_SUMMARY_CSV),
         ("256 GPUs\n7,104 cases", 256, 7104, 576, SCALE_WEAK_64_SUMMARY_CSV),
     ]
-
-    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.78))
-    cases = np.array([point[2] for point in points], dtype=float)
-    elapsed = np.array([point[3] for point in points], dtype=float)
-    x = np.arange(len(points))
-    bars = ax.bar(x, cases / 1000.0, color=[COLORS["blue"], COLORS["teal"]], width=0.52, alpha=0.86)
-    for xpos, bar, tval in zip(x, bars, elapsed):
-        ax.text(
-            xpos,
-            bar.get_height() + 0.22,
-            "{:.1f}K\n{}s".format(bar.get_height(), int(tval)),
-            ha="center",
-            va="bottom",
-            fontsize=5.8,
-            linespacing=1.0,
-        )
-    ax.plot(x, (cases / 1000.0)[0] * (elapsed / elapsed[0]), linestyle="--",
-            color=COLORS["gray"], linewidth=1.0)
-    ax.set_xticks(x)
-    ax.set_xticklabels(["128 GPUs", "256 GPUs"])
-    ax.set_ylabel("Completed cases (K)")
-    ax.set_ylim(0, 8.5)
-    style_axis(ax, grid="y")
-    fig.subplots_adjust(left=0.27, right=0.98, bottom=0.25, top=0.90)
-    time_path = os.path.join(FIG_DIR, "workload_growth_time.pdf")
-    fig.savefig(time_path)
-    plt.close(fig)
-
     workloads = [
         ("ml", "ML", COLORS["blue"]),
         ("chemistry", "Chem.", COLORS["teal"]),
@@ -1425,12 +1397,61 @@ def figure_workload_growth():
         ("simulation", "Sim.", COLORS["green"]),
     ]
     rows_by_run = [read_csv(points[0][4]), read_csv(points[1][4])]
+
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.88))
+    x = np.arange(len(points))
+    bottoms = np.zeros(len(points))
+    handles = []
+    labels = []
+    for workload, label, color in workloads:
+        counts = np.array([
+            sum(1 for row in rows if row["workload"] == workload)
+            for rows in rows_by_run
+        ], dtype=float)
+        bars = ax.bar(x, counts / 1000.0, bottom=bottoms / 1000.0, color=color, width=0.54)
+        handles.append(bars[0])
+        labels.append(label)
+        for xpos, bottom, count in zip(x, bottoms, counts):
+            if count >= 200:
+                ax.text(
+                    xpos,
+                    (bottom + count / 2.0) / 1000.0,
+                    "{:.0f}".format(count),
+                    ha="center",
+                    va="center",
+                    fontsize=5.2,
+                    color="white" if color in {COLORS["blue"], COLORS["red"], COLORS["green"]} else "black",
+                    weight="bold" if count >= 500 else "normal",
+                )
+        bottoms += counts
+    for xpos, total, point in zip(x, bottoms, points):
+        ax.text(
+            xpos,
+            total / 1000.0 + 0.18,
+            "{:.1f}K\n{}s".format(total / 1000.0, int(point[3])),
+            ha="center",
+            va="bottom",
+            fontsize=5.4,
+            linespacing=0.92,
+        )
+    ax.set_xticks(x)
+    ax.set_xticklabels(["128\nGPUs", "256\nGPUs"])
+    ax.set_ylabel("Cases by\nworkload (K)")
+    ax.set_ylim(0, 8.4)
+    style_axis(ax, grid="y")
+    add_top_legend(fig, handles, labels, ncol=4, y=0.99, fontsize=4.8)
+    fig.subplots_adjust(left=0.31, right=0.98, bottom=0.29, top=0.75)
+    time_path = os.path.join(FIG_DIR, "workload_growth_time.pdf")
+    fig.savefig(time_path)
+    plt.close(fig)
+
     fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.78))
     handles = []
     legend_labels = []
     x = np.array([0, 1], dtype=float)
     for workload, label, color in workloads:
         medians = []
+        p90s = []
         for rows in rows_by_run:
             vals = [
                 float(row["quality_gap"])
@@ -1438,7 +1459,9 @@ def figure_workload_growth():
                 if row["workload"] == workload
             ]
             medians.append(float(np.median(vals)))
+            p90s.append(float(np.percentile(vals, 90)))
         line = ax.plot(x, medians, marker="o", color=color, linewidth=1.55)[0]
+        ax.scatter(x, p90s, marker="s", s=14, color=color, edgecolors="black", linewidths=0.35, zorder=3)
         handles.append(line)
         legend_labels.append(label)
     ax.set_xticks(x)
@@ -1448,7 +1471,7 @@ def figure_workload_growth():
     ax.set_yticks([0.0, 0.1, 0.2, 0.3])
     ax.set_xlim(-0.14, 1.14)
     style_axis(ax, grid="y")
-    add_top_legend(fig, handles, legend_labels, ncol=4, y=0.99, fontsize=4.9)
+    add_top_legend(fig, handles, legend_labels, ncol=4, y=0.99, fontsize=4.7)
     fig.subplots_adjust(left=0.27, right=0.98, bottom=0.31, top=0.74)
     quality_path = os.path.join(FIG_DIR, "workload_growth_quality.pdf")
     fig.savefig(quality_path)

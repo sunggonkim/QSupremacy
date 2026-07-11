@@ -118,21 +118,21 @@ This subsection uses Perlmutter scaling to test measurement throughput, not to c
 \begin{subfigure}[t]{0.48\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figures/workload_growth_time.pdf}
-    \caption{Work grows.}
+    \caption{Workload components.}
     \label{fig:workload-growth-time}
 \end{subfigure}
 \begin{subfigure}[t]{0.48\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figures/workload_growth_quality.pdf}
-    \caption{Quality remains stable.}
+    \caption{Quality by component.}
     \label{fig:workload-growth-quality}
 \end{subfigure}
-\Description{Workload-growth results comparing 128 and 256 GPU runs. Elapsed time doubles as cases double, while median quality gaps remain stable by workload.}
-\caption{Larger-workload gate on 256 GPUs. The regular weak-scaling run completes 7,104 cases in 576 seconds with `ok' status for every case. The larger run preserves the workload-level quality interpretation, so the extra cases increase evidence coverage rather than changing the advantage conclusion.}
+\Description{Workload-growth results comparing 128 and 256 GPU runs. Stacked bars show ML, chemistry, optimization, and simulation case components; the quality plot shows per-workload median and 90th-percentile quality gaps.}
+\caption{Larger-workload gate on 256 GPUs. Subfigure~(a) decomposes the 3,552- and 7,104-case sweeps into ML, Chem, Opt., and Sim. components; the larger regular weak-scaling run completes 7,104 cases in 576 seconds with `ok' status for every case. Subfigure~(b) shows that the workload-level quality distribution remains comparable, so the extra cases increase evidence coverage rather than changing the advantage conclusion.}
 \label{fig:workload-growth}
 \end{figure}
 
-\noindent\textbf{Workload growth and QPU batching requirement.} Figure~\ref{fig:workload-growth} shows the 7,104-case larger-workload gate. The 256-GPU weak-scaling run doubles the completed case count relative to 128 GPUs and finishes in 576 seconds, while workload-level quality gaps remain stable. More GPU workers increase evidence coverage but do not change the per-case advantage condition. The QPU lesson is batching: a future accelerator needs enough independent circuits, shots, measurements, and hybrid-loop batches to amortize reset, host--QPU I/O, decoding, and control. If a workload is dominated by serial depth, measurement latency, optimizer feedback, or quality recovery, raw device count cannot move the advantage frontier by itself.
+\noindent\textbf{Workload growth and QPU batching requirement.} Figure~\ref{fig:workload-growth} shows the 7,104-case larger-workload gate by component. The 256-GPU weak-scaling run doubles every workload family relative to the 128-GPU sweep and finishes in 576 seconds, while each workload keeps the same quality-gap interpretation. More GPU workers increase evidence coverage but do not change the per-case advantage condition. The QPU lesson is batching: a future accelerator needs enough independent circuits, shots, measurements, and hybrid-loop batches to amortize reset, host--QPU I/O, decoding, and control. If a workload is dominated by serial depth, measurement latency, optimizer feedback, or quality recovery, raw device count cannot move the advantage frontier by itself.
 
 \begin{observationbox}
 \textbf{Observation 2:} Scaling separates throughput from advantage. Independent circuit-application cases fill 256 GPUs, and the 7,104-case fixed suite still benefits from 64-to-256 GPU parallelism. For a QPU, the matching axis is not ``more devices'' alone; it is whether circuits, shots, and hybrid evaluations can be batched enough to amortize measurement, control, and feedback latency.
