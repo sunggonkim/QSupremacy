@@ -945,7 +945,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 34181
+            "size_bytes": 34099
           },
           "expected": {
             "exists": true,
@@ -1393,7 +1393,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 18898
+            "size_bytes": 25030
           },
           "expected": {
             "exists": true,

@@ -262,7 +262,7 @@ Runtime parity is necessary but not sufficient for quantum advantage. A QPU can 
 \begin{subfigure}[t]{0.98\linewidth}
 \centering
 \includegraphics[width=\linewidth]{figures/tolerance_sensitivity.pdf}
-\caption{Speed-quality frontier cuts.}
+\caption{Tolerance/recovery cuts.}
 \label{fig:tolerance-sensitivity}
 \end{subfigure}
 \vspace{.02cm}
@@ -272,17 +272,17 @@ Runtime parity is necessary but not sufficient for quantum advantage. A QPU can 
 \caption{Hardware design space.}
 \label{fig:ft-shot-sensitivity}
 \end{subfigure}
-\Description{Two sensitivity subfigures. The first is a speedup by quality-recovery heat map; the second is a hardware-scenario matrix over shot parallelism and serial control acceleration.}
-\caption{Sensitivity maps beyond the component target. Subfigure~(a) shows selected speed-quality cuts; cells report advantaged-case fractions. Subfigure~(b) is a no-srun projection sweep over conservative surface-code, resource-estimator-like, default optimistic, LDPC/future-like, and aggressive batched hardware scenarios. Cells report advantaged-case fraction and median $T_{\mathrm{qhw}}/T_{\mathrm{native}}$ at 90\% quality-gap recovery under the lower-bound $\alpha_R=1$ recovery-cost assumption.}
+\Description{Two sensitivity subfigures. The first is a speedup, quality-recovery, and workload-tolerance heat map; the second is a hardware-scenario matrix over shot parallelism and serial control acceleration.}
+\caption{Sensitivity maps beyond the component target. Subfigure~(a) sweeps selected speed, quality-recovery, and workload-tolerance cuts; cells report advantaged-case fractions and use the base tolerance $\epsilon_w$ unless the column states $0.5\epsilon$ or $2\epsilon$. Subfigure~(b) is a no-srun projection sweep over conservative surface-code, resource-estimator-like, default optimistic, LDPC/future-like, and aggressive batched hardware scenarios. Cells report advantaged-case fraction and median $T_{\mathrm{qhw}}/T_{\mathrm{native}}$ at 90\% quality-gap recovery under the lower-bound $\alpha_R=1$ recovery-cost assumption.}
 \label{fig:sensitivity-maps}
 \end{figure}
 
-Figure~\ref{fig:tolerance-sensitivity} isolates the application side. At 90\% recovery, Sim. reaches 55\% of cases at $10^4\times$ and 72\% at $10^5\times$, Chem reaches 57\% at $10^5\times$, and Opt. remains at 23\% even at $10^6\times$ unless recovery is essentially complete. These are projected lower-bound wins, not current-hardware wins: the figure treats $R$ as a requirement and does not grant a free mitigation mechanism. If recovery requires zero-noise extrapolation, deeper ansatz/search, higher Trotter order, or more Pauli samples, $\alpha_R$ grows and the case moves to a larger speed/shot/host-control budget. Sim. opens early because many cases pass both runtime and quality gates; ML has many runtime-passing cases but only 9.8\% pass the quality gate.
+Figure~\ref{fig:tolerance-sensitivity} isolates the application side. At 90\% recovery and the base tolerance, Sim. reaches 55\% of cases at $10^4\times$ and 72\% at $10^5\times$, Chem reaches 57\% at $10^5\times$, and Opt. remains at 23\% even at $10^6\times$. Tightening the tolerance to $0.5\epsilon_w$ leaves Chem unchanged in this cut but reduces Sim. to 62.5\%; relaxing to $2\epsilon_w$ moves ML from 9.8\% to 83.8\% and Sim. to 100\% at $10^5\times$. These are projected lower-bound wins, not current-hardware wins: the figure treats $R$ and $\epsilon_w$ as requirements and does not grant a free mitigation mechanism. If recovery requires zero-noise extrapolation, deeper ansatz/search, higher Trotter order, or more Pauli samples, $\alpha_R$ grows and the case moves to a larger speed/shot/host-control budget.
 
 Figure~\ref{fig:ft-shot-sensitivity} isolates the hardware-stack side with an offline sweep over conservative surface-code, resource-estimator-like, default optimistic, LDPC/future-like, and aggressive batched scenarios~\cite{googleqec2025belowthreshold,webber2022impact,azureestimator,bravyi2024qldpcmemory}. Conservative and resource-estimator-like assumptions erase most optimistic coverage; the default stack opens Sim. and a small ML slice; LDPC/future-like and aggressive batching reduce ML/Chem runtime but leave Opt. quality-limited. Because the sweep separates decode from host-I/O and queue/control floors, the speedup source is not a scalar QPU clock. ML and Opt. need representation and hybrid-loop co-design before more shot lanes help. Chem is the clearest near-QPU control target; Sim. points to Hamiltonian-simulation-oriented analog/digital execution. Annealing can matter for embeddable optimization instances, but it is not a general replacement for gate-model ML, Chem, or Sim.
 
 \FloatBarrier
 \begin{observationbox}
-\textbf{Observation 5:} Sensitivity separates application recovery from hardware scaling. The speed-quality map shows which workloads need better quantum representations before speed matters; the hardware map shows that conservative shot bounds remove much of the optimistic frontier. Chem is the clearest near-QPU control target, Opt. needs broader co-design, and Sim. is a runtime-ready but quality-gated accelerator candidate only under explicit future-hardware assumptions.
+\textbf{Observation 5:} Sensitivity separates application tolerance/recovery from hardware scaling. The tolerance map shows which workloads depend on the application-quality contract before speed matters; the hardware map shows that conservative shot bounds remove much of the optimistic frontier. Chem is the clearest near-QPU control target, Opt. needs broader co-design, and Sim. is a runtime-ready but quality-gated accelerator candidate only under explicit future-hardware assumptions.
 \end{observationbox}
 \FloatBarrier

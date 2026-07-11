@@ -489,7 +489,7 @@ def figure_design_overview():
     levers = [
         ("Logical ops\n$t_1,t_2,t_m$", COLORS["green"], 0.07),
         ("Shot lanes\n$P_{shots}$", COLORS["purple"], 0.295),
-        ("Decode/control\n$T_{err}$", COLORS["red"], 0.52),
+        ("Decode/I/O\n+ queue", COLORS["red"], 0.52),
         ("Quality recovery\n$R_q$", COLORS["gray"], 0.745),
     ]
     for label, color, x in levers:
@@ -1525,10 +1525,12 @@ def figure_tolerance_sensitivity():
         ("simulation", "Sim.", COLORS["green"], 0.01),
     ]
     scenario_specs = [
-        ("$10^4$x\n90% R", 1.0e4, 0.90),
-        ("$10^5$x\n90% R", 1.0e5, 0.90),
-        ("$10^6$x\n90% R", 1.0e6, 0.90),
-        ("$10^6$x\n100% R", 1.0e6, 1.00),
+        ("$1\\epsilon$\n$10^4$x", 1.0e4, 0.90, 1.0),
+        ("$0.5\\epsilon$\n$10^5$x", 1.0e5, 0.90, 0.5),
+        ("$1\\epsilon$\n$10^5$x", 1.0e5, 0.90, 1.0),
+        ("$2\\epsilon$\n$10^5$x", 1.0e5, 0.90, 2.0),
+        ("$1\\epsilon$\n$10^6$x", 1.0e6, 0.90, 1.0),
+        ("$1\\epsilon$\n$10^6$x\n100%R", 1.0e6, 1.00, 1.0),
     ]
 
     matrix = np.zeros((len(workload_specs), len(scenario_specs)), dtype=float)
@@ -1536,8 +1538,9 @@ def figure_tolerance_sensitivity():
         subset = [row for row in rows if row["workload"] == workload]
         required = np.array([float(row["speedup_required"]) for row in subset])
         gaps = np.array([max(0.0, float(row["quality_gap"])) for row in subset])
-        for col_idx, (_scenario_label, speedup, recovery) in enumerate(scenario_specs):
-            advantaged = (speedup >= required) & (gaps * (1.0 - recovery) <= base_tol)
+        for col_idx, (_scenario_label, speedup, recovery, tolerance_scale) in enumerate(scenario_specs):
+            tolerance = base_tol * tolerance_scale
+            advantaged = (speedup >= required) & (gaps * (1.0 - recovery) <= tolerance)
             matrix[row_idx, col_idx] = 100.0 * float(np.mean(advantaged)) if advantaged.size else 0.0
 
     fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.15))
@@ -1558,8 +1561,8 @@ def figure_tolerance_sensitivity():
                 fontweight="bold" if value >= 70.0 else "normal",
             )
     ax.set_xticks(np.arange(len(scenario_specs)))
-    ax.set_xticklabels([label for label, _speedup, _recovery in scenario_specs])
-    ax.tick_params(axis="x", labelsize=5.1, pad=1.0, length=0)
+    ax.set_xticklabels([label for label, _speedup, _recovery, _tol_scale in scenario_specs])
+    ax.tick_params(axis="x", labelsize=4.7, pad=0.8, length=0)
     ax.set_yticks(np.arange(len(workload_specs)))
     ax.set_yticklabels([label for _workload, label, _color, _tol in workload_specs])
     ax.tick_params(axis="y", labelsize=6.1, pad=1.1, length=0)
@@ -1570,7 +1573,8 @@ def figure_tolerance_sensitivity():
     ax.set_yticks(np.arange(-0.5, len(workload_specs), 1), minor=True)
     ax.grid(which="minor", color="white", linestyle="-", linewidth=0.75)
     ax.tick_params(which="minor", bottom=False, left=False)
-    fig.subplots_adjust(left=0.16, right=0.99, bottom=0.25, top=0.96)
+    ax.set_title("90%R unless noted", fontsize=5.4, pad=1.0)
+    fig.subplots_adjust(left=0.14, right=0.99, bottom=0.31, top=0.88)
     path = os.path.join(FIG_DIR, "tolerance_sensitivity.pdf")
     fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
     plt.close(fig)
