@@ -264,6 +264,42 @@
         {
           "actual": true,
           "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_review_strong_8n_32g_7104_20260711021411_summary.json",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_review_strong_8n_32g_7104_20260711021411_summary.csv",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_review_strong_8n_32g_7104_20260711021411.txt",
+          "passed": true
+        },
+        {
+          "actual": 3552,
+          "expected": 3552,
+          "label": "strong_8_norm_summary_cases",
+          "passed": true
+        },
+        {
+          "actual": 3552,
+          "expected": 3552,
+          "label": "strong_8_norm_csv_cases",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "strong_8_norm_accounting_completed",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
           "label": "exists: data/processed/perlmutter/practical_suite_55731032_scale_16n_64g_summary.json",
           "passed": true
         },
@@ -394,7 +430,7 @@
           "passed": true
         }
       ],
-      "claim": "3,552-case suite plus regular 16/32/64-node weak and fixed-work scaling gates",
+      "claim": "3,552-case suite plus regular weak-scaling gates and 32/64/128/256-GPU fixed-work scaling anchors",
       "evidence": [
         "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.json",
         "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv",
@@ -1015,7 +1051,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 11853
+            "size_bytes": 11854
           },
           "expected": {
             "exists": true,
@@ -1029,7 +1065,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 10700
+            "size_bytes": 10701
           },
           "expected": {
             "exists": true,
@@ -1816,6 +1852,24 @@
           "actual": true,
           "expected": true,
           "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_55731015_scale_64n_256g.txt",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_review_strong_8n_32g_7104_20260711021411_summary.json",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_review_strong_8n_32g_7104_20260711021411_summary.csv",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_review_strong_8n_32g_7104_20260711021411.txt",
           "passed": true
         },
         {

@@ -116,6 +116,10 @@ SCALE_STRONG_32_SUMMARY_JSON = (
 SCALE_STRONG_64_SUMMARY_JSON = (
     "data/processed/perlmutter/practical_suite_55731034_scale_64n_256g_summary.json"
 )
+SCALE_STRONG_8_REVIEW_SUMMARY_JSON = (
+    "data/processed/perlmutter/"
+    "practical_suite_review_strong_8n_32g_7104_20260711021411_summary.json"
+)
 
 WEAK_SCALING_RUNS = [
     {
@@ -221,9 +225,9 @@ STRONG_SCALING_RUNS = [
         "label": "8 nodes",
         "nodes": 8,
         "gpus": 32,
-        "cases": 888,
-        "elapsed_sec": 765,
-        "summary": SCALE_LARGE_8_SUMMARY_JSON,
+        "cases": 3552,
+        "elapsed_sec": 2034,
+        "summary": SCALE_STRONG_8_REVIEW_SUMMARY_JSON,
         "kind": "normalized",
     },
     {
