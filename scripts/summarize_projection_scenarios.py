@@ -3,7 +3,7 @@
 
 This script uses existing practical-suite CSV metadata. It does not consume GPU
 allocation time; it only changes projection knobs such as effective shot lanes,
-serial decoder/control floor, and logical-operation scale.
+pipelined decode, host-I/O, queue/control floor, and logical-operation scale.
 """
 
 import argparse
@@ -28,8 +28,9 @@ SCENARIOS = [
         "cycle_sec": 1.0e-6,
         "shot_lanes": 1.0e2,
         "decoder_sec_per_eval": 63.0e-6,
-        "control_queue_sec_per_eval": 100.0e-6,
-        "description": "Small useful shot parallelism and larger real-time decode/control floor.",
+        "host_io_sec_per_eval": 60.0e-6,
+        "queue_sec_per_eval": 40.0e-6,
+        "description": "Small useful shot parallelism and larger real-time decode, host-I/O, and queue floor.",
     },
     {
         "id": "resource_estimator_like",
@@ -38,7 +39,8 @@ SCENARIOS = [
         "cycle_sec": 1.0e-6,
         "shot_lanes": 1.0e3,
         "decoder_sec_per_eval": 20.0e-6,
-        "control_queue_sec_per_eval": 80.0e-6,
+        "host_io_sec_per_eval": 50.0e-6,
+        "queue_sec_per_eval": 30.0e-6,
         "description": "Moderate alternate FT resource-estimator point with constrained shot lanes.",
     },
     {
@@ -48,7 +50,8 @@ SCENARIOS = [
         "cycle_sec": 1.0e-6,
         "shot_lanes": 1.0e4,
         "decoder_sec_per_eval": 5.0e-6,
-        "control_queue_sec_per_eval": 50.0e-6,
+        "host_io_sec_per_eval": 20.0e-6,
+        "queue_sec_per_eval": 30.0e-6,
         "description": "Paper default lower-bound stack.",
     },
     {
@@ -58,7 +61,8 @@ SCENARIOS = [
         "cycle_sec": 1.0e-6,
         "shot_lanes": 1.0e5,
         "decoder_sec_per_eval": 5.0e-6,
-        "control_queue_sec_per_eval": 10.0e-6,
+        "host_io_sec_per_eval": 5.0e-6,
+        "queue_sec_per_eval": 5.0e-6,
         "description": "Future lower-overhead code/control point with larger useful batching.",
     },
     {
@@ -68,7 +72,8 @@ SCENARIOS = [
         "cycle_sec": 0.5e-6,
         "shot_lanes": 1.0e6,
         "decoder_sec_per_eval": 1.0e-6,
-        "control_queue_sec_per_eval": 1.0e-6,
+        "host_io_sec_per_eval": 0.5e-6,
+        "queue_sec_per_eval": 0.5e-6,
         "description": "Aggressive high-batching point for upper-bound sensitivity.",
     },
 ]
@@ -86,6 +91,18 @@ def as_float(row, key, default=0.0):
     return float(value)
 
 
+def scenario_host_io_sec(scenario):
+    if "host_io_sec_per_eval" in scenario:
+        return scenario["host_io_sec_per_eval"]
+    return 0.5 * scenario.get("control_queue_sec_per_eval", 0.0)
+
+
+def scenario_queue_sec(scenario):
+    if "queue_sec_per_eval" in scenario:
+        return scenario["queue_sec_per_eval"]
+    return 0.5 * scenario.get("control_queue_sec_per_eval", 0.0)
+
+
 def projected_time(row, scenario):
     distance = scenario["distance"]
     cycle_sec = scenario["cycle_sec"]
@@ -95,16 +112,15 @@ def projected_time(row, scenario):
     meas = as_float(row, "measurement_ops")
     shot_lanes = max(1.0, scenario["shot_lanes"])
 
-    logical_per_eval = (
+    gate_depth_per_eval = (
         oneq * distance * cycle_sec
         + twoq * 4.0 * distance * cycle_sec
         + meas * distance * cycle_sec
     )
-    parallel_time = evals * logical_per_eval / shot_lanes
-    serial_time = evals * (
-        scenario["decoder_sec_per_eval"] + scenario["control_queue_sec_per_eval"]
-    )
-    return parallel_time + serial_time
+    gate_pipeline_time = gate_depth_per_eval / shot_lanes
+    decode_pipeline_time = scenario["decoder_sec_per_eval"]
+    serial_time = evals * (scenario_host_io_sec(scenario) + scenario_queue_sec(scenario))
+    return evals * max(gate_pipeline_time, decode_pipeline_time) + serial_time
 
 
 def summarize(rows, recovery):

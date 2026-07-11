@@ -47,21 +47,30 @@ The quantum kernel path maps the same features into a quantum feature map, simul
 The measured \cuQuantum runtime is not a physical quantum latency. It executes the quantum-circuit application path, produces output quality, and records circuit metadata. The projection then prices the same case under future logical-operation speed, effective shot parallelism, error/control overhead, and quality recovery. Thus Python orchestration, GPU setup time, and simulator state-vector behavior are measurement-stack evidence, not future-QPU schedule terms.
 
 \noindent\emph{Execution model.}
-Given the measured metadata, \SystemName estimates projected quantum execution time as
-\[
-T_{\mathrm{execute}} =
-\frac{N_s(D_1t_1 + D_2t_2 + D_mt_m)}
-{P_{\mathrm{shots}}}
-+ T_{\mathrm{error}},
-\]
-where $N_s$ is shot count, $D_1$, $D_2$, and $D_m$ are one-qubit, two-qubit, and measurement depths, $t_i$ are projected logical-operation times, and $P_{\mathrm{shots}}$ is effective shot parallelism. The overhead term is decomposed rather than hidden:
+Given the measured metadata, \SystemName estimates projected quantum execution time with a pipelined FT-style critical path:
 \[
 \begin{aligned}
-T_{\mathrm{error}} =
+T_{\mathrm{gate}} &=
+\frac{N_s(D_1t_1 + D_2t_2 + D_mt_m)}
+{P_{\mathrm{shots}}^{\mathrm{eff}}},\\
+T_{\mathrm{execute}} &=
+N_{\mathrm{eval}}\!\left[
+\alpha_R\max(T_{\mathrm{gate}},T_{\mathrm{decode}})
++T_{\mathrm{io}}+T_{\mathrm{queue}}
+\right].
+\end{aligned}
+\]
+where $N_s$ is shot count, $N_{\mathrm{eval}}$ is the measured number of circuit evaluations, $D_1$, $D_2$, and $D_m$ are one-qubit, two-qubit, and measurement depths per evaluation, $t_i$ are projected logical-operation times, and $P_{\mathrm{shots}}^{\mathrm{eff}}$ is useful shot parallelism. The $\max(\cdot)$ term models the fact that an FTQC controller can pipeline logical gate execution and syndrome decoding; decoding is hidden only when it is no slower than the logical critical path. Host--QPU data movement and queue/control feedback remain serial in this model because hybrid loops must return measurement summaries, update parameters, or launch the next batch.
+
+The recovery-cost factor $\alpha_R\geq 1$ couples quality recovery to runtime. The paper's default projection uses $\alpha_R=1$ as a lower-bound requirement axis rather than a measured mitigation result. Real mechanisms such as deeper ansatz circuits, higher Trotter order, extra Pauli measurements, zero-noise extrapolation, or repeated noisy optimization would increase $\alpha_R$, $N_s$, $D_i$, or $N_{\mathrm{eval}}$ and therefore move the frontier rightward.
+
+The non-overlapped terms are decomposed rather than hidden:
+\[
+\begin{aligned}
+T_{\mathrm{serial}} =
 &T_{\mathrm{compile}} + T_{\mathrm{map}} + T_{\mathrm{route}} +
-T_{\mathrm{decode}} \\
-&+ T_{\mathrm{ms}} + T_{\mathrm{io}} +
-T_{\mathrm{cq}} + T_{\mathrm{queue}} .
+T_{\mathrm{ms}} \\
+&+ T_{\mathrm{io}} + T_{\mathrm{cq}} + T_{\mathrm{queue}} .
 \end{aligned}
 \]
 Likewise, useful parallel shots are bounded by the slowest system resource:
@@ -70,10 +79,10 @@ P_{\mathrm{shots}}^{\mathrm{eff}} =
 \min(P_{\mathrm{device}}, P_{\mathrm{decode}}, P_{\mathrm{control}},
 P_{\mathrm{queue}}, N_s N_{\mathrm{eval}}).
 \]
-This form is the hook for architecture studies: a surface-code stack can plug in code distance, cycle time, decoder bandwidth, and magic-state throughput, while a control-system study can change control and feedback terms. Existing resource-estimation tools already expose hardware assumptions such as QEC scheme, magic-state factories, physical-qubit counts, runtime, and Pareto frontiers~\cite{azurequantumresourceestimatordocs,azureestimator}. \SystemName adds the application-side gate that those estimates alone do not answer: the measured native deadline and the measured quality gap for the same input.
+This form is the hook for architecture studies: a surface-code stack can plug in code distance, cycle time, decoder bandwidth, and magic-state throughput, while a control-system study can change host-I/O and feedback terms. Existing resource-estimation tools already expose hardware assumptions such as QEC scheme, magic-state factories, physical-qubit counts, runtime, and Pareto frontiers~\cite{azurequantumresourceestimatordocs,azureestimator}. \SystemName adds the application-side gate that those estimates alone do not answer: the measured native deadline and the measured quality gap for the same input.
 
 \noindent\emph{Illustrative FT-stack parameters.}
-The evaluation instantiates this interface with an intentionally optimistic, but physically anchored, surface-code-style stack. Surface-code and resource-estimation studies motivate exposing code distance, cycle time, logical-operation scheduling, magic-state throughput, decoder bandwidth, and control latency as first-class parameters~\cite{fowler2012surface,litinski2019game,webber2022impact,azureestimator}. Recent superconducting surface-code experiments report a 1.1~$\mu$s error-correction cycle and 63~$\mu$s average real-time decoder latency at distance five~\cite{googleqec2025belowthreshold}. Our default projection is not a measurement of such a deployed computer and is more optimistic: it uses $d=25$, $\tau_c=1\,\mu$s, $t_1=d\tau_c$, $t_2=4d\tau_c$, $t_m=d\tau_c$, $P_{\mathrm{shots}}=10^4$, and a serial $5\,\mu$s decoder plus $50\,\mu$s residual control/queue cost per circuit evaluation. These values are therefore modeling knobs for sensitivity analysis, not claims about a quantum annealer or an existing gate-model QPU. A positive frontier under this default should be read as a lower-bound architecture target that must survive the conservative shot/control sweeps in the evaluation.
+The evaluation instantiates this interface with an intentionally optimistic, but physically anchored, surface-code-style stack. Surface-code and resource-estimation studies motivate exposing code distance, cycle time, logical-operation scheduling, magic-state throughput, decoder bandwidth, and control latency as first-class parameters~\cite{fowler2012surface,litinski2019game,webber2022impact,azureestimator}. Recent superconducting surface-code experiments report a 1.1~$\mu$s error-correction cycle and 63~$\mu$s average real-time decoder latency at distance five~\cite{googleqec2025belowthreshold}. Our default projection is not a measurement of such a deployed computer and is more optimistic: it uses $d=25$, $\tau_c=1\,\mu$s, $t_1=d\tau_c$, $t_2=4d\tau_c$, $t_m=d\tau_c$, $P_{\mathrm{shots}}^{\mathrm{eff}}=10^4$, a $5\,\mu$s pipelined decoder, $20\,\mu$s host--QPU I/O, and $30\,\mu$s queue/control feedback per circuit evaluation. These values are modeling knobs for sensitivity analysis, not claims about a quantum annealer or an existing gate-model QPU. A positive frontier under this default should be read as a lower-bound architecture target that must survive the conservative shot, host-I/O, queue/control, and recovery-cost sweeps in the evaluation.
 
 \begin{table}[t]
 \caption{Default projection knobs and sensitivity role.}
@@ -87,9 +96,9 @@ The evaluation instantiates this interface with an intentionally optimistic, but
 \midrule
 Code stack & $d=25$, $\tau_c=1\,\mu$s & Sets logical-operation scale; technology-specific studies can replace it with measured code distance, cycle time, and decoder bandwidth. \\
 Logical operations & $t_1=25\,\mu$s, $t_2=100\,\mu$s, $t_m=25\,\mu$s & Prices the measured 1Q, 2Q, and measurement depths; frontier plots vary effective execution improvement. \\
-Serial floor & $5\,\mu$s decode + $50\,\mu$s control/queue per evaluation & Models non-parallel decode/control latency; Figure~\ref{fig:ft-shot-sensitivity} sweeps serial-control acceleration. \\
+Pipeline and serial floor & $5\,\mu$s decode, $20\,\mu$s host I/O, $30\,\mu$s queue/control & Decode can overlap gate execution; host--QPU data movement and feedback remain serial. Figure~\ref{fig:ft-shot-sensitivity} sweeps these bounds. \\
 Shot parallelism & $P_{\mathrm{shots}}^{\mathrm{eff}}=10^4$ & Models useful shot lanes after device, decoder, control, and queue limits; sensitivity sweeps conservative, resource-estimator-like, LDPC/future-like, and aggressive batched scenarios. \\
-Quality recovery & $R\in\{0,0.5,0.9,1.0\}$ & Requirement axis for closing measured quality gaps; it is not a claim about a specific mitigation mechanism. \\
+Quality recovery & $R\in\{0,0.5,0.9,1.0\}$, $\alpha_R\geq1$ & Requirement axis for closing measured quality gaps; real recovery mechanisms can increase shots, depth, evaluations, or mitigation overhead. \\
 \bottomrule
 \end{tabular}
 }
@@ -100,7 +109,7 @@ Quality recovery & $R\in\{0,0.5,0.9,1.0\}$ & Requirement axis for closing measur
 \SystemName inverts the model instead of assuming speedup. It asks what logical speed, shot throughput, overhead, and quality recovery are required for $T_{\mathrm{qhw}}<T_{\mathrm{native}}$ at the same quality. A case is speed-limited when quality is close enough but runtime remains large; quality-limited when faster gates do not help until the output gap closes; shot- or encoding-limited when repeated evaluations or data movement dominate; and native-dominated when a stronger classical path moves the break-even target.
 
 \noindent\emph{Architecture target map.}
-The projection output is intentionally phrased in architecture terms. If $D_2t_2$ dominates and the single-lever target is finite, the case points to logical two-qubit latency, coupling, routing, or magic-state throughput. If $P_{\mathrm{shots}}$ is the active term, the useful hardware is not only more devices but enough parallel readout, decoding, control bandwidth, and queueing to keep those shots independent. If $T_{\mathrm{decode}}$, $T_{\mathrm{cq}}$, or measurement aggregation dominates, the target is a near-QPU control/decode accelerator rather than a faster circuit kernel. If the quality inequality fails, the target is representation, ansatz/search structure, fidelity, mitigation, or Trotter order before speed. If the circuit family is an Ising/QUBO energy-minimization instance, annealing-style specialization may be a candidate; otherwise the same record points to gate-model or analog/digital execution. This target map is the reason the evaluation reports both required speedup and where that speedup must come from.
+The projection output is intentionally phrased in architecture terms. If $D_2t_2$ dominates and the single-lever target is finite, the case points to logical two-qubit latency, coupling, routing, or magic-state throughput. If $P_{\mathrm{shots}}^{\mathrm{eff}}$ is the active term, the useful hardware is not only more devices but enough parallel readout, decoding, control bandwidth, and queueing to keep those shots independent. If the decoder sets the pipeline critical path, the target is real-time decoding; if $T_{\mathrm{io}}$ or $T_{\mathrm{queue}}$ dominates, the target is near-QPU control, host--QPU data movement, measurement aggregation, and hybrid-loop scheduling. If the quality inequality fails, the target is representation, ansatz/search structure, fidelity, mitigation, or Trotter order before speed. If the circuit family is an Ising/QUBO energy-minimization instance, annealing-style specialization may be a candidate; otherwise the same record points to gate-model or analog/digital execution. This target map is the reason the evaluation reports both required speedup and where that speedup must come from.
 
 \subsection{Advantage Claim Checklist}
 

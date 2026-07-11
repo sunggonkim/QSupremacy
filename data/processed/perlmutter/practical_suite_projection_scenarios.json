@@ -5,35 +5,35 @@
         "chemistry": {
           "advantaged_fraction": 0.2857142857142857,
           "cases": 224,
-          "median_projected_native_ratio": 0.5159129105744577,
+          "median_projected_native_ratio": 0.5135824109195022,
           "quality_pass_fraction": 0.5714285714285714,
           "runtime_pass_fraction": 0.7142857142857143
         },
         "ml": {
           "advantaged_fraction": 0.06591796875,
           "cases": 2048,
-          "median_projected_native_ratio": 0.25920222051208147,
+          "median_projected_native_ratio": 0.24413028831927264,
           "quality_pass_fraction": 0.09814453125,
           "runtime_pass_fraction": 0.6474609375
         },
         "optimization": {
           "advantaged_fraction": 0.0,
           "cases": 768,
-          "median_projected_native_ratio": 8.445040491020603,
+          "median_projected_native_ratio": 8.222929156744549,
           "quality_pass_fraction": 0.22916666666666666,
           "runtime_pass_fraction": 0.0
         },
         "simulation": {
           "advantaged_fraction": 0.71875,
           "cases": 512,
-          "median_projected_native_ratio": 0.000995094632911926,
+          "median_projected_native_ratio": 0.0009903162240706411,
           "quality_pass_fraction": 0.71875,
           "runtime_pass_fraction": 1.0
         }
       },
       "overall": {
         "advantaged_fraction": 0.15962837837837837,
-        "median_projected_native_ratio": 0.3158314846302339
+        "median_projected_native_ratio": 0.3049043870006253
       }
     },
     "conservative_surface": {
@@ -41,35 +41,35 @@
         "chemistry": {
           "advantaged_fraction": 0.0,
           "cases": 224,
-          "median_projected_native_ratio": 123.99203538536909,
+          "median_projected_native_ratio": 109.84534620409205,
           "quality_pass_fraction": 0.5714285714285714,
           "runtime_pass_fraction": 0.0
         },
         "ml": {
           "advantaged_fraction": 0.0,
           "cases": 2048,
-          "median_projected_native_ratio": 553.602522492042,
+          "median_projected_native_ratio": 545.8996736654597,
           "quality_pass_fraction": 0.09814453125,
           "runtime_pass_fraction": 0.0
         },
         "optimization": {
           "advantaged_fraction": 0.0,
           "cases": 768,
-          "median_projected_native_ratio": 7438.806371096941,
+          "median_projected_native_ratio": 7202.001736622377,
           "quality_pass_fraction": 0.22916666666666666,
           "runtime_pass_fraction": 0.0
         },
         "simulation": {
           "advantaged_fraction": 0.71875,
           "cases": 512,
-          "median_projected_native_ratio": 0.28009728539724565,
+          "median_projected_native_ratio": 0.22037091309052123,
           "quality_pass_fraction": 0.71875,
-          "runtime_pass_fraction": 0.966796875
+          "runtime_pass_fraction": 0.990234375
         }
       },
       "overall": {
         "advantaged_fraction": 0.1036036036036036,
-        "median_projected_native_ratio": 680.0918230713696
+        "median_projected_native_ratio": 669.6387271068731
       }
     },
     "default_optimistic": {
@@ -77,35 +77,35 @@
         "chemistry": {
           "advantaged_fraction": 0.0,
           "cases": 224,
-          "median_projected_native_ratio": 14.900349518604806,
+          "median_projected_native_ratio": 14.123516300286312,
           "quality_pass_fraction": 0.5714285714285714,
           "runtime_pass_fraction": 0.0
         },
         "ml": {
-          "advantaged_fraction": 0.015625,
+          "advantaged_fraction": 0.0185546875,
           "cases": 2048,
-          "median_projected_native_ratio": 11.474452618760779,
+          "median_projected_native_ratio": 10.834061072636059,
           "quality_pass_fraction": 0.09814453125,
-          "runtime_pass_fraction": 0.07275390625
+          "runtime_pass_fraction": 0.08544921875
         },
         "optimization": {
           "advantaged_fraction": 0.0,
           "cases": 768,
-          "median_projected_native_ratio": 310.06123046165624,
+          "median_projected_native_ratio": 287.2647467137424,
           "quality_pass_fraction": 0.22916666666666666,
           "runtime_pass_fraction": 0.0
         },
         "simulation": {
           "advantaged_fraction": 0.71875,
           "cases": 512,
-          "median_projected_native_ratio": 0.028848538548146264,
+          "median_projected_native_ratio": 0.027233696161942635,
           "quality_pass_fraction": 0.71875,
           "runtime_pass_fraction": 1.0
         }
       },
       "overall": {
-        "advantaged_fraction": 0.11261261261261261,
-        "median_projected_native_ratio": 13.368048573217727
+        "advantaged_fraction": 0.1143018018018018,
+        "median_projected_native_ratio": 12.728299515244334
       }
     },
     "ldpc_future_like": {
@@ -113,35 +113,35 @@
         "chemistry": {
           "advantaged_fraction": 0.0,
           "cases": 224,
-          "median_projected_native_ratio": 3.898478074995377,
+          "median_projected_native_ratio": 3.851868081896267,
           "quality_pass_fraction": 0.5714285714285714,
           "runtime_pass_fraction": 0.0
         },
         "ml": {
           "advantaged_fraction": 0.03564453125,
           "cases": 2048,
-          "median_projected_native_ratio": 2.147660883277066,
+          "median_projected_native_ratio": 1.8323592697372493,
           "quality_pass_fraction": 0.09814453125,
-          "runtime_pass_fraction": 0.32666015625
+          "runtime_pass_fraction": 0.32861328125
         },
         "optimization": {
           "advantaged_fraction": 0.0,
           "cases": 768,
-          "median_projected_native_ratio": 66.29804453011158,
+          "median_projected_native_ratio": 61.67196867558412,
           "quality_pass_fraction": 0.22916666666666666,
           "runtime_pass_fraction": 0.0
         },
         "simulation": {
           "advantaged_fraction": 0.71875,
           "cases": 512,
-          "median_projected_native_ratio": 0.007522939857355505,
+          "median_projected_native_ratio": 0.00742737168052981,
           "quality_pass_fraction": 0.71875,
           "runtime_pass_fraction": 1.0
         }
       },
       "overall": {
         "advantaged_fraction": 0.1241554054054054,
-        "median_projected_native_ratio": 2.470183168100765
+        "median_projected_native_ratio": 2.28678290250469
       }
     },
     "resource_estimator_like": {
@@ -149,35 +149,35 @@
         "chemistry": {
           "advantaged_fraction": 0.0,
           "cases": 224,
-          "median_projected_native_ratio": 31.571449518018028,
+          "median_projected_native_ratio": 26.320480783212535,
           "quality_pass_fraction": 0.5714285714285714,
           "runtime_pass_fraction": 0.0
         },
         "ml": {
           "advantaged_fraction": 0.00146484375,
           "cases": 2048,
-          "median_projected_native_ratio": 55.282525552030094,
+          "median_projected_native_ratio": 52.836396102825226,
           "quality_pass_fraction": 0.09814453125,
-          "runtime_pass_fraction": 0.00537109375
+          "runtime_pass_fraction": 0.005859375
         },
         "optimization": {
           "advantaged_fraction": 0.0,
           "cases": 768,
-          "median_projected_native_ratio": 1005.3621721356603,
+          "median_projected_native_ratio": 912.0186544052431,
           "quality_pass_fraction": 0.22916666666666666,
           "runtime_pass_fraction": 0.0
         },
         "simulation": {
           "advantaged_fraction": 0.71875,
           "cases": 512,
-          "median_projected_native_ratio": 0.06689548844535867,
+          "median_projected_native_ratio": 0.057047048577087395,
           "quality_pass_fraction": 0.71875,
           "runtime_pass_fraction": 1.0
         }
       },
       "overall": {
         "advantaged_fraction": 0.1044481981981982,
-        "median_projected_native_ratio": 65.56403219650579
+        "median_projected_native_ratio": 63.067554430840374
       }
     }
   },
@@ -185,53 +185,58 @@
   "quality_recovery": 0.9,
   "scenarios": [
     {
-      "control_queue_sec_per_eval": 0.0001,
       "cycle_sec": 1e-06,
       "decoder_sec_per_eval": 6.3e-05,
-      "description": "Small useful shot parallelism and larger real-time decode/control floor.",
+      "description": "Small useful shot parallelism and larger real-time decode, host-I/O, and queue floor.",
       "distance": 31.0,
+      "host_io_sec_per_eval": 6e-05,
       "id": "conservative_surface",
       "label": "Conservative surface",
+      "queue_sec_per_eval": 4e-05,
       "shot_lanes": 100.0
     },
     {
-      "control_queue_sec_per_eval": 8e-05,
       "cycle_sec": 1e-06,
       "decoder_sec_per_eval": 2e-05,
       "description": "Moderate alternate FT resource-estimator point with constrained shot lanes.",
       "distance": 25.0,
+      "host_io_sec_per_eval": 5e-05,
       "id": "resource_estimator_like",
       "label": "Resource-estimator-like",
+      "queue_sec_per_eval": 3e-05,
       "shot_lanes": 1000.0
     },
     {
-      "control_queue_sec_per_eval": 5e-05,
       "cycle_sec": 1e-06,
       "decoder_sec_per_eval": 5e-06,
       "description": "Paper default lower-bound stack.",
       "distance": 25.0,
+      "host_io_sec_per_eval": 2e-05,
       "id": "default_optimistic",
       "label": "Default optimistic",
+      "queue_sec_per_eval": 3e-05,
       "shot_lanes": 10000.0
     },
     {
-      "control_queue_sec_per_eval": 1e-05,
       "cycle_sec": 1e-06,
       "decoder_sec_per_eval": 5e-06,
       "description": "Future lower-overhead code/control point with larger useful batching.",
       "distance": 15.0,
+      "host_io_sec_per_eval": 5e-06,
       "id": "ldpc_future_like",
       "label": "LDPC/future-like",
+      "queue_sec_per_eval": 5e-06,
       "shot_lanes": 100000.0
     },
     {
-      "control_queue_sec_per_eval": 1e-06,
       "cycle_sec": 5e-07,
       "decoder_sec_per_eval": 1e-06,
       "description": "Aggressive high-batching point for upper-bound sensitivity.",
       "distance": 15.0,
+      "host_io_sec_per_eval": 5e-07,
       "id": "aggressive_batched",
       "label": "Aggressive batched",
+      "queue_sec_per_eval": 5e-07,
       "shot_lanes": 1000000.0
     }
   ],

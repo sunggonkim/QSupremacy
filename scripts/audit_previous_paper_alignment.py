@@ -81,7 +81,7 @@ ROLE_MARKERS = {
         "Baselines",
         "Feasibility",
         "Workload-Level Thresholds",
-        "Scaling Evidence and QPU Architecture Targets",
+        "Scalability of the Evidence-Generation Framework",
         "Weak scaling.",
         "Strong scaling.",
         "Application Quality Beyond Runtime",

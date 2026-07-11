@@ -429,7 +429,7 @@ def main():
                     projection_scenarios["by_scenario"]["default_optimistic"][
                         "by_workload"
                     ]["simulation"]["median_projected_native_ratio"],
-                    0.028848538548146264,
+                    0.027233696161942635,
                 ),
                 check_close(
                     "projection_scenario_resource_ml_adv",

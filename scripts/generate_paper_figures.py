@@ -33,6 +33,12 @@ COLORS = {
     "light_gray": "#EDEDED",
     "dark": "#2F2F2F",
 }
+PROJECTION_DISTANCE = 25.0
+PROJECTION_CYCLE_SEC = 1.0e-6
+PROJECTION_SHOT_LANES = 1.0e4
+PROJECTION_DECODER_SEC_PER_EVAL = 5.0e-6
+PROJECTION_HOST_IO_SEC_PER_EVAL = 20.0e-6
+PROJECTION_QUEUE_SEC_PER_EVAL = 30.0e-6
 OFFICIAL_SUMMARY_JSON = (
     "data/processed/perlmutter/practical_suite_55453128_55453131_summary.json"
 )
@@ -293,6 +299,41 @@ def read_csv(path):
         return list(csv.DictReader(f))
 
 
+def projection_components_ms(row):
+    evals = max(1.0, float(row["circuit_evaluations"]))
+    oneq = float(row["one_qubit_gates"])
+    twoq = float(row["two_qubit_gates"])
+    meas = float(row["measurement_ops"])
+    gate_depth_sec = (
+        oneq * PROJECTION_DISTANCE * PROJECTION_CYCLE_SEC
+        + twoq * 4.0 * PROJECTION_DISTANCE * PROJECTION_CYCLE_SEC
+        + meas * PROJECTION_DISTANCE * PROJECTION_CYCLE_SEC
+    )
+    gate_ms = evals * gate_depth_sec / PROJECTION_SHOT_LANES * 1.0e3
+    decode_ms = evals * PROJECTION_DECODER_SEC_PER_EVAL * 1.0e3
+    host_io_ms = evals * PROJECTION_HOST_IO_SEC_PER_EVAL * 1.0e3
+    queue_ms = evals * PROJECTION_QUEUE_SEC_PER_EVAL * 1.0e3
+    if gate_ms >= decode_ms:
+        critical_gate_ms = gate_ms
+        critical_decode_ms = 0.0
+    else:
+        critical_gate_ms = 0.0
+        critical_decode_ms = decode_ms
+    total_ms = critical_gate_ms + critical_decode_ms + host_io_ms + queue_ms
+    twoq_gate_ms = evals * twoq * 4.0 * PROJECTION_DISTANCE * PROJECTION_CYCLE_SEC
+    twoq_gate_ms = twoq_gate_ms / PROJECTION_SHOT_LANES * 1.0e3
+    return {
+        "gate_ms": gate_ms,
+        "decode_ms": decode_ms,
+        "critical_gate_ms": critical_gate_ms,
+        "critical_decode_ms": critical_decode_ms,
+        "host_io_ms": host_io_ms,
+        "queue_ms": queue_ms,
+        "total_ms": total_ms,
+        "twoq_gate_ms": twoq_gate_ms,
+    }
+
+
 def savefig(name, fig=None, pad=0.18):
     if fig is None:
         fig = plt.gcf()
@@ -484,8 +525,8 @@ def figure_design_projection_flow():
     draw_box(ax, (0.045, 0.30), 0.20, 0.10, "quality gap\n$\\Delta Q,\\epsilon_w$", COLORS["purple"], fontsize=5.3)
 
     term_specs = [
-        ("logical ops\n$N_e(D_1t_1+D_2t_2+D_mt_m)/P_{shots}$", COLORS["green"], 0.46, 0.66),
-        ("serial floor\n$N_e(T_{decode}+T_{ctrl}+T_{io})$", COLORS["red"], 0.46, 0.46),
+        ("pipeline stage\n$N_e\\max(T_{gate},T_{decode})$", COLORS["green"], 0.46, 0.66),
+        ("serial floor\n$N_e(T_{io}+T_{queue})$", COLORS["red"], 0.46, 0.46),
         ("quality gate\n$(1-R_q)\\Delta Q\\leq\\epsilon_w$", COLORS["gray"], 0.46, 0.26),
     ]
     for label, color, x, y in term_specs:
@@ -1361,10 +1402,10 @@ def figure_projected_time_decomposition():
         ("simulation", "Sim."),
     ]
     categories = [
-        ("1Q", COLORS["blue"]),
-        ("2Q", COLORS["orange"]),
-        ("Meas.", COLORS["purple"]),
-        ("Decode/ctrl.", COLORS["gray"]),
+        ("Gate pipe", COLORS["blue"]),
+        ("Decode pipe", COLORS["purple"]),
+        ("Host I/O", COLORS["orange"]),
+        ("Queue/ctrl.", COLORS["gray"]),
     ]
 
     shares = []
@@ -1372,12 +1413,16 @@ def figure_projected_time_decomposition():
         subset = [row for row in rows if row["workload"] == workload]
         per_case = []
         for row in subset:
-            oneq = float(row["one_qubit_gates"]) * 1.0
-            twoq = float(row["two_qubit_gates"]) * 4.0
-            meas = float(row["measurement_ops"]) * 1.0
-            serial = float(row["circuit_evaluations"]) * (5.0 + 50.0)
-            total = max(1.0, oneq + twoq + meas + serial)
-            per_case.append([oneq / total, twoq / total, meas / total, serial / total])
+            components = projection_components_ms(row)
+            total = max(1.0e-12, components["total_ms"])
+            per_case.append(
+                [
+                    components["critical_gate_ms"] / total,
+                    components["critical_decode_ms"] / total,
+                    components["host_io_ms"] / total,
+                    components["queue_ms"] / total,
+                ]
+            )
         shares.append(np.median(np.array(per_case), axis=0))
 
     fig = plt.figure(figsize=(COLUMN_WIDTH, 1.22))
@@ -1638,16 +1683,18 @@ def figure_architecture_focus_matrix():
         evals = float(np.median([float(row["circuit_evaluations"]) for row in subset]))
 
         decode_shares = []
+        host_queue_shares = []
         twoq_shares = []
         recovery_required = []
         for row in subset:
-            oneq = float(row["one_qubit_gates"]) * 1.0
-            twoq = float(row["two_qubit_gates"]) * 4.0
-            meas = float(row["measurement_ops"]) * 1.0
-            decode = float(row["circuit_evaluations"]) * (5.0 + 50.0)
-            total = max(1.0, oneq + twoq + meas + decode)
-            decode_shares.append(100.0 * decode / total)
-            twoq_shares.append(100.0 * twoq / total)
+            components = projection_components_ms(row)
+            total = max(1.0e-12, components["total_ms"])
+            decode_shares.append(100.0 * components["critical_decode_ms"] / total)
+            host_queue_shares.append(
+                100.0 * (components["host_io_ms"] + components["queue_ms"]) / total
+            )
+            gate = max(1.0e-12, components["gate_ms"])
+            twoq_shares.append(100.0 * components["twoq_gate_ms"] / gate)
             gap = max(0.0, float(row["quality_gap"]))
             tolerance = tolerances[workload]
             if gap <= tolerance:
@@ -1655,14 +1702,16 @@ def figure_architecture_focus_matrix():
             else:
                 recovery_required.append(100.0 * max(0.0, 1.0 - tolerance / gap))
         decode_share = float(np.median(decode_shares))
+        host_queue_share = float(np.median(host_queue_shares))
         twoq_share = float(np.median(twoq_shares))
         recovery = float(np.median(recovery_required))
-        raw_values.append([recovery, evals, decode_share, twoq_share])
+        raw_values.append([recovery, evals, decode_share, host_queue_share, twoq_share])
         cell_text.append(
             [
                 "{:.0f}%".format(recovery),
                 "{:.0f}".format(evals),
                 "{:.0f}%".format(decode_share),
+                "{:.0f}%".format(float(np.median(host_queue_shares))),
                 "{:.0f}%".format(twoq_share),
             ]
         )
@@ -1681,7 +1730,8 @@ def figure_architecture_focus_matrix():
     col_labels = [
         "Quality\n$R_q$",
         "Hybrid\n$N_e$",
-        "Control\nshare",
+        "Decode\npipe",
+        "Host/Q\nserial",
         "2Q exec.\nshare",
     ]
     ax.set_xticks(np.arange(len(col_labels)))
@@ -1746,19 +1796,20 @@ def figure_weak_scaling():
     weak_ref_idx = int(np.where(weak_mask)[0][0])
     ideal = throughput[weak_ref_idx] * (gpus / gpus[weak_ref_idx])
     per_gpu = cases / (elapsed * gpus)
-    efficiency = per_gpu / per_gpu[weak_ref_idx]
-    gpu_ticks = [1, 4, 8, 16, 32, 64, 128, 256]
+    regular_median = float(np.median(per_gpu[weak_mask]))
+    positions = np.arange(len(gpus), dtype=float)
+    gpu_labels = [str(int(gpu)) for gpu in gpus]
 
-    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 2.02))
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.86))
     line_weak = ax.plot(
-        gpus[weak_mask],
+        positions[weak_mask],
         throughput[weak_mask],
         marker="o",
         color=COLORS["blue"],
         label="regular weak",
     )[0]
     line_context = ax.plot(
-        gpus[~weak_mask],
+        positions[~weak_mask],
         throughput[~weak_mask],
         marker="o",
         markerfacecolor="white",
@@ -1767,14 +1818,17 @@ def figure_weak_scaling():
         color=COLORS["blue"],
         label="context",
     )[0]
-    line_ideal = ax.plot(gpus, ideal, linestyle="--", color=COLORS["gray"], label="ideal")[0]
-    ax.set_xscale("log", base=2)
-    ax.set_xticks(gpu_ticks)
-    ax.set_xticklabels([str(tick) for tick in gpu_ticks])
+    line_ideal = ax.plot(positions, ideal, linestyle="--", color=COLORS["gray"], label="ideal")[0]
+    ax.set_xticks(positions)
+    ax.set_xticklabels(gpu_labels)
     ax.set_xlabel("GPUs")
     ax.set_ylabel("Throughput\n(cases/s)")
     style_axis(ax, grid="both")
-    ax.set_xlim(0.8, 330)
+    ax.tick_params(axis="x", labelsize=5.0, pad=0)
+    for label in ax.get_xticklabels():
+        label.set_rotation(38)
+        label.set_ha("right")
+    ax.set_xlim(positions[0] - 0.35, positions[-1] + 0.35)
     add_top_legend(
         fig,
         [line_context, line_weak, line_ideal],
@@ -1783,48 +1837,46 @@ def figure_weak_scaling():
         y=1.00,
         fontsize=5.1,
     )
-    fig.subplots_adjust(top=0.76, bottom=0.28, left=0.33, right=0.98)
+    fig.subplots_adjust(top=0.75, bottom=0.31, left=0.32, right=0.98)
     throughput_path = os.path.join(FIG_DIR, "weak_scaling.pdf")
     fig.savefig(throughput_path, bbox_inches="tight", pad_inches=0.01)
     plt.close(fig)
 
-    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 2.02))
-    line_eff = ax.plot(gpus[weak_mask], efficiency[weak_mask], marker="s", color=COLORS["orange"])[0]
-    line_eff_context = ax.plot(
-        gpus[~weak_mask],
-        efficiency[~weak_mask],
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.86))
+    line_rate = ax.plot(positions[weak_mask], per_gpu[weak_mask], marker="s", color=COLORS["orange"])[0]
+    line_rate_context = ax.plot(
+        positions[~weak_mask],
+        per_gpu[~weak_mask],
         marker="s",
         markerfacecolor="white",
         markeredgecolor=COLORS["orange"],
         linestyle=":",
         color=COLORS["orange"],
     )[0]
-    line_ref = ax.axhline(1.0, linestyle="--", color=COLORS["gray"], linewidth=1.0)
-    ax.set_xscale("log", base=2)
-    ax.set_xticks(gpu_ticks)
-    ax.set_xticklabels([str(tick) for tick in gpu_ticks])
+    line_ref = ax.axhline(regular_median, linestyle="--", color=COLORS["gray"], linewidth=1.0)
+    ax.set_xticks(positions)
+    ax.set_xticklabels(gpu_labels)
     ax.set_xlabel("GPUs")
-    ax.set_ylabel("Norm. per-GPU\nthroughput")
-    efficiency_main = efficiency
+    ax.set_ylabel("Per-GPU rate\n(cases/s/GPU)")
     ax.set_ylim(
-        max(0.0, float(np.min(efficiency_main)) * 0.90),
-        max(1.12, float(np.max(efficiency_main)) * 1.08),
+        max(0.0, float(np.min(per_gpu)) * 0.78),
+        float(np.max(per_gpu)) * 1.15,
     )
     style_axis(ax, grid="both")
-    ax.tick_params(axis="x", labelsize=5.3, pad=0)
+    ax.tick_params(axis="x", labelsize=5.0, pad=0)
     for label in ax.get_xticklabels():
-        label.set_rotation(42)
+        label.set_rotation(38)
         label.set_ha("right")
-    ax.set_xlim(0.8, 330)
+    ax.set_xlim(positions[0] - 0.35, positions[-1] + 0.35)
     add_top_legend(
         fig,
-        [line_eff_context, line_eff, line_ref],
+        [line_rate_context, line_rate, line_ref],
         ["context", "regular", "ref."],
         ncol=3,
         y=1.00,
         fontsize=5.1,
     )
-    fig.subplots_adjust(top=0.76, bottom=0.28, left=0.35, right=0.98)
+    fig.subplots_adjust(top=0.75, bottom=0.31, left=0.37, right=0.98)
     efficiency_path = os.path.join(FIG_DIR, "weak_scaling_efficiency.pdf")
     fig.savefig(efficiency_path, bbox_inches="tight", pad_inches=0.01)
     plt.close(fig)
@@ -1932,44 +1984,32 @@ def figure_advantage_frontier():
         ("simulation", "Sim.", COLORS["green"]),
     ]
 
-    distance = 25.0
-    cycle_sec = 1.0e-6
-    shot_parallel = 1.0e4
-    k1, k2, km = 1.0, 4.0, 1.0
-    decoder_sec_per_eval = 5.0e-6
-    control_queue_sec_per_eval = 50.0e-6
-
     points = []
     for workload, label, color in workloads:
         subset = [row for row in rows if row["workload"] == workload]
         native_ms = []
-        error_ms = []
-        one_meas_ms = []
-        twoq_ms = []
+        gate_pipe_ms = []
+        decode_pipe_ms = []
+        host_io_ms = []
+        queue_ms = []
         for row in subset:
-            evals = max(1.0, float(row["circuit_evaluations"]))
-            d1 = float(row["one_qubit_gates"])
-            d2 = float(row["two_qubit_gates"])
-            dm = float(row["measurement_ops"])
+            components = projection_components_ms(row)
             native_ms.append(1.0e3 * float(row["native_runtime_sec"]))
-            error_ms.append(evals * (decoder_sec_per_eval + control_queue_sec_per_eval) * 1.0e3)
-            one_meas_ms.append(
-                evals * (d1 * k1 * distance * cycle_sec + dm * km * distance * cycle_sec)
-                / shot_parallel
-                * 1.0e3
-            )
-            twoq_ms.append(
-                evals * d2 * k2 * distance * cycle_sec / shot_parallel * 1.0e3
-            )
-        error = float(np.median(error_ms))
-        one_meas = float(np.median(one_meas_ms))
-        twoq = float(np.median(twoq_ms))
-        total = error + one_meas + twoq
+            gate_pipe_ms.append(components["critical_gate_ms"])
+            decode_pipe_ms.append(components["critical_decode_ms"])
+            host_io_ms.append(components["host_io_ms"])
+            queue_ms.append(components["queue_ms"])
+        gate_pipe = float(np.median(gate_pipe_ms))
+        decode_pipe = float(np.median(decode_pipe_ms))
+        host_io = float(np.median(host_io_ms))
+        queue = float(np.median(queue_ms))
+        total = gate_pipe + decode_pipe + host_io + queue
         native = float(np.median(native_ms))
         component_ratios = {
-            "error_ratio": error / max(native, 1.0e-12),
-            "one_meas_ratio": one_meas / max(native, 1.0e-12),
-            "twoq_ratio": twoq / max(native, 1.0e-12),
+            "gate_pipe_ratio": gate_pipe / max(native, 1.0e-12),
+            "decode_pipe_ratio": decode_pipe / max(native, 1.0e-12),
+            "host_io_ratio": host_io / max(native, 1.0e-12),
+            "queue_ratio": queue / max(native, 1.0e-12),
         }
         ratio = total / max(native, 1.0e-12)
         single_targets = {}
@@ -1985,9 +2025,10 @@ def figure_advantage_frontier():
                 "label": label,
                 "color": color,
                 "native": native,
-                "error_ratio": component_ratios["error_ratio"],
-                "one_meas_ratio": component_ratios["one_meas_ratio"],
-                "twoq_ratio": component_ratios["twoq_ratio"],
+                "gate_pipe_ratio": component_ratios["gate_pipe_ratio"],
+                "decode_pipe_ratio": component_ratios["decode_pipe_ratio"],
+                "host_io_ratio": component_ratios["host_io_ratio"],
+                "queue_ratio": component_ratios["queue_ratio"],
                 "ratio": ratio,
                 "single_targets": single_targets,
             }
@@ -2061,24 +2102,21 @@ def figure_advantage_frontier():
     pressure_text = []
     for workload, label, _color in workloads:
         subset = [row for row in rows if row["workload"] == workload]
-        quality_fraction = 0.0
-        if taxonomy is not None:
-            quality_fraction = 100.0 * float(
-                taxonomy["by_workload"][workload]["fractions"].get("quality-limited", 0.0)
-            )
         evals = float(np.median([float(row["circuit_evaluations"]) for row in subset]))
         recoveries = []
         decode_shares = []
+        host_io_shares = []
+        queue_shares = []
         twoq_shares = []
         total_ratios = []
         for row in subset:
-            oneq = float(row["one_qubit_gates"])
-            twoq = 4.0 * float(row["two_qubit_gates"])
-            meas = float(row["measurement_ops"])
-            serial = float(row["circuit_evaluations"]) * 55.0
-            total_cycles = max(1.0, oneq + twoq + meas + serial)
-            decode_shares.append(100.0 * serial / total_cycles)
-            twoq_shares.append(100.0 * twoq / total_cycles)
+            components = projection_components_ms(row)
+            total = max(1.0e-12, components["total_ms"])
+            decode_shares.append(100.0 * components["critical_decode_ms"] / total)
+            host_io_shares.append(100.0 * components["host_io_ms"] / total)
+            queue_shares.append(100.0 * components["queue_ms"] / total)
+            gate = max(1.0e-12, components["gate_ms"])
+            twoq_shares.append(100.0 * components["twoq_gate_ms"] / gate)
             gap = max(0.0, float(row["quality_gap"]))
             tol = tolerances[workload]
             recoveries.append(0.0 if gap <= tol else 100.0 * (1.0 - tol / gap))
@@ -2087,9 +2125,10 @@ def figure_advantage_frontier():
         pressure_rows.append(
             [
                 float(np.median(recoveries)),
-                quality_fraction,
                 evals,
                 float(np.median(decode_shares)),
+                float(np.median(host_io_shares)),
+                float(np.median(queue_shares)),
                 float(np.median(twoq_shares)),
                 float(np.median(total_ratios)),
             ]
@@ -2097,9 +2136,10 @@ def figure_advantage_frontier():
         pressure_text.append(
             [
                 "{:.0f}%".format(float(np.median(recoveries))),
-                "{:.0f}%".format(quality_fraction),
                 "{:.0f}".format(evals),
                 "{:.0f}%".format(float(np.median(decode_shares))),
+                "{:.0f}%".format(float(np.median(host_io_shares))),
+                "{:.0f}%".format(float(np.median(queue_shares))),
                 "{:.0f}%".format(float(np.median(twoq_shares))),
                 "{:.1f}x".format(float(np.median(total_ratios)))
                 if float(np.median(total_ratios)) >= 1.0
@@ -2119,10 +2159,11 @@ def figure_advantage_frontier():
     image = ax_target.imshow(matrix, cmap="YlOrRd", vmin=0.0, vmax=1.0, aspect="auto")
     col_labels = [
         "Req.\n$R_q$",
-        "Qual.\nlimited",
         "Hybrid\n$N_e$",
-        "Decode/\nctrl.",
-        "2Q\nexec.",
+        "Decode\npipe",
+        "Host\nI/O",
+        "Queue/\nctrl.",
+        "2Q gate\nshare",
         "Total /\nnative",
     ]
     row_labels = [label for _workload, label, _color in workloads]
@@ -2141,7 +2182,7 @@ def figure_advantage_frontier():
                 pressure_text[row_idx][col_idx],
                 ha="center",
                 va="center",
-                fontsize=5.55,
+                fontsize=5.05,
                 weight="bold" if value >= 0.82 else "normal",
                 color="white" if value >= 0.63 else COLORS["dark"],
             )
@@ -2156,7 +2197,7 @@ def figure_advantage_frontier():
     cbar.set_ticks([0.0, 0.5, 1.0])
     cbar.set_ticklabels(["low", "mid", "high"])
     cbar.ax.tick_params(labelsize=5.0, width=0.5, pad=1.0)
-    fig_target.subplots_adjust(left=0.13, right=0.91, bottom=0.08, top=0.79)
+    fig_target.subplots_adjust(left=0.12, right=0.91, bottom=0.08, top=0.79)
     path_target = os.path.join(FIG_DIR, "advantage_component_targets.pdf")
     fig_target.savefig(path_target, bbox_inches="tight", pad_inches=0.01)
     plt.close(fig_target)

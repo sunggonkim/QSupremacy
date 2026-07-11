@@ -545,8 +545,8 @@
           "passed": true
         },
         {
-          "actual": 0.028848538548146264,
-          "expected": 0.028848538548146264,
+          "actual": 0.027233696161942635,
+          "expected": 0.027233696161942635,
           "label": "projection_scenario_default_sim_ratio",
           "passed": true,
           "tolerance": 1e-06
@@ -959,7 +959,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 30729
+            "size_bytes": 31179
           },
           "expected": {
             "exists": true,
@@ -987,7 +987,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 12418
+            "size_bytes": 12475
           },
           "expected": {
             "exists": true,
@@ -1001,7 +1001,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 12290
+            "size_bytes": 12215
           },
           "expected": {
             "exists": true,
@@ -1169,7 +1169,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 11990
+            "size_bytes": 12301
           },
           "expected": {
             "exists": true,
@@ -1183,7 +1183,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 23730
+            "size_bytes": 23761
           },
           "expected": {
             "exists": true,
@@ -1323,7 +1323,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 16711
+            "size_bytes": 16881
           },
           "expected": {
             "exists": true,
@@ -1337,7 +1337,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 24928
+            "size_bytes": 25543
           },
           "expected": {
             "exists": true,
@@ -1407,7 +1407,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 19407
+            "size_bytes": 19376
           },
           "expected": {
             "exists": true,
