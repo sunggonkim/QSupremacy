@@ -18,8 +18,9 @@ number remains `NaN` until HotCRP assigns the real paper number.
 
 The current evaluation includes the completed regular 16/32/64-node weak-scaling
 ladder and direct 7,104-case fixed-work runs on 64, 128, and 256 GPUs. The
-pending 32-GPU fixed-work job 55792240 is optional extra evidence; the submitted
-paper uses only direct fixed-work points in the strong-scaling figure.
+strong-scaling figure also keeps the completed 32-GPU proportional half-suite
+run as a hollow context point, normalized only for visual comparison with the
+7,104-case suite.
 
 ## Artifact Quickstart
 

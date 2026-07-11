@@ -84,12 +84,12 @@ This subsection uses Perlmutter scaling to test measurement throughput, not to c
     \label{fig:weak-scaling-efficiency}
 \end{subfigure}
 \vspace{-.1cm}
-\Description{Weak scaling plot showing total throughput and raw per-GPU throughput from 1 to 256 GPUs with context and regular-ladder points on the same axis.}
-\caption{Weak scaling from 1 to 256 GPUs. Hollow markers keep the completed 1--32 GPU context ladder on the same axis; solid markers show the regular large-profile weak-scaling ladder from 64 to 256 GPUs. The right plot reports raw per-GPU rate, with the dashed line marking the regular-ladder median, so the low-end context runs are visible but not treated as the same weak-scaling regime.}
+\Description{Weak scaling plot showing total throughput and raw per-GPU throughput on a log GPU-count axis from 1 to 256 GPUs with context and regular-ladder points connected in one evidence ladder.}
+\caption{Weak scaling from 1 to 256 GPUs. The log GPU-count axis keeps the completed 1--32 GPU context ladder connected to the 64--256 GPU regular ladder instead of dropping the low-end runs. Hollow markers denote context runs with smaller per-GPU work; solid markers denote the regular large-profile weak-scaling regime. The right plot reports raw per-GPU rate, with the dashed line marking the regular-ladder median.}
 \label{fig:weak-scaling}
 \end{figure}
 
-\noindent\textbf{Weak scaling.} Figure~\ref{fig:weak-scaling} keeps the 1--32 GPU context ladder and the 64--256 GPU regular weak-scaling ladder on the same axis. Each regular-ladder GPU receives roughly 28 large-profile cases, so total work grows with GPU count. The 64/128/256-GPU jobs completed with exit code 0:0 and generated 1,776, 3,552, and 7,104 `ok' cases; the only nonempty stderr line was a benign NERSC monitoring warning. Throughput grows because cases are independent and per-GPU work remains large enough to amortize launch/orchestration. This builds a large evidence set; it does not mean that one circuit became faster by adding GPUs.
+\noindent\textbf{Weak scaling.} Figure~\ref{fig:weak-scaling} keeps the completed ladder from 1 to 256 GPUs. The 1--32 GPU points are context runs that validate the low-end launch behavior, while the 64--256 GPU points form the regular weak-scaling regime where each GPU receives roughly 28 large-profile cases. The 64/128/256-GPU jobs completed with exit code 0:0 and generated 1,776, 3,552, and 7,104 `ok' cases; the only nonempty stderr line was a benign NERSC monitoring warning. Throughput grows because cases are independent and per-GPU work remains large enough to amortize launch/orchestration. This builds a large evidence set; it does not mean that one circuit became faster by adding GPUs.
 
 \begin{figure}[H]
 \centering
@@ -106,12 +106,12 @@ This subsection uses Perlmutter scaling to test measurement throughput, not to c
     \label{fig:strong-scaling-speedup}
 \end{subfigure}
 \vspace{-.1cm}
-\Description{Strong scaling plot showing elapsed time and speedup for the fixed 7,104-case suite from 64 to 256 GPUs on a 1-to-256 GPU x-axis.}
-\caption{Strong scaling of the fixed 7,104-case application suite. Both subfigures use only direct fixed-suite regular-queue runs on 64, 128, and 256 GPUs. The measured run reduces time-to-solution from 28 minutes 33 seconds on 64 GPUs to 6 minutes 58 seconds on 256 GPUs.}
+\Description{Strong scaling plot showing elapsed time and speedup for the fixed 7,104-case suite with a hollow 32-GPU half-suite context point and direct 64-to-256 GPU fixed-work points.}
+\caption{Strong scaling of the fixed 7,104-case application suite. The hollow 32-GPU marker is a completed 3,552-case context run normalized to the 7,104-case suite size; solid markers are direct fixed-suite regular-queue runs on 64, 128, and 256 GPUs. The direct run reduces time-to-solution from 28 minutes 33 seconds on 64 GPUs to 6 minutes 58 seconds on 256 GPUs.}
 \label{fig:strong-scaling}
 \end{figure}
 
-\noindent\textbf{Strong scaling.} Figure~\ref{fig:strong-scaling} shows fixed-work scaling for the same 7,104-case suite from 64 to 256 GPUs; no plotted point is extrapolated from a smaller case count. Elapsed time falls from 28 minutes 33 seconds to 15 minutes 54 seconds and then 6 minutes 58 seconds. This is case-level parallelism, not distributed single-circuit execution: every Slurm task owns independent cases on one A100. The systems condition is granularity. At 256 GPUs the suite still provides roughly 28 cases/GPU, enough to amortize launch, Python orchestration, and task-local output; much smaller per-GPU work would again expose orchestration overhead.
+\noindent\textbf{Strong scaling.} Figure~\ref{fig:strong-scaling} shows the fixed-work trend without hiding the lower end. The hollow 32-GPU point completed the proportional 3,552-case half suite in 33 minutes 54 seconds and is normalized to the 7,104-case size only for visual context; the solid 64/128/256-GPU points are direct fixed-work runs. Direct elapsed time falls from 28 minutes 33 seconds to 15 minutes 54 seconds and then 6 minutes 58 seconds. This is case-level parallelism, not distributed single-circuit execution: every Slurm task owns independent cases on one A100. The systems condition is granularity. At 256 GPUs the suite still provides roughly 28 cases/GPU, enough to amortize launch, Python orchestration, and task-local output; much smaller per-GPU work would again expose orchestration overhead.
 
 \begin{figure}[H]
 \centering

@@ -122,6 +122,10 @@ SCALE_STRONG_32_SUMMARY_JSON = (
 SCALE_STRONG_64_SUMMARY_JSON = (
     "data/processed/perlmutter/practical_suite_55731034_scale_64n_256g_summary.json"
 )
+REVIEW_STRONG_8_SUMMARY_JSON = (
+    "data/processed/perlmutter/"
+    "practical_suite_review_strong_8n_32g_7104_20260711021411_summary.json"
+)
 WEAK_SCALING_RUNS = [
     {
         "label": "1 GPU context",
@@ -204,6 +208,15 @@ WEAK_SCALING_RUNS = [
 ]
 
 STRONG_SCALING_RUNS = [
+    {
+        "label": "8 nodes context",
+        "nodes": 8,
+        "gpus": 32,
+        "cases": 3552,
+        "elapsed_sec": 2034,
+        "summary": REVIEW_STRONG_8_SUMMARY_JSON,
+        "kind": "context",
+    },
     {
         "label": "16 nodes",
         "nodes": 16,
@@ -1788,7 +1801,10 @@ def figure_architecture_focus_matrix():
 
 
 def figure_weak_scaling():
-    runs = [run for run in WEAK_SCALING_RUNS if load_summary(run["summary"]) is not None]
+    runs = sorted(
+        [run for run in WEAK_SCALING_RUNS if load_summary(run["summary"]) is not None],
+        key=lambda run: run["gpus"],
+    )
     if len(runs) < 2:
         return None
 
@@ -1801,29 +1817,33 @@ def figure_weak_scaling():
     ideal = throughput[weak_ref_idx] * (gpus / gpus[weak_ref_idx])
     per_gpu = cases / (elapsed * gpus)
     regular_median = float(np.median(per_gpu[weak_mask]))
-    positions = np.arange(len(gpus), dtype=float)
     gpu_labels = [str(int(gpu)) for gpu in gpus]
 
     fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.86))
+    ax.plot(gpus, throughput, color=COLORS["blue"], linewidth=0.85, alpha=0.45, zorder=1)
     line_weak = ax.plot(
-        positions[weak_mask],
+        gpus[weak_mask],
         throughput[weak_mask],
         marker="o",
+        linestyle="None",
         color=COLORS["blue"],
         label="regular weak",
+        zorder=3,
     )[0]
     line_context = ax.plot(
-        positions[~weak_mask],
+        gpus[~weak_mask],
         throughput[~weak_mask],
         marker="o",
         markerfacecolor="white",
         markeredgecolor=COLORS["blue"],
-        linestyle=":",
+        linestyle="None",
         color=COLORS["blue"],
         label="context",
+        zorder=3,
     )[0]
-    line_ideal = ax.plot(positions, ideal, linestyle="--", color=COLORS["gray"], label="ideal")[0]
-    ax.set_xticks(positions)
+    line_ideal = ax.plot(gpus, ideal, linestyle="--", color=COLORS["gray"], label="ideal")[0]
+    ax.set_xscale("log", base=2)
+    ax.set_xticks(gpus)
     ax.set_xticklabels(gpu_labels)
     ax.set_xlabel("GPUs")
     ax.set_ylabel("Throughput\n(cases/s)")
@@ -1832,7 +1852,7 @@ def figure_weak_scaling():
     for label in ax.get_xticklabels():
         label.set_rotation(38)
         label.set_ha("right")
-    ax.set_xlim(positions[0] - 0.35, positions[-1] + 0.35)
+    ax.set_xlim(0.78, 330)
     add_top_legend(
         fig,
         [line_context, line_weak, line_ideal],
@@ -1847,18 +1867,28 @@ def figure_weak_scaling():
     plt.close(fig)
 
     fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.86))
-    line_rate = ax.plot(positions[weak_mask], per_gpu[weak_mask], marker="s", color=COLORS["orange"])[0]
+    ax.plot(gpus, per_gpu, color=COLORS["orange"], linewidth=0.85, alpha=0.45, zorder=1)
+    line_rate = ax.plot(
+        gpus[weak_mask],
+        per_gpu[weak_mask],
+        marker="s",
+        linestyle="None",
+        color=COLORS["orange"],
+        zorder=3,
+    )[0]
     line_rate_context = ax.plot(
-        positions[~weak_mask],
+        gpus[~weak_mask],
         per_gpu[~weak_mask],
         marker="s",
         markerfacecolor="white",
         markeredgecolor=COLORS["orange"],
-        linestyle=":",
+        linestyle="None",
         color=COLORS["orange"],
+        zorder=3,
     )[0]
     line_ref = ax.axhline(regular_median, linestyle="--", color=COLORS["gray"], linewidth=1.0)
-    ax.set_xticks(positions)
+    ax.set_xscale("log", base=2)
+    ax.set_xticks(gpus)
     ax.set_xticklabels(gpu_labels)
     ax.set_xlabel("GPUs")
     ax.set_ylabel("Per-GPU rate\n(cases/s/GPU)")
@@ -1871,7 +1901,7 @@ def figure_weak_scaling():
     for label in ax.get_xticklabels():
         label.set_rotation(38)
         label.set_ha("right")
-    ax.set_xlim(positions[0] - 0.35, positions[-1] + 0.35)
+    ax.set_xlim(0.78, 330)
     add_top_legend(
         fig,
         [line_rate_context, line_rate, line_ref],
@@ -1888,7 +1918,10 @@ def figure_weak_scaling():
 
 
 def figure_strong_scaling():
-    runs = [run for run in STRONG_SCALING_RUNS if load_summary(run["summary"]) is not None]
+    runs = sorted(
+        [run for run in STRONG_SCALING_RUNS if load_summary(run["summary"]) is not None],
+        key=lambda run: run["gpus"],
+    )
     if len(runs) < 2:
         return None
 
@@ -1898,20 +1931,36 @@ def figure_strong_scaling():
     fixed_mask = np.array([run.get("kind") == "fixed" for run in runs], dtype=bool)
     fixed_cases = float(np.max(cases[fixed_mask])) if np.any(fixed_mask) else float(np.max(cases))
     fixed_elapsed = elapsed * (fixed_cases / cases)
-    speedup = fixed_elapsed[0] / fixed_elapsed
-    ideal = gpus / gpus[0]
-    order = np.argsort(gpus)
-    gpus = gpus[order]
-    fixed_elapsed = fixed_elapsed[order]
-    speedup = speedup[order]
-    ideal = ideal[order]
-    gpu_ticks = [64, 128, 256]
+    base_idx = int(np.where(fixed_mask)[0][0]) if np.any(fixed_mask) else 0
+    base_gpu = float(gpus[base_idx])
+    base_elapsed = float(fixed_elapsed[base_idx])
+    speedup = base_elapsed / fixed_elapsed
+    ideal = gpus / base_gpu
+    gpu_ticks = [32, 64, 128, 256]
 
     fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 2.02))
-    line_time = ax.plot(gpus, fixed_elapsed / 60.0, marker="o", color=COLORS["blue"])[0]
+    ax.plot(gpus, fixed_elapsed / 60.0, color=COLORS["blue"], linewidth=0.85, alpha=0.45, zorder=1)
+    line_time_context = ax.plot(
+        gpus[~fixed_mask],
+        fixed_elapsed[~fixed_mask] / 60.0,
+        marker="o",
+        markerfacecolor="white",
+        markeredgecolor=COLORS["blue"],
+        linestyle="None",
+        color=COLORS["blue"],
+        zorder=3,
+    )[0]
+    line_time = ax.plot(
+        gpus[fixed_mask],
+        fixed_elapsed[fixed_mask] / 60.0,
+        marker="o",
+        linestyle="None",
+        color=COLORS["blue"],
+        zorder=3,
+    )[0]
     line_time_ideal = ax.plot(
         gpus,
-        (fixed_elapsed[0] / ideal) / 60.0,
+        (base_elapsed / ideal) / 60.0,
         linestyle="--",
         color=COLORS["gray"],
     )[0]
@@ -1926,16 +1975,16 @@ def figure_strong_scaling():
     for label in ax.get_xticklabels():
         label.set_rotation(42)
         label.set_ha("right")
-    ax.set_xlim(52, 315)
+    ax.set_xlim(26, 315)
     ax.set_ylim(max(1.0, float(np.min(fixed_elapsed / 60.0)) * 0.70),
                 max(fixed_elapsed / 60.0) * 1.35)
     add_top_legend(
         fig,
-        [line_time, line_time_ideal],
-        ["actual", "ideal"],
-        ncol=2,
+        [line_time_context, line_time, line_time_ideal],
+        ["context", "direct", "ideal"],
+        ncol=3,
         y=1.00,
-        fontsize=5.4,
+        fontsize=5.1,
     )
     fig.subplots_adjust(top=0.76, bottom=0.27, left=0.33, right=0.98)
     elapsed_path = os.path.join(FIG_DIR, "strong_scaling.pdf")
@@ -1943,7 +1992,25 @@ def figure_strong_scaling():
     plt.close(fig)
 
     fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 2.02))
-    line_speed = ax.plot(gpus, speedup, marker="o", color=COLORS["green"])[0]
+    ax.plot(gpus, speedup, color=COLORS["green"], linewidth=0.85, alpha=0.45, zorder=1)
+    line_speed_context = ax.plot(
+        gpus[~fixed_mask],
+        speedup[~fixed_mask],
+        marker="o",
+        markerfacecolor="white",
+        markeredgecolor=COLORS["green"],
+        linestyle="None",
+        color=COLORS["green"],
+        zorder=3,
+    )[0]
+    line_speed = ax.plot(
+        gpus[fixed_mask],
+        speedup[fixed_mask],
+        marker="o",
+        linestyle="None",
+        color=COLORS["green"],
+        zorder=3,
+    )[0]
     line_speed_ideal = ax.plot(gpus, ideal, linestyle="--", color=COLORS["gray"], label="ideal linear")[0]
     ax.set_xscale("log", base=2)
     ax.set_xticks(gpu_ticks)
@@ -1955,14 +2022,14 @@ def figure_strong_scaling():
     for label in ax.get_xticklabels():
         label.set_rotation(42)
         label.set_ha("right")
-    ax.set_xlim(52, 315)
+    ax.set_xlim(26, 315)
     add_top_legend(
         fig,
-        [line_speed, line_speed_ideal],
-        ["actual", "ideal"],
-        ncol=2,
+        [line_speed_context, line_speed, line_speed_ideal],
+        ["context", "direct", "ideal"],
+        ncol=3,
         y=1.00,
-        fontsize=5.4,
+        fontsize=5.1,
     )
     fig.subplots_adjust(top=0.76, bottom=0.28, left=0.31, right=0.98)
     speedup_path = os.path.join(FIG_DIR, "strong_scaling_speedup.pdf")

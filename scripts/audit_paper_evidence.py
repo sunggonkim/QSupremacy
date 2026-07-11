@@ -252,6 +252,13 @@ def main():
     ]
     strong_ladder = [
         (
+            "strong_context_8",
+            "data/processed/perlmutter/practical_suite_review_strong_8n_32g_7104_20260711021411_summary.json",
+            "data/processed/perlmutter/practical_suite_review_strong_8n_32g_7104_20260711021411_summary.csv",
+            "data/raw/perlmutter/accounting/sacct_practical_suite_review_strong_8n_32g_7104_20260711021411.txt",
+            3552,
+        ),
+        (
             "strong_16",
             "data/processed/perlmutter/practical_suite_55731032_scale_16n_64g_summary.json",
             "data/processed/perlmutter/practical_suite_55731032_scale_16n_64g_summary.csv",
@@ -328,7 +335,7 @@ def main():
     items.append(
         ok_item(
             "large_practical_suite",
-            "3,552-case suite plus regular weak-scaling gates and direct 64/128/256-GPU fixed-work scaling anchors",
+            "3,552-case suite plus regular weak-scaling gates, a 32-GPU strong-scaling context run, and direct 64/128/256-GPU fixed-work scaling anchors",
             [large_json, large_csv, large_accounting],
             large_checks,
         )
