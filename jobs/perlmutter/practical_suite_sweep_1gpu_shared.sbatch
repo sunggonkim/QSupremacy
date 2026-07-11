@@ -132,6 +132,23 @@ elif [[ "${SWEEP_PROFILE}" == "accept" ]]; then
   SIM_MODELS=(tfim heisenberg)
   SIM_QUBITS=(4 5 6 7 8)
   SIM_STEPS=(4 6 8)
+elif [[ "${SWEEP_PROFILE}" == "scale_ladder_debug" ]]; then
+  # Reviewer-response smoke profile: larger/deeper than the toy defaults, but
+  # still small enough for a 1-node/4-GPU debug allocation before any large run.
+  SEEDS=(17)
+  ML_CLASSES=("0,1,2" "2,4,6,8")
+  ML_SAMPLES=(128 256)
+  ML_FEATURES=(6 10)
+  ML_DEPTHS=(1 2)
+  CHEM_H2_GRIDS=(17 33)
+  CHEM_JSON_GRIDS=(9 17)
+  CHEM_LAYERS=(1 2)
+  OPT_NODES=(4 7)
+  OPT_GRAPHS=(ring chordal)
+  OPT_GRIDS=(7 13)
+  SIM_MODELS=(tfim heisenberg)
+  SIM_QUBITS=(4 8)
+  SIM_STEPS=(4 10)
 else
   SEEDS=(17 23)
   ML_CLASSES=("0,1,2" "3,5,8" "0,1,2,3")
@@ -161,6 +178,12 @@ elif [[ "${SWEEP_PROFILE}" == "accept" ]]; then
     benchmarks/workloads/hamiltonians/h2o_sto3g_active_6q.json
     benchmarks/workloads/hamiltonians/h2o_sto3g_active_8q.json
     benchmarks/workloads/hamiltonians/molecular_chain_4q.json
+  )
+elif [[ "${SWEEP_PROFILE}" == "scale_ladder_debug" ]]; then
+  CHEM_JSON_FILES=(
+    benchmarks/workloads/hamiltonians/lih_sto3g_active_4q.json
+    benchmarks/workloads/hamiltonians/lih_sto3g_active_8q.json
+    benchmarks/workloads/hamiltonians/h2o_sto3g_active_8q.json
   )
 else
   CHEM_JSON_FILES=(benchmarks/workloads/hamiltonians/molecular_chain_4q.json)

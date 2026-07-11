@@ -80,6 +80,42 @@ ML_STRONG_NATIVE_GATE_JSON = (
 ML_STRONG_NATIVE_PROFILE_JSON = (
     "data/processed/perlmutter/ml_strong_native_profile_latest.json"
 )
+PROJECTION_SCENARIOS_JSON = (
+    "data/processed/perlmutter/practical_suite_projection_scenarios.json"
+)
+SCALE_LARGE_8_SUMMARY_JSON = (
+    "data/processed/perlmutter/practical_suite_55730074_scale_8n_32g_summary.json"
+)
+SCALE_LARGE_8_SUMMARY_CSV = (
+    "data/processed/perlmutter/practical_suite_55730074_scale_8n_32g_summary.csv"
+)
+SCALE_WEAK_16_SUMMARY_JSON = (
+    "data/processed/perlmutter/practical_suite_55731013_scale_16n_64g_summary.json"
+)
+SCALE_WEAK_16_SUMMARY_CSV = (
+    "data/processed/perlmutter/practical_suite_55731013_scale_16n_64g_summary.csv"
+)
+SCALE_WEAK_32_SUMMARY_JSON = (
+    "data/processed/perlmutter/practical_suite_55731014_scale_32n_128g_summary.json"
+)
+SCALE_WEAK_32_SUMMARY_CSV = (
+    "data/processed/perlmutter/practical_suite_55731014_scale_32n_128g_summary.csv"
+)
+SCALE_WEAK_64_SUMMARY_JSON = (
+    "data/processed/perlmutter/practical_suite_55731015_scale_64n_256g_summary.json"
+)
+SCALE_WEAK_64_SUMMARY_CSV = (
+    "data/processed/perlmutter/practical_suite_55731015_scale_64n_256g_summary.csv"
+)
+SCALE_STRONG_16_SUMMARY_JSON = (
+    "data/processed/perlmutter/practical_suite_55731032_scale_16n_64g_summary.json"
+)
+SCALE_STRONG_32_SUMMARY_JSON = (
+    "data/processed/perlmutter/practical_suite_55731033_scale_32n_128g_summary.json"
+)
+SCALE_STRONG_64_SUMMARY_JSON = (
+    "data/processed/perlmutter/practical_suite_55731034_scale_64n_256g_summary.json"
+)
 
 WEAK_SCALING_RUNS = [
     {
@@ -110,7 +146,7 @@ WEAK_SCALING_RUNS = [
             "data/processed/perlmutter/"
             "practical_suite_strongnative_2node_large128c0c7_fix_20260704022146_summary.json"
         ),
-        "kind": "weak",
+        "kind": "pilot",
     },
     {
         "label": "4 nodes",
@@ -122,30 +158,24 @@ WEAK_SCALING_RUNS = [
             "data/processed/perlmutter/"
             "practical_suite_strongnative_4node_large128c0c15_20260704024223_summary.json"
         ),
-        "kind": "weak",
+        "kind": "pilot",
     },
     {
         "label": "8 nodes",
         "nodes": 8,
         "gpus": 32,
-        "cases": 896,
-        "elapsed_sec": 238,
-        "summary": (
-            "data/processed/perlmutter/"
-            "practical_suite_strongnative_8node_large128c0c31_20260704060009_summary.json"
-        ),
-        "kind": "weak",
+        "cases": 888,
+        "elapsed_sec": 765,
+        "summary": SCALE_LARGE_8_SUMMARY_JSON,
+        "kind": "pilot",
     },
     {
         "label": "16 nodes",
         "nodes": 16,
         "gpus": 64,
-        "cases": 1792,
-        "elapsed_sec": 238,
-        "summary": (
-            "data/processed/perlmutter/"
-            "practical_suite_strongnative_16node_large128c0c63_20260704060230_summary.json"
-        ),
+        "cases": 1776,
+        "elapsed_sec": 562,
+        "summary": SCALE_WEAK_16_SUMMARY_JSON,
         "kind": "weak",
     },
     {
@@ -153,11 +183,8 @@ WEAK_SCALING_RUNS = [
         "nodes": 32,
         "gpus": 128,
         "cases": 3552,
-        "elapsed_sec": 251,
-        "summary": (
-            "data/processed/perlmutter/"
-            "practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.json"
-        ),
+        "elapsed_sec": 419,
+        "summary": SCALE_WEAK_32_SUMMARY_JSON,
         "kind": "weak",
     },
     {
@@ -165,8 +192,8 @@ WEAK_SCALING_RUNS = [
         "nodes": 64,
         "gpus": 256,
         "cases": 7104,
-        "elapsed_sec": 523,
-        "summary": STRONG_NATIVE_64_SUMMARY_JSON,
+        "elapsed_sec": 576,
+        "summary": SCALE_WEAK_64_SUMMARY_JSON,
         "kind": "weak",
     },
 ]
@@ -191,72 +218,30 @@ STRONG_SCALING_RUNS = [
         "kind": "normalized",
     },
     {
-        "label": "2 nodes weak",
-        "nodes": 2,
-        "gpus": 8,
-        "cases": 224,
-        "elapsed_sec": 262,
-        "summary": (
-            "data/processed/perlmutter/"
-            "practical_suite_strongnative_2node_large128c0c7_fix_20260704022146_summary.json"
-        ),
-        "kind": "normalized",
-    },
-    {
-        "label": "4 nodes",
-        "nodes": 4,
-        "gpus": 16,
-        "cases": 3552,
-        "elapsed_sec": 1855,
-        "summary": (
-            "data/processed/perlmutter/"
-            "practical_suite_strongscale_4node_large128full_20260704060904_summary.json"
-        ),
-        "kind": "fixed",
-    },
-    {
-        "label": "8 nodes",
-        "nodes": 8,
-        "gpus": 32,
-        "cases": 3552,
-        "elapsed_sec": 913,
-        "summary": (
-            "data/processed/perlmutter/"
-            "practical_suite_strongscale_8node_large128full_20260704060904_summary.json"
-        ),
-        "kind": "fixed",
-    },
-    {
         "label": "16 nodes",
         "nodes": 16,
         "gpus": 64,
-        "cases": 3552,
-        "elapsed_sec": 665,
-        "summary": (
-            "data/processed/perlmutter/"
-            "practical_suite_strongscale_16node_large128full_20260704060904_summary.json"
-        ),
+        "cases": 7104,
+        "elapsed_sec": 1713,
+        "summary": SCALE_STRONG_16_SUMMARY_JSON,
         "kind": "fixed",
     },
     {
         "label": "32 nodes",
         "nodes": 32,
         "gpus": 128,
-        "cases": 3552,
-        "elapsed_sec": 257,
-        "summary": (
-            "data/processed/perlmutter/"
-            "practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.json"
-        ),
+        "cases": 7104,
+        "elapsed_sec": 954,
+        "summary": SCALE_STRONG_32_SUMMARY_JSON,
         "kind": "fixed",
     },
     {
         "label": "64 nodes",
         "nodes": 64,
         "gpus": 256,
-        "cases": 3552,
-        "elapsed_sec": 261,
-        "summary": STRONG_SCALE_64_SUMMARY_JSON,
+        "cases": 7104,
+        "elapsed_sec": 418,
+        "summary": SCALE_STRONG_64_SUMMARY_JSON,
         "kind": "fixed",
     },
 ]
@@ -337,6 +322,13 @@ def savefig(name, fig=None, pad=0.18):
     return path
 
 
+def save_canvas(fig, path):
+    with plt.rc_context({"savefig.bbox": "standard"}):
+        fig.savefig(path)
+    plt.close(fig)
+    return path
+
+
 def draw_box(ax, xy, width, height, label, color, text_color="white", fontsize=9, lw=0.9):
     patch = Rectangle(xy, width, height, facecolor=color, edgecolor="#333333", linewidth=lw)
     ax.add_patch(patch)
@@ -366,9 +358,9 @@ def figure_intro_paths():
     fig, ax = plt.subplots(figsize=(INTRO_PATH_WIDTH, 1.28))
     rows = [
         ("ML", "native\nmodels", "QKernel\nQNN/VQC\nfeature", COLORS["blue"], COLORS["orange"]),
-        ("Mol.", "exact\nLanczos", "VQE", COLORS["teal"], COLORS["teal"]),
-        ("MaxCut", "exact\nheur.", "QAOA", COLORS["red"], COLORS["red"]),
-        ("HamSim", "dense\nKrylov", "Trotter", COLORS["green"], COLORS["green"]),
+        ("Chem.", "exact\nLanczos", "VQE", COLORS["teal"], COLORS["teal"]),
+        ("Opt.", "exact\nheur.", "QAOA", COLORS["red"], COLORS["red"]),
+        ("Sim.", "dense\nKrylov", "Trotter", COLORS["green"], COLORS["green"]),
     ]
     y_positions = [0.80, 0.60, 0.40, 0.20]
     for (family, native, circuit, native_color, circuit_color), y0 in zip(rows, y_positions):
@@ -391,10 +383,10 @@ def figure_intro_threshold_summary():
     labels = [
         "ML\nscikit/QNN",
         "ML\nscikit/QKernel",
-        "HamSim\nKrylov/Trotter",
+        "Sim.\nKrylov/Trotter",
         "ML\nscikit/QFeature",
-        "Molecule\nLanczos/VQE",
-        "MaxCut\nheuristic/QAOA",
+        "Chem.\nLanczos/VQE",
+        "Opt.\nheuristic/QAOA",
     ]
     values = [64.9, 421.9, 3071.0, 3726.4, 42491.4, 287045.6]
     colors = [
@@ -594,7 +586,7 @@ def figure_digits_speedup():
     rows = read_csv("data/processed/perlmutter/digits_expanded_55421321_55422142_summary.csv")
     kernel = [float(r["quantum_kernel_required_speedup"]) for r in rows]
     vqc = [float(r["qnn_vqc_required_speedup"]) for r in rows]
-    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.82))
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.58))
     box = ax.boxplot(
         [kernel, vqc],
         tick_labels=["QKernel", "QNN/VQC"],
@@ -612,15 +604,13 @@ def figure_digits_speedup():
     ax.set_yscale("log")
     ax.set_ylabel("Req. speedup (x)")
     style_axis(ax, grid="y")
-    fig.subplots_adjust(left=0.35, right=0.99, bottom=0.22, top=0.98)
+    fig.subplots_adjust(left=0.35, right=0.99, bottom=0.24, top=0.96)
     path = os.path.join(FIG_DIR, "digits_required_speedup.pdf")
-    fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
-    plt.close(fig)
-    return path
+    return save_canvas(fig, path)
 
 
 def figure_digits_legend():
-    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 0.26))
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 0.22))
     handles = [
         legend_marker(COLORS["blue"]),
         legend_marker(COLORS["orange"]),
@@ -653,7 +643,7 @@ def figure_practical_suite_legend():
     ax.axis("off")
     fig.legend(
         handles,
-        ["ML", "Molecule", "MaxCut", "HamSim"],
+        ["ML", "Chem.", "Opt.", "Sim."],
         ncol=4,
         loc="center",
         frameon=False,
@@ -669,7 +659,7 @@ def figure_practical_suite_legend():
 
 def figure_digits_quality_runtime():
     rows = read_csv("data/processed/perlmutter/digits_expanded_55421321_55422142_summary.csv")
-    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.82))
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.58))
     ax.scatter(
         [float(r["quantum_kernel_required_speedup"]) for r in rows],
         [float(r["quantum_kernel_accuracy"]) for r in rows],
@@ -696,11 +686,9 @@ def figure_digits_quality_runtime():
     legend = ax.get_legend()
     if legend:
         legend.remove()
-    fig.subplots_adjust(left=0.27, right=0.99, bottom=0.30, top=0.98)
+    fig.subplots_adjust(left=0.27, right=0.99, bottom=0.32, top=0.96)
     path = os.path.join(FIG_DIR, "digits_quality_speedup.pdf")
-    fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
-    plt.close(fig)
-    return path
+    return save_canvas(fig, path)
 
 
 def figure_practical_suite():
@@ -714,9 +702,9 @@ def figure_practical_suite():
     rows = read_csv(rel_path)
     workloads = [
         ("ml", "ML", COLORS["blue"], 0.02),
-        ("chemistry", "Molecule", COLORS["teal"], 0.01),
-        ("optimization", "MaxCut", COLORS["red"], 0.02),
-        ("simulation", "HamSim", COLORS["green"], 0.01),
+        ("chemistry", "Chem.", COLORS["teal"], 0.01),
+        ("optimization", "Opt.", COLORS["red"], 0.02),
+        ("simulation", "Sim.", COLORS["green"], 0.01),
     ]
 
     series = []
@@ -771,6 +759,114 @@ def figure_practical_suite():
     return [landscape_path, cdf_path]
 
 
+def figure_quality_bottleneck_summary():
+    rows = read_csv(STRONG_NATIVE_SUMMARY_CSV)
+    taxonomy = load_summary(STRONG_NATIVE_TAXONOMY_JSON)
+    if not rows or taxonomy is None:
+        return None
+
+    workloads = [
+        ("ml", "ML", COLORS["blue"]),
+        ("chemistry", "Chem.", COLORS["teal"]),
+        ("optimization", "Opt.", COLORS["red"]),
+        ("simulation", "Sim.", COLORS["green"]),
+    ]
+    gap_series = []
+    for workload, label, color in workloads:
+        gaps = np.array(
+            [
+                max(0.0, float(row["quality_gap"]))
+                for row in rows
+                if row["workload"] == workload
+            ]
+        )
+        gap_series.append((label, color, gaps))
+
+    x = np.arange(len(workloads))
+    fig, ax_gap = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.52))
+    parts = ax_gap.violinplot(
+        [gaps for _label, _color, gaps in gap_series],
+        positions=x,
+        widths=0.72,
+        showmeans=False,
+        showmedians=False,
+        showextrema=False,
+    )
+    for body, (_label, color, _gaps) in zip(parts["bodies"], gap_series):
+        body.set_facecolor(color)
+        body.set_edgecolor("black")
+        body.set_linewidth(0.45)
+        body.set_alpha(0.42)
+    for idx, (_label, color, gaps) in enumerate(gap_series):
+        p50 = float(np.percentile(gaps, 50))
+        p90 = float(np.percentile(gaps, 90))
+        ax_gap.scatter(idx, p50, s=23, color=color, edgecolors="black", linewidths=0.5, zorder=3)
+        ax_gap.scatter(idx, p90, s=24, color=color, edgecolors="black", linewidths=0.5, marker="s", zorder=3)
+    ax_gap.set_xticks(x)
+    ax_gap.set_xticklabels([item[1] for item in workloads])
+    ax_gap.set_ylim(0.0, 0.9)
+    ax_gap.set_ylabel("Quality gap\nto native")
+    style_axis(ax_gap, grid="y")
+    gap_handles = [
+        Line2D([0], [0], marker="o", color="none", markerfacecolor=COLORS["dark"], markeredgecolor="black", markersize=3.8),
+        Line2D([0], [0], marker="s", color="none", markerfacecolor=COLORS["dark"], markeredgecolor="black", markersize=3.8),
+    ]
+    ax_gap.legend(
+        gap_handles,
+        ["p50", "p90"],
+        ncol=2,
+        loc="upper center",
+        bbox_to_anchor=(0.52, 1.25),
+        frameon=False,
+        fontsize=5.3,
+        handlelength=0.9,
+        handletextpad=0.25,
+        columnspacing=0.65,
+    )
+    fig.subplots_adjust(top=0.80, bottom=0.23, left=0.28, right=0.98)
+    gap_path = os.path.join(FIG_DIR, "quality_gap_summary.pdf")
+    save_canvas(fig, gap_path)
+
+    y = np.arange(len(workloads))
+    quality = []
+    speed = []
+    for workload, _label, _color in workloads:
+        fractions = taxonomy["by_workload"][workload]["fractions"]
+        quality.append(100.0 * float(fractions.get("quality-limited", 0.0)))
+        speed.append(100.0 * float(fractions.get("speed-limited", 0.0)))
+    fig, ax_tax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.52))
+    ax_tax.barh(y, quality, color=COLORS["red"], height=0.56, label="Quality")
+    ax_tax.barh(y, speed, left=quality, color=COLORS["blue"], height=0.56, label="Speed")
+    for ypos, qval, sval in zip(y, quality, speed):
+        if qval >= 18:
+            ax_tax.text(qval / 2.0, ypos, "{:.0f}%".format(qval), ha="center", va="center", fontsize=5.5, color="white")
+        if sval >= 18:
+            ax_tax.text(qval + sval / 2.0, ypos, "{:.0f}%".format(sval), ha="center", va="center", fontsize=5.5, color="white")
+    ax_tax.set_yticks(y)
+    ax_tax.set_yticklabels([item[1] for item in workloads])
+    ax_tax.invert_yaxis()
+    ax_tax.set_xlim(0.0, 100.0)
+    ax_tax.set_xlabel("Within-workload\ncases (%)")
+    style_axis(ax_tax, grid="x")
+    ax_tax.legend(
+        [Rectangle((0, 0), 1, 1, color=COLORS["red"]), Rectangle((0, 0), 1, 1, color=COLORS["blue"])],
+        ["Quality", "Speed"],
+        ncol=2,
+        loc="upper center",
+        bbox_to_anchor=(0.52, 1.25),
+        frameon=False,
+        fontsize=5.3,
+        handlelength=0.9,
+        handletextpad=0.25,
+        columnspacing=0.6,
+    )
+    fig.subplots_adjust(top=0.80, bottom=0.28, left=0.27, right=0.98)
+    fraction_path = os.path.join(FIG_DIR, "quality_bottleneck_fraction.pdf")
+    save_canvas(fig, fraction_path)
+
+    return [gap_path, fraction_path]
+
+
 def load_summary(rel_path):
     path = os.path.join(ROOT, rel_path)
     if not os.path.exists(path):
@@ -786,7 +882,7 @@ def figure_strong_native_comparison():
         return None
 
     workloads = ["ml", "chemistry", "optimization", "simulation"]
-    labels = ["ML", "Molecule", "MaxCut", "HamSim"]
+    labels = ["ML", "Chem.", "Opt.", "Sim."]
     official_speed = [
         float(official["by_workload"][workload]["speedup_required_median"])
         for workload in workloads
@@ -1151,14 +1247,14 @@ def figure_ml_native_profile_combined():
 
 def figure_workload_growth():
     if not (
-        os.path.exists(os.path.join(ROOT, STRONG_NATIVE_SUMMARY_CSV))
-        and os.path.exists(os.path.join(ROOT, STRONG_NATIVE_64_SUMMARY_CSV))
+        os.path.exists(os.path.join(ROOT, SCALE_WEAK_32_SUMMARY_CSV))
+        and os.path.exists(os.path.join(ROOT, SCALE_WEAK_64_SUMMARY_CSV))
     ):
         return None
 
     points = [
-        ("128 GPUs\n3,552 cases", 128, 3552, 257, STRONG_NATIVE_SUMMARY_CSV),
-        ("256 GPUs\n7,104 cases", 256, 7104, 514, STRONG_NATIVE_64_SUMMARY_CSV),
+        ("128 GPUs\n3,552 cases", 128, 3552, 419, SCALE_WEAK_32_SUMMARY_CSV),
+        ("256 GPUs\n7,104 cases", 256, 7104, 576, SCALE_WEAK_64_SUMMARY_CSV),
     ]
 
     fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.78))
@@ -1190,9 +1286,9 @@ def figure_workload_growth():
 
     workloads = [
         ("ml", "ML", COLORS["blue"]),
-        ("chemistry", "Molecule", COLORS["teal"]),
-        ("optimization", "MaxCut", COLORS["red"]),
-        ("simulation", "HamSim", COLORS["green"]),
+        ("chemistry", "Chem.", COLORS["teal"]),
+        ("optimization", "Opt.", COLORS["red"]),
+        ("simulation", "Sim.", COLORS["green"]),
     ]
     rows_by_run = [read_csv(points[0][4]), read_csv(points[1][4])]
     fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.78))
@@ -1233,9 +1329,9 @@ def figure_circuit_operation_mix():
     rows = read_csv(STRONG_NATIVE_SUMMARY_CSV)
     workloads = [
         ("ml", "ML", COLORS["blue"]),
-        ("chemistry", "Molecule", COLORS["teal"]),
-        ("optimization", "MaxCut", COLORS["red"]),
-        ("simulation", "HamSim", COLORS["green"]),
+        ("chemistry", "Chem.", COLORS["teal"]),
+        ("optimization", "Opt.", COLORS["red"]),
+        ("simulation", "Sim.", COLORS["green"]),
     ]
     categories = [
         ("one_qubit_gates", "1Q gates", COLORS["blue"]),
@@ -1253,7 +1349,7 @@ def figure_circuit_operation_mix():
         total_ops = sum(med.values())
         fractions.append([med[key] / total_ops for key, _, _ in categories])
 
-    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.84))
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.16))
     y = np.arange(len(workloads))
     left = np.zeros(len(workloads))
     handles = []
@@ -1261,7 +1357,7 @@ def figure_circuit_operation_mix():
     frac_array = np.array(fractions)
     for idx, (_, label, color) in enumerate(categories):
         values = frac_array[:, idx]
-        bars = ax.barh(y, values, left=left, color=color, height=0.58)
+        bars = ax.barh(y, values, left=left, color=color, height=0.44)
         handles.append(bars[0])
         labels.append(label)
         for ypos, value, base in zip(y, values, left):
@@ -1292,6 +1388,92 @@ def figure_circuit_operation_mix():
     return path
 
 
+def figure_projected_time_decomposition():
+    if not os.path.exists(os.path.join(ROOT, STRONG_NATIVE_SUMMARY_CSV)):
+        return None
+
+    rows = read_csv(STRONG_NATIVE_SUMMARY_CSV)
+    workloads = [
+        ("ml", "ML"),
+        ("chemistry", "Chem."),
+        ("optimization", "Opt."),
+        ("simulation", "Sim."),
+    ]
+    categories = [
+        ("1Q", COLORS["blue"]),
+        ("2Q", COLORS["orange"]),
+        ("Meas.", COLORS["purple"]),
+        ("Decode/ctrl.", COLORS["gray"]),
+    ]
+
+    shares = []
+    for workload, _label in workloads:
+        subset = [row for row in rows if row["workload"] == workload]
+        per_case = []
+        for row in subset:
+            oneq = float(row["one_qubit_gates"]) * 1.0
+            twoq = float(row["two_qubit_gates"]) * 4.0
+            meas = float(row["measurement_ops"]) * 1.0
+            serial = float(row["circuit_evaluations"]) * (5.0 + 50.0)
+            total = max(1.0, oneq + twoq + meas + serial)
+            per_case.append([oneq / total, twoq / total, meas / total, serial / total])
+        shares.append(np.median(np.array(per_case), axis=0))
+
+    fig = plt.figure(figsize=(COLUMN_WIDTH, 1.22))
+    gs = fig.add_gridspec(2, 1, height_ratios=[0.16, 1.0], hspace=-0.03)
+    legend_ax = fig.add_subplot(gs[0])
+    ax = fig.add_subplot(gs[1])
+    legend_ax.axis("off")
+    y = np.arange(len(workloads))
+    left = np.zeros(len(workloads))
+    handles = []
+    labels = []
+    share_array = np.array(shares)
+    for idx, (label, color) in enumerate(categories):
+        values = share_array[:, idx]
+        bars = ax.barh(y, values, left=left, color=color, height=0.50)
+        handles.append(bars[0])
+        labels.append(label)
+        for ypos, value, base in zip(y, values, left):
+            if value >= 0.16:
+                ax.text(
+                    base + value / 2.0,
+                    ypos,
+                    "{:.0f}%".format(value * 100.0),
+                    ha="center",
+                    va="center",
+                    fontsize=6.4,
+                    color="white" if idx in {0, 2, 3} else "black",
+                )
+        left += values
+    ax.set_yticks(y)
+    ax.set_yticklabels([label for _, label in workloads])
+    ax.invert_yaxis()
+    ax.set_xlim(0.0, 1.0)
+    ax.set_xlabel("Time share", labelpad=0.9)
+    ax.set_xticks([0, 0.5, 1.0])
+    ax.set_xticklabels(["0", "50%", "100%"])
+    style_axis(ax, grid="x")
+    ax.tick_params(axis="both", labelsize=6.6, pad=0.9, width=0.6)
+    ax.xaxis.label.set_size(6.8)
+    legend_ax.legend(
+        handles,
+        labels,
+        loc="center",
+        bbox_to_anchor=(0.5, 0.36),
+        ncol=4,
+        frameon=False,
+        fontsize=6.4,
+        handlelength=0.9,
+        handletextpad=0.35,
+        columnspacing=0.70,
+        borderaxespad=0.0,
+    )
+    fig.subplots_adjust(left=0.17, right=0.985, bottom=0.25, top=0.99)
+    path = os.path.join(FIG_DIR, "projected_time_decomposition.pdf")
+    return save_canvas(fig, path)
+
+
 def figure_threshold_tail_pressure():
     if not os.path.exists(os.path.join(ROOT, STRONG_NATIVE_SUMMARY_CSV)):
         return None
@@ -1299,9 +1481,9 @@ def figure_threshold_tail_pressure():
     rows = read_csv(STRONG_NATIVE_SUMMARY_CSV)
     workloads = [
         ("ml", "ML", COLORS["blue"]),
-        ("chemistry", "Molecule", COLORS["teal"]),
-        ("optimization", "MaxCut", COLORS["red"]),
-        ("simulation", "HamSim", COLORS["green"]),
+        ("chemistry", "Chem.", COLORS["teal"]),
+        ("optimization", "Opt.", COLORS["red"]),
+        ("simulation", "Sim.", COLORS["green"]),
     ]
 
     fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.84))
@@ -1322,9 +1504,7 @@ def figure_threshold_tail_pressure():
     style_axis(ax, grid="x")
     fig.subplots_adjust(left=0.30, right=0.98, bottom=0.27, top=0.91)
     path = os.path.join(FIG_DIR, "threshold_tail_pressure.pdf")
-    fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
-    plt.close(fig)
-    return path
+    return save_canvas(fig, path)
 
 
 def figure_tolerance_sensitivity():
@@ -1333,137 +1513,135 @@ def figure_tolerance_sensitivity():
 
     rows = read_csv(STRONG_NATIVE_SUMMARY_CSV)
     workload_specs = [
-        ("ml", "ML $10^5$x", COLORS["blue"], 1.0e5, 0.02),
-        ("chemistry", "Molecule $10^5$x", COLORS["teal"], 1.0e5, 0.01),
-        ("optimization", "MaxCut $10^6$x", COLORS["red"], 1.0e6, 0.02),
-        ("simulation", "HamSim $10^4$x", COLORS["green"], 1.0e4, 0.01),
+        ("ml", "ML", COLORS["blue"], 0.02),
+        ("chemistry", "Chem.", COLORS["teal"], 0.01),
+        ("optimization", "Opt.", COLORS["red"], 0.02),
+        ("simulation", "Sim.", COLORS["green"], 0.01),
     ]
-    multipliers = np.array([0.5, 1.0, 2.0, 5.0], dtype=float)
-    recovery = 0.90
+    scenario_specs = [
+        ("$10^4$x\n90% R", 1.0e4, 0.90),
+        ("$10^5$x\n90% R", 1.0e5, 0.90),
+        ("$10^6$x\n90% R", 1.0e6, 0.90),
+        ("$10^6$x\n100% R", 1.0e6, 1.00),
+    ]
 
-    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.92))
-    handles = []
-    labels = []
-    for workload, label, color, speedup, base_tol in workload_specs:
+    matrix = np.zeros((len(workload_specs), len(scenario_specs)), dtype=float)
+    for row_idx, (workload, label, color, base_tol) in enumerate(workload_specs):
         subset = [row for row in rows if row["workload"] == workload]
         required = np.array([float(row["speedup_required"]) for row in subset])
         gaps = np.array([max(0.0, float(row["quality_gap"])) for row in subset])
-        values = []
-        for multiplier in multipliers:
-            tolerance = base_tol * multiplier
-            advantaged = (speedup >= required) & (gaps * (1.0 - recovery) <= tolerance)
-            values.append(100.0 * float(np.mean(advantaged)) if advantaged.size else 0.0)
-        line = ax.plot(
-            multipliers,
-            values,
-            marker="o",
-            linewidth=1.6,
-            markersize=3.6,
-            color=color,
-        )[0]
-        handles.append(line)
-        labels.append(label)
+        for col_idx, (_scenario_label, speedup, recovery) in enumerate(scenario_specs):
+            advantaged = (speedup >= required) & (gaps * (1.0 - recovery) <= base_tol)
+            matrix[row_idx, col_idx] = 100.0 * float(np.mean(advantaged)) if advantaged.size else 0.0
 
-    ax.set_xticks(multipliers)
-    ax.set_xticklabels(["0.5x", "1x", "2x", "5x"])
-    ax.set_xlim(0.35, 5.15)
-    ax.set_ylim(-3, 103)
-    ax.set_xlabel("Tolerance multiplier")
-    ax.set_ylabel("Cases advantaged\nat 90% recovery (%)")
-    style_axis(ax, grid="both")
-    add_top_legend(fig, handles, labels, ncol=4, y=1.02, fontsize=4.9)
-    fig.subplots_adjust(left=0.20, right=0.98, bottom=0.26, top=0.78)
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.15))
+    cmap = plt.get_cmap("YlGnBu")
+    ax.imshow(matrix, vmin=0, vmax=100, cmap=cmap, aspect="auto")
+    for row_idx in range(matrix.shape[0]):
+        for col_idx in range(matrix.shape[1]):
+            value = matrix[row_idx, col_idx]
+            text_color = "white" if value >= 56.0 else COLORS["dark"]
+            ax.text(
+                col_idx,
+                row_idx,
+                "{:.0f}%".format(value),
+                ha="center",
+                va="center",
+                fontsize=5.1,
+                color=text_color,
+                fontweight="bold" if value >= 70.0 else "normal",
+            )
+    ax.set_xticks(np.arange(len(scenario_specs)))
+    ax.set_xticklabels([label for label, _speedup, _recovery in scenario_specs])
+    ax.tick_params(axis="x", labelsize=5.1, pad=1.0, length=0)
+    ax.set_yticks(np.arange(len(workload_specs)))
+    ax.set_yticklabels([label for _workload, label, _color, _tol in workload_specs])
+    ax.tick_params(axis="y", labelsize=6.1, pad=1.1, length=0)
+    for spine in ax.spines.values():
+        spine.set_color("#FFFFFF")
+        spine.set_linewidth(0.55)
+    ax.set_xticks(np.arange(-0.5, len(scenario_specs), 1), minor=True)
+    ax.set_yticks(np.arange(-0.5, len(workload_specs), 1), minor=True)
+    ax.grid(which="minor", color="white", linestyle="-", linewidth=0.75)
+    ax.tick_params(which="minor", bottom=False, left=False)
+    fig.subplots_adjust(left=0.16, right=0.99, bottom=0.25, top=0.96)
     path = os.path.join(FIG_DIR, "tolerance_sensitivity.pdf")
-    fig.savefig(path)
+    fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
     plt.close(fig)
     return path
 
 
 def figure_ft_shot_sensitivity():
-    if not os.path.exists(os.path.join(ROOT, STRONG_NATIVE_SUMMARY_CSV)):
+    scenario_summary = load_summary(PROJECTION_SCENARIOS_JSON)
+    if scenario_summary is None:
         return None
 
-    rows = read_csv(STRONG_NATIVE_SUMMARY_CSV)
     workload_specs = [
-        ("ml", "ML", COLORS["blue"], 0.02),
-        ("chemistry", "Molecule", COLORS["teal"], 0.01),
-        ("optimization", "MaxCut", COLORS["red"], 0.02),
-        ("simulation", "HamSim", COLORS["green"], 0.01),
+        ("ml", "ML"),
+        ("chemistry", "Chem."),
+        ("optimization", "Opt."),
+        ("simulation", "Sim."),
     ]
-    shot_parallel = np.array([1.0, 1.0e2, 1.0e4, 1.0e6])
-    recovery = 0.90
+    scenario_specs = [
+        ("conservative_surface", "Conserv.\nsurface"),
+        ("resource_estimator_like", "Resource\nest."),
+        ("default_optimistic", "Default\nopt."),
+        ("ldpc_future_like", "LDPC\nfuture"),
+        ("aggressive_batched", "Aggressive\nbatch"),
+    ]
+    matrix = np.zeros((len(workload_specs), len(scenario_specs)), dtype=float)
+    ratio_matrix = np.zeros_like(matrix)
+    by_scenario = scenario_summary.get("by_scenario", {})
+    for row_idx, (workload, _label) in enumerate(workload_specs):
+        for col_idx, (scenario_id, _scenario_label) in enumerate(scenario_specs):
+            item = by_scenario.get(scenario_id, {}).get("by_workload", {}).get(workload, {})
+            matrix[row_idx, col_idx] = 100.0 * float(item.get("advantaged_fraction", 0.0))
+            ratio_matrix[row_idx, col_idx] = float(item.get("median_projected_native_ratio", 0.0))
 
-    # Illustrative surface-code lower-bound stack used only for sensitivity.
-    distance = 25.0
-    cycle_sec = 1.0e-6
-    k1, k2, km = 1.0, 4.0, 1.0
-    decoder_sec_per_eval = 5.0e-6
-    control_queue_sec_per_eval = 50.0e-6
-
-    fig, axes = plt.subplots(2, 1, figsize=(COLUMN_WIDTH, 2.95), sharex=True)
-    handles = []
-    labels = []
-    for workload, label, color, tolerance in workload_specs:
-        subset = [row for row in rows if row["workload"] == workload]
-        median_times_ms = []
-        advantaged_frac = []
-        for parallel in shot_parallel:
-            times = []
-            advantaged = []
-            for row in subset:
-                d1 = float(row["one_qubit_gates"])
-                d2 = float(row["two_qubit_gates"])
-                dm = float(row["measurement_ops"])
-                evals = max(1.0, float(row["circuit_evaluations"]))
-                native = float(row["native_runtime_sec"])
-                gap = max(0.0, float(row["quality_gap"]))
-                logical_per_eval = (
-                    d1 * k1 * distance * cycle_sec
-                    + d2 * k2 * distance * cycle_sec
-                    + dm * km * distance * cycle_sec
-                )
-                parallel_time = evals * logical_per_eval / parallel
-                serial_error_time = evals * (decoder_sec_per_eval + control_queue_sec_per_eval)
-                projected = parallel_time + serial_error_time
-                times.append(projected)
-                advantaged.append(
-                    projected < native and gap * (1.0 - recovery) <= tolerance
-                )
-            median_times_ms.append(1.0e3 * float(np.median(times)) if times else 0.0)
-            advantaged_frac.append(100.0 * float(np.mean(advantaged)) if advantaged else 0.0)
-
-        line = axes[0].plot(
-            shot_parallel,
-            median_times_ms,
-            marker="o",
-            linewidth=1.55,
-            markersize=3.5,
-            color=color,
-        )[0]
-        axes[1].plot(
-            shot_parallel,
-            advantaged_frac,
-            marker="o",
-            linewidth=1.55,
-            markersize=3.5,
-            color=color,
-        )
-        handles.append(line)
-        labels.append(label)
-
-    for ax in axes:
-        ax.set_xscale("log")
-        ax.set_xticks(shot_parallel)
-        ax.set_xticklabels(["1", "$10^2$", "$10^4$", "$10^6$"])
-        style_axis(ax, grid="both")
-    axes[0].set_yscale("log")
-    axes[0].set_ylabel("FT time\n(ms)")
-    axes[0].set_ylim(0.025, 2.5e5)
-    axes[1].set_ylabel("Adv. cases\nat 90% R (%)")
-    axes[1].set_xlabel("Effective $P_{shots}$")
-    axes[1].set_ylim(-3, 103)
-    add_top_legend(fig, handles, labels, ncol=4, y=1.01, fontsize=5.1)
-    fig.subplots_adjust(top=0.83, bottom=0.17, left=0.24, right=0.98, hspace=0.30)
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.35))
+    cmap = plt.get_cmap("YlGnBu")
+    ax.imshow(matrix, vmin=0, vmax=100, cmap=cmap, aspect="auto")
+    for row_idx in range(matrix.shape[0]):
+        for col_idx in range(matrix.shape[1]):
+            value = matrix[row_idx, col_idx]
+            ratio = ratio_matrix[row_idx, col_idx]
+            text_color = "white" if value >= 56.0 else COLORS["dark"]
+            if ratio >= 100:
+                ratio_text = "{:.0f}x".format(ratio)
+            elif ratio >= 10:
+                ratio_text = "{:.1f}x".format(ratio)
+            elif ratio >= 1:
+                ratio_text = "{:.1f}x".format(ratio)
+            elif ratio >= 0.01:
+                ratio_text = "{:.2f}x".format(ratio)
+            else:
+                ratio_text = "<0.01x"
+            ax.text(
+                col_idx,
+                row_idx,
+                "{:.0f}%\n{}".format(value, ratio_text),
+                ha="center",
+                va="center",
+                fontsize=4.65,
+                color=text_color,
+                linespacing=0.86,
+                fontweight="bold" if value >= 70.0 else "normal",
+            )
+    ax.set_xticks(np.arange(len(scenario_specs)))
+    ax.set_xticklabels([label for _scenario_id, label in scenario_specs])
+    ax.xaxis.tick_bottom()
+    ax.tick_params(axis="x", labelsize=5.4, pad=1.0, length=0)
+    ax.set_yticks(np.arange(len(workload_specs)))
+    ax.set_yticklabels([label for _workload, label in workload_specs])
+    ax.tick_params(axis="y", labelsize=6.1, pad=1.2, length=0)
+    for spine in ax.spines.values():
+        spine.set_color("#FFFFFF")
+        spine.set_linewidth(0.55)
+    ax.set_xticks(np.arange(-0.5, len(scenario_specs), 1), minor=True)
+    ax.set_yticks(np.arange(-0.5, len(workload_specs), 1), minor=True)
+    ax.grid(which="minor", color="white", linestyle="-", linewidth=0.75)
+    ax.tick_params(which="minor", bottom=False, left=False)
+    fig.subplots_adjust(left=0.16, right=0.99, bottom=0.27, top=0.96)
     path = os.path.join(FIG_DIR, "ft_shot_sensitivity.pdf")
     fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
     plt.close(fig)
@@ -1471,54 +1649,123 @@ def figure_ft_shot_sensitivity():
 
 
 def figure_architecture_focus_matrix():
-    workloads = ["ML", "Molecule", "MaxCut", "HamSim"]
-    resources = ["Quality\nencoding", "Logical\nspeed", "Shot\nparallel", "Native\nco-design"]
-    scores = np.array(
-        [
-            [3, 1, 1, 2],
-            [2, 3, 2, 1],
-            [3, 1, 1, 2],
-            [2, 3, 3, 2],
-        ],
-        dtype=float,
-    )
-    colors = [COLORS["blue"], COLORS["teal"], COLORS["red"], COLORS["green"]]
+    rows = read_csv(STRONG_NATIVE_SUMMARY_CSV)
+    taxonomy = load_summary(STRONG_NATIVE_TAXONOMY_JSON)
+    if not rows or taxonomy is None:
+        return None
 
-    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.9))
-    for yidx, color in enumerate(colors):
-        for xidx in range(len(resources)):
-            score = scores[yidx, xidx]
-            ax.scatter(
-                xidx,
-                yidx,
-                s=42 + 58 * score,
-                color=color,
-                alpha=0.22 + 0.18 * score,
-                edgecolors=COLORS["dark"],
-                linewidths=0.45,
-            )
+    workloads = [
+        ("ml", "ML", COLORS["blue"]),
+        ("chemistry", "Chem.", COLORS["teal"]),
+        ("optimization", "Opt.", COLORS["red"]),
+        ("simulation", "Sim.", COLORS["green"]),
+    ]
+
+    tolerances = {
+        "ml": 0.02,
+        "chemistry": 0.01,
+        "optimization": 0.02,
+        "simulation": 0.01,
+    }
+
+    raw_values = []
+    cell_text = []
+    for workload, label, color in workloads:
+        subset = [row for row in rows if row["workload"] == workload]
+        fractions = taxonomy["by_workload"][workload]["fractions"]
+        quality_fraction = 100.0 * float(fractions.get("quality-limited", 0.0))
+        evals = float(np.median([float(row["circuit_evaluations"]) for row in subset]))
+
+        decode_shares = []
+        twoq_shares = []
+        recovery_required = []
+        for row in subset:
+            oneq = float(row["one_qubit_gates"]) * 1.0
+            twoq = float(row["two_qubit_gates"]) * 4.0
+            meas = float(row["measurement_ops"]) * 1.0
+            decode = float(row["circuit_evaluations"]) * (5.0 + 50.0)
+            total = max(1.0, oneq + twoq + meas + decode)
+            decode_shares.append(100.0 * decode / total)
+            twoq_shares.append(100.0 * twoq / total)
+            gap = max(0.0, float(row["quality_gap"]))
+            tolerance = tolerances[workload]
+            if gap <= tolerance:
+                recovery_required.append(0.0)
+            else:
+                recovery_required.append(100.0 * max(0.0, 1.0 - tolerance / gap))
+        decode_share = float(np.median(decode_shares))
+        twoq_share = float(np.median(twoq_shares))
+        recovery = float(np.median(recovery_required))
+        raw_values.append([recovery, evals, decode_share, twoq_share])
+        cell_text.append(
+            [
+                "{:.0f}%".format(recovery),
+                "{:.0f}".format(evals),
+                "{:.0f}%".format(decode_share),
+                "{:.0f}%".format(twoq_share),
+            ]
+        )
+
+    raw_values = np.array(raw_values, dtype=float)
+    matrix = np.zeros_like(raw_values)
+    for col in range(raw_values.shape[1]):
+        column = raw_values[:, col]
+        span = float(np.max(column) - np.min(column))
+        if span > 0.0:
+            matrix[:, col] = (column - float(np.min(column))) / span
+
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.64))
+    image = ax.imshow(matrix, cmap="YlOrRd", vmin=0.0, vmax=1.0, aspect="auto")
+    row_labels = [label for _, label, _ in workloads]
+    col_labels = [
+        "Quality\n$R_q$",
+        "Hybrid\n$N_e$",
+        "Control\nshare",
+        "2Q exec.\nshare",
+    ]
+    ax.set_xticks(np.arange(len(col_labels)))
+    ax.set_xticklabels(col_labels)
+    ax.set_yticks(np.arange(len(row_labels)))
+    ax.set_yticklabels(row_labels)
+    ax.tick_params(axis="x", top=True, bottom=False, labeltop=True, labelbottom=False, pad=2)
+    ax.tick_params(axis="y", pad=2)
+    for i in range(matrix.shape[0]):
+        for j in range(matrix.shape[1]):
+            value = matrix[i, j]
             ax.text(
-                xidx,
-                yidx,
-                ["L", "M", "H"][int(score) - 1],
+                j,
+                i,
+                cell_text[i][j],
                 ha="center",
                 va="center",
-                fontsize=5.8,
-                color=COLORS["dark"],
-                weight="bold",
+                fontsize=6.4,
+                weight="bold" if value >= 0.85 else "normal",
+                color="white" if value >= 0.68 else COLORS["dark"],
             )
-    ax.set_xticks(np.arange(len(resources)))
-    ax.set_xticklabels(resources)
-    ax.set_yticks(np.arange(len(workloads)))
-    ax.set_yticklabels(workloads)
-    ax.set_xlim(-0.55, len(resources) - 0.45)
-    ax.set_ylim(-0.55, len(workloads) - 0.45)
-    ax.invert_yaxis()
-    ax.grid(axis="both", linestyle=":", linewidth=0.45, color="#B9B9B9")
+            if value >= 0.85:
+                ax.add_patch(
+                    Rectangle(
+                        (j - 0.48, i - 0.48),
+                        0.96,
+                        0.96,
+                        fill=False,
+                        edgecolor=COLORS["dark"],
+                        linewidth=1.05,
+                    )
+                )
+    ax.set_xticks(np.arange(-0.5, len(col_labels), 1), minor=True)
+    ax.set_yticks(np.arange(-0.5, len(row_labels), 1), minor=True)
+    ax.grid(which="minor", color="white", linestyle="-", linewidth=1.2)
+    ax.tick_params(which="minor", bottom=False, left=False)
     for spine in ax.spines.values():
-        spine.set_visible(False)
-    ax.tick_params(axis="both", length=0, labelsize=6.2, pad=2)
-    fig.subplots_adjust(left=0.18, right=0.98, bottom=0.23, top=0.96)
+        spine.set_linewidth(0.7)
+        spine.set_color("#555555")
+    cbar = fig.colorbar(image, ax=ax, fraction=0.045, pad=0.035)
+    cbar.set_ticks([0.0, 0.5, 1.0])
+    cbar.set_ticklabels(["low", "mid", "high"])
+    cbar.ax.tick_params(labelsize=5.4, width=0.5, pad=1.0)
+    cbar.set_label("severity", fontsize=5.8, labelpad=1.5)
+    fig.subplots_adjust(left=0.13, right=0.92, bottom=0.08, top=0.78)
     path = os.path.join(FIG_DIR, "architecture_focus_matrix.pdf")
     fig.savefig(path, bbox_inches="tight")
     plt.close(fig)
@@ -1581,33 +1828,25 @@ def figure_weak_scaling():
     plt.close(fig)
 
     fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 2.02))
-    line_eff_pilot = ax.plot(
-        gpus[~weak_mask],
-        efficiency[~weak_mask],
-        marker="s",
-        markerfacecolor="white",
-        markeredgecolor=COLORS["orange"],
-        linestyle=":",
-        color=COLORS["orange"],
-    )[0]
     line_eff = ax.plot(gpus[weak_mask], efficiency[weak_mask], marker="s", color=COLORS["orange"])[0]
     line_ref = ax.axhline(1.0, linestyle="--", color=COLORS["gray"], linewidth=1.0)
     ax.set_xscale("log", base=2)
-    ax.set_xticks(gpu_ticks)
-    ax.set_xticklabels([str(tick) for tick in gpu_ticks])
+    ax.set_xticks([64, 128, 256])
+    ax.set_xticklabels(["64", "128", "256"])
     ax.set_xlabel("GPUs")
     ax.set_ylabel("Norm. per-GPU\nthroughput")
+    efficiency_main = efficiency[weak_mask]
     ax.set_ylim(
-        max(0.0, float(np.min(efficiency)) * 0.92),
-        max(1.12, float(np.max(efficiency)) * 1.06),
+        max(0.0, float(np.min(efficiency_main)) * 0.90),
+        max(1.12, float(np.max(efficiency_main)) * 1.08),
     )
     style_axis(ax, grid="both")
-    ax.set_xlim(0.8, 330)
+    ax.set_xlim(48, 330)
     add_top_legend(
         fig,
-        [line_eff_pilot, line_eff, line_ref],
-        ["pilot", "weak", "ref."],
-        ncol=3,
+        [line_eff, line_ref],
+        ["weak", "ref."],
+        ncol=2,
         y=1.00,
         fontsize=5.1,
     )
@@ -1628,7 +1867,8 @@ def figure_strong_scaling():
     cases = np.array([run["cases"] for run in runs], dtype=float)
     elapsed = np.array([run["elapsed_sec"] for run in runs], dtype=float)
     fixed_mask = np.array([run.get("kind") == "fixed" for run in runs], dtype=bool)
-    normalized_elapsed = elapsed * (3552.0 / cases)
+    fixed_cases = float(np.max(cases[fixed_mask])) if np.any(fixed_mask) else float(np.max(cases))
+    normalized_elapsed = elapsed * (fixed_cases / cases)
     speedup = normalized_elapsed[0] / normalized_elapsed
     ideal = gpus / gpus[0]
     gpu_ticks = [1, 4, 16, 64, 256]
@@ -1651,13 +1891,15 @@ def figure_strong_scaling():
         color=COLORS["gray"],
     )[0]
     ax.set_xscale("log", base=2)
+    ax.set_yscale("log")
     ax.set_xticks(gpu_ticks)
     ax.set_xticklabels([str(tick) for tick in gpu_ticks])
     ax.set_ylabel("Norm. TTS\n(min)")
     ax.set_xlabel("GPUs")
     style_axis(ax, grid="both")
     ax.set_xlim(0.8, 330)
-    ax.set_ylim(2.0, max(normalized_elapsed / 60.0) * 1.25)
+    ax.set_ylim(max(1.0, float(np.min(normalized_elapsed / 60.0)) * 0.70),
+                max(normalized_elapsed / 60.0) * 1.35)
     add_top_legend(
         fig,
         [line_time_pilot, line_time, line_time_ideal],
@@ -1716,59 +1958,212 @@ def figure_advantage_frontier():
         return None
     rows = read_csv(rel_path)
     workloads = [
-        ("ml", "ML", COLORS["blue"], 0.02),
-        ("chemistry", "Molecule", COLORS["teal"], 0.01),
-        ("optimization", "MaxCut", COLORS["red"], 0.02),
-        ("simulation", "HamSim", COLORS["green"], 0.01),
+        ("ml", "ML", COLORS["blue"]),
+        ("chemistry", "Chem.", COLORS["teal"]),
+        ("optimization", "Opt.", COLORS["red"]),
+        ("simulation", "Sim.", COLORS["green"]),
     ]
-    max_speed = max(float(row["speedup_required"]) for row in rows)
-    max_power = max(6, int(math.ceil(math.log10(max_speed * 1.25))))
-    speedups = np.logspace(0, max_power, 121)
-    recovery = 0.90
 
-    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 2.20))
-    handles = []
-    labels = []
-    for workload, label, color, tolerance in workloads:
+    distance = 25.0
+    cycle_sec = 1.0e-6
+    shot_parallel = 1.0e4
+    k1, k2, km = 1.0, 4.0, 1.0
+    decoder_sec_per_eval = 5.0e-6
+    control_queue_sec_per_eval = 50.0e-6
+
+    points = []
+    for workload, label, color in workloads:
         subset = [row for row in rows if row["workload"] == workload]
-        required = np.array([float(row["speedup_required"]) for row in subset])
-        gaps = np.array([max(0.0, float(row["quality_gap"])) for row in subset])
-        residual_gap = gaps * (1.0 - recovery)
-        advantaged_fraction = []
-        for speedup in speedups:
-            advantaged = (speedup >= required) & (residual_gap <= tolerance)
-            advantaged_fraction.append(100.0 * float(np.mean(advantaged)) if advantaged.size else 0.0)
-        line = ax.plot(
-            speedups,
-            advantaged_fraction,
-            marker="o",
-            markevery=[0, 40, 80, 120],
-            linewidth=1.6,
-            markersize=3.4,
-            color=color,
-        )[0]
-        handles.append(line)
-        labels.append(label)
+        native_ms = []
+        error_ms = []
+        one_meas_ms = []
+        twoq_ms = []
+        for row in subset:
+            evals = max(1.0, float(row["circuit_evaluations"]))
+            d1 = float(row["one_qubit_gates"])
+            d2 = float(row["two_qubit_gates"])
+            dm = float(row["measurement_ops"])
+            native_ms.append(1.0e3 * float(row["native_runtime_sec"]))
+            error_ms.append(evals * (decoder_sec_per_eval + control_queue_sec_per_eval) * 1.0e3)
+            one_meas_ms.append(
+                evals * (d1 * k1 * distance * cycle_sec + dm * km * distance * cycle_sec)
+                / shot_parallel
+                * 1.0e3
+            )
+            twoq_ms.append(
+                evals * d2 * k2 * distance * cycle_sec / shot_parallel * 1.0e3
+            )
+        error = float(np.median(error_ms))
+        one_meas = float(np.median(one_meas_ms))
+        twoq = float(np.median(twoq_ms))
+        total = error + one_meas + twoq
+        native = float(np.median(native_ms))
+        component_ratios = {
+            "error_ratio": error / max(native, 1.0e-12),
+            "one_meas_ratio": one_meas / max(native, 1.0e-12),
+            "twoq_ratio": twoq / max(native, 1.0e-12),
+        }
+        ratio = total / max(native, 1.0e-12)
+        single_targets = {}
+        for key, value in component_ratios.items():
+            if ratio <= 1.0:
+                single_targets[key] = 1.0
+            else:
+                other_terms = ratio - value
+                single_targets[key] = None if other_terms >= 1.0 else value / (1.0 - other_terms)
+        single_targets["all_terms"] = max(1.0, ratio)
+        points.append(
+            {
+                "label": label,
+                "color": color,
+                "native": native,
+                "error_ratio": component_ratios["error_ratio"],
+                "one_meas_ratio": component_ratios["one_meas_ratio"],
+                "twoq_ratio": component_ratios["twoq_ratio"],
+                "ratio": ratio,
+                "single_targets": single_targets,
+            }
+        )
 
-    ax.set_xscale("log")
-    ax.set_xlim(1.0, 10.0 ** max_power)
-    ax.set_ylim(-3, 103)
-    ax.set_xticks([1, 1e2, 1e4, 1e6])
-    ax.set_xticklabels(["1", "$10^2$", "$10^4$", "$10^6$"])
-    ax.set_xlabel("Projected speedup (x)")
-    ax.set_ylabel("Advantaged cases\nat 90% recovery (%)")
-    style_axis(ax, grid="both")
-    top = ax.secondary_xaxis("top")
-    top.set_xscale("log")
-    top.set_xticks([1e4, 1e5, 1e6])
-    top.set_xticklabels(["0.7 ms", "70 us", "7 us"])
-    top.tick_params(axis="x", labelsize=5.8, pad=0.6, width=0.6)
-    add_top_legend(fig, handles, labels, ncol=4, y=1.08, fontsize=5.1)
-    fig.subplots_adjust(left=0.24, right=0.98, bottom=0.24, top=0.72)
-    path = os.path.join(FIG_DIR, "advantage_frontier.pdf")
-    fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
-    plt.close(fig)
-    return path
+    def blend_with_white(hex_color, alpha):
+        hex_color = hex_color.lstrip("#")
+        rgb = np.array([int(hex_color[i:i + 2], 16) for i in (0, 2, 4)], dtype=float) / 255.0
+        white = np.ones(3)
+        mixed = white * (1.0 - alpha) + rgb * alpha
+        return mixed
+
+    fig_total, ax_total = plt.subplots(figsize=(COLUMN_WIDTH, 1.12))
+    y_centers = np.arange(len(points)) * 0.92
+    eps = 1.5e-2
+    for center, point in zip(y_centers, points):
+        ratio_text = "{:.1f}x".format(point["ratio"]) if point["ratio"] >= 1.0 else "{:.2f}x".format(point["ratio"])
+        total_value = max(eps * 1.08, point["ratio"])
+        ax_total.barh(
+            center,
+            total_value - eps,
+            left=eps,
+            height=0.34,
+            color=blend_with_white(point["color"], 0.68),
+            edgecolor=point["color"],
+            linewidth=0.45,
+        )
+        ax_total.text(
+            min(370.0, max(total_value * 1.13, 0.035)),
+            center,
+            ratio_text,
+            ha="left",
+            va="center",
+            fontsize=5.6,
+            color=COLORS["dark"],
+        )
+
+    ax_total.set_xscale("log")
+    ax_total.set_xlim(eps, 520.0)
+    ax_total.set_xticks([3e-2, 1e-1, 1, 1e1, 1e2])
+    ax_total.set_xticklabels(["0.03", "0.1", "1", "10", "$10^2$"])
+    ax_total.axvline(1.0, color=COLORS["dark"], linestyle="--", linewidth=0.8)
+    ax_total.text(
+        1.04,
+        y_centers[0] - 0.43,
+        "same-input native runtime",
+        ha="left",
+        va="bottom",
+        fontsize=5.05,
+        color=COLORS["dark"],
+    )
+    ax_total.set_yticks(y_centers)
+    ax_total.set_yticklabels([point["label"] for point in points])
+    ax_total.invert_yaxis()
+    ax_total.set_xlabel("Projected total / native runtime (x)", labelpad=1.5)
+    style_axis(ax_total, grid="x")
+    ax_total.set_ylim(y_centers[-1] + 0.42, y_centers[0] - 0.42)
+    fig_total.subplots_adjust(left=0.19, right=0.96, bottom=0.25, top=0.80)
+    path_total = os.path.join(FIG_DIR, "advantage_frontier_total.pdf")
+    fig_total.savefig(path_total, bbox_inches="tight", pad_inches=0.01)
+    plt.close(fig_total)
+
+    fig_target, ax_target = plt.subplots(figsize=(COLUMN_WIDTH, 1.56))
+    target_specs = [
+        ("error_ratio", "$T_{err}$"),
+        ("one_meas_ratio", "$1Q$\n$+meas.$"),
+        ("twoq_ratio", "$2Q$"),
+        ("all_terms", "all\nterms"),
+    ]
+    max_target = max(
+        value
+        for point in points
+        for value in point["single_targets"].values()
+        if value is not None
+    )
+
+    for row_idx, point in enumerate(points):
+        row_color = point["color"]
+        for col_idx, (key, _label) in enumerate(target_specs):
+            target = point["single_targets"][key]
+            if target is None:
+                rect = Rectangle(
+                    (col_idx, row_idx),
+                    1.0,
+                    1.0,
+                    facecolor=blend_with_white(row_color, 0.10),
+                    edgecolor=blend_with_white(row_color, 0.70),
+                    linewidth=0.38,
+                    hatch="////",
+                )
+                ax_target.add_patch(rect)
+                ax_target.text(
+                    col_idx + 0.5,
+                    row_idx + 0.5,
+                    "--",
+                    ha="center",
+                    va="center",
+                    fontsize=5.6,
+                    color=COLORS["dark"],
+                )
+            else:
+                norm = 0.0 if max_target <= 1.0 else math.log10(max(target, 1.0)) / math.log10(max_target)
+                alpha = 0.16 + 0.72 * norm
+                face = blend_with_white(row_color, alpha)
+                rect = Rectangle(
+                    (col_idx, row_idx),
+                    1.0,
+                    1.0,
+                    facecolor=face,
+                    edgecolor="white",
+                    linewidth=0.50,
+                )
+                ax_target.add_patch(rect)
+                label = "1x" if target <= 1.01 else "{:.0f}x".format(target)
+                text_color = "white" if norm > 0.56 else COLORS["dark"]
+                ax_target.text(
+                    col_idx + 0.5,
+                    row_idx + 0.5,
+                    label,
+                    ha="center",
+                    va="center",
+                    fontsize=5.35,
+                    color=text_color,
+                    fontweight="bold" if norm > 0.38 else "normal",
+                )
+
+    ax_target.set_xlim(0, len(target_specs))
+    ax_target.set_ylim(len(points), 0)
+    ax_target.set_xticks(np.arange(len(target_specs)) + 0.5)
+    ax_target.set_xticklabels([label for _key, label in target_specs])
+    ax_target.xaxis.tick_top()
+    ax_target.tick_params(axis="x", length=0, pad=2)
+    ax_target.set_yticks(np.arange(len(points)) + 0.5)
+    ax_target.set_yticklabels([point["label"] for point in points])
+    ax_target.set_xlabel("Single-lever speedup for parity (x)", labelpad=3.0)
+    ax_target.xaxis.set_label_position("bottom")
+    for spine in ax_target.spines.values():
+        spine.set_visible(False)
+    ax_target.tick_params(axis="y", length=0)
+    fig_target.subplots_adjust(left=0.19, right=0.96, bottom=0.18, top=0.78)
+    path_target = os.path.join(FIG_DIR, "advantage_component_targets.pdf")
+    fig_target.savefig(path_target, bbox_inches="tight", pad_inches=0.01)
+    plt.close(fig_target)
+    return [path_total, path_target]
 
 
 def figure_workload_taxonomy():
@@ -1777,7 +2172,7 @@ def figure_workload_taxonomy():
         return None
 
     workloads = ["ml", "chemistry", "optimization", "simulation"]
-    labels = ["ML", "Molecule", "MaxCut", "HamSim"]
+    labels = ["ML", "Chem.", "Opt.", "Sim."]
     taxonomy_order = [
         "quality-limited",
         "speed-limited",
@@ -1860,12 +2255,13 @@ def main():
         figure_digits_quality_runtime(),
         figure_practical_suite_legend(),
         figure_practical_suite(),
+        figure_quality_bottleneck_summary(),
         figure_strong_native_comparison(),
         figure_ml_strong_native_gate(),
         figure_ml_profile_breakdown(),
         figure_ml_native_profile_combined(),
         figure_threshold_tail_pressure(),
-        figure_circuit_operation_mix(),
+        figure_projected_time_decomposition(),
         figure_workload_growth(),
         figure_advantage_frontier(),
         figure_tolerance_sensitivity(),

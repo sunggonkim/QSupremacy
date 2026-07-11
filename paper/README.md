@@ -12,9 +12,13 @@ PDF is `paper/main.pdf`.
 make -B -C paper
 ```
 
-The current expanded-evidence build produces a 15-page PDF with references
-starting on page 13. The evidence is complete, but the final submission draft
-must be compressed back to the 11-page HPCA body budget.
+The current build produces a 14-page PDF with references starting on page 12,
+so the body fits the 11-page HPCA submission budget. The title-page submission
+number remains `NaN` until HotCRP assigns the real paper number.
+
+The current evaluation includes the completed regular 16/32/64-node scaling
+ladder: weak scaling reaches 7,104 cases on 256 GPUs, and fixed-work strong
+scaling runs the same 7,104 cases on 64, 128, and 256 GPUs.
 
 ## Artifact Quickstart
 
@@ -35,8 +39,12 @@ Expected state:
 paper/main.pdf builds
 paper evidence audit PASS
 previous-paper alignment/deep-trace/style audits PASS
-submission readiness EVIDENCE_READY_WITH_SUBMISSION_RISKS, warning_count 1
+submission readiness SUBMISSION_READY, warning_count 0, references_start_page 12
 ```
+
+The PDF readability spot check also verifies that `QArchGauge` extracts cleanly
+from the PDF text and that the weak-scaling figure appears before the
+strong-scaling figure.
 
 For a low-cost environment check:
 

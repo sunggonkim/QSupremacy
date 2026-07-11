@@ -16,7 +16,7 @@
       "passed": true
     },
     {
-      "detail": "current subfigure environments: 19",
+      "detail": "current subfigure environments: 15",
       "name": "current_uses_subfigure_environment",
       "passed": true
     },
@@ -26,7 +26,7 @@
       "passed": true
     },
     {
-      "detail": "subfigures=19, captions=18, labels=18, legend-only=1",
+      "detail": "subfigures=15, captions=14, labels=14, legend-only=1",
       "name": "subfigures_have_caption_and_label",
       "passed": true
     },
@@ -46,12 +46,12 @@
       "passed": true
     },
     {
-      "detail": "subfigures=19, legend-only subfigures=1, vspace=8",
+      "detail": "subfigures=15, legend-only subfigures=1, vspace=8",
       "name": "compact_visual_style_present",
       "passed": true
     },
     {
-      "detail": "tables=3, booktabs rules=9, hline rules=0",
+      "detail": "tables=3, booktabs rules=10, hline rules=0",
       "name": "limited_tables_use_booktabs",
       "passed": true
     },
@@ -63,25 +63,25 @@
   ],
   "current_metrics": {
     "arraystretch": 3,
-    "booktabs_rules": 9,
+    "booktabs_rules": 10,
     "caption_before_label_ratio": 1.0,
     "caption_setup": 2,
-    "figure": 14,
-    "figure_star": 1,
+    "figure": 12,
+    "figure_star": 0,
     "float_spacing": 3,
     "hline_rules": 0,
     "legend_subfigures": 1,
     "lowercase_noindent_textbf": [],
-    "noindent_textbf": 40,
-    "resizebox_column": 3,
+    "noindent_textbf": 34,
+    "resizebox_column": 2,
     "scriptsize": 3,
-    "subfigure_environment": 19,
-    "subfigures_with_caption": 18,
-    "subfigures_with_label": 18,
+    "subfigure_environment": 15,
+    "subfigures_with_caption": 14,
+    "subfigures_with_label": 14,
     "subfloat": 0,
     "table": 3,
     "table_star": 0,
-    "textbf": 69,
+    "textbf": 56,
     "vspace": 8
   },
   "passed": true,

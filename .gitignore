@@ -3,6 +3,10 @@ __pycache__/
 .ipynb_checkpoints/
 .DS_Store
 .venv-mlnative/
+.vscode/
+logs/
+data/raw/perlmutter/practical_suite_sweep/
+data/processed/perlmutter/practical_suite_*_c*_summary.*
 paper/*.aux
 paper/*.bbl
 paper/*.blg

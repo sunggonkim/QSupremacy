@@ -139,6 +139,13 @@ def pdf_metadata_text():
     return "\n".join(snippets)
 
 
+def pdf_layout_text():
+    if not exists("paper/main.pdf"):
+        return ""
+    code, stdout, _ = run(["pdftotext", "-layout", "paper/main.pdf", "-"])
+    return stdout if code == 0 else ""
+
+
 def main():
     evidence = load_json("data/processed/perlmutter/paper_evidence_audit.json")
     repeat_gate = load_json("data/processed/perlmutter/repeat_timing_gate_latest.json")
@@ -199,6 +206,10 @@ def main():
         pdf_metadata_text(),
         re.IGNORECASE,
     )
+    layout_text = pdf_layout_text()
+    bad_system_name_hits = re.findall(r"QA\s+RCH|QARCH\s+GAUGE", layout_text)
+    fig5_pos = layout_text.find("Fig. 5: Weak scaling")
+    fig6_pos = layout_text.find("Fig. 6: Strong scaling")
 
     checks = [
         check("main_pdf_exists", exists("paper/main.pdf"), "error", "paper/main.pdf exists"),
@@ -277,6 +288,26 @@ def main():
             "warning",
             "PDF metadata anonymity hits: {}".format(
                 ", ".join(metadata_anonymity_hits) if metadata_anonymity_hits else "none"
+            ),
+        ),
+        check(
+            "pdf_text_readability",
+            bool(layout_text)
+            and not bad_system_name_hits
+            and fig5_pos >= 0
+            and fig6_pos >= 0
+            and fig5_pos < fig6_pos,
+            "warning",
+            (
+                "PDF text extracts clean system name and Fig. 5 precedes Fig. 6"
+                if bool(layout_text)
+                and not bad_system_name_hits
+                and fig5_pos >= 0
+                and fig6_pos >= 0
+                and fig5_pos < fig6_pos
+                else "PDF text readability issue: bad_name_hits={}, fig5_pos={}, fig6_pos={}".format(
+                    len(bad_system_name_hits), fig5_pos, fig6_pos
+                )
             ),
         ),
         check(

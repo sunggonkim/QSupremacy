@@ -25,17 +25,19 @@ bottleneck insights.
 | Item | Status |
 | --- | --- |
 | Manuscript PDF | `paper/main.pdf` builds successfully |
-| Body budget | Expanded evidence draft; references start on page 13 |
+| Body budget | HPCA-ready body; references start on page 12 |
 | Main suite | 3,552 cases on 128 GPUs |
-| 256-GPU fixed work | 3,552 cases in 261 seconds |
-| 256-GPU larger-workload gate | 7,104 cases in 514 seconds |
+| 256-GPU larger-workload gate | 7,104 cases in 576 seconds |
+| Regular weak-scaling ladder | 64/128/256 GPUs completed with 1,776 / 3,552 / 7,104 ok cases |
+| Regular strong-scaling ladder | 64/128/256 GPUs completed with 7,104 fixed ok cases each |
 | ML production-native gate | 32 same-input cases with PyTorch AMP CNN/MLP and XGBoost GPU-hist |
 | ML profiling gate | Nsight Systems + dmon captured; Nsight Compute counter failure recorded |
 | Workloads | ML, chemistry, optimization, scientific simulation |
 | Previous-paper structure audit | PASS via JSON artifacts |
 | Previous-paper LaTeX style audit | PASS via JSON artifacts |
 | Paper evidence audit | PASS |
-| Submission readiness audit | `EVIDENCE_READY_WITH_SUBMISSION_RISKS`, 0 blocking errors, 1 length warning |
+| Submission readiness audit | `SUBMISSION_READY`, 0 warnings, 0 blocking errors |
+| PDF readability spot check | PASS: `QArchGauge` extracts cleanly; Fig. 5 precedes Fig. 6; rendered contact sheets inspected |
 
 Main 3,552-case medians:
 
@@ -75,17 +77,44 @@ python3 scripts/audit_submission_readiness.py
 Expected result:
 
 ```text
-previous-paper alignment: ALIGNED_BY_COUNTS
+previous-paper alignment: TRACKED_WITH_KNOWN_GAPS only for a non-blocking Design word-count note; all alignment checks PASS
 previous-paper deep trace: PASS
 previous-paper style audit: PASS
 paper evidence audit: PASS
-submission readiness: EVIDENCE_READY_WITH_SUBMISSION_RISKS, warning_count 1
+submission readiness: SUBMISSION_READY, warning_count 0, references_start_page 12
 ```
 
 For allocation-free sanity checks:
 
 ```bash
 scripts/run_login_smoke.sh
+```
+
+For the reviewer-response scale ladder, first run the allocation-free preflight:
+
+```bash
+QS_PREFLIGHT_ONLY=1 QS_SWEEP_PROFILE=scale_ladder_debug QS_CHUNK_COUNT=1 QS_CHUNK_ID=0 QS_WORKLOAD_FAMILIES=all bash jobs/perlmutter/practical_suite_sweep_1gpu_shared.sbatch
+```
+
+Then submit the 1-node/4-GPU debug ladder only after deciding to spend
+allocation:
+
+```bash
+QS_SWEEP_PROFILE=scale_ladder_debug QS_SCALE_MODE=weak QS_CHUNK_COUNT=4 sbatch -q debug -t 00:30:00 -N 1 jobs/perlmutter/practical_suite_scale_nodes.sbatch
+```
+
+The completed regular scaling ladder used the large profile:
+
+```bash
+# Weak scaling: 1,776 / 3,552 / 7,104 cases on 64 / 128 / 256 GPUs.
+QS_SWEEP_PROFILE=large QS_REPEAT_COUNT=2 QS_SCALE_MODE=weak QS_CHUNK_COUNT=64 sbatch -q regular -t 01:00:00 -N 16 jobs/perlmutter/practical_suite_scale_nodes.sbatch
+QS_SWEEP_PROFILE=large QS_REPEAT_COUNT=4 QS_SCALE_MODE=weak QS_CHUNK_COUNT=128 sbatch -q regular -t 01:00:00 -N 32 jobs/perlmutter/practical_suite_scale_nodes.sbatch
+QS_SWEEP_PROFILE=large QS_REPEAT_COUNT=8 QS_SCALE_MODE=weak QS_CHUNK_COUNT=256 sbatch -q regular -t 01:00:00 -N 64 jobs/perlmutter/practical_suite_scale_nodes.sbatch
+
+# Strong scaling: 7,104 fixed cases on 64 / 128 / 256 GPUs.
+QS_SWEEP_PROFILE=large QS_REPEAT_COUNT=8 QS_SCALE_MODE=strong QS_CHUNK_COUNT=256 sbatch -q regular -t 01:15:00 -N 16 jobs/perlmutter/practical_suite_scale_nodes.sbatch
+QS_SWEEP_PROFILE=large QS_REPEAT_COUNT=8 QS_SCALE_MODE=strong QS_CHUNK_COUNT=256 sbatch -q regular -t 01:00:00 -N 32 jobs/perlmutter/practical_suite_scale_nodes.sbatch
+QS_SWEEP_PROFILE=large QS_REPEAT_COUNT=8 QS_SCALE_MODE=strong QS_CHUNK_COUNT=256 sbatch -q regular -t 01:00:00 -N 64 jobs/perlmutter/practical_suite_scale_nodes.sbatch
 ```
 
 ## Key JSON Artifacts
@@ -98,12 +127,18 @@ scripts/run_login_smoke.sh
 | Previous-paper alignment metrics | `data/processed/perlmutter/previous_paper_alignment_metrics.json` |
 | Previous-paper deep trace | `data/processed/perlmutter/previous_paper_deep_trace.json` |
 | Previous-paper style audit | `data/processed/perlmutter/previous_paper_style_audit.json` |
+| PDF readability renders | `/tmp/qsup_render2/contact_01_06.png`, `/tmp/qsup_render2/contact_07_12.png`, `/tmp/qsup_render2/contact_13_14.png` |
 | Main 128-GPU summary | `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.json` |
-| 256-GPU fixed-work summary | `data/processed/perlmutter/practical_suite_strongscale_64node_largefull_c0c255_20260705024742_summary.json` |
-| 256-GPU larger-workload summary | `data/processed/perlmutter/practical_suite_strongnative_64node_large256c0c255_20260705024742_summary.json` |
+| Weak-scaling 16-node summary | `data/processed/perlmutter/practical_suite_55731013_scale_16n_64g_summary.json` |
+| Weak-scaling 32-node summary | `data/processed/perlmutter/practical_suite_55731014_scale_32n_128g_summary.json` |
+| Weak-scaling 64-node summary | `data/processed/perlmutter/practical_suite_55731015_scale_64n_256g_summary.json` |
+| Strong-scaling 16-node summary | `data/processed/perlmutter/practical_suite_55731032_scale_16n_64g_summary.json` |
+| Strong-scaling 32-node summary | `data/processed/perlmutter/practical_suite_55731033_scale_32n_128g_summary.json` |
+| Strong-scaling 64-node summary | `data/processed/perlmutter/practical_suite_55731034_scale_64n_256g_summary.json` |
 | ML production-native gate | `data/processed/perlmutter/ml_strong_native_gate_latest.json` |
 | ML profiling gate | `data/processed/perlmutter/ml_strong_native_profile_latest.json` |
 | Advantage projection | `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.json` |
+| Projection scenario sweep | `data/processed/perlmutter/practical_suite_projection_scenarios.json` |
 | Workload taxonomy | `data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_taxonomy.json` |
 
 Markdown policy: only README files and `plan.md` are kept in the repository.

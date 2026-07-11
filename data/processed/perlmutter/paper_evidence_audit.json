@@ -154,6 +154,222 @@
           "passed": true
         },
         {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_55731013_scale_16n_64g_summary.json",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_55731013_scale_16n_64g_summary.csv",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_55731013_scale_16n_64g.txt",
+          "passed": true
+        },
+        {
+          "actual": 1776,
+          "expected": 1776,
+          "label": "weak_16_summary_cases",
+          "passed": true
+        },
+        {
+          "actual": 1776,
+          "expected": 1776,
+          "label": "weak_16_csv_cases",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "weak_16_accounting_completed",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_55731014_scale_32n_128g_summary.json",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_55731014_scale_32n_128g_summary.csv",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_55731014_scale_32n_128g.txt",
+          "passed": true
+        },
+        {
+          "actual": 3552,
+          "expected": 3552,
+          "label": "weak_32_summary_cases",
+          "passed": true
+        },
+        {
+          "actual": 3552,
+          "expected": 3552,
+          "label": "weak_32_csv_cases",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "weak_32_accounting_completed",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_55731015_scale_64n_256g_summary.json",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_55731015_scale_64n_256g_summary.csv",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_55731015_scale_64n_256g.txt",
+          "passed": true
+        },
+        {
+          "actual": 7104,
+          "expected": 7104,
+          "label": "weak_64_summary_cases",
+          "passed": true
+        },
+        {
+          "actual": 7104,
+          "expected": 7104,
+          "label": "weak_64_csv_cases",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "weak_64_accounting_completed",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_55731032_scale_16n_64g_summary.json",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_55731032_scale_16n_64g_summary.csv",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_55731032_scale_16n_64g.txt",
+          "passed": true
+        },
+        {
+          "actual": 7104,
+          "expected": 7104,
+          "label": "strong_16_summary_cases",
+          "passed": true
+        },
+        {
+          "actual": 7104,
+          "expected": 7104,
+          "label": "strong_16_csv_cases",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "strong_16_accounting_completed",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_55731033_scale_32n_128g_summary.json",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_55731033_scale_32n_128g_summary.csv",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_55731033_scale_32n_128g.txt",
+          "passed": true
+        },
+        {
+          "actual": 7104,
+          "expected": 7104,
+          "label": "strong_32_summary_cases",
+          "passed": true
+        },
+        {
+          "actual": 7104,
+          "expected": 7104,
+          "label": "strong_32_csv_cases",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "strong_32_accounting_completed",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_55731034_scale_64n_256g_summary.json",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_55731034_scale_64n_256g_summary.csv",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_55731034_scale_64n_256g.txt",
+          "passed": true
+        },
+        {
+          "actual": 7104,
+          "expected": 7104,
+          "label": "strong_64_summary_cases",
+          "passed": true
+        },
+        {
+          "actual": 7104,
+          "expected": 7104,
+          "label": "strong_64_csv_cases",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "strong_64_accounting_completed",
+          "passed": true
+        },
+        {
           "actual": 2048,
           "expected": 2048,
           "label": "ml_cases",
@@ -178,7 +394,7 @@
           "passed": true
         }
       ],
-      "claim": "3,552-case strong-native suite plus 256-GPU fixed-work and larger-workload gates",
+      "claim": "3,552-case suite plus regular 16/32/64-node weak and fixed-work scaling gates",
       "evidence": [
         "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.json",
         "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv",
@@ -251,7 +467,25 @@
         {
           "actual": true,
           "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_projection_scenarios.json",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
           "label": "exists: paper/figures/advantage_frontier.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/advantage_frontier_total.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/advantage_component_targets.pdf",
           "passed": true
         },
         {
@@ -303,12 +537,35 @@
           "label": "chemistry_1e5_90pct_recovery",
           "passed": true,
           "tolerance": 1e-06
+        },
+        {
+          "actual": 3552,
+          "expected": 3552,
+          "label": "projection_scenario_cases",
+          "passed": true
+        },
+        {
+          "actual": 0.028848538548146264,
+          "expected": 0.028848538548146264,
+          "label": "projection_scenario_default_sim_ratio",
+          "passed": true,
+          "tolerance": 1e-06
+        },
+        {
+          "actual": 0.00146484375,
+          "expected": 0.00146484375,
+          "label": "projection_scenario_resource_ml_adv",
+          "passed": true,
+          "tolerance": 1e-06
         }
       ],
       "claim": "Advantage fractions over projected speedup and quality-gap recovery",
       "evidence": [
         "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.json",
+        "data/processed/perlmutter/practical_suite_projection_scenarios.json",
         "paper/figures/advantage_frontier.pdf",
+        "paper/figures/advantage_frontier_total.pdf",
+        "paper/figures/advantage_component_targets.pdf",
         "paper/figures/advantage_frontier_chemistry.pdf",
         "paper/figures/advantage_frontier_optimization.pdf",
         "paper/figures/advantage_frontier_simulation.pdf",
@@ -468,7 +725,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 25430
+            "size_bytes": 14028
           },
           "expected": {
             "exists": true,
@@ -482,7 +739,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 29412
+            "size_bytes": 14094
           },
           "expected": {
             "exists": true,
@@ -496,7 +753,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 35722
+            "size_bytes": 20563
           },
           "expected": {
             "exists": true,
@@ -523,12 +780,13 @@
       "checks": [
         {
           "actual": [
+            "paper/figures/advantage_component_targets.pdf",
             "paper/figures/advantage_frontier.pdf",
             "paper/figures/advantage_frontier_chemistry.pdf",
             "paper/figures/advantage_frontier_optimization.pdf",
             "paper/figures/advantage_frontier_simulation.pdf",
+            "paper/figures/advantage_frontier_total.pdf",
             "paper/figures/architecture_focus_matrix.pdf",
-            "paper/figures/circuit_operation_mix.pdf",
             "paper/figures/design_overview.pdf",
             "paper/figures/design_projection_flow.pdf",
             "paper/figures/digits_legend.pdf",
@@ -544,6 +802,9 @@
             "paper/figures/practical_suite_cdf.pdf",
             "paper/figures/practical_suite_legend.pdf",
             "paper/figures/practical_suite_summary.pdf",
+            "paper/figures/projected_time_decomposition.pdf",
+            "paper/figures/quality_bottleneck_fraction.pdf",
+            "paper/figures/quality_gap_summary.pdf",
             "paper/figures/strong_native_comparison.pdf",
             "paper/figures/strong_native_legend.pdf",
             "paper/figures/strong_native_quality_shift.pdf",
@@ -558,12 +819,13 @@
             "paper/figures/workload_taxonomy.pdf"
           ],
           "expected": [
+            "paper/figures/advantage_component_targets.pdf",
             "paper/figures/advantage_frontier.pdf",
             "paper/figures/advantage_frontier_chemistry.pdf",
             "paper/figures/advantage_frontier_optimization.pdf",
             "paper/figures/advantage_frontier_simulation.pdf",
+            "paper/figures/advantage_frontier_total.pdf",
             "paper/figures/architecture_focus_matrix.pdf",
-            "paper/figures/circuit_operation_mix.pdf",
             "paper/figures/design_overview.pdf",
             "paper/figures/design_projection_flow.pdf",
             "paper/figures/digits_legend.pdf",
@@ -579,6 +841,9 @@
             "paper/figures/practical_suite_cdf.pdf",
             "paper/figures/practical_suite_legend.pdf",
             "paper/figures/practical_suite_summary.pdf",
+            "paper/figures/projected_time_decomposition.pdf",
+            "paper/figures/quality_bottleneck_fraction.pdf",
+            "paper/figures/quality_gap_summary.pdf",
             "paper/figures/strong_native_comparison.pdf",
             "paper/figures/strong_native_legend.pdf",
             "paper/figures/strong_native_quality_shift.pdf",
@@ -613,7 +878,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 28416
+            "size_bytes": 17117
           },
           "expected": {
             "exists": true,
@@ -627,7 +892,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 47380
+            "size_bytes": 31000
           },
           "expected": {
             "exists": true,
@@ -641,7 +906,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 33211
+            "size_bytes": 28724
           },
           "expected": {
             "exists": true,
@@ -655,7 +920,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 12622
+            "size_bytes": 11991
           },
           "expected": {
             "exists": true,
@@ -669,7 +934,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 23380
+            "size_bytes": 12372
           },
           "expected": {
             "exists": true,
@@ -683,7 +948,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 27872
+            "size_bytes": 11428
           },
           "expected": {
             "exists": true,
@@ -697,7 +962,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 42128
+            "size_bytes": 13791
           },
           "expected": {
             "exists": true,
@@ -711,7 +976,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 30468
+            "size_bytes": 12204
           },
           "expected": {
             "exists": true,
@@ -725,7 +990,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 21628
+            "size_bytes": 10789
           },
           "expected": {
             "exists": true,
@@ -739,7 +1004,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 14245
+            "size_bytes": 13171
           },
           "expected": {
             "exists": true,
@@ -753,7 +1018,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 23403
+            "size_bytes": 12363
           },
           "expected": {
             "exists": true,
@@ -767,7 +1032,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 9112
+            "size_bytes": 8008
           },
           "expected": {
             "exists": true,
@@ -781,7 +1046,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 11590
+            "size_bytes": 11148
           },
           "expected": {
             "exists": true,
@@ -795,7 +1060,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 25430
+            "size_bytes": 14028
           },
           "expected": {
             "exists": true,
@@ -809,7 +1074,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 29412
+            "size_bytes": 14094
           },
           "expected": {
             "exists": true,
@@ -823,7 +1088,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 35722
+            "size_bytes": 20563
           },
           "expected": {
             "exists": true,
@@ -837,7 +1102,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 24219
+            "size_bytes": 13180
           },
           "expected": {
             "exists": true,
@@ -851,21 +1116,21 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 12969
+            "size_bytes": 11990
           },
           "expected": {
             "exists": true,
             "header": "%PDF",
             "min_bytes": 1024
           },
-          "label": "valid_pdf: paper/figures/circuit_operation_mix.pdf",
+          "label": "valid_pdf: paper/figures/projected_time_decomposition.pdf",
           "passed": true
         },
         {
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 17600
+            "size_bytes": 23730
           },
           "expected": {
             "exists": true,
@@ -879,7 +1144,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 9090
+            "size_bytes": 8039
           },
           "expected": {
             "exists": true,
@@ -893,7 +1158,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 59351
+            "size_bytes": 48214
           },
           "expected": {
             "exists": true,
@@ -907,7 +1172,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 23996
+            "size_bytes": 13026
           },
           "expected": {
             "exists": true,
@@ -921,7 +1186,35 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 7402
+            "size_bytes": 18369
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/quality_gap_summary.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 13140
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/quality_bottleneck_fraction.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 7143
           },
           "expected": {
             "exists": true,
@@ -935,7 +1228,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 22162
+            "size_bytes": 10311
           },
           "expected": {
             "exists": true,
@@ -949,7 +1242,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 25836
+            "size_bytes": 14935
           },
           "expected": {
             "exists": true,
@@ -963,7 +1256,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 33661
+            "size_bytes": 29391
           },
           "expected": {
             "exists": true,
@@ -971,6 +1264,34 @@
             "min_bytes": 1024
           },
           "label": "valid_pdf: paper/figures/advantage_frontier.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 16711
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/advantage_frontier_total.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "exists": true,
+            "header": "%PDF",
+            "size_bytes": 27763
+          },
+          "expected": {
+            "exists": true,
+            "header": "%PDF",
+            "min_bytes": 1024
+          },
+          "label": "valid_pdf: paper/figures/advantage_component_targets.pdf",
           "passed": true
         },
         {
@@ -1019,7 +1340,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 30200
+            "size_bytes": 18898
           },
           "expected": {
             "exists": true,
@@ -1033,7 +1354,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 43078
+            "size_bytes": 19407
           },
           "expected": {
             "exists": true,
@@ -1047,7 +1368,7 @@
           "actual": {
             "exists": true,
             "header": "%PDF",
-            "size_bytes": 28969
+            "size_bytes": 13096
           },
           "expected": {
             "exists": true,
@@ -1078,15 +1399,19 @@
         "paper/figures/ml_profile_breakdown.pdf",
         "paper/figures/ml_native_profile_combined.pdf",
         "paper/figures/threshold_tail_pressure.pdf",
-        "paper/figures/circuit_operation_mix.pdf",
+        "paper/figures/projected_time_decomposition.pdf",
         "paper/figures/architecture_focus_matrix.pdf",
         "paper/figures/practical_suite_legend.pdf",
         "paper/figures/practical_suite_summary.pdf",
         "paper/figures/practical_suite_cdf.pdf",
+        "paper/figures/quality_gap_summary.pdf",
+        "paper/figures/quality_bottleneck_fraction.pdf",
         "paper/figures/digits_legend.pdf",
         "paper/figures/digits_required_speedup.pdf",
         "paper/figures/digits_quality_speedup.pdf",
         "paper/figures/advantage_frontier.pdf",
+        "paper/figures/advantage_frontier_total.pdf",
+        "paper/figures/advantage_component_targets.pdf",
         "paper/figures/advantage_frontier_chemistry.pdf",
         "paper/figures/advantage_frontier_optimization.pdf",
         "paper/figures/advantage_frontier_simulation.pdf",
@@ -1125,16 +1450,16 @@
           },
           "expected": {
             "contains": [
-              "median native path is 2.09 ms for ML",
-              "0.170 ms for molecule",
-              "0.024 ms for MaxCut",
+              "mean required speedup is 79,291$\\times$",
+              "median is 15,164$\\times$",
               "3,726.4$\\times$ for ML",
-              "42,491.4$\\times$ for molecule",
-              "287,045.6$\\times$ for MaxCut",
-              "3,071.0$\\times$ for HamSim",
+              "42,491.4$\\times$ for Chem",
+              "287,045.6$\\times$ for Opt.",
+              "3,071.0$\\times$ for Sim.",
               "7,104-case larger-workload gate",
-              "256-GPU run completes 7,104 cases in 514 seconds",
-              "4 minutes 21 seconds",
+              "completes 7,104 cases in 576 seconds",
+              "28 minutes 33 seconds",
+              "6 minutes 58 seconds",
               "32-case production-style ML native gate",
               "8,601.6$\\times$",
               "49.3$\\times$",
@@ -1152,13 +1477,25 @@
           },
           "expected": {
             "contains": [
-              "54.9\\% of measured HamSim cases",
-              "57.1\\% of molecule cases",
-              "22.9\\% of cases at 90\\% recovery",
+              "Sim. reaches 55\\% of cases at $10^4\\times$",
+              "Chem reaches 57\\% at $10^5\\times$",
+              "Opt. remains at 23\\% even at $10^6\\times$"
+            ]
+          },
+          "label": "projection_numbers",
+          "passed": true
+        },
+        {
+          "actual": {
+            "file": "paper/5.Discussion.tex",
+            "missing": []
+          },
+          "expected": {
+            "contains": [
               "maximum quantum-runtime CV is 0.0400"
             ]
           },
-          "label": "projection_and_repeat_numbers",
+          "label": "repeat_numbers",
           "passed": true
         },
         {
@@ -1171,8 +1508,8 @@
               "421.9$\\times$",
               "64.9$\\times$",
               "3,552 cases",
-              "54.9\\% of HamSim cases",
-              "57.1\\% of molecule cases"
+              "54.9\\% of Sim. cases",
+              "57.1\\% of Chem cases"
             ]
           },
           "label": "conclusion_frontier_numbers",
@@ -1375,6 +1712,114 @@
         {
           "actual": true,
           "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_55731013_scale_16n_64g_summary.json",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_55731013_scale_16n_64g_summary.csv",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_55731013_scale_16n_64g.txt",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_55731014_scale_32n_128g_summary.json",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_55731014_scale_32n_128g_summary.csv",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_55731014_scale_32n_128g.txt",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_55731015_scale_64n_256g_summary.json",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_55731015_scale_64n_256g_summary.csv",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_55731015_scale_64n_256g.txt",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_55731032_scale_16n_64g_summary.json",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_55731032_scale_16n_64g_summary.csv",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_55731032_scale_16n_64g.txt",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_55731033_scale_32n_128g_summary.json",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_55731033_scale_32n_128g_summary.csv",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_55731033_scale_32n_128g.txt",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_55731034_scale_64n_256g_summary.json",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_55731034_scale_64n_256g_summary.csv",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_55731034_scale_64n_256g.txt",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
           "label": "exists: paper/figures/practical_suite_legend.pdf",
           "passed": true
         },
@@ -1393,7 +1838,19 @@
         {
           "actual": true,
           "expected": true,
-          "label": "exists: paper/figures/circuit_operation_mix.pdf",
+          "label": "exists: paper/figures/quality_gap_summary.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/quality_bottleneck_fraction.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/projected_time_decomposition.pdf",
           "passed": true
         },
         {
@@ -1567,6 +2024,12 @@
         {
           "actual": true,
           "expected": true,
+          "label": "exists: scripts/summarize_projection_scenarios.py",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
           "label": "exists: scripts/generate_paper_figures.py",
           "passed": true
         },
@@ -1579,7 +2042,25 @@
         {
           "actual": true,
           "expected": true,
+          "label": "exists: data/processed/perlmutter/practical_suite_projection_scenarios.json",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
           "label": "exists: paper/figures/advantage_frontier.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/advantage_frontier_total.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/advantage_component_targets.pdf",
           "passed": true
         },
         {
@@ -1640,6 +2121,18 @@
           "actual": true,
           "expected": true,
           "label": "exists: data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_taxonomy.json",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/quality_gap_summary.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/quality_bottleneck_fraction.pdf",
           "passed": true
         },
         {
@@ -1861,7 +2354,7 @@
         {
           "actual": true,
           "expected": true,
-          "label": "exists: paper/figures/circuit_operation_mix.pdf",
+          "label": "exists: paper/figures/projected_time_decomposition.pdf",
           "passed": true
         },
         {
@@ -1891,6 +2384,18 @@
         {
           "actual": true,
           "expected": true,
+          "label": "exists: paper/figures/quality_gap_summary.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/quality_bottleneck_fraction.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
           "label": "exists: paper/figures/digits_legend.pdf",
           "passed": true
         },
@@ -1910,6 +2415,18 @@
           "actual": true,
           "expected": true,
           "label": "exists: paper/figures/advantage_frontier.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/advantage_frontier_total.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/advantage_component_targets.pdf",
           "passed": true
         },
         {
@@ -2059,7 +2576,7 @@
         {
           "actual": true,
           "expected": true,
-          "label": "exists: paper/figures/circuit_operation_mix.pdf",
+          "label": "exists: paper/figures/projected_time_decomposition.pdf",
           "passed": true
         },
         {
@@ -2089,6 +2606,18 @@
         {
           "actual": true,
           "expected": true,
+          "label": "exists: paper/figures/quality_gap_summary.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/quality_bottleneck_fraction.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
           "label": "exists: paper/figures/digits_legend.pdf",
           "passed": true
         },
@@ -2108,6 +2637,18 @@
           "actual": true,
           "expected": true,
           "label": "exists: paper/figures/advantage_frontier.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/advantage_frontier_total.pdf",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "exists: paper/figures/advantage_component_targets.pdf",
           "passed": true
         },
         {

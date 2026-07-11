@@ -226,6 +226,52 @@ def main():
         "data/raw/perlmutter/accounting/"
         "sacct_practical_suite_strongscale_64node_largefull_c0c255_20260705024742.txt"
     )
+    weak_ladder = [
+        (
+            "weak_16",
+            "data/processed/perlmutter/practical_suite_55731013_scale_16n_64g_summary.json",
+            "data/processed/perlmutter/practical_suite_55731013_scale_16n_64g_summary.csv",
+            "data/raw/perlmutter/accounting/sacct_practical_suite_55731013_scale_16n_64g.txt",
+            1776,
+        ),
+        (
+            "weak_32",
+            "data/processed/perlmutter/practical_suite_55731014_scale_32n_128g_summary.json",
+            "data/processed/perlmutter/practical_suite_55731014_scale_32n_128g_summary.csv",
+            "data/raw/perlmutter/accounting/sacct_practical_suite_55731014_scale_32n_128g.txt",
+            3552,
+        ),
+        (
+            "weak_64",
+            "data/processed/perlmutter/practical_suite_55731015_scale_64n_256g_summary.json",
+            "data/processed/perlmutter/practical_suite_55731015_scale_64n_256g_summary.csv",
+            "data/raw/perlmutter/accounting/sacct_practical_suite_55731015_scale_64n_256g.txt",
+            7104,
+        ),
+    ]
+    strong_ladder = [
+        (
+            "strong_16",
+            "data/processed/perlmutter/practical_suite_55731032_scale_16n_64g_summary.json",
+            "data/processed/perlmutter/practical_suite_55731032_scale_16n_64g_summary.csv",
+            "data/raw/perlmutter/accounting/sacct_practical_suite_55731032_scale_16n_64g.txt",
+            7104,
+        ),
+        (
+            "strong_32",
+            "data/processed/perlmutter/practical_suite_55731033_scale_32n_128g_summary.json",
+            "data/processed/perlmutter/practical_suite_55731033_scale_32n_128g_summary.csv",
+            "data/raw/perlmutter/accounting/sacct_practical_suite_55731033_scale_32n_128g.txt",
+            7104,
+        ),
+        (
+            "strong_64",
+            "data/processed/perlmutter/practical_suite_55731034_scale_64n_256g_summary.json",
+            "data/processed/perlmutter/practical_suite_55731034_scale_64n_256g_summary.csv",
+            "data/raw/perlmutter/accounting/sacct_practical_suite_55731034_scale_64n_256g.txt",
+            7104,
+        ),
+    ]
     large = load_json(large_json)
     large_64 = load_json(large_64_json)
     strong_64 = load_json(strong_64_json)
@@ -249,6 +295,22 @@ def main():
         check_equals("large_64_accounting_completed", completed_accounting(large_64_accounting), True),
         check_equals("strong_64_accounting_completed", completed_accounting(strong_64_accounting), True),
     ]
+    for label, json_path, csv_path, accounting_path, cases in weak_ladder + strong_ladder:
+        summary = load_json(json_path)
+        large_checks.extend(
+            [
+                check_exists(json_path),
+                check_exists(csv_path),
+                check_exists(accounting_path),
+                check_equals("{}_summary_cases".format(label), summary["cases"], cases),
+                check_equals("{}_csv_cases".format(label), count_csv(csv_path), cases),
+                check_equals(
+                    "{}_accounting_completed".format(label),
+                    completed_accounting(accounting_path),
+                    True,
+                ),
+            ]
+        )
     for workload, cases in [
         ("ml", 2048),
         ("chemistry", 224),
@@ -265,7 +327,7 @@ def main():
     items.append(
         ok_item(
             "large_practical_suite",
-            "3,552-case strong-native suite plus 256-GPU fixed-work and larger-workload gates",
+            "3,552-case suite plus regular 16/32/64-node weak and fixed-work scaling gates",
             [large_json, large_csv, large_accounting],
             large_checks,
         )
@@ -313,14 +375,21 @@ def main():
         "data/processed/perlmutter/"
         "practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.json"
     )
+    projection_scenarios_json = (
+        "data/processed/perlmutter/practical_suite_projection_scenarios.json"
+    )
     projection = load_json(projection_json)
+    projection_scenarios = load_json(projection_scenarios_json)
     items.append(
         ok_item(
             "advantage_projection",
             "Advantage fractions over projected speedup and quality-gap recovery",
             [
                 projection_json,
+                projection_scenarios_json,
                 "paper/figures/advantage_frontier.pdf",
+                "paper/figures/advantage_frontier_total.pdf",
+                "paper/figures/advantage_component_targets.pdf",
                 "paper/figures/advantage_frontier_chemistry.pdf",
                 "paper/figures/advantage_frontier_optimization.pdf",
                 "paper/figures/advantage_frontier_simulation.pdf",
@@ -329,7 +398,10 @@ def main():
             ],
             [
                 check_exists(projection_json),
+                check_exists(projection_scenarios_json),
                 check_exists("paper/figures/advantage_frontier.pdf"),
+                check_exists("paper/figures/advantage_frontier_total.pdf"),
+                check_exists("paper/figures/advantage_component_targets.pdf"),
                 check_exists("paper/figures/advantage_frontier_chemistry.pdf"),
                 check_exists("paper/figures/advantage_frontier_optimization.pdf"),
                 check_exists("paper/figures/advantage_frontier_simulation.pdf"),
@@ -345,6 +417,25 @@ def main():
                     "chemistry_1e5_90pct_recovery",
                     projection["by_workload"]["chemistry"]["grid"]["0.90"]["100000"],
                     0.5714285714285714,
+                ),
+                check_equals(
+                    "projection_scenario_cases",
+                    projection_scenarios["cases"],
+                    3552,
+                ),
+                check_close(
+                    "projection_scenario_default_sim_ratio",
+                    projection_scenarios["by_scenario"]["default_optimistic"][
+                        "by_workload"
+                    ]["simulation"]["median_projected_native_ratio"],
+                    0.028848538548146264,
+                ),
+                check_close(
+                    "projection_scenario_resource_ml_adv",
+                    projection_scenarios["by_scenario"]["resource_estimator_like"][
+                        "by_workload"
+                    ]["ml"]["advantaged_fraction"],
+                    0.00146484375,
                 ),
             ],
         )
@@ -473,15 +564,19 @@ def main():
         "paper/figures/ml_profile_breakdown.pdf",
         "paper/figures/ml_native_profile_combined.pdf",
         "paper/figures/threshold_tail_pressure.pdf",
-        "paper/figures/circuit_operation_mix.pdf",
+        "paper/figures/projected_time_decomposition.pdf",
         "paper/figures/architecture_focus_matrix.pdf",
         "paper/figures/practical_suite_legend.pdf",
         "paper/figures/practical_suite_summary.pdf",
         "paper/figures/practical_suite_cdf.pdf",
+        "paper/figures/quality_gap_summary.pdf",
+        "paper/figures/quality_bottleneck_fraction.pdf",
         "paper/figures/digits_legend.pdf",
         "paper/figures/digits_required_speedup.pdf",
         "paper/figures/digits_quality_speedup.pdf",
         "paper/figures/advantage_frontier.pdf",
+        "paper/figures/advantage_frontier_total.pdf",
+        "paper/figures/advantage_component_targets.pdf",
         "paper/figures/advantage_frontier_chemistry.pdf",
         "paper/figures/advantage_frontier_optimization.pdf",
         "paper/figures/advantage_frontier_simulation.pdf",
@@ -528,16 +623,16 @@ def main():
             "practical_suite_prose_numbers",
             "paper/4.Evaluation.tex",
             [
-                "median native path is 2.09 ms for ML",
-                "0.170 ms for molecule",
-                "0.024 ms for MaxCut",
+                "mean required speedup is 79,291$\\times$",
+                "median is 15,164$\\times$",
                 "3,726.4$\\times$ for ML",
-                "42,491.4$\\times$ for molecule",
-                "287,045.6$\\times$ for MaxCut",
-                "3,071.0$\\times$ for HamSim",
+                "42,491.4$\\times$ for Chem",
+                "287,045.6$\\times$ for Opt.",
+                "3,071.0$\\times$ for Sim.",
                 "7,104-case larger-workload gate",
-                "256-GPU run completes 7,104 cases in 514 seconds",
-                "4 minutes 21 seconds",
+                "completes 7,104 cases in 576 seconds",
+                "28 minutes 33 seconds",
+                "6 minutes 58 seconds",
                 "32-case production-style ML native gate",
                 "8,601.6$\\times$",
                 "49.3$\\times$",
@@ -546,12 +641,18 @@ def main():
             ],
         ),
         check_text_contains(
-            "projection_and_repeat_numbers",
+            "projection_numbers",
             "paper/4.Evaluation.tex",
             [
-                "54.9\\% of measured HamSim cases",
-                "57.1\\% of molecule cases",
-                "22.9\\% of cases at 90\\% recovery",
+                "Sim. reaches 55\\% of cases at $10^4\\times$",
+                "Chem reaches 57\\% at $10^5\\times$",
+                "Opt. remains at 23\\% even at $10^6\\times$",
+            ],
+        ),
+        check_text_contains(
+            "repeat_numbers",
+            "paper/5.Discussion.tex",
+            [
                 "maximum quantum-runtime CV is 0.0400",
             ],
         ),
@@ -562,8 +663,8 @@ def main():
                 "421.9$\\times$",
                 "64.9$\\times$",
                 "3,552 cases",
-                "54.9\\% of HamSim cases",
-                "57.1\\% of molecule cases",
+                "54.9\\% of Sim. cases",
+                "57.1\\% of Chem cases",
             ],
         ),
     ]

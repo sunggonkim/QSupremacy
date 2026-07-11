@@ -14,10 +14,10 @@
   "known_gaps": [
     {
       "closest_template": "aurora",
-      "ours_words": 45,
-      "section": "conclusion",
-      "target_words": 89,
-      "word_ratio": 0.506
+      "ours_words": 2051,
+      "section": "design",
+      "target_words": 3497,
+      "word_ratio": 0.587
     }
   ],
   "sections": {
@@ -39,19 +39,19 @@
       },
       "closest_template": "aurora",
       "ours": {
-        "avg_paragraph_words": 74.89,
+        "avg_paragraph_words": 80.38,
         "figures": 0,
         "items": 0,
         "missing": false,
-        "paragraphs": 9,
-        "paragraphs_per_heading": 4.5,
+        "paragraphs": 16,
+        "paragraphs_per_heading": 8.0,
         "path": "paper/2.Background.tex",
         "subsections": 2,
         "subsubsections": 0,
         "tables": 0,
-        "textbf": 5,
-        "textbf_per_1000_words": 7.42,
-        "words": 674
+        "textbf": 12,
+        "textbf_per_1000_words": 9.33,
+        "words": 1286
       },
       "paragraph_role_inventory": [
         {
@@ -64,7 +64,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 7,
+          "current_line": 13,
           "current_marker": "Repeated Execution",
           "role": "repeated execution",
           "template_line": 8,
@@ -82,7 +82,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 13,
+          "current_line": 16,
           "current_marker": "Terminology",
           "role": "terminology",
           "template_line": 16,
@@ -91,7 +91,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 16,
+          "current_line": 19,
           "current_marker": "\\subsection{Native Baselines and Threshold Model}",
           "role": "native baselines",
           "template_line": 22,
@@ -100,7 +100,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 20,
+          "current_line": 23,
           "current_marker": "Leadership-scale GPU Platform and cuQuantum",
           "role": "leadership/cuQuantum",
           "template_line": 80,
@@ -109,7 +109,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 23,
+          "current_line": 32,
           "current_marker": "Break-even Condition",
           "role": "break-even equations",
           "template_line": 84,
@@ -119,9 +119,11 @@
         }
       ],
       "role_markers": {
-        "Break-even Condition": 3710,
-        "Practical Application Families": 963,
-        "Repeated Execution": 536,
+        "Break-even Condition": 5236,
+        "Leadership-scale GPU Platform and cuQuantum": 3550,
+        "Practical Application Families": 1141,
+        "Repeated Execution": 2006,
+        "Terminology": 2668,
         "\\subsection": 22
       },
       "role_markers_ordered": true,
@@ -141,8 +143,8 @@
         "words": 989
       },
       "template_distance": {
-        "aurora": 2.73,
-        "scaleqsim": 2.784
+        "aurora": 6.816,
+        "scaleqsim": 7.15
       }
     },
     "conclusion": {
@@ -163,7 +165,7 @@
       },
       "closest_template": "aurora",
       "ours": {
-        "avg_paragraph_words": 45.0,
+        "avg_paragraph_words": 102.0,
         "figures": 0,
         "items": 0,
         "missing": false,
@@ -175,7 +177,7 @@
         "tables": 0,
         "textbf": 0,
         "textbf_per_1000_words": 0.0,
-        "words": 45
+        "words": 102
       },
       "paragraph_role_inventory": [
         {
@@ -213,8 +215,8 @@
         "words": 111
       },
       "template_distance": {
-        "aurora": 0.247,
-        "scaleqsim": 0.797
+        "aurora": 0.073,
+        "scaleqsim": 0.541
       }
     },
     "design": {
@@ -235,19 +237,19 @@
       },
       "closest_template": "scaleqsim",
       "ours": {
-        "avg_paragraph_words": 81.76,
+        "avg_paragraph_words": 128.19,
         "figures": 2,
         "items": 0,
         "missing": false,
-        "paragraphs": 42,
-        "paragraphs_per_heading": 4.2,
+        "paragraphs": 16,
+        "paragraphs_per_heading": 2.67,
         "path": "paper/3.Design.tex",
         "subsections": 6,
-        "subsubsections": 4,
+        "subsubsections": 0,
         "tables": 1,
-        "textbf": 15,
-        "textbf_per_1000_words": 4.37,
-        "words": 3434
+        "textbf": 3,
+        "textbf_per_1000_words": 1.46,
+        "words": 2051
       },
       "paragraph_role_inventory": [
         {
@@ -260,7 +262,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 17,
+          "current_line": 6,
           "current_marker": "\\subsection{Overall Procedure}",
           "role": "overall procedure",
           "template_line": 8,
@@ -269,7 +271,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 24,
+          "current_line": 25,
           "current_marker": "Config Record",
           "role": "configuration record",
           "template_line": 18,
@@ -278,7 +280,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 65,
+          "current_line": 115,
           "current_marker": "Failure handling",
           "role": "failure handling",
           "template_line": 41,
@@ -287,7 +289,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 68,
+          "current_line": 20,
           "current_marker": "\\subsection{Shared Workload Control}",
           "role": "shared workload control",
           "template_line": 54,
@@ -296,7 +298,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 92,
+          "current_line": 28,
           "current_marker": "\\subsection{Application Path Execution}",
           "role": "application paths",
           "template_line": 95,
@@ -305,7 +307,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 133,
+          "current_line": 36,
           "current_marker": "\\subsection{Measurement and Threshold Analysis}",
           "role": "measurement records",
           "template_line": 140,
@@ -314,8 +316,8 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 144,
-          "current_marker": "\\subsubsection{Threshold Analysis}",
+          "current_line": 99,
+          "current_marker": "Advantage frontier",
           "role": "threshold analysis",
           "template_line": 165,
           "template_logic": "Execution model, break-even search, and frontier classification",
@@ -323,7 +325,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 185,
+          "current_line": 105,
           "current_marker": "\\subsection{Advantage Claim Checklist}",
           "role": "claim checklist",
           "template_line": 237,
@@ -332,7 +334,7 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 189,
+          "current_line": 110,
           "current_marker": "\\subsection{Workload Suite}",
           "role": "workload suite",
           "template_line": 306,
@@ -342,13 +344,14 @@
         }
       ],
       "role_markers": {
-        "Overview of": 47,
-        "\\subsection{Advantage Claim Checklist}": 21510,
-        "\\subsection{Application Path Execution}": 10619,
-        "\\subsection{Measurement and Threshold Analysis}": 15588,
-        "\\subsection{Overall Procedure}": 1724,
-        "\\subsection{Shared Workload Control}": 7425,
-        "\\subsection{Workload Suite}": 22122
+        "Advantage frontier": 10204,
+        "Overview of": 33,
+        "\\subsection{Advantage Claim Checklist}": 11834,
+        "\\subsection{Application Path Execution}": 3515,
+        "\\subsection{Measurement and Threshold Analysis}": 4995,
+        "\\subsection{Overall Procedure}": 486,
+        "\\subsection{Shared Workload Control}": 2302,
+        "\\subsection{Workload Suite}": 12528
       },
       "role_markers_ordered": true,
       "scaleqsim": {
@@ -367,8 +370,8 @@
         "words": 4581
       },
       "template_distance": {
-        "aurora": 6.223,
-        "scaleqsim": 6.14
+        "aurora": 3.217,
+        "scaleqsim": 3.201
       }
     },
     "evaluation": {
@@ -387,21 +390,21 @@
         "textbf_per_1000_words": 7.09,
         "words": 3666
       },
-      "closest_template": "scaleqsim",
+      "closest_template": "aurora",
       "ours": {
-        "avg_paragraph_words": 136.38,
-        "figures": 12,
+        "avg_paragraph_words": 193.93,
+        "figures": 9,
         "items": 0,
         "missing": false,
-        "paragraphs": 39,
-        "paragraphs_per_heading": 3.0,
+        "paragraphs": 27,
+        "paragraphs_per_heading": 4.5,
         "path": "paper/4.Evaluation.tex",
         "subsections": 6,
-        "subsubsections": 7,
+        "subsubsections": 0,
         "tables": 1,
-        "textbf": 28,
-        "textbf_per_1000_words": 5.26,
-        "words": 5319
+        "textbf": 25,
+        "textbf_per_1000_words": 4.77,
+        "words": 5236
       },
       "paragraph_role_inventory": [
         {
@@ -414,8 +417,8 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 19,
-          "current_marker": "Campaign Summary",
+          "current_line": 11,
+          "current_marker": "completed campaign contains",
           "role": "campaign summary",
           "template_line": 9,
           "template_logic": "Evidence table and evaluation questions",
@@ -423,8 +426,8 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 46,
-          "current_marker": "\\subsection{End-to-End Threshold Landscape}",
+          "current_line": 39,
+          "current_marker": "\\subsection{Workload-Level Thresholds}",
           "role": "threshold landscape",
           "template_line": 133,
           "template_logic": "Native application paths versus quantum-circuit paths",
@@ -432,8 +435,8 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 87,
-          "current_marker": "\\subsubsection{Quality Sensitivity}",
+          "current_line": 142,
+          "current_marker": "\\subsection{Application Quality Beyond Runtime}",
           "role": "quality sensitivity",
           "template_line": 58,
           "template_logic": "Quality sensitivity before speed-only claims",
@@ -441,8 +444,8 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 91,
-          "current_marker": "\\subsubsection{Practical Application Landscape}",
+          "current_line": 11,
+          "current_marker": "3,552-case practical suite",
           "role": "practical landscape",
           "template_line": 248,
           "template_logic": "Practical application suite",
@@ -450,8 +453,8 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 145,
-          "current_marker": "\\subsection{Component and Baseline Analysis}",
+          "current_line": 197,
+          "current_marker": "Workload quality bottlenecks",
           "role": "component and baseline",
           "template_line": 247,
           "template_logic": "Component mismatch and native baseline stress",
@@ -459,8 +462,8 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 221,
-          "current_marker": "\\subsubsection{Weak Scaling}",
+          "current_line": 92,
+          "current_marker": "Weak scaling.",
           "role": "weak scaling",
           "template_line": 269,
           "template_logic": "Throughput scaling as nodes and work grow together",
@@ -468,8 +471,8 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 245,
-          "current_marker": "\\subsubsection{Strong Scaling}",
+          "current_line": 114,
+          "current_marker": "Strong scaling.",
           "role": "strong scaling",
           "template_line": 334,
           "template_logic": "Fixed-work time-to-solution scaling",
@@ -477,8 +480,8 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 273,
-          "current_marker": "\\subsection{Advantage Frontier and Bottleneck Analysis}",
+          "current_line": 207,
+          "current_marker": "\\subsection{Architecture Target Diagnosis}",
           "role": "advantage frontier",
           "template_line": 334,
           "template_logic": "Advantage frontier and hardware projection",
@@ -486,8 +489,8 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 374,
-          "current_marker": "\\subsection{Operational Stability}",
+          "current_line": 257,
+          "current_marker": "\\subsection{Sensitivity and Design Frontier}",
           "role": "stability",
           "template_line": 413,
           "template_logic": "Operational and repeat-timing checks",
@@ -495,8 +498,8 @@
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 354,
-          "current_marker": "Bottleneck Taxonomy",
+          "current_line": 289,
+          "current_marker": "Sensitivity separates application recovery",
           "role": "taxonomy and sensitivity",
           "template_line": 399,
           "template_logic": "Bottleneck classes and remaining scope",
@@ -505,19 +508,18 @@
         }
       ],
       "role_markers": {
-        "Advantage Frontier and Bottleneck Analysis": 25962,
-        "Baselines": 1145,
-        "Benchmark": 844,
-        "Component and Baseline Analysis": 12066,
-        "End-to-End Threshold Landscape": 3606,
-        "Evaluation Questions": 3094,
-        "Evaluation Setup": 504,
-        "Feasibility": 1456,
-        "Hardware Specification": 540,
-        "Leadership-scale Scaling Analysis": 20313,
-        "Operational Stability": 37104,
-        "Strong Scaling": 23425,
-        "Weak Scaling": 22018
+        "Application Quality Beyond Runtime": 15663,
+        "Architecture Target Diagnosis": 21906,
+        "Baselines": 1363,
+        "Benchmark": 756,
+        "Evaluation Setup": 494,
+        "Feasibility": 3244,
+        "Hardware Specification": 530,
+        "Scaling Evidence and QPU Architecture Targets": 9000,
+        "Sensitivity and Design Frontier": 29437,
+        "Strong scaling.": 12306,
+        "Weak scaling.": 10566,
+        "Workload-Level Thresholds": 3938
       },
       "role_markers_ordered": true,
       "scaleqsim": {
@@ -536,8 +538,8 @@
         "words": 5732
       },
       "template_distance": {
-        "aurora": 8.78,
-        "scaleqsim": 8.6
+        "aurora": 0.953,
+        "scaleqsim": 1.471
       }
     },
     "introduction": {
@@ -558,7 +560,7 @@
       },
       "closest_template": "aurora",
       "ours": {
-        "avg_paragraph_words": 138.88,
+        "avg_paragraph_words": 145.75,
         "figures": 1,
         "items": 0,
         "missing": false,
@@ -568,9 +570,9 @@
         "subsections": 0,
         "subsubsections": 0,
         "tables": 1,
-        "textbf": 13,
-        "textbf_per_1000_words": 11.7,
-        "words": 1111
+        "textbf": 10,
+        "textbf_per_1000_words": 8.58,
+        "words": 1166
       },
       "paragraph_role_inventory": [
         {
@@ -584,7 +586,7 @@
         },
         {
           "current_line": 5,
-          "current_marker": "Existing simulation systems provide",
+          "current_marker": "To study this problem before large fault-tolerant machines are available",
           "role": "prior simulator boundary",
           "template_line": 12,
           "template_logic": "Simulation systems help, but simulator speed is not application speed",
@@ -601,7 +603,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 27,
+          "current_line": 15,
           "current_marker": "Three points follow",
           "role": "observations",
           "template_line": 31,
@@ -610,8 +612,8 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 29,
-          "current_marker": "The same issue becomes stronger",
+          "current_line": 17,
+          "current_marker": "As shown in the figure, the required speedup is highly workload-dependent",
           "role": "application diversity",
           "template_line": 45,
           "template_logic": "Why one toy workload cannot support broad quantum claims",
@@ -619,7 +621,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 33,
+          "current_line": 21,
           "current_marker": "\\begin{table}",
           "role": "positioning table",
           "template_line": 47,
@@ -628,7 +630,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 54,
+          "current_line": 49,
           "current_marker": "Key Idea",
           "role": "key idea",
           "template_line": 73,
@@ -637,7 +639,7 @@
           "template_source": "aurora"
         },
         {
-          "current_line": 59,
+          "current_line": 52,
           "current_marker": "This paper makes the following contributions",
           "role": "paper statement and contributions",
           "template_line": 77,
@@ -647,12 +649,12 @@
         }
       ],
       "role_markers": {
-        "Key Idea": 5745,
+        "Key Idea": 6993,
         "Quantum computing is often described": 24,
-        "This paper makes the following contributions": 7011,
-        "Three points follow": 2974,
-        "\\begin{figure}": 1715,
-        "\\begin{table}": 5029
+        "This paper makes the following contributions": 7740,
+        "Three points follow": 2431,
+        "\\begin{figure}": 1681,
+        "\\begin{table}": 4923
       },
       "role_markers_ordered": true,
       "scaleqsim": {
@@ -671,8 +673,8 @@
         "words": 1510
       },
       "template_distance": {
-        "aurora": 1.043,
-        "scaleqsim": 1.499
+        "aurora": 0.641,
+        "scaleqsim": 0.981
       }
     },
     "related": {
@@ -693,7 +695,7 @@
       },
       "closest_template": "aurora",
       "ours": {
-        "avg_paragraph_words": 129.5,
+        "avg_paragraph_words": 119.0,
         "figures": 0,
         "items": 0,
         "missing": false,
@@ -704,8 +706,8 @@
         "subsubsections": 0,
         "tables": 0,
         "textbf": 2,
-        "textbf_per_1000_words": 7.72,
-        "words": 259
+        "textbf_per_1000_words": 8.4,
+        "words": 238
       },
       "paragraph_role_inventory": [
         {
@@ -743,8 +745,8 @@
         "words": 512
       },
       "template_distance": {
-        "aurora": 0.091,
-        "scaleqsim": 3.914
+        "aurora": 0.125,
+        "scaleqsim": 3.934
       }
     }
   },

@@ -2,59 +2,56 @@
 
 \subsection{Quantum-Circuit Application Paths}
 
-Quantum-circuit applications map input data or problem instances into a sequence of quantum gates. In quantum machine learning, common paths include quantum feature maps, quantum kernels, and variational quantum circuits. A feature-map pipeline encodes classical features into circuit parameters and extracts observables or kernel values. A QNN/VQC pipeline additionally optimizes trainable circuit parameters through repeated circuit evaluations.
+Quantum-circuit applications wrap a classical input or scientific instance into a circuit, execute that circuit many times, and return samples, observables, kernel entries, or energy estimates to a classical outer loop. This differs from a stand-alone circuit benchmark. The circuit kernel is only one stage in an application path, and the application can fail to be useful even when the circuit itself becomes faster.
 
-\noindent\textbf{Repeated Execution.}
-The key systems implication is repetition. A single circuit execution is rarely the full application. Training and evaluation require many samples, classes, optimizer steps, shots, and circuit variants. Therefore, the cost of a quantum application must include encoding, circuit construction, repeated simulation or execution, measurement, loss computation, and classical postprocessing.
+\noindent\textbf{ML Circuit Paths.}
+Quantum machine-learning workloads commonly use two circuit paths. In a QNN/VQC path, classical features are encoded into a parameterized quantum circuit, and a classical optimizer updates circuit parameters using repeated circuit evaluations. In a quantum-kernel path, a quantum feature map transforms pairs of input samples into kernel values; many circuit evaluations are then assembled into a kernel matrix used by a classical classifier. Thus, QNN/VQC stresses hybrid-loop latency and parameter quality, while QKernel stresses repeated feature-map evaluations and kernel-matrix construction.
 
 \noindent\textbf{Practical Application Families.}
-\SystemName treats the first ML workload as a calibration workload, not as the whole target. Practical quantum claims usually appear in four application families. First, quantum ML claims include classification, kernel methods, and variational classifiers. Second, chemistry and drug-discovery claims include molecular energy estimation, Hamiltonian simulation, and candidate screening loops. Third, optimization claims include portfolio, routing, scheduling, and QAOA-style objective minimization. Fourth, scientific simulation claims include quantum dynamics and materials workloads. These families have different native baselines and different quantum costs. A useful advantage model must therefore report a threshold per workload family, not one global number for all quantum computing.
+Beyond ML, this paper studies Chem, Opt., and Sim. circuit paths because they expose different architecture limits. Chemistry workloads often use VQE-style paths: a molecular Hamiltonian is mapped to Pauli terms, an ansatz prepares a trial state, repeated measurements estimate energy, and a classical optimizer searches for low-energy parameters. Optimization workloads often use QAOA-style paths: a graph or objective is encoded into phase-separation gates, mixer gates explore bitstrings, and repeated sampling estimates objective quality. Hamiltonian-simulation workloads use Trotterized or related unitary-evolution paths, where Hamiltonian terms become a sequence of gates. These paths stress different resources: energy-measurement repetition for Chem, search quality for Opt., and evolution depth for Sim.
 
-\noindent\textbf{Terminology.}
-The project name is \SystemName, and the paper's technical object is a \textit{practical quantum-advantage threshold}. This is not a claim that current quantum hardware wins on the measured applications. A threshold is the break-even condition under which the projected quantum-circuit application path becomes faster than the selected native HPC path while meeting the same quality target. We use \textit{advantage region} for the set of speed and quality-recovery assumptions that satisfy this condition, and \textit{architecture bottleneck} for the resource that prevents a case from entering that region. This distinction is important because a circuit simulator can be useful for measurement even when both the simulator and the projected near-term quantum path are far from application-level advantage.
+\noindent\textbf{Repeated Execution.}
+The key systems implication is repetition. A single circuit execution is rarely the full application. Training uses samples, epochs, optimizer steps, and candidate parameters. Kernel methods use many sample pairs. VQE uses many Pauli-term measurements and ansatz updates. QAOA uses many graph instances, parameter settings, and samples. Therefore, application cost must include encoding, circuit construction, repeated execution, measurement aggregation, optimizer or classifier work, and postprocessing. Reporting only one circuit-kernel time hides the repeated-evaluation structure that dominates many practical workloads.
+
+\noindent\emph{Terminology.}
+This paper uses ``quantum path'' to mean the complete quantum-circuit application path, not only one circuit kernel. It uses ``native path'' to mean the non-quantum HPC/ML implementation for the same input. It uses ``advantage region'' only when projected runtime and application quality both satisfy the workload target.
 
 \subsection{Native Baselines and Threshold Model}
 
-Native HPC/ML baselines execute the same task directly on CPUs or GPUs. For the first \SystemName workload, the native path uses \texttt{sklearn digits} with PCA and classical classifiers such as logistic regression, MLP, and optionally SVM/RBF. These baselines are intentionally strong and simple: if a quantum-circuit model cannot beat a well-optimized native baseline at the same target quality, it does not satisfy the practical advantage threshold.
+Practical quantum advantage is a same-input comparison against the native application, not against another simulator. The native path directly solves the task on CPUs or GPUs using classical numerical, ML, chemistry, optimization, or simulation methods. The quantum path solves the same task through a quantum-circuit formulation. \SystemName uses the native path as a deadline: the projected quantum path must finish before this deadline while meeting the same quality target.
 
-\noindent\textbf{Leadership-scale GPU Platform and cuQuantum.}
-The measurement platform is a \LeadershipSystem with GPU nodes suitable for quantum-circuit simulation through \cuQuantum and cuStateVec~\cite{cuquantum}. Our environment uses an existing \cuQuantum installation and validates it through login-node smoke tests before any allocation-consuming job. Login-node tests are used only for correctness and pipeline validation. Performance experiments run through Slurm and record queue time, elapsed time, allocation resources, and charged node-hours.
+\noindent\emph{Leadership-scale GPU Platform and cuQuantum.}
+The role of the leadership GPU system is measurement and evidence generation. \cuQuantum executes the circuit application path and exposes circuit structure, repeated-evaluation cost, quality, and simulator overhead. The later QPU projection replaces this measurement stack with explicit logical-operation, shot, decode, control, and queue terms.
+
+\noindent\textbf{Native Deadline.}
+The native deadline is the fastest valid native implementation for the same input and quality metric. This definition is important because native software is a moving architecture target: adding a stronger classical solver, optimized GPU kernel, or production ML baseline can move the break-even point. For HPCA-style evaluation, the native path is therefore not a weak reference implementation; it is the performance target that future quantum hardware must beat.
+
+\noindent\textbf{Two Runtime Axes.}
+\SystemName keeps two runtime axes separate. The measured axis is $T_{\mathrm{qsim}}/T_{\mathrm{native}}$: how much slower the full quantum-circuit application path is when executed today through the \cuQuantum measurement stack. The projected axis is $T_{\mathrm{qhw}}/T_{\mathrm{native}}$: how the same recorded circuit depths, measurements, shots, repeated evaluations, and quality gaps would behave under an explicit future-hardware model. A workload can therefore have a large measured simulator slowdown and still look runtime-attractive under an optimistic future QPU model if it has little repetition and maps directly to unitary evolution. Such a point is not a current advantage claim; it is a conditional architecture target.
 
 \noindent\textbf{Break-even Condition.}
-For a fixed task, dataset split, target quality, and system budget, the native application path is:
-
-\begin{align}
-T_{\mathrm{native}} =&\ 
-T_{\mathrm{input}} + T_{\mathrm{preprocess}} \notag\\
-&+ T_{\mathrm{train}} + T_{\mathrm{eval}}
-+ T_{\mathrm{postprocess}}.
-\end{align}
-
-The quantum-circuit path simulated on \cuQuantum is:
-
-\begin{align}
-T_{\mathrm{qc\_sim}} =&\ 
-T_{\mathrm{input}} + T_{\mathrm{encoding}}
-+ T_{\mathrm{circuit}} \notag\\
-&+ T_{\mathrm{cuQuantum}} + T_{\mathrm{measure}}
-+ T_{\mathrm{postprocess}}.
-\end{align}
-
-The projected quantum hardware path is:
-
-\begin{align}
-T_{\mathrm{qhw}} =&\ 
-T_{\mathrm{input}} + T_{\mathrm{encoding}}
-+ T_{\mathrm{compile}} \notag\\
-&+ T_{\mathrm{execute}} + T_{\mathrm{measure}}
-+ T_{\mathrm{error}} + T_{\mathrm{postprocess}}.
-\end{align}
-
-The condition for projected quantum advantage is:
-
-\begin{align}
+Runtime alone is insufficient. A quantum-circuit path that is faster but has lower accuracy, worse energy, worse approximation ratio, or larger observable error has not reached application-level advantage. \SystemName uses a workload-specific quality gap $\Delta Q$ and tolerance $\epsilon_w$. A case enters the advantage region only when
+\[
 T_{\mathrm{qhw}} < T_{\mathrm{native}}
-\end{align}
+\quad \mathrm{and} \quad
+\Delta Q \le \epsilon_w .
+\]
+This condition does not claim that current quantum hardware wins. It defines the break-even boundary under which a future quantum system would become competitive for the measured input.
 
-at the same target quality.
-An architecture study then asks which term must change to satisfy this inequality: native baseline strength, logical execution time, shot parallelism, error/control overhead, or quantum output quality.
+\noindent\textbf{Threshold and Frontier.}
+The practical quantum-advantage threshold is the amount of projected improvement needed for a quantum-circuit application path to enter the advantage region. Because each workload has different native deadlines and quality gaps, the threshold is not one global speedup. \SystemName therefore reports a frontier over execution speed, shot throughput, non-kernel overhead, and quality recovery. The recovery parameter is a requirement axis, not a free mitigation result: better encodings, deeper ansatz circuits, higher Trotter order, more shots, or stronger mitigation may reduce $\Delta Q$, but they can also increase runtime and repeated evaluations. A case can be speed-limited when quality is close but runtime is too high, quality-limited when faster gates do not help, or native-dominated when the classical path is already too strong.
+
+\noindent\textbf{Architecture Levers.}
+Once runtime and quality are separated, the remaining question is architectural. Different failures point to different hardware changes, and treating them as one generic speedup hides the useful design signal.
+
+\noindent\textbf{Gate and Shot Throughput.}
+Faster logical one- and two-qubit operations reduce circuit-depth cost. However, many applications also need many shots or repeated circuit evaluations. More devices or more shot lanes help only if readout, reset, decoding, control bandwidth, and queueing can sustain independent shots. Thus, shot parallelism is a system resource, not merely a circuit parameter.
+
+\noindent\textbf{Control, Decode, and Data Movement.}
+Hybrid applications repeatedly exchange information between the quantum device and the classical controller. Readout, reset, decoding, measurement aggregation, optimizer feedback, and host--QPU data movement can become a serial floor even when logical gates are fast. These terms motivate near-QPU control and decode acceleration, batching, and co-scheduling with HPC resources.
+
+\noindent\textbf{Algorithmic Quality.}
+Some failures remain even in noiseless circuit simulation. QNN/VQC may underfit or train poorly, QKernel may require too many pairwise circuits, VQE may depend on ansatz quality, QAOA may need deeper circuits or better search, and Trotter simulation may accumulate approximation error. In these cases, the architecture target is not only faster gates; it is quality-preserving encoding, ansatz/search structure, fidelity, mitigation, or a workload-specific accelerator style.
+
+\noindent\textbf{Accelerator Implications.}
+The same threshold record can point to different future machines. General circuit workloads point toward fault-tolerant gate-model systems with strong logical operations and shot lanes. Repeated-measurement workloads point toward controller/decode acceleration and batching. Hamiltonian dynamics may benefit from analog or digital simulation engines. Energy-minimization instances that embed cleanly may motivate annealing-style specialization. \SystemName uses HPC simulation as the measurement instrument that maps each workload to these architecture levers.

@@ -16,6 +16,7 @@
 \usepackage{cite}
 \usepackage[most]{tcolorbox}
 \usepackage{placeins}
+\usepackage{float}
 
 \setlength{\columnsep}{0.1in}
 \captionsetup{font=small}
@@ -40,7 +41,7 @@
   borderline west={2pt}{0pt}{black!45}
 }
 
-\newcommand{\SystemName}{\textsc{QArchGauge}\xspace}
+\newcommand{\SystemName}{QArchGauge\xspace}
 \newcommand{\cuQuantum}{\texttt{cu\-Quantum}\xspace}
 \newcommand{\LeadershipSystem}{Top-20 TOP500 leadership-scale HPC system\xspace}
 \title{\normalsize HPCA 2027 Submission \#NaN\\
@@ -55,11 +56,7 @@ Do NOT Distribute!!\\[0.15in]
 
 \maketitle
 \begin{abstract}
-\textbf{Problem.} Practical quantum advantage is often discussed as if faster quantum hardware will solve many applied problems automatically. This is not enough for computer architects. A useful claim must identify which future-system lever actually changes the outcome: logical gate latency, shot parallelism, error-correction overhead, readout/control latency, algorithmic quality, or the native HPC baseline. Without that decomposition, a speedup number does not tell architects where a quantum system should improve.
-
-\textbf{Approach.} We present \SystemName, a measurement and architecture-projection framework for this break-even test on a \LeadershipSystem. \SystemName runs native baselines and quantum-circuit versions of the same workload with shared inputs and quality targets. It then converts measured circuit cost, quality gap, native runtime, circuit metadata, and repeated-execution structure into an advantage threshold over architecture variables: execution speed, shot throughput, quality recovery, and non-kernel overhead.
-
-\textbf{Result.} On the leadership-scale system, our expanded \texttt{sklearn digits} sweep runs 160 cases across class pairs, sample counts, PCA dimensions, depths, and seeds. Quantum kernels require a median 421.9$\times$ speedup to match the native path; QNN/VQC requires 64.9$\times$ but usually misses native quality. We then run a 3,552-case practical suite across ML, molecule, MaxCut, and HamSim workloads on up to 256 GPUs, plus a 104-case OpenFermion/PySCF molecule coverage gate. Median required speedups range from 3,071.0$\times$ for HamSim to 287,045.6$\times$ for MaxCut. The architecture implication is workload-specific: at 90\% quality-gap recovery, $10^4\times$ projected execution improvement covers 54.9\% of HamSim cases, while $10^5\times$ covers 57.1\% of molecule cases; ML and MaxCut remain primarily quality-limited. These results do not claim quantum wins today. They show where future quantum architectures must spend effort before speed becomes useful.
+Practical quantum advantage is an architecture question: a quantum-circuit application must beat a strong native HPC implementation on the same input, at the same quality, after all application overheads are included. However, simulator throughput and hardware speedup claims do not tell architects which resource should improve: logical gates, shot parallelism, decoder/control latency, hybrid scheduling, native baselines, or algorithmic quality. This paper presents \SystemName, an architecture-guided modeling framework that converts same-input quantum-circuit measurements into practical QPU requirements on a leadership-scale HPC system. \SystemName executes native implementations and quantum-circuit formulations with shared inputs and quality targets, then combines native runtime, circuit cost, circuit structure, repeated-evaluation demand, and quality gap to project a break-even frontier over execution speed, shot throughput, quality recovery, and non-kernel overhead. This design treats \cuQuantum simulation as instrumentation for estimating future-system requirements, not as evidence of current quantum advantage. Our evaluation covers 160 cases from \texttt{sklearn digits} and a 3,552-case practical suite across ML, Chem, Opt., and Sim. on up to 256 GPUs, plus a 104-case OpenFermion/PySCF Chem coverage gate. The digits calibration requires median speedups of 421.9$\times$ for quantum kernels and 64.9$\times$ for QNN/VQC; practical-suite medians span 3,071.0$\times$ for Sim. to 287,045.6$\times$ for Opt. Under the default lower-bound projection at 90\% quality-gap recovery, $10^4\times$ moves 54.9\% of Sim. cases into the advantage region and $10^5\times$ moves 57.1\% of Chem cases, while conservative shot/control sensitivity removes much of this coverage. These results turn vague quantum-speedup claims into workload-specific architecture targets for quality, batching, control, and HPC--quantum co-scheduling.
 \end{abstract}
 \thispagestyle{plain}
 

@@ -1,0 +1,244 @@
+{
+  "by_scenario": {
+    "aggressive_batched": {
+      "by_workload": {
+        "chemistry": {
+          "advantaged_fraction": 0.2857142857142857,
+          "cases": 224,
+          "median_projected_native_ratio": 0.5159129105744577,
+          "quality_pass_fraction": 0.5714285714285714,
+          "runtime_pass_fraction": 0.7142857142857143
+        },
+        "ml": {
+          "advantaged_fraction": 0.06591796875,
+          "cases": 2048,
+          "median_projected_native_ratio": 0.25920222051208147,
+          "quality_pass_fraction": 0.09814453125,
+          "runtime_pass_fraction": 0.6474609375
+        },
+        "optimization": {
+          "advantaged_fraction": 0.0,
+          "cases": 768,
+          "median_projected_native_ratio": 8.445040491020603,
+          "quality_pass_fraction": 0.22916666666666666,
+          "runtime_pass_fraction": 0.0
+        },
+        "simulation": {
+          "advantaged_fraction": 0.71875,
+          "cases": 512,
+          "median_projected_native_ratio": 0.000995094632911926,
+          "quality_pass_fraction": 0.71875,
+          "runtime_pass_fraction": 1.0
+        }
+      },
+      "overall": {
+        "advantaged_fraction": 0.15962837837837837,
+        "median_projected_native_ratio": 0.3158314846302339
+      }
+    },
+    "conservative_surface": {
+      "by_workload": {
+        "chemistry": {
+          "advantaged_fraction": 0.0,
+          "cases": 224,
+          "median_projected_native_ratio": 123.99203538536909,
+          "quality_pass_fraction": 0.5714285714285714,
+          "runtime_pass_fraction": 0.0
+        },
+        "ml": {
+          "advantaged_fraction": 0.0,
+          "cases": 2048,
+          "median_projected_native_ratio": 553.602522492042,
+          "quality_pass_fraction": 0.09814453125,
+          "runtime_pass_fraction": 0.0
+        },
+        "optimization": {
+          "advantaged_fraction": 0.0,
+          "cases": 768,
+          "median_projected_native_ratio": 7438.806371096941,
+          "quality_pass_fraction": 0.22916666666666666,
+          "runtime_pass_fraction": 0.0
+        },
+        "simulation": {
+          "advantaged_fraction": 0.71875,
+          "cases": 512,
+          "median_projected_native_ratio": 0.28009728539724565,
+          "quality_pass_fraction": 0.71875,
+          "runtime_pass_fraction": 0.966796875
+        }
+      },
+      "overall": {
+        "advantaged_fraction": 0.1036036036036036,
+        "median_projected_native_ratio": 680.0918230713696
+      }
+    },
+    "default_optimistic": {
+      "by_workload": {
+        "chemistry": {
+          "advantaged_fraction": 0.0,
+          "cases": 224,
+          "median_projected_native_ratio": 14.900349518604806,
+          "quality_pass_fraction": 0.5714285714285714,
+          "runtime_pass_fraction": 0.0
+        },
+        "ml": {
+          "advantaged_fraction": 0.015625,
+          "cases": 2048,
+          "median_projected_native_ratio": 11.474452618760779,
+          "quality_pass_fraction": 0.09814453125,
+          "runtime_pass_fraction": 0.07275390625
+        },
+        "optimization": {
+          "advantaged_fraction": 0.0,
+          "cases": 768,
+          "median_projected_native_ratio": 310.06123046165624,
+          "quality_pass_fraction": 0.22916666666666666,
+          "runtime_pass_fraction": 0.0
+        },
+        "simulation": {
+          "advantaged_fraction": 0.71875,
+          "cases": 512,
+          "median_projected_native_ratio": 0.028848538548146264,
+          "quality_pass_fraction": 0.71875,
+          "runtime_pass_fraction": 1.0
+        }
+      },
+      "overall": {
+        "advantaged_fraction": 0.11261261261261261,
+        "median_projected_native_ratio": 13.368048573217727
+      }
+    },
+    "ldpc_future_like": {
+      "by_workload": {
+        "chemistry": {
+          "advantaged_fraction": 0.0,
+          "cases": 224,
+          "median_projected_native_ratio": 3.898478074995377,
+          "quality_pass_fraction": 0.5714285714285714,
+          "runtime_pass_fraction": 0.0
+        },
+        "ml": {
+          "advantaged_fraction": 0.03564453125,
+          "cases": 2048,
+          "median_projected_native_ratio": 2.147660883277066,
+          "quality_pass_fraction": 0.09814453125,
+          "runtime_pass_fraction": 0.32666015625
+        },
+        "optimization": {
+          "advantaged_fraction": 0.0,
+          "cases": 768,
+          "median_projected_native_ratio": 66.29804453011158,
+          "quality_pass_fraction": 0.22916666666666666,
+          "runtime_pass_fraction": 0.0
+        },
+        "simulation": {
+          "advantaged_fraction": 0.71875,
+          "cases": 512,
+          "median_projected_native_ratio": 0.007522939857355505,
+          "quality_pass_fraction": 0.71875,
+          "runtime_pass_fraction": 1.0
+        }
+      },
+      "overall": {
+        "advantaged_fraction": 0.1241554054054054,
+        "median_projected_native_ratio": 2.470183168100765
+      }
+    },
+    "resource_estimator_like": {
+      "by_workload": {
+        "chemistry": {
+          "advantaged_fraction": 0.0,
+          "cases": 224,
+          "median_projected_native_ratio": 31.571449518018028,
+          "quality_pass_fraction": 0.5714285714285714,
+          "runtime_pass_fraction": 0.0
+        },
+        "ml": {
+          "advantaged_fraction": 0.00146484375,
+          "cases": 2048,
+          "median_projected_native_ratio": 55.282525552030094,
+          "quality_pass_fraction": 0.09814453125,
+          "runtime_pass_fraction": 0.00537109375
+        },
+        "optimization": {
+          "advantaged_fraction": 0.0,
+          "cases": 768,
+          "median_projected_native_ratio": 1005.3621721356603,
+          "quality_pass_fraction": 0.22916666666666666,
+          "runtime_pass_fraction": 0.0
+        },
+        "simulation": {
+          "advantaged_fraction": 0.71875,
+          "cases": 512,
+          "median_projected_native_ratio": 0.06689548844535867,
+          "quality_pass_fraction": 0.71875,
+          "runtime_pass_fraction": 1.0
+        }
+      },
+      "overall": {
+        "advantaged_fraction": 0.1044481981981982,
+        "median_projected_native_ratio": 65.56403219650579
+      }
+    }
+  },
+  "cases": 3552,
+  "quality_recovery": 0.9,
+  "scenarios": [
+    {
+      "control_queue_sec_per_eval": 0.0001,
+      "cycle_sec": 1e-06,
+      "decoder_sec_per_eval": 6.3e-05,
+      "description": "Small useful shot parallelism and larger real-time decode/control floor.",
+      "distance": 31.0,
+      "id": "conservative_surface",
+      "label": "Conservative surface",
+      "shot_lanes": 100.0
+    },
+    {
+      "control_queue_sec_per_eval": 8e-05,
+      "cycle_sec": 1e-06,
+      "decoder_sec_per_eval": 2e-05,
+      "description": "Moderate alternate FT resource-estimator point with constrained shot lanes.",
+      "distance": 25.0,
+      "id": "resource_estimator_like",
+      "label": "Resource-estimator-like",
+      "shot_lanes": 1000.0
+    },
+    {
+      "control_queue_sec_per_eval": 5e-05,
+      "cycle_sec": 1e-06,
+      "decoder_sec_per_eval": 5e-06,
+      "description": "Paper default lower-bound stack.",
+      "distance": 25.0,
+      "id": "default_optimistic",
+      "label": "Default optimistic",
+      "shot_lanes": 10000.0
+    },
+    {
+      "control_queue_sec_per_eval": 1e-05,
+      "cycle_sec": 1e-06,
+      "decoder_sec_per_eval": 5e-06,
+      "description": "Future lower-overhead code/control point with larger useful batching.",
+      "distance": 15.0,
+      "id": "ldpc_future_like",
+      "label": "LDPC/future-like",
+      "shot_lanes": 100000.0
+    },
+    {
+      "control_queue_sec_per_eval": 1e-06,
+      "cycle_sec": 5e-07,
+      "decoder_sec_per_eval": 1e-06,
+      "description": "Aggressive high-batching point for upper-bound sensitivity.",
+      "distance": 15.0,
+      "id": "aggressive_batched",
+      "label": "Aggressive batched",
+      "shot_lanes": 1000000.0
+    }
+  ],
+  "tolerances": {
+    "chemistry": 0.01,
+    "ml": 0.02,
+    "optimization": 0.02,
+    "simulation": 0.01
+  }
+}

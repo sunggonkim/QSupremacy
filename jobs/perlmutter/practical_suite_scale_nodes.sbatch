@@ -8,6 +8,10 @@
 # Scaling modes:
 #   QS_SCALE_MODE=weak    each GPU runs one chunk slot; total work grows with GPUs.
 #   QS_SCALE_MODE=strong  all chunk slots are striped over available GPUs.
+#
+# Reviewer-response scale ladder smoke:
+#   QS_SWEEP_PROFILE=scale_ladder_debug QS_SCALE_MODE=weak QS_CHUNK_COUNT=4 \
+#     sbatch -q debug -t 00:30:00 -N 1 jobs/perlmutter/practical_suite_scale_nodes.sbatch
 
 #SBATCH -A m1248
 #SBATCH -C gpu

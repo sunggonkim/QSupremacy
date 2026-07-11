@@ -80,6 +80,12 @@
       "severity": "warning"
     },
     {
+      "detail": "PDF text extracts clean system name and Fig. 5 precedes Fig. 6",
+      "name": "pdf_text_readability",
+      "passed": true,
+      "severity": "warning"
+    },
+    {
       "detail": "HPCA-compatible IEEEtran layout markers are present",
       "name": "target_template_selected",
       "passed": true,
@@ -129,7 +135,7 @@
     }
   ],
   "line_spacing_points": 12.001982142857143,
-  "page_count": 13,
+  "page_count": 14,
   "references_start_page": 12,
   "status": "SUBMISSION_READY",
   "warning_count": 0

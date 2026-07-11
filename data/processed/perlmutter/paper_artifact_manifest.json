@@ -42,15 +42,35 @@
         "data/raw/perlmutter/accounting/sacct_practical_suite_strongnative_64node_large256c0c255_20260705024742.txt",
         "data/processed/perlmutter/practical_suite_strongscale_64node_largefull_c0c255_20260705024742_summary.json",
         "data/processed/perlmutter/practical_suite_strongscale_64node_largefull_c0c255_20260705024742_summary.csv",
-        "data/raw/perlmutter/accounting/sacct_practical_suite_strongscale_64node_largefull_c0c255_20260705024742.txt"
+        "data/raw/perlmutter/accounting/sacct_practical_suite_strongscale_64node_largefull_c0c255_20260705024742.txt",
+        "data/processed/perlmutter/practical_suite_55731013_scale_16n_64g_summary.json",
+        "data/processed/perlmutter/practical_suite_55731013_scale_16n_64g_summary.csv",
+        "data/raw/perlmutter/accounting/sacct_practical_suite_55731013_scale_16n_64g.txt",
+        "data/processed/perlmutter/practical_suite_55731014_scale_32n_128g_summary.json",
+        "data/processed/perlmutter/practical_suite_55731014_scale_32n_128g_summary.csv",
+        "data/raw/perlmutter/accounting/sacct_practical_suite_55731014_scale_32n_128g.txt",
+        "data/processed/perlmutter/practical_suite_55731015_scale_64n_256g_summary.json",
+        "data/processed/perlmutter/practical_suite_55731015_scale_64n_256g_summary.csv",
+        "data/raw/perlmutter/accounting/sacct_practical_suite_55731015_scale_64n_256g.txt",
+        "data/processed/perlmutter/practical_suite_55731032_scale_16n_64g_summary.json",
+        "data/processed/perlmutter/practical_suite_55731032_scale_16n_64g_summary.csv",
+        "data/raw/perlmutter/accounting/sacct_practical_suite_55731032_scale_16n_64g.txt",
+        "data/processed/perlmutter/practical_suite_55731033_scale_32n_128g_summary.json",
+        "data/processed/perlmutter/practical_suite_55731033_scale_32n_128g_summary.csv",
+        "data/raw/perlmutter/accounting/sacct_practical_suite_55731033_scale_32n_128g.txt",
+        "data/processed/perlmutter/practical_suite_55731034_scale_64n_256g_summary.json",
+        "data/processed/perlmutter/practical_suite_55731034_scale_64n_256g_summary.csv",
+        "data/raw/perlmutter/accounting/sacct_practical_suite_55731034_scale_64n_256g.txt"
       ],
       "audit_item": "large_practical_suite",
-      "claim": "3,552-case strong-native practical suite on 32 Perlmutter GPU nodes, 64-node fixed-work scaling, and a 7,104-case larger-workload gate across ML, chemistry, optimization, and simulation.",
+      "claim": "3,552-case strong-native practical suite plus regular 16/32/64-node weak and fixed-work scaling gates across ML, chemistry, optimization, and simulation.",
       "figures_tables": [
         "paper/figures/practical_suite_legend.pdf",
         "paper/figures/practical_suite_summary.pdf",
         "paper/figures/practical_suite_cdf.pdf",
-        "paper/figures/circuit_operation_mix.pdf",
+        "paper/figures/quality_gap_summary.pdf",
+        "paper/figures/quality_bottleneck_fraction.pdf",
+        "paper/figures/projected_time_decomposition.pdf",
         "paper/figures/workload_growth_time.pdf",
         "paper/figures/workload_growth_quality.pdf",
         "paper/figures/weak_scaling.pdf",
@@ -112,12 +132,15 @@
     },
     {
       "artifacts": [
-        "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.json"
+        "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.json",
+        "data/processed/perlmutter/practical_suite_projection_scenarios.json"
       ],
       "audit_item": "advantage_projection",
       "claim": "Projected advantage is reported as a frontier over quantum execution improvement and quality-gap recovery, not as a single yes/no result.",
       "figures_tables": [
         "paper/figures/advantage_frontier.pdf",
+        "paper/figures/advantage_frontier_total.pdf",
+        "paper/figures/advantage_component_targets.pdf",
         "paper/figures/advantage_frontier_chemistry.pdf",
         "paper/figures/advantage_frontier_optimization.pdf",
         "paper/figures/advantage_frontier_simulation.pdf",
@@ -134,6 +157,7 @@
       ],
       "source_scripts": [
         "scripts/summarize_advantage_projection.py",
+        "scripts/summarize_projection_scenarios.py",
         "scripts/generate_paper_figures.py"
       ]
     },
@@ -144,6 +168,8 @@
       "audit_item": "workload_taxonomy",
       "claim": "The measured bottleneck taxonomy separates speed-limited cases from quality-limited cases by workload family.",
       "figures_tables": [
+        "paper/figures/quality_gap_summary.pdf",
+        "paper/figures/quality_bottleneck_fraction.pdf",
         "paper/figures/workload_taxonomy.pdf"
       ],
       "id": "workload_taxonomy",
@@ -226,15 +252,19 @@
         "paper/figures/ml_profile_breakdown.pdf",
         "paper/figures/ml_native_profile_combined.pdf",
         "paper/figures/threshold_tail_pressure.pdf",
-        "paper/figures/circuit_operation_mix.pdf",
+        "paper/figures/projected_time_decomposition.pdf",
         "paper/figures/architecture_focus_matrix.pdf",
         "paper/figures/practical_suite_legend.pdf",
         "paper/figures/practical_suite_summary.pdf",
         "paper/figures/practical_suite_cdf.pdf",
+        "paper/figures/quality_gap_summary.pdf",
+        "paper/figures/quality_bottleneck_fraction.pdf",
         "paper/figures/digits_legend.pdf",
         "paper/figures/digits_required_speedup.pdf",
         "paper/figures/digits_quality_speedup.pdf",
         "paper/figures/advantage_frontier.pdf",
+        "paper/figures/advantage_frontier_total.pdf",
+        "paper/figures/advantage_component_targets.pdf",
         "paper/figures/advantage_frontier_chemistry.pdf",
         "paper/figures/advantage_frontier_optimization.pdf",
         "paper/figures/advantage_frontier_simulation.pdf",
@@ -263,15 +293,19 @@
         "paper/figures/ml_profile_breakdown.pdf",
         "paper/figures/ml_native_profile_combined.pdf",
         "paper/figures/threshold_tail_pressure.pdf",
-        "paper/figures/circuit_operation_mix.pdf",
+        "paper/figures/projected_time_decomposition.pdf",
         "paper/figures/architecture_focus_matrix.pdf",
         "paper/figures/practical_suite_legend.pdf",
         "paper/figures/practical_suite_summary.pdf",
         "paper/figures/practical_suite_cdf.pdf",
+        "paper/figures/quality_gap_summary.pdf",
+        "paper/figures/quality_bottleneck_fraction.pdf",
         "paper/figures/digits_legend.pdf",
         "paper/figures/digits_required_speedup.pdf",
         "paper/figures/digits_quality_speedup.pdf",
         "paper/figures/advantage_frontier.pdf",
+        "paper/figures/advantage_frontier_total.pdf",
+        "paper/figures/advantage_component_targets.pdf",
         "paper/figures/advantage_frontier_chemistry.pdf",
         "paper/figures/advantage_frontier_optimization.pdf",
         "paper/figures/advantage_frontier_simulation.pdf",
@@ -319,5 +353,5 @@
     "source_entry": "paper/0.Main.tex",
     "target_style": "HPCA 2027 IEEEtran-style double-blind submission"
   },
-  "updated_utc": "2026-07-05"
+  "updated_utc": "2026-07-08"
 }
