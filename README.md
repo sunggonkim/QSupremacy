@@ -1,13 +1,16 @@
-# QSupremacy / QArchGauge
+# QArchGauge
 
-QSupremacy is the repository name. The HPCA manuscript presents the framework
-as **QArchGauge**: an HPC-driven architecture diagnosis method for
-application-level quantum advantage.
+**HPC-driven architecture diagnosis for application-level quantum advantage**
 
-QArchGauge pairs a native HPC execution and a quantum-circuit implementation
-of the same input. It first checks output quality and complete-loop coverage,
-then converts the native runtime into concrete QPU requirements. Perlmutter is
-the evidence engine; GPU simulator time is never treated as future QPU time.
+`QSupremacy` is the repository name. The HPCA manuscript presents
+**QArchGauge**, a framework that uses leadership-class HPC as an empirical
+oracle for deciding which QPU resource can deliver the next unit of
+application-level advantage.
+
+QArchGauge runs a native HPC path and a quantum-circuit path on the same input.
+It checks output quality and complete-loop coverage before converting the
+native runtime boundary into concrete QPU requirements. Perlmutter is the
+evidence engine; GPU simulator time is never treated as future QPU time.
 
 - Paper: [`paper/main.pdf`](paper/main.pdf)
 - Execution and submission plan: [`plan.md`](plan.md)
@@ -15,6 +18,34 @@ the evidence engine; GPU simulator time is never treated as future QPU time.
   [`paper_artifact_manifest.json`](data/processed/perlmutter/paper_artifact_manifest.json)
 - Submission audit:
   [`submission_readiness_audit.json`](data/processed/perlmutter/submission_readiness_audit.json)
+
+## 30-Second Summary
+
+- Quality is gate zero: a circuit that misses the native application's output
+  contract cannot gain advantage by running faster.
+- The controlled study contains 3,552 paired 4--20-qubit records, but only 12
+  direct finite-shot Sim. records pass quality and represent the complete loop.
+- For those eligible records, the strict fault-tolerant inversion identifies
+  T-state supply as the first target. After factory scaling, the target moves
+  to useful shot lanes and then logical-gate latency.
+- The separate 36/38/40-qubit runs on 64/128/256 GPUs establish simulator
+  capacity. They are not evidence of application-level quantum advantage.
+
+> **Architecture takeaway.** QArchGauge does not ask whether one simulator is
+> faster than another. It asks which measured application paths are eligible
+> for advantage, which QPU component blocks them, how much that component must
+> improve, and what bottleneck appears next.
+
+## Evidence and Claim Boundary
+
+| Evidence class | Retained evidence | Supported use |
+| --- | --- | --- |
+| Controlled application pairs | 3,552 records; 4--20 qubits; 222 structural configurations and 16 seeds each | Quality, logical-work, and workload diagnosis; not deployment-scale advantage |
+| Direct finite-shot closure | 68 source cases x 3 shot counts x 12 replicates | Same-record quality and complete-loop eligibility |
+| Deployment-facing ML check | Matched CIFAR-10 ResNet-18, Pool-108, and QFeature paths | Representation quality and end-to-end ML cost |
+| Simulator capacity | 36/38/40 qubits on 64/128/256 GPUs | State-vector feasibility only |
+| Physical architecture inversion | 12 eligible Sim. records | Fault-tolerant targets, crossover points, and bottleneck handoffs |
+| Quality failures or incomplete loops | All remaining controlled and direct records | Conditional lower bounds only; no absolute physical target |
 
 ## What QArchGauge Answers
 
@@ -29,6 +60,17 @@ For each same-record native/circuit pair, QArchGauge reports:
 The project does not claim current quantum advantage or propose one universal
 QPU. It provides workload- and phase-specific targets that can falsify an
 architecture proposal before crediting its component-level speedup.
+
+## Terms Used in the Results
+
+| Term | Meaning in this repository |
+| --- | --- |
+| Native deadline | Measured elapsed time of the matched native HPC path on the same input and output contract; it is not a Slurm scheduling deadline |
+| Quality contract | Workload-specific output tolerance relative to the native reference |
+| Eligible record | A record that passes quality and represents the complete application loop |
+| Conditional bound | An execution estimate reported without claiming advantage because quality or loop coverage is incomplete |
+| T-state factory | Fault-tolerant resource that supplies non-Clifford states for synthesized rotations |
+| Shot lane | Hardware capacity for executing statistically independent circuit repetitions concurrently |
 
 ## Final Experiment Status
 
@@ -194,6 +236,9 @@ These figures are generated from retained artifacts but are not assigned paper
 figure numbers. They provide diagnostic detail without expanding the claims in
 the manuscript.
 
+<details>
+<summary><strong>Open the ten supplementary experiment figures</strong></summary>
+
 ### Timeout-Censored Low-GPU Attempts
 
 ![Low-GPU timeout audit](paper/figures/readme/supp_timeout_progress.png)
@@ -294,41 +339,72 @@ the manuscript.
 > - Reported headline intervals therefore resample structural configurations and macro-average workload families.
 > - Coverage scaling supports statistical evidence generation, not deployment-scale quantum advantage.
 
+</details>
+
 ## Reproduce the Artifacts
 
-The verified Python environment on Perlmutter is:
+### Build the Checked-In Manuscript
+
+The repository includes the processed evidence and publication figures used by
+the current manuscript. With `pdflatex` and `bibtex` available, rebuild it with:
 
 ```bash
-export PYTHON=/pscratch/sd/s/sgkim/kis_cuquantum/00_env/cutn_conda/bin/python
+make -B -C paper
 ```
 
-Regenerate the evidence audits, figures, and README previews:
-
-```bash
-$PYTHON scripts/audit_quality_qualified_targets.py
-$PYTHON scripts/audit_dependency_schedule_coverage.py
-$PYTHON scripts/audit_statistical_robustness.py
-$PYTHON scripts/audit_ft_reliability_budget.py
-$PYTHON scripts/run_component_replacement_case_studies.py
-$PYTHON scripts/audit_joint_dse.py
-$PYTHON scripts/summarize_low_gpu_timeout_runs.py
-$PYTHON scripts/generate_paper_figures.py
-$PYTHON scripts/render_readme_figures.py
-$PYTHON scripts/generate_strong_accept_manifest.py
-```
-
-Build and audit the HPCA manuscript:
+The build has been tested with TeX Live 2024. On Perlmutter:
 
 ```bash
 source /etc/profile.d/zzz-lmod.sh
 module load texlive/2024
-make -B -C paper audit
+make -B -C paper
 ```
+
+### Regenerate and Audit the Evidence
+
+Create a portable Python environment from the pinned requirement groups:
+
+```bash
+source /etc/profile.d/zzz-lmod.sh
+module load python/3.11-24.1.0
+module load texlive/2024
+python3 -m venv .venv-qarchgauge
+source .venv-qarchgauge/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements-figures.txt
+python -m pip install -r requirements-qre.txt -r requirements-qualtran.txt
+python -m pip install -r requirements-chem.txt  # chemistry closure
+export PYTHON="$(command -v python)"
+```
+
+Regenerate processed summaries and figures, render the GitHub previews, and run
+the manuscript audits:
+
+```bash
+PYTHON="$PYTHON" bash scripts/regenerate_paper_artifacts.sh
+$PYTHON scripts/render_readme_figures.py
+make -B -C paper PYTHON="$PYTHON" audit
+```
+
+Full Slurm and accounting replay is Perlmutter-specific and requires the
+retained raw logs. The checked-in processed artifacts are sufficient to rebuild
+the paper and run the evidence, typography, and submission-readiness audits.
 
 The deterministic draft has 14 total PDF pages. The manuscript occupies pages
 1--11, references begin on page 12, Figure 4 is the only two-column figure, and
-the final submission audit checks legends, Type 3 fonts, minimum figure text,
-caption size, anonymous metadata, references, and all 12 GO conditions.
+the final audit checks evidence provenance, legends, Type 3 fonts, minimum
+figure text, caption size, anonymous metadata, references, and all 12 GO
+conditions.
+
+## Repository Map
+
+| Path | Contents |
+| --- | --- |
+| `paper/` | HPCA manuscript, bibliography, figures, build rules, and final PDF |
+| `scripts/` | Experiment summaries, architecture inversions, figure generation, and audits |
+| `jobs/perlmutter/` | Slurm launchers and Perlmutter execution configurations |
+| `data/raw/perlmutter/` | Retained job outputs and source measurements |
+| `data/processed/perlmutter/` | Claim-facing JSON/CSV evidence, manifests, and audit results |
 
 ## Authoritative Artifacts
 
