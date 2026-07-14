@@ -1,0 +1,281 @@
+{
+  "cases": [
+    {
+      "best_quality_combined": {
+        "device": "recorded",
+        "model": "suite_previous_selected",
+        "runtime_sec": 0.0001646980526857078,
+        "source": "practical_suite_summary",
+        "test_accuracy": 1.0,
+        "train_accuracy": null
+      },
+      "best_quality_production": {
+        "allow_tf32": true,
+        "amp": true,
+        "device": "NVIDIA A100-PCIE-40GB",
+        "max_cuda_memory_bytes": 17412096,
+        "model": "torch_mlp_amp_pca",
+        "parameters": 17539,
+        "runtime_sec": 2.429839816002641,
+        "test_accuracy": 1.0,
+        "train_accuracy": 1.0
+      },
+      "case_id": "practical_strongnative_32node_large128c0c127_20260704060230_c0_ml_digits_c0v1v2_128s_4q_d1_r0_seed17.json",
+      "combined_required_speedup": 84063.85188678812,
+      "config": {
+        "digits_classes": "0,1,2",
+        "ml_depth": 1,
+        "ml_features": 4,
+        "ml_samples": 128,
+        "seed": 17
+      },
+      "fastest_combined": {
+        "device": "recorded",
+        "model": "suite_previous_selected",
+        "runtime_sec": 0.0001646980526857078,
+        "source": "practical_suite_summary",
+        "test_accuracy": 1.0,
+        "train_accuracy": null
+      },
+      "fastest_production": {
+        "device": "cpu",
+        "max_iter": 8,
+        "model": "sklearn_hist_gradient_boosting_cpu_pca",
+        "runtime_sec": 0.07879718503681943,
+        "test_accuracy": 0.96875,
+        "train_accuracy": 0.9895833333333334
+      },
+      "models": [
+        {
+          "device": "recorded",
+          "model": "suite_previous_selected",
+          "runtime_sec": 0.0001646980526857078,
+          "source": "practical_suite_summary",
+          "test_accuracy": 1.0,
+          "train_accuracy": null
+        },
+        {
+          "allow_tf32": true,
+          "amp": true,
+          "device": "NVIDIA A100-PCIE-40GB",
+          "max_cuda_memory_bytes": 17412096,
+          "model": "torch_mlp_amp_pca",
+          "parameters": 17539,
+          "runtime_sec": 2.429839816002641,
+          "test_accuracy": 1.0,
+          "train_accuracy": 1.0
+        },
+        {
+          "allow_tf32": true,
+          "amp": true,
+          "device": "NVIDIA A100-PCIE-40GB",
+          "max_cuda_memory_bytes": 24338432,
+          "model": "torch_cnn_amp_raw",
+          "parameters": 267459,
+          "runtime_sec": 0.686937685997691,
+          "test_accuracy": 0.96875,
+          "train_accuracy": 0.9479166865348816
+        },
+        {
+          "device": "cuda",
+          "max_depth": 4,
+          "model": "xgboost_gpu_hist_pca",
+          "n_estimators": 8,
+          "runtime_sec": 0.13465404795715585,
+          "test_accuracy": 0.90625,
+          "train_accuracy": 1.0
+        },
+        {
+          "device": "cpu",
+          "max_iter": 8,
+          "model": "sklearn_hist_gradient_boosting_cpu_pca",
+          "runtime_sec": 0.07879718503681943,
+          "test_accuracy": 0.96875,
+          "train_accuracy": 0.9895833333333334
+        }
+      ],
+      "production_required_speedup": 5.697969312969197,
+      "reference": {
+        "previous_native_quality": 1.0,
+        "previous_native_runtime_sec": 0.0001646980526857078,
+        "previous_required_speedup": 84063.85188678812,
+        "previous_selected_model": "linear_ridge_numpy",
+        "quantum_quality": 0.6875,
+        "quantum_runtime_sec": 13.845152707013767
+      },
+      "selected_combined": {
+        "device": "recorded",
+        "model": "suite_previous_selected",
+        "runtime_sec": 0.0001646980526857078,
+        "source": "practical_suite_summary",
+        "test_accuracy": 1.0,
+        "train_accuracy": null
+      },
+      "selected_production": {
+        "allow_tf32": true,
+        "amp": true,
+        "device": "NVIDIA A100-PCIE-40GB",
+        "max_cuda_memory_bytes": 17412096,
+        "model": "torch_mlp_amp_pca",
+        "parameters": 17539,
+        "runtime_sec": 2.429839816002641,
+        "test_accuracy": 1.0,
+        "train_accuracy": 1.0
+      }
+    },
+    {
+      "best_quality_combined": {
+        "device": "recorded",
+        "model": "suite_previous_selected",
+        "runtime_sec": 0.00013516104081645608,
+        "source": "practical_suite_summary",
+        "test_accuracy": 1.0,
+        "train_accuracy": null
+      },
+      "best_quality_production": {
+        "device": "cuda",
+        "max_depth": 4,
+        "model": "xgboost_gpu_hist_pca",
+        "n_estimators": 8,
+        "runtime_sec": 0.08510687004309148,
+        "test_accuracy": 0.96875,
+        "train_accuracy": 1.0
+      },
+      "case_id": "practical_strongnative_32node_large128c0c127_20260704060230_c0_ml_digits_c0v1v2_128s_4q_d1_r0_seed23.json",
+      "combined_required_speedup": 56467.0250825887,
+      "config": {
+        "digits_classes": "0,1,2",
+        "ml_depth": 1,
+        "ml_features": 4,
+        "ml_samples": 128,
+        "seed": 23
+      },
+      "fastest_combined": {
+        "device": "recorded",
+        "model": "suite_previous_selected",
+        "runtime_sec": 0.00013516104081645608,
+        "source": "practical_suite_summary",
+        "test_accuracy": 1.0,
+        "train_accuracy": null
+      },
+      "fastest_production": {
+        "allow_tf32": true,
+        "amp": true,
+        "device": "NVIDIA A100-PCIE-40GB",
+        "max_cuda_memory_bytes": 24338432,
+        "model": "torch_cnn_amp_raw",
+        "parameters": 267459,
+        "runtime_sec": 0.0219851839938201,
+        "test_accuracy": 0.90625,
+        "train_accuracy": 0.9791666865348816
+      },
+      "models": [
+        {
+          "device": "recorded",
+          "model": "suite_previous_selected",
+          "runtime_sec": 0.00013516104081645608,
+          "source": "practical_suite_summary",
+          "test_accuracy": 1.0,
+          "train_accuracy": null
+        },
+        {
+          "allow_tf32": true,
+          "amp": true,
+          "device": "NVIDIA A100-PCIE-40GB",
+          "max_cuda_memory_bytes": 24338432,
+          "model": "torch_mlp_amp_pca",
+          "parameters": 17539,
+          "runtime_sec": 0.09451762796379626,
+          "test_accuracy": 0.96875,
+          "train_accuracy": 0.9791666865348816
+        },
+        {
+          "allow_tf32": true,
+          "amp": true,
+          "device": "NVIDIA A100-PCIE-40GB",
+          "max_cuda_memory_bytes": 24338432,
+          "model": "torch_cnn_amp_raw",
+          "parameters": 267459,
+          "runtime_sec": 0.0219851839938201,
+          "test_accuracy": 0.90625,
+          "train_accuracy": 0.9791666865348816
+        },
+        {
+          "device": "cuda",
+          "max_depth": 4,
+          "model": "xgboost_gpu_hist_pca",
+          "n_estimators": 8,
+          "runtime_sec": 0.08510687004309148,
+          "test_accuracy": 0.96875,
+          "train_accuracy": 1.0
+        },
+        {
+          "device": "cpu",
+          "max_iter": 8,
+          "model": "sklearn_hist_gradient_boosting_cpu_pca",
+          "runtime_sec": 0.09764486004132777,
+          "test_accuracy": 0.875,
+          "train_accuracy": 0.9791666666666666
+        }
+      ],
+      "production_required_speedup": 89.67715389024762,
+      "reference": {
+        "previous_native_quality": 1.0,
+        "previous_native_runtime_sec": 0.00013516104081645608,
+        "previous_required_speedup": 56467.0250825887,
+        "previous_selected_model": "nearest_centroid_numpy",
+        "quantum_quality": 0.75,
+        "quantum_runtime_sec": 7.63214188197162
+      },
+      "selected_combined": {
+        "device": "recorded",
+        "model": "suite_previous_selected",
+        "runtime_sec": 0.00013516104081645608,
+        "source": "practical_suite_summary",
+        "test_accuracy": 1.0,
+        "train_accuracy": null
+      },
+      "selected_production": {
+        "device": "cuda",
+        "max_depth": 4,
+        "model": "xgboost_gpu_hist_pca",
+        "n_estimators": 8,
+        "runtime_sec": 0.08510687004309148,
+        "test_accuracy": 0.96875,
+        "train_accuracy": 1.0
+      }
+    }
+  ],
+  "metadata": {
+    "amp": true,
+    "cuda_visible_devices": "",
+    "cwd": "/pscratch/sd/s/sgkim/Skim-Qsupreme",
+    "digits_path": "data/datasets/sklearn_digits.npz",
+    "hostname": "login18",
+    "models": "torch_mlp_amp,torch_cnn_amp,xgboost_gpu_hist,sklearn_histgb",
+    "platform": "Linux-6.4.0-150600.23.103_15.0.24-cray_shasta_c-x86_64-with-glibc2.38",
+    "runtime_sec": 8.090539021010045,
+    "slurm_job_id": "",
+    "summary_csv": "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv"
+  },
+  "summary": {
+    "case_count": 2,
+    "combined_native_quality_median": 1.0,
+    "combined_native_runtime_sec_median": 0.00014992954675108194,
+    "combined_required_speedup_median": 70265.4384846884,
+    "model_failure_counts": {},
+    "previous_native_quality_median": 1.0,
+    "previous_native_runtime_sec_median": 0.00014992954675108194,
+    "previous_required_speedup_median": 70265.4384846884,
+    "production_native_quality_median": 0.984375,
+    "production_native_runtime_sec_median": 1.2574733430228662,
+    "production_required_speedup_median": 47.68756160160841,
+    "selected_combined_counts": {
+      "suite_previous_selected": 2
+    },
+    "selected_production_counts": {
+      "torch_mlp_amp_pca": 1,
+      "xgboost_gpu_hist_pca": 1
+    }
+  }
+}

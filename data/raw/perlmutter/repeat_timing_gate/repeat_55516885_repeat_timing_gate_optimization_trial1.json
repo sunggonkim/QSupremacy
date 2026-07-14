@@ -1,0 +1,184 @@
+{
+  "config": {
+    "chem_grid": 21,
+    "chem_hamiltonian_json": "",
+    "chem_lanczos_max_iter": 128,
+    "chem_lanczos_tol": 1e-10,
+    "chem_layers": 1,
+    "chem_native_baselines": "dense_exact,sparse_lanczos",
+    "chem_native_energy_tolerance": 1e-08,
+    "digits_classes": "0,1,2",
+    "digits_path": "data/datasets/sklearn_digits.npz",
+    "entangle": true,
+    "knn_k": 5,
+    "login_safe": false,
+    "ml_classes": 3,
+    "ml_dataset": "synthetic",
+    "ml_depth": 1,
+    "ml_features": 4,
+    "ml_lr": 0.25,
+    "ml_native_baselines": "softmax,mlp,linear_ridge,rbf_kernel_ridge,knn,nearest_centroid",
+    "ml_native_quality_tolerance": 0.01,
+    "ml_samples": 72,
+    "ml_steps": 250,
+    "mlp_hidden": 16,
+    "mlp_lr": 0.05,
+    "mlp_steps": 250,
+    "opt_anneal_steps": 250,
+    "opt_exact_max_nodes": 22,
+    "opt_graph": "chordal",
+    "opt_grid": 7,
+    "opt_local_restarts": 8,
+    "opt_native_baselines": "exact,greedy,local_search,annealing",
+    "opt_nodes": 4,
+    "output": "data/raw/perlmutter/repeat_timing_gate/repeat_55516885_repeat_timing_gate_optimization_trial1.json",
+    "rbf_gamma": 0.0,
+    "ridge_alpha": 0.01,
+    "seed": 17,
+    "sim_coupling": 0.7,
+    "sim_field": 0.4,
+    "sim_initial_state": "auto",
+    "sim_krylov_dim": 64,
+    "sim_krylov_tol": 1e-10,
+    "sim_model": "tfim",
+    "sim_native_baselines": "dense_exact,sparse_krylov",
+    "sim_native_observable_tolerance": 1e-08,
+    "sim_qubits": 4,
+    "sim_steps": 4,
+    "sim_time": 0.8,
+    "train_frac": 0.75,
+    "workloads": "optimization"
+  },
+  "metadata": {
+    "cuda_visible_devices": "0",
+    "cwd": "/pscratch/sd/s/sgkim/Skim-Qsupreme",
+    "hostname": "nid002093",
+    "platform": "Linux-6.4.0-150600.23.103_15.0.24-cray_shasta_c-x86_64-with-glibc2.38",
+    "python": "3.11.14 | packaged by conda-forge | (main, Jan 26 2026, 23:48:32) [GCC 14.3.0]",
+    "python_executable": "/pscratch/sd/s/sgkim/kis_cuquantum/00_env/cutn_conda/bin/python",
+    "slurm_job_id": "55516885",
+    "slurm_job_name": "qsup-repeat-gate",
+    "total_runtime_sec": 9.572010474978015
+  },
+  "workloads": {
+    "optimization": {
+      "break_even_projection": {
+        "circuit_evaluations": 49,
+        "measurement_ops": 196,
+        "one_qubit_gates": 637,
+        "required_uniform_op_time_sec_for_native_parity": 1.1080134032084378e-08,
+        "sim_to_native_speedup_required": 652342.6930590852,
+        "two_qubit_gates": 490
+      },
+      "family": "optimization_qaoa",
+      "native_path": {
+        "best_bits": [
+          0,
+          1,
+          0,
+          1
+        ],
+        "best_cut": 4,
+        "method": "greedy_assignment_numpy",
+        "models": {
+          "exact_enumeration_numpy": {
+            "best_bits": [
+              1,
+              0,
+              1,
+              0
+            ],
+            "best_cut": 4,
+            "method": "exact_enumeration_numpy",
+            "runtime_sec": 2.5218003429472446e-05
+          },
+          "greedy_assignment_numpy": {
+            "best_bits": [
+              0,
+              1,
+              0,
+              1
+            ],
+            "best_cut": 4,
+            "method": "greedy_assignment_numpy",
+            "runtime_sec": 1.4659017324447632e-05
+          },
+          "local_search_numpy": {
+            "best_bits": [
+              0,
+              1,
+              0,
+              1
+            ],
+            "best_cut": 4,
+            "method": "local_search_numpy",
+            "restarts": 8,
+            "runtime_sec": 0.00021276198094710708
+          },
+          "simulated_annealing_numpy": {
+            "best_bits": [
+              0,
+              1,
+              0,
+              1
+            ],
+            "best_cut": 4,
+            "method": "simulated_annealing_numpy",
+            "runtime_sec": 0.0007137099746614695,
+            "steps": 250
+          }
+        },
+        "runtime_sec": 1.4659017324447632e-05,
+        "selected_model": "greedy_assignment_numpy",
+        "selection_rule": "fastest_model_matching_best_cut",
+        "total_runtime_sec": 0.0010931339929811656
+      },
+      "problem": {
+        "edges": [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "graph_family": "chordal",
+        "name": "small_maxcut",
+        "nodes": 4
+      },
+      "quality_metric": "approximation_ratio",
+      "quantum_path": {
+        "ansatz": "QAOA_p1_grid",
+        "approximation_ratio": 0.8017527785389227,
+        "best_beta": 0.2617993877991494,
+        "best_gamma": 0.5235987755982988,
+        "expected_cut": 3.2070111141556907,
+        "metadata": {
+          "circuit_evaluations": 49,
+          "cupy_used_bytes": 512,
+          "device": 0,
+          "one_qubit_gates": 637,
+          "qubits": 4,
+          "state_dim": 16,
+          "two_qubit_gates": 490
+        },
+        "runtime_sec": 9.562702839029953,
+        "status": "ok"
+      }
+    }
+  }
+}

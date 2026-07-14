@@ -11,6 +11,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{multirow}
+\usepackage{array}
 \usepackage{xspace}
 \usepackage{enumitem}
 \usepackage{cite}
@@ -20,10 +21,7 @@
 
 \setlength{\columnsep}{0.1in}
 \captionsetup{font=small}
-\captionsetup[subfigure]{font=scriptsize,skip=0pt}
-\setlength{\textfloatsep}{2pt plus 1pt minus 1pt}
-\setlength{\floatsep}{2pt plus 1pt minus 1pt}
-\setlength{\intextsep}{2pt plus 1pt minus 1pt}
+\captionsetup[subfigure]{font=small,skip=1pt}
 \pagestyle{plain}
 \pagenumbering{arabic}
 \newcommand{\Description}[1]{}
@@ -43,11 +41,11 @@
 
 \newcommand{\SystemName}{QArchGauge\xspace}
 \newcommand{\cuQuantum}{\texttt{cu\-Quantum}\xspace}
-\newcommand{\LeadershipSystem}{Top-20 TOP500 leadership-scale HPC system\xspace}
+\newcommand{\LeadershipSystem}{NERSC Perlmutter\xspace}
 \title{\normalsize HPCA 2027 Submission \#NaN\\
 Confidential Draft\\
 Do NOT Distribute!!\\[0.15in]
-\LARGE \SystemName: Architecture-Guided Modeling of Practical Quantum Advantage}
+\LARGE \SystemName: HPC-Driven Architecture Targeting for Application-Level Quantum Advantage}
 
 \author{}
 
@@ -56,7 +54,7 @@ Do NOT Distribute!!\\[0.15in]
 
 \maketitle
 \begin{abstract}
-Practical quantum advantage is an architecture question: a quantum-circuit application must beat a strong native HPC implementation on the same input, at the same quality, after all application overheads are included. However, simulator throughput and hardware speedup claims do not tell architects which resource should improve: logical gates, shot parallelism, decoder latency, host--QPU I/O, hybrid scheduling, native baselines, or algorithmic quality. This paper presents \SystemName, an architecture-guided modeling framework that converts same-input quantum-circuit measurements into practical QPU requirements on a leadership-scale HPC system. \SystemName executes native implementations and quantum-circuit formulations with shared inputs and quality targets, then combines native runtime, circuit cost, circuit structure, repeated-evaluation demand, and quality gap to project a break-even frontier over pipelined execution, shot throughput, quality recovery, and serial host/control overhead. This design treats \cuQuantum simulation as exact, state-vector-verifiable instrumentation for estimating future-system requirements, not as evidence of current or deployment-scale quantum advantage. Our evaluation covers 160 cases from \texttt{sklearn digits} and a 3,552-case practical suite across ML, Chem, Opt., and Sim. on up to 256 GPUs, plus a 104-case OpenFermion/PySCF Chem coverage gate. The digits calibration requires median speedups of 421.9$\times$ for quantum kernels and 64.9$\times$ for QNN/VQC; practical-suite medians span 3,071.0$\times$ for Sim. to 287,045.6$\times$ for Opt. Under the default lower-bound projection at 90\% quality-gap recovery and no recovery-cost penalty, $10^4\times$ moves 54.9\% of Sim. cases into the advantage region and $10^5\times$ moves 57.1\% of Chem cases, while conservative shot, host-I/O, and queue/control sensitivity and any physical recovery overhead remove much of this coverage. These results turn vague quantum-speedup claims into workload-specific architecture targets for quality, batching, host/control movement, and HPC--quantum co-scheduling.
+Application-level quantum advantage requires a complete circuit application to beat a strong native HPC path on the same input and at the same output quality. Simulator throughput and isolated fault-tolerant resource counts do not reveal which QPU resource can move that boundary. We present \SystemName, an HPC-driven architecture diagnosis framework that first gates every paired record by direct finite-shot application quality and then inverts its native deadline through workload-valid schedules, case-level reliability, physical space, and coupled resource improvements. Perlmutter supplies 3,552 ML, chemistry, optimization, and simulation records spanning 222 structural configurations and 16 seeds per configuration; its GPU time is evidence cost, never a QPU clock. At the declared noiseless tolerance, ML and optimization have no passing records, while 48/224 chemistry and 256/512 simulation records pass. Direct 10,000-shot closure further leaves only 12 simulation records with a same-record, full-loop application contract; all other physical timings are conditional lower bounds. For these 12 records, a QDK-aligned 1\% reliability contract selects distance 13--15 and 79--86 T states per arbitrary rotation. Magic-state supply must reach 39,351--42,961$\times$ a 64-factory baseline, or 2.52--2.75 million factories, before another component can dominate; six records remain blocked by the non-factory floor. Across 384 deterministic joint-design scenarios, factory supply is the first target for all eligible records throughout the 1--100$\times$ region, then shifts to shot parallelism or logical-cycle latency as supply increases. A matched-event LSQCA replacement provides no core-area benefit at 4--7 logical qubits and its load/store movement removes all six otherwise runtime-favorable cases. Leadership HPC thus acts as an empirical oracle for falsifiable first, crossover, and next QPU architecture targets rather than evidence of present quantum speed.
 \end{abstract}
 \thispagestyle{plain}
 
@@ -73,8 +71,12 @@ Practical quantum advantage is an architecture question: a quantum-circuit appli
 
 \clearpage
 \section*{AI Use}
-OpenAI Codex assisted with drafting, editing, code generation, artifact
-consistency checks, and LaTeX build debugging. The authors are responsible for
-the final technical content, experiments, figures, citations, and claims.
+OpenAI Codex assisted with language drafting, restructuring, and copy editing
+across the Abstract and Sections I--VII; it also assisted with analysis,
+plotting, reference-model, artifact-audit, and LaTeX build code. The authors
+selected the research questions and methods, executed the experiments,
+inspected the generated figures and artifacts, verified cited sources and
+reported values, revised the generated material, and approved all final
+technical claims.
 
 \end{document}

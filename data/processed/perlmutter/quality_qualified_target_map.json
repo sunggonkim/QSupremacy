@@ -1,0 +1,306 @@
+{
+  "audit_status": "PASS",
+  "by_tolerance_multiplier": {
+    "0.5": {
+      "chemistry": {
+        "hardware_target_eligible_count": 0,
+        "hardware_target_eligible_fraction": 0.0,
+        "independent_instances": 224,
+        "measurement_contract_counts": {
+          "compiled_subset_only": 224
+        },
+        "noiseless_quality_pass_count": 48,
+        "noiseless_quality_pass_fraction": 0.21428571428571427,
+        "quality_status_counts": {
+          "quality_fail_with_measured_ladder": 176,
+          "quality_pass": 48
+        },
+        "records": 224,
+        "structural_configurations": 14
+      },
+      "ml": {
+        "hardware_target_eligible_count": 0,
+        "hardware_target_eligible_fraction": 0.0,
+        "independent_instances": 2048,
+        "measurement_contract_counts": {
+          "unsupported_amplitude_feature_readout": 2048
+        },
+        "noiseless_quality_pass_count": 0,
+        "noiseless_quality_pass_fraction": 0.0,
+        "quality_status_counts": {
+          "quality_fail_with_measured_ladder": 2048
+        },
+        "records": 2048,
+        "structural_configurations": 128
+      },
+      "optimization": {
+        "hardware_target_eligible_count": 0,
+        "hardware_target_eligible_fraction": 0.0,
+        "independent_instances": 768,
+        "measurement_contract_counts": {
+          "computational_basis_sampling_defined": 768
+        },
+        "noiseless_quality_pass_count": 0,
+        "noiseless_quality_pass_fraction": 0.0,
+        "quality_status_counts": {
+          "quality_fail_with_measured_ladder": 768
+        },
+        "records": 768,
+        "structural_configurations": 48
+      },
+      "simulation": {
+        "hardware_target_eligible_count": 0,
+        "hardware_target_eligible_fraction": 0.0,
+        "independent_instances": 512,
+        "measurement_contract_counts": {
+          "z_observable_sampling_defined": 512
+        },
+        "noiseless_quality_pass_count": 256,
+        "noiseless_quality_pass_fraction": 0.5,
+        "quality_status_counts": {
+          "quality_fail_with_measured_ladder": 256,
+          "quality_pass": 256
+        },
+        "records": 512,
+        "structural_configurations": 32
+      }
+    },
+    "1.0": {
+      "chemistry": {
+        "hardware_target_eligible_count": 0,
+        "hardware_target_eligible_fraction": 0.0,
+        "independent_instances": 224,
+        "measurement_contract_counts": {
+          "compiled_subset_only": 224
+        },
+        "noiseless_quality_pass_count": 48,
+        "noiseless_quality_pass_fraction": 0.21428571428571427,
+        "quality_status_counts": {
+          "quality_fail_with_measured_ladder": 176,
+          "quality_pass": 48
+        },
+        "records": 224,
+        "structural_configurations": 14
+      },
+      "ml": {
+        "hardware_target_eligible_count": 0,
+        "hardware_target_eligible_fraction": 0.0,
+        "independent_instances": 2048,
+        "measurement_contract_counts": {
+          "unsupported_amplitude_feature_readout": 2048
+        },
+        "noiseless_quality_pass_count": 0,
+        "noiseless_quality_pass_fraction": 0.0,
+        "quality_status_counts": {
+          "quality_fail_with_measured_ladder": 2048
+        },
+        "records": 2048,
+        "structural_configurations": 128
+      },
+      "optimization": {
+        "hardware_target_eligible_count": 0,
+        "hardware_target_eligible_fraction": 0.0,
+        "independent_instances": 768,
+        "measurement_contract_counts": {
+          "computational_basis_sampling_defined": 768
+        },
+        "noiseless_quality_pass_count": 0,
+        "noiseless_quality_pass_fraction": 0.0,
+        "quality_status_counts": {
+          "quality_fail_with_measured_ladder": 768
+        },
+        "records": 768,
+        "structural_configurations": 48
+      },
+      "simulation": {
+        "hardware_target_eligible_count": 12,
+        "hardware_target_eligible_fraction": 0.0234375,
+        "independent_instances": 512,
+        "measurement_contract_counts": {
+          "z_observable_sampling_defined": 512
+        },
+        "noiseless_quality_pass_count": 256,
+        "noiseless_quality_pass_fraction": 0.5,
+        "quality_status_counts": {
+          "quality_fail_with_measured_ladder": 256,
+          "quality_pass": 256
+        },
+        "records": 512,
+        "structural_configurations": 32
+      }
+    },
+    "2.0": {
+      "chemistry": {
+        "hardware_target_eligible_count": 0,
+        "hardware_target_eligible_fraction": 0.0,
+        "independent_instances": 224,
+        "measurement_contract_counts": {
+          "compiled_subset_only": 224
+        },
+        "noiseless_quality_pass_count": 64,
+        "noiseless_quality_pass_fraction": 0.2857142857142857,
+        "quality_status_counts": {
+          "quality_fail_with_measured_ladder": 160,
+          "quality_pass": 64
+        },
+        "records": 224,
+        "structural_configurations": 14
+      },
+      "ml": {
+        "hardware_target_eligible_count": 0,
+        "hardware_target_eligible_fraction": 0.0,
+        "independent_instances": 2048,
+        "measurement_contract_counts": {
+          "unsupported_amplitude_feature_readout": 2048
+        },
+        "noiseless_quality_pass_count": 2,
+        "noiseless_quality_pass_fraction": 0.0009765625,
+        "quality_status_counts": {
+          "quality_fail_with_measured_ladder": 2046,
+          "quality_pass": 2
+        },
+        "records": 2048,
+        "structural_configurations": 128
+      },
+      "optimization": {
+        "hardware_target_eligible_count": 0,
+        "hardware_target_eligible_fraction": 0.0,
+        "independent_instances": 768,
+        "measurement_contract_counts": {
+          "computational_basis_sampling_defined": 768
+        },
+        "noiseless_quality_pass_count": 0,
+        "noiseless_quality_pass_fraction": 0.0,
+        "quality_status_counts": {
+          "quality_fail_with_measured_ladder": 768
+        },
+        "records": 768,
+        "structural_configurations": 48
+      },
+      "simulation": {
+        "hardware_target_eligible_count": 16,
+        "hardware_target_eligible_fraction": 0.03125,
+        "independent_instances": 512,
+        "measurement_contract_counts": {
+          "z_observable_sampling_defined": 512
+        },
+        "noiseless_quality_pass_count": 256,
+        "noiseless_quality_pass_fraction": 0.5,
+        "quality_status_counts": {
+          "quality_fail_with_measured_ladder": 256,
+          "quality_pass": 256
+        },
+        "records": 512,
+        "structural_configurations": 32
+      }
+    }
+  },
+  "eligibility_shots": 10000,
+  "finite_shot_evidence_inventory": [
+    {
+      "artifact": "data/processed/perlmutter/finite_shot_quality_sensitivity.json",
+      "quality_coupled": true,
+      "same_record_as_main_corpus": "workload dependent; see record evidence_scope",
+      "scope": "Representative finite-shot quality closure at 1e3/1e4/1e5 shots. ML uses a physically measurable Z/ZZ variant; Chem and Opt sample fixed selected parameters and do not claim a finite-shot outer optimizer; Sim samples the complete terminal observable.",
+      "selected_source_records": 68,
+      "shots": [
+        1000,
+        10000,
+        100000
+      ],
+      "workload": "all"
+    },
+    {
+      "artifact": "data/processed/perlmutter/qaoa_scale_depth_closure.json",
+      "quality_coupled": true,
+      "same_record_as_main_corpus": false,
+      "scope": "separate 10--20-qubit weighted-MaxCut depth ladder",
+      "shots": [
+        1024,
+        8192
+      ],
+      "workload": "optimization"
+    },
+    {
+      "artifact": "data/processed/perlmutter/qaoa_noisy_closed_loop.json",
+      "quality_coupled": true,
+      "same_record_as_main_corpus": false,
+      "scope": "separate 4/6/8-qubit synthetic depolarizing sweep",
+      "shots": [
+        1024,
+        8192
+      ],
+      "workload": "optimization"
+    },
+    {
+      "artifact": "data/processed/perlmutter/chem_active_space_pair_ucc_closure.json",
+      "quality_coupled": false,
+      "same_record_as_main_corpus": false,
+      "scope": "separate H8 active-space ladder; fixed shot allocation and state-independent error bound, not sampled energy quality",
+      "shots": [
+        99982,
+        99997,
+        100001,
+        100014
+      ],
+      "workload": "chemistry"
+    }
+  ],
+  "independent_instances": 3552,
+  "input_csv": "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv",
+  "internal_errors": [],
+  "measurement_gaps": {
+    "chemistry": {
+      "action": "generate representative matched finite-shot quality traces",
+      "measurement_contract": "compiled_subset_only",
+      "required_shot_points": [
+        1000,
+        10000,
+        100000
+      ],
+      "same_record_finite_shot_quality": true
+    },
+    "ml": {
+      "action": "build a physically measurable feature path and sample it",
+      "measurement_contract": "unsupported_amplitude_feature_readout",
+      "required_shot_points": [
+        1000,
+        10000,
+        100000
+      ],
+      "same_record_finite_shot_quality": false
+    },
+    "optimization": {
+      "action": "generate representative matched finite-shot quality traces",
+      "measurement_contract": "computational_basis_sampling_defined",
+      "required_shot_points": [
+        1000,
+        10000,
+        100000
+      ],
+      "same_record_finite_shot_quality": true
+    },
+    "simulation": {
+      "action": "generate representative matched finite-shot quality traces",
+      "measurement_contract": "z_observable_sampling_defined",
+      "required_shot_points": [
+        1000,
+        10000,
+        100000
+      ],
+      "same_record_finite_shot_quality": true
+    }
+  },
+  "p0_completion_status": "PASS_WITH_RESTRICTED_ELIGIBLE_SUBSET",
+  "record_csv": "data/processed/perlmutter/quality_qualified_target_map.csv",
+  "records": 3552,
+  "schema": "qarchgauge.quality-qualified-target-map.v1",
+  "scope": "Stage-1 quality eligibility audit. Noiseless quality pass is not sufficient for an application-level hardware target; same-record finite-shot quality and a physical measurement contract are required.",
+  "structural_configurations": 222,
+  "tolerances": {
+    "chemistry": 0.01,
+    "ml": 0.02,
+    "optimization": 0.02,
+    "simulation": 0.01
+  }
+}

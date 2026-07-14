@@ -1,0 +1,44 @@
+{
+  "schema": "qsup.chem-hpc-scale-proxy.v1",
+  "scope": "all-electron native chemistry scale extension; no matched large VQE execution or deployment-scale advantage is claimed",
+  "case_id": "n2_ccpvtz",
+  "molecule": "N2",
+  "basis": "cc-pvtz",
+  "status": "complete",
+  "environment": {
+    "host": "nid004364",
+    "platform": "Linux-6.4.0-150600.23.103_15.0.25-cray_shasta_c-x86_64-with-glibc2.3.4",
+    "python": "3.6.15",
+    "threads": 64,
+    "omp_num_threads": "64",
+    "slurm_job_id": "55821346",
+    "slurm_cpus_per_task": "64"
+  },
+  "stages": {
+    "hf": {
+      "runtime_sec": 1.887510631000623,
+      "energy_hartree": -108.98300653224068,
+      "converged": true
+    },
+    "mp2": {
+      "runtime_sec": 0.12234073100262322,
+      "energy_hartree": -109.38302881759165
+    },
+    "ccsd": {
+      "runtime_sec": 2.721245977008948,
+      "energy_hartree": -109.3809436418555,
+      "converged": true
+    },
+    "triples": {
+      "runtime_sec": 0.7006270270212553,
+      "correction_hartree": -0.01895384244525353,
+      "ccsdt_energy_hartree": -109.39989748430075
+    }
+  },
+  "atomic_orbitals": 60,
+  "electrons": 14,
+  "spin_orbital_qubits": 120,
+  "occupied_spatial_orbitals": 7,
+  "virtual_spatial_orbitals": 53,
+  "total_native_runtime_sec": 5.43172436603345
+}

@@ -1,0 +1,196 @@
+{
+  "config": {
+    "chem_grid": 17,
+    "chem_hamiltonian_json": "benchmarks/workloads/hamiltonians/h2_sto3g_4q.json",
+    "chem_lanczos_max_iter": 128,
+    "chem_lanczos_tol": 1e-10,
+    "chem_layers": 1,
+    "chem_native_baselines": "dense_exact,sparse_lanczos",
+    "chem_native_energy_tolerance": 1e-08,
+    "digits_classes": "0,1,2",
+    "digits_path": "data/datasets/sklearn_digits.npz",
+    "entangle": true,
+    "knn_k": 5,
+    "login_safe": false,
+    "ml_classes": 3,
+    "ml_dataset": "synthetic",
+    "ml_depth": 1,
+    "ml_features": 4,
+    "ml_lr": 0.25,
+    "ml_native_baselines": "softmax,mlp,linear_ridge,rbf_kernel_ridge,knn,nearest_centroid",
+    "ml_native_quality_tolerance": 0.01,
+    "ml_samples": 72,
+    "ml_steps": 250,
+    "mlp_hidden": 16,
+    "mlp_lr": 0.05,
+    "mlp_steps": 250,
+    "opt_anneal_steps": 250,
+    "opt_exact_max_nodes": 22,
+    "opt_graph": "chordal",
+    "opt_grid": 7,
+    "opt_local_restarts": 8,
+    "opt_native_baselines": "exact,greedy,local_search,annealing",
+    "opt_nodes": 4,
+    "output": "data/raw/perlmutter/repeat_timing_gate/repeat_55516885_repeat_timing_gate_chemistry_trial0.json",
+    "rbf_gamma": 0.0,
+    "ridge_alpha": 0.01,
+    "seed": 17,
+    "sim_coupling": 0.7,
+    "sim_field": 0.4,
+    "sim_initial_state": "auto",
+    "sim_krylov_dim": 64,
+    "sim_krylov_tol": 1e-10,
+    "sim_model": "tfim",
+    "sim_native_baselines": "dense_exact,sparse_krylov",
+    "sim_native_observable_tolerance": 1e-08,
+    "sim_qubits": 4,
+    "sim_steps": 4,
+    "sim_time": 0.8,
+    "train_frac": 0.75,
+    "workloads": "chemistry"
+  },
+  "metadata": {
+    "cuda_visible_devices": "0",
+    "cwd": "/pscratch/sd/s/sgkim/Skim-Qsupreme",
+    "hostname": "nid002093",
+    "platform": "Linux-6.4.0-150600.23.103_15.0.24-cray_shasta_c-x86_64-with-glibc2.38",
+    "python": "3.11.14 | packaged by conda-forge | (main, Jan 26 2026, 23:48:32) [GCC 14.3.0]",
+    "python_executable": "/pscratch/sd/s/sgkim/kis_cuquantum/00_env/cutn_conda/bin/python",
+    "slurm_job_id": "55516885",
+    "slurm_job_name": "qsup-repeat-gate",
+    "total_runtime_sec": 9.838732692005578
+  },
+  "workloads": {
+    "chemistry": {
+      "break_even_projection": {
+        "circuit_evaluations": 37,
+        "measurement_ops": 148,
+        "one_qubit_gates": 296,
+        "required_uniform_op_time_sec_for_native_parity": 2.6432979801619373e-07,
+        "sim_to_native_speedup_required": 67006.78357951053,
+        "two_qubit_gates": 111
+      },
+      "family": "chemistry_vqe",
+      "native_path": {
+        "best_quality_model": "sparse_lanczos_eigsh_scipy",
+        "energy_tolerance": 1e-08,
+        "ground_energy": -1.1372701746609055,
+        "method": "exact_dense_diagonalization_numpy",
+        "models": {
+          "exact_dense_diagonalization_numpy": {
+            "ground_energy": -1.1372701746609029,
+            "method": "exact_dense_diagonalization_numpy",
+            "runtime_sec": 0.00014670303789898753
+          },
+          "sparse_lanczos_eigsh_scipy": {
+            "ground_energy": -1.1372701746609055,
+            "iterations": 128,
+            "method": "sparse_lanczos_eigsh_scipy",
+            "runtime_sec": 0.0010864720097742975
+          }
+        },
+        "runtime_sec": 0.00014670303789898753,
+        "selected_model": "exact_dense_diagonalization_numpy",
+        "selected_model_ground_energy": -1.1372701746609029,
+        "selection_rule": "fastest_model_within_energy_tolerance_of_best_ground_energy",
+        "total_runtime_sec": 0.0012977609876543283
+      },
+      "problem": {
+        "description": "OpenFermion/PySCF H2 STO-3G Jordan-Wigner Hamiltonian.",
+        "n_qubits": 4,
+        "name": "h2_sto3g_4q",
+        "source": "benchmarks/workloads/hamiltonians/h2_sto3g_4q.json",
+        "terms": [
+          {
+            "coefficient": -0.09886396933545866,
+            "pauli": "IIII"
+          },
+          {
+            "coefficient": -0.04532220205287396,
+            "pauli": "XXYY"
+          },
+          {
+            "coefficient": 0.04532220205287396,
+            "pauli": "XYYX"
+          },
+          {
+            "coefficient": 0.04532220205287396,
+            "pauli": "YXXY"
+          },
+          {
+            "coefficient": -0.04532220205287396,
+            "pauli": "YYXX"
+          },
+          {
+            "coefficient": 0.17119774903432994,
+            "pauli": "ZIII"
+          },
+          {
+            "coefficient": 0.1686221915892094,
+            "pauli": "ZZII"
+          },
+          {
+            "coefficient": 0.12054482205301792,
+            "pauli": "ZIZI"
+          },
+          {
+            "coefficient": 0.16586702410589188,
+            "pauli": "ZIIZ"
+          },
+          {
+            "coefficient": 0.17119774903432994,
+            "pauli": "IZII"
+          },
+          {
+            "coefficient": 0.16586702410589188,
+            "pauli": "IZZI"
+          },
+          {
+            "coefficient": 0.12054482205301792,
+            "pauli": "IZIZ"
+          },
+          {
+            "coefficient": -0.22278593040418435,
+            "pauli": "IIZI"
+          },
+          {
+            "coefficient": 0.17434844185575665,
+            "pauli": "IIZZ"
+          },
+          {
+            "coefficient": -0.22278593040418435,
+            "pauli": "IIIZ"
+          }
+        ]
+      },
+      "quality_metric": "absolute_energy_error",
+      "quantum_path": {
+        "absolute_energy_error": 0.5056154644325549,
+        "ansatz": "hardware_efficient_ry_rz_linear_entangler",
+        "best_theta": [
+          0.42436516162396165,
+          0.6870043425667967,
+          -3.098071670956732,
+          -2.016375488265356,
+          -2.105355824733209,
+          -0.239025503871221,
+          0.4209961370072244,
+          -0.30216325819727086
+        ],
+        "estimated_ground_energy": -0.6316547102283506,
+        "layers": 1,
+        "metadata": {
+          "circuit_evaluations": 37,
+          "cupy_used_bytes": 512,
+          "device": 0,
+          "one_qubit_gates": 296,
+          "qubits": 4,
+          "state_dim": 16,
+          "two_qubit_gates": 111
+        },
+        "runtime_sec": 9.83009871095419,
+        "status": "ok"
+      }
+    }
+  }
+}

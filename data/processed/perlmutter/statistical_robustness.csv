@@ -1,0 +1,5 @@
+workload,records,structural_configurations,independent_instance_seed_pairs,quality_pass_fraction,quality_pass_ci_low,quality_pass_ci_high,median_simulator_speedup_required,speedup_ci_low,speedup_ci_high,group_wave_conditional_target,group_wave_target_bootstrap_probability
+chemistry,224,14,224,0.21428571428571427,0.0,0.42857142857142855,42491.43045400623,40479.135508098516,45087.271558553126,factory,1.0
+ml,2048,128,2048,0.0,0.0,0.0,3726.3740353613653,3449.3802885783166,4401.704300089917,factory,1.0
+optimization,768,48,768,0.0,0.0,0.0,287045.64367355965,263795.8232182278,345499.5247490848,factory,1.0
+simulation,512,32,512,0.5,0.34375,0.6875,3071.021150301259,2569.797116237872,9771.99012775094,factory,1.0

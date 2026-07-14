@@ -1,0 +1,19 @@
+{
+  "cluster_state_tib": 8.0,
+  "complete": true,
+  "elapsed_max_sec": 2.476578798989067,
+  "elapsed_median_sec": 2.1421672009746544,
+  "elapsed_min_sec": 1.5295513709716033,
+  "expected_world_size": 256,
+  "gate_total_max_sec": 1.0078716730058659,
+  "gate_total_median_sec": 0.8074439900228754,
+  "gate_total_min_sec": 0.20307482199859805,
+  "interpretation": "capacity-boundary shard probe; local gate passes only; not a full cross-rank distributed simulator",
+  "job_id": "55831987",
+  "local_state_gib": 32.0,
+  "qubits": 40,
+  "run_tag": "55831987_cap_40q_64n_256g",
+  "schema": "qarchgauge_statevector_capacity_boundary_summary_v1",
+  "shard_bits": 32,
+  "world_size": 256
+}

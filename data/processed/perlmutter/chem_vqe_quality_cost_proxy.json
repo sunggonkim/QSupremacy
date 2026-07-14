@@ -1,0 +1,68 @@
+{
+  "status": "complete",
+  "scope": "same H8 STO-3G chain at 1.4 Angstrom with nested 2/4/6/8-spatial-orbital active spaces; exact CASCI/FCI native target, noiseless pair-UCC VQE-style statevector optimization, QWC grouping, and compiled topology cost; controlled scale evidence, not a deployment-scale molecular VQE claim",
+  "source": "data/processed/perlmutter/chem_active_space_pair_ucc_closure.json",
+  "quality_tolerance_hartree": 0.01,
+  "records": [
+    {
+      "qubits": 4,
+      "active_spatial_orbitals": 2,
+      "active_electrons": 2,
+      "hf_error_ha": 0.020020478414312315,
+      "best_pair_ucc_error_ha": 3.0464519795714295e-12,
+      "best_pair_ucc_reps": 1,
+      "one_rep_error_ha": 3.0464519795714295e-12,
+      "two_rep_error_ha": 3.05089287166993e-12,
+      "qwc_groups": 5,
+      "pauli_terms": 14,
+      "state_independent_shot_bound": 3773,
+      "best_all_to_all_two_qubit_gates": 34,
+      "best_line_routing_multiplier": 1.0
+    },
+    {
+      "qubits": 8,
+      "active_spatial_orbitals": 4,
+      "active_electrons": 4,
+      "hf_error_ha": 0.07617218782276458,
+      "best_pair_ucc_error_ha": 0.044648558726637866,
+      "best_pair_ucc_reps": 2,
+      "one_rep_error_ha": 0.044648561114848384,
+      "two_rep_error_ha": 0.044648558726637866,
+      "qwc_groups": 68,
+      "pauli_terms": 184,
+      "state_independent_shot_bound": 132832,
+      "best_all_to_all_two_qubit_gates": 136,
+      "best_line_routing_multiplier": 1.3970588235294117
+    },
+    {
+      "qubits": 12,
+      "active_spatial_orbitals": 6,
+      "active_electrons": 6,
+      "hf_error_ha": 0.15710719760297787,
+      "best_pair_ucc_error_ha": 0.11637042234988959,
+      "best_pair_ucc_reps": 2,
+      "one_rep_error_ha": 0.11651899276333477,
+      "two_rep_error_ha": 0.11637042234988959,
+      "qwc_groups": 284,
+      "pauli_terms": 918,
+      "state_independent_shot_bound": 1253496,
+      "best_all_to_all_two_qubit_gates": 612,
+      "best_line_routing_multiplier": 1.4215686274509804
+    },
+    {
+      "qubits": 16,
+      "active_spatial_orbitals": 8,
+      "active_electrons": 8,
+      "hf_error_ha": 0.2728972613484899,
+      "best_pair_ucc_error_ha": 0.22546540367474277,
+      "best_pair_ucc_reps": 2,
+      "one_rep_error_ha": 0.22581521169111252,
+      "two_rep_error_ha": 0.22546540367474277,
+      "qwc_groups": 850,
+      "pauli_terms": 2912,
+      "state_independent_shot_bound": 8091692,
+      "best_all_to_all_two_qubit_gates": 578,
+      "best_line_routing_multiplier": 1.4602076124567474
+    }
+  ]
+}

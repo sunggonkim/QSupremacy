@@ -1,0 +1,189 @@
+{
+  "schema": "qsup.chem-sim-native-proxies.v1",
+  "scope": "deployment-facing native solver proxies; no matched large VQE or Trotter circuit execution is claimed",
+  "environment": {
+    "host": "login23",
+    "platform": "Linux-6.4.0-150600.23.103_15.0.25-cray_shasta_c-x86_64-with-glibc2.38",
+    "python": "3.11.14",
+    "omp_num_threads": "4",
+    "mkl_num_threads": "4"
+  },
+  "chemistry": [
+    {
+      "name": "LiH",
+      "basis": "cc-pvtz",
+      "atomic_orbitals": 44,
+      "electrons": 4,
+      "spin_orbital_qubits": 88,
+      "one_body_mo_nonzero": 620,
+      "two_body_spatial_mo_nonzero": 1539480,
+      "jordan_wigner_pauli_upper_bound": 49264600,
+      "uccsd_single_excitations": 336,
+      "uccsd_double_excitations": 20916,
+      "hf_runtime_sec": 0.08007732199621387,
+      "mp2_runtime_sec": 0.16207739600213245,
+      "ccsd_runtime_sec": 0.1496547679998912,
+      "triples_runtime_sec": 0.08325969299767166,
+      "ccsdt_total_runtime_sec": 0.3129917829937767,
+      "hf_energy_hartree": -7.986645507638795,
+      "mp2_energy_hartree": -8.026049863249368,
+      "ccsd_energy_hartree": -8.036616344629913,
+      "ccsdt_energy_hartree": -8.036685843515784,
+      "ccsd_converged": true
+    },
+    {
+      "name": "H2O",
+      "basis": "cc-pvdz",
+      "atomic_orbitals": 24,
+      "electrons": 10,
+      "spin_orbital_qubits": 48,
+      "one_body_mo_nonzero": 190,
+      "two_body_spatial_mo_nonzero": 88456,
+      "jordan_wigner_pauli_upper_bound": 2830972,
+      "uccsd_single_excitations": 380,
+      "uccsd_double_excitations": 31635,
+      "hf_runtime_sec": 0.05416766999405809,
+      "mp2_runtime_sec": 0.0012642260116990656,
+      "ccsd_runtime_sec": 0.08842999199987389,
+      "triples_runtime_sec": 0.01929155399557203,
+      "ccsdt_total_runtime_sec": 0.161889215989504,
+      "hf_energy_hartree": -76.02676567311761,
+      "mp2_energy_hartree": -76.23078565589525,
+      "ccsd_energy_hartree": -76.2401089190059,
+      "ccsdt_energy_hartree": -76.24316894331494,
+      "ccsd_converged": true
+    },
+    {
+      "name": "N2",
+      "basis": "cc-pvdz",
+      "atomic_orbitals": 28,
+      "electrons": 14,
+      "spin_orbital_qubits": 56,
+      "one_body_mo_nonzero": 136,
+      "two_body_spatial_mo_nonzero": 130344,
+      "jordan_wigner_pauli_upper_bound": 4171280,
+      "uccsd_single_excitations": 588,
+      "uccsd_double_excitations": 78351,
+      "hf_runtime_sec": 0.03927913500228897,
+      "mp2_runtime_sec": 0.0020794770098291337,
+      "ccsd_runtime_sec": 0.12050639902008697,
+      "triples_runtime_sec": 0.02517921000253409,
+      "ccsdt_total_runtime_sec": 0.18496474402491003,
+      "hf_energy_hartree": -108.95379624089078,
+      "mp2_energy_hartree": -109.2650810037668,
+      "ccsd_energy_hartree": -109.26738926681462,
+      "ccsdt_energy_hartree": -109.27939782487071,
+      "ccsd_converged": true
+    }
+  ],
+  "simulation": [
+    {
+      "model": "scipy_matrix_free_krylov_expm_multiply",
+      "hamiltonian": "1D open-boundary transverse-field Ising",
+      "qubits": 16,
+      "state_dimension": 65536,
+      "state_bytes_complex128": 1048576,
+      "evolution_time": 1.0,
+      "runtime_sec": 0.5803255079954397,
+      "norm_error": 1.532107773982716e-14,
+      "trotter_quality": [
+        {
+          "steps": 4,
+          "runtime_sec": 0.04725612499169074,
+          "fidelity_to_krylov": 0.8108042417319542,
+          "infidelity": 0.1891957582680458,
+          "one_qubit_gates": 64,
+          "two_qubit_gates": 60
+        },
+        {
+          "steps": 8,
+          "runtime_sec": 0.09130595298483968,
+          "fidelity_to_krylov": 0.9532036384498533,
+          "infidelity": 0.04679636155014666,
+          "one_qubit_gates": 128,
+          "two_qubit_gates": 120
+        },
+        {
+          "steps": 16,
+          "runtime_sec": 0.18489141500322148,
+          "fidelity_to_krylov": 0.9885182786119269,
+          "infidelity": 0.01148172138807313,
+          "one_qubit_gates": 256,
+          "two_qubit_gates": 240
+        }
+      ]
+    },
+    {
+      "model": "scipy_matrix_free_krylov_expm_multiply",
+      "hamiltonian": "1D open-boundary transverse-field Ising",
+      "qubits": 18,
+      "state_dimension": 262144,
+      "state_bytes_complex128": 4194304,
+      "evolution_time": 1.0,
+      "runtime_sec": 2.835185473988531,
+      "norm_error": 5.617728504603292e-14,
+      "trotter_quality": [
+        {
+          "steps": 4,
+          "runtime_sec": 0.22095291200093925,
+          "fidelity_to_krylov": 0.7876147016607092,
+          "infidelity": 0.21238529833929076,
+          "one_qubit_gates": 72,
+          "two_qubit_gates": 68
+        },
+        {
+          "steps": 8,
+          "runtime_sec": 0.4112252090126276,
+          "fidelity_to_krylov": 0.9469084575181127,
+          "infidelity": 0.0530915424818873,
+          "one_qubit_gates": 144,
+          "two_qubit_gates": 136
+        },
+        {
+          "steps": 16,
+          "runtime_sec": 0.8108420679927804,
+          "fidelity_to_krylov": 0.9869416329000149,
+          "infidelity": 0.013058367099985091,
+          "one_qubit_gates": 288,
+          "two_qubit_gates": 272
+        }
+      ]
+    },
+    {
+      "model": "scipy_matrix_free_krylov_expm_multiply",
+      "hamiltonian": "1D open-boundary transverse-field Ising",
+      "qubits": 20,
+      "state_dimension": 1048576,
+      "state_bytes_complex128": 16777216,
+      "evolution_time": 1.0,
+      "runtime_sec": 20.83810273601557,
+      "norm_error": 7.105427357601002e-15,
+      "trotter_quality": [
+        {
+          "steps": 4,
+          "runtime_sec": 1.2860216819972266,
+          "fidelity_to_krylov": 0.7650883978453618,
+          "infidelity": 0.23491160215463824,
+          "one_qubit_gates": 80,
+          "two_qubit_gates": 76
+        },
+        {
+          "steps": 8,
+          "runtime_sec": 2.474559011985548,
+          "fidelity_to_krylov": 0.9406548514414196,
+          "infidelity": 0.05934514855858042,
+          "one_qubit_gates": 160,
+          "two_qubit_gates": 152
+        },
+        {
+          "steps": 16,
+          "runtime_sec": 5.078426691005006,
+          "fidelity_to_krylov": 0.9853675018728482,
+          "infidelity": 0.014632498127151838,
+          "one_qubit_gates": 320,
+          "two_qubit_gates": 304
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+JobIDRaw|JobName|Account|Partition|State|ExitCode|Elapsed|Timelimit|NNodes|NCPUS|AllocTRES
+55885608|qsup-prac-scale|m5320_g|gpu_ss11|TIMEOUT|0:0|03:00:16|03:00:00|4|512|billing=512,cpu=512,energy=17376266,gres/gpu:a100=16,gres/gpu=16,mem=919608M,node=4
+55885608.batch|batch|m5320_g||CANCELLED|0:15|03:00:19||1|128|cpu=128,gres/gpu:a100=4,gres/gpu=4,mem=229902M,node=1
+55885608.extern|extern|m5320_g||COMPLETED|0:0|03:00:21||4|512|billing=512,cpu=512,gres/gpu:a100=16,gres/gpu=16,mem=919608M,node=4
+55885608.0|bash|m5320_g||CANCELLED|0:15|03:00:12||4|512|cpu=512,gres/gpu:a100=16,gres/gpu=16,mem=919608M,node=4

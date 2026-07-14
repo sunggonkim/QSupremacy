@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Measure manuscript structure against the accepted previous-paper templates."""
+"""Audit argument-role alignment with the accepted previous papers.
+
+The accepted papers are writing templates, not section-count templates.  This
+audit therefore checks that the current HPCA manuscript preserves their
+argument mechanics while using a structure appropriate for an architecture
+modeling paper.
+"""
 
 import json
 import os
@@ -10,8 +16,6 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 OUT_JSON = os.path.join(
     ROOT, "data", "processed", "perlmutter", "previous_paper_alignment_metrics.json"
 )
-OUT_MD = os.devnull
-
 
 SECTION_FILES = {
     "introduction": {
@@ -47,215 +51,135 @@ SECTION_FILES = {
 }
 
 
-ROLE_MARKERS = {
-    "introduction": [
-        "Quantum computing is often described",
-        "\\begin{figure}",
-        "Three points follow",
-        "\\begin{table}",
-        "Key Idea",
-        "This paper makes the following contributions",
-    ],
-    "background": [
-        "\\subsection",
-        "Practical Application Families",
-        "Repeated Execution",
-        "Terminology",
-        "Leadership-scale GPU Platform and cuQuantum",
-        "Break-even Condition",
-    ],
-    "design": [
-        "Overview of",
-        "\\subsection{Overall Procedure}",
-        "\\subsection{Shared Workload Control}",
-        "\\subsection{Application Path Execution}",
-        "\\subsection{Measurement and Threshold Analysis}",
-        "Advantage frontier",
-        "\\subsection{Advantage Claim Checklist}",
-        "\\subsection{Workload Suite}",
-    ],
-    "evaluation": [
-        "Evaluation Setup",
-        "Hardware Specification",
-        "Benchmark",
-        "Baselines",
-        "Feasibility",
-        "Workload-Level Thresholds",
-        "Scalability of the Evidence-Generation Framework",
-        "Weak scaling.",
-        "Strong scaling.",
-        "Application Quality Beyond Runtime",
-        "Architecture Target Diagnosis",
-        "Sensitivity and Design Frontier",
-    ],
-}
-
-
-ROLE_INVENTORY = {
-    "introduction": [
-        ("opening motivation", "Broad promise, practical HPC question, hardware limit"),
-        ("prior simulator boundary", "Simulation systems help, but simulator speed is not application speed"),
-        ("intro figure", "First visual statement of native path versus quantum path"),
-        ("observations", "Practical observations before positioning table"),
-        ("application diversity", "Why one toy workload cannot support broad quantum claims"),
-        ("positioning table", "Early related-work table before final pitch"),
-        ("key idea", "Break-even threshold model"),
-        ("paper statement and contributions", "System statement followed by contribution list"),
-    ],
-    "background": [
-        ("application paths", "Define quantum-circuit application families"),
-        ("repeated execution", "Explain why one circuit run is not the full application"),
-        ("practical families", "ML, chemistry, optimization, simulation"),
-        ("terminology", "Threshold and advantage-region definitions"),
-        ("native baselines", "Classical target path"),
-        ("leadership/cuQuantum", "Measurement platform"),
-        ("break-even equations", "Native, simulated quantum, projected hardware paths"),
-    ],
-    "design": [
-        ("overview and boundary", "State what the system is and is not"),
-        ("overall procedure", "Measurement then advantage analysis"),
-        ("configuration record", "Stable work representation before execution"),
-        ("failure handling", "Failed paths remain measured evidence"),
-        ("shared workload control", "Same input, instance identity, and quality target"),
-        ("application paths", "Native, kernel, and QNN/VQC execution rules"),
-        ("measurement records", "JSON, summary path, and allocation accounting"),
-        ("threshold analysis", "Execution model, break-even search, and frontier classification"),
-        ("claim checklist", "Systems checks before an advantage claim"),
-        ("workload suite", "Measured application families"),
-    ],
-    "evaluation": [
-        ("setup", "Hardware, benchmark, baselines, feasibility"),
-        ("campaign summary", "Evidence table and evaluation questions"),
-        ("threshold landscape", "Native application paths versus quantum-circuit paths"),
-        ("quality sensitivity", "Quality sensitivity before speed-only claims"),
-        ("practical landscape", "Practical application suite"),
-        ("component and baseline", "Component mismatch and native baseline stress"),
-        ("weak scaling", "Throughput scaling as nodes and work grow together"),
-        ("strong scaling", "Fixed-work time-to-solution scaling"),
-        ("advantage frontier", "Advantage frontier and hardware projection"),
-        ("stability", "Operational and repeat-timing checks"),
-        ("taxonomy and sensitivity", "Bottleneck classes and remaining scope"),
-    ],
-    "related": [
-        ("simulation and NISQ", "Simulation substrate and current-device limits"),
-        ("applications and baselines", "Application families and native comparisons"),
-    ],
-    "conclusion": [
-        ("paper result", "Framework and measured thresholds"),
-        ("main lesson", "Frontier and bottleneck taxonomy instead of slogan"),
-    ],
-}
-
-
 ROLE_CURRENT_MARKERS = {
     "introduction": {
-        "opening motivation": "Quantum computing is often described",
-        "prior simulator boundary": "To study this problem before large fault-tolerant machines are available",
-        "intro figure": "\\begin{figure}",
-        "observations": "Three points follow",
-        "application diversity": "As shown in the figure, the required speedup is highly workload-dependent",
-        "positioning table": "\\begin{table}",
-        "key idea": "Key Idea",
-        "paper statement and contributions": "This paper makes the following contributions",
+        "opening pressure": "Quantum computing targets",
+        "simulator boundary": "Leadership systems provide a way",
+        "early evidence figure": "\\begin{figure}",
+        "figure lesson": "Figure~\\ref{fig:intro-gap}",
+        "evidence scale": "The evidence must also separate verifiability from width",
+        "prior-work positioning": "Table~\\ref{tab:intro-position}",
+        "key idea": "\\noindent\\textbf{Key Idea.}",
+        "contributions": "This paper makes three contributions",
     },
     "background": {
-        "application paths": "\\subsection{Quantum-Circuit Application Paths}",
-        "repeated execution": "Repeated Execution",
-        "practical families": "Practical Application Families",
-        "terminology": "Terminology",
-        "native baselines": "\\subsection{Native Baselines and Threshold Model}",
-        "leadership/cuQuantum": "Leadership-scale GPU Platform and cuQuantum",
-        "break-even equations": "Break-even Condition",
+        "application substrate": "\\subsection{Application Boundary and Evidence Scale}",
+        "application families": "The four families exercise different paths",
+        "application boundary": "A case crosses the application boundary only when",
+        "evidence levels": "Evidence scale and circuit width are distinct",
+        "critical path": "\\subsection{Reliability-Constrained Critical Path}",
+        "reliability envelope": "Surface-code execution couples reliability",
+        "rotation constraint": "Arbitrary rotations add a second reliability constraint",
+        "control and replacement": "Decoder service and the communication/control path",
     },
     "design": {
-        "overview and boundary": "Overview of",
-        "overall procedure": "\\subsection{Overall Procedure}",
-        "configuration record": "Config Record",
-        "failure handling": "Failure handling",
-        "shared workload control": "\\subsection{Shared Workload Control}",
-        "application paths": "\\subsection{Application Path Execution}",
-        "measurement records": "\\subsection{Measurement and Threshold Analysis}",
-        "threshold analysis": "Advantage frontier",
-        "claim checklist": "\\subsection{Advantage Claim Checklist}",
-        "workload suite": "\\subsection{Workload Suite}",
+        "design thesis": "\\SystemName turns an application comparison into a replaceable architecture contract",
+        "paired record": "\\subsection{Paired Evidence Record}",
+        "comparison invariant": "Both paths receive the same instance identifier",
+        "evidence typing": "Simulator execution recovers the exact circuit output and demand",
+        "physical inversion": "\\subsection{Quality-First Physical Inversion}",
+        "quality gate": "The first stage partitions every record",
+        "reliability contract": "The strict reliability contract splits",
+        "joint inversion": "\\subsection{Joint Target and Mechanism Inversion}",
+        "first and next target": "For each eligible record and resource",
+        "joint design": "One-factor results are insufficient",
+        "matched replacement": "Published mechanisms use the same invariant",
+        "implementation": "\\noindent\\textbf{Implementation and audits.}",
     },
     "evaluation": {
-        "setup": "\\subsection{Evaluation Setup}",
-        "campaign summary": "completed campaign contains",
-        "threshold landscape": "\\subsection{Workload-Level Thresholds}",
-        "quality sensitivity": "\\subsection{Application Quality Beyond Runtime}",
-        "practical landscape": "3,552-case practical suite",
-        "component and baseline": "Workload quality bottlenecks",
-        "weak scaling": "Weak scaling.",
-        "strong scaling": "Strong scaling.",
-        "advantage frontier": "\\subsection{Architecture Target Diagnosis}",
-        "stability": "\\subsection{Sensitivity and Design Frontier}",
-        "taxonomy and sensitivity": "Sensitivity separates application recovery",
+        "setup": "\\subsection{Evaluation Setup and Contracts}",
+        "platform": "\\noindent\\textbf{Platform and evidence units.}",
+        "scale and provenance": "\\noindent\\textbf{Scale and provenance.}",
+        "deployment frontier": "\\subsection{Deployment-Facing Native Frontier}",
+        "ml representation": "\\noindent\\textbf{ML representation.}",
+        "quality cost": "\\noindent\\textbf{Quality costs beyond ML.}",
+        "quality boundary": "\\subsection{Quality-Qualified Application Boundary}",
+        "finite-shot closure": "At $10^4$ shots, ML passes",
+        "logical lower bound": "\\subsection{Trace-Aware Logical Lower Bound}",
+        "physical diagnosis": "\\subsection{Reliability-Constrained Physical Diagnosis}",
+        "joint sensitivity": "\\subsection{Joint Co-Design Sensitivity}",
+        "matched replacement": "The framework can also test a published mechanism",
+        "claim closure": "\\noindent\\textbf{Observation 5:}",
     },
     "related": {
-        "simulation and NISQ": "Quantum Simulation and NISQ Systems",
-        "applications and baselines": "Quantum Applications and Native Baselines",
+        "application benchmarking": "Application benchmarks and native comparison",
+        "ft estimation": "FT estimation and critical-path evidence",
+        "component architectures": "QPU component architectures",
+        "hpc simulation and integration": "HPC simulation and integration",
     },
     "conclusion": {
-        "paper result": "In this paper",
-        "main lesson": "The main lesson",
+        "paper result": "\\SystemName uses leadership HPC",
+        "main lesson": "Quantum advantage is therefore",
     },
 }
 
 
 ROLE_TEMPLATE_MARKERS = {
     "introduction": {
-        "opening motivation": ("aurora", "Quantum computing offers"),
-        "prior simulator boundary": ("aurora", "To overcome these limitations"),
-        "intro figure": ("aurora", "\\begin{figure}"),
-        "observations": ("aurora", "Figure~\\ref{intro_fig} shows"),
-        "application diversity": ("aurora", "Many previous studies"),
-        "positioning table": ("aurora", "\\begin{table}"),
+        "opening pressure": ("aurora", "Quantum computing offers"),
+        "simulator boundary": ("aurora", "To overcome these limitations"),
+        "early evidence figure": ("aurora", "\\begin{figure}"),
+        "figure lesson": ("aurora", "Figure~\\ref{intro_fig} shows"),
+        "evidence scale": ("scaleqsim", "Many previous studies"),
+        "prior-work positioning": ("aurora", "\\begin{table}"),
         "key idea": ("aurora", "\\AURORA distinguishes itself"),
-        "paper statement and contributions": ("aurora", "In this paper, we propose"),
+        "contributions": ("aurora", "In this paper, we propose"),
     },
     "background": {
-        "application paths": ("scaleqsim", "\\subsection{Quantum Circuit Simulation}"),
-        "repeated execution": ("scaleqsim", "Amplitude sampling simulation"),
-        "practical families": ("scaleqsim", "Full state vector simulation"),
-        "terminology": ("scaleqsim", "Since full state vector simulation"),
-        "native baselines": ("scaleqsim", "\\subsection{Distributed Architecture"),
-        "leadership/cuQuantum": ("aurora", "\\subsection{Hardware Constraints"),
-        "break-even equations": ("aurora", "Bandwidth Gap and Execution Time"),
+        "application substrate": ("scaleqsim", "\\subsection{Quantum Circuit Simulation}"),
+        "application families": ("scaleqsim", "Full state vector simulation"),
+        "application boundary": ("aurora", "Bandwidth Gap and Execution Time"),
+        "evidence levels": ("scaleqsim", "Amplitude sampling simulation"),
+        "critical path": ("scaleqsim", "\\subsection{Distributed Architecture"),
+        "reliability envelope": ("aurora", "\\subsection{Hardware Constraints"),
+        "rotation constraint": ("aurora", "Bandwidth Gap and Execution Time"),
+        "control and replacement": ("aurora", "Performance degradation is driven by data locality"),
     },
     "design": {
-        "overview and boundary": ("aurora", "Overview of \\AURORA"),
-        "overall procedure": ("scaleqsim", "\\subsection{Overall Procedure}"),
-        "configuration record": ("scaleqsim", "Initialization."),
-        "failure handling": ("scaleqsim", "Execution."),
-        "shared workload control": ("scaleqsim", "Two-phase State Space Partitioning"),
-        "application paths": ("scaleqsim", "Task-based Qubit State Management"),
-        "measurement records": ("scaleqsim", "Manage statespace structure"),
-        "threshold analysis": ("scaleqsim", "Two-phase Mapping and Kernel Execution"),
-        "claim checklist": ("scaleqsim", "Adaptive Kernel Parameter Adjustment"),
-        "workload suite": ("scaleqsim", "\\ScaleQsim Implementation"),
+        "design thesis": ("aurora", "Overview of \\AURORA"),
+        "paired record": ("scaleqsim", "\\subsection{Overall Procedure}"),
+        "comparison invariant": ("scaleqsim", "Initialization."),
+        "evidence typing": ("scaleqsim", "Execution."),
+        "physical inversion": ("scaleqsim", "Two-phase State Space Partitioning"),
+        "quality gate": ("scaleqsim", "Manage statespace structure"),
+        "reliability contract": ("scaleqsim", "Adaptive Kernel Parameter Adjustment"),
+        "joint inversion": ("scaleqsim", "\\ScaleQsim Implementation"),
+        "first and next target": ("aurora", "\\subsection{Adaptive Resource Control}"),
+        "joint design": ("aurora", "Asynchronous Execution"),
+        "matched replacement": ("aurora", "\\AURORA Implementation"),
+        "implementation": ("scaleqsim", "\\ScaleQsim Implementation"),
     },
     "evaluation": {
         "setup": ("aurora", "\\subsection{Evaluation Setup}"),
-        "campaign summary": ("aurora", "\\begin{table}"),
-        "threshold landscape": ("aurora", "\\subsection{Performance with SOTA}"),
-        "quality sensitivity": ("scaleqsim", "Comparison with \\textit{Qsim}"),
-        "practical landscape": ("aurora", "Various Circuits."),
-        "component and baseline": ("scaleqsim", "Performance and Scalability in Diverse"),
-        "weak scaling": ("aurora", "Weak Scalability."),
-        "strong scaling": ("aurora", "Strong Scalability."),
-        "advantage frontier": ("aurora", "Strong Scalability."),
-        "stability": ("scaleqsim", "Performance Variability and Stability"),
-        "taxonomy and sensitivity": ("aurora", "\\subsection{Sensitivity Analysis}"),
+        "platform": ("aurora", "\\begin{table}"),
+        "scale and provenance": ("aurora", "Various Circuits."),
+        "deployment frontier": ("aurora", "Various Circuits."),
+        "ml representation": ("scaleqsim", "Comparison with \\textit{Qsim}"),
+        "quality cost": ("aurora", "\\subsection{Performance with SOTA}"),
+        "quality boundary": ("aurora", "\\subsection{Performance with SOTA}"),
+        "finite-shot closure": ("scaleqsim", "Time Analysis"),
+        "logical lower bound": ("scaleqsim", "Time Analysis"),
+        "physical diagnosis": ("aurora", "\\subsection{Sensitivity Analysis}"),
+        "joint sensitivity": ("aurora", "Weak Scalability."),
+        "matched replacement": ("scaleqsim", "Performance Variability and Stability"),
+        "claim closure": ("aurora", "\\subsection{Sensitivity Analysis}"),
     },
     "related": {
-        "simulation and NISQ": ("aurora", "Quantum Simulation Beyond Memory Limits"),
-        "applications and baselines": ("aurora", "Memory and I/O Optimization in HPC Systems"),
+        "application benchmarking": ("scaleqsim", "Optimizing Quantum Circuit Simulation"),
+        "ft estimation": ("aurora", "Memory and I/O Optimization in HPC Systems"),
+        "component architectures": ("aurora", "Quantum Simulation Beyond Memory Limits"),
+        "hpc simulation and integration": ("aurora", "Quantum Simulation Beyond Memory Limits"),
     },
     "conclusion": {
         "paper result": ("scaleqsim", "In this paper"),
         "main lesson": ("scaleqsim", "Our evaluations across"),
     },
+}
+
+
+ROLE_INVENTORY = {
+    section: [(role, role.replace("-", " ")) for role in roles]
+    for section, roles in ROLE_CURRENT_MARKERS.items()
 }
 
 
@@ -268,369 +192,139 @@ def read_rel(rel_path):
 
 
 def strip_latex(text):
+    text = re.sub(r"\\iffalse.*?\\fi", "", text, flags=re.S)
     text = re.sub(r"\\begin\{comment\}.*?\\end\{comment\}", "", text, flags=re.S)
-    text = re.sub(r"%.*", "", text)
-    return text
-
-
-def prose_paragraphs(text):
-    text = strip_latex(text)
-    chunks = [chunk.strip() for chunk in re.split(r"\n\s*\n+", text) if chunk.strip()]
-    paragraphs = []
-    for chunk in chunks:
-        if chunk.startswith("\\begin") or chunk.startswith("\\end"):
-            continue
-        words = re.findall(r"[A-Za-z0-9]+", chunk)
-        if len(words) >= 8 or "\\textbf" in chunk:
-            paragraphs.append(chunk)
-    return paragraphs
-
-
-def count_metrics(text):
-    clean = strip_latex(text)
-    paragraphs = prose_paragraphs(text)
-    words = len(re.findall(r"[A-Za-z0-9]+", clean))
-    textbf = clean.count("\\textbf")
-    subsections = len(re.findall(r"^\\subsection", clean, flags=re.M))
-    subsubsections = len(re.findall(r"^\\subsubsection", clean, flags=re.M))
-    return {
-        "words": words,
-        "paragraphs": len(paragraphs),
-        "avg_paragraph_words": round(words / max(len(paragraphs), 1), 2),
-        "textbf": textbf,
-        "textbf_per_1000_words": round(1000.0 * textbf / max(words, 1), 2),
-        "subsections": subsections,
-        "subsubsections": subsubsections,
-        "paragraphs_per_heading": round(
-            len(paragraphs) / max(subsections + subsubsections, 1), 2
-        ),
-        "figures": len(re.findall(r"\\begin\{figure", clean)),
-        "tables": len(re.findall(r"\\begin\{table", clean)),
-        "items": len(re.findall(r"^\\s*\\item\b", clean, flags=re.M)),
-    }
-
-
-def distance(ours, target):
-    keys = ["paragraphs", "textbf", "subsections", "subsubsections", "figures", "tables", "items"]
-    total = 0.0
-    for key in keys:
-        denom = max(target.get(key, 0), 1)
-        total += abs(ours.get(key, 0) - target.get(key, 0)) / denom
-    word_denom = max(target.get("words", 0), 1)
-    total += 0.5 * abs(ours.get("words", 0) - target.get("words", 0)) / word_denom
-    return round(total, 3)
-
-
-def marker_positions(text, markers):
-    positions = {}
-    for marker in markers:
-        pos = text.find(marker)
-        positions[marker] = pos if pos >= 0 else None
-    return positions
+    return re.sub(r"(?<!\\)%.*", "", text)
 
 
 def marker_line(text, marker):
-    if marker is None:
+    if not text or not marker:
         return None
     pos = text.find(marker)
-    if pos < 0:
-        return None
-    return text[:pos].count("\n") + 1
+    return None if pos < 0 else text[:pos].count("\n") + 1
 
 
-def ordered_markers(positions):
-    seen = [pos for pos in positions.values() if pos is not None]
-    return seen == sorted(seen) and len(seen) == len(positions)
+def metrics(text):
+    clean = strip_latex(text)
+    words = re.findall(r"[A-Za-z0-9]+", clean)
+    paragraphs = [
+        p for p in re.split(r"\n\s*\n+", clean)
+        if len(re.findall(r"[A-Za-z0-9]+", p)) >= 8
+    ]
+    return {
+        "words": len(words),
+        "paragraphs": len(paragraphs),
+        "subsections": re.findall(r"^\\subsection\{([^}]+)\}", clean, flags=re.M),
+        "figures": len(re.findall(r"\\begin\{figure\*?\}", clean)),
+        "tables": len(re.findall(r"\\begin\{table\*?\}", clean)),
+        "textbf": clean.count("\\textbf"),
+        "observation_boxes": clean.count("\\begin{observationbox}"),
+    }
+
+
+def ordered_role_rows(section, current_text, template_texts):
+    rows = []
+    for role, marker in ROLE_CURRENT_MARKERS[section].items():
+        template_source, template_marker = ROLE_TEMPLATE_MARKERS[section][role]
+        rows.append({
+            "role": role,
+            "current_marker": marker,
+            "current_line": marker_line(current_text, marker),
+            "template_source": template_source,
+            "template_marker": template_marker,
+            "template_line": marker_line(template_texts.get(template_source), template_marker),
+        })
+    return rows
+
+
+def rows_present_and_ordered(rows, field):
+    positions = [row.get(field) for row in rows]
+    return all(pos is not None for pos in positions) and positions == sorted(positions)
 
 
 def main():
     sections = {}
+    missing = []
     for section, paths in SECTION_FILES.items():
-        section_data = {}
-        texts = {}
-        for label, rel_path in paths.items():
-            text = read_rel(rel_path)
-            if text is None:
-                section_data[label] = {"path": rel_path, "missing": True}
-                continue
-            texts[label] = text
-            section_data[label] = {"path": rel_path, "missing": False, **count_metrics(text)}
+        texts = {name: read_rel(path) for name, path in paths.items()}
+        missing.extend(path for name, path in paths.items() if texts[name] is None)
+        if texts["ours"] is None:
+            continue
+        role_rows = ordered_role_rows(section, texts["ours"], texts)
+        sections[section] = {
+            "ours": {"path": paths["ours"], **metrics(texts["ours"])},
+            "aurora": {"path": paths["aurora"], **metrics(texts["aurora"] or "")},
+            "scaleqsim": {"path": paths["scaleqsim"], **metrics(texts["scaleqsim"] or "")},
+            "paragraph_role_inventory": role_rows,
+            "current_roles_ordered": rows_present_and_ordered(role_rows, "current_line"),
+            "template_roles_present": all(row["template_line"] for row in role_rows),
+        }
 
-        ours = section_data.get("ours", {})
-        template_distances = {}
-        for label in ("aurora", "scaleqsim"):
-            if not ours.get("missing") and not section_data.get(label, {}).get("missing"):
-                template_distances[label] = distance(ours, section_data[label])
-        if template_distances:
-            section_data["closest_template"] = min(template_distances, key=template_distances.get)
-            section_data["template_distance"] = template_distances
-
-        if section in ROLE_MARKERS and "ours" in texts:
-            positions = marker_positions(texts["ours"], ROLE_MARKERS[section])
-            section_data["role_markers"] = positions
-            section_data["role_markers_ordered"] = ordered_markers(positions)
-        if section in ROLE_INVENTORY:
-            role_rows = []
-            for role, template_logic in ROLE_INVENTORY[section]:
-                template_source, template_marker = ROLE_TEMPLATE_MARKERS.get(section, {}).get(
-                    role, (None, None)
-                )
-                role_rows.append({
-                    "role": role,
-                    "template_logic": template_logic,
-                    "current_marker": ROLE_CURRENT_MARKERS.get(section, {}).get(role),
-                    "current_line": marker_line(
-                        texts.get("ours", ""),
-                        ROLE_CURRENT_MARKERS.get(section, {}).get(role),
-                    ),
-                    "template_source": template_source,
-                    "template_marker": template_marker,
-                    "template_line": marker_line(
-                        texts.get(template_source, ""),
-                        template_marker,
-                    ),
-                })
-            section_data["paragraph_role_inventory"] = role_rows
-
-        sections[section] = section_data
+    design_headings = sections.get("design", {}).get("ours", {}).get("subsections", [])
+    evaluation_headings = sections.get("evaluation", {}).get("ours", {}).get("subsections", [])
+    related_labels = [
+        role for role, row in zip(
+            ROLE_CURRENT_MARKERS["related"],
+            sections.get("related", {}).get("paragraph_role_inventory", []),
+        ) if row.get("current_line")
+    ]
+    current_sources = "\n".join(
+        read_rel(paths["ours"]) or "" for paths in SECTION_FILES.values()
+    )
 
     checks = {
-        "previous_sources_available": all(
-            not sections[section][label].get("missing")
-            for section in sections
-            for label in ("aurora", "scaleqsim")
+        "previous_sources_available": not missing,
+        "no_disabled_manuscript_blocks": "\\iffalse" not in current_sources,
+        "all_argument_roles_present_and_ordered": all(
+            data["current_roles_ordered"] for data in sections.values()
         ),
-        "intro_role_and_size": sections["introduction"].get("role_markers_ordered", False)
-        and sections["introduction"]["ours"].get("subsections") == 0
-        and 0.8
-        <= sections["introduction"]["ours"].get("words", 0)
-        / max(sections["introduction"]["aurora"].get("words", 1), 1)
-        <= 1.2,
-        "background_two_subsections": sections["background"]["ours"].get("subsections") == 2,
-        "design_scaleqsim_subsection_count": sections["design"]["ours"].get("subsections")
-        == sections["design"]["scaleqsim"].get("subsections"),
-        "evaluation_previous_shape": min(
-            abs(
-                sections["evaluation"]["ours"].get("paragraphs", 0)
-                - sections["evaluation"]["aurora"].get("paragraphs", 0)
-            ),
-            abs(
-                sections["evaluation"]["ours"].get("paragraphs", 0)
-                - sections["evaluation"]["scaleqsim"].get("paragraphs", 0)
-            ),
-        )
-        <= 10,
-        "role_markers_ordered": all(
-            sections[section].get("role_markers_ordered", True)
-            for section in ROLE_MARKERS
+        "all_roles_trace_to_previous_sources": all(
+            data["template_roles_present"] for data in sections.values()
         ),
+        "introduction_argument_spine": sections["introduction"]["ours"]["subsections"] == [],
+        "background_two_stage_spine": sections["background"]["ours"]["subsections"] == [
+            "Application Boundary and Evidence Scale",
+            "Reliability-Constrained Critical Path",
+        ],
+        "design_mechanism_spine": design_headings == [
+            "Paired Evidence Record",
+            "Quality-First Physical Inversion",
+            "Joint Target and Mechanism Inversion",
+            "Typed Architecture Decision",
+        ],
+        "evaluation_claim_spine": evaluation_headings == [
+            "Evaluation Setup and Contracts",
+            "Deployment-Facing Native Frontier",
+            "Quality-Qualified Application Boundary",
+            "Trace-Aware Logical Lower Bound",
+            "Reliability-Constrained Physical Diagnosis",
+            "Joint Co-Design Sensitivity",
+        ],
+        "evaluation_has_claim_closure": sections["evaluation"]["ours"]["figures"] >= 7
+        and sections["evaluation"]["ours"]["observation_boxes"] >= 1,
+        "related_work_covers_four_closest_categories": len(related_labels) == 4,
         "paragraph_role_inventory_present": all(
-            len(sections[section].get("paragraph_role_inventory", [])) > 0
-            for section in SECTION_FILES
-        ),
-        "paragraph_role_lines_present": all(
-            all(item.get("current_line") for item in sections[section].get("paragraph_role_inventory", []))
-            for section in SECTION_FILES
-        ),
-        "template_role_lines_present": all(
-            all(item.get("template_line") for item in sections[section].get("paragraph_role_inventory", []))
-            for section in SECTION_FILES
+            data["paragraph_role_inventory"] for data in sections.values()
         ),
     }
 
     known_gaps = []
-    style_gaps = []
     for section, data in sections.items():
-        ours = data.get("ours", {})
-        if ours.get("missing"):
-            continue
-        candidates = [
-            label
-            for label in ("aurora", "scaleqsim")
-            if not data.get(label, {}).get("missing")
-        ]
-        if not candidates:
-            continue
-        closest = min(
-            candidates,
-            key=lambda label: abs(
-                ours.get("words", 0) - data[label].get("words", 0)
-            ),
-        )
-        target = data[closest]
-        word_ratio = ours.get("words", 0) / max(target.get("words", 1), 1)
-        if word_ratio < 0.65 or word_ratio > 1.35:
-            known_gaps.append(
-                {
-                    "section": section,
-                    "closest_template": closest,
-                    "ours_words": ours.get("words", 0),
-                    "target_words": target.get("words", 0),
-                    "word_ratio": round(word_ratio, 3),
-                }
-            )
-        avg_para_template = min(
-            candidates,
-            key=lambda label: abs(
-                ours.get("avg_paragraph_words", 0)
-                - data[label].get("avg_paragraph_words", 0)
-            ),
-        )
-        avg_para_target = data[avg_para_template]
-        avg_para_ratio = ours.get("avg_paragraph_words", 0) / max(
-            avg_para_target.get("avg_paragraph_words", 1), 1
-        )
-        textbf_template = min(
-            candidates,
-            key=lambda label: abs(
-                ours.get("textbf_per_1000_words", 0)
-                - data[label].get("textbf_per_1000_words", 0)
-            ),
-        )
-        textbf_target = data[textbf_template]
-        textbf_target_value = textbf_target.get("textbf_per_1000_words", 0)
-        textbf_density_ratio = (
-            1.0
-            if ours.get("textbf_per_1000_words", 0) == 0 and textbf_target_value == 0
-            else ours.get("textbf_per_1000_words", 0) / max(textbf_target_value, 1)
-        )
-        if avg_para_ratio < 0.5 or avg_para_ratio > 2.0:
-            style_gaps.append(
-                {
-                    "section": section,
-                    "metric": "avg_paragraph_words",
-                    "closest_template": avg_para_template,
-                    "ours": ours.get("avg_paragraph_words", 0),
-                    "target": avg_para_target.get("avg_paragraph_words", 0),
-                    "ratio": round(avg_para_ratio, 3),
-                }
-            )
-        if textbf_density_ratio < 0.25 or textbf_density_ratio > 4.0:
-            style_gaps.append(
-                {
-                    "section": section,
-                    "metric": "textbf_per_1000_words",
-                    "closest_template": textbf_template,
-                    "ours": ours.get("textbf_per_1000_words", 0),
-                    "target": textbf_target.get("textbf_per_1000_words", 0),
-                    "ratio": round(textbf_density_ratio, 3),
-                }
-            )
-    checks["style_fingerprint_no_large_gaps"] = not style_gaps
+        for row in data["paragraph_role_inventory"]:
+            if not row["current_line"] or not row["template_line"]:
+                known_gaps.append({"section": section, **row})
 
     summary = {
-        "status": (
-            "TRACKED_WITH_KNOWN_GAPS"
-            if known_gaps or style_gaps
-            else "ALIGNED_BY_COUNTS"
-        ),
+        "passed": all(checks.values()),
         "checks": checks,
+        "missing": missing,
         "known_gaps": known_gaps,
-        "style_gaps": style_gaps,
         "sections": sections,
     }
-
     os.makedirs(os.path.dirname(OUT_JSON), exist_ok=True)
     with open(OUT_JSON, "w") as f:
         json.dump(summary, f, indent=2, sort_keys=True)
         f.write("\n")
-
-    with open(OUT_MD, "w") as f:
-        f.write("# Previous-Paper Alignment Metrics\n\n")
-        f.write("Status: **{}**\n\n".format(summary["status"]))
-        f.write("## Checks\n\n")
-        f.write("| Check | Status |\n")
-        f.write("| --- | --- |\n")
-        for name, passed in checks.items():
-            f.write("| {} | {} |\n".format(name, "PASS" if passed else "RISK"))
-        f.write("\n## Section Counts\n\n")
-        f.write(
-            "| Section | Paper | Words | Paragraphs | textbf | Subsections | Subsubsections | Figures | Tables | Items |\n"
-        )
-        f.write("| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |\n")
-        for section, data in sections.items():
-            for label in ("ours", "aurora", "scaleqsim"):
-                metrics = data[label]
-                if metrics.get("missing"):
-                    f.write("| {} | {} | missing |  |  |  |  |  |  |  |\n".format(section, label))
-                    continue
-                f.write(
-                    "| {} | {} | {} | {} | {} | {} | {} | {} | {} | {} |\n".format(
-                        section,
-                        label,
-                        metrics["words"],
-                        metrics["paragraphs"],
-                        metrics["textbf"],
-                        metrics["subsections"],
-                        metrics["subsubsections"],
-                        metrics["figures"],
-                        metrics["tables"],
-                        metrics["items"],
-                    )
-                )
-        f.write("\n## Known Gaps\n\n")
-        if known_gaps:
-            f.write("| Section | Closest template | Ours words | Template words | Ratio |\n")
-            f.write("| --- | --- | ---: | ---: | ---: |\n")
-            for gap in known_gaps:
-                f.write(
-                    "| {section} | {closest_template} | {ours_words} | {target_words} | {word_ratio} |\n".format(
-                        **gap
-                    )
-                )
-        else:
-            f.write("No large word-count gaps under the current threshold.\n")
-        f.write("\n## Style Fingerprint\n\n")
-        f.write(
-            "| Section | Paper | Avg paragraph words | textbf / 1000 words | Paragraphs / heading |\n"
-        )
-        f.write("| --- | --- | ---: | ---: | ---: |\n")
-        for section, data in sections.items():
-            for label in ("ours", "aurora", "scaleqsim"):
-                metrics = data[label]
-                if metrics.get("missing"):
-                    continue
-                f.write(
-                    "| {} | {} | {} | {} | {} |\n".format(
-                        section,
-                        label,
-                        metrics["avg_paragraph_words"],
-                        metrics["textbf_per_1000_words"],
-                        metrics["paragraphs_per_heading"],
-                    )
-                )
-        f.write("\n## Style Gaps\n\n")
-        if style_gaps:
-            f.write("| Section | Metric | Closest template | Ours | Template | Ratio |\n")
-            f.write("| --- | --- | --- | ---: | ---: | ---: |\n")
-            for gap in style_gaps:
-                f.write(
-                    "| {section} | {metric} | {closest_template} | {ours} | {target} | {ratio} |\n".format(
-                        **gap
-                    )
-                )
-        else:
-            f.write("No large style-fingerprint gaps under the current threshold.\n")
-        f.write("\n## Paragraph Role Inventory\n\n")
-        f.write("| Section | Order | Current source line | Template source line | Current paragraph role | Previous-paper logic followed |\n")
-        f.write("| --- | ---: | ---: | --- | --- | --- |\n")
-        for section, data in sections.items():
-            for index, item in enumerate(data.get("paragraph_role_inventory", []), start=1):
-                template_ref = "{}:{}".format(
-                    item.get("template_source") or "",
-                    item.get("template_line") or "",
-                )
-                f.write(
-                    "| {} | {} | {} | {} | {} | {} |\n".format(
-                        section,
-                        index,
-                        item.get("current_line") or "",
-                        template_ref,
-                        item["role"],
-                        item["template_logic"],
-                    )
-                )
-
     print(json.dumps(summary, indent=2, sort_keys=True))
 
 

@@ -1,755 +1,663 @@
 {
   "checks": {
-    "background_two_subsections": true,
-    "design_scaleqsim_subsection_count": true,
-    "evaluation_previous_shape": true,
-    "intro_role_and_size": true,
+    "all_argument_roles_present_and_ordered": true,
+    "all_roles_trace_to_previous_sources": true,
+    "background_two_stage_spine": true,
+    "design_mechanism_spine": true,
+    "evaluation_claim_spine": true,
+    "evaluation_has_claim_closure": true,
+    "introduction_argument_spine": true,
+    "no_disabled_manuscript_blocks": true,
     "paragraph_role_inventory_present": true,
-    "paragraph_role_lines_present": true,
     "previous_sources_available": true,
-    "role_markers_ordered": true,
-    "style_fingerprint_no_large_gaps": true,
-    "template_role_lines_present": true
+    "related_work_covers_four_closest_categories": true
   },
-  "known_gaps": [
-    {
-      "closest_template": "aurora",
-      "ours_words": 2273,
-      "section": "design",
-      "target_words": 3497,
-      "word_ratio": 0.65
-    }
-  ],
+  "known_gaps": [],
+  "missing": [],
+  "passed": true,
   "sections": {
     "background": {
       "aurora": {
-        "avg_paragraph_words": 67.82,
         "figures": 3,
-        "items": 0,
-        "missing": false,
-        "paragraphs": 11,
-        "paragraphs_per_heading": 5.5,
+        "observation_boxes": 0,
+        "paragraphs": 14,
         "path": "paper/PreviousPapers/AURORA_Q_ICDCS26/2.Background.tex",
-        "subsections": 2,
-        "subsubsections": 0,
+        "subsections": [
+          "Full State Vector Simulation",
+          "Hardware Constraints and Performance Limits"
+        ],
         "tables": 0,
         "textbf": 2,
-        "textbf_per_1000_words": 2.68,
-        "words": 746
+        "words": 842
       },
-      "closest_template": "aurora",
+      "current_roles_ordered": true,
       "ours": {
-        "avg_paragraph_words": 82.44,
         "figures": 0,
-        "items": 0,
-        "missing": false,
-        "paragraphs": 16,
-        "paragraphs_per_heading": 8.0,
+        "observation_boxes": 0,
+        "paragraphs": 7,
         "path": "paper/2.Background.tex",
-        "subsections": 2,
-        "subsubsections": 0,
+        "subsections": [
+          "Application Boundary and Evidence Scale",
+          "Reliability-Constrained Critical Path"
+        ],
         "tables": 0,
-        "textbf": 12,
-        "textbf_per_1000_words": 9.1,
-        "words": 1319
+        "textbf": 0,
+        "words": 655
       },
       "paragraph_role_inventory": [
         {
           "current_line": 3,
-          "current_marker": "\\subsection{Quantum-Circuit Application Paths}",
-          "role": "application paths",
+          "current_marker": "\\subsection{Application Boundary and Evidence Scale}",
+          "role": "application substrate",
           "template_line": 2,
-          "template_logic": "Define quantum-circuit application families",
           "template_marker": "\\subsection{Quantum Circuit Simulation}",
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 13,
-          "current_marker": "Repeated Execution",
-          "role": "repeated execution",
-          "template_line": 8,
-          "template_logic": "Explain why one circuit run is not the full application",
-          "template_marker": "Amplitude sampling simulation",
-          "template_source": "scaleqsim"
-        },
-        {
-          "current_line": 10,
-          "current_marker": "Practical Application Families",
-          "role": "practical families",
+          "current_line": 7,
+          "current_marker": "The four families exercise different paths",
+          "role": "application families",
           "template_line": 11,
-          "template_logic": "ML, chemistry, optimization, simulation",
           "template_marker": "Full state vector simulation",
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 16,
-          "current_marker": "Terminology",
-          "role": "terminology",
-          "template_line": 16,
-          "template_logic": "Threshold and advantage-region definitions",
-          "template_marker": "Since full state vector simulation",
+          "current_line": 9,
+          "current_marker": "A case crosses the application boundary only when",
+          "role": "application boundary",
+          "template_line": 84,
+          "template_marker": "Bandwidth Gap and Execution Time",
+          "template_source": "aurora"
+        },
+        {
+          "current_line": 17,
+          "current_marker": "Evidence scale and circuit width are distinct",
+          "role": "evidence levels",
+          "template_line": 8,
+          "template_marker": "Amplitude sampling simulation",
           "template_source": "scaleqsim"
         },
         {
           "current_line": 19,
-          "current_marker": "\\subsection{Native Baselines and Threshold Model}",
-          "role": "native baselines",
+          "current_marker": "\\subsection{Reliability-Constrained Critical Path}",
+          "role": "critical path",
           "template_line": 22,
-          "template_logic": "Classical target path",
           "template_marker": "\\subsection{Distributed Architecture",
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 23,
-          "current_marker": "Leadership-scale GPU Platform and cuQuantum",
-          "role": "leadership/cuQuantum",
+          "current_line": 21,
+          "current_marker": "Surface-code execution couples reliability",
+          "role": "reliability envelope",
           "template_line": 80,
-          "template_logic": "Measurement platform",
           "template_marker": "\\subsection{Hardware Constraints",
           "template_source": "aurora"
         },
         {
-          "current_line": 32,
-          "current_marker": "Break-even Condition",
-          "role": "break-even equations",
+          "current_line": 27,
+          "current_marker": "Arbitrary rotations add a second reliability constraint",
+          "role": "rotation constraint",
           "template_line": 84,
-          "template_logic": "Native, simulated quantum, projected hardware paths",
           "template_marker": "Bandwidth Gap and Execution Time",
+          "template_source": "aurora"
+        },
+        {
+          "current_line": 35,
+          "current_marker": "Decoder service and the communication/control path",
+          "role": "control and replacement",
+          "template_line": 88,
+          "template_marker": "Performance degradation is driven by data locality",
           "template_source": "aurora"
         }
       ],
-      "role_markers": {
-        "Break-even Condition": 5236,
-        "Leadership-scale GPU Platform and cuQuantum": 3550,
-        "Practical Application Families": 1141,
-        "Repeated Execution": 2006,
-        "Terminology": 2668,
-        "\\subsection": 22
-      },
-      "role_markers_ordered": true,
       "scaleqsim": {
-        "avg_paragraph_words": 123.62,
         "figures": 1,
-        "items": 0,
-        "missing": false,
-        "paragraphs": 8,
-        "paragraphs_per_heading": 4.0,
+        "observation_boxes": 0,
+        "paragraphs": 9,
         "path": "paper/PreviousPapers/ScaleQsim_SIGMETRICS26/2.Background.tex",
-        "subsections": 2,
-        "subsubsections": 0,
+        "subsections": [
+          "Quantum Circuit Simulation",
+          "Distributed Architecture in Quantum Circuit Simulation"
+        ],
         "tables": 0,
         "textbf": 2,
-        "textbf_per_1000_words": 2.02,
         "words": 989
       },
-      "template_distance": {
-        "aurora": 6.839,
-        "scaleqsim": 7.167
-      }
+      "template_roles_present": true
     },
     "conclusion": {
       "aurora": {
-        "avg_paragraph_words": 89.0,
         "figures": 0,
-        "items": 0,
-        "missing": false,
+        "observation_boxes": 0,
         "paragraphs": 1,
-        "paragraphs_per_heading": 1.0,
         "path": "paper/PreviousPapers/AURORA_Q_ICDCS26/6.Conclusion.tex",
-        "subsections": 0,
-        "subsubsections": 0,
+        "subsections": [],
         "tables": 0,
         "textbf": 0,
-        "textbf_per_1000_words": 0.0,
-        "words": 89
+        "words": 98
       },
-      "closest_template": "aurora",
+      "current_roles_ordered": true,
       "ours": {
-        "avg_paragraph_words": 102.0,
         "figures": 0,
-        "items": 0,
-        "missing": false,
+        "observation_boxes": 0,
         "paragraphs": 1,
-        "paragraphs_per_heading": 1.0,
         "path": "paper/6.Conclusion.tex",
-        "subsections": 0,
-        "subsubsections": 0,
+        "subsections": [],
         "tables": 0,
         "textbf": 0,
-        "textbf_per_1000_words": 0.0,
-        "words": 102
+        "words": 125
       },
       "paragraph_role_inventory": [
         {
           "current_line": 3,
-          "current_marker": "In this paper",
+          "current_marker": "\\SystemName uses leadership HPC",
           "role": "paper result",
           "template_line": 8,
-          "template_logic": "Framework and measured thresholds",
           "template_marker": "In this paper",
           "template_source": "scaleqsim"
         },
         {
           "current_line": 3,
-          "current_marker": "The main lesson",
+          "current_marker": "Quantum advantage is therefore",
           "role": "main lesson",
           "template_line": 15,
-          "template_logic": "Frontier and bottleneck taxonomy instead of slogan",
           "template_marker": "Our evaluations across",
           "template_source": "scaleqsim"
         }
       ],
       "scaleqsim": {
-        "avg_paragraph_words": 55.5,
         "figures": 0,
-        "items": 0,
-        "missing": false,
+        "observation_boxes": 0,
         "paragraphs": 2,
-        "paragraphs_per_heading": 2.0,
         "path": "paper/PreviousPapers/ScaleQsim_SIGMETRICS26/6.Conclusion.tex",
-        "subsections": 0,
-        "subsubsections": 0,
+        "subsections": [],
         "tables": 0,
         "textbf": 0,
-        "textbf_per_1000_words": 0.0,
         "words": 111
       },
-      "template_distance": {
-        "aurora": 0.073,
-        "scaleqsim": 0.541
-      }
+      "template_roles_present": true
     },
     "design": {
       "aurora": {
-        "avg_paragraph_words": 94.51,
         "figures": 3,
-        "items": 0,
-        "missing": false,
-        "paragraphs": 37,
-        "paragraphs_per_heading": 7.4,
+        "observation_boxes": 0,
+        "paragraphs": 42,
         "path": "paper/PreviousPapers/AURORA_Q_ICDCS26/3.Design.tex",
-        "subsections": 5,
-        "subsubsections": 0,
+        "subsections": [
+          "Tiered Memory State Layout",
+          "Asynchronous Execution Pipeline",
+          "Two-level Cache Hierarchy",
+          "Adaptive Resource Control",
+          "\\AURORA Implementation"
+        ],
         "tables": 0,
         "textbf": 33,
-        "textbf_per_1000_words": 9.44,
         "words": 3497
       },
-      "closest_template": "scaleqsim",
+      "current_roles_ordered": true,
       "ours": {
-        "avg_paragraph_words": 126.28,
-        "figures": 2,
-        "items": 0,
-        "missing": false,
-        "paragraphs": 18,
-        "paragraphs_per_heading": 3.0,
+        "figures": 1,
+        "observation_boxes": 0,
+        "paragraphs": 16,
         "path": "paper/3.Design.tex",
-        "subsections": 6,
-        "subsubsections": 0,
+        "subsections": [
+          "Paired Evidence Record",
+          "Quality-First Physical Inversion",
+          "Joint Target and Mechanism Inversion",
+          "Typed Architecture Decision"
+        ],
         "tables": 1,
-        "textbf": 3,
-        "textbf_per_1000_words": 1.32,
-        "words": 2273
+        "textbf": 4,
+        "words": 1580
       },
       "paragraph_role_inventory": [
         {
           "current_line": 3,
-          "current_marker": "Overview of",
-          "role": "overview and boundary",
+          "current_marker": "\\SystemName turns an application comparison into a replaceable architecture contract",
+          "role": "design thesis",
           "template_line": 3,
-          "template_logic": "State what the system is and is not",
           "template_marker": "Overview of \\AURORA",
           "template_source": "aurora"
         },
         {
-          "current_line": 6,
-          "current_marker": "\\subsection{Overall Procedure}",
-          "role": "overall procedure",
+          "current_line": 13,
+          "current_marker": "\\subsection{Paired Evidence Record}",
+          "role": "paired record",
           "template_line": 8,
-          "template_logic": "Measurement then advantage analysis",
           "template_marker": "\\subsection{Overall Procedure}",
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 25,
-          "current_marker": "Config Record",
-          "role": "configuration record",
+          "current_line": 15,
+          "current_marker": "Both paths receive the same instance identifier",
+          "role": "comparison invariant",
           "template_line": 18,
-          "template_logic": "Stable work representation before execution",
           "template_marker": "Initialization.",
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 124,
-          "current_marker": "Failure handling",
-          "role": "failure handling",
+          "current_line": 17,
+          "current_marker": "Simulator execution recovers the exact circuit output and demand",
+          "role": "evidence typing",
           "template_line": 41,
-          "template_logic": "Failed paths remain measured evidence",
           "template_marker": "Execution.",
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 20,
-          "current_marker": "\\subsection{Shared Workload Control}",
-          "role": "shared workload control",
+          "current_line": 21,
+          "current_marker": "\\subsection{Quality-First Physical Inversion}",
+          "role": "physical inversion",
           "template_line": 54,
-          "template_logic": "Same input, instance identity, and quality target",
           "template_marker": "Two-phase State Space Partitioning",
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 28,
-          "current_marker": "\\subsection{Application Path Execution}",
-          "role": "application paths",
-          "template_line": 95,
-          "template_logic": "Native, kernel, and QNN/VQC execution rules",
-          "template_marker": "Task-based Qubit State Management",
-          "template_source": "scaleqsim"
-        },
-        {
-          "current_line": 36,
-          "current_marker": "\\subsection{Measurement and Threshold Analysis}",
-          "role": "measurement records",
+          "current_line": 23,
+          "current_marker": "The first stage partitions every record",
+          "role": "quality gate",
           "template_line": 140,
-          "template_logic": "JSON, summary path, and allocation accounting",
           "template_marker": "Manage statespace structure",
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 108,
-          "current_marker": "Advantage frontier",
-          "role": "threshold analysis",
-          "template_line": 165,
-          "template_logic": "Execution model, break-even search, and frontier classification",
-          "template_marker": "Two-phase Mapping and Kernel Execution",
-          "template_source": "scaleqsim"
-        },
-        {
-          "current_line": 114,
-          "current_marker": "\\subsection{Advantage Claim Checklist}",
-          "role": "claim checklist",
+          "current_line": 27,
+          "current_marker": "The strict reliability contract splits",
+          "role": "reliability contract",
           "template_line": 237,
-          "template_logic": "Systems checks before an advantage claim",
           "template_marker": "Adaptive Kernel Parameter Adjustment",
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 119,
-          "current_marker": "\\subsection{Workload Suite}",
-          "role": "workload suite",
+          "current_line": 58,
+          "current_marker": "\\subsection{Joint Target and Mechanism Inversion}",
+          "role": "joint inversion",
           "template_line": 306,
-          "template_logic": "Measured application families",
+          "template_marker": "\\ScaleQsim Implementation",
+          "template_source": "scaleqsim"
+        },
+        {
+          "current_line": 60,
+          "current_marker": "For each eligible record and resource",
+          "role": "first and next target",
+          "template_line": 182,
+          "template_marker": "\\subsection{Adaptive Resource Control}",
+          "template_source": "aurora"
+        },
+        {
+          "current_line": 66,
+          "current_marker": "One-factor results are insufficient",
+          "role": "joint design",
+          "template_line": 62,
+          "template_marker": "Asynchronous Execution",
+          "template_source": "aurora"
+        },
+        {
+          "current_line": 68,
+          "current_marker": "Published mechanisms use the same invariant",
+          "role": "matched replacement",
+          "template_line": 291,
+          "template_marker": "\\AURORA Implementation",
+          "template_source": "aurora"
+        },
+        {
+          "current_line": 82,
+          "current_marker": "\\noindent\\textbf{Implementation and audits.}",
+          "role": "implementation",
+          "template_line": 306,
           "template_marker": "\\ScaleQsim Implementation",
           "template_source": "scaleqsim"
         }
       ],
-      "role_markers": {
-        "Advantage frontier": 11496,
-        "Overview of": 33,
-        "\\subsection{Advantage Claim Checklist}": 13217,
-        "\\subsection{Application Path Execution}": 3515,
-        "\\subsection{Measurement and Threshold Analysis}": 4995,
-        "\\subsection{Overall Procedure}": 486,
-        "\\subsection{Shared Workload Control}": 2302,
-        "\\subsection{Workload Suite}": 13911
-      },
-      "role_markers_ordered": true,
       "scaleqsim": {
-        "avg_paragraph_words": 127.25,
         "figures": 4,
-        "items": 0,
-        "missing": false,
-        "paragraphs": 36,
-        "paragraphs_per_heading": 6.0,
+        "observation_boxes": 0,
+        "paragraphs": 41,
         "path": "paper/PreviousPapers/ScaleQsim_SIGMETRICS26/3.Design.tex",
-        "subsections": 6,
-        "subsubsections": 0,
+        "subsections": [
+          "Overall Procedure",
+          "Two-phase State Space Partitioning",
+          "Task-based Qubit State Management",
+          "Two-phase Mapping and Kernel Execution",
+          "Adaptive Kernel Parameter Adjustment",
+          "\\ScaleQsim Implementation"
+        ],
         "tables": 0,
         "textbf": 23,
-        "textbf_per_1000_words": 5.02,
         "words": 4581
       },
-      "template_distance": {
-        "aurora": 3.131,
-        "scaleqsim": 3.121
-      }
+      "template_roles_present": true
     },
     "evaluation": {
       "aurora": {
-        "avg_paragraph_words": 135.78,
         "figures": 9,
-        "items": 0,
-        "missing": false,
-        "paragraphs": 27,
-        "paragraphs_per_heading": 5.4,
+        "observation_boxes": 0,
+        "paragraphs": 41,
         "path": "paper/PreviousPapers/AURORA_Q_ICDCS26/4.Evaluation.tex",
-        "subsections": 5,
-        "subsubsections": 0,
+        "subsections": [
+          "Evaluation Setup",
+          "Performance with SOTA",
+          "Scalability with SOTA",
+          "Time Analysis",
+          "Sensitivity Analysis"
+        ],
         "tables": 2,
         "textbf": 26,
-        "textbf_per_1000_words": 7.09,
-        "words": 3666
+        "words": 3732
       },
-      "closest_template": "aurora",
+      "current_roles_ordered": true,
       "ours": {
-        "avg_paragraph_words": 166.3,
-        "figures": 9,
-        "items": 0,
-        "missing": false,
-        "paragraphs": 27,
-        "paragraphs_per_heading": 4.5,
+        "figures": 10,
+        "observation_boxes": 5,
+        "paragraphs": 49,
         "path": "paper/4.Evaluation.tex",
-        "subsections": 6,
-        "subsubsections": 0,
+        "subsections": [
+          "Evaluation Setup and Contracts",
+          "Deployment-Facing Native Frontier",
+          "Quality-Qualified Application Boundary",
+          "Trace-Aware Logical Lower Bound",
+          "Reliability-Constrained Physical Diagnosis",
+          "Joint Co-Design Sensitivity"
+        ],
         "tables": 1,
-        "textbf": 25,
-        "textbf_per_1000_words": 5.57,
-        "words": 4490
+        "textbf": 12,
+        "words": 5139
       },
       "paragraph_role_inventory": [
         {
           "current_line": 5,
-          "current_marker": "\\subsection{Evaluation Setup}",
+          "current_marker": "\\subsection{Evaluation Setup and Contracts}",
           "role": "setup",
           "template_line": 58,
-          "template_logic": "Hardware, benchmark, baselines, feasibility",
           "template_marker": "\\subsection{Evaluation Setup}",
           "template_source": "aurora"
         },
         {
-          "current_line": 11,
-          "current_marker": "completed campaign contains",
-          "role": "campaign summary",
+          "current_line": 7,
+          "current_marker": "\\noindent\\textbf{Platform and evidence units.}",
+          "role": "platform",
           "template_line": 9,
-          "template_logic": "Evidence table and evaluation questions",
           "template_marker": "\\begin{table}",
           "template_source": "aurora"
         },
         {
-          "current_line": 39,
-          "current_marker": "\\subsection{Workload-Level Thresholds}",
-          "role": "threshold landscape",
-          "template_line": 133,
-          "template_logic": "Native application paths versus quantum-circuit paths",
-          "template_marker": "\\subsection{Performance with SOTA}",
-          "template_source": "aurora"
-        },
-        {
-          "current_line": 142,
-          "current_marker": "\\subsection{Application Quality Beyond Runtime}",
-          "role": "quality sensitivity",
-          "template_line": 58,
-          "template_logic": "Quality sensitivity before speed-only claims",
-          "template_marker": "Comparison with \\textit{Qsim}",
-          "template_source": "scaleqsim"
-        },
-        {
-          "current_line": 11,
-          "current_marker": "3,552-case practical suite",
-          "role": "practical landscape",
+          "current_line": 80,
+          "current_marker": "\\noindent\\textbf{Scale and provenance.}",
+          "role": "scale and provenance",
           "template_line": 248,
-          "template_logic": "Practical application suite",
           "template_marker": "Various Circuits.",
           "template_source": "aurora"
         },
         {
-          "current_line": 197,
-          "current_marker": "Workload quality bottlenecks",
-          "role": "component and baseline",
-          "template_line": 247,
-          "template_logic": "Component mismatch and native baseline stress",
-          "template_marker": "Performance and Scalability in Diverse",
+          "current_line": 87,
+          "current_marker": "\\subsection{Deployment-Facing Native Frontier}",
+          "role": "deployment frontier",
+          "template_line": 248,
+          "template_marker": "Various Circuits.",
+          "template_source": "aurora"
+        },
+        {
+          "current_line": 91,
+          "current_marker": "\\noindent\\textbf{ML representation.}",
+          "role": "ml representation",
+          "template_line": 58,
+          "template_marker": "Comparison with \\textit{Qsim}",
           "template_source": "scaleqsim"
         },
         {
-          "current_line": 92,
-          "current_marker": "Weak scaling.",
-          "role": "weak scaling",
+          "current_line": 116,
+          "current_marker": "\\noindent\\textbf{Quality costs beyond ML.}",
+          "role": "quality cost",
+          "template_line": 133,
+          "template_marker": "\\subsection{Performance with SOTA}",
+          "template_source": "aurora"
+        },
+        {
+          "current_line": 136,
+          "current_marker": "\\subsection{Quality-Qualified Application Boundary}",
+          "role": "quality boundary",
+          "template_line": 133,
+          "template_marker": "\\subsection{Performance with SOTA}",
+          "template_source": "aurora"
+        },
+        {
+          "current_line": 160,
+          "current_marker": "At $10^4$ shots, ML passes",
+          "role": "finite-shot closure",
+          "template_line": 328,
+          "template_marker": "Time Analysis",
+          "template_source": "scaleqsim"
+        },
+        {
+          "current_line": 169,
+          "current_marker": "\\subsection{Trace-Aware Logical Lower Bound}",
+          "role": "logical lower bound",
+          "template_line": 328,
+          "template_marker": "Time Analysis",
+          "template_source": "scaleqsim"
+        },
+        {
+          "current_line": 192,
+          "current_marker": "\\subsection{Reliability-Constrained Physical Diagnosis}",
+          "role": "physical diagnosis",
+          "template_line": 399,
+          "template_marker": "\\subsection{Sensitivity Analysis}",
+          "template_source": "aurora"
+        },
+        {
+          "current_line": 225,
+          "current_marker": "\\subsection{Joint Co-Design Sensitivity}",
+          "role": "joint sensitivity",
           "template_line": 269,
-          "template_logic": "Throughput scaling as nodes and work grow together",
           "template_marker": "Weak Scalability.",
           "template_source": "aurora"
         },
         {
-          "current_line": 114,
-          "current_marker": "Strong scaling.",
-          "role": "strong scaling",
-          "template_line": 334,
-          "template_logic": "Fixed-work time-to-solution scaling",
-          "template_marker": "Strong Scalability.",
-          "template_source": "aurora"
-        },
-        {
-          "current_line": 207,
-          "current_marker": "\\subsection{Architecture Target Diagnosis}",
-          "role": "advantage frontier",
-          "template_line": 334,
-          "template_logic": "Advantage frontier and hardware projection",
-          "template_marker": "Strong Scalability.",
-          "template_source": "aurora"
-        },
-        {
-          "current_line": 256,
-          "current_marker": "\\subsection{Sensitivity and Design Frontier}",
-          "role": "stability",
+          "current_line": 259,
+          "current_marker": "The framework can also test a published mechanism",
+          "role": "matched replacement",
           "template_line": 413,
-          "template_logic": "Operational and repeat-timing checks",
           "template_marker": "Performance Variability and Stability",
           "template_source": "scaleqsim"
         },
         {
           "current_line": 286,
-          "current_marker": "Sensitivity separates application recovery",
-          "role": "taxonomy and sensitivity",
+          "current_marker": "\\noindent\\textbf{Observation 5:}",
+          "role": "claim closure",
           "template_line": 399,
-          "template_logic": "Bottleneck classes and remaining scope",
           "template_marker": "\\subsection{Sensitivity Analysis}",
           "template_source": "aurora"
         }
       ],
-      "role_markers": {
-        "Application Quality Beyond Runtime": 14296,
-        "Architecture Target Diagnosis": 20292,
-        "Baselines": 1367,
-        "Benchmark": 728,
-        "Evaluation Setup": 466,
-        "Feasibility": 3248,
-        "Hardware Specification": 502,
-        "Scalability of the Evidence-Generation Framework": 8272,
-        "Sensitivity and Design Frontier": 26942,
-        "Strong scaling.": 11465,
-        "Weak scaling.": 9904,
-        "Workload-Level Thresholds": 4079
-      },
-      "role_markers_ordered": true,
       "scaleqsim": {
-        "avg_paragraph_words": 121.96,
         "figures": 7,
-        "items": 0,
-        "missing": false,
-        "paragraphs": 47,
-        "paragraphs_per_heading": 6.71,
+        "observation_boxes": 0,
+        "paragraphs": 56,
         "path": "paper/PreviousPapers/ScaleQsim_SIGMETRICS26/4.Evaluation.tex",
-        "subsections": 7,
-        "subsubsections": 0,
+        "subsections": [
+          "Evaluation Setup",
+          "Performance in Single-Node with SOTA",
+          "Multi-Node Scalability",
+          "Performance and Scalability in Diverse Circuit Comparison with SOTA (\\textit{cusvaer",
+          "Extreme Scale-out: Multiple-Nodes",
+          "Time Analysis",
+          "Performance Variability and Stability"
+        ],
         "tables": 2,
         "textbf": 27,
-        "textbf_per_1000_words": 4.71,
-        "words": 5732
+        "words": 5984
       },
-      "template_distance": {
-        "aurora": 0.851,
-        "scaleqsim": 1.537
-      }
+      "template_roles_present": true
     },
     "introduction": {
       "aurora": {
-        "avg_paragraph_words": 146.14,
         "figures": 1,
-        "items": 0,
-        "missing": false,
-        "paragraphs": 7,
-        "paragraphs_per_heading": 7.0,
+        "observation_boxes": 0,
+        "paragraphs": 9,
         "path": "paper/PreviousPapers/AURORA_Q_ICDCS26/1.Introduction.tex",
-        "subsections": 0,
-        "subsubsections": 0,
+        "subsections": [],
         "tables": 1,
         "textbf": 7,
-        "textbf_per_1000_words": 6.84,
         "words": 1023
       },
-      "closest_template": "aurora",
+      "current_roles_ordered": true,
       "ours": {
-        "avg_paragraph_words": 151.0,
         "figures": 1,
-        "items": 0,
-        "missing": false,
-        "paragraphs": 8,
-        "paragraphs_per_heading": 8.0,
+        "observation_boxes": 0,
+        "paragraphs": 9,
         "path": "paper/1.Introduction.tex",
-        "subsections": 0,
-        "subsubsections": 0,
+        "subsections": [],
         "tables": 1,
         "textbf": 10,
-        "textbf_per_1000_words": 8.28,
-        "words": 1208
+        "words": 1083
       },
       "paragraph_role_inventory": [
         {
           "current_line": 3,
-          "current_marker": "Quantum computing is often described",
-          "role": "opening motivation",
+          "current_marker": "Quantum computing targets",
+          "role": "opening pressure",
           "template_line": 2,
-          "template_logic": "Broad promise, practical HPC question, hardware limit",
           "template_marker": "Quantum computing offers",
           "template_source": "aurora"
         },
         {
           "current_line": 5,
-          "current_marker": "To study this problem before large fault-tolerant machines are available",
-          "role": "prior simulator boundary",
+          "current_marker": "Leadership systems provide a way",
+          "role": "simulator boundary",
           "template_line": 12,
-          "template_logic": "Simulation systems help, but simulator speed is not application speed",
           "template_marker": "To overcome these limitations",
           "template_source": "aurora"
         },
         {
           "current_line": 7,
           "current_marker": "\\begin{figure}",
-          "role": "intro figure",
+          "role": "early evidence figure",
           "template_line": 23,
-          "template_logic": "First visual statement of native path versus quantum path",
           "template_marker": "\\begin{figure}",
           "template_source": "aurora"
         },
         {
           "current_line": 15,
-          "current_marker": "Three points follow",
-          "role": "observations",
+          "current_marker": "Figure~\\ref{fig:intro-gap}",
+          "role": "figure lesson",
           "template_line": 31,
-          "template_logic": "Practical observations before positioning table",
           "template_marker": "Figure~\\ref{intro_fig} shows",
           "template_source": "aurora"
         },
         {
           "current_line": 17,
-          "current_marker": "As shown in the figure, the required speedup is highly workload-dependent",
-          "role": "application diversity",
-          "template_line": 45,
-          "template_logic": "Why one toy workload cannot support broad quantum claims",
+          "current_marker": "The evidence must also separate verifiability from width",
+          "role": "evidence scale",
+          "template_line": 80,
           "template_marker": "Many previous studies",
-          "template_source": "aurora"
+          "template_source": "scaleqsim"
         },
         {
-          "current_line": 21,
-          "current_marker": "\\begin{table}",
-          "role": "positioning table",
+          "current_line": 19,
+          "current_marker": "Table~\\ref{tab:intro-position}",
+          "role": "prior-work positioning",
           "template_line": 47,
-          "template_logic": "Early related-work table before final pitch",
           "template_marker": "\\begin{table}",
           "template_source": "aurora"
         },
         {
-          "current_line": 49,
-          "current_marker": "Key Idea",
+          "current_line": 45,
+          "current_marker": "\\noindent\\textbf{Key Idea.}",
           "role": "key idea",
           "template_line": 73,
-          "template_logic": "Break-even threshold model",
           "template_marker": "\\AURORA distinguishes itself",
           "template_source": "aurora"
         },
         {
-          "current_line": 52,
-          "current_marker": "This paper makes the following contributions",
-          "role": "paper statement and contributions",
+          "current_line": 48,
+          "current_marker": "This paper makes three contributions",
+          "role": "contributions",
           "template_line": 77,
-          "template_logic": "System statement followed by contribution list",
           "template_marker": "In this paper, we propose",
           "template_source": "aurora"
         }
       ],
-      "role_markers": {
-        "Key Idea": 7291,
-        "Quantum computing is often described": 24,
-        "This paper makes the following contributions": 8038,
-        "Three points follow": 2431,
-        "\\begin{figure}": 1681,
-        "\\begin{table}": 5221
-      },
-      "role_markers_ordered": true,
       "scaleqsim": {
-        "avg_paragraph_words": 151.0,
         "figures": 1,
-        "items": 0,
-        "missing": false,
-        "paragraphs": 10,
-        "paragraphs_per_heading": 10.0,
+        "observation_boxes": 0,
+        "paragraphs": 12,
         "path": "paper/PreviousPapers/ScaleQsim_SIGMETRICS26/1.introduction.tex",
-        "subsections": 0,
-        "subsubsections": 0,
+        "subsections": [],
         "tables": 1,
         "textbf": 6,
-        "textbf_per_1000_words": 3.97,
         "words": 1510
       },
-      "template_distance": {
-        "aurora": 0.662,
-        "scaleqsim": 0.967
-      }
+      "template_roles_present": true
     },
     "related": {
       "aurora": {
-        "avg_paragraph_words": 158.5,
         "figures": 0,
-        "items": 0,
-        "missing": false,
+        "observation_boxes": 0,
         "paragraphs": 2,
-        "paragraphs_per_heading": 2.0,
         "path": "paper/PreviousPapers/AURORA_Q_ICDCS26/5.Related work.tex",
-        "subsections": 0,
-        "subsubsections": 0,
+        "subsections": [],
         "tables": 0,
         "textbf": 2,
-        "textbf_per_1000_words": 6.31,
         "words": 317
       },
-      "closest_template": "aurora",
+      "current_roles_ordered": true,
       "ours": {
-        "avg_paragraph_words": 121.5,
         "figures": 0,
-        "items": 0,
-        "missing": false,
-        "paragraphs": 2,
-        "paragraphs_per_heading": 2.0,
+        "observation_boxes": 0,
+        "paragraphs": 4,
         "path": "paper/5.RelatedWork.tex",
-        "subsections": 0,
-        "subsubsections": 0,
+        "subsections": [],
         "tables": 0,
-        "textbf": 2,
-        "textbf_per_1000_words": 8.23,
-        "words": 243
+        "textbf": 4,
+        "words": 293
       },
       "paragraph_role_inventory": [
         {
           "current_line": 3,
-          "current_marker": "Quantum Simulation and NISQ Systems",
-          "role": "simulation and NISQ",
+          "current_marker": "Application benchmarks and native comparison",
+          "role": "application benchmarking",
           "template_line": 3,
-          "template_logic": "Simulation substrate and current-device limits",
+          "template_marker": "Optimizing Quantum Circuit Simulation",
+          "template_source": "scaleqsim"
+        },
+        {
+          "current_line": 6,
+          "current_marker": "FT estimation and critical-path evidence",
+          "role": "ft estimation",
+          "template_line": 6,
+          "template_marker": "Memory and I/O Optimization in HPC Systems",
+          "template_source": "aurora"
+        },
+        {
+          "current_line": 9,
+          "current_marker": "QPU component architectures",
+          "role": "component architectures",
+          "template_line": 3,
           "template_marker": "Quantum Simulation Beyond Memory Limits",
           "template_source": "aurora"
         },
         {
-          "current_line": 6,
-          "current_marker": "Quantum Applications and Native Baselines",
-          "role": "applications and baselines",
-          "template_line": 6,
-          "template_logic": "Application families and native comparisons",
-          "template_marker": "Memory and I/O Optimization in HPC Systems",
+          "current_line": 12,
+          "current_marker": "HPC simulation and integration",
+          "role": "hpc simulation and integration",
+          "template_line": 3,
+          "template_marker": "Quantum Simulation Beyond Memory Limits",
           "template_source": "aurora"
         }
       ],
       "scaleqsim": {
-        "avg_paragraph_words": 85.33,
         "figures": 0,
-        "items": 0,
-        "missing": false,
+        "observation_boxes": 0,
         "paragraphs": 6,
-        "paragraphs_per_heading": 3.0,
         "path": "paper/PreviousPapers/ScaleQsim_SIGMETRICS26/5.Related Work.tex",
-        "subsections": 2,
-        "subsubsections": 0,
+        "subsections": [
+          "Optimizing Quantum Circuit Simulation",
+          "Parallel Optimization Strategies in Exascale HPC Applications"
+        ],
         "tables": 0,
         "textbf": 0,
-        "textbf_per_1000_words": 0.0,
         "words": 512
       },
-      "template_distance": {
-        "aurora": 0.117,
-        "scaleqsim": 3.929
-      }
+      "template_roles_present": true
     }
-  },
-  "status": "TRACKED_WITH_KNOWN_GAPS",
-  "style_gaps": []
+  }
 }

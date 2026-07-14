@@ -1,0 +1,67 @@
+{
+  "schema": "qsup.feedback-aggregator-reference-audit.v1",
+  "scope": "event-driven correctness and cycle-accounting model; no RTL timing, area, power, or workload-independence claim",
+  "checks": [
+    {
+      "name": "collision_trace_accepted",
+      "passed": true
+    },
+    {
+      "name": "tag_isolation",
+      "passed": true
+    },
+    {
+      "name": "collision_no_drop",
+      "passed": true
+    },
+    {
+      "name": "one_update_per_bank_cycle",
+      "passed": true
+    },
+    {
+      "name": "serial_epoch_waits_for_ack",
+      "passed": true
+    },
+    {
+      "name": "serial_epoch_released_after_ack",
+      "passed": true
+    },
+    {
+      "name": "full_bank_backpressure",
+      "passed": true
+    },
+    {
+      "name": "accepted_update_not_dropped",
+      "passed": true
+    },
+    {
+      "name": "b1_identity",
+      "passed": true
+    },
+    {
+      "name": "expected_count_overfill_rejected",
+      "passed": true
+    },
+    {
+      "name": "expected_count_mismatch_rejected",
+      "passed": true
+    },
+    {
+      "name": "analytical_host_round_equivalence",
+      "passed": true
+    },
+    {
+      "name": "host_total_round_fraction_unit_equivalence",
+      "passed": true
+    },
+    {
+      "name": "randomized_collision_conservation",
+      "passed": true
+    },
+    {
+      "name": "randomized_bank_throughput_bound",
+      "passed": true
+    }
+  ],
+  "passed": true
+}

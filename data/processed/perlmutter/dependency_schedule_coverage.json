@@ -1,0 +1,273 @@
+{
+  "adaptive_claim_gate": {
+    "allowed_claim": "Target stability across conservative schedules for the implemented static loops only.",
+    "reason": "The measured workload loops are static and contain no adaptive optimizer or mid-circuit branch trace.",
+    "supported": false
+  },
+  "audit_status": "PASS",
+  "by_loop_type": {
+    "single_unitary_evolution": 512,
+    "static_feature_circuit_batch": 2048,
+    "static_parameter_candidate_sweep": 224,
+    "static_parameter_grid": 768
+  },
+  "conditional_projection_by_mode": {
+    "aggregate_ready": {
+      "chemistry": {
+        "conditional_first_target": "factory",
+        "conditional_first_target_gain": 9.990283486030743,
+        "median_conditional_projected_native_ratio": 5999232.206414205,
+        "median_marginal_utility": {
+          "decoder": 1.000002499766001,
+          "factory": 9.990283486030743,
+          "host_feedback": 1.00000025054573,
+          "logical_cycle": 1.0000927877561545,
+          "shot_fabric": 1.0000969555214714
+        },
+        "record_target_counts": {
+          "factory": 224
+        },
+        "records": 224
+      },
+      "ml": {
+        "conditional_first_target": "factory",
+        "conditional_first_target_gain": 9.99244574297811,
+        "median_conditional_projected_native_ratio": 547314.2825409239,
+        "median_marginal_utility": {
+          "decoder": 1.0000011249002674,
+          "factory": 9.99244574297811,
+          "host_feedback": 1.0000011286435468,
+          "logical_cycle": 1.000072599323376,
+          "shot_fabric": 1.0000740992654555
+        },
+        "record_target_counts": {
+          "factory": 2048
+        },
+        "records": 2048
+      },
+      "optimization": {
+        "conditional_first_target": "factory",
+        "conditional_first_target_gain": 9.994034173743808,
+        "median_conditional_projected_native_ratio": 24293601.231740374,
+        "median_marginal_utility": {
+          "decoder": 1.000000655870476,
+          "factory": 9.994034173743808,
+          "host_feedback": 1.0000006577633793,
+          "logical_cycle": 1.0000581679739646,
+          "shot_fabric": 1.0000589311429704
+        },
+        "record_target_counts": {
+          "factory": 768
+        },
+        "records": 768
+      },
+      "simulation": {
+        "conditional_first_target": "factory",
+        "conditional_first_target_gain": 9.994684728297946,
+        "median_conditional_projected_native_ratio": 32766.24491239866,
+        "median_marginal_utility": {
+          "decoder": 1.0000000850400124,
+          "factory": 9.994684728297946,
+          "host_feedback": 1.0000000852891324,
+          "logical_cycle": 1.0000529842883328,
+          "shot_fabric": 1.0
+        },
+        "record_target_counts": {
+          "factory": 512
+        },
+        "records": 512
+      }
+    },
+    "group_wave_ready": {
+      "chemistry": {
+        "conditional_first_target": "factory",
+        "conditional_first_target_gain": 9.990283486030743,
+        "median_conditional_projected_native_ratio": 5999232.206414205,
+        "median_marginal_utility": {
+          "decoder": 1.000002499766001,
+          "factory": 9.990283486030743,
+          "host_feedback": 1.00000025054573,
+          "logical_cycle": 1.0000927877561545,
+          "shot_fabric": 1.0000969555214714
+        },
+        "record_target_counts": {
+          "factory": 224
+        },
+        "records": 224
+      },
+      "ml": {
+        "conditional_first_target": "factory",
+        "conditional_first_target_gain": 9.99244574297811,
+        "median_conditional_projected_native_ratio": 547314.2825409239,
+        "median_marginal_utility": {
+          "decoder": 1.0000011249002674,
+          "factory": 9.99244574297811,
+          "host_feedback": 1.0000011286435468,
+          "logical_cycle": 1.000072599323376,
+          "shot_fabric": 1.0000740992654555
+        },
+        "record_target_counts": {
+          "factory": 2048
+        },
+        "records": 2048
+      },
+      "optimization": {
+        "conditional_first_target": "factory",
+        "conditional_first_target_gain": 9.994034173743808,
+        "median_conditional_projected_native_ratio": 24293601.231740374,
+        "median_marginal_utility": {
+          "decoder": 1.000000655870476,
+          "factory": 9.994034173743808,
+          "host_feedback": 1.0000006577633793,
+          "logical_cycle": 1.0000581679739646,
+          "shot_fabric": 1.0000589311429704
+        },
+        "record_target_counts": {
+          "factory": 768
+        },
+        "records": 768
+      },
+      "simulation": {
+        "conditional_first_target": "factory",
+        "conditional_first_target_gain": 9.994684728297946,
+        "median_conditional_projected_native_ratio": 32766.24491239866,
+        "median_marginal_utility": {
+          "decoder": 1.0000000850400124,
+          "factory": 9.994684728297946,
+          "host_feedback": 1.0000000852891324,
+          "logical_cycle": 1.0000529842883328,
+          "shot_fabric": 1.0
+        },
+        "record_target_counts": {
+          "factory": 512
+        },
+        "records": 512
+      }
+    },
+    "serial_evaluation": {
+      "chemistry": {
+        "conditional_first_target": "factory",
+        "conditional_first_target_gain": 9.990283486030743,
+        "median_conditional_projected_native_ratio": 5999232.206414205,
+        "median_marginal_utility": {
+          "decoder": 1.000002499766001,
+          "factory": 9.990283486030743,
+          "host_feedback": 1.00000025054573,
+          "logical_cycle": 1.0000927877561545,
+          "shot_fabric": 1.0000945056691108
+        },
+        "record_target_counts": {
+          "factory": 224
+        },
+        "records": 224
+      },
+      "ml": {
+        "conditional_first_target": "factory",
+        "conditional_first_target_gain": 9.99244574297811,
+        "median_conditional_projected_native_ratio": 547314.2825409239,
+        "median_marginal_utility": {
+          "decoder": 1.0000011249002674,
+          "factory": 9.99244574297811,
+          "host_feedback": 1.0000011286435468,
+          "logical_cycle": 1.000072599323376,
+          "shot_fabric": 1.0
+        },
+        "record_target_counts": {
+          "factory": 2048
+        },
+        "records": 2048
+      },
+      "optimization": {
+        "conditional_first_target": "factory",
+        "conditional_first_target_gain": 9.994034173743808,
+        "median_conditional_projected_native_ratio": 24293601.231740374,
+        "median_marginal_utility": {
+          "decoder": 1.000000655870476,
+          "factory": 9.994034173743808,
+          "host_feedback": 1.0000006577633793,
+          "logical_cycle": 1.0000581679739646,
+          "shot_fabric": 1.0
+        },
+        "record_target_counts": {
+          "factory": 768
+        },
+        "records": 768
+      },
+      "simulation": {
+        "conditional_first_target": "factory",
+        "conditional_first_target_gain": 9.994684728297946,
+        "median_conditional_projected_native_ratio": 32766.24491239866,
+        "median_marginal_utility": {
+          "decoder": 1.0000000850400124,
+          "factory": 9.994684728297946,
+          "host_feedback": 1.0000000852891324,
+          "logical_cycle": 1.0000529842883328,
+          "shot_fabric": 1.0
+        },
+        "record_target_counts": {
+          "factory": 512
+        },
+        "records": 512
+      }
+    }
+  },
+  "conditional_target_stability": {
+    "chemistry": {
+      "by_mode": {
+        "aggregate_ready": "factory",
+        "group_wave_ready": "factory",
+        "serial_evaluation": "factory"
+      },
+      "scope": "conditional execution only; quality eligibility is audited separately",
+      "stable": true
+    },
+    "ml": {
+      "by_mode": {
+        "aggregate_ready": "factory",
+        "group_wave_ready": "factory",
+        "serial_evaluation": "factory"
+      },
+      "scope": "conditional execution only; quality eligibility is audited separately",
+      "stable": true
+    },
+    "optimization": {
+      "by_mode": {
+        "aggregate_ready": "factory",
+        "group_wave_ready": "factory",
+        "serial_evaluation": "factory"
+      },
+      "scope": "conditional execution only; quality eligibility is audited separately",
+      "stable": true
+    },
+    "simulation": {
+      "by_mode": {
+        "aggregate_ready": "factory",
+        "group_wave_ready": "factory",
+        "serial_evaluation": "factory"
+      },
+      "scope": "conditional execution only; quality eligibility is audited separately",
+      "stable": true
+    }
+  },
+  "coverage": {
+    "adaptive_optimizer_trace": 0,
+    "aggregate_total_demand_fallback": 0,
+    "compiled_dependency_wave": 224,
+    "records": 3552,
+    "source_audited_single_circuit": 512,
+    "source_audited_static_loop": 3040
+  },
+  "input_csv": "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv",
+  "internal_errors": [],
+  "p0_completion_status": "PASS_FOR_IMPLEMENTED_STATIC_LOOPS",
+  "projection_record_count": 10656,
+  "projection_record_csv": "data/processed/perlmutter/dependency_schedule_projection_records.csv",
+  "record_csv": "data/processed/perlmutter/dependency_schedule_coverage.csv",
+  "schedule_modes": {
+    "aggregate_ready": "all predeclared evaluations and groups may issue",
+    "group_wave_ready": "one measurement-group wave across independent evaluations",
+    "serial_evaluation": "one evaluation and one group wave at a time"
+  },
+  "schema": "qarchgauge.dependency-schedule-coverage.v1",
+  "scope": "Source-audited schedules for the implemented fixed feature, static candidate/grid, and single-circuit loops. They do not represent an adaptive VQE/QAOA/QNN optimizer or mid-circuit feedback trace."
+}

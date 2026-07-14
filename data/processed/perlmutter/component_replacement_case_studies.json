@@ -1,0 +1,4783 @@
+{
+  "audit_status": "PASS",
+  "boss_summary": {
+    "chemistry": {
+      "congestion_shuttle_upper": {
+        "max": 24,
+        "median": 0.0,
+        "min": 0,
+        "p90": 24.0,
+        "records": 224
+      },
+      "locality_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 224
+      },
+      "records": 224
+    },
+    "optimization": {
+      "congestion_shuttle_upper": {
+        "max": 63,
+        "median": 35.5,
+        "min": 16,
+        "p90": 56.0,
+        "records": 768
+      },
+      "locality_shuttle_upper": {
+        "max": 14,
+        "median": 7.0,
+        "min": 0,
+        "p90": 11.0,
+        "records": 768
+      },
+      "records": 768
+    }
+  },
+  "ft_budget": "data/processed/perlmutter/ft_reliability_and_space_budget.json",
+  "headline": {
+    "eligible_point_sam_area_improvement_cases": 0,
+    "eligible_runtime_parity_cases_after_lower_movement": 3,
+    "eligible_runtime_parity_cases_after_upper_movement": 0,
+    "interpretation": "The 4--7-logical-qubit eligible corpus is below point-SAM's seven-qubit core-cell break-even; LSQCA does not become the first target, and matched movement can eliminate remaining runtime-parity cases."
+  },
+  "input_csv": "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv",
+  "internal_errors": [],
+  "parameter_origins": {
+    "boss": {
+      "readout_floor_sec": 0.00015,
+      "recooling_sec_per_shuttle": 4e-05,
+      "shuttle_upper": "ceil(2*n*L/m)",
+      "source": "BOSS, HPCA 2025",
+      "swap_upper": "floor(m/2)*shuttles",
+      "url": "https://arxiv.org/abs/2412.03443"
+    },
+    "lsqca": {
+      "conventional_density": 0.5,
+      "point_sam_cells": "n data + one scan + six-cell CR",
+      "point_sam_worst_load_code_beats": "ceil(7*sqrt(n))",
+      "replacement_policy": "two-entry LRU CR; lower bound keeps one-qubit operations in memory",
+      "source": "LSQCA, HPCA 2025",
+      "url": "https://arxiv.org/abs/2412.20486"
+    }
+  },
+  "quality_qualified_lsqqa_integrations": 12,
+  "quality_qualified_records": [
+    {
+      "boss": null,
+      "event_count_per_circuit": 28,
+      "event_scope": "one implemented Trotter circuit",
+      "hardware_target_eligible": true,
+      "lsqca": {
+        "all_operands_loaded_upper_envelope": {
+          "cr_hit_fraction": 0.2,
+          "cr_hits": 8,
+          "cr_misses": 32,
+          "loads": 32,
+          "movement_code_beats": 896,
+          "operand_references": 40,
+          "stores": 32,
+          "worst_case_beats_per_load_or_store": 14
+        },
+        "conventional_core_cells": 8,
+        "conventional_memory_density": 0.5,
+        "in_memory_single_qubit_lower_envelope": {
+          "cr_hit_fraction": 0.3333333333333333,
+          "cr_hits": 8,
+          "cr_misses": 16,
+          "loads": 16,
+          "movement_code_beats": 448,
+          "operand_references": 24,
+          "stores": 16,
+          "worst_case_beats_per_load_or_store": 14
+        },
+        "invariants": {
+          "changed_terms": [
+            "core logical cells",
+            "load/store movement"
+          ],
+          "logical_error_contract_unchanged": true,
+          "native_deadline_unchanged": true,
+          "quality_unchanged": true,
+          "rotation_and_factory_demand_unchanged": true
+        },
+        "logical_qubits": 4,
+        "point_sam_break_even_logical_qubits": 7,
+        "point_sam_core_cell_change_vs_conventional": 3,
+        "point_sam_core_cells": 11,
+        "point_sam_memory_density": 0.36363636363636365,
+        "point_sam_reduces_core_cells": false,
+        "quality_qualified_ft_integration": {
+          "baseline_nonfactory_floor_sec": 0.0006833999999999999,
+          "distance": 13,
+          "movement_lower_sec": 0.0023296,
+          "movement_upper_sec": 0.0046592,
+          "native_deadline_sec": 0.0004788049845956266,
+          "nonfactory_floor_with_lower_movement_sec": 0.0030129999999999996,
+          "nonfactory_floor_with_upper_movement_sec": 0.005342599999999999,
+          "runtime_parity_possible_with_lower_movement": false,
+          "runtime_parity_possible_with_upper_movement": false
+        }
+      },
+      "record_id": "practical_strongnative_32node_large128c0c127_20260704060230_c0_sim_tfim_4q_4steps_r0_seed23",
+      "structural_config_id": "cfg-122891ca16f628a9",
+      "unsupported_scope_flags": [],
+      "workload": "simulation"
+    },
+    {
+      "boss": null,
+      "event_count_per_circuit": 52,
+      "event_scope": "one implemented Trotter circuit",
+      "hardware_target_eligible": true,
+      "lsqca": {
+        "all_operands_loaded_upper_envelope": {
+          "cr_hit_fraction": 0.2631578947368421,
+          "cr_hits": 20,
+          "cr_misses": 56,
+          "loads": 56,
+          "movement_code_beats": 2128,
+          "operand_references": 76,
+          "stores": 56,
+          "worst_case_beats_per_load_or_store": 19
+        },
+        "conventional_core_cells": 14,
+        "conventional_memory_density": 0.5,
+        "in_memory_single_qubit_lower_envelope": {
+          "cr_hit_fraction": 0.4166666666666667,
+          "cr_hits": 20,
+          "cr_misses": 28,
+          "loads": 28,
+          "movement_code_beats": 1064,
+          "operand_references": 48,
+          "stores": 28,
+          "worst_case_beats_per_load_or_store": 19
+        },
+        "invariants": {
+          "changed_terms": [
+            "core logical cells",
+            "load/store movement"
+          ],
+          "logical_error_contract_unchanged": true,
+          "native_deadline_unchanged": true,
+          "quality_unchanged": true,
+          "rotation_and_factory_demand_unchanged": true
+        },
+        "logical_qubits": 7,
+        "point_sam_break_even_logical_qubits": 7,
+        "point_sam_core_cell_change_vs_conventional": 0,
+        "point_sam_core_cells": 14,
+        "point_sam_memory_density": 0.5,
+        "point_sam_reduces_core_cells": false,
+        "quality_qualified_ft_integration": {
+          "baseline_nonfactory_floor_sec": 0.0015238,
+          "distance": 15,
+          "movement_lower_sec": 0.006384,
+          "movement_upper_sec": 0.012768,
+          "native_deadline_sec": 0.0090036999899894,
+          "nonfactory_floor_with_lower_movement_sec": 0.0079078,
+          "nonfactory_floor_with_upper_movement_sec": 0.0142918,
+          "runtime_parity_possible_with_lower_movement": true,
+          "runtime_parity_possible_with_upper_movement": false
+        }
+      },
+      "record_id": "practical_strongnative_32node_large128c0c127_20260704060230_c108_sim_tfim_7q_4steps_r0_seed17",
+      "structural_config_id": "cfg-8e29e01a5f210e34",
+      "unsupported_scope_flags": [],
+      "workload": "simulation"
+    },
+    {
+      "boss": null,
+      "event_count_per_circuit": 130,
+      "event_scope": "one implemented Trotter circuit",
+      "hardware_target_eligible": true,
+      "lsqca": {
+        "all_operands_loaded_upper_envelope": {
+          "cr_hit_fraction": 0.2631578947368421,
+          "cr_hits": 50,
+          "cr_misses": 140,
+          "loads": 140,
+          "movement_code_beats": 5320,
+          "operand_references": 190,
+          "stores": 140,
+          "worst_case_beats_per_load_or_store": 19
+        },
+        "conventional_core_cells": 14,
+        "conventional_memory_density": 0.5,
+        "in_memory_single_qubit_lower_envelope": {
+          "cr_hit_fraction": 0.4166666666666667,
+          "cr_hits": 50,
+          "cr_misses": 70,
+          "loads": 70,
+          "movement_code_beats": 2660,
+          "operand_references": 120,
+          "stores": 70,
+          "worst_case_beats_per_load_or_store": 19
+        },
+        "invariants": {
+          "changed_terms": [
+            "core logical cells",
+            "load/store movement"
+          ],
+          "logical_error_contract_unchanged": true,
+          "native_deadline_unchanged": true,
+          "quality_unchanged": true,
+          "rotation_and_factory_demand_unchanged": true
+        },
+        "logical_qubits": 7,
+        "point_sam_break_even_logical_qubits": 7,
+        "point_sam_core_cell_change_vs_conventional": 0,
+        "point_sam_core_cells": 14,
+        "point_sam_memory_density": 0.5,
+        "point_sam_reduces_core_cells": false,
+        "quality_qualified_ft_integration": {
+          "baseline_nonfactory_floor_sec": 0.0037198,
+          "distance": 15,
+          "movement_lower_sec": 0.015960000000000002,
+          "movement_upper_sec": 0.031920000000000004,
+          "native_deadline_sec": 0.00975283799925819,
+          "nonfactory_floor_with_lower_movement_sec": 0.0196798,
+          "nonfactory_floor_with_upper_movement_sec": 0.035639800000000006,
+          "runtime_parity_possible_with_lower_movement": false,
+          "runtime_parity_possible_with_upper_movement": false
+        }
+      },
+      "record_id": "practical_strongnative_32node_large128c0c127_20260704060230_c111_sim_tfim_7q_10steps_r0_seed17",
+      "structural_config_id": "cfg-d5f421b226487208",
+      "unsupported_scope_flags": [],
+      "workload": "simulation"
+    },
+    {
+      "boss": null,
+      "event_count_per_circuit": 52,
+      "event_scope": "one implemented Trotter circuit",
+      "hardware_target_eligible": true,
+      "lsqca": {
+        "all_operands_loaded_upper_envelope": {
+          "cr_hit_fraction": 0.2631578947368421,
+          "cr_hits": 20,
+          "cr_misses": 56,
+          "loads": 56,
+          "movement_code_beats": 2128,
+          "operand_references": 76,
+          "stores": 56,
+          "worst_case_beats_per_load_or_store": 19
+        },
+        "conventional_core_cells": 14,
+        "conventional_memory_density": 0.5,
+        "in_memory_single_qubit_lower_envelope": {
+          "cr_hit_fraction": 0.4166666666666667,
+          "cr_hits": 20,
+          "cr_misses": 28,
+          "loads": 28,
+          "movement_code_beats": 1064,
+          "operand_references": 48,
+          "stores": 28,
+          "worst_case_beats_per_load_or_store": 19
+        },
+        "invariants": {
+          "changed_terms": [
+            "core logical cells",
+            "load/store movement"
+          ],
+          "logical_error_contract_unchanged": true,
+          "native_deadline_unchanged": true,
+          "quality_unchanged": true,
+          "rotation_and_factory_demand_unchanged": true
+        },
+        "logical_qubits": 7,
+        "point_sam_break_even_logical_qubits": 7,
+        "point_sam_core_cell_change_vs_conventional": 0,
+        "point_sam_core_cells": 14,
+        "point_sam_memory_density": 0.5,
+        "point_sam_reduces_core_cells": false,
+        "quality_qualified_ft_integration": {
+          "baseline_nonfactory_floor_sec": 0.0015238,
+          "distance": 15,
+          "movement_lower_sec": 0.006384,
+          "movement_upper_sec": 0.012768,
+          "native_deadline_sec": 0.008811049978248775,
+          "nonfactory_floor_with_lower_movement_sec": 0.0079078,
+          "nonfactory_floor_with_upper_movement_sec": 0.0142918,
+          "runtime_parity_possible_with_lower_movement": true,
+          "runtime_parity_possible_with_upper_movement": false
+        }
+      },
+      "record_id": "practical_strongnative_32node_large128c0c127_20260704060230_c12_sim_tfim_7q_4steps_r0_seed23",
+      "structural_config_id": "cfg-8e29e01a5f210e34",
+      "unsupported_scope_flags": [],
+      "workload": "simulation"
+    },
+    {
+      "boss": null,
+      "event_count_per_circuit": 130,
+      "event_scope": "one implemented Trotter circuit",
+      "hardware_target_eligible": true,
+      "lsqca": {
+        "all_operands_loaded_upper_envelope": {
+          "cr_hit_fraction": 0.2631578947368421,
+          "cr_hits": 50,
+          "cr_misses": 140,
+          "loads": 140,
+          "movement_code_beats": 5320,
+          "operand_references": 190,
+          "stores": 140,
+          "worst_case_beats_per_load_or_store": 19
+        },
+        "conventional_core_cells": 14,
+        "conventional_memory_density": 0.5,
+        "in_memory_single_qubit_lower_envelope": {
+          "cr_hit_fraction": 0.4166666666666667,
+          "cr_hits": 50,
+          "cr_misses": 70,
+          "loads": 70,
+          "movement_code_beats": 2660,
+          "operand_references": 120,
+          "stores": 70,
+          "worst_case_beats_per_load_or_store": 19
+        },
+        "invariants": {
+          "changed_terms": [
+            "core logical cells",
+            "load/store movement"
+          ],
+          "logical_error_contract_unchanged": true,
+          "native_deadline_unchanged": true,
+          "quality_unchanged": true,
+          "rotation_and_factory_demand_unchanged": true
+        },
+        "logical_qubits": 7,
+        "point_sam_break_even_logical_qubits": 7,
+        "point_sam_core_cell_change_vs_conventional": 0,
+        "point_sam_core_cells": 14,
+        "point_sam_memory_density": 0.5,
+        "point_sam_reduces_core_cells": false,
+        "quality_qualified_ft_integration": {
+          "baseline_nonfactory_floor_sec": 0.0037198,
+          "distance": 15,
+          "movement_lower_sec": 0.015960000000000002,
+          "movement_upper_sec": 0.031920000000000004,
+          "native_deadline_sec": 0.008820026996545494,
+          "nonfactory_floor_with_lower_movement_sec": 0.0196798,
+          "nonfactory_floor_with_upper_movement_sec": 0.035639800000000006,
+          "runtime_parity_possible_with_lower_movement": false,
+          "runtime_parity_possible_with_upper_movement": false
+        }
+      },
+      "record_id": "practical_strongnative_32node_large128c0c127_20260704060230_c15_sim_tfim_7q_10steps_r0_seed23",
+      "structural_config_id": "cfg-d5f421b226487208",
+      "unsupported_scope_flags": [],
+      "workload": "simulation"
+    },
+    {
+      "boss": null,
+      "event_count_per_circuit": 28,
+      "event_scope": "one implemented Trotter circuit",
+      "hardware_target_eligible": true,
+      "lsqca": {
+        "all_operands_loaded_upper_envelope": {
+          "cr_hit_fraction": 0.2,
+          "cr_hits": 8,
+          "cr_misses": 32,
+          "loads": 32,
+          "movement_code_beats": 896,
+          "operand_references": 40,
+          "stores": 32,
+          "worst_case_beats_per_load_or_store": 14
+        },
+        "conventional_core_cells": 8,
+        "conventional_memory_density": 0.5,
+        "in_memory_single_qubit_lower_envelope": {
+          "cr_hit_fraction": 0.3333333333333333,
+          "cr_hits": 8,
+          "cr_misses": 16,
+          "loads": 16,
+          "movement_code_beats": 448,
+          "operand_references": 24,
+          "stores": 16,
+          "worst_case_beats_per_load_or_store": 14
+        },
+        "invariants": {
+          "changed_terms": [
+            "core logical cells",
+            "load/store movement"
+          ],
+          "logical_error_contract_unchanged": true,
+          "native_deadline_unchanged": true,
+          "quality_unchanged": true,
+          "rotation_and_factory_demand_unchanged": true
+        },
+        "logical_qubits": 4,
+        "point_sam_break_even_logical_qubits": 7,
+        "point_sam_core_cell_change_vs_conventional": 3,
+        "point_sam_core_cells": 11,
+        "point_sam_memory_density": 0.36363636363636365,
+        "point_sam_reduces_core_cells": false,
+        "quality_qualified_ft_integration": {
+          "baseline_nonfactory_floor_sec": 0.0006833999999999999,
+          "distance": 13,
+          "movement_lower_sec": 0.0023296,
+          "movement_upper_sec": 0.0046592,
+          "native_deadline_sec": 0.0004939250065945089,
+          "nonfactory_floor_with_lower_movement_sec": 0.0030129999999999996,
+          "nonfactory_floor_with_upper_movement_sec": 0.005342599999999999,
+          "runtime_parity_possible_with_lower_movement": false,
+          "runtime_parity_possible_with_upper_movement": false
+        }
+      },
+      "record_id": "practical_strongnative_32node_large128c0c127_20260704060230_c32_sim_tfim_4q_4steps_r0_seed31",
+      "structural_config_id": "cfg-122891ca16f628a9",
+      "unsupported_scope_flags": [],
+      "workload": "simulation"
+    },
+    {
+      "boss": null,
+      "event_count_per_circuit": 70,
+      "event_scope": "one implemented Trotter circuit",
+      "hardware_target_eligible": true,
+      "lsqca": {
+        "all_operands_loaded_upper_envelope": {
+          "cr_hit_fraction": 0.2,
+          "cr_hits": 20,
+          "cr_misses": 80,
+          "loads": 80,
+          "movement_code_beats": 2240,
+          "operand_references": 100,
+          "stores": 80,
+          "worst_case_beats_per_load_or_store": 14
+        },
+        "conventional_core_cells": 8,
+        "conventional_memory_density": 0.5,
+        "in_memory_single_qubit_lower_envelope": {
+          "cr_hit_fraction": 0.3333333333333333,
+          "cr_hits": 20,
+          "cr_misses": 40,
+          "loads": 40,
+          "movement_code_beats": 1120,
+          "operand_references": 60,
+          "stores": 40,
+          "worst_case_beats_per_load_or_store": 14
+        },
+        "invariants": {
+          "changed_terms": [
+            "core logical cells",
+            "load/store movement"
+          ],
+          "logical_error_contract_unchanged": true,
+          "native_deadline_unchanged": true,
+          "quality_unchanged": true,
+          "rotation_and_factory_demand_unchanged": true
+        },
+        "logical_qubits": 4,
+        "point_sam_break_even_logical_qubits": 7,
+        "point_sam_core_cell_change_vs_conventional": 3,
+        "point_sam_core_cells": 11,
+        "point_sam_memory_density": 0.36363636363636365,
+        "point_sam_reduces_core_cells": false,
+        "quality_qualified_ft_integration": {
+          "baseline_nonfactory_floor_sec": 0.0019018000000000001,
+          "distance": 15,
+          "movement_lower_sec": 0.00672,
+          "movement_upper_sec": 0.01344,
+          "native_deadline_sec": 0.00048709200927987695,
+          "nonfactory_floor_with_lower_movement_sec": 0.0086218,
+          "nonfactory_floor_with_upper_movement_sec": 0.015341800000000001,
+          "runtime_parity_possible_with_lower_movement": false,
+          "runtime_parity_possible_with_upper_movement": false
+        }
+      },
+      "record_id": "practical_strongnative_32node_large128c0c127_20260704060230_c35_sim_tfim_4q_10steps_r0_seed31",
+      "structural_config_id": "cfg-0b56077266748cf5",
+      "unsupported_scope_flags": [],
+      "workload": "simulation"
+    },
+    {
+      "boss": null,
+      "event_count_per_circuit": 70,
+      "event_scope": "one implemented Trotter circuit",
+      "hardware_target_eligible": true,
+      "lsqca": {
+        "all_operands_loaded_upper_envelope": {
+          "cr_hit_fraction": 0.2,
+          "cr_hits": 20,
+          "cr_misses": 80,
+          "loads": 80,
+          "movement_code_beats": 2240,
+          "operand_references": 100,
+          "stores": 80,
+          "worst_case_beats_per_load_or_store": 14
+        },
+        "conventional_core_cells": 8,
+        "conventional_memory_density": 0.5,
+        "in_memory_single_qubit_lower_envelope": {
+          "cr_hit_fraction": 0.3333333333333333,
+          "cr_hits": 20,
+          "cr_misses": 40,
+          "loads": 40,
+          "movement_code_beats": 1120,
+          "operand_references": 60,
+          "stores": 40,
+          "worst_case_beats_per_load_or_store": 14
+        },
+        "invariants": {
+          "changed_terms": [
+            "core logical cells",
+            "load/store movement"
+          ],
+          "logical_error_contract_unchanged": true,
+          "native_deadline_unchanged": true,
+          "quality_unchanged": true,
+          "rotation_and_factory_demand_unchanged": true
+        },
+        "logical_qubits": 4,
+        "point_sam_break_even_logical_qubits": 7,
+        "point_sam_core_cell_change_vs_conventional": 3,
+        "point_sam_core_cells": 11,
+        "point_sam_memory_density": 0.36363636363636365,
+        "point_sam_reduces_core_cells": false,
+        "quality_qualified_ft_integration": {
+          "baseline_nonfactory_floor_sec": 0.0019018000000000001,
+          "distance": 15,
+          "movement_lower_sec": 0.00672,
+          "movement_upper_sec": 0.01344,
+          "native_deadline_sec": 0.0005041140248067677,
+          "nonfactory_floor_with_lower_movement_sec": 0.0086218,
+          "nonfactory_floor_with_upper_movement_sec": 0.015341800000000001,
+          "runtime_parity_possible_with_lower_movement": false,
+          "runtime_parity_possible_with_upper_movement": false
+        }
+      },
+      "record_id": "practical_strongnative_32node_large128c0c127_20260704060230_c3_sim_tfim_4q_10steps_r0_seed23",
+      "structural_config_id": "cfg-0b56077266748cf5",
+      "unsupported_scope_flags": [],
+      "workload": "simulation"
+    },
+    {
+      "boss": null,
+      "event_count_per_circuit": 52,
+      "event_scope": "one implemented Trotter circuit",
+      "hardware_target_eligible": true,
+      "lsqca": {
+        "all_operands_loaded_upper_envelope": {
+          "cr_hit_fraction": 0.2631578947368421,
+          "cr_hits": 20,
+          "cr_misses": 56,
+          "loads": 56,
+          "movement_code_beats": 2128,
+          "operand_references": 76,
+          "stores": 56,
+          "worst_case_beats_per_load_or_store": 19
+        },
+        "conventional_core_cells": 14,
+        "conventional_memory_density": 0.5,
+        "in_memory_single_qubit_lower_envelope": {
+          "cr_hit_fraction": 0.4166666666666667,
+          "cr_hits": 20,
+          "cr_misses": 28,
+          "loads": 28,
+          "movement_code_beats": 1064,
+          "operand_references": 48,
+          "stores": 28,
+          "worst_case_beats_per_load_or_store": 19
+        },
+        "invariants": {
+          "changed_terms": [
+            "core logical cells",
+            "load/store movement"
+          ],
+          "logical_error_contract_unchanged": true,
+          "native_deadline_unchanged": true,
+          "quality_unchanged": true,
+          "rotation_and_factory_demand_unchanged": true
+        },
+        "logical_qubits": 7,
+        "point_sam_break_even_logical_qubits": 7,
+        "point_sam_core_cell_change_vs_conventional": 0,
+        "point_sam_core_cells": 14,
+        "point_sam_memory_density": 0.5,
+        "point_sam_reduces_core_cells": false,
+        "quality_qualified_ft_integration": {
+          "baseline_nonfactory_floor_sec": 0.0015238,
+          "distance": 15,
+          "movement_lower_sec": 0.006384,
+          "movement_upper_sec": 0.012768,
+          "native_deadline_sec": 0.009007938002469018,
+          "nonfactory_floor_with_lower_movement_sec": 0.0079078,
+          "nonfactory_floor_with_upper_movement_sec": 0.0142918,
+          "runtime_parity_possible_with_lower_movement": true,
+          "runtime_parity_possible_with_upper_movement": false
+        }
+      },
+      "record_id": "practical_strongnative_32node_large128c0c127_20260704060230_c44_sim_tfim_7q_4steps_r0_seed31",
+      "structural_config_id": "cfg-8e29e01a5f210e34",
+      "unsupported_scope_flags": [],
+      "workload": "simulation"
+    },
+    {
+      "boss": null,
+      "event_count_per_circuit": 130,
+      "event_scope": "one implemented Trotter circuit",
+      "hardware_target_eligible": true,
+      "lsqca": {
+        "all_operands_loaded_upper_envelope": {
+          "cr_hit_fraction": 0.2631578947368421,
+          "cr_hits": 50,
+          "cr_misses": 140,
+          "loads": 140,
+          "movement_code_beats": 5320,
+          "operand_references": 190,
+          "stores": 140,
+          "worst_case_beats_per_load_or_store": 19
+        },
+        "conventional_core_cells": 14,
+        "conventional_memory_density": 0.5,
+        "in_memory_single_qubit_lower_envelope": {
+          "cr_hit_fraction": 0.4166666666666667,
+          "cr_hits": 50,
+          "cr_misses": 70,
+          "loads": 70,
+          "movement_code_beats": 2660,
+          "operand_references": 120,
+          "stores": 70,
+          "worst_case_beats_per_load_or_store": 19
+        },
+        "invariants": {
+          "changed_terms": [
+            "core logical cells",
+            "load/store movement"
+          ],
+          "logical_error_contract_unchanged": true,
+          "native_deadline_unchanged": true,
+          "quality_unchanged": true,
+          "rotation_and_factory_demand_unchanged": true
+        },
+        "logical_qubits": 7,
+        "point_sam_break_even_logical_qubits": 7,
+        "point_sam_core_cell_change_vs_conventional": 0,
+        "point_sam_core_cells": 14,
+        "point_sam_memory_density": 0.5,
+        "point_sam_reduces_core_cells": false,
+        "quality_qualified_ft_integration": {
+          "baseline_nonfactory_floor_sec": 0.0037198,
+          "distance": 15,
+          "movement_lower_sec": 0.015960000000000002,
+          "movement_upper_sec": 0.031920000000000004,
+          "native_deadline_sec": 0.008870001998730004,
+          "nonfactory_floor_with_lower_movement_sec": 0.0196798,
+          "nonfactory_floor_with_upper_movement_sec": 0.035639800000000006,
+          "runtime_parity_possible_with_lower_movement": false,
+          "runtime_parity_possible_with_upper_movement": false
+        }
+      },
+      "record_id": "practical_strongnative_32node_large128c0c127_20260704060230_c47_sim_tfim_7q_10steps_r0_seed31",
+      "structural_config_id": "cfg-d5f421b226487208",
+      "unsupported_scope_flags": [],
+      "workload": "simulation"
+    },
+    {
+      "boss": null,
+      "event_count_per_circuit": 28,
+      "event_scope": "one implemented Trotter circuit",
+      "hardware_target_eligible": true,
+      "lsqca": {
+        "all_operands_loaded_upper_envelope": {
+          "cr_hit_fraction": 0.2,
+          "cr_hits": 8,
+          "cr_misses": 32,
+          "loads": 32,
+          "movement_code_beats": 896,
+          "operand_references": 40,
+          "stores": 32,
+          "worst_case_beats_per_load_or_store": 14
+        },
+        "conventional_core_cells": 8,
+        "conventional_memory_density": 0.5,
+        "in_memory_single_qubit_lower_envelope": {
+          "cr_hit_fraction": 0.3333333333333333,
+          "cr_hits": 8,
+          "cr_misses": 16,
+          "loads": 16,
+          "movement_code_beats": 448,
+          "operand_references": 24,
+          "stores": 16,
+          "worst_case_beats_per_load_or_store": 14
+        },
+        "invariants": {
+          "changed_terms": [
+            "core logical cells",
+            "load/store movement"
+          ],
+          "logical_error_contract_unchanged": true,
+          "native_deadline_unchanged": true,
+          "quality_unchanged": true,
+          "rotation_and_factory_demand_unchanged": true
+        },
+        "logical_qubits": 4,
+        "point_sam_break_even_logical_qubits": 7,
+        "point_sam_core_cell_change_vs_conventional": 3,
+        "point_sam_core_cells": 11,
+        "point_sam_memory_density": 0.36363636363636365,
+        "point_sam_reduces_core_cells": false,
+        "quality_qualified_ft_integration": {
+          "baseline_nonfactory_floor_sec": 0.0006833999999999999,
+          "distance": 13,
+          "movement_lower_sec": 0.0023296,
+          "movement_upper_sec": 0.0046592,
+          "native_deadline_sec": 0.0004830930265597999,
+          "nonfactory_floor_with_lower_movement_sec": 0.0030129999999999996,
+          "nonfactory_floor_with_upper_movement_sec": 0.005342599999999999,
+          "runtime_parity_possible_with_lower_movement": false,
+          "runtime_parity_possible_with_upper_movement": false
+        }
+      },
+      "record_id": "practical_strongnative_32node_large128c0c127_20260704060230_c96_sim_tfim_4q_4steps_r0_seed17",
+      "structural_config_id": "cfg-122891ca16f628a9",
+      "unsupported_scope_flags": [],
+      "workload": "simulation"
+    },
+    {
+      "boss": null,
+      "event_count_per_circuit": 70,
+      "event_scope": "one implemented Trotter circuit",
+      "hardware_target_eligible": true,
+      "lsqca": {
+        "all_operands_loaded_upper_envelope": {
+          "cr_hit_fraction": 0.2,
+          "cr_hits": 20,
+          "cr_misses": 80,
+          "loads": 80,
+          "movement_code_beats": 2240,
+          "operand_references": 100,
+          "stores": 80,
+          "worst_case_beats_per_load_or_store": 14
+        },
+        "conventional_core_cells": 8,
+        "conventional_memory_density": 0.5,
+        "in_memory_single_qubit_lower_envelope": {
+          "cr_hit_fraction": 0.3333333333333333,
+          "cr_hits": 20,
+          "cr_misses": 40,
+          "loads": 40,
+          "movement_code_beats": 1120,
+          "operand_references": 60,
+          "stores": 40,
+          "worst_case_beats_per_load_or_store": 14
+        },
+        "invariants": {
+          "changed_terms": [
+            "core logical cells",
+            "load/store movement"
+          ],
+          "logical_error_contract_unchanged": true,
+          "native_deadline_unchanged": true,
+          "quality_unchanged": true,
+          "rotation_and_factory_demand_unchanged": true
+        },
+        "logical_qubits": 4,
+        "point_sam_break_even_logical_qubits": 7,
+        "point_sam_core_cell_change_vs_conventional": 3,
+        "point_sam_core_cells": 11,
+        "point_sam_memory_density": 0.36363636363636365,
+        "point_sam_reduces_core_cells": false,
+        "quality_qualified_ft_integration": {
+          "baseline_nonfactory_floor_sec": 0.0019018000000000001,
+          "distance": 15,
+          "movement_lower_sec": 0.00672,
+          "movement_upper_sec": 0.01344,
+          "native_deadline_sec": 0.00045936700189486146,
+          "nonfactory_floor_with_lower_movement_sec": 0.0086218,
+          "nonfactory_floor_with_upper_movement_sec": 0.015341800000000001,
+          "runtime_parity_possible_with_lower_movement": false,
+          "runtime_parity_possible_with_upper_movement": false
+        }
+      },
+      "record_id": "practical_strongnative_32node_large128c0c127_20260704060230_c99_sim_tfim_4q_10steps_r0_seed17",
+      "structural_config_id": "cfg-0b56077266748cf5",
+      "unsupported_scope_flags": [],
+      "workload": "simulation"
+    }
+  ],
+  "records": 3552,
+  "schema": "qarchgauge.component-replacement-case-studies.v1",
+  "scope": "Matched-event replacement envelopes for LSQCA and BOSS. Published average speedups are never used.",
+  "structural_subtypes": 222,
+  "subtypes": [
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 235520,
+        "median": 235520.0,
+        "min": 235520,
+        "p90": 235520.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-00c252f47b37541a",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 353280,
+        "median": 353280.0,
+        "min": 353280,
+        "p90": 353280.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-020e76f01487f50e",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 81920,
+        "median": 81920.0,
+        "min": 81920,
+        "p90": 81920.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-04b72d9d9ca02509",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 3456,
+        "median": 3456.0,
+        "min": 3456,
+        "p90": 3456.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-05458f77887b8f99",
+      "workload": "simulation"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 138240,
+        "median": 138240.0,
+        "min": 138240,
+        "p90": 138240.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-09903b636d5518a1",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 25,
+        "median": 25.0,
+        "min": 25,
+        "p90": 25.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 8,
+        "median": 8.0,
+        "min": 8,
+        "p90": 8.0,
+        "records": 16
+      },
+      "logical_qubits": 5,
+      "lsqca_point_sam_cell_change": 2,
+      "lsqca_upper_movement_beats": {
+        "max": 102752,
+        "median": 102752.0,
+        "min": 102752,
+        "p90": 102752.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-0a68b194224f35b0",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 2240,
+        "median": 2240.0,
+        "min": 2240,
+        "p90": 2240.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-0b56077266748cf5",
+      "workload": "simulation"
+    },
+    {
+      "logical_qubits": 5,
+      "lsqca_point_sam_cell_change": 2,
+      "lsqca_upper_movement_beats": {
+        "max": 1920,
+        "median": 1920.0,
+        "min": 1920,
+        "p90": 1920.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-0bba5531885f40d8",
+      "workload": "simulation"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 245760,
+        "median": 245760.0,
+        "min": 245760,
+        "p90": 245760.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-0cc8ed0aaa22d623",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 235520,
+        "median": 235520.0,
+        "min": 235520,
+        "p90": 235520.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-0e0ada359e3e2b72",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 7,
+      "lsqca_point_sam_cell_change": 0,
+      "lsqca_upper_movement_beats": {
+        "max": 4256,
+        "median": 4256.0,
+        "min": 4256,
+        "p90": 4256.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-0e62005328068aca",
+      "workload": "simulation"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 245760,
+        "median": 245760.0,
+        "min": 245760,
+        "p90": 245760.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-0eab1b86121f0231",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 16,
+        "median": 16.0,
+        "min": 16,
+        "p90": 16.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 36288,
+        "median": 36288.0,
+        "min": 36288,
+        "p90": 36288.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-10bc862a0e089d00",
+      "workload": "optimization"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 63,
+        "median": 63.0,
+        "min": 63,
+        "p90": 63.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 11,
+        "median": 11.0,
+        "min": 11,
+        "p90": 11.0,
+        "records": 16
+      },
+      "logical_qubits": 7,
+      "lsqca_point_sam_cell_change": 0,
+      "lsqca_upper_movement_beats": {
+        "max": 48412,
+        "median": 48412.0,
+        "min": 48412,
+        "p90": 48412.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-1148f5651e720a11",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 896,
+        "median": 896.0,
+        "min": 896,
+        "p90": 896.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-122891ca16f628a9",
+      "workload": "simulation"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 117760,
+        "median": 117760.0,
+        "min": 117760,
+        "p90": 117760.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-12364ff642ddcbdb",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 82944,
+        "median": 82944.0,
+        "min": 82944,
+        "p90": 82944.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-18671c3fceda3947",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 55296,
+        "median": 55296.0,
+        "min": 55296,
+        "p90": 55296.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-198a51dba297498c",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 471040,
+        "median": 471040.0,
+        "min": 471040,
+        "p90": 471040.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-19fb5a4f576d77e2",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 20,
+        "median": 20.0,
+        "min": 20,
+        "p90": 20.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 70980,
+        "median": 70980.0,
+        "min": 70980,
+        "p90": 70980.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-1c0bdedde5cab2f6",
+      "workload": "optimization"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 56,
+        "median": 56.0,
+        "min": 56,
+        "p90": 56.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 14,
+        "median": 14.0,
+        "min": 14,
+        "p90": 14.0,
+        "records": 16
+      },
+      "logical_qubits": 7,
+      "lsqca_point_sam_cell_change": 0,
+      "lsqca_upper_movement_beats": {
+        "max": 83106,
+        "median": 83106.0,
+        "min": 83106,
+        "p90": 83106.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-1c1c12c74188fca2",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 4320,
+        "median": 4320.0,
+        "min": 4320,
+        "p90": 4320.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-1fef6909509e764b",
+      "workload": "simulation"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 409600,
+        "median": 409600.0,
+        "min": 409600,
+        "p90": 409600.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-2031f96d7d104805",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 55296,
+        "median": 55296.0,
+        "min": 55296,
+        "p90": 55296.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-204e935e32e3f6b4",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 110592,
+        "median": 110592.0,
+        "min": 110592,
+        "p90": 110592.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-219b84825078859f",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 221184,
+        "median": 221184.0,
+        "min": 221184,
+        "p90": 221184.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-22c74f063e890fbc",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 5,
+      "lsqca_point_sam_cell_change": 2,
+      "lsqca_upper_movement_beats": {
+        "max": 2560,
+        "median": 2560.0,
+        "min": 2560,
+        "p90": 2560.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-234e7795dda12c8f",
+      "workload": "simulation"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 353280,
+        "median": 353280.0,
+        "min": 353280,
+        "p90": 353280.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-235e9decedc17e10",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 57344,
+        "median": 57344.0,
+        "min": 57344,
+        "p90": 57344.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-2505b2411fbd84c6",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 2240,
+        "median": 2240.0,
+        "min": 2240,
+        "p90": 2240.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-27082ee038b18ec5",
+      "workload": "simulation"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 20,
+        "median": 20.0,
+        "min": 20,
+        "p90": 20.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 20580,
+        "median": 20580.0,
+        "min": 20580,
+        "p90": 20580.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-272e40b41b61d92c",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 5,
+      "lsqca_point_sam_cell_change": 2,
+      "lsqca_upper_movement_beats": {
+        "max": 2560,
+        "median": 2560.0,
+        "min": 2560,
+        "p90": 2560.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-29937b3357e4750f",
+      "workload": "simulation"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 122880,
+        "median": 122880.0,
+        "min": 122880,
+        "p90": 122880.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-2c1dd11e7a365410",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 588800,
+        "median": 588800.0,
+        "min": 588800,
+        "p90": 588800.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-2e82e5803e8bafa0",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 20,
+        "median": 20.0,
+        "min": 20,
+        "p90": 20.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 50820,
+        "median": 50820.0,
+        "min": 50820,
+        "p90": 50820.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-2eee30d302675763",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 245760,
+        "median": 245760.0,
+        "min": 245760,
+        "p90": 245760.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-2f49ade1e5033a03",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 7,
+      "lsqca_point_sam_cell_change": 0,
+      "lsqca_upper_movement_beats": {
+        "max": 2128,
+        "median": 2128.0,
+        "min": 2128,
+        "p90": 2128.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-3091352550f1bd75",
+      "workload": "simulation"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "logical_qubits": 2,
+      "lsqca_point_sam_cell_change": 5,
+      "lsqca_upper_movement_beats": {
+        "max": 40,
+        "median": 40.0,
+        "min": 40,
+        "p90": 40.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-3283e87544cab194",
+      "workload": "chemistry"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "logical_qubits": 2,
+      "lsqca_point_sam_cell_change": 5,
+      "lsqca_upper_movement_beats": {
+        "max": 40,
+        "median": 40.0,
+        "min": 40,
+        "p90": 40.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-335091caa7a3e25b",
+      "workload": "chemistry"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 42,
+        "median": 42.0,
+        "min": 42,
+        "p90": 42.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 9,
+        "median": 9.0,
+        "min": 9,
+        "p90": 9.0,
+        "records": 16
+      },
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 146016,
+        "median": 146016.0,
+        "min": 146016,
+        "p90": 146016.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-387a9826d9655185",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 294400,
+        "median": 294400.0,
+        "min": 294400,
+        "p90": 294400.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-3900fa0ac482c471",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 204800,
+        "median": 204800.0,
+        "min": 204800,
+        "p90": 204800.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-3bf9793be635dfec",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 276480,
+        "median": 276480.0,
+        "min": 276480,
+        "p90": 276480.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-3bfd3c370be079a9",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 24,
+        "median": 24.0,
+        "min": 24,
+        "p90": 24.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 14112,
+        "median": 14112.0,
+        "min": 14112,
+        "p90": 14112.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-3ca7830de385caca",
+      "workload": "chemistry"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "logical_qubits": 2,
+      "lsqca_point_sam_cell_change": 5,
+      "lsqca_upper_movement_beats": {
+        "max": 40,
+        "median": 40.0,
+        "min": 40,
+        "p90": 40.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-3d41c57419b5c110",
+      "workload": "chemistry"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 1728,
+        "median": 1728.0,
+        "min": 1728,
+        "p90": 1728.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-3d6df46f54900db1",
+      "workload": "simulation"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 35,
+        "median": 35.0,
+        "min": 35,
+        "p90": 35.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 5,
+        "median": 5.0,
+        "min": 5,
+        "p90": 5.0,
+        "records": 16
+      },
+      "logical_qubits": 5,
+      "lsqca_point_sam_cell_change": 2,
+      "lsqca_upper_movement_beats": {
+        "max": 51840,
+        "median": 51840.0,
+        "min": 51840,
+        "p90": 51840.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-40cecaafe8c3c537",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 143360,
+        "median": 143360.0,
+        "min": 143360,
+        "p90": 143360.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-42b623b6ae3e34ba",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 163840,
+        "median": 163840.0,
+        "min": 163840,
+        "p90": 163840.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-42b6396f40639242",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 48,
+        "median": 48.0,
+        "min": 48,
+        "p90": 48.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 9,
+        "median": 9.0,
+        "min": 9,
+        "p90": 9.0,
+        "records": 16
+      },
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 67068,
+        "median": 67068.0,
+        "min": 67068,
+        "p90": 67068.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-43549185a5023ed7",
+      "workload": "optimization"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 49,
+        "median": 49.0,
+        "min": 49,
+        "p90": 49.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 11,
+        "median": 11.0,
+        "min": 11,
+        "p90": 11.0,
+        "records": 16
+      },
+      "logical_qubits": 7,
+      "lsqca_point_sam_cell_change": 0,
+      "lsqca_upper_movement_beats": {
+        "max": 134862,
+        "median": 134862.0,
+        "min": 134862,
+        "p90": 134862.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-43a59d8569198fe1",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 7,
+      "lsqca_point_sam_cell_change": 0,
+      "lsqca_upper_movement_beats": {
+        "max": 4256,
+        "median": 4256.0,
+        "min": 4256,
+        "p90": 4256.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-43c1366b68f21247",
+      "workload": "simulation"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 57344,
+        "median": 57344.0,
+        "min": 57344,
+        "p90": 57344.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-4426c49891007037",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 1792,
+        "median": 1792.0,
+        "min": 1792,
+        "p90": 1792.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-476b43d992b03537",
+      "workload": "simulation"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 245760,
+        "median": 245760.0,
+        "min": 245760,
+        "p90": 245760.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-4770cb4ef021c632",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 12,
+        "median": 12.0,
+        "min": 12,
+        "p90": 12.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 9744,
+        "median": 9744.0,
+        "min": 9744,
+        "p90": 9744.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-48c571a913fcceb3",
+      "workload": "chemistry"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 165888,
+        "median": 165888.0,
+        "min": 165888,
+        "p90": 165888.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-4b606c8f5b693de5",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 235520,
+        "median": 235520.0,
+        "min": 235520,
+        "p90": 235520.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-4e8bb9ea99723fbb",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 48,
+        "median": 48.0,
+        "min": 48,
+        "p90": 48.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 9,
+        "median": 9.0,
+        "min": 9,
+        "p90": 9.0,
+        "records": 16
+      },
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 40572,
+        "median": 40572.0,
+        "min": 40572,
+        "p90": 40572.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-4e8dab82fadf31eb",
+      "workload": "optimization"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 25,
+        "median": 25.0,
+        "min": 25,
+        "p90": 25.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 8,
+        "median": 8.0,
+        "min": 8,
+        "p90": 8.0,
+        "records": 16
+      },
+      "logical_qubits": 5,
+      "lsqca_point_sam_cell_change": 2,
+      "lsqca_upper_movement_beats": {
+        "max": 73568,
+        "median": 73568.0,
+        "min": 73568,
+        "p90": 73568.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-4fc37a8d6b505aa9",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 327680,
+        "median": 327680.0,
+        "min": 327680,
+        "p90": 327680.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-528a482e7ae84a06",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 25,
+        "median": 25.0,
+        "min": 25,
+        "p90": 25.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 5,
+        "median": 5.0,
+        "min": 5,
+        "p90": 5.0,
+        "records": 16
+      },
+      "logical_qubits": 5,
+      "lsqca_point_sam_cell_change": 2,
+      "lsqca_upper_movement_beats": {
+        "max": 81120,
+        "median": 81120.0,
+        "min": 81120,
+        "p90": 81120.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-5543783df9b91fd1",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 235520,
+        "median": 235520.0,
+        "min": 235520,
+        "p90": 235520.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-55a000e9eb37b887",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 110592,
+        "median": 110592.0,
+        "min": 110592,
+        "p90": 110592.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-56407226ea8b5dc5",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 176640,
+        "median": 176640.0,
+        "min": 176640,
+        "p90": 176640.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-56ecc07a0a851c00",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 57344,
+        "median": 57344.0,
+        "min": 57344,
+        "p90": 57344.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-56fca21055f0d830",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 16,
+        "median": 16.0,
+        "min": 16,
+        "p90": 16.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 56784,
+        "median": 56784.0,
+        "min": 56784,
+        "p90": 56784.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-5708d47d11e9c29a",
+      "workload": "optimization"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 16,
+        "median": 16.0,
+        "min": 16,
+        "p90": 16.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 16464,
+        "median": 16464.0,
+        "min": 16464,
+        "p90": 16464.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-5842d04a2c57d485",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 294400,
+        "median": 294400.0,
+        "min": 294400,
+        "p90": 294400.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-5925c43f729d5416",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 176640,
+        "median": 176640.0,
+        "min": 176640,
+        "p90": 176640.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-5a05a57ab94712f6",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 138240,
+        "median": 138240.0,
+        "min": 138240,
+        "p90": 138240.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-5a17dfdd226e490c",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 25,
+        "median": 25.0,
+        "min": 25,
+        "p90": 25.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 8,
+        "median": 8.0,
+        "min": 8,
+        "p90": 8.0,
+        "records": 16
+      },
+      "logical_qubits": 5,
+      "lsqca_point_sam_cell_change": 2,
+      "lsqca_upper_movement_beats": {
+        "max": 49248,
+        "median": 49248.0,
+        "min": 49248,
+        "p90": 49248.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-5b81bc70f49e49d2",
+      "workload": "optimization"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 35,
+        "median": 35.0,
+        "min": 35,
+        "p90": 35.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 5,
+        "median": 5.0,
+        "min": 5,
+        "p90": 5.0,
+        "records": 16
+      },
+      "logical_qubits": 5,
+      "lsqca_point_sam_cell_change": 2,
+      "lsqca_upper_movement_beats": {
+        "max": 108160,
+        "median": 108160.0,
+        "min": 108160,
+        "p90": 108160.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-5bda9356ac4ec03c",
+      "workload": "optimization"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 24,
+        "median": 24.0,
+        "min": 24,
+        "p90": 24.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 19488,
+        "median": 19488.0,
+        "min": 19488,
+        "p90": 19488.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-5d63f698f6cfaf98",
+      "workload": "chemistry"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 176640,
+        "median": 176640.0,
+        "min": 176640,
+        "p90": 176640.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-5e36ba911ad4c085",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 1792,
+        "median": 1792.0,
+        "min": 1792,
+        "p90": 1792.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-611e60860d885871",
+      "workload": "simulation"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 138240,
+        "median": 138240.0,
+        "min": 138240,
+        "p90": 138240.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-6198d91058023f24",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 49,
+        "median": 49.0,
+        "min": 49,
+        "p90": 49.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 11,
+        "median": 11.0,
+        "min": 11,
+        "p90": 11.0,
+        "records": 16
+      },
+      "logical_qubits": 7,
+      "lsqca_point_sam_cell_change": 0,
+      "lsqca_upper_movement_beats": {
+        "max": 39102,
+        "median": 39102.0,
+        "min": 39102,
+        "p90": 39102.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-6271605f22c1e7b3",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 235520,
+        "median": 235520.0,
+        "min": 235520,
+        "p90": 235520.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-627cc3803ef2eba6",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 36,
+        "median": 36.0,
+        "min": 36,
+        "p90": 36.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 6,
+        "median": 6.0,
+        "min": 6,
+        "p90": 6.0,
+        "records": 16
+      },
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 78408,
+        "median": 78408.0,
+        "min": 78408,
+        "p90": 78408.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-633c25305eba18a2",
+      "workload": "optimization"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 36,
+        "median": 36.0,
+        "min": 36,
+        "p90": 36.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 6,
+        "median": 6.0,
+        "min": 6,
+        "p90": 6.0,
+        "records": 16
+      },
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 31752,
+        "median": 31752.0,
+        "min": 31752,
+        "p90": 31752.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-64b40cc857291ddb",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 28672,
+        "median": 28672.0,
+        "min": 28672,
+        "p90": 28672.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-678abb5be7ff705c",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 122880,
+        "median": 122880.0,
+        "min": 122880,
+        "p90": 122880.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-6865127390a50ce0",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 327680,
+        "median": 327680.0,
+        "min": 327680,
+        "p90": 327680.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-6ad9f88e97c7b39d",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 25,
+        "median": 25.0,
+        "min": 25,
+        "p90": 25.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 8,
+        "median": 8.0,
+        "min": 8,
+        "p90": 8.0,
+        "records": 16
+      },
+      "logical_qubits": 5,
+      "lsqca_point_sam_cell_change": 2,
+      "lsqca_upper_movement_beats": {
+        "max": 29792,
+        "median": 29792.0,
+        "min": 29792,
+        "p90": 29792.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-6cdd022f4197df92",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 163840,
+        "median": 163840.0,
+        "min": 163840,
+        "p90": 163840.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-6cf1b43f4a1fcbcc",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 55296,
+        "median": 55296.0,
+        "min": 55296,
+        "p90": 55296.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-6ea2034527664200",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 71680,
+        "median": 71680.0,
+        "min": 71680,
+        "p90": 71680.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-70b32de33961ac01",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 71680,
+        "median": 71680.0,
+        "min": 71680,
+        "p90": 71680.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-7183f8501efd9fc1",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 1728,
+        "median": 1728.0,
+        "min": 1728,
+        "p90": 1728.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-71ca9fd72913b9ae",
+      "workload": "simulation"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 16,
+        "median": 16.0,
+        "min": 16,
+        "p90": 16.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 54208,
+        "median": 54208.0,
+        "min": 54208,
+        "p90": 54208.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-72694ca0842e1f76",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 82944,
+        "median": 82944.0,
+        "min": 82944,
+        "p90": 82944.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-737507e2562fa80f",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 49,
+        "median": 49.0,
+        "min": 49,
+        "p90": 49.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 11,
+        "median": 11.0,
+        "min": 11,
+        "p90": 11.0,
+        "records": 16
+      },
+      "logical_qubits": 7,
+      "lsqca_point_sam_cell_change": 0,
+      "lsqca_upper_movement_beats": {
+        "max": 96558,
+        "median": 96558.0,
+        "min": 96558,
+        "p90": 96558.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-75d07d1736395c29",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 204800,
+        "median": 204800.0,
+        "min": 204800,
+        "p90": 204800.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-76bc3ba0a8680e1f",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 16,
+        "median": 16.0,
+        "min": 16,
+        "p90": 16.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 40656,
+        "median": 40656.0,
+        "min": 40656,
+        "p90": 40656.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-79252efcb9745b07",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 235520,
+        "median": 235520.0,
+        "min": 235520,
+        "p90": 235520.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-7940956afda9615a",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 12,
+        "median": 12.0,
+        "min": 12,
+        "p90": 12.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 12432,
+        "median": 12432.0,
+        "min": 12432,
+        "p90": 12432.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-7a11a56940708365",
+      "workload": "chemistry"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 896,
+        "median": 896.0,
+        "min": 896,
+        "p90": 896.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-7a719f047af17b80",
+      "workload": "simulation"
+    },
+    {
+      "logical_qubits": 7,
+      "lsqca_point_sam_cell_change": 0,
+      "lsqca_upper_movement_beats": {
+        "max": 3192,
+        "median": 3192.0,
+        "min": 3192,
+        "p90": 3192.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-7b91eb2690efb006",
+      "workload": "simulation"
+    },
+    {
+      "logical_qubits": 7,
+      "lsqca_point_sam_cell_change": 0,
+      "lsqca_upper_movement_beats": {
+        "max": 5320,
+        "median": 5320.0,
+        "min": 5320,
+        "p90": 5320.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-812b1211f09955fe",
+      "workload": "simulation"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 25,
+        "median": 25.0,
+        "min": 25,
+        "p90": 25.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 5,
+        "median": 5.0,
+        "min": 5,
+        "p90": 5.0,
+        "records": 16
+      },
+      "logical_qubits": 5,
+      "lsqca_point_sam_cell_change": 2,
+      "lsqca_upper_movement_beats": {
+        "max": 23520,
+        "median": 23520.0,
+        "min": 23520,
+        "p90": 23520.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-81e2f472f5f362dc",
+      "workload": "optimization"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 16,
+        "median": 16.0,
+        "min": 16,
+        "p90": 16.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 27216,
+        "median": 27216.0,
+        "min": 27216,
+        "p90": 27216.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-82e8e524b3cfffe3",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 163840,
+        "median": 163840.0,
+        "min": 163840,
+        "p90": 163840.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-83fc944af3ef5e6f",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 163840,
+        "median": 163840.0,
+        "min": 163840,
+        "p90": 163840.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-842059eb540d7389",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 588800,
+        "median": 588800.0,
+        "min": 588800,
+        "p90": 588800.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-8569b839559a72d9",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 163840,
+        "median": 163840.0,
+        "min": 163840,
+        "p90": 163840.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-85ec43e9563e792f",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 24,
+        "median": 24.0,
+        "min": 24,
+        "p90": 24.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 24864,
+        "median": 24864.0,
+        "min": 24864,
+        "p90": 24864.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-864433f334c4d42a",
+      "workload": "chemistry"
+    },
+    {
+      "logical_qubits": 5,
+      "lsqca_point_sam_cell_change": 2,
+      "lsqca_upper_movement_beats": {
+        "max": 1280,
+        "median": 1280.0,
+        "min": 1280,
+        "p90": 1280.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-874d2d7c09e66416",
+      "workload": "simulation"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 353280,
+        "median": 353280.0,
+        "min": 353280,
+        "p90": 353280.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-87ea500279d2c49b",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 143360,
+        "median": 143360.0,
+        "min": 143360,
+        "p90": 143360.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-880b176428212a51",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 204800,
+        "median": 204800.0,
+        "min": 204800,
+        "p90": 204800.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-8bf26a54a33bf57f",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 276480,
+        "median": 276480.0,
+        "min": 276480,
+        "p90": 276480.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-8c3da7ca41fa89f7",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 20,
+        "median": 20.0,
+        "min": 20,
+        "p90": 20.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 34020,
+        "median": 34020.0,
+        "min": 34020,
+        "p90": 34020.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-8d46b6e923222db1",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 110592,
+        "median": 110592.0,
+        "min": 110592,
+        "p90": 110592.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-8e262b3ecb8b4336",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 7,
+      "lsqca_point_sam_cell_change": 0,
+      "lsqca_upper_movement_beats": {
+        "max": 2128,
+        "median": 2128.0,
+        "min": 2128,
+        "p90": 2128.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-8e29e01a5f210e34",
+      "workload": "simulation"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 42,
+        "median": 42.0,
+        "min": 42,
+        "p90": 42.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 9,
+        "median": 9.0,
+        "min": 9,
+        "p90": 9.0,
+        "records": 16
+      },
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 104544,
+        "median": 104544.0,
+        "min": 104544,
+        "p90": 104544.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-90c0a53e942fbd18",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 327680,
+        "median": 327680.0,
+        "min": 327680,
+        "p90": 327680.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-92c97d8b78efef14",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 35,
+        "median": 35.0,
+        "min": 35,
+        "p90": 35.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 5,
+        "median": 5.0,
+        "min": 5,
+        "p90": 5.0,
+        "records": 16
+      },
+      "logical_qubits": 5,
+      "lsqca_point_sam_cell_change": 2,
+      "lsqca_upper_movement_beats": {
+        "max": 77440,
+        "median": 77440.0,
+        "min": 77440,
+        "p90": 77440.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-92dea756311f741c",
+      "workload": "optimization"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 12,
+        "median": 12.0,
+        "min": 12,
+        "p90": 12.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 7056,
+        "median": 7056.0,
+        "min": 7056,
+        "p90": 7056.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-9379777249bb76ea",
+      "workload": "chemistry"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 110592,
+        "median": 110592.0,
+        "min": 110592,
+        "p90": 110592.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-939f7cd8639732e9",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 1344,
+        "median": 1344.0,
+        "min": 1344,
+        "p90": 1344.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-96f7a1c66b348762",
+      "workload": "simulation"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 221184,
+        "median": 221184.0,
+        "min": 221184,
+        "p90": 221184.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-97b0fcc67649b3aa",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 28672,
+        "median": 28672.0,
+        "min": 28672,
+        "p90": 28672.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-990e3d4209a23f40",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "logical_qubits": 2,
+      "lsqca_point_sam_cell_change": 5,
+      "lsqca_upper_movement_beats": {
+        "max": 40,
+        "median": 40.0,
+        "min": 40,
+        "p90": 40.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-9a08531879365cae",
+      "workload": "chemistry"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 114688,
+        "median": 114688.0,
+        "min": 114688,
+        "p90": 114688.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-9b8ad4b01c06b0df",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 86016,
+        "median": 86016.0,
+        "min": 86016,
+        "p90": 86016.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-9dca255af94c63e4",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 81920,
+        "median": 81920.0,
+        "min": 81920,
+        "p90": 81920.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-9ec94e5ac26b7a62",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 327680,
+        "median": 327680.0,
+        "min": 327680,
+        "p90": 327680.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-9f4e2b6edd6984b6",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 110592,
+        "median": 110592.0,
+        "min": 110592,
+        "p90": 110592.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-a0dc06b89631b043",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 471040,
+        "median": 471040.0,
+        "min": 471040,
+        "p90": 471040.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-a152611ad6e4a093",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 588800,
+        "median": 588800.0,
+        "min": 588800,
+        "p90": 588800.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-a3102ba151c7ba74",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "logical_qubits": 2,
+      "lsqca_point_sam_cell_change": 5,
+      "lsqca_upper_movement_beats": {
+        "max": 40,
+        "median": 40.0,
+        "min": 40,
+        "p90": 40.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-a317dbccd1d4d290",
+      "workload": "chemistry"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 2592,
+        "median": 2592.0,
+        "min": 2592,
+        "p90": 2592.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-a41bc5ad98fc6e0c",
+      "workload": "simulation"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 71680,
+        "median": 71680.0,
+        "min": 71680,
+        "p90": 71680.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-a58f76e0287aee21",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 57344,
+        "median": 57344.0,
+        "min": 57344,
+        "p90": 57344.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-a87ac39a325d12ba",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 163840,
+        "median": 163840.0,
+        "min": 163840,
+        "p90": 163840.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-a87df02e5f10561b",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 221184,
+        "median": 221184.0,
+        "min": 221184,
+        "p90": 221184.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-a8d821bd9a01f930",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 3456,
+        "median": 3456.0,
+        "min": 3456,
+        "p90": 3456.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-aab94b74622528f8",
+      "workload": "simulation"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 122880,
+        "median": 122880.0,
+        "min": 122880,
+        "p90": 122880.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-ab3bcbf49266dabb",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 48,
+        "median": 48.0,
+        "min": 48,
+        "p90": 48.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 9,
+        "median": 9.0,
+        "min": 9,
+        "p90": 9.0,
+        "records": 16
+      },
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 100188,
+        "median": 100188.0,
+        "min": 100188,
+        "p90": 100188.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-ac6d1a210c4d9875",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 57344,
+        "median": 57344.0,
+        "min": 57344,
+        "p90": 57344.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-af1875faf85d9cd6",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 49,
+        "median": 49.0,
+        "min": 49,
+        "p90": 49.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 11,
+        "median": 11.0,
+        "min": 11,
+        "p90": 11.0,
+        "records": 16
+      },
+      "logical_qubits": 7,
+      "lsqca_point_sam_cell_change": 0,
+      "lsqca_upper_movement_beats": {
+        "max": 64638,
+        "median": 64638.0,
+        "min": 64638,
+        "p90": 64638.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-b07dfd4f2636c4da",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 143360,
+        "median": 143360.0,
+        "min": 143360,
+        "p90": 143360.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-b308128b00eb8a8a",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 86016,
+        "median": 86016.0,
+        "min": 86016,
+        "p90": 86016.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-b3d1289bc86a25f7",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 1344,
+        "median": 1344.0,
+        "min": 1344,
+        "p90": 1344.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-b5bc9127125eef0b",
+      "workload": "simulation"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 63,
+        "median": 63.0,
+        "min": 63,
+        "p90": 63.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 11,
+        "median": 11.0,
+        "min": 11,
+        "p90": 11.0,
+        "records": 16
+      },
+      "logical_qubits": 7,
+      "lsqca_point_sam_cell_change": 0,
+      "lsqca_upper_movement_beats": {
+        "max": 80028,
+        "median": 80028.0,
+        "min": 80028,
+        "p90": 80028.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-b60c879986bfd6c2",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 5,
+      "lsqca_point_sam_cell_change": 2,
+      "lsqca_upper_movement_beats": {
+        "max": 3200,
+        "median": 3200.0,
+        "min": 3200,
+        "p90": 3200.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-b8993d589d38dd3f",
+      "workload": "simulation"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 36,
+        "median": 36.0,
+        "min": 36,
+        "p90": 36.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 6,
+        "median": 6.0,
+        "min": 6,
+        "p90": 6.0,
+        "records": 16
+      },
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 109512,
+        "median": 109512.0,
+        "min": 109512,
+        "p90": 109512.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-b8da5020b78b0e54",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 409600,
+        "median": 409600.0,
+        "min": 409600,
+        "p90": 409600.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-bab9c9387a7318dd",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 86016,
+        "median": 86016.0,
+        "min": 86016,
+        "p90": 86016.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-baf7c76ac76125de",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 165888,
+        "median": 165888.0,
+        "min": 165888,
+        "p90": 165888.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-bbb6d09e2085644e",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 471040,
+        "median": 471040.0,
+        "min": 471040,
+        "p90": 471040.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-bbffbff6c467de0c",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 114688,
+        "median": 114688.0,
+        "min": 114688,
+        "p90": 114688.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-bc3e7f03e9fdf765",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 110592,
+        "median": 110592.0,
+        "min": 110592,
+        "p90": 110592.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-bd23f94a227e9aa7",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "logical_qubits": 2,
+      "lsqca_point_sam_cell_change": 5,
+      "lsqca_upper_movement_beats": {
+        "max": 40,
+        "median": 40.0,
+        "min": 40,
+        "p90": 40.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-bf9e4412fd0edb66",
+      "workload": "chemistry"
+    },
+    {
+      "logical_qubits": 7,
+      "lsqca_point_sam_cell_change": 0,
+      "lsqca_upper_movement_beats": {
+        "max": 3192,
+        "median": 3192.0,
+        "min": 3192,
+        "p90": 3192.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-c09cb849e0996f68",
+      "workload": "simulation"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 294400,
+        "median": 294400.0,
+        "min": 294400,
+        "p90": 294400.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-c0d82d50289bb492",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 43008,
+        "median": 43008.0,
+        "min": 43008,
+        "p90": 43008.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-c19da0f5cf3d5928",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 110592,
+        "median": 110592.0,
+        "min": 110592,
+        "p90": 110592.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-c20d8f6e688c779d",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 4320,
+        "median": 4320.0,
+        "min": 4320,
+        "p90": 4320.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-c29e649712fd3b35",
+      "workload": "simulation"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 235520,
+        "median": 235520.0,
+        "min": 235520,
+        "p90": 235520.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-c4076cf6cada7b7b",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 165888,
+        "median": 165888.0,
+        "min": 165888,
+        "p90": 165888.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-c411cb42689b0f31",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 55296,
+        "median": 55296.0,
+        "min": 55296,
+        "p90": 55296.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-c47da34bbec2c121",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 163840,
+        "median": 163840.0,
+        "min": 163840,
+        "p90": 163840.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-c5a3d794f9e1ca64",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 63,
+        "median": 63.0,
+        "min": 63,
+        "p90": 63.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 11,
+        "median": 11.0,
+        "min": 11,
+        "p90": 11.0,
+        "records": 16
+      },
+      "logical_qubits": 7,
+      "lsqca_point_sam_cell_change": 0,
+      "lsqca_upper_movement_beats": {
+        "max": 119548,
+        "median": 119548.0,
+        "min": 119548,
+        "p90": 119548.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-c6bbe2a201bf3cc4",
+      "workload": "optimization"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 36,
+        "median": 36.0,
+        "min": 36,
+        "p90": 36.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 6,
+        "median": 6.0,
+        "min": 6,
+        "p90": 6.0,
+        "records": 16
+      },
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 52488,
+        "median": 52488.0,
+        "min": 52488,
+        "p90": 52488.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-c7fc744228c5b4e7",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 5,
+      "lsqca_point_sam_cell_change": 2,
+      "lsqca_upper_movement_beats": {
+        "max": 1280,
+        "median": 1280.0,
+        "min": 1280,
+        "p90": 1280.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-c84a1effbfe20061",
+      "workload": "simulation"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 117760,
+        "median": 117760.0,
+        "min": 117760,
+        "p90": 117760.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-ca08c43e129b9b93",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 43008,
+        "median": 43008.0,
+        "min": 43008,
+        "p90": 43008.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-ca4513b70f44f67f",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 5,
+      "lsqca_point_sam_cell_change": 2,
+      "lsqca_upper_movement_beats": {
+        "max": 3200,
+        "median": 3200.0,
+        "min": 3200,
+        "p90": 3200.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-cd54b926a720938b",
+      "workload": "simulation"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 16,
+        "median": 16.0,
+        "min": 16,
+        "p90": 16.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 75712,
+        "median": 75712.0,
+        "min": 75712,
+        "p90": 75712.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-cd63071c83b4facc",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 43008,
+        "median": 43008.0,
+        "min": 43008,
+        "p90": 43008.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-cdbd33ba8a529fbd",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 57344,
+        "median": 57344.0,
+        "min": 57344,
+        "p90": 57344.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-d1063c7758118f47",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 56,
+        "median": 56.0,
+        "min": 56,
+        "p90": 56.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 14,
+        "median": 14.0,
+        "min": 14,
+        "p90": 14.0,
+        "records": 16
+      },
+      "logical_qubits": 7,
+      "lsqca_point_sam_cell_change": 0,
+      "lsqca_upper_movement_beats": {
+        "max": 124146,
+        "median": 124146.0,
+        "min": 124146,
+        "p90": 124146.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-d1549080c1cf1764",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 28672,
+        "median": 28672.0,
+        "min": 28672,
+        "p90": 28672.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-d2951f9fa61b071a",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 276480,
+        "median": 276480.0,
+        "min": 276480,
+        "p90": 276480.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-d3b359802264c164",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 16,
+        "median": 16.0,
+        "min": 16,
+        "p90": 16.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 21952,
+        "median": 21952.0,
+        "min": 21952,
+        "p90": 21952.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-d4df0dbb768c641d",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 2592,
+        "median": 2592.0,
+        "min": 2592,
+        "p90": 2592.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-d4e5fa7c57718017",
+      "workload": "simulation"
+    },
+    {
+      "logical_qubits": 7,
+      "lsqca_point_sam_cell_change": 0,
+      "lsqca_upper_movement_beats": {
+        "max": 5320,
+        "median": 5320.0,
+        "min": 5320,
+        "p90": 5320.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-d5f421b226487208",
+      "workload": "simulation"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 122880,
+        "median": 122880.0,
+        "min": 122880,
+        "p90": 122880.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-d7b0ab1e2f0979df",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 42,
+        "median": 42.0,
+        "min": 42,
+        "p90": 42.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 9,
+        "median": 9.0,
+        "min": 9,
+        "p90": 9.0,
+        "records": 16
+      },
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 42336,
+        "median": 42336.0,
+        "min": 42336,
+        "p90": 42336.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-d82d8f0ca32e4b19",
+      "workload": "optimization"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 25,
+        "median": 25.0,
+        "min": 25,
+        "p90": 25.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 5,
+        "median": 5.0,
+        "min": 5,
+        "p90": 5.0,
+        "records": 16
+      },
+      "logical_qubits": 5,
+      "lsqca_point_sam_cell_change": 2,
+      "lsqca_upper_movement_beats": {
+        "max": 38880,
+        "median": 38880.0,
+        "min": 38880,
+        "p90": 38880.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-d831c7fb8c92fcc5",
+      "workload": "optimization"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 56,
+        "median": 56.0,
+        "min": 56,
+        "p90": 56.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 14,
+        "median": 14.0,
+        "min": 14,
+        "p90": 14.0,
+        "records": 16
+      },
+      "logical_qubits": 7,
+      "lsqca_point_sam_cell_change": 0,
+      "lsqca_upper_movement_beats": {
+        "max": 50274,
+        "median": 50274.0,
+        "min": 50274,
+        "p90": 50274.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-d885a6faabde349e",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 81920,
+        "median": 81920.0,
+        "min": 81920,
+        "p90": 81920.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-d9469131ffc8937f",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 165888,
+        "median": 165888.0,
+        "min": 165888,
+        "p90": 165888.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-d947a8be08d15abf",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 57344,
+        "median": 57344.0,
+        "min": 57344,
+        "p90": 57344.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-d952c76ee601b7dc",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 294400,
+        "median": 294400.0,
+        "min": 294400,
+        "p90": 294400.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-d9c7aaef36b86b4a",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 114688,
+        "median": 114688.0,
+        "min": 114688,
+        "p90": 114688.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-db1f0fd12a5c9992",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 409600,
+        "median": 409600.0,
+        "min": 409600,
+        "p90": 409600.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-db34ecebb24a52b5",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 57344,
+        "median": 57344.0,
+        "min": 57344,
+        "p90": 57344.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-db3cf77e573b4e9f",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 471040,
+        "median": 471040.0,
+        "min": 471040,
+        "p90": 471040.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-db86589d91d61205",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 138240,
+        "median": 138240.0,
+        "min": 138240,
+        "p90": 138240.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-dcc5cda6e015532d",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 353280,
+        "median": 353280.0,
+        "min": 353280,
+        "p90": 353280.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-dd4bafd242d50240",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 82944,
+        "median": 82944.0,
+        "min": 82944,
+        "p90": 82944.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-deca9169a4869934",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 71680,
+        "median": 71680.0,
+        "min": 71680,
+        "p90": 71680.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-e0a9612dc175f1e8",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 409600,
+        "median": 409600.0,
+        "min": 409600,
+        "p90": 409600.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-e1b4f5633c7a983e",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "logical_qubits": 2,
+      "lsqca_point_sam_cell_change": 5,
+      "lsqca_upper_movement_beats": {
+        "max": 40,
+        "median": 40.0,
+        "min": 40,
+        "p90": 40.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-e308a453719b2621",
+      "workload": "chemistry"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 35,
+        "median": 35.0,
+        "min": 35,
+        "p90": 35.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 5,
+        "median": 5.0,
+        "min": 5,
+        "p90": 5.0,
+        "records": 16
+      },
+      "logical_qubits": 5,
+      "lsqca_point_sam_cell_change": 2,
+      "lsqca_upper_movement_beats": {
+        "max": 31360,
+        "median": 31360.0,
+        "min": 31360,
+        "p90": 31360.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-e86abc6c28905a8d",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 81920,
+        "median": 81920.0,
+        "min": 81920,
+        "p90": 81920.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-e9bb737d425a8593",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 56,
+        "median": 56.0,
+        "min": 56,
+        "p90": 56.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 14,
+        "median": 14.0,
+        "min": 14,
+        "p90": 14.0,
+        "records": 16
+      },
+      "logical_qubits": 7,
+      "lsqca_point_sam_cell_change": 0,
+      "lsqca_upper_movement_beats": {
+        "max": 173394,
+        "median": 173394.0,
+        "min": 173394,
+        "p90": 173394.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-ea16b7887a915401",
+      "workload": "optimization"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 48,
+        "median": 48.0,
+        "min": 48,
+        "p90": 48.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 9,
+        "median": 9.0,
+        "min": 9,
+        "p90": 9.0,
+        "records": 16
+      },
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 139932,
+        "median": 139932.0,
+        "min": 139932,
+        "p90": 139932.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-ea56dc425d46da4a",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 235520,
+        "median": 235520.0,
+        "min": 235520,
+        "p90": 235520.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-eb93222f53bd0af0",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 110592,
+        "median": 110592.0,
+        "min": 110592,
+        "p90": 110592.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-ec537abacbc6fe8a",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 276480,
+        "median": 276480.0,
+        "min": 276480,
+        "p90": 276480.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-eceff5bb00439bbc",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 117760,
+        "median": 117760.0,
+        "min": 117760,
+        "p90": 117760.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-ee559b83d8d52d07",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 588800,
+        "median": 588800.0,
+        "min": 588800,
+        "p90": 588800.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-ef08b7536a6393c7",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 43008,
+        "median": 43008.0,
+        "min": 43008,
+        "p90": 43008.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-efc5db527a1a4e52",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 86016,
+        "median": 86016.0,
+        "min": 86016,
+        "p90": 86016.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-f0d5b6ea13432150",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 28672,
+        "median": 28672.0,
+        "min": 28672,
+        "p90": 28672.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-f48c85341341f107",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 204800,
+        "median": 204800.0,
+        "min": 204800,
+        "p90": 204800.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-f4b3e9a508d28462",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 63,
+        "median": 63.0,
+        "min": 63,
+        "p90": 63.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 11,
+        "median": 11.0,
+        "min": 11,
+        "p90": 11.0,
+        "records": 16
+      },
+      "logical_qubits": 7,
+      "lsqca_point_sam_cell_change": 0,
+      "lsqca_upper_movement_beats": {
+        "max": 166972,
+        "median": 166972.0,
+        "min": 166972,
+        "p90": 166972.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-f4cf007cb214cf18",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 143360,
+        "median": 143360.0,
+        "min": 143360,
+        "p90": 143360.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-f53a83c1cc5b7005",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 5,
+      "lsqca_point_sam_cell_change": 2,
+      "lsqca_upper_movement_beats": {
+        "max": 1920,
+        "median": 1920.0,
+        "min": 1920,
+        "p90": 1920.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-f5ec48b012bad4c6",
+      "workload": "simulation"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 25,
+        "median": 25.0,
+        "min": 25,
+        "p90": 25.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 5,
+        "median": 5.0,
+        "min": 5,
+        "p90": 5.0,
+        "records": 16
+      },
+      "logical_qubits": 5,
+      "lsqca_point_sam_cell_change": 2,
+      "lsqca_upper_movement_beats": {
+        "max": 58080,
+        "median": 58080.0,
+        "min": 58080,
+        "p90": 58080.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-f63b577452d53721",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 82944,
+        "median": 82944.0,
+        "min": 82944,
+        "p90": 82944.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-f7c797e7dea6528f",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 117760,
+        "median": 117760.0,
+        "min": 117760,
+        "p90": 117760.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-f8d18a299a8e99c6",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 4,
+      "lsqca_point_sam_cell_change": 3,
+      "lsqca_upper_movement_beats": {
+        "max": 114688,
+        "median": 114688.0,
+        "min": 114688,
+        "p90": 114688.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-fa6934da0178cf5c",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0,
+        "p90": 0.0,
+        "records": 16
+      },
+      "logical_qubits": 2,
+      "lsqca_point_sam_cell_change": 5,
+      "lsqca_upper_movement_beats": {
+        "max": 40,
+        "median": 40.0,
+        "min": 40,
+        "p90": 40.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-fc32a2f743b27f2d",
+      "workload": "chemistry"
+    },
+    {
+      "logical_qubits": 10,
+      "lsqca_point_sam_cell_change": -3,
+      "lsqca_upper_movement_beats": {
+        "max": 176640,
+        "median": 176640.0,
+        "min": 176640,
+        "p90": 176640.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-fcbb804f6888efde",
+      "workload": "ml"
+    },
+    {
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 221184,
+        "median": 221184.0,
+        "min": 221184,
+        "p90": 221184.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-fd5e0ecef840164f",
+      "workload": "ml"
+    },
+    {
+      "boss_congestion_shuttle_upper": {
+        "max": 42,
+        "median": 42.0,
+        "min": 42,
+        "p90": 42.0,
+        "records": 16
+      },
+      "boss_locality_shuttle_upper": {
+        "max": 9,
+        "median": 9.0,
+        "min": 9,
+        "p90": 9.0,
+        "records": 16
+      },
+      "logical_qubits": 6,
+      "lsqca_point_sam_cell_change": 1,
+      "lsqca_upper_movement_beats": {
+        "max": 69984,
+        "median": 69984.0,
+        "min": 69984,
+        "p90": 69984.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-fe5cfa819528f0fb",
+      "workload": "optimization"
+    },
+    {
+      "logical_qubits": 8,
+      "lsqca_point_sam_cell_change": -1,
+      "lsqca_upper_movement_beats": {
+        "max": 163840,
+        "median": 163840.0,
+        "min": 163840,
+        "p90": 163840.0,
+        "records": 16
+      },
+      "records": 16,
+      "structural_config_id": "cfg-fff829dac216caf5",
+      "workload": "ml"
+    }
+  ]
+}

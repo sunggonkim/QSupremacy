@@ -1,0 +1,28 @@
+{
+  "schema": "qsup.ml-quantum-metadata-proxy.v1",
+  "scope": "same CIFAR-10 schedule mapped to two loading contracts; no quantum image-classification quality or executable 12/3072-qubit run is claimed",
+  "native_artifact": "data/processed/perlmutter/ml_cifar10_resnet18_proxy.json",
+  "dataset": "CIFAR-10",
+  "pixels_per_image": 3072,
+  "train_image_uses": 500000,
+  "test_image_uses": 100000,
+  "total_image_uses": 600000,
+  "angle_encoding": {
+    "qubits": 3072,
+    "data_rotations_per_image": 3072,
+    "total_data_rotations": 1843200000,
+    "boundary": "width-prohibitive direct pixel encoding"
+  },
+  "amplitude_encoding": {
+    "qubits": 12,
+    "state_dimension": 4096,
+    "generic_state_prep_rotations_per_image_upper_contract": 4095,
+    "total_state_prep_rotations_upper_contract": 2457000000,
+    "qnn_layers": 3,
+    "qnn_one_qubit_gates_per_image": 36,
+    "qnn_two_qubit_gates_per_image": 36,
+    "total_qnn_two_qubit_gates": 21600000,
+    "boundary": "compact width but generic state preparation and repeated image loading dominate"
+  },
+  "remaining_quality_gate": "train and evaluate a quantum image model on the same split to compare against 0.8185 native test accuracy"
+}

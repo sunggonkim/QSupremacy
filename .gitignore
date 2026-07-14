@@ -3,9 +3,17 @@ __pycache__/
 .ipynb_checkpoints/
 .DS_Store
 .venv-mlnative/
+.venv-chemproxy/
+.venv-qre/
 .vscode/
 logs/
 data/raw/perlmutter/practical_suite_sweep/
+data/raw/perlmutter/*.npz
+data/raw/perlmutter/profiles/*.nsys-rep
+data/raw/perlmutter/profiles/*.sqlite
+data/raw/perlmutter/profiles/*.stdout
+data/raw/perlmutter/profiles/*.stderr
+data/raw/perlmutter/statevector_capacity/cupy_cache_*/
 data/processed/perlmutter/practical_suite_*_c*_summary.*
 paper/*.aux
 paper/*.bbl
@@ -13,4 +21,5 @@ paper/*.blg
 paper/*.log
 paper/*.out
 paper/*.pdf
+paper/*.listing
 paper/PreviousPapers/

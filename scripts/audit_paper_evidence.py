@@ -1,761 +1,610 @@
 #!/usr/bin/env python3
-"""Audit evidence files used by the paper tables and figures."""
+"""Audit the P0 evidence-to-paper contract for QArchGauge."""
 
 import csv
+import hashlib
 import json
 import os
+import re
 
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-OUT_JSON = os.path.join(
+OUT = os.path.join(
     ROOT, "data", "processed", "perlmutter", "paper_evidence_audit.json"
 )
-OUT_MD = os.devnull
 
 
-def rel(path):
-    return os.path.relpath(path, ROOT)
-
-
-def load_json(rel_path):
-    with open(os.path.join(ROOT, rel_path)) as f:
-        return json.load(f)
-
-
-def count_csv(rel_path):
-    with open(os.path.join(ROOT, rel_path), newline="") as f:
-        return sum(1 for _ in csv.DictReader(f))
+def path(rel_path):
+    return os.path.join(ROOT, rel_path)
 
 
 def exists(rel_path):
-    return os.path.exists(os.path.join(ROOT, rel_path))
+    return os.path.isfile(path(rel_path))
 
 
-def completed_accounting(rel_path):
-    path = os.path.join(ROOT, rel_path)
-    if not os.path.exists(path):
-        return False
-    with open(path) as f:
-        text = f.read()
-    return "COMPLETED" in text and "FAILED" not in text and "TIMEOUT" not in text
+def load_json(rel_path):
+    if not exists(rel_path):
+        return {}
+    with open(path(rel_path), errors="replace") as handle:
+        return json.load(handle)
 
 
-def ok_item(name, claim, evidence, checks):
-    passed = all(check["passed"] for check in checks)
+def read_text(rel_path):
+    if not exists(rel_path):
+        return ""
+    with open(path(rel_path), errors="replace") as handle:
+        return handle.read()
+
+
+def csv_rows(rel_path):
+    if not exists(rel_path):
+        return -1
+    with open(path(rel_path), newline="") as handle:
+        return sum(1 for _ in csv.DictReader(handle))
+
+
+def check(label, passed, actual=None, expected=None):
+    return {
+        "label": label,
+        "passed": bool(passed),
+        "actual": actual,
+        "expected": expected,
+    }
+
+
+def equal(label, actual, expected):
+    return check(label, actual == expected, actual, expected)
+
+
+def close(label, actual, expected, tolerance=1e-9):
+    passed = actual is not None and abs(float(actual) - float(expected)) <= tolerance
+    return check(label, passed, actual, expected)
+
+
+def file_check(rel_path, min_bytes=1):
+    size = os.path.getsize(path(rel_path)) if exists(rel_path) else 0
+    return check(
+        "file: {}".format(rel_path),
+        exists(rel_path) and size >= min_bytes,
+        {"exists": exists(rel_path), "bytes": size},
+        {"exists": True, "min_bytes": min_bytes},
+    )
+
+
+def sha256(rel_path):
+    digest = hashlib.sha256()
+    with open(path(rel_path), "rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def contains(label, rel_path, needles):
+    text = read_text(rel_path)
+    missing = [needle for needle in needles if needle not in text]
+    return check(label, exists(rel_path) and not missing, {"missing": missing}, needles)
+
+
+def excludes(label, rel_path, needles):
+    text = read_text(rel_path)
+    present = [needle for needle in needles if needle in text]
+    return check(label, exists(rel_path) and not present, {"present": present}, [])
+
+
+def item(name, claim, evidence, checks):
     return {
         "name": name,
         "claim": claim,
         "evidence": evidence,
         "checks": checks,
-        "passed": passed,
+        "passed": all(entry["passed"] for entry in checks),
     }
 
 
-def check_equals(label, actual, expected):
-    return {
-        "label": label,
-        "actual": actual,
-        "expected": expected,
-        "passed": actual == expected,
-    }
-
-
-def check_close(label, actual, expected, tolerance=1e-6):
-    return {
-        "label": label,
-        "actual": actual,
-        "expected": expected,
-        "tolerance": tolerance,
-        "passed": abs(float(actual) - float(expected)) <= tolerance,
-    }
-
-
-def check_exists(rel_path):
-    return {
-        "label": "exists: {}".format(rel_path),
-        "actual": exists(rel_path),
-        "expected": True,
-        "passed": exists(rel_path),
-    }
-
-
-def check_pdf_artifact(rel_path, min_bytes=1024):
-    path = os.path.join(ROOT, rel_path)
-    actual = {
-        "exists": os.path.exists(path),
-        "size_bytes": 0,
-        "header": "",
-    }
-    if os.path.exists(path):
-        actual["size_bytes"] = os.path.getsize(path)
-        with open(path, "rb") as f:
-            actual["header"] = f.read(4).decode("ascii", errors="replace")
-    return {
-        "label": "valid_pdf: {}".format(rel_path),
-        "actual": actual,
-        "expected": {
-            "exists": True,
-            "min_bytes": min_bytes,
-            "header": "%PDF",
-        },
-        "passed": (
-            actual["exists"]
-            and actual["size_bytes"] >= min_bytes
-            and actual["header"] == "%PDF"
-        ),
-    }
-
-
-def check_text_contains(label, rel_path, needles):
-    text = ""
-    if exists(rel_path):
-        with open(os.path.join(ROOT, rel_path), errors="replace") as f:
-            text = f.read()
-    missing = [needle for needle in needles if needle not in text]
-    return {
-        "label": label,
-        "actual": {
-            "file": rel_path,
-            "missing": missing,
-        },
-        "expected": {
-            "contains": needles,
-        },
-        "passed": exists(rel_path) and not missing,
-    }
-
-
-def manifest_checks(manifest_rel_path):
-    required_ids = [
-        "expanded_digits",
-        "large_practical_suite",
-        "advantage_projection",
-        "workload_taxonomy",
-        "chemistry_active_space",
-        "ml_strong_native_gate",
-        "deployment_proxy",
-        "repeat_timing",
-        "paper_figures",
-        "submission_package",
+def paper_text():
+    sources = [
+        "paper/0.Main.tex",
+        "paper/1.Introduction.tex",
+        "paper/2.Background.tex",
+        "paper/3.Design.tex",
+        "paper/4.Evaluation.tex",
+        "paper/5.Discussion.tex",
+        "paper/5.RelatedWork.tex",
+        "paper/6.Conclusion.tex",
     ]
-    checks = [check_exists(manifest_rel_path)]
-    if not exists(manifest_rel_path):
-        return checks
+    return "\n".join(read_text(source) for source in sources)
 
-    manifest = load_json(manifest_rel_path)
-    claim_ids = sorted(claim["id"] for claim in manifest.get("claims", []))
-    checks.append(check_equals("manifest_claim_ids", claim_ids, sorted(required_ids)))
 
-    for claim in manifest.get("claims", []):
-        claim_id = claim["id"]
-        for field in ["source_jobs", "source_scripts", "artifacts", "figures_tables"]:
-            for rel_path in claim.get(field, []):
-                checks.append(check_exists(rel_path))
-        checks.append(
-            {
-                "label": "audit_item_declared: {}".format(claim_id),
-                "actual": bool(claim.get("audit_item")),
-                "expected": True,
-                "passed": bool(claim.get("audit_item")),
-            }
-        )
-    return checks
+def included_figures():
+    figures = []
+    for rel_path in [
+        "paper/1.Introduction.tex",
+        "paper/2.Background.tex",
+        "paper/3.Design.tex",
+        "paper/4.Evaluation.tex",
+        "paper/5.Discussion.tex",
+    ]:
+        for match in re.findall(
+            r"\\includegraphics(?:\[[^]]*\])?\{([^}]+)\}", read_text(rel_path)
+        ):
+            figures.append("paper/{}".format(match))
+    return sorted(set(figures))
 
 
 def main():
+    quality = load_json("data/processed/perlmutter/quality_qualified_target_map.json")
+    finite = load_json("data/processed/perlmutter/finite_shot_quality_sensitivity.json")
+    schedule = load_json("data/processed/perlmutter/dependency_schedule_coverage.json")
+    stats = load_json("data/processed/perlmutter/statistical_robustness.json")
+    ft = load_json("data/processed/perlmutter/ft_reliability_and_space_budget.json")
+    joint = load_json("data/processed/perlmutter/joint_bottleneck_phase_map.json")
+    replacement = load_json(
+        "data/processed/perlmutter/component_replacement_case_studies.json"
+    )
+    cifar = load_json("data/processed/perlmutter/ml_cifar10_matched_comparison.json")
+    manifest = load_json("data/processed/perlmutter/paper_artifact_manifest.json")
+    text = paper_text()
+
+    default_quality = quality.get("by_tolerance_multiplier", {}).get("1.0", {})
+    corpus = stats.get("corpus", {})
+    finite_records = finite.get("records", [])
+    finite_10k = [record for record in finite_records if record.get("shots") == 10000]
+    finite_10k_counts = {}
+    eligible_10k_counts = {}
+    for workload in ["ml", "chemistry", "optimization", "simulation"]:
+        selected = [record for record in finite_10k if record.get("workload") == workload]
+        finite_10k_counts[workload] = len(selected)
+        eligible_10k_counts[workload] = sum(
+            1
+            for record in selected
+            if record.get("quality_pass_probability", 0) >= 0.9
+            and record.get("same_record_quality_shot_trace")
+            and record.get("full_algorithm_loop_covered")
+        )
+
+    schedule_coverage = schedule.get("coverage", {})
+    ft_sim = (
+        ft.get("by_workload_default_strict", {})
+        .get("simulation", {})
+        .get("quality_qualified_records", {})
+    )
+    ft_range = ft_sim.get("factory_crossover_multiplier_range", [])
+    ft_factory_count = ft_sim.get("factory_count_to_crossover_range", [])
+    joint_design = joint.get("design", {})
+    joint_headline = joint.get("headline", {})
+    joint_lsqca = joint_headline.get("lsqca_result", {})
+    replacement_headline = replacement.get("headline", {})
+
     items = []
-
-    digits_json = "data/processed/perlmutter/digits_expanded_55421321_55422142_summary.json"
-    digits_csv = "data/processed/perlmutter/digits_expanded_55421321_55422142_summary.csv"
-    digits = load_json(digits_json)
     items.append(
-        ok_item(
-            "expanded_digits",
-            "160-case digits calibration with kernel and QNN/VQC thresholds",
-            [digits_json, digits_csv],
+        item(
+            "controlled_corpus",
+            "The evidence set is 3,552 records from 222 structural configurations and 16 seeds per configuration.",
             [
-                check_exists(digits_json),
-                check_exists(digits_csv),
-                check_equals("csv_cases", count_csv(digits_csv), 160),
-                check_close(
-                    "kernel_required_speedup_median",
-                    digits["aggregate"]["quantum_kernel_required_speedup"]["median"],
-                    421.9348123448411,
+                "data/processed/perlmutter/statistical_robustness.json",
+                "paper/4.Evaluation.tex",
+            ],
+            [
+                equal("statistics audit", stats.get("audit_status"), "PASS"),
+                equal("controlled records", corpus.get("records"), 3552),
+                equal("structural configurations", corpus.get("structural_configurations"), 222),
+                equal("seed values", corpus.get("seed_values"), 16),
+                equal(
+                    "family record counts",
+                    corpus.get("by_workload"),
+                    {"ml": 2048, "chemistry": 224, "optimization": 768, "simulation": 512},
                 ),
-                check_close(
-                    "qnn_vqc_required_speedup_median",
-                    digits["aggregate"]["qnn_vqc_required_speedup"]["median"],
-                    64.92810815562814,
+                contains(
+                    "paper distinguishes records, configurations, and seeds",
+                    "paper/4.Evaluation.tex",
+                    ["3,552 records", "222 structural configurations", "16 distinct seeds per configuration"],
                 ),
             ],
         )
     )
 
-    large_json = (
-        "data/processed/perlmutter/"
-        "practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.json"
-    )
-    large_csv = (
-        "data/processed/perlmutter/"
-        "practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv"
-    )
-    large_accounting = (
-        "data/raw/perlmutter/accounting/"
-        "sacct_practical_suite_strongnative_32node_large128c0c127_20260704060230.txt"
-    )
-    large_64_json = (
-        "data/processed/perlmutter/"
-        "practical_suite_strongnative_64node_large256c0c255_20260705024742_summary.json"
-    )
-    large_64_csv = (
-        "data/processed/perlmutter/"
-        "practical_suite_strongnative_64node_large256c0c255_20260705024742_summary.csv"
-    )
-    strong_64_json = (
-        "data/processed/perlmutter/"
-        "practical_suite_strongscale_64node_largefull_c0c255_20260705024742_summary.json"
-    )
-    strong_64_csv = (
-        "data/processed/perlmutter/"
-        "practical_suite_strongscale_64node_largefull_c0c255_20260705024742_summary.csv"
-    )
-    large_64_accounting = (
-        "data/raw/perlmutter/accounting/"
-        "sacct_practical_suite_strongnative_64node_large256c0c255_20260705024742.txt"
-    )
-    strong_64_accounting = (
-        "data/raw/perlmutter/accounting/"
-        "sacct_practical_suite_strongscale_64node_largefull_c0c255_20260705024742.txt"
-    )
-    weak_ladder = [
-        (
-            "weak_16",
-            "data/processed/perlmutter/practical_suite_55731013_scale_16n_64g_summary.json",
-            "data/processed/perlmutter/practical_suite_55731013_scale_16n_64g_summary.csv",
-            "data/raw/perlmutter/accounting/sacct_practical_suite_55731013_scale_16n_64g.txt",
-            1776,
-        ),
-        (
-            "weak_32",
-            "data/processed/perlmutter/practical_suite_55731014_scale_32n_128g_summary.json",
-            "data/processed/perlmutter/practical_suite_55731014_scale_32n_128g_summary.csv",
-            "data/raw/perlmutter/accounting/sacct_practical_suite_55731014_scale_32n_128g.txt",
-            3552,
-        ),
-        (
-            "weak_64",
-            "data/processed/perlmutter/practical_suite_55731015_scale_64n_256g_summary.json",
-            "data/processed/perlmutter/practical_suite_55731015_scale_64n_256g_summary.csv",
-            "data/raw/perlmutter/accounting/sacct_practical_suite_55731015_scale_64n_256g.txt",
-            7104,
-        ),
-    ]
-    strong_ladder = [
-        (
-            "strong_8",
-            "data/processed/perlmutter/practical_suite_direct32_strong_8n_32g_7104_20260711082639_summary.json",
-            "data/processed/perlmutter/practical_suite_direct32_strong_8n_32g_7104_20260711082639_summary.csv",
-            "data/raw/perlmutter/accounting/sacct_practical_suite_direct32_strong_8n_32g_7104_20260711082639.txt",
-            7104,
-        ),
-        (
-            "strong_16",
-            "data/processed/perlmutter/practical_suite_55731032_scale_16n_64g_summary.json",
-            "data/processed/perlmutter/practical_suite_55731032_scale_16n_64g_summary.csv",
-            "data/raw/perlmutter/accounting/sacct_practical_suite_55731032_scale_16n_64g.txt",
-            7104,
-        ),
-        (
-            "strong_32",
-            "data/processed/perlmutter/practical_suite_55731033_scale_32n_128g_summary.json",
-            "data/processed/perlmutter/practical_suite_55731033_scale_32n_128g_summary.csv",
-            "data/raw/perlmutter/accounting/sacct_practical_suite_55731033_scale_32n_128g.txt",
-            7104,
-        ),
-        (
-            "strong_64",
-            "data/processed/perlmutter/practical_suite_55731034_scale_64n_256g_summary.json",
-            "data/processed/perlmutter/practical_suite_55731034_scale_64n_256g_summary.csv",
-            "data/raw/perlmutter/accounting/sacct_practical_suite_55731034_scale_64n_256g.txt",
-            7104,
-        ),
-    ]
-    large = load_json(large_json)
-    large_64 = load_json(large_64_json)
-    strong_64 = load_json(strong_64_json)
-    large_checks = [
-        check_exists(large_json),
-        check_exists(large_csv),
-        check_exists(large_accounting),
-        check_exists(large_64_json),
-        check_exists(large_64_csv),
-        check_exists(large_64_accounting),
-        check_exists(strong_64_json),
-        check_exists(strong_64_csv),
-        check_exists(strong_64_accounting),
-        check_equals("summary_cases", large["cases"], 3552),
-        check_equals("csv_cases", count_csv(large_csv), 3552),
-        check_equals("large_64_summary_cases", large_64["cases"], 7104),
-        check_equals("large_64_csv_cases", count_csv(large_64_csv), 7104),
-        check_equals("strong_64_summary_cases", strong_64["cases"], 3552),
-        check_equals("strong_64_csv_cases", count_csv(strong_64_csv), 3552),
-        check_equals("accounting_completed", completed_accounting(large_accounting), True),
-        check_equals("large_64_accounting_completed", completed_accounting(large_64_accounting), True),
-        check_equals("strong_64_accounting_completed", completed_accounting(strong_64_accounting), True),
-    ]
-    for label, json_path, csv_path, accounting_path, cases in weak_ladder + strong_ladder:
-        summary = load_json(json_path)
-        large_checks.extend(
-            [
-                check_exists(json_path),
-                check_exists(csv_path),
-                check_exists(accounting_path),
-                check_equals("{}_summary_cases".format(label), summary["cases"], cases),
-                check_equals("{}_csv_cases".format(label), count_csv(csv_path), cases),
-                check_equals(
-                    "{}_accounting_completed".format(label),
-                    completed_accounting(accounting_path),
-                    True,
-                ),
-            ]
-        )
-    for workload, cases in [
-        ("ml", 2048),
-        ("chemistry", 224),
-        ("optimization", 768),
-        ("simulation", 512),
-    ]:
-        large_checks.append(
-            check_equals(
-                "{}_cases".format(workload),
-                large["by_workload"][workload]["cases"],
-                cases,
-            )
-        )
     items.append(
-        ok_item(
-            "large_practical_suite",
-            "3,552-case suite plus regular weak-scaling gates and direct 32/64/128/256-GPU fixed-work scaling anchors",
-            [large_json, large_csv, large_accounting],
-            large_checks,
-        )
-    )
-
-    taxonomy_json = (
-        "data/processed/perlmutter/"
-        "practical_suite_strongnative_32node_large128c0c127_20260704060230_taxonomy.json"
-    )
-    taxonomy = load_json(taxonomy_json)
-    items.append(
-        ok_item(
-            "workload_taxonomy",
-            "Bottleneck taxonomy over the 3,552-case strong-native suite",
-            [taxonomy_json, "paper/figures/workload_taxonomy.pdf"],
+        item(
+            "quality_qualified_targets",
+            "Only 12 same-record full-loop Sim cases at 10,000 shots receive application-level hardware targets.",
             [
-                check_exists(taxonomy_json),
-                check_exists("paper/figures/workload_taxonomy.pdf"),
-                check_equals("taxonomy_cases", taxonomy["cases"], 3552),
-                check_equals(
-                    "ml_quality_limited",
-                    taxonomy["by_workload"]["ml"]["counts"]["quality-limited"],
-                    2048,
-                ),
-                check_equals(
-                    "simulation_speed_limited",
-                    taxonomy["by_workload"]["simulation"]["counts"]["speed-limited"],
-                    256,
-                ),
-                check_equals(
-                    "chemistry_speed_limited",
-                    taxonomy["by_workload"]["chemistry"]["counts"]["speed-limited"],
-                    48,
-                ),
-                check_equals(
-                    "chemistry_quality_limited",
-                    taxonomy["by_workload"]["chemistry"]["counts"]["quality-limited"],
-                    176,
-                ),
-            ],
-        )
-    )
-
-    projection_json = (
-        "data/processed/perlmutter/"
-        "practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.json"
-    )
-    projection_scenarios_json = (
-        "data/processed/perlmutter/practical_suite_projection_scenarios.json"
-    )
-    projection = load_json(projection_json)
-    projection_scenarios = load_json(projection_scenarios_json)
-    items.append(
-        ok_item(
-            "advantage_projection",
-            "Advantage fractions over projected speedup and quality-gap recovery",
-            [
-                projection_json,
-                projection_scenarios_json,
-                "paper/figures/advantage_frontier.pdf",
-                "paper/figures/advantage_frontier_total.pdf",
-                "paper/figures/advantage_component_targets.pdf",
-                "paper/figures/advantage_frontier_chemistry.pdf",
-                "paper/figures/advantage_frontier_optimization.pdf",
-                "paper/figures/advantage_frontier_simulation.pdf",
-                "paper/figures/tolerance_sensitivity.pdf",
-                "paper/figures/ft_shot_sensitivity.pdf",
+                "data/processed/perlmutter/quality_qualified_target_map.json",
+                "paper/4.Evaluation.tex",
             ],
             [
-                check_exists(projection_json),
-                check_exists(projection_scenarios_json),
-                check_exists("paper/figures/advantage_frontier.pdf"),
-                check_exists("paper/figures/advantage_frontier_total.pdf"),
-                check_exists("paper/figures/advantage_component_targets.pdf"),
-                check_exists("paper/figures/advantage_frontier_chemistry.pdf"),
-                check_exists("paper/figures/advantage_frontier_optimization.pdf"),
-                check_exists("paper/figures/advantage_frontier_simulation.pdf"),
-                check_exists("paper/figures/tolerance_sensitivity.pdf"),
-                check_exists("paper/figures/ft_shot_sensitivity.pdf"),
-                check_equals("projection_cases", projection["cases"], 3552),
-                check_close(
-                    "simulation_1e4_90pct_recovery",
-                    projection["by_workload"]["simulation"]["grid"]["0.90"]["10000"],
-                    0.548828125,
+                equal("quality audit", quality.get("audit_status"), "PASS"),
+                equal(
+                    "quality completion gate",
+                    quality.get("p0_completion_status"),
+                    "PASS_WITH_RESTRICTED_ELIGIBLE_SUBSET",
                 ),
-                check_close(
-                    "chemistry_1e5_90pct_recovery",
-                    projection["by_workload"]["chemistry"]["grid"]["0.90"]["100000"],
-                    0.5714285714285714,
+                equal(
+                    "default noiseless pass counts",
+                    {
+                        key: default_quality.get(key, {}).get("noiseless_quality_pass_count")
+                        for key in ["ml", "chemistry", "optimization", "simulation"]
+                    },
+                    {"ml": 0, "chemistry": 48, "optimization": 0, "simulation": 256},
                 ),
-                check_equals(
-                    "projection_scenario_cases",
-                    projection_scenarios["cases"],
-                    3552,
+                equal(
+                    "default hardware eligible counts",
+                    {
+                        key: default_quality.get(key, {}).get("hardware_target_eligible_count")
+                        for key in ["ml", "chemistry", "optimization", "simulation"]
+                    },
+                    {"ml": 0, "chemistry": 0, "optimization": 0, "simulation": 12},
                 ),
-                check_close(
-                    "projection_scenario_default_sim_ratio",
-                    projection_scenarios["by_scenario"]["default_optimistic"][
-                        "by_workload"
-                    ]["simulation"]["median_projected_native_ratio"],
-                    0.027233696161942635,
-                ),
-                check_close(
-                    "projection_scenario_resource_ml_adv",
-                    projection_scenarios["by_scenario"]["resource_estimator_like"][
-                        "by_workload"
-                    ]["ml"]["advantaged_fraction"],
-                    0.00146484375,
-                ),
-            ],
-        )
-    )
-
-    chemistry_json = (
-        "data/processed/perlmutter/"
-        "practical_suite_chem_active_6q8q_1node_20260704233824_chemistry_coverage.json"
-    )
-    chemistry_accounting = (
-        "data/raw/perlmutter/accounting/"
-        "sacct_practical_suite_chem_active_6q8q_1node_20260704233824.txt"
-    )
-    chemistry = load_json(chemistry_json)
-    items.append(
-        ok_item(
-            "chemistry_active_space",
-            "104-case OpenFermion/PySCF chemistry coverage gate",
-            [chemistry_json, chemistry_accounting],
-            [
-                check_exists(chemistry_json),
-                check_exists(chemistry_accounting),
-                check_equals("chemistry_cases", chemistry["cases"], 104),
-                check_equals("chemistry_problem_count", chemistry["problem_count"], 9),
-                check_equals("accounting_completed", completed_accounting(chemistry_accounting), True),
-            ],
-        )
-    )
-
-    deployment_proxy_json = "data/processed/perlmutter/deployment_scale_proxy.json"
-    deployment_proxy_csv = "data/processed/perlmutter/deployment_scale_proxy.csv"
-    deployment_proxy = load_json(deployment_proxy_json)
-    items.append(
-        ok_item(
-            "deployment_proxy",
-            "Deployment-scale proxy boundary keeps larger workload claims scoped to proxy records rather than full state-vector simulation",
-            [
-                deployment_proxy_json,
-                deployment_proxy_csv,
-                "paper/5.Discussion.tex",
-            ],
-            [
-                check_exists(deployment_proxy_json),
-                check_exists(deployment_proxy_csv),
-                check_equals("proxy_rows_json", len(deployment_proxy["rows"]), 4),
-                check_equals("proxy_rows_csv", count_csv(deployment_proxy_csv), 4),
-                check_text_contains(
-                    "discussion_deployment_proxy_boundary",
-                    "paper/5.Discussion.tex",
+                equal("quality target CSV rows", csv_rows("data/processed/perlmutter/quality_qualified_target_map.csv"), 10656),
+                contains(
+                    "paper enforces quality-first eligibility",
+                    "paper/4.Evaluation.tex",
                     [
-                        "Deployment-Scale Proxy Boundary",
-                        "Table~\\ref{tab:deployment-proxy}",
-                        "20-node MaxCut QAOA stress case",
-                        "12-qubit 16-step Heisenberg stress case",
-                        "not a deployment-scale state-vector claim",
+                        "Only the 12 Sim. cases",
+                        "same-record, full-loop, quality-qualified hardware targets",
+                        "explicitly conditional lower bounds",
                     ],
                 ),
             ],
         )
     )
 
-    ml_gate_json = "data/processed/perlmutter/ml_strong_native_gate_latest.json"
-    ml_gate_csv = "data/processed/perlmutter/ml_strong_native_gate_latest.csv"
-    ml_profile_json = "data/processed/perlmutter/ml_strong_native_profile_latest.json"
-    ml_gate = load_json(ml_gate_json)["summary"]
-    ml_profile = load_json(ml_profile_json)
-    profile_nsys = ml_profile["nsys_kernel_summary"]
-    profile_ncu = ml_profile["ncu_summary"]
-    profile_dmon = ml_profile["dmon_summary"]
     items.append(
-        ok_item(
-            "ml_strong_native_gate",
-            "Production-style ML native gate with PyTorch AMP CNN/MLP, XGBoost GPU-hist, and Nsight/dmon profiling evidence",
+        item(
+            "finite_shot_quality",
+            "The direct finite-shot closure covers 68 selected records, three shot counts, and 12 replicates.",
+            ["data/processed/perlmutter/finite_shot_quality_sensitivity.json"],
             [
-                ml_gate_json,
-                ml_gate_csv,
-                ml_profile_json,
-                "paper/figures/ml_strong_native_gate.pdf",
-                "paper/figures/ml_profile_breakdown.pdf",
-                "paper/figures/ml_native_profile_combined.pdf",
-            ],
-            [
-                check_exists(ml_gate_json),
-                check_exists(ml_gate_csv),
-                check_exists(ml_profile_json),
-                check_equals("ml_gate_cases", ml_gate["case_count"], 32),
-                check_equals("ml_gate_csv_cases", count_csv(ml_gate_csv), 32),
-                check_close(
-                    "ml_previous_speedup_median",
-                    ml_gate["previous_required_speedup_median"],
-                    8876.825399953243,
+                equal("finite-shot audit", finite.get("audit_status"), "PASS"),
+                equal("selected source records", finite.get("selected_source_records"), 68),
+                equal("shot grid", finite.get("shot_grid"), [1000, 10000, 100000]),
+                equal("replicates per case", finite.get("replicates_per_case"), 12),
+                equal("shot-level records", len(finite_records), 204),
+                equal(
+                    "10k selected records by family",
+                    finite_10k_counts,
+                    {"ml": 4, "chemistry": 8, "optimization": 24, "simulation": 32},
                 ),
-                check_close(
-                    "ml_combined_speedup_median",
-                    ml_gate["combined_required_speedup_median"],
-                    8601.600644667848,
+                equal(
+                    "10k full-loop eligible records",
+                    eligible_10k_counts,
+                    {"ml": 0, "chemistry": 0, "optimization": 0, "simulation": 12},
                 ),
-                check_close(
-                    "ml_production_speedup_median",
-                    ml_gate["production_required_speedup_median"],
-                    49.267014250506136,
-                ),
-                check_equals(
-                    "ml_combined_torch_cnn_selected",
-                    ml_gate["selected_combined_counts"]["torch_cnn_amp_raw"],
-                    8,
-                ),
-                check_equals(
-                    "ml_production_cnn_selected",
-                    ml_gate["selected_production_counts"]["torch_cnn_amp_raw"],
-                    25,
-                ),
-                check_equals(
-                    "nsys_tensor_kernel_rows",
-                    profile_nsys["tensor_kernel_rows"],
-                    16,
-                ),
-                check_close(
-                    "nsys_gpu_kernel_fraction",
-                    profile_nsys["gpu_kernel_runtime_fraction"],
-                    0.007982148769692417,
-                ),
-                check_close(
-                    "nsys_tensor_kernel_fraction",
-                    profile_nsys["tensor_kernel_time_fraction"],
-                    0.1520596245304038,
-                ),
-                check_equals(
-                    "ncu_counter_collection_succeeded",
-                    profile_ncu["counter_collection_succeeded"],
-                    False,
-                ),
-                check_close("dmon_sm_avg_pct", profile_dmon["sm_avg_pct"], 2.3),
-                check_close("dmon_sm_max_pct", profile_dmon["sm_max_pct"], 33.0),
-                check_pdf_artifact("paper/figures/ml_strong_native_gate.pdf"),
-                check_pdf_artifact("paper/figures/ml_profile_breakdown.pdf"),
-                check_pdf_artifact("paper/figures/ml_native_profile_combined.pdf"),
             ],
         )
     )
 
-    scaling_figures = [
-        "paper/figures/intro_comparison_paths.pdf",
-        "paper/figures/intro_threshold_summary.pdf",
-        "paper/figures/design_overview.pdf",
-        "paper/figures/design_projection_flow.pdf",
-        "paper/figures/evaluation_evidence_flow.pdf",
-        "paper/figures/weak_scaling.pdf",
-        "paper/figures/weak_scaling_efficiency.pdf",
-        "paper/figures/strong_scaling.pdf",
-        "paper/figures/strong_scaling_speedup.pdf",
-        "paper/figures/workload_growth_time.pdf",
-        "paper/figures/workload_growth_quality.pdf",
-        "paper/figures/strong_native_comparison.pdf",
-        "paper/figures/strong_native_legend.pdf",
-        "paper/figures/strong_native_quality_shift.pdf",
-        "paper/figures/ml_strong_native_gate.pdf",
-        "paper/figures/ml_profile_breakdown.pdf",
-        "paper/figures/ml_native_profile_combined.pdf",
-        "paper/figures/threshold_tail_pressure.pdf",
-        "paper/figures/projected_time_decomposition.pdf",
-        "paper/figures/architecture_focus_matrix.pdf",
-        "paper/figures/practical_suite_legend.pdf",
-        "paper/figures/practical_suite_summary.pdf",
-        "paper/figures/practical_suite_cdf.pdf",
-        "paper/figures/quality_gap_summary.pdf",
-        "paper/figures/quality_bottleneck_fraction.pdf",
-        "paper/figures/digits_legend.pdf",
-        "paper/figures/digits_required_speedup.pdf",
-        "paper/figures/digits_quality_speedup.pdf",
-        "paper/figures/advantage_frontier.pdf",
-        "paper/figures/advantage_frontier_total.pdf",
-        "paper/figures/advantage_component_targets.pdf",
-        "paper/figures/advantage_frontier_chemistry.pdf",
-        "paper/figures/advantage_frontier_optimization.pdf",
-        "paper/figures/advantage_frontier_simulation.pdf",
-        "paper/figures/tolerance_sensitivity.pdf",
-        "paper/figures/ft_shot_sensitivity.pdf",
-        "paper/figures/workload_taxonomy.pdf",
-    ]
-    discovered_figures = [
-        os.path.join("paper", "figures", name)
-        for name in sorted(os.listdir(os.path.join(ROOT, "paper", "figures")))
-        if name.endswith(".pdf")
-    ]
     items.append(
-        ok_item(
-            "paper_figures",
-            "Generated paper figures are valid PDF artifacts for performance, scaling, quality, and frontier analysis",
-            scaling_figures,
+        item(
+            "dependency_schedule",
+            "Every retained record uses compiled or source-audited static scheduling, with no aggregate fallback.",
+            ["data/processed/perlmutter/dependency_schedule_coverage.json"],
             [
-                check_equals(
-                    "all_generated_figures_audited",
-                    sorted(discovered_figures),
-                    sorted(scaling_figures),
-                )
-            ]
-            + [check_pdf_artifact(path) for path in scaling_figures],
+                equal("schedule audit", schedule.get("audit_status"), "PASS"),
+                equal("schedule records", schedule_coverage.get("records"), 3552),
+                equal("compiled waves", schedule_coverage.get("compiled_dependency_wave"), 224),
+                equal("source-audited static loops", schedule_coverage.get("source_audited_static_loop"), 3040),
+                equal("single-circuit schedules", schedule_coverage.get("source_audited_single_circuit"), 512),
+                equal("aggregate fallbacks", schedule_coverage.get("aggregate_total_demand_fallback"), 0),
+                equal("adaptive traces claimed", schedule_coverage.get("adaptive_optimizer_trace"), 0),
+                check(
+                    "first target stable across implemented schedule modes",
+                    all(
+                        entry.get("stable")
+                        for entry in schedule.get("conditional_target_stability", {}).values()
+                    ),
+                    schedule.get("conditional_target_stability", {}),
+                    "all stable",
+                ),
+            ],
         )
     )
 
-    manuscript_checks = [
-        check_text_contains(
-            "abstract_core_numbers",
-            "paper/0.Main.tex",
+    items.append(
+        item(
+            "statistical_robustness",
+            "Hierarchical confidence intervals use configurations and seeds as distinct resampling levels.",
+            ["data/processed/perlmutter/statistical_robustness.json"],
             [
-                "160 cases",
-                "421.9$\\times$",
-                "64.9$\\times$",
-                "3,552-case",
-                "3,071.0$\\times$",
-                "287,045.6$\\times$",
-                "104-case OpenFermion/PySCF",
+                equal("statistics audit", stats.get("audit_status"), "PASS"),
+                equal("bootstrap samples", stats.get("resampling_contract", {}).get("bootstrap_samples"), 2000),
+                equal("outer resampling unit", stats.get("resampling_contract", {}).get("outer_unit"), "structural workload configuration"),
+                equal("inner resampling unit", stats.get("resampling_contract", {}).get("inner_unit"), "distinct seed within selected configuration"),
+                equal("same-instance repeats in main corpus", stats.get("resampling_contract", {}).get("same-instance_repeat_trials_in_main_corpus"), 0),
+                equal("repeat timing gate", stats.get("timing_repeat_inventory", {}).get("passed_original_gate"), True),
             ],
+        )
+    )
+
+    items.append(
+        item(
+            "ft_reliability",
+            "Case-level reliability yields distance 13--15, 79--86 T states, and a 39,351--42,961x eligible crossover.",
+            ["data/processed/perlmutter/ft_reliability_and_space_budget.json"],
+            [
+                equal("FT audit", ft.get("audit_status"), "PASS"),
+                equal("FT eligible records", ft.get("quality_qualified_records"), 12),
+                equal("QDK distance cross-check", ft.get("qdk_distance_crosscheck", {}).get("status"), "PASS"),
+                equal("QDK matched records", ft.get("qdk_distance_crosscheck", {}).get("matches"), 100),
+                equal("eligible distances", ft_sim.get("distance_values"), [13, 15]),
+                equal("eligible T-state values", ft_sim.get("required_t_states_per_rotation_values"), [79, 82, 83, 86]),
+                check(
+                    "eligible crossover rounds to manuscript range",
+                    len(ft_range) == 2 and round(ft_range[0]) == 39351 and round(ft_range[1]) == 42961,
+                    ft_range,
+                    [39351, 42961],
+                ),
+                check(
+                    "factory count rounds to manuscript range",
+                    len(ft_factory_count) == 2
+                    and round(ft_factory_count[0]) == 2518441
+                    and round(ft_factory_count[1]) == 2749501,
+                    ft_factory_count,
+                    [2518441, 2749501],
+                ),
+                close("nonfactory parity fraction", ft_sim.get("native_parity_feasible_fraction"), 0.5),
+                contains(
+                    "paper reports reliability-qualified range",
+                    "paper/4.Evaluation.tex",
+                    ["distance 13--15", "79--86 T states", "39,351--42,961", "2.52--2.75 million factories"],
+                ),
+            ],
+        )
+    )
+
+    items.append(
+        item(
+            "joint_dse",
+            "The joint sweep covers 384 scenarios and 26,112 evaluated case points with a stable factory-first low-supply region.",
+            ["data/processed/perlmutter/joint_bottleneck_phase_map.json"],
+            [
+                equal("joint DSE audit", joint.get("audit_status"), "PASS"),
+                equal("joint scenarios", joint_design.get("unique_points"), 384),
+                equal("joint case points", joint_design.get("evaluated_case_points"), 26112),
+                equal("probabilities not assigned", joint_design.get("scenario_probability_assigned"), False),
+                equal("stable first target", joint_headline.get("stable_first_target"), "factory_supply"),
+                equal("stable low-supply cells", joint_headline.get("stable_region_cells"), 6),
+                contains(
+                    "paper reports conditional phase transitions",
+                    "paper/4.Evaluation.tex",
+                    ["384 deterministic", "1--100$\\times$", "shot parallelism", "logical-cycle"],
+                ),
+            ],
+        )
+    )
+
+    items.append(
+        item(
+            "component_replacement",
+            "Matched LSQCA movement removes all six baseline parity cases; BOSS remains a conditional graph envelope.",
+            [
+                "data/processed/perlmutter/component_replacement_case_studies.json",
+                "data/processed/perlmutter/joint_bottleneck_phase_map.json",
+            ],
+            [
+                equal("replacement audit", replacement.get("audit_status"), "PASS"),
+                equal("eligible replacement records", joint_lsqca.get("records"), 12),
+                equal("point-SAM area wins", joint_lsqca.get("point_sam_area_improvement_records"), 0),
+                equal("baseline parity records", joint_lsqca.get("runtime_parity_base_records"), 6),
+                equal("lower movement parity records", joint_lsqca.get("runtime_parity_lower_records"), 0),
+                equal("upper movement parity records", joint_lsqca.get("runtime_parity_upper_records"), 0),
+                close("lower movement median inflation", joint_lsqca.get("median_runtime_inflation_lower"), 3.115300958273699),
+                close("upper movement median inflation", joint_lsqca.get("median_runtime_inflation_upper"), 5.230601916547398),
+                equal("standalone area wins", replacement_headline.get("eligible_point_sam_area_improvement_cases"), 0),
+                contains(
+                    "paper uses matched-event replacement",
+                    "paper/4.Evaluation.tex",
+                    ["without borrowing its reported mean speedup", "3.12$\\times$", "5.23$\\times$", "BOSS-compatible graph envelope"],
+                ),
+            ],
+        )
+    )
+
+    items.append(
+        item(
+            "ml_cifar_matched_feature_proxy",
+            "CIFAR-10 compares native and circuit features on the same split and exposes a deployment-facing native frontier.",
+            ["data/processed/perlmutter/ml_cifar10_matched_comparison.json"],
+            [
+                equal("CIFAR schema", cifar.get("schema"), "qsup.ml-cifar10-matched-comparison.v2"),
+                close("native accuracy", cifar.get("native", {}).get("test_accuracy"), 0.8185),
+                close("quantum-feature accuracy", cifar.get("quantum_feature", {}).get("test_accuracy"), 0.336),
+                close("runtime ratio", cifar.get("ratios", {}).get("quantum_to_native_compute_runtime"), 2.0374640841208773),
+                equal("same feature budget", cifar.get("quantum_feature", {}).get("features"), 108),
+                contains(
+                    "paper reports matched CIFAR contract",
+                    "paper/4.Evaluation.tex",
+                    ["same CIFAR-10 50,000/10,000 split", "115.16~s", "33.60\\%", "Pool-108"],
+                ),
+            ],
+        )
+    )
+
+    risk_checks = [
+        contains(
+            "HPC evidence is not QPU timing",
+            "paper/1.Introduction.tex",
+            ["Their performance is not future-QPU performance", "Neither qubit count nor GPU count is treated as advantage evidence"],
         ),
-        check_text_contains(
-            "practical_suite_prose_numbers",
+        contains(
+            "controlled and deployment evidence remain separate",
+            "paper/2.Background.tex",
+            ["Controlled 4--20-qubit records", "Distributed 36--40-qubit state-vector runs establish HPC simulation capacity only"],
+        ),
+        contains(
+            "adaptive and factory-internal gaps are explicit",
+            "paper/3.Design.tex",
+            ["uncompiled adaptive traces remain explicit unsupported flags", "not presented as the full BOSS compiler"],
+        ),
+        contains(
+            "large Chem lacks matched VQE closure",
             "paper/4.Evaluation.tex",
-            [
-                "mean required speedup is 79,291$\\times$",
-                "median is 15,164$\\times$",
-                "3,726.4$\\times$ for ML",
-                "42,491.4$\\times$ for Chem",
-                "287,045.6$\\times$ for Opt.",
-                "3,071.0$\\times$ for Sim.",
-                "7,104-case larger-workload gate",
-                "completes 7,104 cases in 576 seconds",
-                "28 minutes 33 seconds",
-                "6 minutes 58 seconds",
-                "32-case production-style ML native gate",
-                "8,601.6$\\times$",
-                "49.3$\\times$",
-                "Tensor-family kernels account for 15.2\\%",
-                "GPU kernels occupy 0.8\\%",
-            ],
+            ["do not have a matched large-space VQE-quality closure", "are not assigned a physical target"],
         ),
-        check_text_contains(
-            "projection_numbers",
-            "paper/4.Evaluation.tex",
-            [
-                "Sim. reaches 55\\% of cases at $10^4\\times$",
-                "Chem reaches 57\\% at $10^5\\times$",
-                "Opt. remains at 23\\% even at $10^6\\times$",
-            ],
-        ),
-        check_text_contains(
-            "repeat_numbers",
+        contains(
+            "PPA and real-QPU limits are explicit",
             "paper/5.Discussion.tex",
-            [
-                "maximum quantum-runtime CV is 0.0400",
-            ],
+            ["no adaptive or mid-circuit dependency trace is claimed", "measured QPU output"],
         ),
-        check_text_contains(
-            "conclusion_frontier_numbers",
-            "paper/6.Conclusion.tex",
-            [
-                "421.9$\\times$",
-                "64.9$\\times$",
-                "3,552 cases",
-                "54.9\\% of Sim. cases",
-                "57.1\\% of Chem cases",
-            ],
+        excludes(
+            "no unsupported priority or novelty claims",
+            "paper/1.Introduction.tex",
+            ["first classical-versus-quantum", "largest quantum simulation", "GPU scaling predicts QPU"],
         ),
     ]
     items.append(
-        ok_item(
+        item(
+            "review_risk_traceability",
+            "The manuscript states the controlled-scale, projection, adaptive-trace, large-Chem, PPA, and novelty boundaries at the point of use.",
+            [
+                "paper/1.Introduction.tex",
+                "paper/2.Background.tex",
+                "paper/3.Design.tex",
+                "paper/4.Evaluation.tex",
+                "paper/5.Discussion.tex",
+            ],
+            risk_checks,
+        )
+    )
+
+    figures = included_figures()
+    figure_checks = [file_check(figure, 1024) for figure in figures]
+    figure_checks.extend(
+        [
+            equal("included figure count", len(figures), 20),
+            check(
+                "only one two-column figure",
+                text.count("\\begin{figure*}") == 1
+                and "fig:large-proxy-quality-cost" in read_text("paper/4.Evaluation.tex"),
+                text.count("\\begin{figure*}"),
+                1,
+            ),
+        ]
+    )
+    items.append(
+        item(
+            "paper_figures",
+            "All and only manuscript-included PDF figures are present and nonempty.",
+            figures,
+            figure_checks,
+        )
+    )
+
+    items.append(
+        item(
             "manuscript_claims",
-            "Manuscript text contains the canonical evidence-backed numeric claims",
+            "The abstract, evaluation, discussion, and conclusion use the authoritative P0 scope and values.",
             [
                 "paper/0.Main.tex",
                 "paper/4.Evaluation.tex",
+                "paper/5.Discussion.tex",
                 "paper/6.Conclusion.tex",
             ],
-            manuscript_checks,
+            [
+                contains(
+                    "abstract reports the restricted quality contract",
+                    "paper/0.Main.tex",
+                    ["only 12 simulation records", "39,351--42,961", "384 deterministic joint-design scenarios"],
+                ),
+                contains(
+                    "conclusion preserves conditional scope",
+                    "paper/6.Conclusion.tex",
+                    ["12 same-record, full-loop Sim. targets", "matched LSQCA movement", "not a simulator speedup"],
+                ),
+                excludes(
+                    "obsolete physical headlines removed",
+                    "paper/0.Main.tex",
+                    ["10,000--16,300", "fixed $d=15$", "16-T assumption"],
+                ),
+                check("manuscript has quality-first vocabulary", text.count("quality") >= 30, text.count("quality"), ">=30"),
+            ],
         )
     )
 
-    manifest_json = "data/processed/perlmutter/paper_artifact_manifest.json"
+    manifest_packages = manifest.get("packages", [])
+    manifest_files = [
+        file_record
+        for package in manifest_packages
+        for file_record in package.get("files", [])
+    ]
+    hash_mismatches = [
+        file_record.get("path")
+        for file_record in manifest_files
+        if file_record.get("exists")
+        and (
+            not exists(file_record.get("path", ""))
+            or sha256(file_record["path"]) != file_record.get("sha256")
+        )
+    ]
     items.append(
-        ok_item(
+        item(
             "artifact_manifest",
-            "Machine-readable manifest connects paper claims to jobs, scripts, artifacts, figures, and audit items",
-            [manifest_json],
-            manifest_checks(manifest_json),
+            "The generated manifest resolves every P0 evidence package to concrete files.",
+            ["data/processed/perlmutter/paper_artifact_manifest.json"],
+            [
+                equal("manifest schema", manifest.get("schema"), "qarchgauge.strong-accept-manifest.v1"),
+                equal("manifest package count", len(manifest_packages), 13),
+                equal("manifest pass", manifest.get("passed"), True),
+                check(
+                    "manifest package IDs unique",
+                    len({package.get("id") for package in manifest_packages}) == len(manifest_packages),
+                    [package.get("id") for package in manifest_packages],
+                    "unique",
+                ),
+                check(
+                    "all manifest files resolve",
+                    all(
+                        file_record.get("exists")
+                        for package in manifest_packages
+                        for file_record in package.get("files", [])
+                    ),
+                    "resolved",
+                    True,
+                ),
+                check(
+                    "all manifest SHA-256 fingerprints match",
+                    not hash_mismatches,
+                    hash_mismatches,
+                    [],
+                ),
+            ],
         )
     )
 
-    summary = {
-        "passed": all(item["passed"] for item in items),
-        "items": items,
-    }
-    os.makedirs(os.path.dirname(OUT_JSON), exist_ok=True)
-    with open(OUT_JSON, "w") as f:
-        json.dump(summary, f, indent=2, sort_keys=True)
-        f.write("\n")
+    items.append(
+        item(
+            "submission_package",
+            "The paper source, bibliography, PDF, README, and audit entry points are present.",
+            ["paper/main.pdf", "README.md", "paper/references.bib"],
+            [
+                file_check("paper/main.pdf", 100000),
+                file_check("paper/references.bib", 10000),
+                contains(
+                    "README reproduces all P0 audits",
+                    "README.md",
+                    [
+                        "audit_quality_qualified_targets.py",
+                        "audit_dependency_schedule_coverage.py",
+                        "audit_statistical_robustness.py",
+                        "audit_ft_reliability_budget.py",
+                        "audit_joint_dse.py",
+                        "make -B -C paper audit",
+                    ],
+                ),
+            ],
+        )
+    )
 
-    with open(OUT_MD, "w") as f:
-        f.write("# Paper Evidence Audit\n\n")
-        f.write("Overall status: **{}**\n\n".format("PASS" if summary["passed"] else "FAIL"))
-        f.write("| Evidence item | Claim | Status | Files |\n")
-        f.write("| --- | --- | --- | --- |\n")
-        for item in items:
-            files = "<br>".join("`{}`".format(path) for path in item["evidence"])
-            f.write(
-                "| {} | {} | {} | {} |\n".format(
-                    item["name"],
-                    item["claim"],
-                    "PASS" if item["passed"] else "FAIL",
-                    files,
-                )
-            )
-    print(json.dumps(summary, indent=2, sort_keys=True))
+    result = {
+        "schema": "qarchgauge.paper-evidence-audit.v2",
+        "scope": "P0-A through P0-F evidence-to-paper contract",
+        "items": items,
+        "passed": all(entry["passed"] for entry in items),
+    }
+    os.makedirs(os.path.dirname(OUT), exist_ok=True)
+    with open(OUT, "w") as handle:
+        json.dump(result, handle, indent=2, sort_keys=True)
+        handle.write("\n")
+    print(json.dumps(result, indent=2, sort_keys=True))
 
 
 if __name__ == "__main__":

@@ -1,0 +1,371 @@
+{
+  "schema": "qsup.qdk-resource-estimator-crosscheck.v1",
+  "scope": "independent circuit-level FT resource-estimator cross-check for one p=1 QAOA circuit per size; excludes shots, parameter search, host/control tails, and application-level quality recovery",
+  "source_artifact": "data/processed/perlmutter/opt_qaoa_metadata_proxy.json",
+  "software": {
+    "qdk": "1.30.0",
+    "qiskit": "2.5.0"
+  },
+  "records": [
+    {
+      "nodes_qubits": 50,
+      "density": 0.1,
+      "seed": 17,
+      "edges": 115,
+      "depth_p": 1,
+      "beta": -1.1903762963942393,
+      "gamma": 0.4545574452181212,
+      "expected_approximation_ratio": 0.7775139243235362,
+      "qiskit_depth_before_estimator": 26,
+      "qiskit_gate_counts_before_estimator": {
+        "rzz": 115,
+        "h": 50,
+        "rx": 50,
+        "measure": 50,
+        "barrier": 1
+      },
+      "estimates": {
+        "qubit_gate_ns_e3": {
+          "physical_qubits": 811538,
+          "runtime_ns": 2990000,
+          "runtime_sec": 0.00299,
+          "rqops": 23269231,
+          "algorithmic_logical_qubits_after_layout": 121,
+          "algorithmic_logical_depth": 575,
+          "num_t_states": 2475,
+          "num_t_factories": 57,
+          "physical_qubits_for_algorithm": 40898,
+          "physical_qubits_for_t_factories": 770640,
+          "code_distance": 13,
+          "logical_cycle_time_ns": 5200,
+          "input_logical_counts": {
+            "qubits": 50,
+            "t_count": 0,
+            "rotation_count": 165,
+            "rotation_depth": 24,
+            "measurement_count": 50
+          },
+          "error_budget": {
+            "logical": 0.0003333333333333333,
+            "tstates": 0.0003333333333333333,
+            "rotations": 0.0003333333333333333
+          },
+          "qec_scheme": {
+            "name": "surface_code",
+            "errorCorrectionThreshold": 0.01,
+            "crossingPrefactor": 0.03,
+            "distanceCoefficientPower": 0,
+            "logicalCycleTime": "(4 * twoQubitGateTime + 2 * oneQubitMeasurementTime) * codeDistance",
+            "physicalQubitsPerLogicalQubit": "2 * codeDistance * codeDistance",
+            "maxCodeDistance": 50
+          },
+          "qubit_params": {
+            "instructionSet": "GateBased",
+            "name": "qubit_gate_ns_e3",
+            "oneQubitMeasurementTime": "100 ns",
+            "oneQubitGateTime": "50 ns",
+            "twoQubitGateTime": "50 ns",
+            "tGateTime": "50 ns",
+            "oneQubitMeasurementErrorRate": 0.001,
+            "oneQubitGateErrorRate": 0.001,
+            "twoQubitGateErrorRate": 0.001,
+            "tGateErrorRate": 0.001,
+            "idleErrorRate": 0.001
+          },
+          "estimator_assumptions": [],
+          "estimator_wall_sec": 0.13000170400482602
+        },
+        "qubit_gate_ns_e4": {
+          "physical_qubits": 123578,
+          "runtime_ns": 1610000,
+          "runtime_sec": 0.00161,
+          "rqops": 43214286,
+          "algorithmic_logical_qubits_after_layout": 121,
+          "algorithmic_logical_depth": 575,
+          "num_t_states": 2475,
+          "num_t_factories": 57,
+          "physical_qubits_for_algorithm": 11858,
+          "physical_qubits_for_t_factories": 111720,
+          "code_distance": 7,
+          "logical_cycle_time_ns": 2800,
+          "input_logical_counts": {
+            "qubits": 50,
+            "t_count": 0,
+            "rotation_count": 165,
+            "rotation_depth": 24,
+            "measurement_count": 50
+          },
+          "error_budget": {
+            "logical": 0.0003333333333333333,
+            "tstates": 0.0003333333333333333,
+            "rotations": 0.0003333333333333333
+          },
+          "qec_scheme": {
+            "name": "surface_code",
+            "errorCorrectionThreshold": 0.01,
+            "crossingPrefactor": 0.03,
+            "distanceCoefficientPower": 0,
+            "logicalCycleTime": "(4 * twoQubitGateTime + 2 * oneQubitMeasurementTime) * codeDistance",
+            "physicalQubitsPerLogicalQubit": "2 * codeDistance * codeDistance",
+            "maxCodeDistance": 50
+          },
+          "qubit_params": {
+            "instructionSet": "GateBased",
+            "name": "qubit_gate_ns_e4",
+            "oneQubitMeasurementTime": "100 ns",
+            "oneQubitGateTime": "50 ns",
+            "twoQubitGateTime": "50 ns",
+            "tGateTime": "50 ns",
+            "oneQubitMeasurementErrorRate": 0.0001,
+            "oneQubitGateErrorRate": 0.0001,
+            "twoQubitGateErrorRate": 0.0001,
+            "tGateErrorRate": 0.0001,
+            "idleErrorRate": 0.0001
+          },
+          "estimator_assumptions": [],
+          "estimator_wall_sec": 0.11908854800276458
+        }
+      }
+    },
+    {
+      "nodes_qubits": 75,
+      "density": 0.1,
+      "seed": 17,
+      "edges": 274,
+      "depth_p": 1,
+      "beta": -1.1986017433187508,
+      "gamma": 0.34853315668497936,
+      "expected_approximation_ratio": 0.8087811394656012,
+      "qiskit_depth_before_estimator": 44,
+      "qiskit_gate_counts_before_estimator": {
+        "rzz": 274,
+        "h": 75,
+        "rx": 75,
+        "measure": 75,
+        "barrier": 1
+      },
+      "estimates": {
+        "qubit_gate_ns_e3": {
+          "physical_qubits": 863360,
+          "runtime_ns": 6576000,
+          "runtime_sec": 0.006576,
+          "rqops": 29333334,
+          "algorithmic_logical_qubits_after_layout": 176,
+          "algorithmic_logical_depth": 1096,
+          "num_t_states": 5584,
+          "num_t_factories": 58,
+          "physical_qubits_for_algorithm": 79200,
+          "physical_qubits_for_t_factories": 784160,
+          "code_distance": 15,
+          "logical_cycle_time_ns": 6000,
+          "input_logical_counts": {
+            "qubits": 75,
+            "t_count": 0,
+            "rotation_count": 349,
+            "rotation_depth": 42,
+            "measurement_count": 75
+          },
+          "error_budget": {
+            "logical": 0.0003333333333333333,
+            "tstates": 0.0003333333333333333,
+            "rotations": 0.0003333333333333333
+          },
+          "qec_scheme": {
+            "name": "surface_code",
+            "errorCorrectionThreshold": 0.01,
+            "crossingPrefactor": 0.03,
+            "distanceCoefficientPower": 0,
+            "logicalCycleTime": "(4 * twoQubitGateTime + 2 * oneQubitMeasurementTime) * codeDistance",
+            "physicalQubitsPerLogicalQubit": "2 * codeDistance * codeDistance",
+            "maxCodeDistance": 50
+          },
+          "qubit_params": {
+            "instructionSet": "GateBased",
+            "name": "qubit_gate_ns_e3",
+            "oneQubitMeasurementTime": "100 ns",
+            "oneQubitGateTime": "50 ns",
+            "twoQubitGateTime": "50 ns",
+            "tGateTime": "50 ns",
+            "oneQubitMeasurementErrorRate": 0.001,
+            "oneQubitGateErrorRate": 0.001,
+            "twoQubitGateErrorRate": 0.001,
+            "tGateErrorRate": 0.001,
+            "idleErrorRate": 0.001
+          },
+          "estimator_assumptions": [],
+          "estimator_wall_sec": 0.10875068401219323
+        },
+        "qubit_gate_ns_e4": {
+          "physical_qubits": 148568,
+          "runtime_ns": 3068800,
+          "runtime_sec": 0.0030688,
+          "rqops": 62857143,
+          "algorithmic_logical_qubits_after_layout": 176,
+          "algorithmic_logical_depth": 1096,
+          "num_t_states": 5584,
+          "num_t_factories": 67,
+          "physical_qubits_for_algorithm": 17248,
+          "physical_qubits_for_t_factories": 131320,
+          "code_distance": 7,
+          "logical_cycle_time_ns": 2800,
+          "input_logical_counts": {
+            "qubits": 75,
+            "t_count": 0,
+            "rotation_count": 349,
+            "rotation_depth": 42,
+            "measurement_count": 75
+          },
+          "error_budget": {
+            "logical": 0.0003333333333333333,
+            "tstates": 0.0003333333333333333,
+            "rotations": 0.0003333333333333333
+          },
+          "qec_scheme": {
+            "name": "surface_code",
+            "errorCorrectionThreshold": 0.01,
+            "crossingPrefactor": 0.03,
+            "distanceCoefficientPower": 0,
+            "logicalCycleTime": "(4 * twoQubitGateTime + 2 * oneQubitMeasurementTime) * codeDistance",
+            "physicalQubitsPerLogicalQubit": "2 * codeDistance * codeDistance",
+            "maxCodeDistance": 50
+          },
+          "qubit_params": {
+            "instructionSet": "GateBased",
+            "name": "qubit_gate_ns_e4",
+            "oneQubitMeasurementTime": "100 ns",
+            "oneQubitGateTime": "50 ns",
+            "twoQubitGateTime": "50 ns",
+            "tGateTime": "50 ns",
+            "oneQubitMeasurementErrorRate": 0.0001,
+            "oneQubitGateErrorRate": 0.0001,
+            "twoQubitGateErrorRate": 0.0001,
+            "tGateErrorRate": 0.0001,
+            "idleErrorRate": 0.0001
+          },
+          "estimator_assumptions": [],
+          "estimator_wall_sec": 0.12217892002081499
+        }
+      }
+    },
+    {
+      "nodes_qubits": 100,
+      "density": 0.1,
+      "seed": 17,
+      "edges": 492,
+      "depth_p": 1,
+      "beta": -1.1985614832575755,
+      "gamma": 0.3037726821122679,
+      "expected_approximation_ratio": 0.8159172555137696,
+      "qiskit_depth_before_estimator": 53,
+      "qiskit_gate_counts_before_estimator": {
+        "rzz": 492,
+        "h": 100,
+        "rx": 100,
+        "measure": 100,
+        "barrier": 1
+      },
+      "estimates": {
+        "qubit_gate_ns_e3": {
+          "physical_qubits": 1687500,
+          "runtime_ns": 9048000,
+          "runtime_sec": 0.009048,
+          "rqops": 38333334,
+          "algorithmic_logical_qubits_after_layout": 230,
+          "algorithmic_logical_depth": 1508,
+          "num_t_states": 9472,
+          "num_t_factories": 88,
+          "physical_qubits_for_algorithm": 103500,
+          "physical_qubits_for_t_factories": 1584000,
+          "code_distance": 15,
+          "logical_cycle_time_ns": 6000,
+          "input_logical_counts": {
+            "qubits": 100,
+            "t_count": 0,
+            "rotation_count": 592,
+            "rotation_depth": 51,
+            "measurement_count": 100
+          },
+          "error_budget": {
+            "logical": 0.0003333333333333333,
+            "tstates": 0.0003333333333333333,
+            "rotations": 0.0003333333333333333
+          },
+          "qec_scheme": {
+            "name": "surface_code",
+            "errorCorrectionThreshold": 0.01,
+            "crossingPrefactor": 0.03,
+            "distanceCoefficientPower": 0,
+            "logicalCycleTime": "(4 * twoQubitGateTime + 2 * oneQubitMeasurementTime) * codeDistance",
+            "physicalQubitsPerLogicalQubit": "2 * codeDistance * codeDistance",
+            "maxCodeDistance": 50
+          },
+          "qubit_params": {
+            "instructionSet": "GateBased",
+            "name": "qubit_gate_ns_e3",
+            "oneQubitMeasurementTime": "100 ns",
+            "oneQubitGateTime": "50 ns",
+            "twoQubitGateTime": "50 ns",
+            "tGateTime": "50 ns",
+            "oneQubitMeasurementErrorRate": 0.001,
+            "oneQubitGateErrorRate": 0.001,
+            "twoQubitGateErrorRate": 0.001,
+            "tGateErrorRate": 0.001,
+            "idleErrorRate": 0.001
+          },
+          "estimator_assumptions": [],
+          "estimator_wall_sec": 0.14591580198612064
+        },
+        "qubit_gate_ns_e4": {
+          "physical_qubits": 183260,
+          "runtime_ns": 4222400,
+          "runtime_sec": 0.0042224,
+          "rqops": 82142858,
+          "algorithmic_logical_qubits_after_layout": 230,
+          "algorithmic_logical_depth": 1508,
+          "num_t_states": 9472,
+          "num_t_factories": 82,
+          "physical_qubits_for_algorithm": 22540,
+          "physical_qubits_for_t_factories": 160720,
+          "code_distance": 7,
+          "logical_cycle_time_ns": 2800,
+          "input_logical_counts": {
+            "qubits": 100,
+            "t_count": 0,
+            "rotation_count": 592,
+            "rotation_depth": 51,
+            "measurement_count": 100
+          },
+          "error_budget": {
+            "logical": 0.0003333333333333333,
+            "tstates": 0.0003333333333333333,
+            "rotations": 0.0003333333333333333
+          },
+          "qec_scheme": {
+            "name": "surface_code",
+            "errorCorrectionThreshold": 0.01,
+            "crossingPrefactor": 0.03,
+            "distanceCoefficientPower": 0,
+            "logicalCycleTime": "(4 * twoQubitGateTime + 2 * oneQubitMeasurementTime) * codeDistance",
+            "physicalQubitsPerLogicalQubit": "2 * codeDistance * codeDistance",
+            "maxCodeDistance": 50
+          },
+          "qubit_params": {
+            "instructionSet": "GateBased",
+            "name": "qubit_gate_ns_e4",
+            "oneQubitMeasurementTime": "100 ns",
+            "oneQubitGateTime": "50 ns",
+            "twoQubitGateTime": "50 ns",
+            "tGateTime": "50 ns",
+            "oneQubitMeasurementErrorRate": 0.0001,
+            "oneQubitGateErrorRate": 0.0001,
+            "twoQubitGateErrorRate": 0.0001,
+            "tGateErrorRate": 0.0001,
+            "idleErrorRate": 0.0001
+          },
+          "estimator_assumptions": [],
+          "estimator_wall_sec": 0.12260669600800611
+        }
+      }
+    }
+  ]
+}

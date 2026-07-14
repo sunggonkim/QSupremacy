@@ -2,6 +2,7 @@
 """Generate paper figures from measured leadership-system results."""
 
 import csv
+import inspect
 import json
 import math
 import os
@@ -13,6 +14,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.lines import Line2D
 from matplotlib.patches import Rectangle
+from matplotlib.ticker import FuncFormatter
+
+from hpca_projection_model import projected_components_sec
 
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -22,6 +26,8 @@ COLUMN_WIDTH = 3.35
 INTRO_PATH_WIDTH = COLUMN_WIDTH * 0.46
 INTRO_THRESHOLD_WIDTH = COLUMN_WIDTH * 0.92
 SUBFIGURE_WIDTH = COLUMN_WIDTH * 0.48
+FIGURE_FONT = 8.5
+FIGURE_TICK_FONT = 8.3
 COLORS = {
     "blue": "#356CA5",
     "orange": "#E6862B",
@@ -33,12 +39,19 @@ COLORS = {
     "light_gray": "#EDEDED",
     "dark": "#2F2F2F",
 }
-PROJECTION_DISTANCE = 25.0
-PROJECTION_CYCLE_SEC = 1.0e-6
-PROJECTION_SHOT_LANES = 1.0e4
-PROJECTION_DECODER_SEC_PER_EVAL = 5.0e-6
-PROJECTION_HOST_IO_SEC_PER_EVAL = 20.0e-6
-PROJECTION_QUEUE_SEC_PER_EVAL = 30.0e-6
+DEFAULT_FIGURE_PROJECTION = {
+    "distance": 25.0,
+    "cycle_sec": 1.0e-6,
+    "shot_lanes": 1.0e4,
+    "decoder_sec_per_eval": 5.0e-6,
+    "host_io_floor_sec_per_eval": 20.0e-6,
+    "queue_service_sec_per_eval": 30.0e-6,
+    "queue_utilization": 0.35,
+    "queue_tail_percentile": 0.99,
+    "enable_queue_model": False,
+    "enable_controller_scaling": False,
+    "enable_host_context": False,
+}
 OFFICIAL_SUMMARY_JSON = (
     "data/processed/perlmutter/practical_suite_55453128_55453131_summary.json"
 )
@@ -89,6 +102,30 @@ ML_STRONG_NATIVE_PROFILE_JSON = (
 PROJECTION_SCENARIOS_JSON = (
     "data/processed/perlmutter/practical_suite_projection_scenarios.json"
 )
+PHYSICAL_ARCHITECTURE_DSE_JSON = (
+    "data/processed/perlmutter/physical_architecture_dse.json"
+)
+NATIVE_ROTATION_PLATFORMS_JSON = (
+    "data/processed/perlmutter/native_rotation_platform_envelopes.json"
+)
+QUALITY_QUALIFIED_JSON = (
+    "data/processed/perlmutter/quality_qualified_target_map.json"
+)
+FINITE_SHOT_JSON = (
+    "data/processed/perlmutter/finite_shot_quality_sensitivity.json"
+)
+FT_RELIABILITY_JSON = (
+    "data/processed/perlmutter/ft_reliability_and_space_budget.json"
+)
+JOINT_DSE_JSON = (
+    "data/processed/perlmutter/joint_bottleneck_phase_map.json"
+)
+ROOFLINE_NATIVE_STRESS_JSON = (
+    "data/processed/perlmutter/roofline_native_stress.json"
+)
+ROOFLINE_NATIVE_STRESS_CSV = (
+    "data/processed/perlmutter/roofline_native_stress.csv"
+)
 SCALE_LARGE_8_SUMMARY_JSON = (
     "data/processed/perlmutter/practical_suite_55730074_scale_8n_32g_summary.json"
 )
@@ -126,22 +163,23 @@ DIRECT_STRONG_8_SUMMARY_JSON = (
     "data/processed/perlmutter/"
     "practical_suite_direct32_strong_8n_32g_7104_20260711082639_summary.json"
 )
-LOW_GPU_STRONG_TAG = "20260711213724"
+DIRECT1_SPLIT_TAG = "20260711213724"
+LOW_GPU_DIRECT_TAG = "20260712091240"
 DIRECT_STRONG_1_SUMMARY_JSON = (
     "data/processed/perlmutter/"
-    "practical_suite_direct1_strong_1g_7104_{}_summary.json".format(LOW_GPU_STRONG_TAG)
+    "practical_suite_direct1_strong_1g_7104_{}_summary.json".format(DIRECT1_SPLIT_TAG)
 )
 DIRECT_STRONG_4_SUMMARY_JSON = (
     "data/processed/perlmutter/"
-    "practical_suite_direct4_strong_1n_4g_7104_{}_summary.json".format(LOW_GPU_STRONG_TAG)
+    "practical_suite_direct4_strong_1n_4g_7104_{}_summary.json".format(LOW_GPU_DIRECT_TAG)
 )
 DIRECT_STRONG_8GPU_SUMMARY_JSON = (
     "data/processed/perlmutter/"
-    "practical_suite_direct8_strong_2n_8g_7104_{}_summary.json".format(LOW_GPU_STRONG_TAG)
+    "practical_suite_direct8_strong_2n_8g_7104_{}_summary.json".format(LOW_GPU_DIRECT_TAG)
 )
 DIRECT_STRONG_16GPU_SUMMARY_JSON = (
     "data/processed/perlmutter/"
-    "practical_suite_direct16_strong_4n_16g_7104_{}_summary.json".format(LOW_GPU_STRONG_TAG)
+    "practical_suite_direct16_strong_4n_16g_7104_{}_summary.json".format(LOW_GPU_DIRECT_TAG)
 )
 WEAK_SCALING_RUNS = [
     {
@@ -233,8 +271,9 @@ STRONG_SCALING_RUNS = [
         "summary": DIRECT_STRONG_1_SUMMARY_JSON,
         "accounting": (
             "data/raw/perlmutter/accounting/"
-            "sacct_practical_suite_direct1_strong_1g_7104_{}.txt".format(LOW_GPU_STRONG_TAG)
+            "sacct_practical_suite_direct1_strong_1g_7104_{}.txt".format(DIRECT1_SPLIT_TAG)
         ),
+        "elapsed_mode": "sum_array_tasks",
         "kind": "fixed",
     },
     {
@@ -245,7 +284,7 @@ STRONG_SCALING_RUNS = [
         "summary": DIRECT_STRONG_4_SUMMARY_JSON,
         "accounting": (
             "data/raw/perlmutter/accounting/"
-            "sacct_practical_suite_direct4_strong_1n_4g_7104_{}.txt".format(LOW_GPU_STRONG_TAG)
+            "sacct_practical_suite_direct4_strong_1n_4g_7104_{}.txt".format(LOW_GPU_DIRECT_TAG)
         ),
         "kind": "fixed",
     },
@@ -257,7 +296,7 @@ STRONG_SCALING_RUNS = [
         "summary": DIRECT_STRONG_8GPU_SUMMARY_JSON,
         "accounting": (
             "data/raw/perlmutter/accounting/"
-            "sacct_practical_suite_direct8_strong_2n_8g_7104_{}.txt".format(LOW_GPU_STRONG_TAG)
+            "sacct_practical_suite_direct8_strong_2n_8g_7104_{}.txt".format(LOW_GPU_DIRECT_TAG)
         ),
         "kind": "fixed",
     },
@@ -269,7 +308,7 @@ STRONG_SCALING_RUNS = [
         "summary": DIRECT_STRONG_16GPU_SUMMARY_JSON,
         "accounting": (
             "data/raw/perlmutter/accounting/"
-            "sacct_practical_suite_direct16_strong_4n_16g_7104_{}.txt".format(LOW_GPU_STRONG_TAG)
+            "sacct_practical_suite_direct16_strong_4n_16g_7104_{}.txt".format(LOW_GPU_DIRECT_TAG)
         ),
         "kind": "fixed",
     },
@@ -327,13 +366,15 @@ def apply_paper_style():
     plt.rcParams.update(
         {
             "font.family": "serif",
-            "font.size": 7.5,
-            "axes.labelsize": 7.4,
-            "axes.titlesize": 7.4,
+            "font.serif": ["Liberation Serif"],
+            "mathtext.fontset": "stix",
+            "font.size": FIGURE_FONT,
+            "axes.labelsize": FIGURE_FONT,
+            "axes.titlesize": FIGURE_FONT,
             "axes.titleweight": "bold",
-            "xtick.labelsize": 6.5,
-            "ytick.labelsize": 6.5,
-            "legend.fontsize": 6.3,
+            "xtick.labelsize": FIGURE_TICK_FONT,
+            "ytick.labelsize": FIGURE_TICK_FONT,
+            "legend.fontsize": FIGURE_TICK_FONT,
             "axes.linewidth": 0.7,
             "lines.linewidth": 1.25,
             "lines.markersize": 3.9,
@@ -344,12 +385,23 @@ def apply_paper_style():
 
 
 def style_axis(ax, grid="both"):
-    ax.tick_params(axis="both", labelsize=6.5, pad=1.2, width=0.7)
+    ax.tick_params(axis="both", labelsize=FIGURE_TICK_FONT, pad=1.2, width=0.7)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     if grid:
         axis = "both" if grid == "both" else grid
         ax.grid(axis=axis, which="both", linestyle=":", linewidth=0.45, color="#B9B9B9")
+
+
+def compact_tick(value, _position=None):
+    """Keep logarithmic ticks readable without reduced-size exponents."""
+    if value >= 1.0e6:
+        return "{:g}M".format(value / 1.0e6)
+    if value >= 1.0e3:
+        return "{:g}k".format(value / 1.0e3)
+    if value >= 1.0:
+        return "{:g}".format(value)
+    return "{:.2g}".format(value)
 
 
 def add_top_legend(fig, handles, labels, ncol, y=1.02, fontsize=None):
@@ -367,11 +419,11 @@ def add_top_legend(fig, handles, labels, ncol, y=1.02, fontsize=None):
     )
 
 
-def legend_marker(color):
+def legend_marker(color, marker="o"):
     return Line2D(
         [0],
         [0],
-        marker="o",
+        marker=marker,
         color="none",
         markerfacecolor=color,
         markeredgecolor="none",
@@ -385,37 +437,21 @@ def read_csv(path):
 
 
 def projection_components_ms(row):
-    evals = max(1.0, float(row["circuit_evaluations"]))
-    oneq = float(row["one_qubit_gates"])
-    twoq = float(row["two_qubit_gates"])
-    meas = float(row["measurement_ops"])
-    gate_depth_sec = (
-        oneq * PROJECTION_DISTANCE * PROJECTION_CYCLE_SEC
-        + twoq * 4.0 * PROJECTION_DISTANCE * PROJECTION_CYCLE_SEC
-        + meas * PROJECTION_DISTANCE * PROJECTION_CYCLE_SEC
-    )
-    gate_ms = evals * gate_depth_sec / PROJECTION_SHOT_LANES * 1.0e3
-    decode_ms = evals * PROJECTION_DECODER_SEC_PER_EVAL * 1.0e3
-    host_io_ms = evals * PROJECTION_HOST_IO_SEC_PER_EVAL * 1.0e3
-    queue_ms = evals * PROJECTION_QUEUE_SEC_PER_EVAL * 1.0e3
-    if gate_ms >= decode_ms:
-        critical_gate_ms = gate_ms
-        critical_decode_ms = 0.0
-    else:
-        critical_gate_ms = 0.0
-        critical_decode_ms = decode_ms
-    total_ms = critical_gate_ms + critical_decode_ms + host_io_ms + queue_ms
-    twoq_gate_ms = evals * twoq * 4.0 * PROJECTION_DISTANCE * PROJECTION_CYCLE_SEC
-    twoq_gate_ms = twoq_gate_ms / PROJECTION_SHOT_LANES * 1.0e3
+    components = projected_components_sec(row, DEFAULT_FIGURE_PROJECTION)
     return {
-        "gate_ms": gate_ms,
-        "decode_ms": decode_ms,
-        "critical_gate_ms": critical_gate_ms,
-        "critical_decode_ms": critical_decode_ms,
-        "host_io_ms": host_io_ms,
-        "queue_ms": queue_ms,
-        "total_ms": total_ms,
-        "twoq_gate_ms": twoq_gate_ms,
+        "gate_ms": components["gate_sec"] * 1.0e3,
+        "decode_ms": components["decode_sec"] * 1.0e3,
+        "critical_gate_ms": components["critical_gate_sec"] * 1.0e3,
+        "critical_decode_ms": components["critical_decode_sec"] * 1.0e3,
+        "host_io_ms": components["host_io_sec"] * 1.0e3,
+        "queue_ms": components["queue_sec"] * 1.0e3,
+        "controller_ms": components["controller_sec"] * 1.0e3,
+        "context_ms": components["context_sec"] * 1.0e3,
+        "ctrl_context_ms": (components["controller_sec"] + components["context_sec"]) * 1.0e3,
+        "total_ms": components["total_sec"] * 1.0e3,
+        "twoq_gate_ms": components["twoq_gate_sec"] * 1.0e3,
+        "qpu_energy_j": components["qpu_energy_j"],
+        "reference_energy_j": components["reference_energy_j"],
     }
 
 
@@ -452,12 +488,19 @@ def draw_box(ax, xy, width, height, label, color, text_color="white", fontsize=9
     return patch
 
 
-def arrow(ax, start, end, color="#4A4A4A", lw=1.1):
+def arrow(ax, start, end, color="#4A4A4A", lw=1.1, linestyle="-"):
     ax.annotate(
         "",
         xy=end,
         xytext=start,
-        arrowprops={"arrowstyle": "->", "lw": lw, "color": color, "shrinkA": 3, "shrinkB": 3},
+        arrowprops={
+            "arrowstyle": "->",
+            "lw": lw,
+            "linestyle": linestyle,
+            "color": color,
+            "shrinkA": 3,
+            "shrinkB": 3,
+        },
     )
 
 
@@ -497,96 +540,125 @@ def figure_intro_threshold_summary():
     ]
     values = [64.9, 421.9, 3071.0, 3726.4, 42491.4, 287045.6]
     colors = [
-        COLORS["orange"],
+        COLORS["blue"],
         COLORS["blue"],
         COLORS["green"],
         COLORS["blue"],
         COLORS["teal"],
         COLORS["red"],
     ]
+    markers = ["o", "o", "D", "o", "s", "^"]
     y = np.arange(len(labels)) * 1.28
-    fig, ax = plt.subplots(figsize=(INTRO_THRESHOLD_WIDTH, 1.72))
-    ax.axvspan(40, 1e3, color=COLORS["green"], alpha=0.06, linewidth=0)
-    ax.axvspan(1e3, 1e5, color=COLORS["orange"], alpha=0.06, linewidth=0)
-    ax.axvspan(1e5, 7e5, color=COLORS["red"], alpha=0.055, linewidth=0)
+    fig, ax = plt.subplots(figsize=(INTRO_THRESHOLD_WIDTH, 2.42))
     left = 10.0
-    ax.barh(y, np.array(values) - left, left=left, height=0.50, color=colors, alpha=0.20)
-    ax.hlines(y, left, values, color=colors, linewidth=2.8, alpha=0.95)
-    ax.scatter(values, y, s=30, color=colors, edgecolors="#222222", linewidths=0.45, zorder=3)
+    ax.hlines(y, left, values, color=colors, linewidth=3.0, alpha=0.90)
+    for value, yi, color, marker in zip(values, y, colors, markers):
+        ax.scatter(
+            value,
+            yi,
+            s=34,
+            marker=marker,
+            color=color,
+            edgecolors="#222222",
+            linewidths=0.55,
+            zorder=3,
+        )
     for yi, value in zip(y, values):
+        if value > 1.0e5:
+            text_offset = (-7, 0)
+            text_ha = "right"
+        else:
+            text_offset = (7, 0)
+            text_ha = "left"
         ax.annotate(
             "{:,.0f}x".format(value),
             xy=(value, yi),
-            xytext=(7, 0),
+            xytext=text_offset,
             textcoords="offset points",
             va="center",
-            ha="left",
-            fontsize=5.2,
+            ha=text_ha,
+            fontsize=FIGURE_TICK_FONT,
             bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.78, "pad": 0.2},
         )
     ax.set_xscale("log")
+    ax.set_xticks((10, 100, 1000, 10000, 100000, 1000000))
+    ax.set_xticklabels(("10", "100", "1k", "10k", "100k", "1M"))
     ax.set_yticks(y)
     ax.set_yticklabels(labels)
-    ax.tick_params(axis="y", labelsize=5.25)
+    ax.tick_params(axis="y", labelsize=FIGURE_TICK_FONT)
     for tick in ax.get_yticklabels():
         tick.set_linespacing(1.02)
     ax.invert_yaxis()
-    ax.set_xlabel("Req. speedup over native (x)", labelpad=1.0)
+    ax.set_xlabel("Required circuit speedup vs. native HPC (x)", labelpad=1.0)
     ax.set_xlim(10, 1.05e6)
-    style_axis(ax, grid="x")
+    style_axis(ax, grid=None)
+    ax.grid(axis="x", which="major", linestyle=":", linewidth=0.50, color="#B9B9B9")
+    add_top_legend(
+        fig,
+        [
+            legend_marker(COLORS["blue"], marker="o"),
+            legend_marker(COLORS["teal"], marker="s"),
+            legend_marker(COLORS["red"], marker="^"),
+            legend_marker(COLORS["green"], marker="D"),
+        ],
+        ["ML", "Chem.", "Opt.", "Sim."],
+        ncol=4,
+        y=0.995,
+        fontsize=FIGURE_TICK_FONT,
+    )
     path = os.path.join(FIG_DIR, "intro_threshold_summary.pdf")
-    fig.subplots_adjust(left=0.32, right=0.94, bottom=0.26, top=0.98)
+    fig.subplots_adjust(left=0.31, right=0.98, bottom=0.21, top=0.82)
     fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
     plt.close(fig)
     return path
 
 
 def figure_design_overview():
-    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 3.25))
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 3.28))
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     ax.axis("off")
 
     def step_badge(x, y, text):
-        circle = plt.Circle((x, y), 0.025, facecolor="white", edgecolor=COLORS["dark"], linewidth=0.8, zorder=4)
+        circle = plt.Circle((x, y), 0.031, facecolor="white", edgecolor=COLORS["dark"], linewidth=0.8, zorder=4)
         ax.add_patch(circle)
-        ax.text(x, y - 0.001, text, ha="center", va="center", fontsize=5.5, weight="bold", color=COLORS["dark"], zorder=5)
+        ax.text(x, y - 0.001, text, ha="center", va="center", fontsize=FIGURE_TICK_FONT, weight="bold", color=COLORS["dark"], zorder=5)
 
-    ax.text(0.04, 0.955, "QArchGauge procedure", fontsize=7.4, weight="bold", color=COLORS["dark"])
-    ax.text(0.04, 0.905, "same input, native deadline, quantum circuit metadata, and projection knobs stay in one case record",
-            fontsize=4.9, color=COLORS["dark"])
+    ax.text(0.04, 0.955, "Quality-first critical-path inversion", fontsize=8.7, weight="bold", color=COLORS["dark"])
 
-    draw_box(ax, (0.06, 0.77), 0.88, 0.09, "1. Shared application case: input, seed, quality metric, tolerance", COLORS["dark"], fontsize=5.5)
-    step_badge(0.075, 0.86, "1")
+    draw_box(
+        ax,
+        (0.07, 0.79),
+        0.86,
+        0.105,
+        "Shared record\ninput, seed, native deadline, quality tolerance",
+        COLORS["dark"],
+        fontsize=FIGURE_TICK_FONT,
+    )
+    step_badge(0.085, 0.895, "1")
 
-    draw_box(ax, (0.07, 0.60), 0.34, 0.105, "2. Native HPC path\n$T_{native}, Q_{native}$\nexact / Krylov / heur.", COLORS["blue"], fontsize=5.0)
-    draw_box(ax, (0.59, 0.60), 0.34, 0.105, "3. Quantum-circuit path\n$T_{qsim}, Q_q$\nVQE / QAOA / Trotter", COLORS["orange"], fontsize=5.0)
-    step_badge(0.085, 0.705, "2")
-    step_badge(0.605, 0.705, "3")
-    arrow(ax, (0.28, 0.77), (0.24, 0.705), lw=0.9)
-    arrow(ax, (0.72, 0.77), (0.76, 0.705), lw=0.9)
+    draw_box(ax, (0.07, 0.60), 0.36, 0.125, "Native HPC\ntime + output quality", COLORS["blue"], fontsize=FIGURE_TICK_FONT)
+    draw_box(ax, (0.57, 0.60), 0.36, 0.125, "Circuit evidence\nquality, gates, shots, loop", COLORS["orange"], fontsize=FIGURE_TICK_FONT)
+    step_badge(0.085, 0.725, "2")
+    step_badge(0.585, 0.725, "3")
+    arrow(ax, (0.30, 0.79), (0.25, 0.725), lw=0.9)
+    arrow(ax, (0.70, 0.79), (0.75, 0.725), lw=0.9)
 
-    draw_box(ax, (0.20, 0.43), 0.60, 0.105, "4. Auditable case record\nruntime, quality gap,\ngates, shots, evals", COLORS["teal"], fontsize=5.0)
-    step_badge(0.255, 0.535, "4")
-    arrow(ax, (0.24, 0.60), (0.38, 0.535), lw=0.9)
-    arrow(ax, (0.76, 0.60), (0.62, 0.535), lw=0.9)
+    draw_box(ax, (0.17, 0.395), 0.66, 0.15, "Finite-shot quality gate\nsame-record output + full loop\ntolerance met; pass rate at least 0.9", COLORS["teal"], fontsize=FIGURE_TICK_FONT)
+    step_badge(0.185, 0.545, "4")
+    arrow(ax, (0.25, 0.60), (0.39, 0.545), lw=0.9)
+    arrow(ax, (0.75, 0.60), (0.61, 0.545), lw=0.9)
 
-    levers = [
-        ("Logical ops\n$t_1,t_2,t_m$", COLORS["green"], 0.07),
-        ("Shot lanes\n$P_{shots}$", COLORS["purple"], 0.295),
-        ("Decode/I/O\n+ queue", COLORS["red"], 0.52),
-        ("Quality recovery\n$R_q$", COLORS["gray"], 0.745),
-    ]
-    for label, color, x in levers:
-        draw_box(ax, (x, 0.25), 0.19, 0.08, label, color, fontsize=4.9)
-        arrow(ax, (0.50, 0.43), (x + 0.095, 0.33), lw=0.75)
+    draw_box(ax, (0.055, 0.22), 0.39, 0.12, "FAIL: quality\nconditional timing only", COLORS["gray"], fontsize=FIGURE_TICK_FONT)
+    draw_box(ax, (0.555, 0.22), 0.39, 0.12, "PASS: quality\nschedule + reliability\nphysical space", COLORS["green"], fontsize=FIGURE_TICK_FONT)
+    arrow(ax, (0.40, 0.395), (0.24, 0.34), color=COLORS["gray"], lw=0.8, linestyle="--")
+    arrow(ax, (0.60, 0.395), (0.76, 0.34), color=COLORS["green"], lw=0.9)
 
-    draw_box(ax, (0.13, 0.08), 0.31, 0.085, "Runtime gate\n$T_{qhw}<T_{native}$", "#F3F3F3", text_color=COLORS["dark"], fontsize=5.0)
-    draw_box(ax, (0.56, 0.08), 0.31, 0.085, "Target map\namount + location", "#F3F3F3", text_color=COLORS["dark"], fontsize=5.0)
-    step_badge(0.145, 0.165, "5")
-    arrow(ax, (0.25, 0.25), (0.28, 0.165), lw=0.75)
-    arrow(ax, (0.74, 0.25), (0.72, 0.165), lw=0.75)
-    arrow(ax, (0.44, 0.122), (0.56, 0.122), lw=0.85)
+    draw_box(ax, (0.09, 0.075), 0.36, 0.105, "Conditional\nlower bound", "#F3F3F3", text_color=COLORS["dark"], fontsize=FIGURE_TICK_FONT)
+    draw_box(ax, (0.53, 0.055), 0.41, 0.125, "Architecture diagnosis\nnext upgrade + required gain\nfollowing bottleneck", "#F3F3F3", text_color=COLORS["dark"], fontsize=FIGURE_TICK_FONT)
+    step_badge(0.105, 0.18, "5")
+    arrow(ax, (0.24, 0.22), (0.27, 0.18), color=COLORS["gray"], lw=0.75, linestyle="--")
+    arrow(ax, (0.76, 0.22), (0.74, 0.18), color=COLORS["green"], lw=0.85)
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     path = os.path.join(FIG_DIR, "design_overview.pdf")
@@ -596,37 +668,147 @@ def figure_design_overview():
     return path
 
 
-def figure_design_projection_flow():
-    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 2.12))
+def figure_feedback_aggregator_architecture():
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 2.24))
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     ax.axis("off")
 
-    ax.text(0.035, 0.93, "Projection equation", fontsize=7.1, weight="bold", color=COLORS["dark"])
-    ax.text(0.035, 0.875, "recorded circuit metadata is priced by explicit hardware terms", fontsize=5.0, color=COLORS["dark"])
+    ax.text(
+        0.035,
+        0.94,
+        "Dependency-aware near-QPU aggregation",
+        fontsize=7.1,
+        weight="bold",
+        color=COLORS["dark"],
+    )
+    ax.text(
+        0.035,
+        0.885,
+        "only independent results in the same epoch share a host round",
+        fontsize=5.05,
+        color=COLORS["dark"],
+    )
 
-    draw_box(ax, (0.045, 0.70), 0.20, 0.10, "case record\n$D_1,D_2,D_m,N_e$", COLORS["teal"], fontsize=5.3)
-    draw_box(ax, (0.045, 0.50), 0.20, 0.10, "native deadline\n$T_{native}$", COLORS["blue"], fontsize=5.3)
-    draw_box(ax, (0.045, 0.30), 0.20, 0.10, "quality gap\n$\\Delta Q,\\epsilon_w$", COLORS["purple"], fontsize=5.3)
+    draw_box(
+        ax,
+        (0.035, 0.55),
+        0.17,
+        0.20,
+        "QPU result\nlanes\n$\\langle g,v\\rangle$",
+        COLORS["orange"],
+        fontsize=5.2,
+    )
+    draw_box(
+        ax,
+        (0.255, 0.58),
+        0.19,
+        0.14,
+        "Tag FIFO\n$\\langle epoch,group,v\\rangle$",
+        COLORS["teal"],
+        fontsize=4.8,
+    )
+    draw_box(
+        ax,
+        (0.50, 0.58),
+        0.18,
+        0.14,
+        "Epoch table\nready / serial / $n_{exp}$",
+        COLORS["purple"],
+        fontsize=5.0,
+    )
+    draw_box(
+        ax,
+        (0.735, 0.55),
+        0.23,
+        0.20,
+        "Reduction banks\nhash + RR arbitration\n$B=64$: 2 KiB / bank",
+        COLORS["green"],
+        fontsize=4.85,
+    )
+    arrow(ax, (0.205, 0.65), (0.255, 0.65), lw=0.85)
+    arrow(ax, (0.445, 0.65), (0.50, 0.65), lw=0.85)
+    arrow(ax, (0.68, 0.65), (0.735, 0.65), lw=0.85)
 
-    term_specs = [
-        ("pipeline stage\n$N_e\\max(T_{gate},T_{decode})$", COLORS["green"], 0.46, 0.66),
-        ("serial floor\n$N_e(T_{io}+T_{queue})$", COLORS["red"], 0.46, 0.46),
-        ("quality gate\n$(1-R_q)\\Delta Q\\leq\\epsilon_w$", COLORS["gray"], 0.46, 0.26),
-    ]
-    for label, color, x, y in term_specs:
-        draw_box(ax, (x, y), 0.47, 0.105, label, color, fontsize=4.9)
-    for y in [0.75, 0.55, 0.35]:
-        arrow(ax, (0.245, y), (0.46, y - 0.03), lw=0.85)
+    draw_box(
+        ax,
+        (0.035, 0.18),
+        0.25,
+        0.15,
+        "Candidate FIFO\npre-staged work",
+        COLORS["blue"],
+        fontsize=4.9,
+    )
+    draw_box(
+        ax,
+        (0.46, 0.18),
+        0.22,
+        0.15,
+        "Compact-result FIFO\n$\\langle epoch,count,sum\\rangle$",
+        COLORS["red"],
+        fontsize=4.8,
+    )
+    draw_box(
+        ax,
+        (0.765, 0.18),
+        0.20,
+        0.15,
+        "Host optimizer\n/ application",
+        COLORS["dark"],
+        fontsize=5.0,
+    )
+    arrow(ax, (0.82, 0.55), (0.61, 0.33), lw=0.85)
+    arrow(ax, (0.68, 0.255), (0.765, 0.255), lw=0.85)
+    arrow(ax, (0.16, 0.33), (0.12, 0.55), lw=0.85)
 
-    draw_box(ax, (0.31, 0.08), 0.23, 0.095, "frontier\nspeed + $R_q$", "#F4F4F4", text_color=COLORS["dark"], fontsize=5.1)
-    draw_box(ax, (0.62, 0.08), 0.32, 0.095, "target map\nspeed / shots /\ncontrol / quality", COLORS["dark"], fontsize=4.7)
-    arrow(ax, (0.58, 0.26), (0.45, 0.17), lw=0.8)
-    arrow(ax, (0.78, 0.26), (0.80, 0.17), lw=0.8)
-    arrow(ax, (0.54, 0.125), (0.62, 0.125), lw=0.8)
+    ax.annotate(
+        "",
+        xy=(0.17, 0.18),
+        xytext=(0.86, 0.18),
+        arrowprops={
+            "arrowstyle": "->",
+            "lw": 0.75,
+            "color": COLORS["dark"],
+            "connectionstyle": "arc3,rad=-0.24",
+            "shrinkA": 3,
+            "shrinkB": 3,
+        },
+    )
 
-    path = os.path.join(FIG_DIR, "design_projection_flow.pdf")
-    fig.subplots_adjust(left=0.02, right=0.98, bottom=0.05, top=0.96)
+    ax.annotate(
+        "",
+        xy=(0.18, 0.56),
+        xytext=(0.51, 0.34),
+        arrowprops={
+            "arrowstyle": "->",
+            "lw": 0.75,
+            "linestyle": "--",
+            "color": COLORS["red"],
+            "shrinkA": 3,
+            "shrinkB": 3,
+        },
+    )
+    ax.text(
+        0.30,
+        0.40,
+        "full / mismatch: backpressure",
+        fontsize=4.7,
+        color=COLORS["red"],
+        ha="center",
+        bbox={"facecolor": "white", "edgecolor": "none", "pad": 0.35},
+    )
+    ax.text(
+        0.57,
+        0.025,
+        "next epoch; serial dependency forces $B=1$",
+        fontsize=4.8,
+        color=COLORS["dark"],
+        ha="center",
+        bbox={"facecolor": "white", "edgecolor": "none", "pad": 0.35},
+    )
+
+    path = os.path.join(FIG_DIR, "feedback_aggregator_architecture.pdf")
+    fig.subplots_adjust(left=0.015, right=0.985, bottom=0.035, top=0.98)
     fig.savefig(path, bbox_inches="tight")
     plt.close(fig)
     return path
@@ -673,13 +855,16 @@ def figure_digits_speedup():
     rows = read_csv("data/processed/perlmutter/digits_expanded_55421321_55422142_summary.csv")
     kernel = [float(r["quantum_kernel_required_speedup"]) for r in rows]
     vqc = [float(r["qnn_vqc_required_speedup"]) for r in rows]
-    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.58))
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.86))
+    label_keyword = (
+        "tick_labels" if "tick_labels" in inspect.signature(ax.boxplot).parameters else "labels"
+    )
     box = ax.boxplot(
         [kernel, vqc],
-        tick_labels=["QKernel", "QNN/VQC"],
         patch_artist=True,
         widths=0.55,
         showfliers=False,
+        **{label_keyword: ["QKernel", "QNN/VQC"]}
     )
     colors = [COLORS["blue"], COLORS["orange"]]
     for patch, color in zip(box["boxes"], colors):
@@ -689,6 +874,7 @@ def figure_digits_speedup():
         median.set_color("black")
         median.set_linewidth(1.2)
     ax.set_yscale("log")
+    ax.yaxis.set_major_formatter(FuncFormatter(compact_tick))
     ax.set_ylabel("Req. speedup (x)")
     style_axis(ax, grid="y")
     fig.subplots_adjust(left=0.35, right=0.99, bottom=0.24, top=0.96)
@@ -722,21 +908,21 @@ def figure_digits_legend():
 def figure_practical_suite_legend():
     fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 0.26))
     handles = [
-        legend_marker(COLORS["blue"]),
-        legend_marker(COLORS["teal"]),
-        legend_marker(COLORS["red"]),
-        legend_marker(COLORS["green"]),
+        legend_marker(COLORS["blue"], "o"),
+        legend_marker(COLORS["teal"], "s"),
+        legend_marker(COLORS["red"], "D"),
+        legend_marker(COLORS["green"], "^"),
     ]
     ax.axis("off")
     fig.legend(
         handles,
         ["ML", "Chem.", "Opt.", "Sim."],
-        ncol=4,
+        ncol=2,
         loc="center",
         frameon=False,
-        fontsize=5.8,
+        fontsize=FIGURE_TICK_FONT,
         handletextpad=0.25,
-        columnspacing=0.55,
+        columnspacing=0.9,
     )
     path = os.path.join(FIG_DIR, "practical_suite_legend.pdf")
     fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
@@ -746,7 +932,7 @@ def figure_practical_suite_legend():
 
 def figure_digits_quality_runtime():
     rows = read_csv("data/processed/perlmutter/digits_expanded_55421321_55422142_summary.csv")
-    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.58))
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.70))
     ax.scatter(
         [float(r["quantum_kernel_required_speedup"]) for r in rows],
         [float(r["quantum_kernel_accuracy"]) for r in rows],
@@ -788,29 +974,30 @@ def figure_practical_suite():
         return None
     rows = read_csv(rel_path)
     workloads = [
-        ("ml", "ML", COLORS["blue"], 0.02),
-        ("chemistry", "Chem.", COLORS["teal"], 0.01),
-        ("optimization", "Opt.", COLORS["red"], 0.02),
-        ("simulation", "Sim.", COLORS["green"], 0.01),
+        ("ml", "ML", COLORS["blue"], "o", 0.02),
+        ("chemistry", "Chem.", COLORS["teal"], "s", 0.01),
+        ("optimization", "Opt.", COLORS["red"], "D", 0.02),
+        ("simulation", "Sim.", COLORS["green"], "^", 0.01),
     ]
 
     series = []
-    for workload, label, color, tolerance in workloads:
+    for workload, label, color, marker, tolerance in workloads:
         subset = [row for row in rows if row["workload"] == workload]
         speed = np.array([float(row["speedup_required"]) for row in subset])
         quality = np.array([max(0.0, float(row["quality_gap"])) for row in subset])
         sorted_speed = np.sort(speed)
         cdf = np.arange(1, sorted_speed.size + 1) / float(sorted_speed.size)
-        series.append((label, color, speed, quality, sorted_speed, cdf))
+        series.append((label, color, marker, speed, quality, sorted_speed, cdf))
 
     fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.74))
-    for label, color, speed, quality, sorted_speed, cdf in series:
+    for label, color, marker, speed, quality, sorted_speed, cdf in series:
         ax.scatter(
             speed,
             quality,
             s=9,
             alpha=0.26,
             color=color,
+            marker=marker,
             edgecolors="none",
             label=label,
         )
@@ -819,6 +1006,7 @@ def figure_practical_suite():
             [np.median(quality)],
             s=42,
             color=color,
+            marker=marker,
             edgecolors="black",
             linewidths=0.65,
             zorder=4,
@@ -833,7 +1021,7 @@ def figure_practical_suite():
     plt.close(fig)
 
     fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.50))
-    for label, color, speed, quality, sorted_speed, cdf in series:
+    for label, color, marker, speed, quality, sorted_speed, cdf in series:
         ax.plot(sorted_speed, cdf, color=color, linewidth=1.8, label=label)
     ax.set_xscale("log")
     ax.set_xlabel("Required speedup (x)")
@@ -892,8 +1080,9 @@ def figure_quality_bottleneck_summary():
     ax_gap.set_xticks(x)
     ax_gap.set_xticklabels([item[1] for item in workloads])
     ax_gap.set_ylim(0.0, 0.9)
-    ax_gap.set_ylabel("Quality gap\nto native")
+    ax_gap.set_ylabel("$\\Delta Q$\n(to native)", labelpad=0.5)
     style_axis(ax_gap, grid="y")
+    ax_gap.tick_params(axis="x", labelsize=5.8, pad=1.0)
     gap_handles = [
         Line2D([0], [0], marker="o", color="none", markerfacecolor=COLORS["dark"], markeredgecolor="black", markersize=3.8),
         Line2D([0], [0], marker="s", color="none", markerfacecolor=COLORS["dark"], markeredgecolor="black", markersize=3.8),
@@ -910,7 +1099,7 @@ def figure_quality_bottleneck_summary():
         handletextpad=0.25,
         columnspacing=0.65,
     )
-    fig.subplots_adjust(top=0.80, bottom=0.23, left=0.28, right=0.98)
+    fig.subplots_adjust(top=0.80, bottom=0.23, left=0.34, right=0.98)
     gap_path = os.path.join(FIG_DIR, "quality_gap_summary.pdf")
     save_canvas(fig, gap_path)
 
@@ -932,8 +1121,8 @@ def figure_quality_bottleneck_summary():
     ax_tax.set_yticks(y)
     ax_tax.set_yticklabels([item[1] for item in workloads])
     ax_tax.invert_yaxis()
-    ax_tax.set_xlim(0.0, 100.0)
-    ax_tax.set_xlabel("Within-workload\ncases (%)")
+    ax_tax.set_xlim(0.0, 104.0)
+    ax_tax.set_xlabel("Case share (%)")
     style_axis(ax_tax, grid="x")
     ax_tax.legend(
         [Rectangle((0, 0), 1, 1, color=COLORS["red"]), Rectangle((0, 0), 1, 1, color=COLORS["blue"])],
@@ -947,7 +1136,7 @@ def figure_quality_bottleneck_summary():
         handletextpad=0.25,
         columnspacing=0.6,
     )
-    fig.subplots_adjust(top=0.80, bottom=0.28, left=0.27, right=0.98)
+    fig.subplots_adjust(top=0.80, bottom=0.24, left=0.27, right=0.96)
     fraction_path = os.path.join(FIG_DIR, "quality_bottleneck_fraction.pdf")
     save_canvas(fig, fraction_path)
 
@@ -996,13 +1185,42 @@ def accounting_elapsed_seconds(rel_path):
             state = row.get("State", "")
             if "." in job_id:
                 continue
-            if state not in {"COMPLETED", "RUNNING", "TIMEOUT"}:
+            if state != "COMPLETED":
                 continue
             return parse_slurm_elapsed(row.get("Elapsed", ""))
     return None
 
 
+def accounting_sum_array_task_seconds(rel_path):
+    if not rel_path:
+        return None
+    path = os.path.join(ROOT, rel_path)
+    if not os.path.exists(path):
+        return None
+    total = 0
+    count = 0
+    with open(path, newline="") as f:
+        reader = csv.DictReader(f, delimiter="|")
+        for row in reader:
+            job_id = row.get("JobID", "")
+            state = row.get("State", "")
+            if "." in job_id or "_" not in job_id:
+                continue
+            if state != "COMPLETED":
+                continue
+            elapsed = parse_slurm_elapsed(row.get("Elapsed", ""))
+            if elapsed is None:
+                continue
+            total += elapsed
+            count += 1
+    return total if count else None
+
+
 def run_elapsed_seconds(run):
+    if run.get("elapsed_mode") == "sum_array_tasks":
+        summed = accounting_sum_array_task_seconds(run.get("accounting"))
+        if summed is not None:
+            return summed
     from_accounting = accounting_elapsed_seconds(run.get("accounting"))
     if from_accounting is not None:
         return from_accounting
@@ -1057,6 +1275,7 @@ def figure_strong_native_comparison():
     for label, color, initial, strong in zip(labels, colors, official_speed, strong_speed):
         ax.plot([0, 1], [initial, strong], marker="o", color=color, linewidth=1.9)
     ax.set_yscale("log")
+    ax.yaxis.set_major_formatter(FuncFormatter(compact_tick))
     ax.set_xlim(-0.12, 1.12)
     ax.set_xticks([0, 1])
     ax.set_xticklabels(["Initial\nbaseline", "Strong\nbaseline"])
@@ -1235,15 +1454,6 @@ def figure_ml_native_profile_combined():
         return None
     gate = gate.get("summary", gate)
 
-    total_cases = int(gate.get("case_count", 32))
-    combined = gate.get("combined_selected_counts", {})
-    production = gate.get("production_selected_counts", {})
-    previous_count = int(combined.get("previous_suite", 0))
-    cnn_count = int(combined.get("torch_amp_cnn", 0))
-    xgb_count = int(production.get("xgboost_gpu_hist", 0))
-    mlp_count = int(production.get("torch_amp_mlp", 0))
-    prod_cnn_count = int(production.get("torch_amp_cnn", 0))
-
     nsys = profile.get("nsys_kernel_summary", {})
     dmon = profile.get("dmon_summary", {})
     gpu_frac = float(nsys.get("gpu_kernel_runtime_fraction") or 0.0)
@@ -1253,49 +1463,33 @@ def figure_ml_native_profile_combined():
 
     fig, axes = plt.subplots(1, 2, figsize=(COLUMN_WIDTH, 1.98), gridspec_kw={"wspace": 0.52})
     ax = axes[0]
-    rows = [
-        (
-            "Combined\nselected",
-            [previous_count, cnn_count],
-            [COLORS["gray"], COLORS["blue"]],
-            ["Previous", "AMP CNN"],
-            gate["combined_required_speedup_median"],
-        ),
-        (
-            "GPU prod.\nonly",
-            [prod_cnn_count, xgb_count, mlp_count],
-            [COLORS["blue"], COLORS["orange"], COLORS["purple"]],
-            ["AMP CNN", "XGBoost", "AMP MLP"],
-            gate["production_required_speedup_median"],
-        ),
+    speed_rows = [
+        ("Previous\nsuite", float(gate["previous_required_speedup_median"]), COLORS["gray"]),
+        ("Combined\nselected", float(gate["combined_required_speedup_median"]), COLORS["blue"]),
+        ("GPU prod.\nonly", float(gate["production_required_speedup_median"]), COLORS["orange"]),
     ]
-    handles = {}
-    for ridx, (row_label, counts, colors, names, speedup) in enumerate(rows):
-        left = 0.0
-        for count, color, name in zip(counts, colors, names):
-            width = 100.0 * count / float(total_cases)
-            bar = ax.barh(ridx, width, left=left, height=0.52, color=color)
-            handles.setdefault(name, bar[0])
-            if width >= 18.0:
-                ax.text(
-                    left + width / 2.0,
-                    ridx,
-                    "{:d}/{}".format(count, total_cases),
-                    ha="center",
-                    va="center",
-                    fontsize=5.9,
-                    color="white" if color in {COLORS["gray"], COLORS["blue"], COLORS["purple"]} else "black",
-                    weight="bold",
-                )
-            left += width
-        ax.text(104.0, ridx, "{:,.0f}x".format(speedup), va="center", fontsize=5.7)
-    ax.set_yticks(np.arange(len(rows)))
-    ax.set_yticklabels([row[0] for row in rows])
-    ax.set_xlim(0, 132)
-    ax.set_xlabel("Selected baseline share (%)")
-    ax.set_xticks([0, 50, 100])
-    ax.set_xticklabels(["0", "50", "100"])
+    y_speed = np.arange(len(speed_rows))
+    ax.hlines(y_speed, 10.0, [row[1] for row in speed_rows], color="#BDBDBD", linewidth=1.5, zorder=1)
+    for ridx, (row_label, speedup, color) in enumerate(speed_rows):
+        ax.scatter(speedup, ridx, s=20, color=color, edgecolor=COLORS["dark"], linewidth=0.35, zorder=3)
+        ax.text(
+            min(speedup * 1.10, 1.55e4),
+            ridx,
+            "{:,.0f}x".format(speedup),
+            va="center",
+            ha="left",
+            fontsize=5.45,
+            color=COLORS["dark"],
+        )
+    ax.set_yticks(y_speed)
+    ax.set_yticklabels([row[0] for row in speed_rows])
     ax.invert_yaxis()
+    ax.set_xscale("log")
+    ax.xaxis.set_major_formatter(FuncFormatter(compact_tick))
+    ax.set_xlim(10.0, 2.0e4)
+    ax.set_xticks([10, 100, 1000, 10000])
+    ax.set_xticklabels(["$10$", "$10^2$", "$10^3$", "$10^4$"])
+    ax.set_xlabel("Median required speedup (x)")
     style_axis(ax, grid="x")
 
     ax = axes[1]
@@ -1342,53 +1536,230 @@ def figure_ml_native_profile_combined():
     style_axis(ax, grid="x")
 
     legend_handles = [
-        handles.get("Previous"),
-        handles.get("AMP CNN"),
-        handles.get("XGBoost"),
-        handles.get("AMP MLP"),
         profile_handles.get("Host/orch."),
         profile_handles.get("GPU kernels"),
+        profile_handles.get("Other"),
         profile_handles.get("Tensor fam."),
     ]
     legend_labels = [
-        "Prev.",
-        "CNN",
-        "XGB",
-        "MLP",
-        "Host",
-        "GPU",
-        "Tensor",
+        "Host/orch.",
+        "GPU kernels",
+        "Other kernels",
+        "Tensor fam.",
     ]
     pairs = [(h, l) for h, l in zip(legend_handles, legend_labels) if h is not None]
     fig.legend(
         [h for h, _ in pairs],
         [l for _, l in pairs],
-        ncol=7,
+        ncol=4,
         loc="upper center",
-        bbox_to_anchor=(0.5, 1.01),
+        bbox_to_anchor=(0.58, 1.01),
         frameon=False,
-        fontsize=4.9,
+        fontsize=5.05,
         handlelength=0.95,
         handletextpad=0.20,
-        columnspacing=0.42,
+        columnspacing=0.55,
     )
-    fig.subplots_adjust(left=0.17, right=0.98, bottom=0.23, top=0.76, wspace=0.52)
+    fig.subplots_adjust(left=0.22, right=0.98, bottom=0.23, top=0.76, wspace=0.46)
     path = os.path.join(FIG_DIR, "ml_native_profile_combined.pdf")
     fig.savefig(path, bbox_inches="tight")
     plt.close(fig)
     return path
 
 
+def figure_roofline_native_stress():
+    data = load_summary(ROOFLINE_NATIVE_STRESS_JSON)
+    if data is None:
+        return None
+
+    workloads = [
+        ("ml", "ML", COLORS["blue"]),
+        ("chemistry", "Chem.", COLORS["teal"]),
+        ("optimization", "Opt.", COLORS["red"]),
+        ("simulation", "Sim.", COLORS["green"]),
+    ]
+    labels = [label for _workload, label, _color in workloads]
+    colors = [color for _workload, _label, color in workloads]
+    shrink = np.array(
+        [
+            data["by_workload"][workload][
+                "a100_launch_floor_10us_deadline_shrink_median_x"
+            ]
+            for workload, _label, _color in workloads
+        ]
+    )
+    measured_ratio = np.array(
+        [
+            data["by_workload"][workload][
+                "measured_deadline_projected_ratio_median_x"
+            ]
+            for workload, _label, _color in workloads
+        ]
+    )
+    stressed_ratio = np.array(
+        [
+            data["by_workload"][workload][
+                "a100_launch_floor_10us_projected_ratio_median_x"
+            ]
+            for workload, _label, _color in workloads
+        ]
+    )
+
+    y = np.arange(len(workloads))
+    handles = [
+        Line2D(
+            [0],
+            [0],
+            marker="o",
+            color="none",
+            markerfacecolor=COLORS["dark"],
+            markeredgecolor="#222222",
+            markersize=3.8,
+        ),
+        Line2D(
+            [0],
+            [0],
+            marker="s",
+            color="none",
+            markerfacecolor=COLORS["dark"],
+            markeredgecolor="#222222",
+            markersize=3.8,
+        ),
+    ]
+
+    legend_fig, legend_ax = plt.subplots(figsize=(COLUMN_WIDTH, 0.22))
+    legend_ax.axis("off")
+    legend_fig.legend(
+        handles,
+        ["measured native", "roofline + 10 us"],
+        loc="center",
+        ncol=2,
+        frameon=False,
+        fontsize=5.8,
+        handletextpad=0.25,
+        columnspacing=0.9,
+    )
+    legend_path = os.path.join(FIG_DIR, "roofline_native_stress_legend.pdf")
+    legend_fig.savefig(legend_path, bbox_inches="tight", pad_inches=0.01)
+    plt.close(legend_fig)
+
+    fig, ax_shrink = plt.subplots(figsize=(COLUMN_WIDTH, 2.08))
+    normalized_floor = 1.0 / shrink
+    for ypos, floor, value, color in zip(y, normalized_floor, shrink, colors):
+        ax_shrink.hlines(ypos, floor, 1.0, color=color, linewidth=2.1, alpha=0.82, zorder=2)
+        ax_shrink.scatter(
+            1.0,
+            ypos,
+            marker="o",
+            s=25,
+            facecolor="white",
+            edgecolor="#303030",
+            linewidth=0.7,
+            zorder=3,
+        )
+        ax_shrink.scatter(
+            floor,
+            ypos,
+            marker="s",
+            s=28,
+            color=color,
+            edgecolor="#303030",
+            linewidth=0.55,
+            zorder=4,
+        )
+        text = "{:.0f}x".format(value) if value >= 10.0 else "{:.1f}x".format(value)
+        ax_shrink.annotate(
+            text,
+            (floor, ypos),
+            xytext=(5, 0),
+            textcoords="offset points",
+            ha="left",
+            va="center",
+            fontsize=FIGURE_TICK_FONT,
+            color=COLORS["dark"],
+            bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.88, "pad": 0.25},
+        )
+    ax_shrink.axvline(1.0, color="#555555", linestyle=":", linewidth=0.7, zorder=1)
+    ax_shrink.set_xscale("log")
+    ax_shrink.set_xlim(3.0e-3, 1.45)
+    ax_shrink.set_xticks([0.005, 0.01, 0.1, 1.0])
+    ax_shrink.set_xticklabels(["0.005", "0.01", "0.1", "1"])
+    ax_shrink.set_yticks(y)
+    ax_shrink.set_yticklabels(labels)
+    ax_shrink.invert_yaxis()
+    ax_shrink.set_xlabel("Runtime lower bound / measured runtime (x)", labelpad=1.0)
+    style_axis(ax_shrink, grid="x")
+    ax_shrink.tick_params(axis="both", labelsize=FIGURE_TICK_FONT, pad=1.0)
+    add_top_legend(
+        fig,
+        [
+            Line2D([0], [0], marker="o", linestyle="None", markerfacecolor="white", markeredgecolor="#303030", markersize=4.2),
+            Line2D([0], [0], marker="s", linestyle="None", markerfacecolor=COLORS["gray"], markeredgecolor="#303030", markersize=4.2),
+        ],
+        ["Measured runtime", "Roofline lower bound"],
+        ncol=2,
+        y=0.99,
+        fontsize=FIGURE_TICK_FONT,
+    )
+    fig.subplots_adjust(left=0.22, right=0.98, bottom=0.25, top=0.73)
+    shrink_path = os.path.join(FIG_DIR, "roofline_deadline_shrink.pdf")
+    save_canvas(fig, shrink_path)
+
+    fig, ax_ratio = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.50))
+    for ypos, before, after, color in zip(y, measured_ratio, stressed_ratio, colors):
+        left = max(1.0e-3, min(before, after))
+        right = max(before, after)
+        ax_ratio.hlines(ypos, left, right, color=color, linewidth=1.35, alpha=0.68)
+        ax_ratio.scatter(
+            before,
+            ypos,
+            marker="o",
+            s=25,
+            color=color,
+            edgecolor="#222222",
+            linewidth=0.45,
+            zorder=3,
+        )
+        ax_ratio.scatter(
+            after,
+            ypos,
+            marker="s",
+            s=26,
+            color=color,
+            edgecolor="#222222",
+            linewidth=0.45,
+            zorder=3,
+        )
+    ax_ratio.axvspan(1.0e-3, 1.0, color="#EDF6EF", zorder=0)
+    ax_ratio.axvline(1.0, color=COLORS["dark"], linestyle="--", linewidth=0.75)
+    ax_ratio.set_xscale("log")
+    ax_ratio.set_xlim(1.0e-3, 1.0e4)
+    ax_ratio.set_xticks([1.0e-2, 1.0, 1.0e2, 1.0e4])
+    ax_ratio.set_xticklabels(["0.01", "1", "$10^2$", "$10^4$"])
+    ax_ratio.set_yticks(y)
+    ax_ratio.set_yticklabels(labels)
+    ax_ratio.invert_yaxis()
+    ax_ratio.set_xlabel("Projected / native (x)", labelpad=1.0)
+    style_axis(ax_ratio, grid="x")
+    ax_ratio.tick_params(axis="both", labelsize=5.7, pad=1.0)
+    fig.subplots_adjust(left=0.29, right=0.98, bottom=0.27, top=0.97)
+    ratio_path = os.path.join(FIG_DIR, "roofline_runtime_shift.pdf")
+    save_canvas(fig, ratio_path)
+    return [legend_path, shrink_path, ratio_path]
+
+
 def figure_workload_growth():
     if not (
-        os.path.exists(os.path.join(ROOT, SCALE_WEAK_32_SUMMARY_CSV))
+        os.path.exists(os.path.join(ROOT, SCALE_WEAK_16_SUMMARY_CSV))
+        and os.path.exists(os.path.join(ROOT, SCALE_WEAK_32_SUMMARY_CSV))
         and os.path.exists(os.path.join(ROOT, SCALE_WEAK_64_SUMMARY_CSV))
     ):
         return None
 
     points = [
-        ("128 GPUs\n3,552 cases", 128, 3552, 419, SCALE_WEAK_32_SUMMARY_CSV),
-        ("256 GPUs\n7,104 cases", 256, 7104, 576, SCALE_WEAK_64_SUMMARY_CSV),
+        ("64 GPUs", 64, 562, SCALE_WEAK_16_SUMMARY_CSV),
+        ("128 GPUs", 128, 419, SCALE_WEAK_32_SUMMARY_CSV),
+        ("256 GPUs", 256, 576, SCALE_WEAK_64_SUMMARY_CSV),
     ]
     workloads = [
         ("ml", "ML", COLORS["blue"]),
@@ -1396,87 +1767,202 @@ def figure_workload_growth():
         ("optimization", "Opt.", COLORS["red"]),
         ("simulation", "Sim.", COLORS["green"]),
     ]
-    rows_by_run = [read_csv(points[0][4]), read_csv(points[1][4])]
+    rows_by_run = [read_csv(point[3]) for point in points]
 
-    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.88))
-    x = np.arange(len(points))
-    bottoms = np.zeros(len(points))
-    handles = []
-    labels = []
-    for workload, label, color in workloads:
-        counts = np.array([
-            sum(1 for row in rows if row["workload"] == workload)
-            for rows in rows_by_run
-        ], dtype=float)
-        bars = ax.bar(x, counts / 1000.0, bottom=bottoms / 1000.0, color=color, width=0.54)
-        handles.append(bars[0])
-        labels.append(label)
-        for xpos, bottom, count in zip(x, bottoms, counts):
-            if count >= 200:
-                ax.text(
-                    xpos,
-                    (bottom + count / 2.0) / 1000.0,
-                    "{:.0f}".format(count),
-                    ha="center",
-                    va="center",
-                    fontsize=5.2,
-                    color="white" if color in {COLORS["blue"], COLORS["red"], COLORS["green"]} else "black",
-                    weight="bold" if count >= 500 else "normal",
+    def fmt_count(value):
+        if value >= 1000:
+            return "{:.1f}K".format(value / 1000.0)
+        return "{}".format(int(value))
+
+    counts_by_run = []
+    for rows in rows_by_run:
+        run_counts = []
+        for workload, _label, _color in workloads:
+            run_counts.append(
+                sum(
+                    1
+                    for row in rows
+                    if row["workload"] == workload and row.get("status") == "ok"
                 )
-        bottoms += counts
-    for xpos, total, point in zip(x, bottoms, points):
-        ax.text(
-            xpos,
-            total / 1000.0 + 0.18,
-            "{:.1f}K\n{}s".format(total / 1000.0, int(point[3])),
-            ha="center",
-            va="bottom",
-            fontsize=5.4,
-            linespacing=0.92,
-        )
-    ax.set_xticks(x)
-    ax.set_xticklabels(["128\nGPUs", "256\nGPUs"])
-    ax.set_ylabel("Cases by\nworkload (K)")
-    ax.set_ylim(0, 8.4)
-    style_axis(ax, grid="y")
-    add_top_legend(fig, handles, labels, ncol=4, y=0.99, fontsize=4.8)
-    fig.subplots_adjust(left=0.31, right=0.98, bottom=0.29, top=0.75)
-    time_path = os.path.join(FIG_DIR, "workload_growth_time.pdf")
-    fig.savefig(time_path)
-    plt.close(fig)
+            )
+        counts_by_run.append(run_counts)
 
-    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.78))
-    handles = []
-    legend_labels = []
-    x = np.array([0, 1], dtype=float)
+    totals = [sum(counts) for counts in counts_by_run]
+    max_total = max(totals)
+
+    payload_rows = rows_by_run[-1]
+    payload = []
     for workload, label, color in workloads:
-        medians = []
-        p90s = []
-        for rows in rows_by_run:
-            vals = [
-                float(row["quality_gap"])
-                for row in rows
-                if row["workload"] == workload
-            ]
-            medians.append(float(np.median(vals)))
-            p90s.append(float(np.percentile(vals, 90)))
-        line = ax.plot(x, medians, marker="o", color=color, linewidth=1.55)[0]
-        ax.scatter(x, p90s, marker="s", s=14, color=color, edgecolors="black", linewidths=0.35, zorder=3)
-        handles.append(line)
-        legend_labels.append(label)
-    ax.set_xticks(x)
-    ax.set_xticklabels(["128\nGPUs", "256\nGPUs"])
-    ax.set_ylabel("Median\nquality gap")
-    ax.set_ylim(0.0, 0.34)
-    ax.set_yticks([0.0, 0.1, 0.2, 0.3])
-    ax.set_xlim(-0.14, 1.14)
-    style_axis(ax, grid="y")
-    add_top_legend(fig, handles, legend_labels, ncol=4, y=0.99, fontsize=4.7)
-    fig.subplots_adjust(left=0.27, right=0.98, bottom=0.31, top=0.74)
-    quality_path = os.path.join(FIG_DIR, "workload_growth_quality.pdf")
-    fig.savefig(quality_path)
+        subset = [
+            row
+            for row in payload_rows
+            if row["workload"] == workload and row.get("status", "ok") == "ok"
+        ]
+        evals = np.array([float(row["circuit_evaluations"]) for row in subset], dtype=float)
+        twoq = np.array([float(row["two_qubit_gates"]) for row in subset], dtype=float)
+        payload.append(
+            {
+                "label": label,
+                "color": color,
+                "eval_median": float(np.median(evals)),
+                "eval_p90": float(np.percentile(evals, 90)),
+                "twoq_median": float(np.median(twoq)),
+                "twoq_p90": float(np.percentile(twoq, 90)),
+            }
+        )
+
+    fig, (ax_vol, ax_payload) = plt.subplots(
+        1,
+        2,
+        figsize=(COLUMN_WIDTH, 2.05),
+        gridspec_kw={"width_ratios": [1.18, 1.02], "wspace": 0.27},
+    )
+
+    y = np.arange(len(points))
+    left = np.zeros(len(points))
+    handles = []
+    for widx, (_workload, label, color) in enumerate(workloads):
+        values = np.array([counts[widx] for counts in counts_by_run], dtype=float)
+        ax_vol.barh(
+            y,
+            values,
+            left=left,
+            height=0.52,
+            color=color,
+            alpha=0.88,
+            edgecolor="white",
+            linewidth=0.55,
+        )
+        handles.append(Rectangle((0, 0), 1, 1, facecolor=color, alpha=0.88))
+        for ypos, value, base in zip(y, values, left):
+            if value >= max_total * 0.080:
+                ax_vol.text(
+                    base + value / 2.0,
+                    ypos,
+                    fmt_count(value),
+                    va="center",
+                    ha="center",
+                    fontsize=5.25,
+                    color="white",
+                    fontweight="bold",
+                )
+        left += values
+
+    ax_vol.set_yticks(y)
+    ax_vol.set_yticklabels([label.replace(" GPUs", "G") for label, _g, _t, _p in points])
+    ax_vol.invert_yaxis()
+    ax_vol.set_xlim(0, max_total * 1.16)
+    ax_vol.set_xticks([0, max_total / 2.0, max_total])
+    ax_vol.set_xticklabels(["0", fmt_count(max_total / 2.0), fmt_count(max_total)])
+    ax_vol.set_xlabel("Completed records", labelpad=1.0, fontsize=6.3)
+    ax_vol.tick_params(axis="both", labelsize=6.0, pad=1.0)
+    for idx, total in enumerate(totals):
+        ax_vol.text(
+            total + max_total * 0.025,
+            idx,
+            fmt_count(total),
+            va="center",
+            ha="left",
+            fontsize=5.9,
+            color=COLORS["dark"],
+        )
+    style_axis(ax_vol, grid="x")
+
+    y_payload = np.arange(len(payload))
+    ax_payload.set_xscale("log")
+    ax_payload.axvspan(0.8, 10.0, facecolor="#EDF6EF", edgecolor="none", zorder=0)
+    ax_payload.axvspan(10.0, 1.0e2, facecolor="#F6F1E8", edgecolor="none", zorder=0)
+    ax_payload.axvspan(1.0e2, 5.0e3, facecolor="#F8EEEE", edgecolor="none", zorder=0)
+    for ypos, item in zip(y_payload, payload):
+        ax_payload.hlines(
+            ypos - 0.10,
+            item["eval_median"],
+            item["eval_p90"],
+            color=COLORS["purple"],
+            linewidth=1.35,
+            alpha=0.68,
+            zorder=2,
+        )
+        ax_payload.hlines(
+            ypos + 0.10,
+            item["twoq_median"],
+            item["twoq_p90"],
+            color=COLORS["orange"],
+            linewidth=1.35,
+            alpha=0.68,
+            zorder=2,
+        )
+        ax_payload.scatter(
+            item["eval_median"],
+            ypos - 0.10,
+            marker="s",
+            s=18,
+            color=COLORS["purple"],
+            edgecolor=COLORS["dark"],
+            linewidth=0.30,
+            zorder=3,
+        )
+        ax_payload.scatter(
+            item["twoq_median"],
+            ypos + 0.10,
+            marker="o",
+            s=18,
+            color=COLORS["orange"],
+            edgecolor=COLORS["dark"],
+            linewidth=0.30,
+            zorder=3,
+        )
+    ax_payload.set_yticks(y_payload)
+    ax_payload.set_yticklabels([item["label"] for item in payload])
+    ax_payload.invert_yaxis()
+    ax_payload.set_xlim(0.8, 5.0e3)
+    ax_payload.set_xticks([1, 10, 100, 1000])
+    ax_payload.set_xticklabels(["1", "10", "$10^2$", "$10^3$"])
+    ax_payload.set_xlabel("Median to p90 count", labelpad=1.0, fontsize=6.3)
+    ax_payload.tick_params(axis="both", labelsize=6.0, pad=1.0)
+    style_axis(ax_payload, grid="x")
+
+    legend_handles = handles + [
+        Line2D(
+            [0],
+            [0],
+            marker="s",
+            color=COLORS["purple"],
+            markerfacecolor=COLORS["purple"],
+            markeredgecolor=COLORS["dark"],
+            linewidth=1.0,
+            markersize=3.2,
+        ),
+        Line2D(
+            [0],
+            [0],
+            marker="o",
+            color=COLORS["orange"],
+            markerfacecolor=COLORS["orange"],
+            markeredgecolor=COLORS["dark"],
+            linewidth=1.0,
+            markersize=3.2,
+        ),
+    ]
+    legend_labels = [label for _workload, label, _color in workloads] + ["$N_e$", "2Q"]
+    fig.legend(
+        legend_handles,
+        legend_labels,
+        loc="upper center",
+        bbox_to_anchor=(0.52, 1.03),
+        ncol=6,
+        frameon=False,
+        fontsize=5.35,
+        handlelength=0.82,
+        handletextpad=0.22,
+        columnspacing=0.42,
+    )
+
+    fig.subplots_adjust(left=0.15, right=0.985, bottom=0.20, top=0.82)
+    coverage_path = os.path.join(FIG_DIR, "workload_growth_coverage.pdf")
+    fig.savefig(coverage_path, bbox_inches="tight", pad_inches=0.01)
     plt.close(fig)
-    return [time_path, quality_path]
+    return coverage_path
 
 
 def figure_circuit_operation_mix():
@@ -1557,80 +2043,79 @@ def figure_projected_time_decomposition():
         ("simulation", "Sim."),
     ]
     categories = [
-        ("Gate pipe", COLORS["blue"]),
-        ("Decode pipe", COLORS["purple"]),
-        ("Host I/O", COLORS["orange"]),
-        ("Queue/ctrl.", COLORS["gray"]),
+        ("Gate", "gate_ms", COLORS["blue"], "o"),
+        ("Decode", "critical_decode_ms", COLORS["purple"], "s"),
+        ("Host I/O", "host_io_ms", COLORS["orange"], "^"),
+        ("Ctrl/ctx", "ctrl_context_ms", COLORS["teal"], "v"),
+        ("Queue", "queue_ms", COLORS["gray"], "D"),
     ]
 
-    shares = []
+    ratios = []
     for workload, _label in workloads:
         subset = [row for row in rows if row["workload"] == workload]
         per_case = []
         for row in subset:
             components = projection_components_ms(row)
-            total = max(1.0e-12, components["total_ms"])
+            native_ms = max(1.0e-12, 1.0e3 * float(row["native_runtime_sec"]))
             per_case.append(
                 [
-                    components["critical_gate_ms"] / total,
-                    components["critical_decode_ms"] / total,
-                    components["host_io_ms"] / total,
-                    components["queue_ms"] / total,
+                    components[key] / native_ms
+                    for _label, key, _color, _marker in categories
                 ]
             )
-        shares.append(np.median(np.array(per_case), axis=0))
+        ratios.append(np.median(np.array(per_case), axis=0))
 
-    fig = plt.figure(figsize=(COLUMN_WIDTH, 1.22))
-    gs = fig.add_gridspec(2, 1, height_ratios=[0.16, 1.0], hspace=-0.03)
-    legend_ax = fig.add_subplot(gs[0])
-    ax = fig.add_subplot(gs[1])
-    legend_ax.axis("off")
+    ratio_array = np.array(ratios)
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.66))
     y = np.arange(len(workloads))
-    left = np.zeros(len(workloads))
-    handles = []
-    labels = []
-    share_array = np.array(shares)
-    for idx, (label, color) in enumerate(categories):
-        values = share_array[:, idx]
-        bars = ax.barh(y, values, left=left, color=color, height=0.50)
-        handles.append(bars[0])
-        labels.append(label)
-        for ypos, value, base in zip(y, values, left):
-            if value >= 0.16:
-                ax.text(
-                    base + value / 2.0,
-                    ypos,
-                    "{:.0f}%".format(value * 100.0),
-                    ha="center",
-                    va="center",
-                    fontsize=6.4,
-                    color="white" if idx in {0, 2, 3} else "black",
-                )
-        left += values
+    for ypos, values in zip(y, ratio_array):
+        visible = np.maximum(1.0e-4, values)
+        ax.hlines(
+            ypos,
+            float(np.min(visible)),
+            float(np.max(visible)),
+            color="#B8B8B8",
+            linewidth=0.8,
+            zorder=1,
+        )
+    for idx, (label, _key, color, marker) in enumerate(categories):
+        values = np.maximum(1.0e-4, ratio_array[:, idx])
+        ax.scatter(
+            values,
+            y,
+            s=22,
+            marker=marker,
+            color=color,
+            edgecolor="white",
+            linewidth=0.65,
+            zorder=3 + idx,
+            label=label,
+        )
+    ax.axvspan(1.0e-4, 1.0, color="#EDF6EF", zorder=0)
+    ax.axvline(1.0, color=COLORS["dark"], linestyle="--", linewidth=0.75, zorder=1)
     ax.set_yticks(y)
     ax.set_yticklabels([label for _, label in workloads])
     ax.invert_yaxis()
-    ax.set_xlim(0.0, 1.0)
-    ax.set_xlabel("Time share", labelpad=0.9)
-    ax.set_xticks([0, 0.5, 1.0])
-    ax.set_xticklabels(["0", "50%", "100%"])
+    ax.set_xscale("log")
+    ax.set_xlim(1.0e-4, 1.3e4)
+    ax.set_xlabel("Component / native runtime (x)", labelpad=0.8)
+    ax.set_xticks([1.0e-4, 1.0e-2, 1.0, 1.0e2, 1.0e4])
+    ax.set_xticklabels(["$10^{-4}$", "0.01", "1", "$10^2$", "$10^4$"])
     style_axis(ax, grid="x")
-    ax.tick_params(axis="both", labelsize=6.6, pad=0.9, width=0.6)
-    ax.xaxis.label.set_size(6.8)
-    legend_ax.legend(
-        handles,
-        labels,
-        loc="center",
-        bbox_to_anchor=(0.5, 0.36),
-        ncol=4,
+    ax.tick_params(axis="both", labelsize=6.1, pad=0.8, width=0.6)
+    ax.xaxis.label.set_size(6.5)
+    ax.legend(
+        loc="upper center",
+        bbox_to_anchor=(0.52, 1.20),
+        ncol=5,
         frameon=False,
-        fontsize=6.4,
+        fontsize=5.35,
         handlelength=0.9,
-        handletextpad=0.35,
-        columnspacing=0.70,
+        handletextpad=0.18,
+        columnspacing=0.34,
         borderaxespad=0.0,
     )
-    fig.subplots_adjust(left=0.17, right=0.985, bottom=0.25, top=0.99)
+    fig.subplots_adjust(left=0.18, right=0.99, bottom=0.24, top=0.79)
     path = os.path.join(FIG_DIR, "projected_time_decomposition.pdf")
     return save_canvas(fig, path)
 
@@ -1668,147 +2153,191 @@ def figure_threshold_tail_pressure():
     return save_canvas(fig, path)
 
 
-def figure_tolerance_sensitivity():
-    if not os.path.exists(os.path.join(ROOT, STRONG_NATIVE_SUMMARY_CSV)):
-        return None
-
-    rows = read_csv(STRONG_NATIVE_SUMMARY_CSV)
-    workload_specs = [
-        ("ml", "ML", COLORS["blue"], 0.02),
-        ("chemistry", "Chem.", COLORS["teal"], 0.01),
-        ("optimization", "Opt.", COLORS["red"], 0.02),
-        ("simulation", "Sim.", COLORS["green"], 0.01),
-    ]
-    scenario_specs = [
-        ("$1\\epsilon$\n$10^4$x", 1.0e4, 0.90, 1.0),
-        ("$0.5\\epsilon$\n$10^5$x", 1.0e5, 0.90, 0.5),
-        ("$1\\epsilon$\n$10^5$x", 1.0e5, 0.90, 1.0),
-        ("$2\\epsilon$\n$10^5$x", 1.0e5, 0.90, 2.0),
-        ("$1\\epsilon$\n$10^6$x", 1.0e6, 0.90, 1.0),
-        ("$1\\epsilon$\n$10^6$x\n100%R", 1.0e6, 1.00, 1.0),
+def projection_scenario_specs():
+    return [
+        ("conservative_surface", "Cons."),
+        ("intermediate_surface", "Mid."),
+        ("default_optimistic", "Def."),
+        ("ldpc_future_like", "Low-OH"),
+        ("aggressive_batched", "Batch"),
     ]
 
-    matrix = np.zeros((len(workload_specs), len(scenario_specs)), dtype=float)
-    for row_idx, (workload, label, color, base_tol) in enumerate(workload_specs):
-        subset = [row for row in rows if row["workload"] == workload]
-        required = np.array([float(row["speedup_required"]) for row in subset])
-        gaps = np.array([max(0.0, float(row["quality_gap"])) for row in subset])
-        for col_idx, (_scenario_label, speedup, recovery, tolerance_scale) in enumerate(scenario_specs):
-            tolerance = base_tol * tolerance_scale
-            advantaged = (speedup >= required) & (gaps * (1.0 - recovery) <= tolerance)
-            matrix[row_idx, col_idx] = 100.0 * float(np.mean(advantaged)) if advantaged.size else 0.0
 
-    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.15))
-    cmap = plt.get_cmap("YlGnBu")
-    ax.imshow(matrix, vmin=0, vmax=100, cmap=cmap, aspect="auto")
-    for row_idx in range(matrix.shape[0]):
-        for col_idx in range(matrix.shape[1]):
-            value = matrix[row_idx, col_idx]
-            text_color = "white" if value >= 56.0 else COLORS["dark"]
-            ax.text(
-                col_idx,
-                row_idx,
-                "{:.0f}%".format(value),
-                ha="center",
-                va="center",
-                fontsize=5.1,
-                color=text_color,
-                fontweight="bold" if value >= 70.0 else "normal",
-            )
-    ax.set_xticks(np.arange(len(scenario_specs)))
-    ax.set_xticklabels([label for label, _speedup, _recovery, _tol_scale in scenario_specs])
-    ax.tick_params(axis="x", labelsize=4.7, pad=0.8, length=0)
-    ax.set_yticks(np.arange(len(workload_specs)))
-    ax.set_yticklabels([label for _workload, label, _color, _tol in workload_specs])
-    ax.tick_params(axis="y", labelsize=6.1, pad=1.1, length=0)
-    for spine in ax.spines.values():
-        spine.set_color("#FFFFFF")
-        spine.set_linewidth(0.55)
-    ax.set_xticks(np.arange(-0.5, len(scenario_specs), 1), minor=True)
-    ax.set_yticks(np.arange(-0.5, len(workload_specs), 1), minor=True)
-    ax.grid(which="minor", color="white", linestyle="-", linewidth=0.75)
-    ax.tick_params(which="minor", bottom=False, left=False)
-    ax.set_title("90%R unless noted", fontsize=5.4, pad=1.0)
-    fig.subplots_adjust(left=0.14, right=0.99, bottom=0.31, top=0.88)
-    path = os.path.join(FIG_DIR, "tolerance_sensitivity.pdf")
-    fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
-    plt.close(fig)
-    return path
+def projection_workload_specs():
+    return [
+        ("ml", "ML", COLORS["blue"], "o", "-"),
+        ("chemistry", "Chem.", COLORS["teal"], "s", "--"),
+        ("optimization", "Opt.", COLORS["red"], "D", "-."),
+        ("simulation", "Sim.", COLORS["green"], "^", ":"),
+    ]
 
 
-def figure_ft_shot_sensitivity():
+def figure_sensitivity_bottleneck_transition():
     scenario_summary = load_summary(PROJECTION_SCENARIOS_JSON)
     if scenario_summary is None:
         return None
 
-    workload_specs = [
-        ("ml", "ML"),
-        ("chemistry", "Chem."),
-        ("optimization", "Opt."),
-        ("simulation", "Sim."),
-    ]
-    scenario_specs = [
-        ("conservative_surface", "Conserv.\nsurface"),
-        ("resource_estimator_like", "Resource\nest."),
-        ("default_optimistic", "Default\nopt."),
-        ("ldpc_future_like", "LDPC\nfuture"),
-        ("aggressive_batched", "Aggressive\nbatch"),
-    ]
-    matrix = np.zeros((len(workload_specs), len(scenario_specs)), dtype=float)
-    ratio_matrix = np.zeros_like(matrix)
+    workload_specs = projection_workload_specs()
+    scenario_specs = projection_scenario_specs()
     by_scenario = scenario_summary.get("by_scenario", {})
-    for row_idx, (workload, _label) in enumerate(workload_specs):
-        for col_idx, (scenario_id, _scenario_label) in enumerate(scenario_specs):
-            item = by_scenario.get(scenario_id, {}).get("by_workload", {}).get(workload, {})
-            matrix[row_idx, col_idx] = 100.0 * float(item.get("advantaged_fraction", 0.0))
-            ratio_matrix[row_idx, col_idx] = float(item.get("median_projected_native_ratio", 0.0))
+    compact_scenario_labels = ["Cons.", "Mid.", "Def.", "Low", "Batch"]
 
-    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.35))
-    cmap = plt.get_cmap("YlGnBu")
-    ax.imshow(matrix, vmin=0, vmax=100, cmap=cmap, aspect="auto")
-    for row_idx in range(matrix.shape[0]):
-        for col_idx in range(matrix.shape[1]):
-            value = matrix[row_idx, col_idx]
-            ratio = ratio_matrix[row_idx, col_idx]
-            text_color = "white" if value >= 56.0 else COLORS["dark"]
-            if ratio >= 100:
-                ratio_text = "{:.0f}x".format(ratio)
-            elif ratio >= 10:
-                ratio_text = "{:.1f}x".format(ratio)
-            elif ratio >= 1:
-                ratio_text = "{:.1f}x".format(ratio)
-            elif ratio >= 0.01:
-                ratio_text = "{:.2f}x".format(ratio)
-            else:
-                ratio_text = "<0.01x"
-            ax.text(
-                col_idx,
-                row_idx,
-                "{:.0f}%\n{}".format(value, ratio_text),
-                ha="center",
-                va="center",
-                fontsize=4.65,
-                color=text_color,
-                linespacing=0.86,
-                fontweight="bold" if value >= 70.0 else "normal",
+    bucket_specs = [
+        ("Both fail", "both", "#BDBDBD", ""),
+        ("Run fail", "runtime", COLORS["blue"], "////"),
+        ("Qual fail", "quality", COLORS["orange"], "\\\\"),
+        ("Adv.", "advantaged", COLORS["green"], "xx"),
+    ]
+    x = np.arange(len(scenario_specs))
+    fig, axes = plt.subplots(
+        2,
+        2,
+        figsize=(COLUMN_WIDTH, 1.92),
+        sharex=True,
+        sharey=True,
+    )
+    axes = axes.flatten()
+    for ax, (workload, label, workload_color, _marker, _linestyle) in zip(axes, workload_specs):
+        bucket_values = {key: [] for _label, key, _color, _hatch in bucket_specs}
+        for scenario_id, _scenario_label in scenario_specs:
+            item = by_scenario.get(scenario_id, {}).get("by_workload", {}).get(workload, {})
+            runtime_pass = float(item.get("runtime_pass_fraction", 0.0))
+            quality_pass = float(item.get("quality_pass_fraction", 0.0))
+            advantaged = float(item.get("advantaged_fraction", 0.0))
+            bucket_values["both"].append(100.0 * max(0.0, 1.0 - runtime_pass - quality_pass + advantaged))
+            bucket_values["runtime"].append(100.0 * max(0.0, quality_pass - advantaged))
+            bucket_values["quality"].append(100.0 * max(0.0, runtime_pass - advantaged))
+            bucket_values["advantaged"].append(100.0 * max(0.0, advantaged))
+
+        bottom = np.zeros(len(scenario_specs))
+        for _bucket_label, key, color, hatch in bucket_specs:
+            values = np.array(bucket_values[key])
+            ax.bar(
+                x,
+                values,
+                bottom=bottom,
+                color=color,
+                width=0.74,
+                edgecolor="#555555",
+                linewidth=0.32,
+                alpha=0.86,
+                hatch=hatch,
             )
-    ax.set_xticks(np.arange(len(scenario_specs)))
+            bottom += values
+
+        ax.set_title(
+            label,
+            loc="left",
+            fontsize=6.3,
+            color=workload_color,
+            fontweight="bold",
+            pad=0.8,
+        )
+        ax.set_ylim(0.0, 100.0)
+        ax.set_yticks([0, 50, 100])
+        ax.set_xlim(-0.55, len(scenario_specs) - 0.45)
+        ax.grid(axis="y", color="#D9D9D9", linewidth=0.35, linestyle=":")
+        ax.tick_params(axis="both", labelsize=5.8, pad=0.8)
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
+
+    for ax in axes[::2]:
+        ax.set_ylabel("Cases (%)", fontsize=6.0, labelpad=0.8)
+    for ax in axes[2:]:
+        ax.set_xticks(x)
+        ax.set_xticklabels(compact_scenario_labels)
+    for ax in axes[:2]:
+        ax.tick_params(axis="x", labelbottom=False)
+
+    legend_handles = [
+        Rectangle((0, 0), 1, 1, facecolor=color, edgecolor="#555555", hatch=hatch, alpha=0.86)
+        for _label, _key, color, hatch in bucket_specs
+    ]
+    legend_labels = [label for label, _key, _color, _hatch in bucket_specs]
+    fig.legend(
+        legend_handles,
+        legend_labels,
+        loc="upper center",
+        bbox_to_anchor=(0.53, 0.965),
+        ncol=4,
+        frameon=False,
+        fontsize=5.8,
+        handlelength=0.70,
+        handletextpad=0.25,
+        columnspacing=0.55,
+        borderaxespad=0.0,
+    )
+    fig.subplots_adjust(left=0.10, right=0.99, bottom=0.15, top=0.75, hspace=0.25, wspace=0.14)
+    path = os.path.join(FIG_DIR, "sensitivity_bottleneck_transition.pdf")
+    fig.savefig(path)
+    plt.close(fig)
+    return path
+
+
+def figure_sensitivity_runtime_parity():
+    scenario_summary = load_summary(PROJECTION_SCENARIOS_JSON)
+    if scenario_summary is None:
+        return None
+
+    workload_specs = projection_workload_specs()
+    scenario_specs = projection_scenario_specs()
+    by_scenario = scenario_summary.get("by_scenario", {})
+    x = np.arange(len(scenario_specs))
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.92))
+    ax.axhspan(7.0e-4, 1.0, facecolor="#EDF6EF", edgecolor="none", zorder=0)
+    ax.axhline(1.0, color=COLORS["dark"], linestyle="--", linewidth=0.75, zorder=1)
+    for workload, label, color, marker, linestyle in workload_specs:
+        ratios = []
+        for scenario_id, _scenario_label in scenario_specs:
+            item = by_scenario.get(scenario_id, {}).get("by_workload", {}).get(workload, {})
+            ratios.append(max(1.0e-4, float(item.get("median_projected_native_ratio", 0.0))))
+        ax.plot(
+            x,
+            ratios,
+            marker=marker,
+            linestyle=linestyle,
+            linewidth=1.35,
+            markersize=3.8,
+            color=color,
+            markeredgecolor="#202020",
+            markeredgewidth=0.25,
+            zorder=3,
+            label=label,
+        )
+    ax.text(
+        0.03,
+        0.18,
+        "runtime-favorable",
+        transform=ax.transAxes,
+        fontsize=5.8,
+        color=COLORS["green"],
+    )
+    ax.set_yscale("log")
+    ax.set_ylim(7.0e-4, 4.0e3)
+    ax.set_xlim(-0.25, len(scenario_specs) - 0.75)
+    ax.set_ylabel("$T_{qhw}/T_{native}$", fontsize=6.2, labelpad=0.8)
+    ax.set_xticks(x)
     ax.set_xticklabels([label for _scenario_id, label in scenario_specs])
-    ax.xaxis.tick_bottom()
-    ax.tick_params(axis="x", labelsize=5.4, pad=1.0, length=0)
-    ax.set_yticks(np.arange(len(workload_specs)))
-    ax.set_yticklabels([label for _workload, label in workload_specs])
-    ax.tick_params(axis="y", labelsize=6.1, pad=1.2, length=0)
-    for spine in ax.spines.values():
-        spine.set_color("#FFFFFF")
-        spine.set_linewidth(0.55)
-    ax.set_xticks(np.arange(-0.5, len(scenario_specs), 1), minor=True)
-    ax.set_yticks(np.arange(-0.5, len(workload_specs), 1), minor=True)
-    ax.grid(which="minor", color="white", linestyle="-", linewidth=0.75)
-    ax.tick_params(which="minor", bottom=False, left=False)
-    fig.subplots_adjust(left=0.16, right=0.99, bottom=0.27, top=0.96)
-    path = os.path.join(FIG_DIR, "ft_shot_sensitivity.pdf")
-    fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
+    ax.tick_params(axis="both", labelsize=5.9, pad=1.0)
+    ax.grid(axis="y", color="#D9D9D9", linewidth=0.38, linestyle=":")
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    handles, labels = ax.get_legend_handles_labels()
+    fig.legend(
+        handles,
+        labels,
+        loc="upper center",
+        bbox_to_anchor=(0.53, 0.965),
+        ncol=4,
+        frameon=False,
+        fontsize=5.8,
+        handlelength=1.0,
+        handletextpad=0.25,
+        columnspacing=0.65,
+    )
+    fig.subplots_adjust(left=0.14, right=0.99, bottom=0.17, top=0.75)
+    path = os.path.join(FIG_DIR, "sensitivity_runtime_parity.pdf")
+    fig.savefig(path)
     plt.close(fig)
     return path
 
@@ -1942,6 +2471,45 @@ def figure_architecture_focus_matrix():
     return path
 
 
+def figure_scaling_legend():
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 0.22))
+    ax.axis("off")
+    handles = [
+        Line2D(
+            [0],
+            [0],
+            marker="o",
+            linestyle="-",
+            color=COLORS["blue"],
+            markerfacecolor=COLORS["blue"],
+            markeredgecolor=COLORS["blue"],
+            markeredgewidth=0.9,
+            markersize=4.2,
+        ),
+        Line2D(
+            [0],
+            [0],
+            linestyle="--",
+            color=COLORS["gray"],
+            linewidth=1.0,
+        ),
+    ]
+    fig.legend(
+        handles,
+        ["Actual", "Ideal"],
+        ncol=2,
+        loc="center",
+        frameon=False,
+        fontsize=FIGURE_TICK_FONT,
+        handletextpad=0.35,
+        columnspacing=1.0,
+    )
+    path = os.path.join(FIG_DIR, "evidence_scaling_legend.pdf")
+    fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
+    plt.close(fig)
+    return path
+
+
 def figure_weak_scaling():
     runs = sorted(
         [run for run in WEAK_SCALING_RUNS if load_summary(run["summary"]) is not None],
@@ -1962,18 +2530,17 @@ def figure_weak_scaling():
     gpu_ticks = [1, 4, 8, 16, 32, 64, 128, 256]
     gpu_labels = [str(tick) for tick in gpu_ticks]
 
-    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.86))
-    ax.plot(gpus, throughput, color=COLORS["blue"], linewidth=0.85, alpha=0.45, zorder=1)
-    line_weak = ax.plot(
-        gpus[weak_mask],
-        throughput[weak_mask],
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.98))
+    line_actual = ax.plot(
+        gpus,
+        throughput,
         marker="o",
-        linestyle="None",
+        linestyle="-",
         color=COLORS["blue"],
-        label="regular weak",
-        zorder=3,
+        linewidth=0.9,
+        zorder=2,
     )[0]
-    line_context = ax.plot(
+    ax.plot(
         gpus[~weak_mask],
         throughput[~weak_mask],
         marker="o",
@@ -1981,33 +2548,37 @@ def figure_weak_scaling():
         markeredgecolor=COLORS["blue"],
         linestyle="None",
         color=COLORS["blue"],
-        label="context",
         zorder=3,
+    )
+    line_ideal = ax.plot(
+        gpus,
+        ideal,
+        linestyle="--",
+        color=COLORS["gray"],
+        linewidth=1.0,
+        zorder=1,
     )[0]
-    line_ideal = ax.plot(gpus, ideal, linestyle="--", color=COLORS["gray"])[0]
     ax.set_xscale("log", base=2)
+    ax.set_yscale("log")
+    ax.yaxis.set_major_formatter(FuncFormatter(compact_tick))
     ax.set_xticks(gpu_ticks)
     ax.set_xticklabels(gpu_labels)
-    ax.set_xlabel("GPUs")
-    ax.set_ylabel("Throughput\n(cases/s)")
+    ax.set_xlabel("GPU count")
+    ax.set_ylabel("Evidence rate\n(records/s)")
     style_axis(ax, grid="both")
-    ax.tick_params(axis="x", labelsize=5.0, pad=0)
-    for label in ax.get_xticklabels():
-        label.set_rotation(38)
-        label.set_ha("right")
+    ax.tick_params(axis="x", labelsize=FIGURE_TICK_FONT, pad=1)
     ax.set_xlim(0.78, 330)
     add_top_legend(
         fig,
-        [line_context, line_weak, line_ideal],
-        ["context", "regular", "linear guide"],
-        ncol=3,
-        y=1.00,
-        fontsize=5.1,
+        [line_actual, line_ideal],
+        ["Actual", "Ideal"],
+        ncol=2,
+        y=0.99,
+        fontsize=FIGURE_TICK_FONT,
     )
-    fig.subplots_adjust(top=0.75, bottom=0.31, left=0.32, right=0.98)
+    fig.subplots_adjust(top=0.72, bottom=0.27, left=0.22, right=0.98)
     throughput_path = os.path.join(FIG_DIR, "weak_scaling.pdf")
-    fig.savefig(throughput_path, bbox_inches="tight", pad_inches=0.01)
-    plt.close(fig)
+    save_canvas(fig, throughput_path)
 
     fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.86))
     ax.plot(gpus, per_gpu, color=COLORS["orange"], linewidth=0.85, alpha=0.45, zorder=1)
@@ -2029,29 +2600,29 @@ def figure_weak_scaling():
         color=COLORS["orange"],
         zorder=3,
     )[0]
-    line_ref = ax.axhline(regular_median, linestyle="--", color=COLORS["gray"], linewidth=1.0)
+    ax.axhline(regular_median, linestyle="--", color=COLORS["gray"], linewidth=1.0)
     ax.set_xscale("log", base=2)
     ax.set_xticks(gpu_ticks)
     ax.set_xticklabels(gpu_labels)
     ax.set_xlabel("GPUs")
-    ax.set_ylabel("Per-GPU rate\n(cases/s/GPU)")
+    ax.set_ylabel("Per-GPU\nrecords/s")
     ax.set_ylim(
         max(0.0, float(np.min(per_gpu)) * 0.78),
         float(np.max(per_gpu)) * 1.15,
     )
     style_axis(ax, grid="both")
-    ax.tick_params(axis="x", labelsize=5.0, pad=0)
+    ax.tick_params(axis="x", labelsize=FIGURE_TICK_FONT, pad=0)
     for label in ax.get_xticklabels():
         label.set_rotation(38)
         label.set_ha("right")
     ax.set_xlim(0.78, 330)
     add_top_legend(
         fig,
-        [line_rate_context, line_rate, line_ref],
-        ["context", "regular", "median guide"],
-        ncol=3,
+        [line_rate_context, line_rate],
+        ["context", "regular sweep"],
+        ncol=2,
         y=1.00,
-        fontsize=5.1,
+        fontsize=FIGURE_TICK_FONT,
     )
     fig.subplots_adjust(top=0.75, bottom=0.31, left=0.37, right=0.98)
     efficiency_path = os.path.join(FIG_DIR, "weak_scaling_efficiency.pdf")
@@ -2076,65 +2647,76 @@ def figure_strong_scaling():
     cases = np.array([run["cases"] for run in runs], dtype=float)
     elapsed = np.array([run_elapsed_seconds(run) for run in runs], dtype=float)
     fixed_mask = np.array([run.get("kind") == "fixed" for run in runs], dtype=bool)
+    anchor_mask = np.array(
+        [run.get("elapsed_mode") == "sum_array_tasks" for run in runs], dtype=bool
+    )
+    direct_mask = fixed_mask & ~anchor_mask
     fixed_cases = float(np.max(cases[fixed_mask])) if np.any(fixed_mask) else float(np.max(cases))
     fixed_elapsed = elapsed * (fixed_cases / cases)
-    base_idx = int(np.where(fixed_mask)[0][0]) if np.any(fixed_mask) else 0
+    base_idx = int(np.where(direct_mask)[0][0]) if np.any(direct_mask) else 0
     base_gpu = float(gpus[base_idx])
     base_elapsed = float(fixed_elapsed[base_idx])
     speedup = base_elapsed / fixed_elapsed
     ideal = gpus / base_gpu
+    ideal_elapsed = base_elapsed * (base_gpu / gpus)
     gpu_ticks = [1, 4, 8, 16, 32, 64, 128, 256]
 
-    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 2.02))
-    ax.plot(gpus, fixed_elapsed / 60.0, color=COLORS["blue"], linewidth=0.85, alpha=0.45, zorder=1)
-    line_time_context = ax.plot(
-        gpus[~fixed_mask],
-        fixed_elapsed[~fixed_mask] / 60.0,
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.98))
+    line_actual = ax.plot(
+        gpus[direct_mask],
+        fixed_elapsed[direct_mask] / 60.0,
+        marker="o",
+        linestyle="-",
+        color=COLORS["blue"],
+        linewidth=0.9,
+        zorder=2,
+    )[0]
+    ax.plot(
+        gpus[anchor_mask],
+        fixed_elapsed[anchor_mask] / 60.0,
         marker="o",
         markerfacecolor="white",
         markeredgecolor=COLORS["blue"],
         linestyle="None",
         color=COLORS["blue"],
         zorder=3,
-    )[0]
-    line_time = ax.plot(
-        gpus[fixed_mask],
-        fixed_elapsed[fixed_mask] / 60.0,
-        marker="o",
-        linestyle="None",
-        color=COLORS["blue"],
-        zorder=3,
-    )[0]
-    line_time_ideal = ax.plot(
-        gpus,
-        (base_elapsed / ideal) / 60.0,
+    )
+    line_ideal = ax.plot(
+        gpus[direct_mask],
+        ideal_elapsed[direct_mask] / 60.0,
         linestyle="--",
         color=COLORS["gray"],
+        linewidth=1.0,
+        zorder=1,
     )[0]
     ax.set_xscale("log", base=2)
     ax.set_yscale("log")
+    ax.yaxis.set_major_formatter(FuncFormatter(compact_tick))
     ax.set_xticks(gpu_ticks)
     ax.set_xticklabels([str(tick) for tick in gpu_ticks])
-    ax.set_ylabel("Time to solution\n(min)")
-    ax.set_xlabel("GPUs")
+    ax.set_ylabel("Fixed-work time\n(min)")
+    ax.set_xlabel("GPU count")
     style_axis(ax, grid="both")
-    ax.tick_params(axis="x", labelsize=5.3, pad=0)
-    for label in ax.get_xticklabels():
-        label.set_rotation(42)
-        label.set_ha("right")
+    ax.tick_params(axis="x", labelsize=FIGURE_TICK_FONT, pad=1)
     ax.set_xlim(0.78, 330)
-    ax.set_ylim(max(1.0, float(np.min(fixed_elapsed / 60.0)) * 0.70),
-                max(fixed_elapsed / 60.0) * 1.35)
-    legend_handles = [line_time, line_time_ideal]
-    legend_labels = ["fixed-work", "linear guide"]
-    if np.any(~fixed_mask):
-        legend_handles.insert(0, line_time_context)
-        legend_labels.insert(0, "context")
-    add_top_legend(fig, legend_handles, legend_labels, ncol=len(legend_handles), y=1.00, fontsize=5.1)
-    fig.subplots_adjust(top=0.76, bottom=0.27, left=0.33, right=0.98)
+    displayed_minutes = np.concatenate(
+        [fixed_elapsed / 60.0, ideal_elapsed[direct_mask] / 60.0]
+    )
+    ax.set_ylim(
+        float(np.min(displayed_minutes)) * 0.70,
+        float(np.max(displayed_minutes)) * 1.35,
+    )
+    add_top_legend(
+        fig,
+        [line_actual, line_ideal],
+        ["Actual", "Ideal"],
+        ncol=2,
+        y=0.99,
+        fontsize=FIGURE_TICK_FONT,
+    )
+    fig.subplots_adjust(top=0.72, bottom=0.27, left=0.22, right=0.98)
     elapsed_path = os.path.join(FIG_DIR, "strong_scaling.pdf")
-    fig.savefig(elapsed_path, bbox_inches="tight", pad_inches=0.01)
-    plt.close(fig)
+    save_canvas(fig, elapsed_path)
 
     fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 2.02))
     ax.plot(gpus, speedup, color=COLORS["green"], linewidth=0.85, alpha=0.45, zorder=1)
@@ -2156,24 +2738,24 @@ def figure_strong_scaling():
         color=COLORS["green"],
         zorder=3,
     )[0]
-    line_speed_ideal = ax.plot(gpus, ideal, linestyle="--", color=COLORS["gray"], label="ideal linear")[0]
+    ax.plot(gpus, ideal, linestyle="--", color=COLORS["gray"])
     ax.set_xscale("log", base=2)
     ax.set_xticks(gpu_ticks)
     ax.set_xticklabels([str(tick) for tick in gpu_ticks])
     ax.set_xlabel("GPUs")
-    ax.set_ylabel("Speedup\nvs. {:g} GPUs".format(base_gpu))
+    ax.set_ylabel("Build speedup\nvs. {:g} GPUs".format(base_gpu))
     style_axis(ax, grid="both")
-    ax.tick_params(axis="x", labelsize=5.3, pad=0)
+    ax.tick_params(axis="x", labelsize=FIGURE_TICK_FONT, pad=0)
     for label in ax.get_xticklabels():
         label.set_rotation(42)
         label.set_ha("right")
     ax.set_xlim(0.78, 330)
-    legend_handles = [line_speed, line_speed_ideal]
-    legend_labels = ["fixed-work", "linear guide"]
+    legend_handles = [line_speed]
+    legend_labels = ["fixed suite"]
     if np.any(~fixed_mask):
         legend_handles.insert(0, line_speed_context)
         legend_labels.insert(0, "context")
-    add_top_legend(fig, legend_handles, legend_labels, ncol=len(legend_handles), y=1.00, fontsize=5.1)
+    add_top_legend(fig, legend_handles, legend_labels, ncol=len(legend_handles), y=1.00, fontsize=FIGURE_TICK_FONT)
     fig.subplots_adjust(top=0.76, bottom=0.28, left=0.31, right=0.98)
     speedup_path = os.path.join(FIG_DIR, "strong_scaling_speedup.pdf")
     fig.savefig(speedup_path, bbox_inches="tight", pad_inches=0.01)
@@ -2206,13 +2788,30 @@ def figure_advantage_frontier():
         decode_pipe_ms = []
         host_io_ms = []
         queue_ms = []
+        total_ratios = []
+        gate_ratios = []
+        decode_ratios = []
+        host_ratios = []
+        queue_ratios = []
+        ctrl_context_ratios = []
+        energy_ratios = []
         for row in subset:
             components = projection_components_ms(row)
-            native_ms.append(1.0e3 * float(row["native_runtime_sec"]))
+            native = max(1.0e-12, 1.0e3 * float(row["native_runtime_sec"]))
+            native_ms.append(native)
             gate_pipe_ms.append(components["critical_gate_ms"])
             decode_pipe_ms.append(components["critical_decode_ms"])
             host_io_ms.append(components["host_io_ms"])
             queue_ms.append(components["queue_ms"])
+            total_ratios.append(components["total_ms"] / native)
+            gate_ratios.append(components["critical_gate_ms"] / native)
+            decode_ratios.append(components["critical_decode_ms"] / native)
+            host_ratios.append(components["host_io_ms"] / native)
+            queue_ratios.append(components["queue_ms"] / native)
+            ctrl_context_ratios.append(components["ctrl_context_ms"] / native)
+            energy_ratios.append(
+                components["qpu_energy_j"] / max(1.0e-18, components["reference_energy_j"])
+            )
         gate_pipe = float(np.median(gate_pipe_ms))
         decode_pipe = float(np.median(decode_pipe_ms))
         host_io = float(np.median(host_io_ms))
@@ -2220,12 +2819,14 @@ def figure_advantage_frontier():
         total = gate_pipe + decode_pipe + host_io + queue
         native = float(np.median(native_ms))
         component_ratios = {
-            "gate_pipe_ratio": gate_pipe / max(native, 1.0e-12),
-            "decode_pipe_ratio": decode_pipe / max(native, 1.0e-12),
-            "host_io_ratio": host_io / max(native, 1.0e-12),
-            "queue_ratio": queue / max(native, 1.0e-12),
+            "gate_pipe_ratio": float(np.median(gate_ratios)),
+            "decode_pipe_ratio": float(np.median(decode_ratios)),
+            "host_io_ratio": float(np.median(host_ratios)),
+            "queue_ratio": float(np.median(queue_ratios)),
+            "ctrl_context_ratio": float(np.median(ctrl_context_ratios)),
+            "energy_ratio": float(np.median(energy_ratios)),
         }
-        ratio = total / max(native, 1.0e-12)
+        ratio = float(np.median(total_ratios))
         single_targets = {}
         for key, value in component_ratios.items():
             if ratio <= 1.0:
@@ -2243,6 +2844,8 @@ def figure_advantage_frontier():
                 "decode_pipe_ratio": component_ratios["decode_pipe_ratio"],
                 "host_io_ratio": component_ratios["host_io_ratio"],
                 "queue_ratio": component_ratios["queue_ratio"],
+                "ctrl_context_ratio": component_ratios["ctrl_context_ratio"],
+                "energy_ratio": component_ratios["energy_ratio"],
                 "ratio": ratio,
                 "single_targets": single_targets,
             }
@@ -2270,24 +2873,25 @@ def figure_advantage_frontier():
             edgecolor=point["color"],
             linewidth=0.45,
         )
+        label_inside = total_value > 3.0e3
         ax_total.text(
-            min(370.0, max(total_value * 1.13, 0.035)),
+            total_value / 1.10 if label_inside else max(total_value * 1.13, 0.035),
             center,
             ratio_text,
-            ha="left",
+            ha="right" if label_inside else "left",
             va="center",
             fontsize=5.6,
             color=COLORS["dark"],
         )
 
     ax_total.set_xscale("log")
-    ax_total.set_xlim(eps, 520.0)
-    ax_total.set_xticks([3e-2, 1e-1, 1, 1e1, 1e2])
-    ax_total.set_xticklabels(["0.03", "0.1", "1", "10", "$10^2$"])
+    ax_total.set_xlim(eps, 1.3e4)
+    ax_total.set_xticks([3e-2, 1e-1, 1, 1e1, 1e2, 1e3, 1e4])
+    ax_total.set_xticklabels(["0.03", "0.1", "1", "10", "$10^2$", "$10^3$", "$10^4$"])
     ax_total.axvline(1.0, color=COLORS["dark"], linestyle="--", linewidth=0.8)
     ax_total.text(
         1.04,
-        y_centers[0] - 0.43,
+        y_centers[0] - 0.30,
         "same-input native runtime",
         ha="left",
         va="bottom",
@@ -2320,7 +2924,9 @@ def figure_advantage_frontier():
         recoveries = []
         decode_shares = []
         host_io_shares = []
-        queue_shares = []
+        feedback_budgets_us = []
+        feedback_shrinks = []
+        feedback_blocked = []
         twoq_shares = []
         total_ratios = []
         for row in subset:
@@ -2328,7 +2934,29 @@ def figure_advantage_frontier():
             total = max(1.0e-12, components["total_ms"])
             decode_shares.append(100.0 * components["critical_decode_ms"] / total)
             host_io_shares.append(100.0 * components["host_io_ms"] / total)
-            queue_shares.append(100.0 * components["queue_ms"] / total)
+            native_ms = max(1.0e-12, 1.0e3 * float(row["native_runtime_sec"]))
+            row_evals = max(1.0, float(row["circuit_evaluations"]))
+            fixed_ms = (
+                components["critical_gate_ms"]
+                + components["critical_decode_ms"]
+                + components["controller_ms"]
+            )
+            available_ms = native_ms - fixed_ms
+            current_feedback_ms = (
+                components["host_io_ms"]
+                + components["queue_ms"]
+                + components["context_ms"]
+            )
+            if available_ms <= 0.0:
+                feedback_budgets_us.append(0.0)
+                feedback_shrinks.append(1.0e6)
+                feedback_blocked.append(True)
+            else:
+                budget_us = 1.0e3 * available_ms / row_evals
+                current_us = 1.0e3 * current_feedback_ms / row_evals
+                feedback_budgets_us.append(budget_us)
+                feedback_shrinks.append(max(1.0, current_us / max(budget_us, 1.0e-12)))
+                feedback_blocked.append(False)
             gate = max(1.0e-12, components["gate_ms"])
             twoq_shares.append(100.0 * components["twoq_gate_ms"] / gate)
             gap = max(0.0, float(row["quality_gap"]))
@@ -2336,14 +2964,17 @@ def figure_advantage_frontier():
             recoveries.append(0.0 if gap <= tol else 100.0 * (1.0 - tol / gap))
         matching_point = next(point for point in points if point["label"] == label)
         total_ratios.append(matching_point["ratio"])
+        median_budget_us = float(np.median(feedback_budgets_us))
+        median_shrink = float(np.median(feedback_shrinks))
+        median_blocked = sum(feedback_blocked) >= (len(feedback_blocked) + 1) // 2
         pressure_rows.append(
             [
                 float(np.median(recoveries)),
                 evals,
-                float(np.median(decode_shares)),
-                float(np.median(host_io_shares)),
-                float(np.median(queue_shares)),
+                median_budget_us,
+                median_shrink,
                 float(np.median(twoq_shares)),
+                matching_point["energy_ratio"],
                 float(np.median(total_ratios)),
             ]
         )
@@ -2351,67 +2982,80 @@ def figure_advantage_frontier():
             [
                 "{:.0f}%".format(float(np.median(recoveries))),
                 "{:.0f}".format(evals),
-                "{:.0f}%".format(float(np.median(decode_shares))),
-                "{:.0f}%".format(float(np.median(host_io_shares))),
-                "{:.0f}%".format(float(np.median(queue_shares))),
+                "blocked" if median_blocked else "{:.1f}".format(median_budget_us),
+                "--" if median_blocked else "{:.1f}".format(median_shrink),
                 "{:.0f}%".format(float(np.median(twoq_shares))),
+                "{:,.0f}x".format(matching_point["energy_ratio"])
+                if matching_point["energy_ratio"] >= 10.0
+                else "{:.1f}x".format(matching_point["energy_ratio"]),
                 "{:.1f}x".format(float(np.median(total_ratios)))
                 if float(np.median(total_ratios)) >= 1.0
                 else "{:.2f}x".format(float(np.median(total_ratios))),
             ]
         )
 
-    raw = np.array(pressure_rows, dtype=float)
+    raw = np.array([row[:6] for row in pressure_rows], dtype=float)
     matrix = np.zeros_like(raw)
     for col in range(raw.shape[1]):
-        column = raw[:, col]
-        span = float(np.max(column) - np.min(column))
-        if span > 0.0:
-            matrix[:, col] = (column - float(np.min(column))) / span
+        values = raw[:, col]
+        if col in (2, 3, 5):
+            values = np.log10(np.maximum(values, 1.0e-2))
+        if col == 1:
+            values = np.log10(np.maximum(values, 1.0))
+        span = float(np.max(values) - np.min(values))
+        matrix[:, col] = 0.0 if span == 0.0 else (values - float(np.min(values))) / span
+        if col == 2:
+            # A smaller remaining feedback budget is more severe.
+            matrix[:, col] = 1.0 - matrix[:, col]
 
-    fig_target, ax_target = plt.subplots(figsize=(COLUMN_WIDTH, 1.66))
-    image = ax_target.imshow(matrix, cmap="YlOrRd", vmin=0.0, vmax=1.0, aspect="auto")
+    row_labels = [workloads[idx][1] for idx in range(len(workloads))]
     col_labels = [
-        "Req.\n$R_q$",
+        "Quality\nrecov.",
         "Hybrid\n$N_e$",
-        "Decode\npipe",
-        "Host\nI/O",
-        "Queue/\nctrl.",
-        "2Q gate\nshare",
-        "Total /\nnative",
+        "Budget\n($\\mu$s)",
+        "Shrink\n($\\times$)",
+        "2Q\nshare",
+        "Energy /\n400-W ref.",
     ]
-    row_labels = [label for _workload, label, _color in workloads]
+    fig_target, ax_target = plt.subplots(figsize=(COLUMN_WIDTH, 1.48))
+    image = ax_target.imshow(matrix, cmap="YlOrRd", vmin=0.0, vmax=1.0, aspect="auto")
     ax_target.set_xticks(np.arange(len(col_labels)))
     ax_target.set_xticklabels(col_labels)
     ax_target.set_yticks(np.arange(len(row_labels)))
     ax_target.set_yticklabels(row_labels)
-    ax_target.tick_params(axis="x", top=True, bottom=False, labeltop=True, labelbottom=False, pad=2)
-    ax_target.tick_params(axis="y", length=0, pad=2)
-    for row_idx in range(matrix.shape[0]):
-        for col_idx in range(matrix.shape[1]):
-            value = matrix[row_idx, col_idx]
+    ax_target.tick_params(
+        axis="x",
+        top=True,
+        bottom=False,
+        labeltop=True,
+        labelbottom=False,
+        labelsize=5.65,
+        pad=1.0,
+    )
+    ax_target.tick_params(axis="y", labelsize=6.0, pad=1.2)
+    for i in range(matrix.shape[0]):
+        for j in range(matrix.shape[1]):
+            value = matrix[i, j]
             ax_target.text(
-                col_idx,
-                row_idx,
-                pressure_text[row_idx][col_idx],
+                j,
+                i,
+                pressure_text[i][j],
                 ha="center",
                 va="center",
-                fontsize=5.05,
+                fontsize=5.55,
                 weight="bold" if value >= 0.82 else "normal",
-                color="white" if value >= 0.63 else COLORS["dark"],
+                color="white" if value >= 0.68 else COLORS["dark"],
             )
     ax_target.set_xticks(np.arange(-0.5, len(col_labels), 1), minor=True)
     ax_target.set_yticks(np.arange(-0.5, len(row_labels), 1), minor=True)
     ax_target.grid(which="minor", color="white", linestyle="-", linewidth=1.0)
     ax_target.tick_params(which="minor", bottom=False, left=False)
     for spine in ax_target.spines.values():
-        spine.set_linewidth(0.6)
+        spine.set_linewidth(0.65)
         spine.set_color("#555555")
-    cbar = fig_target.colorbar(image, ax=ax_target, fraction=0.036, pad=0.025)
-    cbar.set_ticks([0.0, 0.5, 1.0])
-    cbar.set_ticklabels(["low", "mid", "high"])
-    cbar.ax.tick_params(labelsize=5.0, width=0.5, pad=1.0)
-    fig_target.subplots_adjust(left=0.12, right=0.91, bottom=0.08, top=0.79)
+    # Cell values carry the quantitative contract; a colorbar would imply that
+    # unlike units share a common physical scale. Color is only a reading aid.
+    fig_target.subplots_adjust(left=0.14, right=0.985, bottom=0.06, top=0.75)
     path_target = os.path.join(FIG_DIR, "advantage_component_targets.pdf")
     fig_target.savefig(path_target, bbox_inches="tight", pad_inches=0.01)
     plt.close(fig_target)
@@ -2494,13 +3138,1071 @@ def figure_workload_taxonomy():
     return path
 
 
+def figure_physical_factory_crossover():
+    summary = load_summary(PHYSICAL_ARCHITECTURE_DSE_JSON)
+    if summary is None:
+        return None
+
+    workloads = [
+        ("ml", "ML"),
+        ("chemistry", "Chem."),
+        ("optimization", "Opt."),
+        ("simulation", "Sim."),
+    ]
+    scenarios = [
+        ("surface_measured_control", "Measured", COLORS["gray"], "o"),
+        ("surface_estimator_aligned", "Estimator", COLORS["blue"], "s"),
+        ("surface_throughput_target", "Target", COLORS["orange"], "D"),
+    ]
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.50))
+    y = np.arange(len(workloads))
+    offsets = (-0.16, 0.0, 0.16)
+    for offset, (scenario, label, color, marker) in zip(offsets, scenarios):
+        values = [
+            summary["by_scenario"][scenario]["by_workload"][workload][
+                "factory_scale_to_nonfactory_crossover"
+            ]
+            for workload, _ in workloads
+        ]
+        ax.scatter(
+            values,
+            y + offset,
+            s=22,
+            marker=marker,
+            color=color,
+            edgecolor="#222222",
+            linewidth=0.35,
+            label=label,
+            zorder=3,
+        )
+    ax.axvline(4.5, color="#777777", linewidth=0.65, linestyle="--", zorder=1)
+    ax.axvline(100.0, color="#777777", linewidth=0.65, linestyle=":", zorder=1)
+    ax.set_xscale("log")
+    ax.set_xlim(2.0, 5.0e4)
+    ax.set_yticks(y)
+    ax.set_yticklabels([label for _, label in workloads])
+    ax.invert_yaxis()
+    ax.set_xlabel("Factory scale to crossover (x)")
+    style_axis(ax, grid=None)
+    ax.grid(axis="x", which="major", linestyle=":", linewidth=0.5, color="#B9B9B9")
+    handles, labels = ax.get_legend_handles_labels()
+    fig.legend(
+        handles,
+        labels,
+        loc="upper center",
+        bbox_to_anchor=(0.52, 0.99),
+        ncol=3,
+        frameon=False,
+        fontsize=6.0,
+        handlelength=0.8,
+        handletextpad=0.25,
+        columnspacing=0.55,
+    )
+    fig.subplots_adjust(left=0.22, right=0.98, bottom=0.28, top=0.68)
+    path = os.path.join(FIG_DIR, "physical_factory_crossover.pdf")
+    fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
+    plt.close(fig)
+    return path
+
+
+def figure_physical_post_rotation_utility():
+    summary = load_summary(PHYSICAL_ARCHITECTURE_DSE_JSON)
+    if summary is None:
+        return None
+
+    workload_specs = [
+        ("ml", "ML"),
+        ("chemistry", "Chem."),
+        ("optimization", "Opt."),
+        ("simulation", "Sim."),
+    ]
+    lever_specs = [
+        ("shot_fabric", "Shots"),
+        ("logical_cycle", "Cycle"),
+        ("routing", "Route"),
+        ("decoder", "Dec."),
+        ("host_feedback", "Link"),
+        ("measurement_grouping", "Group"),
+    ]
+    scenario = summary["by_scenario"]["surface_estimator_aligned"]["by_workload"]
+    values = np.array([
+        [
+            scenario[workload]["post_native_rotation_marginal_utility"][lever]
+            for lever, _ in lever_specs
+        ]
+        for workload, _ in workload_specs
+    ])
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 1.50))
+    image = ax.imshow(values, cmap="YlGnBu", vmin=1.0, vmax=10.0, aspect="auto")
+    for row in range(values.shape[0]):
+        for column in range(values.shape[1]):
+            value = values[row, column]
+            color = "white" if value >= 6.2 else COLORS["dark"]
+            label = "{:.1f}x".format(value) if value >= 1.05 else "1.0x"
+            ax.text(
+                column,
+                row,
+                label,
+                ha="center",
+                va="center",
+                fontsize=5.0,
+                color=color,
+                fontweight="bold" if value >= 2.0 else "normal",
+            )
+    ax.set_xticks(np.arange(len(lever_specs)))
+    ax.set_xticklabels([label for _, label in lever_specs], rotation=24, ha="right")
+    ax.set_yticks(np.arange(len(workload_specs)))
+    ax.set_yticklabels([label for _, label in workload_specs])
+    ax.tick_params(axis="x", labelsize=5.3, length=0, pad=1.2)
+    ax.tick_params(axis="y", labelsize=5.9, length=0, pad=1.2)
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+    colorbar = fig.colorbar(image, ax=ax, fraction=0.045, pad=0.025)
+    colorbar.set_label("Speedup (x)", fontsize=5.3, labelpad=1.0)
+    colorbar.ax.tick_params(labelsize=5.3, length=2, pad=1)
+    fig.subplots_adjust(left=0.17, right=0.91, bottom=0.30, top=0.97)
+    path = os.path.join(FIG_DIR, "physical_post_rotation_utility.pdf")
+    fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
+    plt.close(fig)
+    return path
+
+
+def figure_native_rotation_platform_legend():
+    fig, ax = plt.subplots(figsize=(TEXT_WIDTH * 0.62, 0.22))
+    colors = [COLORS["blue"], COLORS["orange"], COLORS["purple"], COLORS["green"]]
+    handles = [Rectangle((0, 0), 1, 1, facecolor=color, edgecolor="none") for color in colors]
+    ax.axis("off")
+    fig.legend(
+        handles,
+        ["1Q", "2Q", "Readout/reuse", "Movement/control"],
+        ncol=4,
+        loc="center",
+        frameon=False,
+        fontsize=5.7,
+        handlelength=0.9,
+        handletextpad=0.3,
+        columnspacing=0.7,
+    )
+    path = os.path.join(FIG_DIR, "native_rotation_platform_legend.pdf")
+    fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
+    plt.close(fig)
+    return path
+
+
+def figure_native_rotation_platform(platform_id, output_name):
+    summary = load_summary(NATIVE_ROTATION_PLATFORMS_JSON)
+    if summary is None:
+        return None
+    workload_specs = [
+        ("ml", "ML"),
+        ("chemistry", "Chem."),
+        ("optimization", "Opt."),
+        ("simulation", "Sim."),
+    ]
+    component_specs = [
+        ("oneq", COLORS["blue"]),
+        ("twoq", COLORS["orange"]),
+        ("readout", COLORS["purple"]),
+        ("movement_control", COLORS["green"]),
+    ]
+    platform = summary["platforms"][platform_id]["by_workload"]
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH * 0.91, 1.38))
+    y = np.arange(len(workload_specs))
+    left = np.zeros(len(workload_specs))
+    for component, color in component_specs:
+        values = np.array([
+            100.0 * platform[workload]["median_component_fraction"][component]
+            for workload, _ in workload_specs
+        ])
+        ax.barh(y, values, left=left, height=0.58, color=color, edgecolor="white", linewidth=0.35)
+        for index, value in enumerate(values):
+            if value >= 9.0:
+                ax.text(
+                    left[index] + value / 2.0,
+                    index,
+                    "{:.0f}%".format(value),
+                    ha="center",
+                    va="center",
+                    fontsize=5.6,
+                    color="white" if component in ("oneq", "twoq", "readout") else COLORS["dark"],
+                    fontweight="bold",
+                )
+        left += values
+    ax.set_yticks(y)
+    ax.set_yticklabels([label for _, label in workload_specs])
+    ax.invert_yaxis()
+    ax.set_xlim(0.0, 100.0)
+    ax.set_xticks((0, 50, 100))
+    ax.set_xticklabels(("0", "50%", "100%"))
+    ax.set_xlabel("Projected execution share")
+    style_axis(ax, grid="x")
+    fig.subplots_adjust(left=0.18, right=0.985, bottom=0.27, top=0.98)
+    path = os.path.join(FIG_DIR, output_name)
+    fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
+    plt.close(fig)
+    return path
+
+
+def figure_quality_eligibility():
+    quality = load_summary(QUALITY_QUALIFIED_JSON)
+    finite = load_summary(FINITE_SHOT_JSON)
+    if quality is None or finite is None:
+        return None
+
+    workload_specs = [
+        ("ml", "ML"),
+        ("chemistry", "Chem."),
+        ("optimization", "Opt."),
+        ("simulation", "Sim."),
+    ]
+    y = np.arange(len(workload_specs))
+    declared = quality["by_tolerance_multiplier"]["1.0"]
+    values = [
+        100.0 * declared[workload]["noiseless_quality_pass_fraction"]
+        for workload, _ in workload_specs
+    ]
+    counts = [
+        (
+            declared[workload]["noiseless_quality_pass_count"],
+            declared[workload]["records"],
+        )
+        for workload, _ in workload_specs
+    ]
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 2.08))
+    ax.barh(
+        y,
+        np.full(len(y), 100.0),
+        height=0.52,
+        color="#E5E5E5",
+        edgecolor="white",
+        linewidth=0.65,
+        label="Fail",
+    )
+    ax.barh(
+        y,
+        values,
+        height=0.52,
+        color=COLORS["green"],
+        edgecolor="white",
+        linewidth=0.65,
+        label="Pass",
+    )
+    for row, (value, (passed, total)) in enumerate(zip(values, counts)):
+        ax.text(
+            104.0,
+            row,
+            "{:,}/{:,}".format(passed, total),
+            ha="right",
+            va="center",
+            fontsize=FIGURE_TICK_FONT,
+            color=COLORS["dark"],
+            bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.82, "pad": 0.15},
+        )
+    ax.set_yticks(y)
+    ax.set_yticklabels([label for _, label in workload_specs])
+    ax.invert_yaxis()
+    ax.set_xlim(0, 108)
+    ax.set_xticks((0, 50, 100))
+    ax.set_xticklabels(("0", "50%", "100%"))
+    ax.set_xlabel("Noiseless records (%)")
+    style_axis(ax, grid="x")
+    add_top_legend(
+        fig,
+        [
+            Rectangle((0, 0), 1, 1, facecolor=COLORS["green"], edgecolor="#356F43"),
+            Rectangle((0, 0), 1, 1, facecolor="#E5E5E5", edgecolor="#888888"),
+        ],
+        ["Pass", "Fail"],
+        ncol=2,
+        y=0.99,
+        fontsize=FIGURE_TICK_FONT,
+    )
+    fig.subplots_adjust(left=0.31, right=0.99, bottom=0.25, top=0.73)
+    noiseless_path = os.path.join(FIG_DIR, "quality_noiseless_gate.pdf")
+    save_canvas(fig, noiseless_path)
+
+    direct = {
+        workload: finite["summary"][workload]["10000"]
+        for workload, _ in workload_specs
+    }
+    output_pass = [
+        100.0
+        * direct[workload]["cases_with_pass_probability_ge_0p9"]
+        / direct[workload]["cases"]
+        for workload, _ in workload_specs
+    ]
+    full_loop_eligible = [
+        100.0
+        * declared[workload]["hardware_target_eligible_count"]
+        / direct[workload]["cases"]
+        for workload, _ in workload_specs
+    ]
+    fig, ax = plt.subplots(figsize=(SUBFIGURE_WIDTH, 2.08))
+    offsets = (-0.16, 0.16)
+    ax.barh(
+        y + offsets[0],
+        output_pass,
+        height=0.27,
+        color=COLORS["blue"],
+        edgecolor="white",
+        linewidth=0.65,
+    )
+    ax.barh(
+        y + offsets[1],
+        full_loop_eligible,
+        height=0.27,
+        color=COLORS["green"],
+        edgecolor="white",
+        linewidth=0.65,
+    )
+    for row, (workload, _) in enumerate(workload_specs):
+        passed = direct[workload]["cases_with_pass_probability_ge_0p9"]
+        total = direct[workload]["cases"]
+        eligible = declared[workload]["hardware_target_eligible_count"]
+        ax.text(
+            59.0,
+            row + offsets[0],
+            "{}/{}".format(passed, total),
+            ha="right",
+            va="center",
+            fontsize=FIGURE_TICK_FONT,
+            color=COLORS["dark"],
+            bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.82, "pad": 0.12},
+        )
+        ax.text(
+            59.0,
+            row + offsets[1],
+            "{}/{}".format(eligible, total),
+            ha="right",
+            va="center",
+            fontsize=FIGURE_TICK_FONT,
+            color=COLORS["dark"],
+            bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.82, "pad": 0.12},
+        )
+    ax.set_yticks(y)
+    ax.set_yticklabels([label for _, label in workload_specs])
+    ax.invert_yaxis()
+    ax.set_xlim(0, 61)
+    ax.set_xticks((0, 25, 50))
+    ax.set_xticklabels(("0", "25%", "50%"))
+    ax.set_xlabel("Pass rate (%)")
+    style_axis(ax, grid="x")
+    add_top_legend(
+        fig,
+        [
+            Rectangle((0, 0), 1, 1, facecolor=COLORS["blue"], edgecolor="#2D5F91"),
+            Rectangle((0, 0), 1, 1, facecolor=COLORS["green"], edgecolor="#356F43"),
+        ],
+        ["Quality pass", "Complete loop"],
+        ncol=2,
+        y=0.99,
+        fontsize=FIGURE_TICK_FONT,
+    )
+    fig.subplots_adjust(left=0.31, right=0.99, bottom=0.25, top=0.73)
+    finite_path = os.path.join(FIG_DIR, "quality_finite_shot_gate.pdf")
+    save_canvas(fig, finite_path)
+    return [noiseless_path, finite_path]
+
+
+def figure_trace_aware_lower_bound():
+    artifact = load_summary(JOINT_DSE_JSON)
+    if artifact is None:
+        return None
+    detail = artifact["trace_aware_logical_lower_bound"]["detail"]
+    eligible = [
+        row
+        for row in detail
+        if row["hardware_target_eligible"]
+        and row["mode"] == "serial_evaluation_ready"
+    ]
+    eligible = sorted(eligible, key=lambda row: row["runtime_ratio"])
+    ratios = np.array([row["runtime_ratio"] for row in eligible], dtype=float)
+    median_value = float(np.median(ratios))
+    offsets = np.array([-0.09, 0.03, -0.03, 0.08, -0.07, 0.01,
+                        0.07, -0.01, -0.08, 0.04, -0.04, 0.09])
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 2.05))
+    ax.axvspan(0.1, 1.0, color="#EDF6EF", alpha=0.85, linewidth=0, zorder=0)
+    ax.axvspan(1.0, 5.3, color="#F1F1F1", alpha=0.70, linewidth=0, zorder=0)
+    beats = ratios < 1.0
+    ax.scatter(
+        ratios[beats],
+        offsets[beats],
+        s=22,
+        marker="o",
+        color=COLORS["green"],
+        edgecolors="#333333",
+        linewidths=0.35,
+        zorder=3,
+    )
+    ax.scatter(
+        ratios[~beats],
+        offsets[~beats],
+        s=24,
+        marker="s",
+        facecolors="white",
+        edgecolors="#777777",
+        linewidths=0.85,
+        zorder=3,
+    )
+    ax.scatter(
+        [median_value],
+        [0.18],
+        marker="D",
+        s=28,
+        color=COLORS["blue"],
+        edgecolors="#222222",
+        linewidths=0.45,
+        zorder=4,
+    )
+    ax.axvline(1.0, color="#333333", linewidth=0.75, linestyle="--")
+    ax.set_xscale("log")
+    ax.xaxis.set_major_formatter(FuncFormatter(compact_tick))
+    ax.set_xlim(0.1, 5.3)
+    ax.set_ylim(-0.16, 0.24)
+    ax.set_yticks([])
+    ax.set_xlabel("Projected logical runtime / native HPC runtime (x)")
+    style_axis(ax, grid="x")
+    ax.text(0.16, 0.205, "faster than HPC", fontsize=FIGURE_TICK_FONT, color="#356F43", va="center")
+    ax.text(1.18, 0.205, "slower than HPC", fontsize=FIGURE_TICK_FONT, color="#666666", va="center")
+    ax.text(
+        median_value,
+        0.105,
+        "{:.2f}x".format(median_value),
+        ha="center",
+        va="center",
+        fontsize=FIGURE_TICK_FONT,
+        color=COLORS["blue"],
+    )
+    add_top_legend(
+        fig,
+        [
+            legend_marker(COLORS["green"]),
+            Line2D(
+                [0],
+                [0],
+                marker="s",
+                color="none",
+                markerfacecolor="white",
+                markeredgecolor="#777777",
+                markeredgewidth=0.9,
+                markersize=4.5,
+            ),
+            legend_marker(COLORS["blue"], marker="D"),
+            Line2D([0], [0], color="#333333", linewidth=0.75, linestyle="--"),
+        ],
+        ["Faster", "Slower", "Median", "Equal runtime"],
+        ncol=4,
+        y=0.99,
+        fontsize=FIGURE_TICK_FONT,
+    )
+    fig.subplots_adjust(left=0.13, right=0.98, bottom=0.27, top=0.70)
+    path = os.path.join(FIG_DIR, "trace_aware_logical_lower_bound.pdf")
+    save_canvas(fig, path)
+    return path
+
+
+def figure_ft_reliability_target():
+    artifact = load_summary(FT_RELIABILITY_JSON)
+    if artifact is None:
+        return None
+    values_by_contract = {
+        "strict_all_shots": [],
+        "estimator_tolerant": [],
+    }
+    for case in artifact["quality_qualified_case_contracts"]:
+        for contract in case["ft_contracts"]:
+            lead = contract["reliability_leading_term"]
+            if (
+                abs(float(contract["physical_error_rate"]) - 1.0e-3) > 1.0e-15
+                or abs(float(contract["contract"]["application_failure_budget"]) - 0.01) > 1.0e-15
+            ):
+                continue
+            contract_name = contract["contract"]["contract"]
+            if contract_name in values_by_contract:
+                values_by_contract[contract_name].append(
+                    64.0 * lead["factory_supply_multiplier_to_crossover"] / 1.0e6
+                )
+    rows = [
+        ("All shots protected", values_by_contract["strict_all_shots"], COLORS["green"], "o"),
+        ("Failed shots allowed", values_by_contract["estimator_tolerant"], COLORS["purple"], "D"),
+    ]
+    y = np.arange(len(rows))
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 1.92))
+    for row, (label, values, color, marker) in enumerate(rows):
+        low = float(min(values))
+        high = float(max(values))
+        median_value = float(np.median(values))
+        order = np.argsort(values)
+        jitter = np.linspace(-0.10, 0.10, len(values))
+        point_y = np.empty(len(values))
+        point_y[order] = row + jitter
+        ax.hlines(row, low, high, color=color, linewidth=2.2, alpha=0.75, zorder=2)
+        ax.scatter(
+            values,
+            point_y,
+            color=color,
+            marker=marker,
+            s=17,
+            edgecolors="#222222",
+            linewidths=0.35,
+            zorder=3,
+        )
+        ax.scatter(
+            [median_value],
+            [row],
+            color=COLORS["dark"],
+            marker="D",
+            s=27,
+            edgecolors="white",
+            linewidths=0.55,
+            zorder=4,
+        )
+    ax.set_xlim(1.4, 2.85)
+    ax.set_xticks((1.5, 2.0, 2.5))
+    ax.set_yticks(y)
+    ax.set_yticklabels([label for label, _, _, _ in rows])
+    ax.invert_yaxis()
+    ax.set_xlabel("Required T-state factories (millions)")
+    style_axis(ax, grid="x")
+    add_top_legend(
+        fig,
+        [
+            legend_marker(COLORS["gray"]),
+            legend_marker(COLORS["dark"], marker="D"),
+        ],
+        ["Eligible record", "Median"],
+        ncol=2,
+        y=0.99,
+        fontsize=FIGURE_TICK_FONT,
+    )
+    ax.set_ylim(1.34, -0.34)
+    fig.subplots_adjust(left=0.40, right=0.98, bottom=0.29, top=0.71)
+    path = os.path.join(FIG_DIR, "ft_reliability_target.pdf")
+    fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
+    plt.close(fig)
+    return path
+
+
+def figure_ft_contract_parameters():
+    """Show the error-correction settings selected for each eligible record."""
+    artifact = load_summary(FT_RELIABILITY_JSON)
+    if artifact is None:
+        return None
+
+    contracts = {
+        "strict_all_shots": {
+            "label": "All shots protected",
+            "color": COLORS["green"],
+            "marker": "o",
+            "points": [],
+        },
+        "estimator_tolerant": {
+            "label": "Failed shots allowed",
+            "color": COLORS["purple"],
+            "marker": "D",
+            "points": [],
+        },
+    }
+    for case in artifact["quality_qualified_case_contracts"]:
+        for contract in case["ft_contracts"]:
+            if (
+                abs(float(contract["physical_error_rate"]) - 1.0e-3) > 1.0e-15
+                or abs(
+                    float(contract["contract"]["application_failure_budget"])
+                    - 0.01
+                )
+                > 1.0e-15
+            ):
+                continue
+            name = contract["contract"]["contract"]
+            if name not in contracts:
+                continue
+            lead = contract["reliability_leading_term"]
+            contracts[name]["points"].append(
+                (
+                    int(lead["distance"]),
+                    int(lead["required_t_states_per_rotation_leading_term"]),
+                )
+            )
+
+    fig, axes = plt.subplots(
+        1,
+        2,
+        figsize=(COLUMN_WIDTH, 1.92),
+        sharey=True,
+        gridspec_kw={"width_ratios": (0.86, 1.14)},
+    )
+    metric_specs = [
+        (axes[0], 0, "Surface-code distance", (6.3, 15.7), (7, 9, 11, 13, 15)),
+        (axes[1], 1, "T states per rotation", (46, 89), (50, 60, 70, 80)),
+    ]
+    for row, spec in enumerate(contracts.values()):
+        for ax, metric_index, _xlabel, _xlim, _xticks in metric_specs:
+            values = np.asarray(
+                [point[metric_index] for point in spec["points"]], dtype=float
+            )
+            order = np.argsort(values)
+            jitter = np.linspace(-0.10, 0.10, len(values))
+            point_y = np.empty(len(values))
+            point_y[order] = row + jitter
+            ax.hlines(
+                row,
+                float(np.min(values)),
+                float(np.max(values)),
+                color=spec["color"],
+                linewidth=2.2,
+                alpha=0.75,
+                zorder=2,
+            )
+            ax.scatter(
+                values,
+                point_y,
+                s=17,
+                marker=spec["marker"],
+                color=spec["color"],
+                edgecolors="#222222",
+                linewidths=0.35,
+                zorder=3,
+            )
+            ax.scatter(
+                [float(np.median(values))],
+                [row],
+                s=27,
+                marker="D",
+                color=COLORS["dark"],
+                edgecolors="white",
+                linewidths=0.55,
+                zorder=4,
+            )
+    for ax, _metric_index, xlabel, xlim, xticks in metric_specs:
+        ax.set_xlim(*xlim)
+        ax.set_xticks(xticks)
+        ax.set_xlabel(xlabel)
+        style_axis(ax, grid="x")
+        ax.set_ylim(1.34, -0.34)
+    axes[0].set_yticks(np.arange(len(contracts)))
+    axes[0].set_yticklabels([spec["label"] for spec in contracts.values()])
+    axes[1].tick_params(axis="y", labelleft=False)
+    add_top_legend(
+        fig,
+        [
+            legend_marker(COLORS["gray"]),
+            legend_marker(COLORS["dark"], marker="D"),
+        ],
+        ["Eligible record", "Median"],
+        ncol=2,
+        y=0.99,
+        fontsize=FIGURE_TICK_FONT,
+    )
+    fig.subplots_adjust(left=0.40, right=0.99, bottom=0.29, top=0.71, wspace=0.18)
+    path = os.path.join(FIG_DIR, "ft_contract_parameters.pdf")
+    fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
+    plt.close(fig)
+    return path
+
+
+def figure_joint_phase_map():
+    artifact = load_summary(JOINT_DSE_JSON)
+    if artifact is None:
+        return None
+    cells = artifact["main_phase_map"]["cells"]
+    factory_groups = (
+        ("64-6.4k factories", 100.0),
+        ("640k factories", 10000.0),
+        ("3.2M factories", 50000.0),
+    )
+    lane_groups = (("1k", 1000), ("10k+", 10000))
+    targets = ("factory_supply", "shot_parallelism", "logical_cycle", "advantage_reached")
+    target_colors = {
+        "factory_supply": COLORS["blue"],
+        "shot_parallelism": COLORS["orange"],
+        "logical_cycle": COLORS["green"],
+        "advantage_reached": COLORS["gray"],
+    }
+
+    positions = (0.0, 0.72, 1.85, 2.57, 3.70, 4.42)
+    cell_data = []
+    for _, factory in factory_groups:
+        for _, lane in lane_groups:
+            cell_data.append(next(
+                item for item in cells
+                if item["factory_supply_multiplier"] == factory
+                and item["useful_lanes"] == lane
+            ))
+
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 2.48))
+    bottoms = np.zeros(len(cell_data))
+    for target in targets:
+        counts = np.asarray([
+            cell["eligible_first_target_counts"].get(target, 0)
+            for cell in cell_data
+        ], dtype=float)
+        shares = counts / 12.0 * 100.0
+        bars = ax.bar(
+            positions,
+            shares,
+            bottom=bottoms,
+            width=0.59,
+            color=target_colors[target],
+            edgecolor="white",
+            linewidth=0.75,
+        )
+        for bar, count, share, bottom in zip(bars, counts, shares, bottoms):
+            if count <= 0:
+                continue
+            ax.text(
+                bar.get_x() + bar.get_width() / 2.0,
+                bottom + share / 2.0,
+                "{}".format(int(count)),
+                ha="center",
+                va="center",
+                fontsize=FIGURE_TICK_FONT,
+                color="white" if target != "shot_parallelism" else "black",
+                fontweight="bold",
+            )
+        bottoms += shares
+
+    pair_centers = tuple((positions[index] + positions[index + 1]) / 2.0 for index in (0, 2, 4))
+    for center, (label, _) in zip(pair_centers, factory_groups):
+        ax.text(center, 103.5, label, ha="center", va="bottom", fontsize=FIGURE_TICK_FONT)
+    ax.set_xticks(positions)
+    ax.set_xticklabels(tuple(label for _ in factory_groups for label, _ in lane_groups))
+    ax.set_xlabel("Parallel shot lanes")
+    ax.set_ylabel("Eligible cases (%)")
+    ax.set_ylim(0, 112)
+    ax.set_yticks((0, 50, 100))
+    style_axis(ax, grid="y")
+    legend_targets = (
+        "factory_supply",
+        "logical_cycle",
+        "shot_parallelism",
+        "advantage_reached",
+    )
+    handles = [
+        Rectangle(
+            (0, 0),
+            1,
+            1,
+            facecolor=target_colors[target],
+            edgecolor="#555555",
+        )
+        for target in legend_targets
+    ]
+    fig.legend(
+        handles,
+        ("T-state supply", "Gate speed", "Shot lanes", "Already faster"),
+        loc="upper center",
+        bbox_to_anchor=(0.53, 0.995),
+        ncol=2,
+        frameon=False,
+        fontsize=FIGURE_TICK_FONT,
+        handlelength=0.85,
+        handletextpad=0.25,
+        columnspacing=0.80,
+    )
+    fig.subplots_adjust(left=0.22, right=0.99, bottom=0.25, top=0.66)
+    path = os.path.join(FIG_DIR, "joint_bottleneck_phase_map.pdf")
+    fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
+    plt.close(fig)
+    return path
+
+
+def figure_resource_removal_ceiling():
+    """Plot the maximum end-to-end gain from removing one resource cost."""
+    artifact = load_summary(JOINT_DSE_JSON)
+    if artifact is None:
+        return None
+    cells = artifact["main_phase_map"]["cells"]
+    scenarios = [
+        ("Current", 1.0, 1000, COLORS["dark"], "o"),
+        ("640k factories", 10000.0, 1000, COLORS["orange"], "s"),
+        ("3.2M factories + 10k lanes", 50000.0, 10000, COLORS["green"], "D"),
+    ]
+    resources = [
+        ("factory_supply", "T-state generation"),
+        ("shot_parallelism", "Parallel shots"),
+        ("logical_cycle", "Logical-gate latency"),
+        ("decoder_reaction", "Decoder latency"),
+        ("host_feedback", "Host feedback"),
+    ]
+    rows = np.arange(len(resources), dtype=float)
+    offsets = (-0.16, 0.0, 0.16)
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 2.58))
+    for offset, (label, factory, lanes, color, marker) in zip(offsets, scenarios):
+        cell = next(
+            item
+            for item in cells
+            if item["factory_supply_multiplier"] == factory
+            and item["useful_lanes"] == lanes
+        )
+        values = np.array(
+            [cell["removal_ceiling"][key]["median"] for key, _ in resources],
+            dtype=float,
+        )
+        ax.scatter(
+            values,
+            rows + offset,
+            s=28,
+            marker=marker,
+            color=color,
+            edgecolors="#222222",
+            linewidths=0.45,
+            zorder=3,
+        )
+    ax.axvline(1.0, color="#555555", linewidth=0.7, linestyle="--")
+    ax.set_xscale("log")
+    ax.set_xlim(0.88, 1.15e4)
+    ax.set_xticks((1, 2, 10, 100, 1000, 10000))
+    ax.set_xticklabels(("1", "2", "10", "100", "1k", "10k"))
+    ax.set_yticks(rows)
+    ax.set_yticklabels([label for _, label in resources])
+    ax.invert_yaxis()
+    ax.set_xlabel("Speedup if one resource were free (x)")
+    style_axis(ax, grid="x")
+    legend_scenarios = (scenarios[0], scenarios[2], scenarios[1])
+    add_top_legend(
+        fig,
+        [
+            legend_marker(color, marker=marker)
+            for _label, _factory, _lanes, color, marker in legend_scenarios
+        ],
+        [label for label, _factory, _lanes, _color, _marker in legend_scenarios],
+        ncol=2,
+        y=0.99,
+        fontsize=FIGURE_TICK_FONT,
+    )
+    fig.subplots_adjust(left=0.39, right=0.98, bottom=0.24, top=0.76)
+    path = os.path.join(FIG_DIR, "resource_removal_ceiling.pdf")
+    fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
+    plt.close(fig)
+    return path
+
+
+def figure_sim_hardware_modality_pivot():
+    """Show how the first physical bottleneck changes with QPU modality."""
+    native = load_summary(NATIVE_ROTATION_PLATFORMS_JSON)
+    joint = load_summary(JOINT_DSE_JSON)
+    if native is None or joint is None:
+        return None
+
+    current = next(
+        cell
+        for cell in joint["main_phase_map"]["cells"]
+        if cell["factory_supply_multiplier"] == 1
+        and cell["useful_lanes"] == 1000
+    )
+    factory_ceiling = float(
+        current["removal_ceiling"]["factory_supply"]["median"]
+    )
+    factory_fraction = 1.0 - 1.0 / factory_ceiling
+    surface_ratio = float(current["eligible_runtime_ratio"]["median"])
+    neutral = native["platforms"]["neutral_atom_zoned"][
+        "quality_qualified_sim"
+    ]["median_component_fraction"]
+    qccd = native["platforms"]["trapped_ion_qccd"][
+        "quality_qualified_sim"
+    ]["median_component_fraction"]
+
+    component_specs = [
+        ("factory", "T-state generation", COLORS["blue"]),
+        ("oneq", "1Q gates", COLORS["teal"]),
+        ("twoq", "2Q gates", COLORS["orange"]),
+        ("readout", "Readout/reuse", COLORS["purple"]),
+        ("movement_control", "Move/control", COLORS["gray"]),
+    ]
+    rows = [
+        (
+            "Surface code\n(synthesized rotations)",
+            {
+                "factory": factory_fraction,
+                "oneq": 0.0,
+                "twoq": 0.0,
+                "readout": 0.0,
+                "movement_control": 1.0 - factory_fraction,
+            },
+        ),
+        ("Neutral atom\n(native rotations)", neutral),
+        ("Trapped-ion QCCD\n(native rotations)", qccd),
+    ]
+    runtime_ratios = [
+        surface_ratio,
+        float(
+            native["platforms"]["neutral_atom_zoned"]["quality_qualified_sim"][
+                "median_projected_native_ratio"
+            ]
+        ),
+        float(
+            native["platforms"]["trapped_ion_qccd"]["quality_qualified_sim"][
+                "median_projected_native_ratio"
+            ]
+        ),
+    ]
+    y = np.arange(len(rows))
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 2.48))
+    left = np.zeros(len(rows))
+    for key, _label, color in component_specs:
+        values = np.array(
+            [100.0 * float(components.get(key, 0.0)) for _, components in rows]
+        )
+        bars = ax.barh(
+            y,
+            values,
+            left=left,
+            height=0.52,
+            color=color,
+            edgecolor="white",
+            linewidth=0.75,
+        )
+        for bar, value, start in zip(bars, values, left):
+            if value < 5.0:
+                continue
+            ax.text(
+                start + value / 2.0,
+                bar.get_y() + bar.get_height() / 2.0,
+                "{:.0f}%".format(value),
+                ha="center",
+                va="center",
+                fontsize=FIGURE_TICK_FONT,
+                color="white" if key != "twoq" else "black",
+                fontweight="bold",
+            )
+        left += values
+
+    for ypos, ratio in zip(y, runtime_ratios):
+        ax.text(
+            103.0,
+            ypos,
+            "{:,}x slower".format(int(round(ratio))),
+            ha="left",
+            va="center",
+            fontsize=FIGURE_TICK_FONT,
+            color=COLORS["dark"],
+            fontweight="bold",
+        )
+
+    ax.set_xlim(0, 160)
+    ax.set_xticks((0, 25, 50, 75, 100))
+    ax.set_xticklabels(("0", "25%", "50%", "75%", "100%"))
+    ax.set_yticks(y)
+    ax.set_yticklabels([label for label, _ in rows])
+    ax.invert_yaxis()
+    ax.set_xlabel("Share of projected runtime")
+    style_axis(ax, grid="x")
+    legend_order = (0, 3, 1, 4, 2)
+    add_top_legend(
+        fig,
+        [
+            Rectangle(
+                (0, 0),
+                1,
+                1,
+                facecolor=color,
+                edgecolor="#555555",
+            )
+            for key, _label, color in [component_specs[index] for index in legend_order]
+        ],
+        [component_specs[index][1] for index in legend_order],
+        ncol=3,
+        y=0.995,
+        fontsize=FIGURE_TICK_FONT,
+    )
+    fig.subplots_adjust(left=0.38, right=0.99, bottom=0.23, top=0.63)
+    path = os.path.join(FIG_DIR, "sim_hardware_modality_pivot.pdf")
+    fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
+    plt.close(fig)
+    return path
+
+
+def figure_lsqca_replacement():
+    artifact = load_summary(JOINT_DSE_JSON)
+    if artifact is None:
+        return None
+    records = artifact["matched_mechanism_replacement"]["records"]
+    values = [
+        [record["baseline_runtime_ratio"] for record in records],
+        [record["lower_movement_runtime_ratio"] for record in records],
+        [record["upper_movement_runtime_ratio"] for record in records],
+    ]
+    labels = ("Baseline", "LSQCA lower", "LSQCA upper")
+    rows = np.arange(len(values))
+    fig, ax = plt.subplots(figsize=(COLUMN_WIDTH, 2.48))
+    box = ax.boxplot(
+        values,
+        positions=rows,
+        vert=False,
+        widths=0.44,
+        whis=(10, 90),
+        showfliers=False,
+        patch_artist=True,
+        manage_ticks=False,
+        boxprops={"facecolor": "#D8E4F0", "edgecolor": "#4A4A4A", "linewidth": 0.9},
+        whiskerprops={"color": "#4A4A4A", "linewidth": 0.9},
+        capprops={"color": "#4A4A4A", "linewidth": 0.9},
+        medianprops={"color": "#111111", "linewidth": 1.4},
+    )
+    del box
+    for row, series in zip(rows, values):
+        order = np.argsort(series)
+        jitter = np.linspace(-0.13, 0.13, len(series))
+        point_y = np.empty(len(series))
+        point_y[order] = row + jitter
+        ax.scatter(
+            series,
+            point_y,
+            s=15,
+            color=COLORS["blue"],
+            edgecolors="white",
+            linewidths=0.35,
+            zorder=2,
+        )
+        parity = sum(value < 1.0 for value in series)
+        ax.text(
+            1.03,
+            row,
+            "{}/12".format(parity),
+            transform=ax.get_yaxis_transform(),
+            ha="left",
+            va="center",
+            fontsize=FIGURE_TICK_FONT,
+            color=COLORS["dark"],
+            fontweight="bold",
+        )
+    ax.axvline(1.0, color="#333333", linewidth=0.75, linestyle="--")
+    ax.set_xscale("log")
+    ax.xaxis.set_major_formatter(FuncFormatter(compact_tick))
+    ax.set_yticks(rows)
+    ax.set_yticklabels(labels)
+    ax.invert_yaxis()
+    ax.set_xlabel("Projected runtime / native HPC runtime (x)")
+    ax.set_xlim(0.08, 55.0)
+    style_axis(ax, grid="x")
+    add_top_legend(
+        fig,
+        [
+            legend_marker("#777777"),
+            Rectangle((0, 0), 1, 1, facecolor="#D8E4F0", edgecolor="#4A4A4A"),
+            Line2D([0], [0], color="#111111", linewidth=1.4),
+            Line2D([0], [0], color="#333333", linewidth=0.75, linestyle="--"),
+        ],
+        ["Record", "Q1--Q3", "Median", "Equal runtime"],
+        ncol=4,
+        y=0.99,
+        fontsize=FIGURE_TICK_FONT,
+    )
+    fig.subplots_adjust(left=0.31, right=0.82, bottom=0.23, top=0.72)
+    path = os.path.join(FIG_DIR, "lsqca_matched_replacement.pdf")
+    fig.savefig(path, bbox_inches="tight", pad_inches=0.01)
+    plt.close(fig)
+    return path
+
+
 def main():
     apply_paper_style()
     ensure_fig_dir()
     paths = [
         figure_intro_threshold_summary(),
         figure_design_overview(),
-        figure_design_projection_flow(),
+        figure_feedback_aggregator_architecture(),
         figure_evaluation_evidence_flow(),
         figure_digits_legend(),
         figure_digits_speedup(),
@@ -2512,14 +4214,33 @@ def main():
         figure_ml_strong_native_gate(),
         figure_ml_profile_breakdown(),
         figure_ml_native_profile_combined(),
+        figure_roofline_native_stress(),
         figure_threshold_tail_pressure(),
         figure_projected_time_decomposition(),
         figure_workload_growth(),
         figure_advantage_frontier(),
-        figure_tolerance_sensitivity(),
-        figure_ft_shot_sensitivity(),
+        figure_sensitivity_bottleneck_transition(),
+        figure_sensitivity_runtime_parity(),
+        figure_physical_factory_crossover(),
+        figure_physical_post_rotation_utility(),
+        figure_native_rotation_platform_legend(),
+        figure_native_rotation_platform(
+            "neutral_atom_zoned", "native_rotation_neutral_atom.pdf"
+        ),
+        figure_native_rotation_platform(
+            "trapped_ion_qccd", "native_rotation_trapped_ion.pdf"
+        ),
+        figure_quality_eligibility(),
+        figure_trace_aware_lower_bound(),
+        figure_ft_contract_parameters(),
+        figure_ft_reliability_target(),
+        figure_joint_phase_map(),
+        figure_resource_removal_ceiling(),
+        figure_lsqca_replacement(),
+        figure_sim_hardware_modality_pivot(),
         figure_architecture_focus_matrix(),
         figure_workload_taxonomy(),
+        figure_scaling_legend(),
         figure_weak_scaling(),
         figure_strong_scaling(),
     ]

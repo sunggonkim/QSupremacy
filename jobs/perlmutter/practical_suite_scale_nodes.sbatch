@@ -13,7 +13,7 @@
 #   QS_SWEEP_PROFILE=scale_ladder_debug QS_SCALE_MODE=weak QS_CHUNK_COUNT=4 \
 #     sbatch -q debug -t 00:30:00 -N 1 jobs/perlmutter/practical_suite_scale_nodes.sbatch
 
-#SBATCH -A m1248
+#SBATCH -A m5320
 #SBATCH -C gpu
 #SBATCH -q debug
 #SBATCH -t 00:30:00
@@ -127,11 +127,13 @@ fi
   --summary-json "${SUMMARY_DIR}/practical_suite_${RUN_TAG}_summary.json" \
   --csv "${SUMMARY_DIR}/practical_suite_${RUN_TAG}_summary.csv"
 
+# The root allocation is still RUNNING here. This snapshot is provisional;
+# refresh it from SlurmDBD after completion with refresh_slurm_accounting.py.
 sacct -j "${ALLOC_ID}" \
   --format=JobID,JobName,State,ExitCode,Elapsed,Submit,Start,End,AllocTRES%80 \
   -P > "data/raw/perlmutter/accounting/sacct_practical_suite_${RUN_TAG}.txt" || true
 
 echo "summary_json=${SUMMARY_DIR}/practical_suite_${RUN_TAG}_summary.json"
 echo "summary_csv=${SUMMARY_DIR}/practical_suite_${RUN_TAG}_summary.csv"
-echo "accounting=data/raw/perlmutter/accounting/sacct_practical_suite_${RUN_TAG}.txt"
+echo "accounting_provisional=data/raw/perlmutter/accounting/sacct_practical_suite_${RUN_TAG}.txt"
 echo "date_end=$(date --iso-8601=seconds)"

@@ -6,7 +6,7 @@
 # trials. It is evidence for timing stability, not a replacement for the large
 # 3,552-case result.
 
-#SBATCH -A m1248
+#SBATCH -A m5320
 #SBATCH -C gpu
 #SBATCH -q debug
 #SBATCH -t 00:20:00

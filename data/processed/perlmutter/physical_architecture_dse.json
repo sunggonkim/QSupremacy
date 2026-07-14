@@ -1,0 +1,2605 @@
+{
+  "by_scenario": {
+    "surface_estimator_aligned": {
+      "attachments": {
+        "compiled_executed_ansatz": 224,
+        "compiled_p1_grid_routing": 768,
+        "nearest_neighbor_trotter_and_Z_readout": 512,
+        "optimistic_one_group; amplitude-feature readout unresolved": 2048
+      },
+      "by_workload": {
+        "chemistry": {
+          "baseline": {
+            "advantaged_fraction": 0.0,
+            "cases": 224,
+            "dominant_component_fraction": {
+              "decoder": 0.0,
+              "factory": 1.0,
+              "host/link": 0.0,
+              "logical": 0.0
+            },
+            "median_component_native_ratio": {
+              "decoder": 12.839560272987558,
+              "factory": 5998590.694760941,
+              "host/link": 1.2883713444642027,
+              "logical": 585.9142919101794
+            },
+            "median_projected_native_ratio": 5998591.530800809,
+            "p90_projected_native_ratio": 39544052.83799989,
+            "quality_pass_fraction": 0.21428571428571427,
+            "runtime_pass_fraction": 0.0
+          },
+          "factory_scale_to_nonfactory_crossover": 10238.000297286697,
+          "first_scalable_resource_median_speedup": 9.99997491422292,
+          "first_scalable_resource_target": "factory",
+          "marginal_utility": {
+            "decoder": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "factory": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 9.99997491422292,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "host_feedback": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0000002505723065,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "logical_cycle": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "measurement_grouping": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.999999442558064,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "native_rotation": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 9647.240788841667,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "routing": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "shot_fabric": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            }
+          },
+          "native_rotation_counterfactual_speedup": 9647.240788841667,
+          "post_native_rotation_incremental_speedup": 9.738260108707099,
+          "post_native_rotation_marginal_utility": {
+            "decoder": 1.0,
+            "factory": 1.0,
+            "host_feedback": 1.002691942828444,
+            "logical_cycle": 9.738260108707099,
+            "measurement_grouping": 1.9940450105680176,
+            "routing": 1.0,
+            "shot_fabric": 9.738260108707099
+          },
+          "post_native_rotation_target": "shot_fabric"
+        },
+        "ml": {
+          "baseline": {
+            "advantaged_fraction": 0.0,
+            "cases": 2048,
+            "dominant_component_fraction": {
+              "decoder": 0.0,
+              "factory": 1.0,
+              "host/link": 0.0,
+              "logical": 0.0
+            },
+            "median_component_native_ratio": {
+              "decoder": 0.6103257207981817,
+              "factory": 547264.9029105627,
+              "host/link": 0.6133054790093517,
+              "logical": 47.808060958483324
+            },
+            "median_projected_native_ratio": 547265.5151573534,
+            "p90_projected_native_ratio": 7009138.36501912,
+            "quality_pass_fraction": 0.0,
+            "runtime_pass_fraction": 0.0
+          },
+          "factory_scale_to_nonfactory_crossover": 11447.126110925296,
+          "first_scalable_resource_median_speedup": 9.9998869411492,
+          "first_scalable_resource_target": "factory",
+          "marginal_utility": {
+            "decoder": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "factory": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 9.9998869411492,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "host_feedback": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0000011287351083,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "logical_cycle": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "measurement_grouping": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "native_rotation": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 12145.135671461068,
+              "runtime_pass_gain_percentage_points": 0.732421875
+            },
+            "routing": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "shot_fabric": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            }
+          },
+          "native_rotation_counterfactual_speedup": 12145.135671461068,
+          "post_native_rotation_incremental_speedup": 8.867827569608085,
+          "post_native_rotation_marginal_utility": {
+            "decoder": 1.0,
+            "factory": 1.0,
+            "host_feedback": 1.0129276779774599,
+            "logical_cycle": 8.867827569608085,
+            "measurement_grouping": 1.0,
+            "routing": 1.0,
+            "shot_fabric": 8.867827569608085
+          },
+          "post_native_rotation_target": "shot_fabric"
+        },
+        "optimization": {
+          "baseline": {
+            "advantaged_fraction": 0.0,
+            "cases": 768,
+            "dominant_component_fraction": {
+              "decoder": 0.0,
+              "factory": 1.0,
+              "host/link": 0.0,
+              "logical": 0.0
+            },
+            "median_component_native_ratio": {
+              "decoder": 20.557322891861375,
+              "factory": 24291981.09497928,
+              "host/link": 20.65143513505579,
+              "logical": 1865.7655089215386
+            },
+            "median_projected_native_ratio": 24291997.665773734,
+            "p90_projected_native_ratio": 48816168.651961304,
+            "quality_pass_fraction": 0.0,
+            "runtime_pass_fraction": 0.0
+          },
+          "factory_scale_to_nonfactory_crossover": 13019.846802195781,
+          "first_scalable_resource_median_speedup": 9.99993412513032,
+          "first_scalable_resource_target": "factory",
+          "marginal_utility": {
+            "decoder": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "factory": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 9.99993412513032,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "host_feedback": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0000006578069573,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "logical_cycle": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "measurement_grouping": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "native_rotation": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 14947.82588136867,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "routing": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "shot_fabric": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            }
+          },
+          "native_rotation_counterfactual_speedup": 14947.82588136867,
+          "post_native_rotation_incremental_speedup": 9.109976537593724,
+          "post_native_rotation_marginal_utility": {
+            "decoder": 1.0,
+            "factory": 1.0,
+            "host_feedback": 1.0098552148269704,
+            "logical_cycle": 9.109976537593724,
+            "measurement_grouping": 1.0,
+            "routing": 1.0235744402365905,
+            "shot_fabric": 9.109976537593724
+          },
+          "post_native_rotation_target": "shot_fabric"
+        },
+        "simulation": {
+          "baseline": {
+            "advantaged_fraction": 0.0,
+            "cases": 512,
+            "dominant_component_fraction": {
+              "decoder": 0.0,
+              "factory": 1.0,
+              "host/link": 0.0,
+              "logical": 0.0
+            },
+            "median_component_native_ratio": {
+              "decoder": 0.0024757905601766033,
+              "factory": 32764.49587594888,
+              "host/link": 0.002487267820660067,
+              "logical": 2.0101494951854026
+            },
+            "median_projected_native_ratio": 32764.497869403305,
+            "p90_projected_native_ratio": 194886.97367462624,
+            "quality_pass_fraction": 0.5,
+            "runtime_pass_fraction": 0.0
+          },
+          "factory_scale_to_nonfactory_crossover": 16299.531927562883,
+          "first_scalable_resource_median_speedup": 9.999991458133358,
+          "first_scalable_resource_target": "factory",
+          "marginal_utility": {
+            "decoder": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "factory": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 9.999991458133358,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "host_feedback": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0000000852941793,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "logical_cycle": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "measurement_grouping": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "native_rotation": {
+              "advantage_gain_percentage_points": 22.4609375,
+              "median_speedup": 17108.183304404836,
+              "runtime_pass_gain_percentage_points": 30.078125
+            },
+            "routing": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "shot_fabric": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            }
+          },
+          "native_rotation_counterfactual_speedup": 17108.183304404836,
+          "post_native_rotation_incremental_speedup": 9.864898441659527,
+          "post_native_rotation_marginal_utility": {
+            "decoder": 1.0,
+            "factory": 1.0,
+            "host_feedback": 1.0013694436147795,
+            "logical_cycle": 9.864898441659527,
+            "measurement_grouping": 1.0,
+            "routing": 1.0,
+            "shot_fabric": 1.0
+          },
+          "post_native_rotation_target": "logical_cycle"
+        }
+      }
+    },
+    "surface_measured_control": {
+      "attachments": {
+        "compiled_executed_ansatz": 224,
+        "compiled_p1_grid_routing": 768,
+        "nearest_neighbor_trotter_and_Z_readout": 512,
+        "optimistic_one_group; amplitude-feature readout unresolved": 2048
+      },
+      "by_workload": {
+        "chemistry": {
+          "baseline": {
+            "advantaged_fraction": 0.0,
+            "cases": 224,
+            "dominant_component_fraction": {
+              "decoder": 0.0,
+              "factory": 1.0,
+              "host/link": 0.0,
+              "logical": 0.0
+            },
+            "median_component_native_ratio": {
+              "decoder": 1617.784594396432,
+              "factory": 27493540.68432097,
+              "host/link": 2.5771422068653287,
+              "logical": 26854.405045883224
+            },
+            "median_projected_native_ratio": 27493542.356622703,
+            "p90_projected_native_ratio": 181243518.56996852,
+            "quality_pass_fraction": 0.21428571428571427,
+            "runtime_pass_fraction": 0.0
+          },
+          "factory_scale_to_nonfactory_crossover": 1023.8000297286693,
+          "first_scalable_resource_median_speedup": 9.999989051737607,
+          "first_scalable_resource_target": "factory",
+          "marginal_utility": {
+            "decoder": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "factory": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 9.999989051737607,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "host_feedback": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0000001093521398,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "logical_cycle": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "measurement_grouping": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.9999997567096295,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "native_rotation": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 969.7110380348255,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "routing": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "shot_fabric": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            }
+          },
+          "native_rotation_counterfactual_speedup": 969.7110380348255,
+          "post_native_rotation_incremental_speedup": 9.988249800798506,
+          "post_native_rotation_marginal_utility": {
+            "decoder": 1.0,
+            "factory": 1.0,
+            "host_feedback": 1.0001175144180978,
+            "logical_cycle": 9.988249800798505,
+            "measurement_grouping": 1.9997386114517437,
+            "routing": 1.0,
+            "shot_fabric": 9.988249800798506
+          },
+          "post_native_rotation_target": "shot_fabric"
+        },
+        "ml": {
+          "baseline": {
+            "advantaged_fraction": 0.0,
+            "cases": 2048,
+            "dominant_component_fraction": {
+              "decoder": 0.0,
+              "factory": 1.0,
+              "host/link": 0.0,
+              "logical": 0.0
+            },
+            "median_component_native_ratio": {
+              "decoder": 76.90104082057087,
+              "factory": 2508297.4716734122,
+              "host/link": 1.2272835477889474,
+              "logical": 2191.2027939304858
+            },
+            "median_projected_native_ratio": 2508298.697692993,
+            "p90_projected_native_ratio": 32125207.38740465,
+            "quality_pass_fraction": 0.0,
+            "runtime_pass_fraction": 0.0
+          },
+          "factory_scale_to_nonfactory_crossover": 1144.7126110925294,
+          "first_scalable_resource_median_speedup": 9.999950633711137,
+          "first_scalable_resource_target": "factory",
+          "marginal_utility": {
+            "decoder": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "factory": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 9.999950633711137,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "host_feedback": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.000000492746755,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "logical_cycle": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "measurement_grouping": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "native_rotation": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1238.6213952383557,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "routing": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "shot_fabric": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            }
+          },
+          "native_rotation_counterfactual_speedup": 1238.6213952383557,
+          "post_native_rotation_incremental_speedup": 9.943688038939255,
+          "post_native_rotation_marginal_utility": {
+            "decoder": 1.0,
+            "factory": 1.0,
+            "host_feedback": 1.0005653125131917,
+            "logical_cycle": 9.943688038939253,
+            "measurement_grouping": 1.0,
+            "routing": 1.0,
+            "shot_fabric": 9.943688038939255
+          },
+          "post_native_rotation_target": "shot_fabric"
+        },
+        "optimization": {
+          "baseline": {
+            "advantaged_fraction": 0.0,
+            "cases": 768,
+            "dominant_component_fraction": {
+              "decoder": 0.0,
+              "factory": 1.0,
+              "host/link": 0.0,
+              "logical": 0.0
+            },
+            "median_component_native_ratio": {
+              "decoder": 2590.222684374533,
+              "factory": 111338246.68532166,
+              "host/link": 41.323777273652496,
+              "logical": 85514.2524922372
+            },
+            "median_projected_native_ratio": 111338279.84368184,
+            "p90_projected_native_ratio": 223740692.54807273,
+            "quality_pass_fraction": 0.0,
+            "runtime_pass_fraction": 0.0
+          },
+          "factory_scale_to_nonfactory_crossover": 1301.9846802195775,
+          "first_scalable_resource_median_speedup": 9.99997124253711,
+          "first_scalable_resource_target": "factory",
+          "marginal_utility": {
+            "decoder": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "factory": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 9.99997124253711,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "host_feedback": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0000002871226923,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "logical_cycle": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "measurement_grouping": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "native_rotation": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1508.9735876610696,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "routing": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "shot_fabric": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            }
+          },
+          "native_rotation_counterfactual_speedup": 1508.9735876610696,
+          "post_native_rotation_incremental_speedup": 9.95707459240404,
+          "post_native_rotation_marginal_utility": {
+            "decoder": 1.0,
+            "factory": 1.0,
+            "host_feedback": 1.0004306221372017,
+            "logical_cycle": 9.95707459240404,
+            "measurement_grouping": 1.0,
+            "routing": 1.0237991606818035,
+            "shot_fabric": 9.957074592404037
+          },
+          "post_native_rotation_target": "logical_cycle"
+        },
+        "simulation": {
+          "baseline": {
+            "advantaged_fraction": 0.0,
+            "cases": 512,
+            "dominant_component_fraction": {
+              "decoder": 0.0,
+              "factory": 1.0,
+              "host/link": 0.0,
+              "logical": 0.0
+            },
+            "median_component_native_ratio": {
+              "decoder": 0.311949610582252,
+              "factory": 150170.60609809897,
+              "host/link": 0.004975621703970462,
+              "logical": 92.13185186266429
+            },
+            "median_projected_native_ratio": 150170.61008663644,
+            "p90_projected_native_ratio": 893231.9435022742,
+            "quality_pass_fraction": 0.5,
+            "runtime_pass_fraction": 0.0
+          },
+          "factory_scale_to_nonfactory_crossover": 1629.9531927562875,
+          "first_scalable_resource_median_speedup": 9.999996271378748,
+          "first_scalable_resource_target": "factory",
+          "marginal_utility": {
+            "decoder": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "factory": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 9.999996271378748,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "host_feedback": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0000000372276736,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "logical_cycle": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "measurement_grouping": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "native_rotation": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1713.644690013365,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "routing": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "shot_fabric": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            }
+          },
+          "native_rotation_counterfactual_speedup": 1713.644690013365,
+          "post_native_rotation_incremental_speedup": 9.994016304382313,
+          "post_native_rotation_marginal_utility": {
+            "decoder": 1.0,
+            "factory": 1.0,
+            "host_feedback": 1.0000597806152336,
+            "logical_cycle": 9.994016304382313,
+            "measurement_grouping": 1.0,
+            "routing": 1.0,
+            "shot_fabric": 9.994016304382313
+          },
+          "post_native_rotation_target": "shot_fabric"
+        }
+      }
+    },
+    "surface_throughput_target": {
+      "attachments": {
+        "compiled_executed_ansatz": 224,
+        "compiled_p1_grid_routing": 768,
+        "nearest_neighbor_trotter_and_Z_readout": 512,
+        "optimistic_one_group; amplitude-feature readout unresolved": 2048
+      },
+      "by_workload": {
+        "chemistry": {
+          "baseline": {
+            "advantaged_fraction": 0.0,
+            "cases": 224,
+            "dominant_component_fraction": {
+              "decoder": 0.0,
+              "factory": 1.0,
+              "host/link": 0.0,
+              "logical": 0.0
+            },
+            "median_component_native_ratio": {
+              "decoder": 0.25679120545975115,
+              "factory": 749823.8368451176,
+              "host/link": 0.26120652262519783,
+              "logical": 58.59142919101794
+            },
+            "median_projected_native_ratio": 749824.0063749088,
+            "p90_projected_native_ratio": 4943008.317592945,
+            "quality_pass_fraction": 0.21428571428571427,
+            "runtime_pass_fraction": 0.0
+          },
+          "factory_scale_to_nonfactory_crossover": 12797.500371608372,
+          "first_scalable_resource_median_speedup": 9.999959313407915,
+          "first_scalable_resource_target": "factory",
+          "marginal_utility": {
+            "decoder": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "factory": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 9.999959313407915,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "host_feedback": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0000004045784876,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "logical_cycle": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "measurement_grouping": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.9999990960183984,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "native_rotation": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 11992.817391390698,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "routing": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "shot_fabric": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            }
+          },
+          "native_rotation_counterfactual_speedup": 11992.817391390698,
+          "post_native_rotation_incremental_speedup": 9.484821446996452,
+          "post_native_rotation_marginal_utility": {
+            "decoder": 1.0,
+            "factory": 1.0,
+            "host_feedback": 1.0054307137989036,
+            "logical_cycle": 9.48482144699645,
+            "measurement_grouping": 1.988002162971521,
+            "routing": 1.0,
+            "shot_fabric": 9.484821446996452
+          },
+          "post_native_rotation_target": "shot_fabric"
+        },
+        "ml": {
+          "baseline": {
+            "advantaged_fraction": 0.0,
+            "cases": 2048,
+            "dominant_component_fraction": {
+              "decoder": 0.0,
+              "factory": 1.0,
+              "host/link": 0.0,
+              "logical": 0.0
+            },
+            "median_component_native_ratio": {
+              "decoder": 0.012206514415963632,
+              "factory": 68408.11286382034,
+              "host/link": 0.12500676345813483,
+              "logical": 4.780806095848332
+            },
+            "median_projected_native_ratio": 68408.23865291955,
+            "p90_projected_native_ratio": 876142.6111245712,
+            "quality_pass_fraction": 0.0,
+            "runtime_pass_fraction": 0.0
+          },
+          "factory_scale_to_nonfactory_crossover": 14308.907638656621,
+          "first_scalable_resource_median_speedup": 9.999815521516826,
+          "first_scalable_resource_target": "factory",
+          "marginal_utility": {
+            "decoder": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "factory": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 9.999815521516826,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "host_feedback": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0000018298816253,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "logical_cycle": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "measurement_grouping": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "native_rotation": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 14874.372063782654,
+              "runtime_pass_gain_percentage_points": 27.24609375
+            },
+            "routing": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "shot_fabric": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            }
+          },
+          "native_rotation_counterfactual_speedup": 14874.372063782654,
+          "post_native_rotation_incremental_speedup": 7.952272545401401,
+          "post_native_rotation_marginal_utility": {
+            "decoder": 1.0,
+            "factory": 1.0,
+            "host_feedback": 1.0262367425197998,
+            "logical_cycle": 7.952272545401399,
+            "measurement_grouping": 1.0,
+            "routing": 1.0,
+            "shot_fabric": 7.952272545401401
+          },
+          "post_native_rotation_target": "shot_fabric"
+        },
+        "optimization": {
+          "baseline": {
+            "advantaged_fraction": 0.0,
+            "cases": 768,
+            "dominant_component_fraction": {
+              "decoder": 0.0,
+              "factory": 1.0,
+              "host/link": 0.0,
+              "logical": 0.0
+            },
+            "median_component_native_ratio": {
+              "decoder": 0.4111464578372274,
+              "factory": 3036497.63687241,
+              "host/link": 4.205259707633255,
+              "logical": 186.57655089215388
+            },
+            "median_projected_native_ratio": 3036501.011840814,
+            "p90_projected_native_ratio": 6102023.546403644,
+            "quality_pass_fraction": 0.0,
+            "runtime_pass_fraction": 0.0
+          },
+          "factory_scale_to_nonfactory_crossover": 16274.808502744725,
+          "first_scalable_resource_median_speedup": 9.999892783408061,
+          "first_scalable_resource_target": "factory",
+          "marginal_utility": {
+            "decoder": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "factory": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 9.999892783408061,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "host_feedback": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.000001064606451,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "logical_cycle": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "measurement_grouping": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "native_rotation": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 18495.843430943896,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "routing": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "shot_fabric": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            }
+          },
+          "native_rotation_counterfactual_speedup": 18495.843430943896,
+          "post_native_rotation_incremental_speedup": 8.357781499116783,
+          "post_native_rotation_marginal_utility": {
+            "decoder": 1.0,
+            "factory": 1.0,
+            "host_feedback": 1.0199109733208234,
+            "logical_cycle": 8.357781499116783,
+            "measurement_grouping": 1.0,
+            "routing": 1.0233345581064581,
+            "shot_fabric": 7.523769867146699
+          },
+          "post_native_rotation_target": "logical_cycle"
+        },
+        "simulation": {
+          "baseline": {
+            "advantaged_fraction": 0.0,
+            "cases": 512,
+            "dominant_component_fraction": {
+              "decoder": 0.0,
+              "factory": 1.0,
+              "host/link": 0.0,
+              "logical": 0.0
+            },
+            "median_component_native_ratio": {
+              "decoder": 0.0004951581120353206,
+              "factory": 4095.56198449361,
+              "host/link": 0.0005066353725187843,
+              "logical": 2.0101494951854026
+            },
+            "median_projected_native_ratio": 4095.5623908092703,
+            "p90_projected_native_ratio": 24360.87229185799,
+            "quality_pass_fraction": 0.5,
+            "runtime_pass_fraction": 0.0
+          },
+          "factory_scale_to_nonfactory_crossover": 2037.4414909453603,
+          "first_scalable_resource_median_speedup": 9.999986093852183,
+          "first_scalable_resource_target": "factory",
+          "marginal_utility": {
+            "decoder": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "factory": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 9.999986093852183,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "host_feedback": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0000001380651509,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "logical_cycle": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "measurement_grouping": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "native_rotation": {
+              "advantage_gain_percentage_points": 22.4609375,
+              "median_speedup": 2141.4654329080477,
+              "runtime_pass_gain_percentage_points": 30.078125
+            },
+            "routing": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            },
+            "shot_fabric": {
+              "advantage_gain_percentage_points": 0.0,
+              "median_speedup": 1.0,
+              "runtime_pass_gain_percentage_points": 0.0
+            }
+          },
+          "native_rotation_counterfactual_speedup": 2141.4654329080477,
+          "post_native_rotation_incremental_speedup": 9.972164475987956,
+          "post_native_rotation_marginal_utility": {
+            "decoder": 1.0,
+            "factory": 1.0,
+            "host_feedback": 1.0002771782037467,
+            "logical_cycle": 9.972164475987956,
+            "measurement_grouping": 1.0,
+            "routing": 1.0,
+            "shot_fabric": 1.0
+          },
+          "post_native_rotation_target": "logical_cycle"
+        }
+      }
+    }
+  },
+  "calibration": {
+    "factory": "LSQCA: one magic state per 15 code beats per 176-cell factory",
+    "non_ft_context_only": {
+      "neutral_atom": "Nature 626 (2024): 270-ns entangling pulse, 500-us image, sub-ms feedforward, reconfigurable connectivity",
+      "trapped_ion": "BOSS HPCA 2025: circuit-dependent shuttling plus roughly 40-us recooling and >150-us high-fidelity readout"
+    },
+    "recent_magic_supply": "PureMagic v4 reports 4.5x lower average magic-state preparation time (its up-to-15x DASCOT result is end-to-end efficiency, not uniform supply); STAR-Magic reports up to order-100x only for compatible small-angle rotations; both are tested as favorable envelopes",
+    "rotation_synthesis": "all attached arbitrary rotations are repriced at a favorable 16 T states per rotation, aligned to the matched QDK QAOA 15.0--16.0 range and 57--88 factories; the Chem compiler's epsilon-based 100-T synthesis upper contract is retained for provenance but is not consumed by this DSE",
+    "surface_control": "Nature 638 (2025): 1.1-us cycle, 63+/-17-us decoder"
+  },
+  "cases": 3552,
+  "chem_attachment_sources": [
+    "data/processed/perlmutter/chem_compiled_measurement_records.json",
+    "data/processed/perlmutter/chem_controlled_compiled_measurement_records.json"
+  ],
+  "chem_compiled_record_count": 16,
+  "chem_controlled_compiled_record_count": 8,
+  "critical_path_overlap_sensitivity": {
+    "by_rho": {
+      "0.0": {
+        "chemistry": {
+          "advantaged_fraction": 0.0,
+          "cases": 224,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host/link": 0.0,
+            "logical": 0.0
+          },
+          "median_component_native_ratio": {
+            "decoder": 12.839560272987558,
+            "factory": 5998590.694760941,
+            "host/link": 1.2883713444642027,
+            "logical": 585.9142919101794
+          },
+          "median_projected_native_ratio": 5998591.530800809,
+          "p90_projected_native_ratio": 39544052.83799989,
+          "quality_pass_fraction": 0.21428571428571427,
+          "runtime_pass_fraction": 0.0
+        },
+        "ml": {
+          "advantaged_fraction": 0.0,
+          "cases": 2048,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host/link": 0.0,
+            "logical": 0.0
+          },
+          "median_component_native_ratio": {
+            "decoder": 0.6103257207981817,
+            "factory": 547264.9029105627,
+            "host/link": 0.6133054790093517,
+            "logical": 47.808060958483324
+          },
+          "median_projected_native_ratio": 547265.5151573534,
+          "p90_projected_native_ratio": 7009138.36501912,
+          "quality_pass_fraction": 0.0,
+          "runtime_pass_fraction": 0.0
+        },
+        "optimization": {
+          "advantaged_fraction": 0.0,
+          "cases": 768,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host/link": 0.0,
+            "logical": 0.0
+          },
+          "median_component_native_ratio": {
+            "decoder": 20.557322891861375,
+            "factory": 24291981.09497928,
+            "host/link": 20.65143513505579,
+            "logical": 1865.7655089215386
+          },
+          "median_projected_native_ratio": 24291997.665773734,
+          "p90_projected_native_ratio": 48816168.651961304,
+          "quality_pass_fraction": 0.0,
+          "runtime_pass_fraction": 0.0
+        },
+        "simulation": {
+          "advantaged_fraction": 0.0,
+          "cases": 512,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host/link": 0.0,
+            "logical": 0.0
+          },
+          "median_component_native_ratio": {
+            "decoder": 0.0024757905601766033,
+            "factory": 32764.49587594888,
+            "host/link": 0.002487267820660067,
+            "logical": 2.0101494951854026
+          },
+          "median_projected_native_ratio": 32764.497869403305,
+          "p90_projected_native_ratio": 194886.97367462624,
+          "quality_pass_fraction": 0.5,
+          "runtime_pass_fraction": 0.0
+        }
+      },
+      "0.5": {
+        "chemistry": {
+          "advantaged_fraction": 0.0,
+          "cases": 224,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host/link": 0.0,
+            "logical": 0.0
+          },
+          "median_component_native_ratio": {
+            "decoder": 12.839560272987558,
+            "factory": 5998590.694760941,
+            "host/link": 1.2883713444642027,
+            "logical": 585.9142919101794
+          },
+          "median_projected_native_ratio": 5998911.868607507,
+          "p90_projected_native_ratio": 39546201.161499724,
+          "quality_pass_fraction": 0.21428571428571427,
+          "runtime_pass_fraction": 0.0
+        },
+        "ml": {
+          "advantaged_fraction": 0.0,
+          "cases": 2048,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host/link": 0.0,
+            "logical": 0.0
+          },
+          "median_component_native_ratio": {
+            "decoder": 0.6103257207981817,
+            "factory": 547264.9029105627,
+            "host/link": 0.6133054790093517,
+            "logical": 47.808060958483324
+          },
+          "median_projected_native_ratio": 547289.8988491385,
+          "p90_projected_native_ratio": 7009425.350134977,
+          "quality_pass_fraction": 0.0,
+          "runtime_pass_fraction": 0.0
+        },
+        "optimization": {
+          "advantaged_fraction": 0.0,
+          "cases": 768,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host/link": 0.0,
+            "logical": 0.0
+          },
+          "median_component_native_ratio": {
+            "decoder": 20.557322891861375,
+            "factory": 24291981.09497928,
+            "host/link": 20.65143513505579,
+            "logical": 1865.7655089215386
+          },
+          "median_projected_native_ratio": 24292853.42274704,
+          "p90_projected_native_ratio": 48817820.65204295,
+          "quality_pass_fraction": 0.0,
+          "runtime_pass_fraction": 0.0
+        },
+        "simulation": {
+          "advantaged_fraction": 0.0,
+          "cases": 512,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host/link": 0.0,
+            "logical": 0.0
+          },
+          "median_component_native_ratio": {
+            "decoder": 0.0024757905601766033,
+            "factory": 32764.49587594888,
+            "host/link": 0.002487267820660067,
+            "logical": 2.0101494951854026
+          },
+          "median_projected_native_ratio": 32765.371390900982,
+          "p90_projected_native_ratio": 194892.15218419212,
+          "quality_pass_fraction": 0.5,
+          "runtime_pass_fraction": 0.0
+        }
+      },
+      "1.0": {
+        "chemistry": {
+          "advantaged_fraction": 0.0,
+          "cases": 224,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host/link": 0.0,
+            "logical": 0.0
+          },
+          "median_component_native_ratio": {
+            "decoder": 12.839560272987558,
+            "factory": 5998590.694760941,
+            "host/link": 1.2883713444642027,
+            "logical": 585.9142919101794
+          },
+          "median_projected_native_ratio": 5999232.206414205,
+          "p90_projected_native_ratio": 39548349.48499956,
+          "quality_pass_fraction": 0.21428571428571427,
+          "runtime_pass_fraction": 0.0
+        },
+        "ml": {
+          "advantaged_fraction": 0.0,
+          "cases": 2048,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host/link": 0.0,
+            "logical": 0.0
+          },
+          "median_component_native_ratio": {
+            "decoder": 0.6103257207981817,
+            "factory": 547264.9029105627,
+            "host/link": 0.6133054790093517,
+            "logical": 47.808060958483324
+          },
+          "median_projected_native_ratio": 547314.2825409239,
+          "p90_projected_native_ratio": 7009712.335250833,
+          "quality_pass_fraction": 0.0,
+          "runtime_pass_fraction": 0.0
+        },
+        "optimization": {
+          "advantaged_fraction": 0.0,
+          "cases": 768,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host/link": 0.0,
+            "logical": 0.0
+          },
+          "median_component_native_ratio": {
+            "decoder": 20.557322891861375,
+            "factory": 24291981.09497928,
+            "host/link": 20.65143513505579,
+            "logical": 1865.7655089215386
+          },
+          "median_projected_native_ratio": 24293709.179720335,
+          "p90_projected_native_ratio": 48819472.652124606,
+          "quality_pass_fraction": 0.0,
+          "runtime_pass_fraction": 0.0
+        },
+        "simulation": {
+          "advantaged_fraction": 0.0,
+          "cases": 512,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host/link": 0.0,
+            "logical": 0.0
+          },
+          "median_component_native_ratio": {
+            "decoder": 0.0024757905601766033,
+            "factory": 32764.49587594888,
+            "host/link": 0.002487267820660067,
+            "logical": 2.0101494951854026
+          },
+          "median_projected_native_ratio": 32766.24491239866,
+          "p90_projected_native_ratio": 194897.330693758,
+          "quality_pass_fraction": 0.5,
+          "runtime_pass_fraction": 0.0
+        }
+      }
+    },
+    "definition": "rho=0 is ideal overlap; rho=1 serializes logical execution, factory supply, and decoding; host/control terms remain explicit"
+  },
+  "input_csv": "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv",
+  "levers": [
+    {
+      "id": "shot_fabric",
+      "label": "10x useful shot lanes"
+    },
+    {
+      "id": "logical_cycle",
+      "label": "10x logical-cycle speed"
+    },
+    {
+      "id": "routing",
+      "label": "remove routing dilation"
+    },
+    {
+      "id": "factory",
+      "label": "10x factory supply"
+    },
+    {
+      "id": "decoder",
+      "label": "10x decoder latency/bandwidth"
+    },
+    {
+      "id": "host_feedback",
+      "label": "10x host/link latency"
+    },
+    {
+      "id": "measurement_grouping",
+      "label": "10x fewer shot-group executions"
+    },
+    {
+      "id": "native_rotation",
+      "label": "native arbitrary-rotation path (cross-modality counterfactual)"
+    }
+  ],
+  "magic_state_supply_sensitivity": {
+    "by_envelope": {
+      "baseline": {
+        "chemistry": {
+          "advantaged_fraction": 0.0,
+          "cases": 224,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host/link": 0.0,
+            "logical": 0.0
+          },
+          "median_component_native_ratio": {
+            "decoder": 12.839560272987558,
+            "factory": 5998590.694760941,
+            "host/link": 1.2883713444642027,
+            "logical": 585.9142919101794
+          },
+          "median_projected_native_ratio": 5998591.530800809,
+          "p90_projected_native_ratio": 39544052.83799989,
+          "quality_pass_fraction": 0.21428571428571427,
+          "runtime_pass_fraction": 0.0
+        },
+        "ml": {
+          "advantaged_fraction": 0.0,
+          "cases": 2048,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host/link": 0.0,
+            "logical": 0.0
+          },
+          "median_component_native_ratio": {
+            "decoder": 0.6103257207981817,
+            "factory": 547264.9029105627,
+            "host/link": 0.6133054790093517,
+            "logical": 47.808060958483324
+          },
+          "median_projected_native_ratio": 547265.5151573534,
+          "p90_projected_native_ratio": 7009138.36501912,
+          "quality_pass_fraction": 0.0,
+          "runtime_pass_fraction": 0.0
+        },
+        "optimization": {
+          "advantaged_fraction": 0.0,
+          "cases": 768,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host/link": 0.0,
+            "logical": 0.0
+          },
+          "median_component_native_ratio": {
+            "decoder": 20.557322891861375,
+            "factory": 24291981.09497928,
+            "host/link": 20.65143513505579,
+            "logical": 1865.7655089215386
+          },
+          "median_projected_native_ratio": 24291997.665773734,
+          "p90_projected_native_ratio": 48816168.651961304,
+          "quality_pass_fraction": 0.0,
+          "runtime_pass_fraction": 0.0
+        },
+        "simulation": {
+          "advantaged_fraction": 0.0,
+          "cases": 512,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host/link": 0.0,
+            "logical": 0.0
+          },
+          "median_component_native_ratio": {
+            "decoder": 0.0024757905601766033,
+            "factory": 32764.49587594888,
+            "host/link": 0.002487267820660067,
+            "logical": 2.0101494951854026
+          },
+          "median_projected_native_ratio": 32764.497869403305,
+          "p90_projected_native_ratio": 194886.97367462624,
+          "quality_pass_fraction": 0.5,
+          "runtime_pass_fraction": 0.0
+        }
+      },
+      "four_order_target": {
+        "chemistry": {
+          "advantaged_fraction": 0.0,
+          "cases": 224,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 0.2857142857142857,
+            "host/link": 0.0,
+            "logical": 0.7142857142857143
+          },
+          "median_component_native_ratio": {
+            "decoder": 12.839560272987558,
+            "factory": 599.859069476094,
+            "host/link": 1.2883713444642027,
+            "logical": 585.9142919101794
+          },
+          "median_projected_native_ratio": 622.2338806804294,
+          "p90_projected_native_ratio": 4099.001331420886,
+          "quality_pass_fraction": 0.21428571428571427,
+          "runtime_pass_fraction": 0.0
+        },
+        "ml": {
+          "advantaged_fraction": 0.0,
+          "cases": 2048,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host/link": 0.0,
+            "logical": 0.0
+          },
+          "median_component_native_ratio": {
+            "decoder": 0.6103257207981817,
+            "factory": 54.726490291056265,
+            "host/link": 0.6133054790093517,
+            "logical": 47.808060958483324
+          },
+          "median_projected_native_ratio": 55.338737081747304,
+          "p90_projected_native_ratio": 706.0797613408363,
+          "quality_pass_fraction": 0.0,
+          "runtime_pass_fraction": 0.0048828125
+        },
+        "optimization": {
+          "advantaged_fraction": 0.0,
+          "cases": 768,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host/link": 0.0,
+            "logical": 0.0
+          },
+          "median_component_native_ratio": {
+            "decoder": 20.557322891861375,
+            "factory": 2429.1981094979274,
+            "host/link": 20.65143513505579,
+            "logical": 1865.7655089215386
+          },
+          "median_projected_native_ratio": 2447.9701688129526,
+          "p90_projected_native_ratio": 4916.750457715925,
+          "quality_pass_fraction": 0.0,
+          "runtime_pass_fraction": 0.0
+        },
+        "simulation": {
+          "advantaged_fraction": 0.16796875,
+          "cases": 512,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host/link": 0.0,
+            "logical": 0.0
+          },
+          "median_component_native_ratio": {
+            "decoder": 0.0024757905601766033,
+            "factory": 3.276449587594887,
+            "host/link": 0.002487267820660067,
+            "logical": 2.0101494951854026
+          },
+          "median_projected_native_ratio": 3.2784430420206685,
+          "p90_projected_native_ratio": 19.49611938401505,
+          "quality_pass_fraction": 0.5,
+          "runtime_pass_fraction": 0.181640625
+        }
+      },
+      "pure_magic_reported_upper": {
+        "chemistry": {
+          "advantaged_fraction": 0.0,
+          "cases": 224,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host/link": 0.0,
+            "logical": 0.0
+          },
+          "median_component_native_ratio": {
+            "decoder": 12.839560272987558,
+            "factory": 1333020.1543913202,
+            "host/link": 1.2883713444642027,
+            "logical": 585.9142919101794
+          },
+          "median_projected_native_ratio": 1333020.9904311886,
+          "p90_projected_native_ratio": 8787584.442193536,
+          "quality_pass_fraction": 0.21428571428571427,
+          "runtime_pass_fraction": 0.0
+        },
+        "ml": {
+          "advantaged_fraction": 0.0,
+          "cases": 2048,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host/link": 0.0,
+            "logical": 0.0
+          },
+          "median_component_native_ratio": {
+            "decoder": 0.6103257207981817,
+            "factory": 121614.42286901393,
+            "host/link": 0.6133054790093517,
+            "logical": 47.808060958483324
+          },
+          "median_projected_native_ratio": 121615.03511580461,
+          "p90_projected_native_ratio": 1557589.3528202893,
+          "quality_pass_fraction": 0.0,
+          "runtime_pass_fraction": 0.0
+        },
+        "optimization": {
+          "advantaged_fraction": 0.0,
+          "cases": 768,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host/link": 0.0,
+            "logical": 0.0
+          },
+          "median_component_native_ratio": {
+            "decoder": 20.557322891861375,
+            "factory": 5398218.021106506,
+            "host/link": 20.65143513505579,
+            "logical": 1865.7655089215386
+          },
+          "median_projected_native_ratio": 5398234.591900967,
+          "p90_projected_native_ratio": 10848061.709686415,
+          "quality_pass_fraction": 0.0,
+          "runtime_pass_fraction": 0.0
+        },
+        "simulation": {
+          "advantaged_fraction": 0.0,
+          "cases": 512,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host/link": 0.0,
+            "logical": 0.0
+          },
+          "median_component_native_ratio": {
+            "decoder": 0.0024757905601766033,
+            "factory": 7280.999083544195,
+            "host/link": 0.002487267820660067,
+            "logical": 2.0101494951854026
+          },
+          "median_projected_native_ratio": 7281.00107699862,
+          "p90_projected_native_ratio": 43308.22214539603,
+          "quality_pass_fraction": 0.5,
+          "runtime_pass_fraction": 0.0
+        }
+      },
+      "star_magic_reported_upper": {
+        "chemistry": {
+          "advantaged_fraction": 0.0,
+          "cases": 224,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host/link": 0.0,
+            "logical": 0.0
+          },
+          "median_component_native_ratio": {
+            "decoder": 12.839560272987558,
+            "factory": 59985.9069476094,
+            "host/link": 1.2883713444642027,
+            "logical": 585.9142919101794
+          },
+          "median_projected_native_ratio": 59986.74298747779,
+          "p90_projected_native_ratio": 395462.351337803,
+          "quality_pass_fraction": 0.21428571428571427,
+          "runtime_pass_fraction": 0.0
+        },
+        "ml": {
+          "advantaged_fraction": 0.0,
+          "cases": 2048,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host/link": 0.0,
+            "logical": 0.0
+          },
+          "median_component_native_ratio": {
+            "decoder": 0.6103257207981817,
+            "factory": 5472.649029105626,
+            "host/link": 0.6133054790093517,
+            "logical": 47.808060958483324
+          },
+          "median_projected_native_ratio": 5473.261275896318,
+          "p90_projected_native_ratio": 70095.26520603667,
+          "quality_pass_fraction": 0.0,
+          "runtime_pass_fraction": 0.0
+        },
+        "optimization": {
+          "advantaged_fraction": 0.0,
+          "cases": 768,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host/link": 0.0,
+            "logical": 0.0
+          },
+          "median_component_native_ratio": {
+            "decoder": 20.557322891861375,
+            "factory": 242919.81094979274,
+            "host/link": 20.65143513505579,
+            "logical": 1865.7655089215386
+          },
+          "median_projected_native_ratio": 242936.38174425362,
+          "p90_projected_native_ratio": 488192.5297228393,
+          "quality_pass_fraction": 0.0,
+          "runtime_pass_fraction": 0.0
+        },
+        "simulation": {
+          "advantaged_fraction": 0.0,
+          "cases": 512,
+          "dominant_component_fraction": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host/link": 0.0,
+            "logical": 0.0
+          },
+          "median_component_native_ratio": {
+            "decoder": 0.0024757905601766033,
+            "factory": 327.6449587594887,
+            "host/link": 0.002487267820660067,
+            "logical": 2.0101494951854026
+          },
+          "median_projected_native_ratio": 327.64695221391446,
+          "p90_projected_native_ratio": 1948.8770852775021,
+          "quality_pass_fraction": 0.5,
+          "runtime_pass_fraction": 0.0
+        }
+      }
+    },
+    "envelopes": [
+      {
+        "factory_supply_multiplier": 1.0,
+        "id": "baseline",
+        "scope": "estimator-aligned baseline"
+      },
+      {
+        "factory_supply_multiplier": 4.5,
+        "id": "pure_magic_reported_upper",
+        "scope": "v4 average magic-state preparation-time reduction; used only as a favorable supply-equivalent stress (the reported 15x is an end-to-end scheduler-efficiency upper result, not uniform supply)"
+      },
+      {
+        "factory_supply_multiplier": 100.0,
+        "id": "star_magic_reported_upper",
+        "scope": "order-of-magnitude upper envelope for compatible small-angle rotations; not transferable to every arbitrary rotation"
+      },
+      {
+        "factory_supply_multiplier": 10000.0,
+        "id": "four_order_target",
+        "scope": "diagnostic target, not a published implementation"
+      }
+    ],
+    "scenario": "surface_estimator_aligned"
+  },
+  "post_native_rotation_overlap_sensitivity": {
+    "by_rho": {
+      "0.0": {
+        "chemistry": {
+          "baseline": {
+            "advantaged_fraction": 0.0,
+            "cases": 224,
+            "dominant_component_fraction": {
+              "decoder": 0.0,
+              "factory": 0.0,
+              "host/link": 0.0,
+              "logical": 1.0
+            },
+            "median_component_native_ratio": {
+              "decoder": 12.839560272987558,
+              "factory": 0.0,
+              "host/link": 1.2883713444642027,
+              "logical": 585.9142919101794
+            },
+            "median_projected_native_ratio": 587.6692996710347,
+            "p90_projected_native_ratio": 4099.001331420886,
+            "quality_pass_fraction": 0.21428571428571427,
+            "runtime_pass_fraction": 0.0
+          },
+          "marginal_utility": {
+            "decoder": 1.0,
+            "factory": 1.0,
+            "host_feedback": 1.002691942828444,
+            "logical_cycle": 9.738260108707099,
+            "measurement_grouping": 1.9940450105680176,
+            "routing": 1.0,
+            "shot_fabric": 9.738260108707099
+          },
+          "target": "shot_fabric",
+          "target_median_speedup": 9.738260108707099
+        },
+        "ml": {
+          "baseline": {
+            "advantaged_fraction": 0.0,
+            "cases": 2048,
+            "dominant_component_fraction": {
+              "decoder": 0.0,
+              "factory": 0.0,
+              "host/link": 0.0,
+              "logical": 1.0
+            },
+            "median_component_native_ratio": {
+              "decoder": 0.6103257207981817,
+              "factory": 0.0,
+              "host/link": 0.6133054790093517,
+              "logical": 47.808060958483324
+            },
+            "median_projected_native_ratio": 48.41584232009304,
+            "p90_projected_native_ratio": 570.6222611666537,
+            "quality_pass_fraction": 0.0,
+            "runtime_pass_fraction": 0.00732421875
+          },
+          "marginal_utility": {
+            "decoder": 1.0,
+            "factory": 1.0,
+            "host_feedback": 1.0129276779774599,
+            "logical_cycle": 8.867827569608085,
+            "measurement_grouping": 1.0,
+            "routing": 1.0,
+            "shot_fabric": 8.867827569608085
+          },
+          "target": "shot_fabric",
+          "target_median_speedup": 8.867827569608085
+        },
+        "optimization": {
+          "baseline": {
+            "advantaged_fraction": 0.0,
+            "cases": 768,
+            "dominant_component_fraction": {
+              "decoder": 0.0,
+              "factory": 0.0,
+              "host/link": 0.0,
+              "logical": 1.0
+            },
+            "median_component_native_ratio": {
+              "decoder": 20.557322891861375,
+              "factory": 0.0,
+              "host/link": 20.65143513505579,
+              "logical": 1865.7655089215386
+            },
+            "median_projected_native_ratio": 1884.553001891837,
+            "p90_projected_native_ratio": 3285.0105588260435,
+            "quality_pass_fraction": 0.0,
+            "runtime_pass_fraction": 0.0
+          },
+          "marginal_utility": {
+            "decoder": 1.0,
+            "factory": 1.0,
+            "host_feedback": 1.0098552148269704,
+            "logical_cycle": 9.109976537593724,
+            "measurement_grouping": 1.0,
+            "routing": 1.0235744402365905,
+            "shot_fabric": 9.109976537593724
+          },
+          "target": "shot_fabric",
+          "target_median_speedup": 9.109976537593724
+        },
+        "simulation": {
+          "baseline": {
+            "advantaged_fraction": 0.224609375,
+            "cases": 512,
+            "dominant_component_fraction": {
+              "decoder": 0.0,
+              "factory": 0.0,
+              "host/link": 0.0,
+              "logical": 1.0
+            },
+            "median_component_native_ratio": {
+              "decoder": 0.0024757905601766033,
+              "factory": 0.0,
+              "host/link": 0.002487267820660067,
+              "logical": 2.0101494951854026
+            },
+            "median_projected_native_ratio": 2.01685055399787,
+            "p90_projected_native_ratio": 10.357051410292668,
+            "quality_pass_fraction": 0.5,
+            "runtime_pass_fraction": 0.30078125
+          },
+          "marginal_utility": {
+            "decoder": 1.0,
+            "factory": 1.0,
+            "host_feedback": 1.0013694436147795,
+            "logical_cycle": 9.864898441659527,
+            "measurement_grouping": 1.0,
+            "routing": 1.0,
+            "shot_fabric": 1.0
+          },
+          "target": "logical_cycle",
+          "target_median_speedup": 9.864898441659527
+        }
+      },
+      "0.5": {
+        "chemistry": {
+          "baseline": {
+            "advantaged_fraction": 0.0,
+            "cases": 224,
+            "dominant_component_fraction": {
+              "decoder": 0.0,
+              "factory": 0.0,
+              "host/link": 0.0,
+              "logical": 1.0
+            },
+            "median_component_native_ratio": {
+              "decoder": 12.839560272987558,
+              "factory": 0.0,
+              "host/link": 1.2883713444642027,
+              "logical": 585.9142919101794
+            },
+            "median_projected_native_ratio": 596.0132468198814,
+            "p90_projected_native_ratio": 4208.845861405909,
+            "quality_pass_fraction": 0.21428571428571427,
+            "runtime_pass_fraction": 0.0
+          },
+          "marginal_utility": {
+            "decoder": 1.013373354491668,
+            "factory": 1.0,
+            "host_feedback": 1.002652365672567,
+            "logical_cycle": 8.632208806097095,
+            "measurement_grouping": 1.9941320734991992,
+            "routing": 1.0,
+            "shot_fabric": 9.741999030371613
+          },
+          "target": "shot_fabric",
+          "target_median_speedup": 9.741999030371613
+        },
+        "ml": {
+          "baseline": {
+            "advantaged_fraction": 0.0,
+            "cases": 2048,
+            "dominant_component_fraction": {
+              "decoder": 0.0,
+              "factory": 0.0,
+              "host/link": 0.0,
+              "logical": 1.0
+            },
+            "median_component_native_ratio": {
+              "decoder": 0.6103257207981817,
+              "factory": 0.0,
+              "host/link": 0.6133054790093517,
+              "logical": 47.808060958483324
+            },
+            "median_projected_native_ratio": 48.71766088675014,
+            "p90_projected_native_ratio": 572.5577958302712,
+            "quality_pass_fraction": 0.0,
+            "runtime_pass_fraction": 0.00732421875
+          },
+          "marginal_utility": {
+            "decoder": 1.0063492774335163,
+            "factory": 1.0,
+            "host_feedback": 1.0128346052005623,
+            "logical_cycle": 8.405906219628143,
+            "measurement_grouping": 1.0,
+            "routing": 1.0,
+            "shot_fabric": 8.874935287900454
+          },
+          "target": "shot_fabric",
+          "target_median_speedup": 8.874935287900454
+        },
+        "optimization": {
+          "baseline": {
+            "advantaged_fraction": 0.0,
+            "cases": 768,
+            "dominant_component_fraction": {
+              "decoder": 0.0,
+              "factory": 0.0,
+              "host/link": 0.0,
+              "logical": 1.0
+            },
+            "median_component_native_ratio": {
+              "decoder": 20.557322891861375,
+              "factory": 0.0,
+              "host/link": 20.65143513505579,
+              "logical": 1865.7655089215386
+            },
+            "median_projected_native_ratio": 1893.761819294767,
+            "p90_projected_native_ratio": 3303.8025349305344,
+            "quality_pass_fraction": 0.0,
+            "runtime_pass_fraction": 0.0
+          },
+          "marginal_utility": {
+            "decoder": 1.0048627321980756,
+            "factory": 1.0,
+            "host_feedback": 1.0098015208108313,
+            "logical_cycle": 8.72958807397671,
+            "measurement_grouping": 1.0,
+            "routing": 1.0234592239712765,
+            "shot_fabric": 9.114349064431304
+          },
+          "target": "shot_fabric",
+          "target_median_speedup": 9.114349064431304
+        },
+        "simulation": {
+          "baseline": {
+            "advantaged_fraction": 0.224609375,
+            "cases": 512,
+            "dominant_component_fraction": {
+              "decoder": 0.0,
+              "factory": 0.0,
+              "host/link": 0.0,
+              "logical": 1.0
+            },
+            "median_component_native_ratio": {
+              "decoder": 0.0024757905601766033,
+              "factory": 0.0,
+              "host/link": 0.002487267820660067,
+              "logical": 2.0101494951854026
+            },
+            "median_projected_native_ratio": 2.0201874555503023,
+            "p90_projected_native_ratio": 10.360746650456715,
+            "quality_pass_fraction": 0.5,
+            "runtime_pass_fraction": 0.30078125
+          },
+          "marginal_utility": {
+            "decoder": 1.000681697653699,
+            "factory": 1.0,
+            "host_feedback": 1.0013684013184292,
+            "logical_cycle": 9.799155079317707,
+            "measurement_grouping": 1.0,
+            "routing": 1.0,
+            "shot_fabric": 1.0
+          },
+          "target": "logical_cycle",
+          "target_median_speedup": 9.799155079317707
+        }
+      },
+      "1.0": {
+        "chemistry": {
+          "baseline": {
+            "advantaged_fraction": 0.0,
+            "cases": 224,
+            "dominant_component_fraction": {
+              "decoder": 0.0,
+              "factory": 0.0,
+              "host/link": 0.0,
+              "logical": 1.0
+            },
+            "median_component_native_ratio": {
+              "decoder": 12.839560272987558,
+              "factory": 0.0,
+              "host/link": 1.2883713444642027,
+              "logical": 585.9142919101794
+            },
+            "median_projected_native_ratio": 603.8425734011219,
+            "p90_projected_native_ratio": 4318.690391390932,
+            "quality_pass_fraction": 0.21428571428571427,
+            "runtime_pass_fraction": 0.0
+          },
+          "marginal_utility": {
+            "decoder": 1.0267070242607965,
+            "factory": 1.0,
+            "host_feedback": 1.0026139353882313,
+            "logical_cycle": 7.774696874681489,
+            "measurement_grouping": 1.9942166273644109,
+            "routing": 1.0,
+            "shot_fabric": 9.745632636398637
+          },
+          "target": "shot_fabric",
+          "target_median_speedup": 9.745632636398637
+        },
+        "ml": {
+          "baseline": {
+            "advantaged_fraction": 0.0,
+            "cases": 2048,
+            "dominant_component_fraction": {
+              "decoder": 0.0,
+              "factory": 0.0,
+              "host/link": 0.0,
+              "logical": 1.0
+            },
+            "median_component_native_ratio": {
+              "decoder": 0.6103257207981817,
+              "factory": 0.0,
+              "host/link": 0.6133054790093517,
+              "logical": 47.808060958483324
+            },
+            "median_projected_native_ratio": 49.01947945340722,
+            "p90_projected_native_ratio": 575.576033991348,
+            "quality_pass_fraction": 0.0,
+            "runtime_pass_fraction": 0.00732421875
+          },
+          "marginal_utility": {
+            "decoder": 1.0126894804848607,
+            "factory": 1.0,
+            "host_feedback": 1.0127428804150895,
+            "logical_cycle": 7.995655187716169,
+            "measurement_grouping": 1.0,
+            "routing": 1.0,
+            "shot_fabric": 8.881953413737051
+          },
+          "target": "shot_fabric",
+          "target_median_speedup": 8.881953413737051
+        },
+        "optimization": {
+          "baseline": {
+            "advantaged_fraction": 0.0,
+            "cases": 768,
+            "dominant_component_fraction": {
+              "decoder": 0.0,
+              "factory": 0.0,
+              "host/link": 0.0,
+              "logical": 1.0
+            },
+            "median_component_native_ratio": {
+              "decoder": 20.557322891861375,
+              "factory": 0.0,
+              "host/link": 20.65143513505579,
+              "logical": 1865.7655089215386
+            },
+            "median_projected_native_ratio": 1904.5751229553707,
+            "p90_projected_native_ratio": 3321.3613710033433,
+            "quality_pass_fraction": 0.0,
+            "runtime_pass_fraction": 0.0
+          },
+          "marginal_utility": {
+            "decoder": 1.0097201947876235,
+            "factory": 1.0,
+            "host_feedback": 1.0097484106508299,
+            "logical_cycle": 8.38336378466138,
+            "measurement_grouping": 1.0,
+            "routing": 1.0233451284303419,
+            "shot_fabric": 9.118678721404823
+          },
+          "target": "shot_fabric",
+          "target_median_speedup": 9.118678721404823
+        },
+        "simulation": {
+          "baseline": {
+            "advantaged_fraction": 0.224609375,
+            "cases": 512,
+            "dominant_component_fraction": {
+              "decoder": 0.0,
+              "factory": 0.0,
+              "host/link": 0.0,
+              "logical": 1.0
+            },
+            "median_component_native_ratio": {
+              "decoder": 0.0024757905601766033,
+              "factory": 0.0,
+              "host/link": 0.002487267820660067,
+              "logical": 2.0101494951854026
+            },
+            "median_projected_native_ratio": 2.0235243571027355,
+            "p90_projected_native_ratio": 10.364441890620762,
+            "quality_pass_fraction": 0.5,
+            "runtime_pass_fraction": 0.30078125
+          },
+          "marginal_utility": {
+            "decoder": 1.0013632916195228,
+            "factory": 1.0,
+            "host_feedback": 1.001367360613941,
+            "logical_cycle": 9.734383441126145,
+            "measurement_grouping": 1.0,
+            "routing": 1.0,
+            "shot_fabric": 1.0
+          },
+          "target": "logical_cycle",
+          "target_median_speedup": 9.734383441126145
+        }
+      }
+    },
+    "definition": "the native-rotation counterfactual is recomputed at each overlap endpoint; every one-factor successor uses the same rho"
+  },
+  "projection_t_states_per_arbitrary_rotation": 16.0,
+  "qaoa_grid_routing_multiplier": {
+    "4:chordal": 1.3,
+    "4:ladder": 1.0,
+    "4:ring": 1.0,
+    "5:chordal": 1.2142857142857142,
+    "5:ladder": 1.0,
+    "5:ring": 1.3,
+    "6:chordal": 1.1875,
+    "6:ladder": 1.0,
+    "6:ring": 1.0,
+    "7:chordal": 1.3333333333333333,
+    "7:ladder": 1.0,
+    "7:ring": 1.0714285714285714
+  },
+  "qdk_depth_sensitivity": {
+    "by_qubit_model": {
+      "qubit_gate_ns_e3": {
+        "by_qubits_and_depth": {
+          "10q:p1": {
+            "cases": 3,
+            "code_distance_values": [
+              11
+            ],
+            "median_factories": 31,
+            "median_logical_depth": 131,
+            "median_physical_qubits": 307340,
+            "median_quality_gap": 0.18895033559970742,
+            "median_runtime_sec": 0.0005764
+          },
+          "10q:p2": {
+            "cases": 3,
+            "code_distance_values": [
+              11
+            ],
+            "median_factories": 36,
+            "median_logical_depth": 238,
+            "median_physical_qubits": 355740,
+            "median_quality_gap": 0.12447306827860949,
+            "median_runtime_sec": 0.0010472
+          },
+          "10q:p3": {
+            "cases": 3,
+            "code_distance_values": [
+              11,
+              13
+            ],
+            "median_factories": 37,
+            "median_logical_depth": 364,
+            "median_physical_qubits": 365420,
+            "median_quality_gap": 0.07691700939389146,
+            "median_runtime_sec": 0.0016016000000000001
+          },
+          "10q:p4": {
+            "cases": 3,
+            "code_distance_values": [
+              13
+            ],
+            "median_factories": 35,
+            "median_logical_depth": 477,
+            "median_physical_qubits": 456300,
+            "median_quality_gap": 0.05821334492000596,
+            "median_runtime_sec": 0.0024804000000000002
+          },
+          "10q:p5": {
+            "cases": 3,
+            "code_distance_values": [
+              13
+            ],
+            "median_factories": 39,
+            "median_logical_depth": 590,
+            "median_physical_qubits": 537420,
+            "median_quality_gap": 0.05045988287421588,
+            "median_runtime_sec": 0.003068
+          },
+          "14q:p1": {
+            "cases": 3,
+            "code_distance_values": [
+              11
+            ],
+            "median_factories": 30,
+            "median_logical_depth": 182,
+            "median_physical_qubits": 300080,
+            "median_quality_gap": 0.22298630034758715,
+            "median_runtime_sec": 0.0008008000000000001
+          },
+          "14q:p2": {
+            "cases": 3,
+            "code_distance_values": [
+              13
+            ],
+            "median_factories": 30,
+            "median_logical_depth": 323,
+            "median_physical_qubits": 303920,
+            "median_quality_gap": 0.15192711691453553,
+            "median_runtime_sec": 0.0016796
+          },
+          "14q:p3": {
+            "cases": 3,
+            "code_distance_values": [
+              13
+            ],
+            "median_factories": 31,
+            "median_logical_depth": 454,
+            "median_physical_qubits": 313600,
+            "median_quality_gap": 0.10432019870413156,
+            "median_runtime_sec": 0.0023608
+          },
+          "14q:p4": {
+            "cases": 3,
+            "code_distance_values": [
+              13
+            ],
+            "median_factories": 37,
+            "median_logical_depth": 585,
+            "median_physical_qubits": 513760,
+            "median_quality_gap": 0.07648366865028,
+            "median_runtime_sec": 0.003042
+          },
+          "14q:p5": {
+            "cases": 3,
+            "code_distance_values": [
+              13
+            ],
+            "median_factories": 37,
+            "median_logical_depth": 716,
+            "median_physical_qubits": 513760,
+            "median_quality_gap": 0.062024412978536,
+            "median_runtime_sec": 0.0037232000000000003
+          },
+          "18q:p1": {
+            "cases": 3,
+            "code_distance_values": [
+              11,
+              13
+            ],
+            "median_factories": 35,
+            "median_logical_depth": 193,
+            "median_physical_qubits": 350658,
+            "median_quality_gap": 0.23331905714930967,
+            "median_runtime_sec": 0.0008492
+          },
+          "18q:p2": {
+            "cases": 3,
+            "code_distance_values": [
+              13
+            ],
+            "median_factories": 34,
+            "median_logical_depth": 340,
+            "median_physical_qubits": 345682,
+            "median_quality_gap": 0.16456690761156068,
+            "median_runtime_sec": 0.001768
+          },
+          "18q:p3": {
+            "cases": 3,
+            "code_distance_values": [
+              13
+            ],
+            "median_factories": 42,
+            "median_logical_depth": 477,
+            "median_physical_qubits": 584402,
+            "median_quality_gap": 0.12580965151152046,
+            "median_runtime_sec": 0.0024804000000000002
+          },
+          "18q:p4": {
+            "cases": 3,
+            "code_distance_values": [
+              13
+            ],
+            "median_factories": 42,
+            "median_logical_depth": 608,
+            "median_physical_qubits": 584402,
+            "median_quality_gap": 0.09636965824541432,
+            "median_runtime_sec": 0.0031616
+          },
+          "18q:p5": {
+            "cases": 3,
+            "code_distance_values": [
+              13
+            ],
+            "median_factories": 44,
+            "median_logical_depth": 742,
+            "median_physical_qubits": 611442,
+            "median_quality_gap": 0.0768237410193231,
+            "median_runtime_sec": 0.0038584
+          },
+          "20q:p1": {
+            "cases": 1,
+            "code_distance_values": [
+              11
+            ],
+            "median_factories": 42,
+            "median_logical_depth": 204,
+            "median_physical_qubits": 419628,
+            "median_quality_gap": 0.24988259517202216,
+            "median_runtime_sec": 0.0008976
+          },
+          "20q:p2": {
+            "cases": 1,
+            "code_distance_values": [
+              13
+            ],
+            "median_factories": 40,
+            "median_logical_depth": 360,
+            "median_physical_qubits": 405452,
+            "median_quality_gap": 0.1755848711078053,
+            "median_runtime_sec": 0.0018720000000000002
+          },
+          "20q:p3": {
+            "cases": 1,
+            "code_distance_values": [
+              13
+            ],
+            "median_factories": 50,
+            "median_logical_depth": 506,
+            "median_physical_qubits": 694252,
+            "median_quality_gap": 0.13103862809674294,
+            "median_runtime_sec": 0.0026312
+          },
+          "20q:p4": {
+            "cases": 1,
+            "code_distance_values": [
+              13
+            ],
+            "median_factories": 51,
+            "median_logical_depth": 652,
+            "median_physical_qubits": 707772,
+            "median_quality_gap": 0.10119482864706042,
+            "median_runtime_sec": 0.0033904
+          },
+          "20q:p5": {
+            "cases": 1,
+            "code_distance_values": [
+              13
+            ],
+            "median_factories": 52,
+            "median_logical_depth": 836,
+            "median_physical_qubits": 721292,
+            "median_quality_gap": 0.07972889556234164,
+            "median_runtime_sec": 0.0043472
+          }
+        },
+        "distance_transitions": [
+          {
+            "from_depth": 2,
+            "from_distance": 11,
+            "qubits": 10,
+            "to_depth": 3,
+            "to_distance": 13
+          },
+          {
+            "from_depth": 1,
+            "from_distance": 11,
+            "qubits": 14,
+            "to_depth": 2,
+            "to_distance": 13
+          },
+          {
+            "from_depth": 1,
+            "from_distance": 11,
+            "qubits": 20,
+            "to_depth": 2,
+            "to_distance": 13
+          }
+        ]
+      },
+      "qubit_gate_ns_e4": {
+        "by_qubits_and_depth": {
+          "10q:p1": {
+            "cases": 3,
+            "code_distance_values": [
+              5
+            ],
+            "median_factories": 31,
+            "median_logical_depth": 131,
+            "median_physical_qubits": 32500,
+            "median_quality_gap": 0.18895033559970742,
+            "median_runtime_sec": 0.000262
+          },
+          "10q:p2": {
+            "cases": 3,
+            "code_distance_values": [
+              5
+            ],
+            "median_factories": 36,
+            "median_logical_depth": 238,
+            "median_physical_qubits": 37500,
+            "median_quality_gap": 0.12447306827860949,
+            "median_runtime_sec": 0.000476
+          },
+          "10q:p3": {
+            "cases": 3,
+            "code_distance_values": [
+              5,
+              7
+            ],
+            "median_factories": 37,
+            "median_logical_depth": 364,
+            "median_physical_qubits": 38500,
+            "median_quality_gap": 0.07691700939389146,
+            "median_runtime_sec": 0.000728
+          },
+          "10q:p4": {
+            "cases": 3,
+            "code_distance_values": [
+              7
+            ],
+            "median_factories": 28,
+            "median_logical_depth": 477,
+            "median_physical_qubits": 30940,
+            "median_quality_gap": 0.05821334492000596,
+            "median_runtime_sec": 0.0013356000000000002
+          },
+          "10q:p5": {
+            "cases": 3,
+            "code_distance_values": [
+              7
+            ],
+            "median_factories": 39,
+            "median_logical_depth": 590,
+            "median_physical_qubits": 79380,
+            "median_quality_gap": 0.05045988287421588,
+            "median_runtime_sec": 0.001652
+          },
+          "14q:p1": {
+            "cases": 3,
+            "code_distance_values": [
+              5
+            ],
+            "median_factories": 30,
+            "median_logical_depth": 182,
+            "median_physical_qubits": 32000,
+            "median_quality_gap": 0.22298630034758715,
+            "median_runtime_sec": 0.000364
+          },
+          "14q:p2": {
+            "cases": 3,
+            "code_distance_values": [
+              7
+            ],
+            "median_factories": 25,
+            "median_logical_depth": 323,
+            "median_physical_qubits": 28920,
+            "median_quality_gap": 0.15192711691453553,
+            "median_runtime_sec": 0.0009044000000000001
+          },
+          "14q:p3": {
+            "cases": 3,
+            "code_distance_values": [
+              7
+            ],
+            "median_factories": 26,
+            "median_logical_depth": 454,
+            "median_physical_qubits": 29920,
+            "median_quality_gap": 0.10432019870413156,
+            "median_runtime_sec": 0.0012712
+          },
+          "14q:p4": {
+            "cases": 3,
+            "code_distance_values": [
+              7
+            ],
+            "median_factories": 36,
+            "median_logical_depth": 585,
+            "median_physical_qubits": 74480,
+            "median_quality_gap": 0.07648366865028,
+            "median_runtime_sec": 0.0016380000000000001
+          },
+          "14q:p5": {
+            "cases": 3,
+            "code_distance_values": [
+              7
+            ],
+            "median_factories": 37,
+            "median_logical_depth": 716,
+            "median_physical_qubits": 76440,
+            "median_quality_gap": 0.062024412978536,
+            "median_runtime_sec": 0.0020048
+          },
+          "18q:p1": {
+            "cases": 3,
+            "code_distance_values": [
+              5,
+              7
+            ],
+            "median_factories": 35,
+            "median_logical_depth": 193,
+            "median_physical_qubits": 37450,
+            "median_quality_gap": 0.23331905714930967,
+            "median_runtime_sec": 0.000386
+          },
+          "18q:p2": {
+            "cases": 3,
+            "code_distance_values": [
+              7
+            ],
+            "median_factories": 28,
+            "median_logical_depth": 340,
+            "median_physical_qubits": 32802,
+            "median_quality_gap": 0.16456690761156068,
+            "median_runtime_sec": 0.000952
+          },
+          "18q:p3": {
+            "cases": 3,
+            "code_distance_values": [
+              7
+            ],
+            "median_factories": 41,
+            "median_logical_depth": 477,
+            "median_physical_qubits": 85162,
+            "median_quality_gap": 0.12580965151152046,
+            "median_runtime_sec": 0.0013356000000000002
+          },
+          "18q:p4": {
+            "cases": 3,
+            "code_distance_values": [
+              7
+            ],
+            "median_factories": 42,
+            "median_logical_depth": 608,
+            "median_physical_qubits": 87122,
+            "median_quality_gap": 0.09636965824541432,
+            "median_runtime_sec": 0.0017024000000000002
+          },
+          "18q:p5": {
+            "cases": 3,
+            "code_distance_values": [
+              7
+            ],
+            "median_factories": 44,
+            "median_logical_depth": 743,
+            "median_physical_qubits": 91042,
+            "median_quality_gap": 0.0768237410193231,
+            "median_runtime_sec": 0.0020804
+          },
+          "20q:p1": {
+            "cases": 1,
+            "code_distance_values": [
+              5
+            ],
+            "median_factories": 42,
+            "median_logical_depth": 204,
+            "median_physical_qubits": 44700,
+            "median_quality_gap": 0.24988259517202216,
+            "median_runtime_sec": 0.00040800000000000005
+          },
+          "20q:p2": {
+            "cases": 1,
+            "code_distance_values": [
+              7
+            ],
+            "median_factories": 34,
+            "median_logical_depth": 360,
+            "median_physical_qubits": 39292,
+            "median_quality_gap": 0.1755848711078053,
+            "median_runtime_sec": 0.001008
+          },
+          "20q:p3": {
+            "cases": 1,
+            "code_distance_values": [
+              7
+            ],
+            "median_factories": 50,
+            "median_logical_depth": 506,
+            "median_physical_qubits": 103292,
+            "median_quality_gap": 0.13103862809674294,
+            "median_runtime_sec": 0.0014168000000000002
+          },
+          "20q:p4": {
+            "cases": 1,
+            "code_distance_values": [
+              7
+            ],
+            "median_factories": 51,
+            "median_logical_depth": 652,
+            "median_physical_qubits": 105252,
+            "median_quality_gap": 0.10119482864706042,
+            "median_runtime_sec": 0.0018256000000000001
+          },
+          "20q:p5": {
+            "cases": 1,
+            "code_distance_values": [
+              7
+            ],
+            "median_factories": 52,
+            "median_logical_depth": 836,
+            "median_physical_qubits": 107212,
+            "median_quality_gap": 0.07972889556234164,
+            "median_runtime_sec": 0.0023408
+          }
+        },
+        "distance_transitions": [
+          {
+            "from_depth": 2,
+            "from_distance": 5,
+            "qubits": 10,
+            "to_depth": 3,
+            "to_distance": 7
+          },
+          {
+            "from_depth": 1,
+            "from_distance": 5,
+            "qubits": 14,
+            "to_depth": 2,
+            "to_distance": 7
+          },
+          {
+            "from_depth": 1,
+            "from_distance": 5,
+            "qubits": 20,
+            "to_depth": 2,
+            "to_distance": 7
+          }
+        ]
+      }
+    },
+    "records": 50,
+    "scope": "QDK QRE for each directly optimized 10/14/18/20-qubit p=1--5 QAOA circuit; estimates one circuit execution and excludes finite shots, parameter-search repetitions, host/control tails, and any claim of hardware-backed noise behavior",
+    "source_artifact": "data/processed/perlmutter/qdk_resource_estimator_qaoa_depth_crosscheck.json"
+  },
+  "quality_gate": "measured quality gap only; no free recovery scalar",
+  "scenarios": [
+    {
+      "cycle_sec": 1.1e-06,
+      "decoder_sec_per_eval": 6.3e-05,
+      "distance": 25.0,
+      "evidence": "Google 1.1-us correction cycle and 63-us mean distance-5 decoder; 64 factories lies inside the 57--88 QDK QAOA estimates; shot lanes and d=25 are explicit design assumptions",
+      "factory_count": 64.0,
+      "host_io_floor_sec_per_eval": 1e-05,
+      "id": "surface_measured_control",
+      "label": "Measured-control surface envelope",
+      "shot_lanes": 1000.0
+    },
+    {
+      "cycle_sec": 4e-07,
+      "decoder_sec_per_eval": 5e-06,
+      "distance": 15.0,
+      "evidence": "d=13--15 and 5.2--6.0-us logical cycles match the QDK QAOA cross-check; decoder, host, and useful-lane values are targets",
+      "factory_count": 64.0,
+      "host_io_floor_sec_per_eval": 5e-06,
+      "id": "surface_estimator_aligned",
+      "label": "Estimator-aligned surface envelope",
+      "shot_lanes": 10000.0
+    },
+    {
+      "cycle_sec": 4e-07,
+      "decoder_sec_per_eval": 1e-06,
+      "distance": 15.0,
+      "evidence": "forward architecture target; physical cycle/code distance remain estimator-aligned while lanes, factories, decode, and host scale",
+      "factory_count": 512.0,
+      "host_io_floor_sec_per_eval": 1e-06,
+      "id": "surface_throughput_target",
+      "label": "Throughput-target surface envelope",
+      "shot_lanes": 100000.0
+    }
+  ],
+  "schema": "qsup.physical-architecture-dse.v3",
+  "scope": "technology-calibrated surface-code envelopes and one-factor marginal utility over paired controlled records; not a vendor forecast, cycle-accurate QPU model, or present-hardware claim"
+}

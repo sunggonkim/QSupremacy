@@ -1,0 +1,148 @@
+{
+  "name": "h8_sto3g_active_4q",
+  "description": "OpenFermion/PySCF H8 STO-3G active-space Hamiltonian for the quality-and-cost closure ladder.",
+  "source": "OpenFermion 1.7.1 + PySCF 2.13.0",
+  "geometry": [
+    {
+      "atom": "H",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "atom": "H",
+      "xyz": [
+        0.0,
+        0.0,
+        1.4
+      ]
+    },
+    {
+      "atom": "H",
+      "xyz": [
+        0.0,
+        0.0,
+        2.8
+      ]
+    },
+    {
+      "atom": "H",
+      "xyz": [
+        0.0,
+        0.0,
+        4.199999999999999
+      ]
+    },
+    {
+      "atom": "H",
+      "xyz": [
+        0.0,
+        0.0,
+        5.6
+      ]
+    },
+    {
+      "atom": "H",
+      "xyz": [
+        0.0,
+        0.0,
+        7.0
+      ]
+    },
+    {
+      "atom": "H",
+      "xyz": [
+        0.0,
+        0.0,
+        8.399999999999999
+      ]
+    },
+    {
+      "atom": "H",
+      "xyz": [
+        0.0,
+        0.0,
+        9.799999999999999
+      ]
+    }
+  ],
+  "basis": "sto-3g",
+  "multiplicity": 1,
+  "charge": 0,
+  "occupied_indices": [
+    0,
+    1,
+    2
+  ],
+  "active_indices": [
+    3,
+    4
+  ],
+  "n_qubits": 4,
+  "n_active_electrons": 2,
+  "hf_energy": -3.7878308687769557,
+  "terms": [
+    {
+      "pauli": "IIII",
+      "coefficient": -3.5397694025858044
+    },
+    {
+      "pauli": "XXYY",
+      "coefficient": -0.020671604542657412
+    },
+    {
+      "pauli": "XYYX",
+      "coefficient": 0.020671604542657412
+    },
+    {
+      "pauli": "YXXY",
+      "coefficient": 0.020671604542657412
+    },
+    {
+      "pauli": "YYXX",
+      "coefficient": -0.020671604542657412
+    },
+    {
+      "pauli": "ZIII",
+      "coefficient": 0.08470627321104937
+    },
+    {
+      "pauli": "ZZII",
+      "coefficient": 0.06599281258380768
+    },
+    {
+      "pauli": "ZIZI",
+      "coefficient": 0.044756592115188974
+    },
+    {
+      "pauli": "ZIIZ",
+      "coefficient": 0.06542819665784638
+    },
+    {
+      "pauli": "IZII",
+      "coefficient": 0.08470627321104937
+    },
+    {
+      "pauli": "IZZI",
+      "coefficient": 0.06542819665784638
+    },
+    {
+      "pauli": "IZIZ",
+      "coefficient": 0.044756592115188974
+    },
+    {
+      "pauli": "IIZI",
+      "coefficient": 0.0043357638161501955
+    },
+    {
+      "pauli": "IIZZ",
+      "coefficient": 0.06705631756091346
+    },
+    {
+      "pauli": "IIIZ",
+      "coefficient": 0.0043357638161501955
+    }
+  ]
+}

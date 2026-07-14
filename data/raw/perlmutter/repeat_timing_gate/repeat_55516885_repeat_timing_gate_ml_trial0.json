@@ -1,0 +1,185 @@
+{
+  "config": {
+    "chem_grid": 21,
+    "chem_hamiltonian_json": "",
+    "chem_lanczos_max_iter": 128,
+    "chem_lanczos_tol": 1e-10,
+    "chem_layers": 1,
+    "chem_native_baselines": "dense_exact,sparse_lanczos",
+    "chem_native_energy_tolerance": 1e-08,
+    "digits_classes": "0,1,2",
+    "digits_path": "data/datasets/sklearn_digits.npz",
+    "entangle": true,
+    "knn_k": 5,
+    "login_safe": false,
+    "ml_classes": 3,
+    "ml_dataset": "digits",
+    "ml_depth": 1,
+    "ml_features": 4,
+    "ml_lr": 0.25,
+    "ml_native_baselines": "softmax,mlp,linear_ridge,rbf_kernel_ridge,knn,nearest_centroid",
+    "ml_native_quality_tolerance": 0.01,
+    "ml_samples": 128,
+    "ml_steps": 300,
+    "mlp_hidden": 24,
+    "mlp_lr": 0.05,
+    "mlp_steps": 300,
+    "opt_anneal_steps": 250,
+    "opt_exact_max_nodes": 22,
+    "opt_graph": "chordal",
+    "opt_grid": 7,
+    "opt_local_restarts": 8,
+    "opt_native_baselines": "exact,greedy,local_search,annealing",
+    "opt_nodes": 4,
+    "output": "data/raw/perlmutter/repeat_timing_gate/repeat_55516885_repeat_timing_gate_ml_trial0.json",
+    "rbf_gamma": 0.0,
+    "ridge_alpha": 0.01,
+    "seed": 17,
+    "sim_coupling": 0.7,
+    "sim_field": 0.4,
+    "sim_initial_state": "auto",
+    "sim_krylov_dim": 64,
+    "sim_krylov_tol": 1e-10,
+    "sim_model": "tfim",
+    "sim_native_baselines": "dense_exact,sparse_krylov",
+    "sim_native_observable_tolerance": 1e-08,
+    "sim_qubits": 4,
+    "sim_steps": 4,
+    "sim_time": 0.8,
+    "train_frac": 0.75,
+    "workloads": "ml"
+  },
+  "metadata": {
+    "cuda_visible_devices": "0",
+    "cwd": "/pscratch/sd/s/sgkim/Skim-Qsupreme",
+    "hostname": "nid002093",
+    "platform": "Linux-6.4.0-150600.23.103_15.0.24-cray_shasta_c-x86_64-with-glibc2.38",
+    "python": "3.11.14 | packaged by conda-forge | (main, Jan 26 2026, 23:48:32) [GCC 14.3.0]",
+    "python_executable": "/pscratch/sd/s/sgkim/kis_cuquantum/00_env/cutn_conda/bin/python",
+    "slurm_job_id": "55516885",
+    "slurm_job_name": "qsup-repeat-gate",
+    "total_runtime_sec": 9.934536578017287
+  },
+  "workloads": {
+    "ml": {
+      "break_even_projection": {
+        "circuit_evaluations": 128,
+        "measurement_ops": 512,
+        "one_qubit_gates": 1024,
+        "required_uniform_op_time_sec_for_native_parity": 7.674792262453897e-08,
+        "sim_to_native_speedup_required": 66910.33837515805,
+        "two_qubit_gates": 384
+      },
+      "dataset": {
+        "class_counts": {
+          "0": 43,
+          "1": 43,
+          "2": 42
+        },
+        "classes": [
+          0,
+          1,
+          2
+        ],
+        "name": "sklearn_digits",
+        "path": "data/datasets/sklearn_digits.npz",
+        "pca": {
+          "pca_dim": 4,
+          "raw_feature_dim": 64
+        },
+        "samples": 128
+      },
+      "family": "multiclass_ml",
+      "native_path": {
+        "best_quality_model": "linear_ridge_numpy",
+        "best_runtime_sec": 0.0001473560114391148,
+        "best_test_accuracy": 1.0,
+        "fastest_model": "linear_ridge_numpy",
+        "fastest_runtime_sec": 0.0001473560114391148,
+        "models": {
+          "knn_numpy": {
+            "k": 5,
+            "model": "knn_numpy",
+            "parameters": 384,
+            "runtime_sec": 0.0008112589712254703,
+            "test_accuracy": 1.0,
+            "train_accuracy": 1.0
+          },
+          "linear_ridge_numpy": {
+            "alpha": 0.01,
+            "model": "linear_ridge_numpy",
+            "parameters": 15,
+            "runtime_sec": 0.0001473560114391148,
+            "test_accuracy": 1.0,
+            "train_accuracy": 1.0
+          },
+          "nearest_centroid_numpy": {
+            "model": "nearest_centroid_numpy",
+            "parameters": 12,
+            "runtime_sec": 0.00017956801457330585,
+            "test_accuracy": 1.0,
+            "train_accuracy": 1.0
+          },
+          "one_hidden_layer_mlp_numpy": {
+            "hidden": 24,
+            "model": "one_hidden_layer_mlp_numpy",
+            "parameters": 195,
+            "runtime_sec": 0.0372169729671441,
+            "test_accuracy": 1.0,
+            "train_accuracy": 1.0
+          },
+          "rbf_kernel_ridge_numpy": {
+            "alpha": 0.01,
+            "gamma": 0.12309933789157919,
+            "model": "rbf_kernel_ridge_numpy",
+            "parameters": 288,
+            "runtime_sec": 0.0007221769774332643,
+            "test_accuracy": 1.0,
+            "train_accuracy": 1.0
+          },
+          "softmax_regression_numpy": {
+            "model": "softmax_regression_numpy",
+            "parameters": 15,
+            "runtime_sec": 0.009676769026555121,
+            "test_accuracy": 1.0,
+            "train_accuracy": 1.0
+          }
+        },
+        "quality_tolerance": 0.01,
+        "runtime_sec": 0.0001473560114391148,
+        "selected_model": "linear_ridge_numpy",
+        "selected_model_runtime_sec": 0.0001473560114391148,
+        "selected_model_test_accuracy": 1.0,
+        "selection_rule": "fastest_model_within_tolerance_of_best_test_accuracy",
+        "test_accuracy": 1.0,
+        "total_runtime_sec": 0.049094268993940204,
+        "train_accuracy": 1.0
+      },
+      "quality_metric": "test_accuracy",
+      "quantum_path": {
+        "feature_runtime_sec": 9.848937954986468,
+        "head_runtime_sec": 0.006939133978448808,
+        "runtime_sec": 9.859640587004833,
+        "status": "ok",
+        "test_accuracy": 0.6875,
+        "test_metadata": {
+          "circuit_evaluations": 32,
+          "one_qubit_gates": 256,
+          "qubits": 4,
+          "runtime_sec": 0.011487062030937523,
+          "state_dim": 16,
+          "two_qubit_gates": 96
+        },
+        "train_accuracy": 0.8541666666666666,
+        "train_metadata": {
+          "circuit_evaluations": 96,
+          "one_qubit_gates": 768,
+          "qubits": 4,
+          "runtime_sec": 9.83745089295553,
+          "state_dim": 16,
+          "two_qubit_gates": 288
+        }
+      }
+    }
+  }
+}

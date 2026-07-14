@@ -1,0 +1,93 @@
+{
+  "by_workload": {
+    "chemistry": {
+      "a100_launch_floor_10us_deadline_median_us": 10.002642580645162,
+      "a100_launch_floor_10us_deadline_shrink_median_x": 16.95731859348487,
+      "a100_launch_floor_10us_deadline_shrink_p90_x": 19.243084997474302,
+      "a100_launch_floor_10us_projected_ratio_median_x": 3377.6501379450538,
+      "a100_launch_floor_10us_roofline_time_median_us": 10.002642580645162,
+      "cases": 224,
+      "label": "Chem.",
+      "launch_free_deadline_median_us": 0.0026425806451612906,
+      "launch_free_deadline_shrink_median_x": 64186.49789452502,
+      "launch_free_deadline_shrink_p90_x": 72838.53445727572,
+      "launch_free_projected_ratio_median_x": 12785012.69363119,
+      "launch_free_roofline_time_median_us": 0.0026425806451612906,
+      "measured_deadline_projected_ratio_median_x": 203.9509161633552,
+      "measured_native_median_us": 169.61799701675773,
+      "quality_gap_median": 0.020307038999395566
+    },
+    "ml": {
+      "a100_launch_floor_10us_deadline_median_us": 10.01193806451613,
+      "a100_launch_floor_10us_deadline_shrink_median_x": 209.0775560359577,
+      "a100_launch_floor_10us_deadline_shrink_p90_x": 1463.4434577094055,
+      "a100_launch_floor_10us_projected_ratio_median_x": 34679.18661807962,
+      "a100_launch_floor_10us_roofline_time_median_us": 10.01193806451613,
+      "cases": 2048,
+      "label": "ML",
+      "launch_free_deadline_median_us": 0.011938064516129032,
+      "launch_free_deadline_shrink_median_x": 141306.92880662897,
+      "launch_free_deadline_shrink_p90_x": 1290395.5419196894,
+      "launch_free_projected_ratio_median_x": 27574905.680081505,
+      "launch_free_roofline_time_median_us": 0.011938064516129032,
+      "measured_deadline_projected_ratio_median_x": 216.61588718427868,
+      "measured_native_median_us": 2094.0885005984455,
+      "quality_gap_median": 0.3125
+    },
+    "optimization": {
+      "a100_launch_floor_10us_deadline_median_us": 10.000330322580645,
+      "a100_launch_floor_10us_deadline_shrink_median_x": 2.41609920415614,
+      "a100_launch_floor_10us_deadline_shrink_p90_x": 3.2799135587869532,
+      "a100_launch_floor_10us_projected_ratio_median_x": 19189.2660100744,
+      "a100_launch_floor_10us_roofline_time_median_us": 10.000330322580645,
+      "cases": 768,
+      "label": "Opt.",
+      "launch_free_deadline_median_us": 0.0003303225806451613,
+      "launch_free_deadline_shrink_median_x": 76632.808746321,
+      "launch_free_deadline_shrink_p90_x": 134696.84139029897,
+      "launch_free_projected_ratio_median_x": 549973885.4018078,
+      "launch_free_roofline_time_median_us": 0.0003303225806451613,
+      "measured_deadline_projected_ratio_median_x": 7193.9947336411915,
+      "measured_native_median_us": 24.16201459709555,
+      "quality_gap_median": 0.25000000000000044
+    },
+    "simulation": {
+      "a100_launch_floor_10us_deadline_median_us": 10.02427870967742,
+      "a100_launch_floor_10us_deadline_shrink_median_x": 207.5467149331588,
+      "a100_launch_floor_10us_deadline_shrink_p90_x": 880.8686571026975,
+      "a100_launch_floor_10us_projected_ratio_median_x": 1388.5798099442518,
+      "a100_launch_floor_10us_roofline_time_median_us": 10.02427870967742,
+      "cases": 512,
+      "label": "Sim.",
+      "launch_free_deadline_median_us": 0.024278709677419356,
+      "launch_free_deadline_shrink_median_x": 70044.46007964884,
+      "launch_free_deadline_shrink_p90_x": 121765.876410033,
+      "launch_free_projected_ratio_median_x": 604074.8291130147,
+      "launch_free_roofline_time_median_us": 0.024278709677419356,
+      "measured_deadline_projected_ratio_median_x": 8.56806127873524,
+      "measured_native_median_us": 2082.9584973398596,
+      "quality_gap_median": 0.018772807472259442
+    }
+  },
+  "cases": 3552,
+  "formula_notes": [
+    "ML uses a batched linear/feature-classifier roofline proxy; the measured PyTorch/XGBoost production-native gate remains the executable baseline check.",
+    "Chemistry chooses the faster roofline lower bound between dense active-space eigensolver work and sparse Lanczos/Pauli-term work for the measured active space.",
+    "Optimization chooses the faster lower bound between exact MaxCut enumeration and an edge-local-search roofline proxy.",
+    "Simulation chooses the faster lower bound between dense Hamiltonian evolution and sparse Krylov Hamiltonian-vector work.",
+    "The artifact is an optimistic native stress test: a smaller deadline makes the quantum projection harder and does not replace measured native timings."
+  ],
+  "generated_by": "scripts/summarize_roofline_native_stress.py",
+  "input_csv": "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv",
+  "output_csv": "data/processed/perlmutter/roofline_native_stress.csv",
+  "roofline_config": {
+    "launch_scenarios": {
+      "a100_launch_floor_10us": 1e-05,
+      "launch_free": 0.0
+    },
+    "native_hbm_bandwidth_bytes_per_sec": 1550000000000.0,
+    "native_peak_bytes_per_sec": 1550000000000.0,
+    "native_peak_flops": 312000000000000.0,
+    "native_tensor_core_peak_flops": 312000000000000.0
+  }
+}

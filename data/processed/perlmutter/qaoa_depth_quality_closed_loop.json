@@ -1,0 +1,5557 @@
+{
+  "schema": "qsup.qaoa-depth-quality-closed-loop.v1",
+  "scope": "controlled 4/6/8-qubit finite-shot QAOA depth sweep under a synthetic Aer depolarizing model; p=1 uses a full grid and p>1 uses zero-layer warm starts plus sampled coordinate refinement; noise-backed, not hardware-backed or deployment-scale",
+  "software": {
+    "qiskit": "2.5.0",
+    "qiskit_aer": "0.17.2"
+  },
+  "search": {
+    "depths": [
+      1,
+      2,
+      3
+    ],
+    "grid_points_per_axis_p1": 9,
+    "coordinate_points": 5,
+    "coordinate_sweeps": 1,
+    "warm_start": "append beta=gamma=0 to preserve the shallower state"
+  },
+  "shots": [
+    1024,
+    8192
+  ],
+  "two_qubit_depolarizing_errors": [
+    0.0,
+    0.001,
+    0.01
+  ],
+  "one_qubit_error_ratio": 0.1,
+  "records": [
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 17,
+      "edges": 3,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 81,
+      "total_shots": 82944,
+      "search_wall_sec": 0.09204427801887505,
+      "selected_betas": [
+        0.39269908169872414
+      ],
+      "selected_gammas": [
+        0.7425215902587055
+      ],
+      "sampled_objective": 2.0729785887310985,
+      "selected_ideal_objective": 2.0623536481316624,
+      "exact_native_objective": 2.700851010021069,
+      "sampled_approximation_ratio": 0.7675279313963074,
+      "selected_ideal_approximation_ratio": 0.7635940081402618,
+      "compiled_depth": 5,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "h": 4,
+        "rx": 4,
+        "measure": 4,
+        "rzz": 3
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 17,
+      "edges": 3,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 20,
+      "total_shots": 20480,
+      "search_wall_sec": 0.040310391021193936,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0
+      ],
+      "selected_gammas": [
+        0.7425215902587055,
+        0.0
+      ],
+      "sampled_objective": 2.0910095314962565,
+      "selected_ideal_objective": 2.0623536481316624,
+      "exact_native_objective": 2.700851010021069,
+      "sampled_approximation_ratio": 0.7742039541381236,
+      "selected_ideal_approximation_ratio": 0.7635940081402618,
+      "compiled_depth": 7,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 6,
+        "h": 4,
+        "rx": 4,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 17,
+      "edges": 3,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 30,
+      "total_shots": 30720,
+      "search_wall_sec": 0.24557632094365545,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.7425215902587055,
+        0.0,
+        1.0471975511965976
+      ],
+      "sampled_objective": 2.078123012136076,
+      "selected_ideal_objective": 2.0623536481316624,
+      "exact_native_objective": 2.700851010021069,
+      "sampled_approximation_ratio": 0.7694326730447322,
+      "selected_ideal_approximation_ratio": 0.7635940081402618,
+      "compiled_depth": 9,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 9,
+        "h": 4,
+        "rx": 4,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 17,
+      "edges": 3,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 81,
+      "total_shots": 663552,
+      "search_wall_sec": 0.26899334898917004,
+      "selected_betas": [
+        0.39269908169872414
+      ],
+      "selected_gammas": [
+        0.7425215902587055
+      ],
+      "sampled_objective": 2.067701821043994,
+      "selected_ideal_objective": 2.0623536481316624,
+      "exact_native_objective": 2.700851010021069,
+      "sampled_approximation_ratio": 0.7655741887916521,
+      "selected_ideal_approximation_ratio": 0.7635940081402618,
+      "compiled_depth": 5,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "h": 4,
+        "rx": 4,
+        "measure": 4,
+        "rzz": 3
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 17,
+      "edges": 3,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 20,
+      "total_shots": 163840,
+      "search_wall_sec": 0.09773947700159624,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0
+      ],
+      "selected_gammas": [
+        0.7425215902587055,
+        1.0471975511965976
+      ],
+      "sampled_objective": 2.0698626308867443,
+      "selected_ideal_objective": 2.0623536481316624,
+      "exact_native_objective": 2.700851010021069,
+      "sampled_approximation_ratio": 0.7663742365672357,
+      "selected_ideal_approximation_ratio": 0.7635940081402618,
+      "compiled_depth": 7,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 6,
+        "h": 4,
+        "rx": 4,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 17,
+      "edges": 3,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 30,
+      "total_shots": 245760,
+      "search_wall_sec": 0.10885090695228428,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.7425215902587055,
+        1.0471975511965976,
+        0.0
+      ],
+      "sampled_objective": 2.069593993942937,
+      "selected_ideal_objective": 2.0623536481316624,
+      "exact_native_objective": 2.700851010021069,
+      "sampled_approximation_ratio": 0.7662747727527527,
+      "selected_ideal_approximation_ratio": 0.7635940081402618,
+      "compiled_depth": 9,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 9,
+        "h": 4,
+        "rx": 4,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 17,
+      "edges": 3,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 81,
+      "total_shots": 82944,
+      "search_wall_sec": 0.11750872901757248,
+      "selected_betas": [
+        0.39269908169872414
+      ],
+      "selected_gammas": [
+        0.7425215902587055
+      ],
+      "sampled_objective": 2.071945635071562,
+      "selected_ideal_objective": 2.0623536481316624,
+      "exact_native_objective": 2.700851010021069,
+      "sampled_approximation_ratio": 0.7671454765123823,
+      "selected_ideal_approximation_ratio": 0.7635940081402618,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 4,
+      "compiled_gate_counts": {
+        "rz": 23,
+        "sx": 12,
+        "cx": 6,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 17,
+      "edges": 3,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 20,
+      "total_shots": 20480,
+      "search_wall_sec": 0.04469551701913588,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0
+      ],
+      "selected_gammas": [
+        0.7425215902587055,
+        0.0
+      ],
+      "sampled_objective": 2.088608856028937,
+      "selected_ideal_objective": 2.0623536481316624,
+      "exact_native_objective": 2.700851010021069,
+      "sampled_approximation_ratio": 0.7733150952346105,
+      "selected_ideal_approximation_ratio": 0.7635940081402618,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 4,
+      "compiled_gate_counts": {
+        "rz": 23,
+        "sx": 12,
+        "cx": 6,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 17,
+      "edges": 3,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 30,
+      "total_shots": 30720,
+      "search_wall_sec": 0.059332213015295565,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.7425215902587055,
+        0.0,
+        1.0471975511965976
+      ],
+      "sampled_objective": 2.0720231839799466,
+      "selected_ideal_objective": 2.0623536481316624,
+      "exact_native_objective": 2.700851010021069,
+      "sampled_approximation_ratio": 0.7671741892803569,
+      "selected_ideal_approximation_ratio": 0.7635940081402618,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 26,
+        "sx": 12,
+        "cx": 12,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 17,
+      "edges": 3,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 81,
+      "total_shots": 663552,
+      "search_wall_sec": 0.2949548360193148,
+      "selected_betas": [
+        0.39269908169872414
+      ],
+      "selected_gammas": [
+        0.7425215902587055
+      ],
+      "sampled_objective": 2.0652857994689953,
+      "selected_ideal_objective": 2.0623536481316624,
+      "exact_native_objective": 2.700851010021069,
+      "sampled_approximation_ratio": 0.7646796479354425,
+      "selected_ideal_approximation_ratio": 0.7635940081402618,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 4,
+      "compiled_gate_counts": {
+        "rz": 23,
+        "sx": 12,
+        "cx": 6,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 17,
+      "edges": 3,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 20,
+      "total_shots": 163840,
+      "search_wall_sec": 0.19796963201952167,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0
+      ],
+      "selected_gammas": [
+        0.7425215902587055,
+        1.0471975511965976
+      ],
+      "sampled_objective": 2.0636245396405983,
+      "selected_ideal_objective": 2.0623536481316624,
+      "exact_native_objective": 2.700851010021069,
+      "sampled_approximation_ratio": 0.7640645603862837,
+      "selected_ideal_approximation_ratio": 0.7635940081402618,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 26,
+        "sx": 12,
+        "cx": 12,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 17,
+      "edges": 3,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 30,
+      "total_shots": 245760,
+      "search_wall_sec": 0.4119965789432172,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.7425215902587055,
+        1.0471975511965976,
+        0.0
+      ],
+      "sampled_objective": 2.062617364436557,
+      "selected_ideal_objective": 2.0623536481316624,
+      "exact_native_objective": 2.700851010021069,
+      "sampled_approximation_ratio": 0.7636916500701261,
+      "selected_ideal_approximation_ratio": 0.7635940081402618,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 26,
+        "sx": 12,
+        "cx": 12,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 17,
+      "edges": 3,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 81,
+      "total_shots": 82944,
+      "search_wall_sec": 0.10810159999527968,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        0.7425215902587055
+      ],
+      "sampled_objective": 2.0343472509113094,
+      "selected_ideal_objective": 2.0623536481316624,
+      "exact_native_objective": 2.700851010021069,
+      "sampled_approximation_ratio": 0.75322453677126,
+      "selected_ideal_approximation_ratio": 0.7635940081402618,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 4,
+      "compiled_gate_counts": {
+        "rz": 23,
+        "sx": 12,
+        "cx": 6,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 17,
+      "edges": 3,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 20,
+      "total_shots": 20480,
+      "search_wall_sec": 0.039078297006199136,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.7425215902587055,
+        0.0
+      ],
+      "sampled_objective": 2.061800695934862,
+      "selected_ideal_objective": 2.0623536481316624,
+      "exact_native_objective": 2.700851010021069,
+      "sampled_approximation_ratio": 0.7633892755597719,
+      "selected_ideal_approximation_ratio": 0.7635940081402618,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 4,
+      "compiled_gate_counts": {
+        "rz": 23,
+        "sx": 12,
+        "cx": 6,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 17,
+      "edges": 3,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 30,
+      "total_shots": 30720,
+      "search_wall_sec": 0.05923438401077874,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.7425215902587055,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 2.0372413018583972,
+      "selected_ideal_objective": 2.0623536481316624,
+      "exact_native_objective": 2.700851010021069,
+      "sampled_approximation_ratio": 0.7542960697571041,
+      "selected_ideal_approximation_ratio": 0.7635940081402618,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 4,
+      "compiled_gate_counts": {
+        "rz": 23,
+        "sx": 12,
+        "cx": 6,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 17,
+      "edges": 3,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 81,
+      "total_shots": 663552,
+      "search_wall_sec": 0.29372607500408776,
+      "selected_betas": [
+        0.39269908169872414
+      ],
+      "selected_gammas": [
+        0.7425215902587055
+      ],
+      "sampled_objective": 2.0358064438858774,
+      "selected_ideal_objective": 2.0623536481316624,
+      "exact_native_objective": 2.700851010021069,
+      "sampled_approximation_ratio": 0.7537648083260973,
+      "selected_ideal_approximation_ratio": 0.7635940081402618,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 4,
+      "compiled_gate_counts": {
+        "rz": 23,
+        "sx": 12,
+        "cx": 6,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 17,
+      "edges": 3,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 20,
+      "total_shots": 163840,
+      "search_wall_sec": 0.08443610003450885,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0
+      ],
+      "selected_gammas": [
+        0.7425215902587055,
+        0.0
+      ],
+      "sampled_objective": 2.030052884933049,
+      "selected_ideal_objective": 2.0623536481316624,
+      "exact_native_objective": 2.700851010021069,
+      "sampled_approximation_ratio": 0.7516345320052338,
+      "selected_ideal_approximation_ratio": 0.7635940081402618,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 4,
+      "compiled_gate_counts": {
+        "rz": 23,
+        "sx": 12,
+        "cx": 6,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 17,
+      "edges": 3,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 30,
+      "total_shots": 245760,
+      "search_wall_sec": 0.12719990403275006,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.7425215902587055,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 2.036630368257795,
+      "selected_ideal_objective": 2.0623536481316624,
+      "exact_native_objective": 2.700851010021069,
+      "sampled_approximation_ratio": 0.7540698693490344,
+      "selected_ideal_approximation_ratio": 0.7635940081402618,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 4,
+      "compiled_gate_counts": {
+        "rz": 23,
+        "sx": 12,
+        "cx": 6,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 31,
+      "edges": 5,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 81,
+      "total_shots": 82944,
+      "search_wall_sec": 0.07888276598532684,
+      "selected_betas": [
+        0.39269908169872414
+      ],
+      "selected_gammas": [
+        0.5311518761997581
+      ],
+      "sampled_objective": 3.6334454062420773,
+      "selected_ideal_objective": 3.5904508552590912,
+      "exact_native_objective": 4.380039163399722,
+      "sampled_approximation_ratio": 0.8295463283990023,
+      "selected_ideal_approximation_ratio": 0.8197303086377511,
+      "compiled_depth": 7,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 5,
+        "h": 4,
+        "rx": 4,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 31,
+      "edges": 5,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 20,
+      "total_shots": 20480,
+      "search_wall_sec": 0.029256106005050242,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        1.0471975511965976
+      ],
+      "sampled_objective": 3.650301912074798,
+      "selected_ideal_objective": 3.5904508552590904,
+      "exact_native_objective": 4.380039163399722,
+      "sampled_approximation_ratio": 0.8333948113015244,
+      "selected_ideal_approximation_ratio": 0.8197303086377509,
+      "compiled_depth": 11,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 10,
+        "h": 4,
+        "rx": 4,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 31,
+      "edges": 5,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 30,
+      "total_shots": 30720,
+      "search_wall_sec": 0.04883513494860381,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        1.5707963267948966,
+        0.0
+      ],
+      "sampled_objective": 3.6358027494865346,
+      "selected_ideal_objective": 3.5904508552590904,
+      "exact_native_objective": 4.380039163399722,
+      "sampled_approximation_ratio": 0.8300845298069156,
+      "selected_ideal_approximation_ratio": 0.8197303086377509,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 15,
+        "h": 4,
+        "rx": 4,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 31,
+      "edges": 5,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 81,
+      "total_shots": 663552,
+      "search_wall_sec": 0.3019422189972829,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        0.5311518761997581
+      ],
+      "sampled_objective": 3.5872064326697344,
+      "selected_ideal_objective": 3.5904508552590912,
+      "exact_native_objective": 4.380039163399722,
+      "sampled_approximation_ratio": 0.8189895795099232,
+      "selected_ideal_approximation_ratio": 0.8197303086377511,
+      "compiled_depth": 7,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 5,
+        "h": 4,
+        "rx": 4,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 31,
+      "edges": 5,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 20,
+      "total_shots": 163840,
+      "search_wall_sec": 0.07921746501233429,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        0.0
+      ],
+      "sampled_objective": 3.5956259238993,
+      "selected_ideal_objective": 3.5904508552590912,
+      "exact_native_objective": 4.380039163399722,
+      "sampled_approximation_ratio": 0.8209118205939574,
+      "selected_ideal_approximation_ratio": 0.8197303086377511,
+      "compiled_depth": 11,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 10,
+        "h": 4,
+        "rx": 4,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 31,
+      "edges": 5,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 30,
+      "total_shots": 245760,
+      "search_wall_sec": 0.1426711040257942,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        1.0471975511965976,
+        0.5235987755982989
+      ],
+      "sampled_objective": 3.599399022638526,
+      "selected_ideal_objective": 3.5904508552590912,
+      "exact_native_objective": 4.380039163399722,
+      "sampled_approximation_ratio": 0.8217732509598671,
+      "selected_ideal_approximation_ratio": 0.8197303086377511,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 15,
+        "h": 4,
+        "rx": 4,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 31,
+      "edges": 5,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 81,
+      "total_shots": 82944,
+      "search_wall_sec": 0.11794722700142302,
+      "selected_betas": [
+        0.39269908169872414
+      ],
+      "selected_gammas": [
+        0.5311518761997581
+      ],
+      "sampled_objective": 3.6334734124418206,
+      "selected_ideal_objective": 3.5904508552590912,
+      "exact_native_objective": 4.380039163399722,
+      "sampled_approximation_ratio": 0.8295527224513609,
+      "selected_ideal_approximation_ratio": 0.8197303086377511,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 25,
+        "sx": 12,
+        "cx": 10,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 31,
+      "edges": 5,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 20,
+      "total_shots": 20480,
+      "search_wall_sec": 0.062081163021503016,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        1.0471975511965976
+      ],
+      "sampled_objective": 3.635964363938231,
+      "selected_ideal_objective": 3.5904508552590904,
+      "exact_native_objective": 4.380039163399722,
+      "sampled_approximation_ratio": 0.8301214277536388,
+      "selected_ideal_approximation_ratio": 0.8197303086377509,
+      "compiled_depth": 33,
+      "compiled_two_qubit_depth": 16,
+      "compiled_gate_counts": {
+        "rz": 30,
+        "cx": 20,
+        "sx": 12,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 31,
+      "edges": 5,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 30,
+      "total_shots": 30720,
+      "search_wall_sec": 0.07397810200927779,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 3.6361155209891503,
+      "selected_ideal_objective": 3.5904508552590912,
+      "exact_native_objective": 4.380039163399722,
+      "sampled_approximation_ratio": 0.8301559381872857,
+      "selected_ideal_approximation_ratio": 0.8197303086377511,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 25,
+        "sx": 12,
+        "cx": 10,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 31,
+      "edges": 5,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 81,
+      "total_shots": 663552,
+      "search_wall_sec": 0.3053479910013266,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        0.5311518761997581
+      ],
+      "sampled_objective": 3.5819037464915278,
+      "selected_ideal_objective": 3.5904508552590912,
+      "exact_native_objective": 4.380039163399722,
+      "sampled_approximation_ratio": 0.817778931390035,
+      "selected_ideal_approximation_ratio": 0.8197303086377511,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 25,
+        "sx": 12,
+        "cx": 10,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 31,
+      "edges": 5,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 20,
+      "total_shots": 163840,
+      "search_wall_sec": 0.08652234901092015,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        0.0
+      ],
+      "sampled_objective": 3.5912354247228055,
+      "selected_ideal_objective": 3.5904508552590912,
+      "exact_native_objective": 4.380039163399722,
+      "sampled_approximation_ratio": 0.8199094324844669,
+      "selected_ideal_approximation_ratio": 0.8197303086377511,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 25,
+        "sx": 12,
+        "cx": 10,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 31,
+      "edges": 5,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 30,
+      "total_shots": 245760,
+      "search_wall_sec": 0.13234661499154754,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        1.0471975511965976,
+        0.5235987755982989
+      ],
+      "sampled_objective": 3.5784668657267256,
+      "selected_ideal_objective": 3.5904508552590912,
+      "exact_native_objective": 4.380039163399722,
+      "sampled_approximation_ratio": 0.816994262432387,
+      "selected_ideal_approximation_ratio": 0.8197303086377511,
+      "compiled_depth": 45,
+      "compiled_two_qubit_depth": 24,
+      "compiled_gate_counts": {
+        "rz": 35,
+        "cx": 30,
+        "sx": 12,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 31,
+      "edges": 5,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 81,
+      "total_shots": 82944,
+      "search_wall_sec": 0.11681583998142742,
+      "selected_betas": [
+        0.39269908169872414
+      ],
+      "selected_gammas": [
+        0.5311518761997581
+      ],
+      "sampled_objective": 3.586654918272807,
+      "selected_ideal_objective": 3.5904508552590912,
+      "exact_native_objective": 4.380039163399722,
+      "sampled_approximation_ratio": 0.8188636641068063,
+      "selected_ideal_approximation_ratio": 0.8197303086377511,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 25,
+        "sx": 12,
+        "cx": 10,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 31,
+      "edges": 5,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 20,
+      "total_shots": 20480,
+      "search_wall_sec": 0.04201623302651569,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        0.0
+      ],
+      "sampled_objective": 3.596638540311463,
+      "selected_ideal_objective": 3.5904508552590912,
+      "exact_native_objective": 4.380039163399722,
+      "sampled_approximation_ratio": 0.8211430094884825,
+      "selected_ideal_approximation_ratio": 0.8197303086377511,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 25,
+        "sx": 12,
+        "cx": 10,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 31,
+      "edges": 5,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 30,
+      "total_shots": 30720,
+      "search_wall_sec": 0.06480685493443161,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 3.583593295434399,
+      "selected_ideal_objective": 3.5904508552590912,
+      "exact_native_objective": 4.380039163399722,
+      "sampled_approximation_ratio": 0.8181646697087673,
+      "selected_ideal_approximation_ratio": 0.8197303086377511,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 25,
+        "sx": 12,
+        "cx": 10,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 31,
+      "edges": 5,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 81,
+      "total_shots": 663552,
+      "search_wall_sec": 0.31537110399222,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        0.5311518761997581
+      ],
+      "sampled_objective": 3.5386188133113237,
+      "selected_ideal_objective": 3.5904508552590912,
+      "exact_native_objective": 4.380039163399722,
+      "sampled_approximation_ratio": 0.8078966149162693,
+      "selected_ideal_approximation_ratio": 0.8197303086377511,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 25,
+        "sx": 12,
+        "cx": 10,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 31,
+      "edges": 5,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 20,
+      "total_shots": 163840,
+      "search_wall_sec": 0.08576886102673598,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        0.0
+      ],
+      "sampled_objective": 3.547642706403986,
+      "selected_ideal_objective": 3.5904508552590912,
+      "exact_native_objective": 4.380039163399722,
+      "sampled_approximation_ratio": 0.8099568460594215,
+      "selected_ideal_approximation_ratio": 0.8197303086377511,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 25,
+        "sx": 12,
+        "cx": 10,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 31,
+      "edges": 5,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 30,
+      "total_shots": 245760,
+      "search_wall_sec": 0.1293545090011321,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 3.5400981608644844,
+      "selected_ideal_objective": 3.5904508552590912,
+      "exact_native_objective": 4.380039163399722,
+      "sampled_approximation_ratio": 0.8082343624792414,
+      "selected_ideal_approximation_ratio": 0.8197303086377511,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 25,
+        "sx": 12,
+        "cx": 10,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 43,
+      "edges": 3,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 81,
+      "total_shots": 82944,
+      "search_wall_sec": 0.1330333219957538,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        1.2548378530191986
+      ],
+      "sampled_objective": 2.0805810416537827,
+      "selected_ideal_objective": 2.063415397974464,
+      "exact_native_objective": 2.6917997684091004,
+      "sampled_approximation_ratio": 0.7729330636221288,
+      "selected_ideal_approximation_ratio": 0.7665560500415592,
+      "compiled_depth": 5,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "h": 4,
+        "rx": 4,
+        "measure": 4,
+        "rzz": 3
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 43,
+      "edges": 3,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 20,
+      "total_shots": 20480,
+      "search_wall_sec": 0.025444411992793903,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.7312390774208998,
+        0.5235987755982989
+      ],
+      "sampled_objective": 2.1275551547362315,
+      "selected_ideal_objective": 2.0944674386341635,
+      "exact_native_objective": 2.6917997684091004,
+      "sampled_approximation_ratio": 0.7903838835656238,
+      "selected_ideal_approximation_ratio": 0.778091841456703,
+      "compiled_depth": 7,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 6,
+        "h": 4,
+        "rx": 4,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 43,
+      "edges": 3,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 30,
+      "total_shots": 30720,
+      "search_wall_sec": 0.03986870899097994,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        1.2548378530191986,
+        1.1102230246251565e-16,
+        0.0
+      ],
+      "sampled_objective": 2.089242108457353,
+      "selected_ideal_objective": 2.063415397974464,
+      "exact_native_objective": 2.6917997684091004,
+      "sampled_approximation_ratio": 0.776150638311456,
+      "selected_ideal_approximation_ratio": 0.7665560500415592,
+      "compiled_depth": 9,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 9,
+        "h": 4,
+        "rx": 4,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 43,
+      "edges": 3,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 81,
+      "total_shots": 663552,
+      "search_wall_sec": 0.2658207950007636,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        1.2548378530191986
+      ],
+      "sampled_objective": 2.0671030747385455,
+      "selected_ideal_objective": 2.063415397974464,
+      "exact_native_objective": 2.6917997684091004,
+      "sampled_approximation_ratio": 0.7679260170084042,
+      "selected_ideal_approximation_ratio": 0.7665560500415592,
+      "compiled_depth": 5,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "h": 4,
+        "rx": 4,
+        "measure": 4,
+        "rzz": 3
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 43,
+      "edges": 3,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 20,
+      "total_shots": 163840,
+      "search_wall_sec": 0.07188781900913455,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.7312390774208998,
+        0.0
+      ],
+      "sampled_objective": 2.102740912677189,
+      "selected_ideal_objective": 2.0944674386341635,
+      "exact_native_objective": 2.6917997684091004,
+      "sampled_approximation_ratio": 0.7811654259558634,
+      "selected_ideal_approximation_ratio": 0.778091841456703,
+      "compiled_depth": 7,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 6,
+        "h": 4,
+        "rx": 4,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 43,
+      "edges": 3,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 30,
+      "total_shots": 245760,
+      "search_wall_sec": 0.10911687297630124,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.7312390774208998,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 2.1055940738566377,
+      "selected_ideal_objective": 2.0944674386341635,
+      "exact_native_objective": 2.6917997684091004,
+      "sampled_approximation_ratio": 0.7822253715034234,
+      "selected_ideal_approximation_ratio": 0.778091841456703,
+      "compiled_depth": 9,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 9,
+        "h": 4,
+        "rx": 4,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 43,
+      "edges": 3,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 81,
+      "total_shots": 82944,
+      "search_wall_sec": 0.10748357302509248,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        1.2548378530191986
+      ],
+      "sampled_objective": 2.080190467119757,
+      "selected_ideal_objective": 2.063415397974464,
+      "exact_native_objective": 2.6917997684091004,
+      "sampled_approximation_ratio": 0.7727879657071169,
+      "selected_ideal_approximation_ratio": 0.7665560500415592,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 4,
+      "compiled_gate_counts": {
+        "rz": 23,
+        "sx": 12,
+        "cx": 6,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 43,
+      "edges": 3,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 20,
+      "total_shots": 20480,
+      "search_wall_sec": 0.03883267901255749,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.7312390774208998,
+        0.5235987755982989
+      ],
+      "sampled_objective": 2.1188855105857756,
+      "selected_ideal_objective": 2.0944674386341635,
+      "exact_native_objective": 2.6917997684091004,
+      "sampled_approximation_ratio": 0.7871631224034442,
+      "selected_ideal_approximation_ratio": 0.778091841456703,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 26,
+        "sx": 12,
+        "cx": 12,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 43,
+      "edges": 3,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 30,
+      "total_shots": 30720,
+      "search_wall_sec": 0.07127364803454839,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        1.2548378530191986,
+        1.1102230246251565e-16,
+        0.0
+      ],
+      "sampled_objective": 2.0878358511364636,
+      "selected_ideal_objective": 2.063415397974464,
+      "exact_native_objective": 2.6917997684091004,
+      "sampled_approximation_ratio": 0.7756282156047626,
+      "selected_ideal_approximation_ratio": 0.7665560500415592,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 4,
+      "compiled_gate_counts": {
+        "rz": 23,
+        "sx": 12,
+        "cx": 6,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 43,
+      "edges": 3,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 81,
+      "total_shots": 663552,
+      "search_wall_sec": 0.2962610280083027,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        1.2548378530191986
+      ],
+      "sampled_objective": 2.064728284723924,
+      "selected_ideal_objective": 2.063415397974464,
+      "exact_native_objective": 2.6917997684091004,
+      "sampled_approximation_ratio": 0.7670437857063246,
+      "selected_ideal_approximation_ratio": 0.7665560500415592,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 4,
+      "compiled_gate_counts": {
+        "rz": 23,
+        "sx": 12,
+        "cx": 6,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 43,
+      "edges": 3,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 20,
+      "total_shots": 163840,
+      "search_wall_sec": 0.08507037698291242,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.7312390774208998,
+        0.0
+      ],
+      "sampled_objective": 2.0981193739828283,
+      "selected_ideal_objective": 2.0944674386341635,
+      "exact_native_objective": 2.6917997684091004,
+      "sampled_approximation_ratio": 0.7794485305357065,
+      "selected_ideal_approximation_ratio": 0.778091841456703,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 4,
+      "compiled_gate_counts": {
+        "rz": 23,
+        "sx": 12,
+        "cx": 6,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 43,
+      "edges": 3,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 30,
+      "total_shots": 245760,
+      "search_wall_sec": 0.1263575699995272,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.7312390774208998,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 2.103415466032839,
+      "selected_ideal_objective": 2.0944674386341635,
+      "exact_native_objective": 2.6917997684091004,
+      "sampled_approximation_ratio": 0.7814160216218435,
+      "selected_ideal_approximation_ratio": 0.778091841456703,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 4,
+      "compiled_gate_counts": {
+        "rz": 23,
+        "sx": 12,
+        "cx": 6,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 43,
+      "edges": 3,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 81,
+      "total_shots": 82944,
+      "search_wall_sec": 0.10907180700451136,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        1.2548378530191986
+      ],
+      "sampled_objective": 2.0480644007287667,
+      "selected_ideal_objective": 2.063415397974464,
+      "exact_native_objective": 2.6917997684091004,
+      "sampled_approximation_ratio": 0.760853175174767,
+      "selected_ideal_approximation_ratio": 0.7665560500415592,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 4,
+      "compiled_gate_counts": {
+        "rz": 23,
+        "sx": 12,
+        "cx": 6,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 43,
+      "edges": 3,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 20,
+      "total_shots": 20480,
+      "search_wall_sec": 0.045273544994415715,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.7312390774208998,
+        0.0
+      ],
+      "sampled_objective": 2.0632633735517545,
+      "selected_ideal_objective": 2.0944674386341635,
+      "exact_native_objective": 2.6917997684091004,
+      "sampled_approximation_ratio": 0.7664995731726281,
+      "selected_ideal_approximation_ratio": 0.778091841456703,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 4,
+      "compiled_gate_counts": {
+        "rz": 23,
+        "sx": 12,
+        "cx": 6,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 43,
+      "edges": 3,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 30,
+      "total_shots": 30720,
+      "search_wall_sec": 0.07007137994514778,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.7312390774208998,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 2.0814015081873563,
+      "selected_ideal_objective": 2.0944674386341635,
+      "exact_native_objective": 2.6917997684091004,
+      "sampled_approximation_ratio": 0.7732378658378071,
+      "selected_ideal_approximation_ratio": 0.778091841456703,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 4,
+      "compiled_gate_counts": {
+        "rz": 23,
+        "sx": 12,
+        "cx": 6,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 43,
+      "edges": 3,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 81,
+      "total_shots": 663552,
+      "search_wall_sec": 0.2973676169931423,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        1.2548378530191986
+      ],
+      "sampled_objective": 2.0345088948371854,
+      "selected_ideal_objective": 2.063415397974464,
+      "exact_native_objective": 2.6917997684091004,
+      "sampled_approximation_ratio": 0.7558173229354332,
+      "selected_ideal_approximation_ratio": 0.7665560500415592,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 4,
+      "compiled_gate_counts": {
+        "rz": 23,
+        "sx": 12,
+        "cx": 6,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 43,
+      "edges": 3,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 20,
+      "total_shots": 163840,
+      "search_wall_sec": 0.08348702994408086,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.7312390774208998,
+        0.0
+      ],
+      "sampled_objective": 2.0709594195352246,
+      "selected_ideal_objective": 2.0944674386341635,
+      "exact_native_objective": 2.6917997684091004,
+      "sampled_approximation_ratio": 0.7693586439229084,
+      "selected_ideal_approximation_ratio": 0.778091841456703,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 4,
+      "compiled_gate_counts": {
+        "rz": 23,
+        "sx": 12,
+        "cx": 6,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 4,
+      "density": 0.5,
+      "seed": 43,
+      "edges": 3,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 30,
+      "total_shots": 245760,
+      "search_wall_sec": 0.13888012201641686,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.7312390774208998,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 2.0735311243325625,
+      "selected_ideal_objective": 2.0944674386341635,
+      "exact_native_objective": 2.6917997684091004,
+      "sampled_approximation_ratio": 0.770314028802393,
+      "selected_ideal_approximation_ratio": 0.778091841456703,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 4,
+      "compiled_gate_counts": {
+        "rz": 23,
+        "sx": 12,
+        "cx": 6,
+        "measure": 4
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 17,
+      "edges": 8,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 81,
+      "total_shots": 82944,
+      "search_wall_sec": 0.09982048399979249,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        0.5243805637705524
+      ],
+      "sampled_objective": 5.023546549674097,
+      "selected_ideal_objective": 4.9957004490725865,
+      "exact_native_objective": 5.9790317884459805,
+      "sampled_approximation_ratio": 0.8401939858191948,
+      "selected_ideal_approximation_ratio": 0.8355366932028014,
+      "compiled_depth": 9,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 8,
+        "h": 6,
+        "rx": 6,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 17,
+      "edges": 8,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 20,
+      "total_shots": 20480,
+      "search_wall_sec": 0.03506660700077191,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5243805637705524,
+        0.5235987755982989
+      ],
+      "sampled_objective": 5.01576096590846,
+      "selected_ideal_objective": 4.995700449072588,
+      "exact_native_objective": 5.9790317884459805,
+      "sampled_approximation_ratio": 0.8388918379061026,
+      "selected_ideal_approximation_ratio": 0.8355366932028018,
+      "compiled_depth": 14,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 16,
+        "h": 6,
+        "rx": 6,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 17,
+      "edges": 8,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 30,
+      "total_shots": 30720,
+      "search_wall_sec": 0.053650320012820885,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5243805637705524,
+        0.0,
+        0.5235987755982989
+      ],
+      "sampled_objective": 5.021545401690523,
+      "selected_ideal_objective": 4.995700449072588,
+      "exact_native_objective": 5.9790317884459805,
+      "sampled_approximation_ratio": 0.8398592914983783,
+      "selected_ideal_approximation_ratio": 0.8355366932028018,
+      "compiled_depth": 19,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 24,
+        "h": 6,
+        "rx": 6,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 17,
+      "edges": 8,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 81,
+      "total_shots": 663552,
+      "search_wall_sec": 0.3664985719951801,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        0.5243805637705524
+      ],
+      "sampled_objective": 5.006901676976126,
+      "selected_ideal_objective": 4.9957004490725865,
+      "exact_native_objective": 5.9790317884459805,
+      "sampled_approximation_ratio": 0.8374101115587943,
+      "selected_ideal_approximation_ratio": 0.8355366932028014,
+      "compiled_depth": 9,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 8,
+        "h": 6,
+        "rx": 6,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 17,
+      "edges": 8,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 20,
+      "total_shots": 163840,
+      "search_wall_sec": 0.09822164801880717,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5243805637705524,
+        0.5235987755982989
+      ],
+      "sampled_objective": 4.999174898221488,
+      "selected_ideal_objective": 4.995700449072588,
+      "exact_native_objective": 5.9790317884459805,
+      "sampled_approximation_ratio": 0.836117798851983,
+      "selected_ideal_approximation_ratio": 0.8355366932028018,
+      "compiled_depth": 14,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 16,
+        "h": 6,
+        "rx": 6,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 17,
+      "edges": 8,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 30,
+      "total_shots": 245760,
+      "search_wall_sec": 0.22232935301144607,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5243805637705524,
+        1.1102230246251565e-16,
+        0.0
+      ],
+      "sampled_objective": 5.002966928209276,
+      "selected_ideal_objective": 4.9957004490725865,
+      "exact_native_objective": 5.9790317884459805,
+      "sampled_approximation_ratio": 0.8367520202647402,
+      "selected_ideal_approximation_ratio": 0.8355366932028014,
+      "compiled_depth": 19,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 24,
+        "h": 6,
+        "rx": 6,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 17,
+      "edges": 8,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 81,
+      "total_shots": 82944,
+      "search_wall_sec": 0.40204970398917794,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        0.5243805637705524
+      ],
+      "sampled_objective": 5.010588499550403,
+      "selected_ideal_objective": 4.9957004490725865,
+      "exact_native_objective": 5.9790317884459805,
+      "sampled_approximation_ratio": 0.8380267369096415,
+      "selected_ideal_approximation_ratio": 0.8355366932028014,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 38,
+        "sx": 18,
+        "cx": 16,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 17,
+      "edges": 8,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 20,
+      "total_shots": 20480,
+      "search_wall_sec": 0.12513399598537944,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5243805637705524,
+        1.0471975511965976
+      ],
+      "sampled_objective": 5.004913281385501,
+      "selected_ideal_objective": 4.995700449072587,
+      "exact_native_objective": 5.9790317884459805,
+      "sampled_approximation_ratio": 0.8370775500904865,
+      "selected_ideal_approximation_ratio": 0.8355366932028016,
+      "compiled_depth": 42,
+      "compiled_two_qubit_depth": 22,
+      "compiled_gate_counts": {
+        "rz": 46,
+        "cx": 32,
+        "sx": 18,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 17,
+      "edges": 8,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 30,
+      "total_shots": 30720,
+      "search_wall_sec": 0.3281751729664393,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5243805637705524,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 5.000541651256068,
+      "selected_ideal_objective": 4.9957004490725865,
+      "exact_native_objective": 5.9790317884459805,
+      "sampled_approximation_ratio": 0.8363463898819254,
+      "selected_ideal_approximation_ratio": 0.8355366932028014,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 38,
+        "sx": 18,
+        "cx": 16,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 17,
+      "edges": 8,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 81,
+      "total_shots": 663552,
+      "search_wall_sec": 0.6432055349869188,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        0.5243805637705524
+      ],
+      "sampled_objective": 5.000804063863582,
+      "selected_ideal_objective": 4.9957004490725865,
+      "exact_native_objective": 5.9790317884459805,
+      "sampled_approximation_ratio": 0.8363902786948301,
+      "selected_ideal_approximation_ratio": 0.8355366932028014,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 38,
+        "sx": 18,
+        "cx": 16,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 17,
+      "edges": 8,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 20,
+      "total_shots": 163840,
+      "search_wall_sec": 0.20275740599026904,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5243805637705524,
+        0.0
+      ],
+      "sampled_objective": 4.9872845916417585,
+      "selected_ideal_objective": 4.9957004490725865,
+      "exact_native_objective": 5.9790317884459805,
+      "sampled_approximation_ratio": 0.8341291312883304,
+      "selected_ideal_approximation_ratio": 0.8355366932028014,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 38,
+        "sx": 18,
+        "cx": 16,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 17,
+      "edges": 8,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 30,
+      "total_shots": 245760,
+      "search_wall_sec": 0.2777449489803985,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5243805637705524,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 4.992739977581059,
+      "selected_ideal_objective": 4.9957004490725865,
+      "exact_native_objective": 5.9790317884459805,
+      "sampled_approximation_ratio": 0.8350415509128326,
+      "selected_ideal_approximation_ratio": 0.8355366932028014,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 38,
+        "sx": 18,
+        "cx": 16,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 17,
+      "edges": 8,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 81,
+      "total_shots": 82944,
+      "search_wall_sec": 0.39823944598902017,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        0.5243805637705524
+      ],
+      "sampled_objective": 4.935733669039277,
+      "selected_ideal_objective": 4.9957004490725865,
+      "exact_native_objective": 5.9790317884459805,
+      "sampled_approximation_ratio": 0.825507179703778,
+      "selected_ideal_approximation_ratio": 0.8355366932028014,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 38,
+        "sx": 18,
+        "cx": 16,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 17,
+      "edges": 8,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 20,
+      "total_shots": 20480,
+      "search_wall_sec": 0.12490481999702752,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5243805637705524,
+        0.0
+      ],
+      "sampled_objective": 4.942563712169629,
+      "selected_ideal_objective": 4.9957004490725865,
+      "exact_native_objective": 5.9790317884459805,
+      "sampled_approximation_ratio": 0.8266495123375583,
+      "selected_ideal_approximation_ratio": 0.8355366932028014,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 38,
+        "sx": 18,
+        "cx": 16,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 17,
+      "edges": 8,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 30,
+      "total_shots": 30720,
+      "search_wall_sec": 0.19813572202110663,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5243805637705524,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 4.940700328513735,
+      "selected_ideal_objective": 4.9957004490725865,
+      "exact_native_objective": 5.9790317884459805,
+      "sampled_approximation_ratio": 0.8263378592603001,
+      "selected_ideal_approximation_ratio": 0.8355366932028014,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 38,
+        "sx": 18,
+        "cx": 16,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 17,
+      "edges": 8,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 81,
+      "total_shots": 663552,
+      "search_wall_sec": 0.646381401020335,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        0.5243805637705524
+      ],
+      "sampled_objective": 4.930511952287349,
+      "selected_ideal_objective": 4.9957004490725865,
+      "exact_native_objective": 5.9790317884459805,
+      "sampled_approximation_ratio": 0.8246338415218304,
+      "selected_ideal_approximation_ratio": 0.8355366932028014,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 38,
+        "sx": 18,
+        "cx": 16,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 17,
+      "edges": 8,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 20,
+      "total_shots": 163840,
+      "search_wall_sec": 0.19577790398034267,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5243805637705524,
+        0.0
+      ],
+      "sampled_objective": 4.92166985953589,
+      "selected_ideal_objective": 4.9957004490725865,
+      "exact_native_objective": 5.9790317884459805,
+      "sampled_approximation_ratio": 0.8231549912557145,
+      "selected_ideal_approximation_ratio": 0.8355366932028014,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 38,
+        "sx": 18,
+        "cx": 16,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 17,
+      "edges": 8,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 30,
+      "total_shots": 245760,
+      "search_wall_sec": 0.28427313501015306,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5243805637705524,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 4.93040386430538,
+      "selected_ideal_objective": 4.9957004490725865,
+      "exact_native_objective": 5.9790317884459805,
+      "sampled_approximation_ratio": 0.8246157636815056,
+      "selected_ideal_approximation_ratio": 0.8355366932028014,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 38,
+        "sx": 18,
+        "cx": 16,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 31,
+      "edges": 7,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 81,
+      "total_shots": 82944,
+      "search_wall_sec": 0.10261145301046781,
+      "selected_betas": [
+        0.39269908169872414
+      ],
+      "selected_gammas": [
+        0.5311518761997581
+      ],
+      "sampled_objective": 4.286055603559646,
+      "selected_ideal_objective": 4.253622956423701,
+      "exact_native_objective": 5.077746506895972,
+      "sampled_approximation_ratio": 0.8440861704574759,
+      "selected_ideal_approximation_ratio": 0.8376989577260213,
+      "compiled_depth": 9,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 7,
+        "h": 6,
+        "rx": 6,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 31,
+      "edges": 7,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 20,
+      "total_shots": 20480,
+      "search_wall_sec": 0.04937722999602556,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        1.0471975511965976
+      ],
+      "sampled_objective": 4.3060251680557435,
+      "selected_ideal_objective": 4.253622956423699,
+      "exact_native_objective": 5.077746506895972,
+      "sampled_approximation_ratio": 0.8480189316673901,
+      "selected_ideal_approximation_ratio": 0.837698957726021,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 14,
+        "h": 6,
+        "rx": 6,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 31,
+      "edges": 7,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 30,
+      "total_shots": 30720,
+      "search_wall_sec": 0.05300141902989708,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 4.299705432181171,
+      "selected_ideal_objective": 4.253622956423701,
+      "exact_native_objective": 5.077746506895972,
+      "sampled_approximation_ratio": 0.8467743370689812,
+      "selected_ideal_approximation_ratio": 0.8376989577260213,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 21,
+        "h": 6,
+        "rx": 6,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 31,
+      "edges": 7,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 81,
+      "total_shots": 663552,
+      "search_wall_sec": 0.36716939401230775,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        0.5311518761997581
+      ],
+      "sampled_objective": 4.264926683083452,
+      "selected_ideal_objective": 4.253622956423702,
+      "exact_native_objective": 5.077746506895972,
+      "sampled_approximation_ratio": 0.8399250882830311,
+      "selected_ideal_approximation_ratio": 0.8376989577260215,
+      "compiled_depth": 9,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 7,
+        "h": 6,
+        "rx": 6,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 31,
+      "edges": 7,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 20,
+      "total_shots": 163840,
+      "search_wall_sec": 0.09789502300554886,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        0.0
+      ],
+      "sampled_objective": 4.269064933138648,
+      "selected_ideal_objective": 4.253622956423702,
+      "exact_native_objective": 5.077746506895972,
+      "sampled_approximation_ratio": 0.8407400659605454,
+      "selected_ideal_approximation_ratio": 0.8376989577260215,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 14,
+        "h": 6,
+        "rx": 6,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 31,
+      "edges": 7,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 30,
+      "total_shots": 245760,
+      "search_wall_sec": 0.15576191298896447,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        1.0471975511965976,
+        1.0471975511965976
+      ],
+      "sampled_objective": 4.272592379776629,
+      "selected_ideal_objective": 4.2536229564237,
+      "exact_native_objective": 5.077746506895972,
+      "sampled_approximation_ratio": 0.8414347533840295,
+      "selected_ideal_approximation_ratio": 0.8376989577260212,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 21,
+        "h": 6,
+        "rx": 6,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 31,
+      "edges": 7,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 81,
+      "total_shots": 82944,
+      "search_wall_sec": 0.3744138350011781,
+      "selected_betas": [
+        0.39269908169872414
+      ],
+      "selected_gammas": [
+        0.5311518761997581
+      ],
+      "sampled_objective": 4.277367754829061,
+      "selected_ideal_objective": 4.253622956423701,
+      "exact_native_objective": 5.077746506895972,
+      "sampled_approximation_ratio": 0.8423752050284641,
+      "selected_ideal_approximation_ratio": 0.8376989577260213,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 37,
+        "sx": 18,
+        "cx": 14,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 31,
+      "edges": 7,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 20,
+      "total_shots": 20480,
+      "search_wall_sec": 0.12099375299294479,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        1.0471975511965976
+      ],
+      "sampled_objective": 4.287240720827549,
+      "selected_ideal_objective": 4.253622956423699,
+      "exact_native_objective": 5.077746506895972,
+      "sampled_approximation_ratio": 0.8443195647922057,
+      "selected_ideal_approximation_ratio": 0.837698957726021,
+      "compiled_depth": 45,
+      "compiled_two_qubit_depth": 24,
+      "compiled_gate_counts": {
+        "rz": 44,
+        "cx": 28,
+        "sx": 18,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 31,
+      "edges": 7,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 30,
+      "total_shots": 30720,
+      "search_wall_sec": 0.24352918699150905,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 4.289243752812616,
+      "selected_ideal_objective": 4.253622956423701,
+      "exact_native_objective": 5.077746506895972,
+      "sampled_approximation_ratio": 0.8447140374155133,
+      "selected_ideal_approximation_ratio": 0.8376989577260213,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 37,
+        "sx": 18,
+        "cx": 14,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 31,
+      "edges": 7,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 81,
+      "total_shots": 663552,
+      "search_wall_sec": 0.6618230399908498,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        0.5311518761997581
+      ],
+      "sampled_objective": 4.255017923593444,
+      "selected_ideal_objective": 4.253622956423702,
+      "exact_native_objective": 5.077746506895972,
+      "sampled_approximation_ratio": 0.8379736794294085,
+      "selected_ideal_approximation_ratio": 0.8376989577260215,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 37,
+        "sx": 18,
+        "cx": 14,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 31,
+      "edges": 7,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 20,
+      "total_shots": 163840,
+      "search_wall_sec": 0.1796543609816581,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        0.0
+      ],
+      "sampled_objective": 4.259757886273613,
+      "selected_ideal_objective": 4.253622956423702,
+      "exact_native_objective": 5.077746506895972,
+      "sampled_approximation_ratio": 0.8389071570407332,
+      "selected_ideal_approximation_ratio": 0.8376989577260215,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 37,
+        "sx": 18,
+        "cx": 14,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 31,
+      "edges": 7,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 30,
+      "total_shots": 245760,
+      "search_wall_sec": 0.3010160070261918,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        0.0,
+        1.0471975511965976
+      ],
+      "sampled_objective": 4.252475888618383,
+      "selected_ideal_objective": 4.253622956423702,
+      "exact_native_objective": 5.077746506895972,
+      "sampled_approximation_ratio": 0.8374730567670505,
+      "selected_ideal_approximation_ratio": 0.8376989577260215,
+      "compiled_depth": 45,
+      "compiled_two_qubit_depth": 24,
+      "compiled_gate_counts": {
+        "rz": 44,
+        "cx": 28,
+        "sx": 18,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 31,
+      "edges": 7,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 81,
+      "total_shots": 82944,
+      "search_wall_sec": 0.375071532005677,
+      "selected_betas": [
+        0.39269908169872414
+      ],
+      "selected_gammas": [
+        0.5311518761997581
+      ],
+      "sampled_objective": 4.21792569849936,
+      "selected_ideal_objective": 4.253622956423701,
+      "exact_native_objective": 5.077746506895972,
+      "sampled_approximation_ratio": 0.8306688198733614,
+      "selected_ideal_approximation_ratio": 0.8376989577260213,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 37,
+        "sx": 18,
+        "cx": 14,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 31,
+      "edges": 7,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 20,
+      "total_shots": 20480,
+      "search_wall_sec": 0.12211388497962616,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        0.0
+      ],
+      "sampled_objective": 4.182160047744943,
+      "selected_ideal_objective": 4.253622956423701,
+      "exact_native_objective": 5.077746506895972,
+      "sampled_approximation_ratio": 0.8236252128902549,
+      "selected_ideal_approximation_ratio": 0.8376989577260213,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 37,
+        "sx": 18,
+        "cx": 14,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 31,
+      "edges": 7,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 30,
+      "total_shots": 30720,
+      "search_wall_sec": 0.1856363249826245,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 4.207325368419164,
+      "selected_ideal_objective": 4.253622956423701,
+      "exact_native_objective": 5.077746506895972,
+      "sampled_approximation_ratio": 0.8285812146599463,
+      "selected_ideal_approximation_ratio": 0.8376989577260213,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 37,
+        "sx": 18,
+        "cx": 14,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 31,
+      "edges": 7,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 81,
+      "total_shots": 663552,
+      "search_wall_sec": 0.6279193939990364,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        0.5311518761997581
+      ],
+      "sampled_objective": 4.1783697981575845,
+      "selected_ideal_objective": 4.253622956423702,
+      "exact_native_objective": 5.077746506895972,
+      "sampled_approximation_ratio": 0.822878769643785,
+      "selected_ideal_approximation_ratio": 0.8376989577260215,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 37,
+        "sx": 18,
+        "cx": 14,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 31,
+      "edges": 7,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 20,
+      "total_shots": 163840,
+      "search_wall_sec": 0.17636563599808142,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        0.0
+      ],
+      "sampled_objective": 4.183947767516638,
+      "selected_ideal_objective": 4.253622956423702,
+      "exact_native_objective": 5.077746506895972,
+      "sampled_approximation_ratio": 0.8239772824095322,
+      "selected_ideal_approximation_ratio": 0.8376989577260215,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 37,
+        "sx": 18,
+        "cx": 14,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 31,
+      "edges": 7,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 30,
+      "total_shots": 245760,
+      "search_wall_sec": 0.2707671200041659,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 4.170935905833746,
+      "selected_ideal_objective": 4.253622956423702,
+      "exact_native_objective": 5.077746506895972,
+      "sampled_approximation_ratio": 0.8214147555749963,
+      "selected_ideal_approximation_ratio": 0.8376989577260215,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 37,
+        "sx": 18,
+        "cx": 14,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 43,
+      "edges": 5,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 81,
+      "total_shots": 82944,
+      "search_wall_sec": 0.09970684500876814,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        0.6274189265095993
+      ],
+      "sampled_objective": 3.007411758074684,
+      "selected_ideal_objective": 2.993666314499138,
+      "exact_native_objective": 3.7592282470593856,
+      "sampled_approximation_ratio": 0.8000077570249156,
+      "selected_ideal_approximation_ratio": 0.7963513034466316,
+      "compiled_depth": 7,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "measure": 6,
+        "h": 5,
+        "rzz": 5,
+        "rx": 5,
+        "u2": 1
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 43,
+      "edges": 5,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 20,
+      "total_shots": 20480,
+      "search_wall_sec": 0.03940607002004981,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.6274189265095993,
+        0.0
+      ],
+      "sampled_objective": 3.042510714153474,
+      "selected_ideal_objective": 2.993666314499138,
+      "exact_native_objective": 3.7592282470593856,
+      "sampled_approximation_ratio": 0.8093445021683491,
+      "selected_ideal_approximation_ratio": 0.7963513034466316,
+      "compiled_depth": 11,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 10,
+        "measure": 6,
+        "h": 5,
+        "rx": 5,
+        "u2": 1
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 43,
+      "edges": 5,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 30,
+      "total_shots": 30720,
+      "search_wall_sec": 0.058712560014100745,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.6274189265095993,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 3.0177343267858054,
+      "selected_ideal_objective": 2.993666314499138,
+      "exact_native_objective": 3.7592282470593856,
+      "sampled_approximation_ratio": 0.8027536846549274,
+      "selected_ideal_approximation_ratio": 0.7963513034466316,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 15,
+        "measure": 6,
+        "h": 5,
+        "rx": 5,
+        "u2": 1
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 43,
+      "edges": 5,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 81,
+      "total_shots": 663552,
+      "search_wall_sec": 0.36382022401085123,
+      "selected_betas": [
+        0.39269908169872414
+      ],
+      "selected_gammas": [
+        0.6274189265095993
+      ],
+      "sampled_objective": 2.999602116984859,
+      "selected_ideal_objective": 2.9936663144991367,
+      "exact_native_objective": 3.7592282470593856,
+      "sampled_approximation_ratio": 0.7979302984146451,
+      "selected_ideal_approximation_ratio": 0.7963513034466313,
+      "compiled_depth": 7,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "measure": 6,
+        "h": 5,
+        "rzz": 5,
+        "rx": 5,
+        "u2": 1
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 43,
+      "edges": 5,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 20,
+      "total_shots": 163840,
+      "search_wall_sec": 0.09708866200526245,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0
+      ],
+      "selected_gammas": [
+        0.6274189265095993,
+        0.0
+      ],
+      "sampled_objective": 3.0028387931559553,
+      "selected_ideal_objective": 2.9936663144991367,
+      "exact_native_objective": 3.7592282470593856,
+      "sampled_approximation_ratio": 0.7987912932674126,
+      "selected_ideal_approximation_ratio": 0.7963513034466313,
+      "compiled_depth": 11,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 10,
+        "measure": 6,
+        "h": 5,
+        "rx": 5,
+        "u2": 1
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 43,
+      "edges": 5,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 30,
+      "total_shots": 245760,
+      "search_wall_sec": 0.14723303497885354,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.6274189265095993,
+        0.0,
+        1.0471975511965976
+      ],
+      "sampled_objective": 2.996103280489756,
+      "selected_ideal_objective": 2.9936663144991362,
+      "exact_native_objective": 3.7592282470593856,
+      "sampled_approximation_ratio": 0.7969995657575261,
+      "selected_ideal_approximation_ratio": 0.7963513034466312,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 15,
+        "measure": 6,
+        "h": 5,
+        "rx": 5,
+        "u2": 1
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 43,
+      "edges": 5,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 81,
+      "total_shots": 82944,
+      "search_wall_sec": 0.32087820701417513,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        0.6274189265095993
+      ],
+      "sampled_objective": 2.9965613363321926,
+      "selected_ideal_objective": 2.993666314499138,
+      "exact_native_objective": 3.7592282470593856,
+      "sampled_approximation_ratio": 0.7971214141296739,
+      "selected_ideal_approximation_ratio": 0.7963513034466316,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 32,
+        "sx": 16,
+        "cx": 10,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 43,
+      "edges": 5,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 20,
+      "total_shots": 20480,
+      "search_wall_sec": 0.10099426697706804,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.6274189265095993,
+        0.0
+      ],
+      "sampled_objective": 3.0380793054182798,
+      "selected_ideal_objective": 2.993666314499138,
+      "exact_native_objective": 3.7592282470593856,
+      "sampled_approximation_ratio": 0.8081656940609507,
+      "selected_ideal_approximation_ratio": 0.7963513034466316,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 32,
+        "sx": 16,
+        "cx": 10,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 43,
+      "edges": 5,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 30,
+      "total_shots": 30720,
+      "search_wall_sec": 0.1572710570471827,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.6274189265095993,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 3.014391004077453,
+      "selected_ideal_objective": 2.993666314499138,
+      "exact_native_objective": 3.7592282470593856,
+      "sampled_approximation_ratio": 0.8018643205385112,
+      "selected_ideal_approximation_ratio": 0.7963513034466316,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 32,
+        "sx": 16,
+        "cx": 10,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 43,
+      "edges": 5,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 81,
+      "total_shots": 663552,
+      "search_wall_sec": 0.6015838290040847,
+      "selected_betas": [
+        0.39269908169872414
+      ],
+      "selected_gammas": [
+        0.6274189265095993
+      ],
+      "sampled_objective": 2.9943985639312793,
+      "selected_ideal_objective": 2.9936663144991367,
+      "exact_native_objective": 3.7592282470593856,
+      "sampled_approximation_ratio": 0.796546090616768,
+      "selected_ideal_approximation_ratio": 0.7963513034466313,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 32,
+        "sx": 16,
+        "cx": 10,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 43,
+      "edges": 5,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 20,
+      "total_shots": 163840,
+      "search_wall_sec": 0.1675314069725573,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0
+      ],
+      "selected_gammas": [
+        0.6274189265095993,
+        0.0
+      ],
+      "sampled_objective": 2.9983958124205756,
+      "selected_ideal_objective": 2.9936663144991367,
+      "exact_native_objective": 3.7592282470593856,
+      "sampled_approximation_ratio": 0.7976094068685606,
+      "selected_ideal_approximation_ratio": 0.7963513034466313,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 32,
+        "sx": 16,
+        "cx": 10,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 43,
+      "edges": 5,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 30,
+      "total_shots": 245760,
+      "search_wall_sec": 0.25010777203715406,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.6274189265095993,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 2.9923402930222474,
+      "selected_ideal_objective": 2.9936663144991367,
+      "exact_native_objective": 3.7592282470593856,
+      "sampled_approximation_ratio": 0.7959985657596003,
+      "selected_ideal_approximation_ratio": 0.7963513034466313,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 32,
+        "sx": 16,
+        "cx": 10,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 43,
+      "edges": 5,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 81,
+      "total_shots": 82944,
+      "search_wall_sec": 0.3198601429758128,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        0.6274189265095993
+      ],
+      "sampled_objective": 2.9456977536373614,
+      "selected_ideal_objective": 2.993666314499138,
+      "exact_native_objective": 3.7592282470593856,
+      "sampled_approximation_ratio": 0.7835910883946993,
+      "selected_ideal_approximation_ratio": 0.7963513034466316,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 32,
+        "sx": 16,
+        "cx": 10,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 43,
+      "edges": 5,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 20,
+      "total_shots": 20480,
+      "search_wall_sec": 0.10178489401005208,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.6274189265095993,
+        0.0
+      ],
+      "sampled_objective": 2.9980896502723655,
+      "selected_ideal_objective": 2.993666314499138,
+      "exact_native_objective": 3.7592282470593856,
+      "sampled_approximation_ratio": 0.7975279640488943,
+      "selected_ideal_approximation_ratio": 0.7963513034466316,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 32,
+        "sx": 16,
+        "cx": 10,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 43,
+      "edges": 5,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 30,
+      "total_shots": 30720,
+      "search_wall_sec": 0.1550611900165677,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.6274189265095993,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 2.9611343520713027,
+      "selected_ideal_objective": 2.993666314499138,
+      "exact_native_objective": 3.7592282470593856,
+      "sampled_approximation_ratio": 0.7876974095381458,
+      "selected_ideal_approximation_ratio": 0.7963513034466316,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 32,
+        "sx": 16,
+        "cx": 10,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 43,
+      "edges": 5,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 81,
+      "total_shots": 663552,
+      "search_wall_sec": 0.584353698999621,
+      "selected_betas": [
+        0.39269908169872414
+      ],
+      "selected_gammas": [
+        0.6274189265095993
+      ],
+      "sampled_objective": 2.947331078036866,
+      "selected_ideal_objective": 2.9936663144991367,
+      "exact_native_objective": 3.7592282470593856,
+      "sampled_approximation_ratio": 0.784025572361131,
+      "selected_ideal_approximation_ratio": 0.7963513034466313,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 32,
+        "sx": 16,
+        "cx": 10,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 43,
+      "edges": 5,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 20,
+      "total_shots": 163840,
+      "search_wall_sec": 0.2036147559992969,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0
+      ],
+      "selected_gammas": [
+        0.6274189265095993,
+        0.0
+      ],
+      "sampled_objective": 2.956668413578005,
+      "selected_ideal_objective": 2.9936663144991367,
+      "exact_native_objective": 3.7592282470593856,
+      "sampled_approximation_ratio": 0.7865094160991224,
+      "selected_ideal_approximation_ratio": 0.7963513034466313,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 32,
+        "sx": 16,
+        "cx": 10,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 6,
+      "density": 0.4,
+      "seed": 43,
+      "edges": 5,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 30,
+      "total_shots": 245760,
+      "search_wall_sec": 0.26387785898987204,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.6274189265095993,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 2.9450389909877535,
+      "selected_ideal_objective": 2.9936663144991367,
+      "exact_native_objective": 3.7592282470593856,
+      "sampled_approximation_ratio": 0.7834158495939898,
+      "selected_ideal_approximation_ratio": 0.7963513034466313,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 32,
+        "sx": 16,
+        "cx": 10,
+        "measure": 6
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 17,
+      "edges": 9,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 81,
+      "total_shots": 82944,
+      "search_wall_sec": 0.1464763809926808,
+      "selected_betas": [
+        0.39269908169872414
+      ],
+      "selected_gammas": [
+        0.5243805637705524
+      ],
+      "sampled_objective": 5.968505781331537,
+      "selected_ideal_objective": 5.971706541987215,
+      "exact_native_objective": 7.959019710298726,
+      "sampled_approximation_ratio": 0.7499046363220429,
+      "selected_ideal_approximation_ratio": 0.750306791458251,
+      "compiled_depth": 9,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 9,
+        "measure": 8,
+        "h": 7,
+        "rx": 7,
+        "u2": 1
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 17,
+      "edges": 9,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 20,
+      "total_shots": 20480,
+      "search_wall_sec": 0.05183783400570974,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5243805637705524,
+        1.0471975511965976
+      ],
+      "sampled_objective": 6.0417570588934755,
+      "selected_ideal_objective": 5.971706541987218,
+      "exact_native_objective": 7.959019710298726,
+      "sampled_approximation_ratio": 0.7591081915622885,
+      "selected_ideal_approximation_ratio": 0.7503067914582513,
+      "compiled_depth": 13,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 18,
+        "measure": 8,
+        "h": 7,
+        "rx": 7,
+        "u2": 1
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 17,
+      "edges": 9,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 30,
+      "total_shots": 30720,
+      "search_wall_sec": 0.12869069399312139,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5243805637705524,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 6.004462412840384,
+      "selected_ideal_objective": 5.971706541987215,
+      "exact_native_objective": 7.959019710298726,
+      "sampled_approximation_ratio": 0.7544223574507292,
+      "selected_ideal_approximation_ratio": 0.750306791458251,
+      "compiled_depth": 17,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 27,
+        "measure": 8,
+        "h": 7,
+        "rx": 7,
+        "u2": 1
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 17,
+      "edges": 9,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 81,
+      "total_shots": 663552,
+      "search_wall_sec": 0.6485176789865363,
+      "selected_betas": [
+        0.39269908169872414
+      ],
+      "selected_gammas": [
+        0.5243805637705524
+      ],
+      "sampled_objective": 5.9681954316436014,
+      "selected_ideal_objective": 5.971706541987215,
+      "exact_native_objective": 7.959019710298726,
+      "sampled_approximation_ratio": 0.7498656428656585,
+      "selected_ideal_approximation_ratio": 0.750306791458251,
+      "compiled_depth": 9,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 9,
+        "measure": 8,
+        "h": 7,
+        "rx": 7,
+        "u2": 1
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 17,
+      "edges": 9,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 20,
+      "total_shots": 163840,
+      "search_wall_sec": 0.16842244804138318,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5243805637705524,
+        0.0
+      ],
+      "sampled_objective": 5.990840866982854,
+      "selected_ideal_objective": 5.971706541987215,
+      "exact_native_objective": 7.959019710298726,
+      "sampled_approximation_ratio": 0.7527108972014344,
+      "selected_ideal_approximation_ratio": 0.750306791458251,
+      "compiled_depth": 13,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 18,
+        "measure": 8,
+        "h": 7,
+        "rx": 7,
+        "u2": 1
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 17,
+      "edges": 9,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 30,
+      "total_shots": 245760,
+      "search_wall_sec": 0.3017122920136899,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5243805637705524,
+        0.5235987755982989,
+        0.0
+      ],
+      "sampled_objective": 5.981906758960045,
+      "selected_ideal_objective": 5.971706541987217,
+      "exact_native_objective": 7.959019710298726,
+      "sampled_approximation_ratio": 0.751588383581918,
+      "selected_ideal_approximation_ratio": 0.7503067914582512,
+      "compiled_depth": 17,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 27,
+        "measure": 8,
+        "h": 7,
+        "rx": 7,
+        "u2": 1
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 17,
+      "edges": 9,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 81,
+      "total_shots": 82944,
+      "search_wall_sec": 0.25670421100221574,
+      "selected_betas": [
+        0.39269908169872414
+      ],
+      "selected_gammas": [
+        0.5243805637705524
+      ],
+      "sampled_objective": 5.982146183587476,
+      "selected_ideal_objective": 5.971706541987215,
+      "exact_native_objective": 7.959019710298726,
+      "sampled_approximation_ratio": 0.7516184657573801,
+      "selected_ideal_approximation_ratio": 0.750306791458251,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 46,
+        "sx": 22,
+        "cx": 18,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 17,
+      "edges": 9,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 20,
+      "total_shots": 20480,
+      "search_wall_sec": 0.08350382500793785,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5243805637705524,
+        0.0
+      ],
+      "sampled_objective": 6.025805602202187,
+      "selected_ideal_objective": 5.971706541987215,
+      "exact_native_objective": 7.959019710298726,
+      "sampled_approximation_ratio": 0.7571039928956301,
+      "selected_ideal_approximation_ratio": 0.750306791458251,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 46,
+        "sx": 22,
+        "cx": 18,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 17,
+      "edges": 9,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 30,
+      "total_shots": 30720,
+      "search_wall_sec": 0.1401491029537283,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5243805637705524,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 5.987373668416337,
+      "selected_ideal_objective": 5.971706541987215,
+      "exact_native_objective": 7.959019710298726,
+      "sampled_approximation_ratio": 0.7522752658432118,
+      "selected_ideal_approximation_ratio": 0.750306791458251,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 46,
+        "sx": 22,
+        "cx": 18,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 17,
+      "edges": 9,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 81,
+      "total_shots": 663552,
+      "search_wall_sec": 0.49409064900828525,
+      "selected_betas": [
+        0.39269908169872414
+      ],
+      "selected_gammas": [
+        0.5243805637705524
+      ],
+      "sampled_objective": 5.9632505488226215,
+      "selected_ideal_objective": 5.971706541987215,
+      "exact_native_objective": 7.959019710298726,
+      "sampled_approximation_ratio": 0.74924434991741,
+      "selected_ideal_approximation_ratio": 0.750306791458251,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 46,
+        "sx": 22,
+        "cx": 18,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 17,
+      "edges": 9,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 20,
+      "total_shots": 163840,
+      "search_wall_sec": 0.15802450600313023,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5243805637705524,
+        0.0
+      ],
+      "sampled_objective": 5.981393757974793,
+      "selected_ideal_objective": 5.971706541987215,
+      "exact_native_objective": 7.959019710298726,
+      "sampled_approximation_ratio": 0.7515239282841647,
+      "selected_ideal_approximation_ratio": 0.750306791458251,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 46,
+        "sx": 22,
+        "cx": 18,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 17,
+      "edges": 9,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 30,
+      "total_shots": 245760,
+      "search_wall_sec": 0.21852275702985935,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5243805637705524,
+        0.5235987755982989,
+        0.0
+      ],
+      "sampled_objective": 5.961507222424291,
+      "selected_ideal_objective": 5.971706541987217,
+      "exact_native_objective": 7.959019710298726,
+      "sampled_approximation_ratio": 0.7490253120884076,
+      "selected_ideal_approximation_ratio": 0.7503067914582512,
+      "compiled_depth": 39,
+      "compiled_two_qubit_depth": 20,
+      "compiled_gate_counts": {
+        "rz": 55,
+        "cx": 36,
+        "sx": 22,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 17,
+      "edges": 9,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 81,
+      "total_shots": 82944,
+      "search_wall_sec": 0.2622630459954962,
+      "selected_betas": [
+        0.39269908169872414
+      ],
+      "selected_gammas": [
+        0.5243805637705524
+      ],
+      "sampled_objective": 5.921743137902443,
+      "selected_ideal_objective": 5.971706541987215,
+      "exact_native_objective": 7.959019710298726,
+      "sampled_approximation_ratio": 0.7440292088031759,
+      "selected_ideal_approximation_ratio": 0.750306791458251,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 46,
+        "sx": 22,
+        "cx": 18,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 17,
+      "edges": 9,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 20,
+      "total_shots": 20480,
+      "search_wall_sec": 0.0828626460279338,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5243805637705524,
+        0.0
+      ],
+      "sampled_objective": 5.933732170380835,
+      "selected_ideal_objective": 5.971706541987215,
+      "exact_native_objective": 7.959019710298726,
+      "sampled_approximation_ratio": 0.7455355541716737,
+      "selected_ideal_approximation_ratio": 0.750306791458251,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 46,
+        "sx": 22,
+        "cx": 18,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 17,
+      "edges": 9,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 30,
+      "total_shots": 30720,
+      "search_wall_sec": 0.1591376980068162,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5243805637705524,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 5.875242893455108,
+      "selected_ideal_objective": 5.971706541987215,
+      "exact_native_objective": 7.959019710298726,
+      "sampled_approximation_ratio": 0.7381867500406771,
+      "selected_ideal_approximation_ratio": 0.750306791458251,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 46,
+        "sx": 22,
+        "cx": 18,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 17,
+      "edges": 9,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 81,
+      "total_shots": 663552,
+      "search_wall_sec": 0.4910919279791415,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        0.5243805637705524
+      ],
+      "sampled_objective": 5.8620775022023075,
+      "selected_ideal_objective": 5.971706541987217,
+      "exact_native_objective": 7.959019710298726,
+      "sampled_approximation_ratio": 0.7365326027044461,
+      "selected_ideal_approximation_ratio": 0.7503067914582512,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 46,
+        "sx": 22,
+        "cx": 18,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 17,
+      "edges": 9,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 20,
+      "total_shots": 163840,
+      "search_wall_sec": 0.15858377295080572,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5243805637705524,
+        0.0
+      ],
+      "sampled_objective": 5.872916391562363,
+      "selected_ideal_objective": 5.971706541987217,
+      "exact_native_objective": 7.959019710298726,
+      "sampled_approximation_ratio": 0.7378944399349823,
+      "selected_ideal_approximation_ratio": 0.7503067914582512,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 46,
+        "sx": 22,
+        "cx": 18,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 17,
+      "edges": 9,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 30,
+      "total_shots": 245760,
+      "search_wall_sec": 0.24379357599536888,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5243805637705524,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 5.876830120735275,
+      "selected_ideal_objective": 5.971706541987217,
+      "exact_native_objective": 7.959019710298726,
+      "sampled_approximation_ratio": 0.738386175012337,
+      "selected_ideal_approximation_ratio": 0.7503067914582512,
+      "compiled_depth": 27,
+      "compiled_two_qubit_depth": 12,
+      "compiled_gate_counts": {
+        "rz": 46,
+        "sx": 22,
+        "cx": 18,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 31,
+      "edges": 8,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 81,
+      "total_shots": 82944,
+      "search_wall_sec": 0.1476696399913635,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        0.5311518761997581
+      ],
+      "sampled_objective": 6.105530464391928,
+      "selected_ideal_objective": 6.087967335941513,
+      "exact_native_objective": 7.447156695407852,
+      "sampled_approximation_ratio": 0.8198471865318462,
+      "selected_ideal_approximation_ratio": 0.817488819551164,
+      "compiled_depth": 7,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 8,
+        "measure": 8,
+        "h": 7,
+        "rx": 7,
+        "u2": 1
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 31,
+      "edges": 8,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 20,
+      "total_shots": 20480,
+      "search_wall_sec": 0.04709720495156944,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        1.0471975511965976
+      ],
+      "sampled_objective": 6.119087673160388,
+      "selected_ideal_objective": 6.087967335941514,
+      "exact_native_objective": 7.447156695407852,
+      "sampled_approximation_ratio": 0.8216676408774382,
+      "selected_ideal_approximation_ratio": 0.8174888195511641,
+      "compiled_depth": 10,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 16,
+        "measure": 8,
+        "h": 7,
+        "rx": 7,
+        "u2": 1
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 31,
+      "edges": 8,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 30,
+      "total_shots": 30720,
+      "search_wall_sec": 0.10783135000383481,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        1.5707963267948966,
+        1.0471975511965976
+      ],
+      "sampled_objective": 6.13399590462109,
+      "selected_ideal_objective": 6.087967335941508,
+      "exact_native_objective": 7.447156695407852,
+      "sampled_approximation_ratio": 0.823669509788011,
+      "selected_ideal_approximation_ratio": 0.8174888195511635,
+      "compiled_depth": 13,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 24,
+        "measure": 8,
+        "h": 7,
+        "rx": 7,
+        "u2": 1
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 31,
+      "edges": 8,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 81,
+      "total_shots": 663552,
+      "search_wall_sec": 0.6488035270012915,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        0.5311518761997581
+      ],
+      "sampled_objective": 6.08311619206469,
+      "selected_ideal_objective": 6.087967335941513,
+      "exact_native_objective": 7.447156695407852,
+      "sampled_approximation_ratio": 0.8168374106879916,
+      "selected_ideal_approximation_ratio": 0.817488819551164,
+      "compiled_depth": 7,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 8,
+        "measure": 8,
+        "h": 7,
+        "rx": 7,
+        "u2": 1
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 31,
+      "edges": 8,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 20,
+      "total_shots": 163840,
+      "search_wall_sec": 0.2133398090081755,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        0.5235987755982989
+      ],
+      "sampled_objective": 6.098643526033533,
+      "selected_ideal_objective": 6.087967335941514,
+      "exact_native_objective": 7.447156695407852,
+      "sampled_approximation_ratio": 0.8189224123341122,
+      "selected_ideal_approximation_ratio": 0.8174888195511641,
+      "compiled_depth": 10,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 16,
+        "measure": 8,
+        "h": 7,
+        "rx": 7,
+        "u2": 1
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 31,
+      "edges": 8,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 30,
+      "total_shots": 245760,
+      "search_wall_sec": 0.332282666960964,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        0.0,
+        1.0471975511965976
+      ],
+      "sampled_objective": 6.098723067801144,
+      "selected_ideal_objective": 6.087967335941514,
+      "exact_native_objective": 7.447156695407852,
+      "sampled_approximation_ratio": 0.8189330931577962,
+      "selected_ideal_approximation_ratio": 0.8174888195511641,
+      "compiled_depth": 13,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 24,
+        "measure": 8,
+        "h": 7,
+        "rx": 7,
+        "u2": 1
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 31,
+      "edges": 8,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 81,
+      "total_shots": 82944,
+      "search_wall_sec": 0.24636820500018075,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        0.5311518761997581
+      ],
+      "sampled_objective": 6.081366419055179,
+      "selected_ideal_objective": 6.087967335941513,
+      "exact_native_objective": 7.447156695407852,
+      "sampled_approximation_ratio": 0.8166024521553492,
+      "selected_ideal_approximation_ratio": 0.817488819551164,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 45,
+        "sx": 22,
+        "cx": 16,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 31,
+      "edges": 8,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 20,
+      "total_shots": 20480,
+      "search_wall_sec": 0.08583506697323173,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        1.0471975511965976
+      ],
+      "sampled_objective": 6.113363135334433,
+      "selected_ideal_objective": 6.087967335941514,
+      "exact_native_objective": 7.447156695407852,
+      "sampled_approximation_ratio": 0.8208989531674716,
+      "selected_ideal_approximation_ratio": 0.8174888195511641,
+      "compiled_depth": 30,
+      "compiled_two_qubit_depth": 14,
+      "compiled_gate_counts": {
+        "rz": 53,
+        "cx": 32,
+        "sx": 22,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 31,
+      "edges": 8,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 30,
+      "total_shots": 30720,
+      "search_wall_sec": 0.1599687130365055,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        1.5707963267948966,
+        1.0471975511965976
+      ],
+      "sampled_objective": 6.088818308945701,
+      "selected_ideal_objective": 6.087967335941508,
+      "exact_native_objective": 7.447156695407852,
+      "sampled_approximation_ratio": 0.8176030877261191,
+      "selected_ideal_approximation_ratio": 0.8174888195511635,
+      "compiled_depth": 39,
+      "compiled_two_qubit_depth": 20,
+      "compiled_gate_counts": {
+        "rz": 61,
+        "cx": 48,
+        "sx": 22,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 31,
+      "edges": 8,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 81,
+      "total_shots": 663552,
+      "search_wall_sec": 0.49574449300416745,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        0.5311518761997581
+      ],
+      "sampled_objective": 6.074586704159916,
+      "selected_ideal_objective": 6.087967335941513,
+      "exact_native_objective": 7.447156695407852,
+      "sampled_approximation_ratio": 0.8156920758637581,
+      "selected_ideal_approximation_ratio": 0.817488819551164,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 45,
+        "sx": 22,
+        "cx": 16,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 31,
+      "edges": 8,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 20,
+      "total_shots": 163840,
+      "search_wall_sec": 0.1347057480015792,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        0.0
+      ],
+      "sampled_objective": 6.084214647533752,
+      "selected_ideal_objective": 6.087967335941513,
+      "exact_native_objective": 7.447156695407852,
+      "sampled_approximation_ratio": 0.8169849106687211,
+      "selected_ideal_approximation_ratio": 0.817488819551164,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 45,
+        "sx": 22,
+        "cx": 16,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 31,
+      "edges": 8,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 30,
+      "total_shots": 245760,
+      "search_wall_sec": 0.23930270597338676,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        0.0,
+        1.0471975511965976
+      ],
+      "sampled_objective": 6.078480737809066,
+      "selected_ideal_objective": 6.087967335941514,
+      "exact_native_objective": 7.447156695407852,
+      "sampled_approximation_ratio": 0.8162149645054798,
+      "selected_ideal_approximation_ratio": 0.8174888195511641,
+      "compiled_depth": 30,
+      "compiled_two_qubit_depth": 14,
+      "compiled_gate_counts": {
+        "rz": 53,
+        "cx": 32,
+        "sx": 22,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 31,
+      "edges": 8,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 81,
+      "total_shots": 82944,
+      "search_wall_sec": 0.25265318001038395,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        0.5311518761997581
+      ],
+      "sampled_objective": 5.973633587205371,
+      "selected_ideal_objective": 6.087967335941513,
+      "exact_native_objective": 7.447156695407852,
+      "sampled_approximation_ratio": 0.8021361482683584,
+      "selected_ideal_approximation_ratio": 0.817488819551164,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 45,
+        "sx": 22,
+        "cx": 16,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 31,
+      "edges": 8,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 20,
+      "total_shots": 20480,
+      "search_wall_sec": 0.07903320901095867,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        0.0
+      ],
+      "sampled_objective": 5.939117411379607,
+      "selected_ideal_objective": 6.087967335941513,
+      "exact_native_objective": 7.447156695407852,
+      "sampled_approximation_ratio": 0.7975013356495979,
+      "selected_ideal_approximation_ratio": 0.817488819551164,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 45,
+        "sx": 22,
+        "cx": 16,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 31,
+      "edges": 8,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 30,
+      "total_shots": 30720,
+      "search_wall_sec": 0.1278362459561322,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 6.000056303067631,
+      "selected_ideal_objective": 6.087967335941513,
+      "exact_native_objective": 7.447156695407852,
+      "sampled_approximation_ratio": 0.8056841756488691,
+      "selected_ideal_approximation_ratio": 0.817488819551164,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 45,
+        "sx": 22,
+        "cx": 16,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 31,
+      "edges": 8,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 81,
+      "total_shots": 663552,
+      "search_wall_sec": 0.48125000699656084,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        0.5311518761997581
+      ],
+      "sampled_objective": 5.964661503126186,
+      "selected_ideal_objective": 6.087967335941513,
+      "exact_native_objective": 7.447156695407852,
+      "sampled_approximation_ratio": 0.8009313818795005,
+      "selected_ideal_approximation_ratio": 0.817488819551164,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 45,
+        "sx": 22,
+        "cx": 16,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 31,
+      "edges": 8,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 20,
+      "total_shots": 163840,
+      "search_wall_sec": 0.15636806000838988,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        0.0
+      ],
+      "sampled_objective": 5.97709146252415,
+      "selected_ideal_objective": 6.087967335941513,
+      "exact_native_objective": 7.447156695407852,
+      "sampled_approximation_ratio": 0.8026004698155217,
+      "selected_ideal_approximation_ratio": 0.817488819551164,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 45,
+        "sx": 22,
+        "cx": 16,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 31,
+      "edges": 8,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 30,
+      "total_shots": 245760,
+      "search_wall_sec": 0.21008877400890924,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.5311518761997581,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 5.970614013540328,
+      "selected_ideal_objective": 6.087967335941513,
+      "exact_native_objective": 7.447156695407852,
+      "sampled_approximation_ratio": 0.8017306816200059,
+      "selected_ideal_approximation_ratio": 0.817488819551164,
+      "compiled_depth": 21,
+      "compiled_two_qubit_depth": 8,
+      "compiled_gate_counts": {
+        "rz": 45,
+        "sx": 22,
+        "cx": 16,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 43,
+      "edges": 9,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 81,
+      "total_shots": 82944,
+      "search_wall_sec": 0.15047373200650327,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        0.6274189265095993
+      ],
+      "sampled_objective": 5.017732062469098,
+      "selected_ideal_objective": 4.998435570247424,
+      "exact_native_objective": 6.612078846778222,
+      "sampled_approximation_ratio": 0.7588735976604423,
+      "selected_ideal_approximation_ratio": 0.7559552277092013,
+      "compiled_depth": 10,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 9,
+        "h": 8,
+        "rx": 8,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 43,
+      "edges": 9,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 20,
+      "total_shots": 20480,
+      "search_wall_sec": 0.04799728098441847,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.6274189265095993,
+        0.0
+      ],
+      "sampled_objective": 5.0567865910303835,
+      "selected_ideal_objective": 4.998435570247424,
+      "exact_native_objective": 6.612078846778222,
+      "sampled_approximation_ratio": 0.7647801407411128,
+      "selected_ideal_approximation_ratio": 0.7559552277092013,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 18,
+        "h": 8,
+        "rx": 8,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 43,
+      "edges": 9,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 30,
+      "total_shots": 30720,
+      "search_wall_sec": 0.10024940595030785,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.6274189265095993,
+        0.0,
+        0.5235987755982989
+      ],
+      "sampled_objective": 5.081130858426539,
+      "selected_ideal_objective": 4.998435570247426,
+      "exact_native_objective": 6.612078846778222,
+      "sampled_approximation_ratio": 0.7684619279611816,
+      "selected_ideal_approximation_ratio": 0.7559552277092015,
+      "compiled_depth": 20,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 27,
+        "h": 8,
+        "rx": 8,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 43,
+      "edges": 9,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 81,
+      "total_shots": 663552,
+      "search_wall_sec": 0.6559769560117275,
+      "selected_betas": [
+        0.39269908169872414
+      ],
+      "selected_gammas": [
+        0.6274189265095993
+      ],
+      "sampled_objective": 5.007852065812288,
+      "selected_ideal_objective": 4.9984355702474215,
+      "exact_native_objective": 6.612078846778222,
+      "sampled_approximation_ratio": 0.757379363110952,
+      "selected_ideal_approximation_ratio": 0.7559552277092009,
+      "compiled_depth": 10,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 9,
+        "h": 8,
+        "rx": 8,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 43,
+      "edges": 9,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 20,
+      "total_shots": 163840,
+      "search_wall_sec": 0.2052140579908155,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0
+      ],
+      "selected_gammas": [
+        0.6274189265095993,
+        0.0
+      ],
+      "sampled_objective": 5.017216341560479,
+      "selected_ideal_objective": 4.9984355702474215,
+      "exact_native_objective": 6.612078846778222,
+      "sampled_approximation_ratio": 0.7587956008729614,
+      "selected_ideal_approximation_ratio": 0.7559552277092009,
+      "compiled_depth": 15,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 18,
+        "h": 8,
+        "rx": 8,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 43,
+      "edges": 9,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.0,
+      "one_qubit_depolarizing_error": 0.0,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 30,
+      "total_shots": 245760,
+      "search_wall_sec": 0.25648570799967274,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.6274189265095993,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 5.0224228611308535,
+      "selected_ideal_objective": 4.9984355702474215,
+      "exact_native_objective": 6.612078846778222,
+      "sampled_approximation_ratio": 0.7595830263848201,
+      "selected_ideal_approximation_ratio": 0.7559552277092009,
+      "compiled_depth": 20,
+      "compiled_two_qubit_depth": 0,
+      "compiled_gate_counts": {
+        "rzz": 27,
+        "h": 8,
+        "rx": 8,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 43,
+      "edges": 9,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 81,
+      "total_shots": 82944,
+      "search_wall_sec": 0.26125030900584534,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        0.6274189265095993
+      ],
+      "sampled_objective": 5.012893823887946,
+      "selected_ideal_objective": 4.998435570247424,
+      "exact_native_objective": 6.612078846778222,
+      "sampled_approximation_ratio": 0.7581418703635864,
+      "selected_ideal_approximation_ratio": 0.7559552277092013,
+      "compiled_depth": 30,
+      "compiled_two_qubit_depth": 14,
+      "compiled_gate_counts": {
+        "rz": 49,
+        "sx": 24,
+        "cx": 18,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 43,
+      "edges": 9,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 20,
+      "total_shots": 20480,
+      "search_wall_sec": 0.08265849904273637,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.6274189265095993,
+        0.0
+      ],
+      "sampled_objective": 5.019219658329687,
+      "selected_ideal_objective": 4.998435570247424,
+      "exact_native_objective": 6.612078846778222,
+      "sampled_approximation_ratio": 0.75909857922752,
+      "selected_ideal_approximation_ratio": 0.7559552277092013,
+      "compiled_depth": 30,
+      "compiled_two_qubit_depth": 14,
+      "compiled_gate_counts": {
+        "rz": 49,
+        "sx": 24,
+        "cx": 18,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 43,
+      "edges": 9,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 30,
+      "total_shots": 30720,
+      "search_wall_sec": 0.16746720898663625,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.6274189265095993,
+        0.0,
+        0.5235987755982989
+      ],
+      "sampled_objective": 5.055437073974136,
+      "selected_ideal_objective": 4.998435570247426,
+      "exact_native_objective": 6.612078846778222,
+      "sampled_approximation_ratio": 0.7645760419867694,
+      "selected_ideal_approximation_ratio": 0.7559552277092015,
+      "compiled_depth": 45,
+      "compiled_two_qubit_depth": 24,
+      "compiled_gate_counts": {
+        "rz": 58,
+        "cx": 36,
+        "sx": 24,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 43,
+      "edges": 9,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 81,
+      "total_shots": 663552,
+      "search_wall_sec": 0.4918178789957892,
+      "selected_betas": [
+        0.39269908169872414
+      ],
+      "selected_gammas": [
+        0.6274189265095993
+      ],
+      "sampled_objective": 4.996567000924934,
+      "selected_ideal_objective": 4.9984355702474215,
+      "exact_native_objective": 6.612078846778222,
+      "sampled_approximation_ratio": 0.7556726283382937,
+      "selected_ideal_approximation_ratio": 0.7559552277092009,
+      "compiled_depth": 30,
+      "compiled_two_qubit_depth": 14,
+      "compiled_gate_counts": {
+        "rz": 49,
+        "sx": 24,
+        "cx": 18,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 43,
+      "edges": 9,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 20,
+      "total_shots": 163840,
+      "search_wall_sec": 0.17240208300063387,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0
+      ],
+      "selected_gammas": [
+        0.6274189265095993,
+        0.0
+      ],
+      "sampled_objective": 5.001618084905346,
+      "selected_ideal_objective": 4.9984355702474215,
+      "exact_native_objective": 6.612078846778222,
+      "sampled_approximation_ratio": 0.7564365460255237,
+      "selected_ideal_approximation_ratio": 0.7559552277092009,
+      "compiled_depth": 30,
+      "compiled_two_qubit_depth": 14,
+      "compiled_gate_counts": {
+        "rz": 49,
+        "sx": 24,
+        "cx": 18,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 43,
+      "edges": 9,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.001,
+      "one_qubit_depolarizing_error": 0.0001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 30,
+      "total_shots": 245760,
+      "search_wall_sec": 0.264701561012771,
+      "selected_betas": [
+        0.39269908169872414,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.6274189265095993,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 5.009528904632294,
+      "selected_ideal_objective": 4.9984355702474215,
+      "exact_native_objective": 6.612078846778222,
+      "sampled_approximation_ratio": 0.7576329654739703,
+      "selected_ideal_approximation_ratio": 0.7559552277092009,
+      "compiled_depth": 30,
+      "compiled_two_qubit_depth": 14,
+      "compiled_gate_counts": {
+        "rz": 49,
+        "sx": 24,
+        "cx": 18,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 43,
+      "edges": 9,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 81,
+      "total_shots": 82944,
+      "search_wall_sec": 0.26783253098255955,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        0.6274189265095993
+      ],
+      "sampled_objective": 4.9615438671985554,
+      "selected_ideal_objective": 4.998435570247424,
+      "exact_native_objective": 6.612078846778222,
+      "sampled_approximation_ratio": 0.7503757868247592,
+      "selected_ideal_approximation_ratio": 0.7559552277092013,
+      "compiled_depth": 30,
+      "compiled_two_qubit_depth": 14,
+      "compiled_gate_counts": {
+        "rz": 49,
+        "sx": 24,
+        "cx": 18,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 43,
+      "edges": 9,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 20,
+      "total_shots": 20480,
+      "search_wall_sec": 0.08926488700672053,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.6274189265095993,
+        0.0
+      ],
+      "sampled_objective": 4.954313676058043,
+      "selected_ideal_objective": 4.998435570247424,
+      "exact_native_objective": 6.612078846778222,
+      "sampled_approximation_ratio": 0.7492823045315112,
+      "selected_ideal_approximation_ratio": 0.7559552277092013,
+      "compiled_depth": 30,
+      "compiled_two_qubit_depth": 14,
+      "compiled_gate_counts": {
+        "rz": 49,
+        "sx": 24,
+        "cx": 18,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 43,
+      "edges": 9,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 1024,
+      "parameter_evaluations": 30,
+      "total_shots": 30720,
+      "search_wall_sec": 0.1550811890338082,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.6274189265095993,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 4.956485912471231,
+      "selected_ideal_objective": 4.998435570247424,
+      "exact_native_objective": 6.612078846778222,
+      "sampled_approximation_ratio": 0.7496108300169939,
+      "selected_ideal_approximation_ratio": 0.7559552277092013,
+      "compiled_depth": 30,
+      "compiled_two_qubit_depth": 14,
+      "compiled_gate_counts": {
+        "rz": 49,
+        "sx": 24,
+        "cx": 18,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 43,
+      "edges": 9,
+      "depth_p": 1,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 81,
+      "total_shots": 663552,
+      "search_wall_sec": 0.4993621890025679,
+      "selected_betas": [
+        -1.1780972450961724
+      ],
+      "selected_gammas": [
+        0.6274189265095993
+      ],
+      "sampled_objective": 4.925475838214408,
+      "selected_ideal_objective": 4.998435570247424,
+      "exact_native_objective": 6.612078846778222,
+      "sampled_approximation_ratio": 0.7449209170599013,
+      "selected_ideal_approximation_ratio": 0.7559552277092013,
+      "compiled_depth": 30,
+      "compiled_two_qubit_depth": 14,
+      "compiled_gate_counts": {
+        "rz": 49,
+        "sx": 24,
+        "cx": 18,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 43,
+      "edges": 9,
+      "depth_p": 2,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 20,
+      "total_shots": 163840,
+      "search_wall_sec": 0.1537972750084009,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0
+      ],
+      "selected_gammas": [
+        0.6274189265095993,
+        0.0
+      ],
+      "sampled_objective": 4.920127094911791,
+      "selected_ideal_objective": 4.998435570247424,
+      "exact_native_objective": 6.612078846778222,
+      "sampled_approximation_ratio": 0.7441119818631858,
+      "selected_ideal_approximation_ratio": 0.7559552277092013,
+      "compiled_depth": 30,
+      "compiled_two_qubit_depth": 14,
+      "compiled_gate_counts": {
+        "rz": 49,
+        "sx": 24,
+        "cx": 18,
+        "measure": 8
+      }
+    },
+    {
+      "qubits": 8,
+      "density": 0.3,
+      "seed": 43,
+      "edges": 9,
+      "depth_p": 3,
+      "two_qubit_depolarizing_error": 0.01,
+      "one_qubit_depolarizing_error": 0.001,
+      "shots_per_evaluation": 8192,
+      "parameter_evaluations": 30,
+      "total_shots": 245760,
+      "search_wall_sec": 0.25923265298479237,
+      "selected_betas": [
+        -1.1780972450961724,
+        0.0,
+        0.0
+      ],
+      "selected_gammas": [
+        0.6274189265095993,
+        0.0,
+        0.0
+      ],
+      "sampled_objective": 4.928545839438482,
+      "selected_ideal_objective": 4.998435570247424,
+      "exact_native_objective": 6.612078846778222,
+      "sampled_approximation_ratio": 0.7453852190283465,
+      "selected_ideal_approximation_ratio": 0.7559552277092013,
+      "compiled_depth": 30,
+      "compiled_two_qubit_depth": 14,
+      "compiled_gate_counts": {
+        "rz": 49,
+        "sx": 24,
+        "cx": 18,
+        "measure": 8
+      }
+    }
+  ]
+}

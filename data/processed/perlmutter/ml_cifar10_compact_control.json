@@ -1,0 +1,55 @@
+{
+  "schema": "qsup.ml-cifar10-compact-control.v1",
+  "scope": "same CIFAR-10 50k/10k split, 108-feature budget, and standardized ridge head as the fixed cuQuantum feature path; ResNet-18 remains the deployment-facing native frontier",
+  "dataset": "CIFAR-10",
+  "train_samples": 50000,
+  "test_samples": 10000,
+  "feature_budget": 108,
+  "ridge_regularization": 0.01,
+  "controls": [
+    {
+      "name": "Pool-108 + ridge",
+      "feature_count": 108,
+      "feature_transform_runtime_sec": 2.429217584984144,
+      "ridge_head_parameters": 1090,
+      "total_compute_runtime_sec": 2.451839226996526,
+      "transform": {
+        "method": "fixed_spatial_average_pool_6x6_rgb",
+        "trainable_feature_parameters": 0
+      },
+      "classifier": {
+        "model": "standardized_ridge_head",
+        "regularization": 0.01,
+        "runtime_sec": 0.022621642012381926,
+        "train_accuracy": 0.4091,
+        "test_accuracy": 0.4028
+      }
+    },
+    {
+      "name": "PCA-108 + ridge",
+      "feature_count": 108,
+      "feature_transform_runtime_sec": 2.8538580859894864,
+      "ridge_head_parameters": 1090,
+      "total_compute_runtime_sec": 2.8916124450042844,
+      "transform": {
+        "method": "pca_108_randomized_svd",
+        "trainable_feature_parameters": 331884,
+        "explained_variance_ratio_sum": 0.9057766066551032
+      },
+      "classifier": {
+        "model": "standardized_ridge_head",
+        "regularization": 0.01,
+        "runtime_sec": 0.037754359014797956,
+        "train_accuracy": 0.39682,
+        "test_accuracy": 0.3973
+      }
+    }
+  ],
+  "total_wall_sec": 58.81819659398752,
+  "software": {
+    "numpy": "2.4.4",
+    "scikit_learn": "1.9.0",
+    "python": "3.11.14"
+  },
+  "host": "nid005129"
+}

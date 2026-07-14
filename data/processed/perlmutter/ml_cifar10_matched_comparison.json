@@ -1,0 +1,45 @@
+{
+  "schema": "qsup.ml-cifar10-matched-comparison.v2",
+  "scope": "same CIFAR-10 50k/10k comparison: A100 ResNet-18 is the deployment frontier, while fixed Pool-108 and the 12-qubit QFeature path use the same 108-feature budget and standardized ridge head; not matched end-to-end QNN training",
+  "native_artifact": "data/processed/perlmutter/ml_cifar10_resnet18_proxy.json",
+  "quantum_artifact": "data/processed/perlmutter/ml_cifar10_cuquantum_feature_full_55821879.json",
+  "compact_control_artifact": "data/processed/perlmutter/ml_cifar10_compact_control.json",
+  "native": {
+    "model": "ResNet-18 CIFAR stem",
+    "compute_runtime_sec": 56.522469924995676,
+    "allocation_elapsed_sec": 79,
+    "test_accuracy": 0.8185,
+    "test_error": 0.1815
+  },
+  "quantum_feature": {
+    "model": "12-qubit three-layer feature circuit + standardized ridge head",
+    "compute_runtime_sec": 115.16250241798116,
+    "allocation_elapsed_sec": 196,
+    "test_accuracy": 0.336,
+    "test_error": 0.6639999999999999,
+    "qubits": 12,
+    "features": 108,
+    "one_qubit_gates": 4320000,
+    "two_qubit_gates": 2160000,
+    "direct_state_uploads": 60000,
+    "generic_state_preparation_executed": false,
+    "generic_state_preparation_rotation_upper": 245700000
+  },
+  "compact_control": {
+    "model": "Pool-108 + ridge",
+    "compute_runtime_sec": 2.451839226996526,
+    "test_accuracy": 0.4028,
+    "test_error": 0.5972,
+    "features": 108,
+    "ridge_head_parameters": 1090,
+    "trainable_feature_parameters": 0
+  },
+  "ratios": {
+    "quantum_to_native_compute_runtime": 2.0374640841208773,
+    "quantum_to_native_allocation_elapsed": 2.481012658227848,
+    "quantum_to_native_test_error": 3.658402203856749,
+    "accuracy_gap": 0.4825,
+    "quantum_to_compact_compute_runtime": 46.96984253696514,
+    "compact_minus_quantum_accuracy": 0.06679999999999997
+  }
+}

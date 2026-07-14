@@ -1,0 +1,5 @@
+JobID|JobName|State|ExitCode|Elapsed|Submit|Start|End|AllocTRES
+55554016|qsup-wk-4g|RUNNING|0:0|00:06:03|2026-07-05T22:39:45|2026-07-05T22:42:35|Unknown|billing=128,cpu=128,gres/gpu:a100=4,gres/gpu=4,mem=229902M,node=1
+55554016.batch|batch|RUNNING|0:0|00:06:03|2026-07-05T22:42:35|2026-07-05T22:42:35|Unknown|cpu=128,gres/gpu:a100=4,gres/gpu=4,mem=229902M,node=1
+55554016.extern|extern|RUNNING|0:0|00:06:03|2026-07-05T22:42:35|2026-07-05T22:42:35|Unknown|billing=128,cpu=128,gres/gpu:a100=4,gres/gpu=4,mem=229902M,node=1
+55554016.0|bash|COMPLETED|0:0|00:05:54|2026-07-05T22:42:44|2026-07-05T22:42:44|2026-07-05T22:48:38|cpu=128,gres/gpu:a100=4,gres/gpu=4,mem=229902M,node=1

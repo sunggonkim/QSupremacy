@@ -3,1510 +3,1009 @@
     {
       "checks": [
         {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/digits_expanded_55421321_55422142_summary.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/digits_expanded_55421321_55422142_summary.csv",
-          "passed": true
-        },
-        {
-          "actual": 160,
-          "expected": 160,
-          "label": "csv_cases",
-          "passed": true
-        },
-        {
-          "actual": 421.9348123448411,
-          "expected": 421.9348123448411,
-          "label": "kernel_required_speedup_median",
-          "passed": true,
-          "tolerance": 1e-06
-        },
-        {
-          "actual": 64.92810815562814,
-          "expected": 64.92810815562814,
-          "label": "qnn_vqc_required_speedup_median",
-          "passed": true,
-          "tolerance": 1e-06
-        }
-      ],
-      "claim": "160-case digits calibration with kernel and QNN/VQC thresholds",
-      "evidence": [
-        "data/processed/perlmutter/digits_expanded_55421321_55422142_summary.json",
-        "data/processed/perlmutter/digits_expanded_55421321_55422142_summary.csv"
-      ],
-      "name": "expanded_digits",
-      "passed": true
-    },
-    {
-      "checks": [
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_strongnative_32node_large128c0c127_20260704060230.txt",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_strongnative_64node_large256c0c255_20260705024742_summary.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_strongnative_64node_large256c0c255_20260705024742_summary.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_strongnative_64node_large256c0c255_20260705024742.txt",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_strongscale_64node_largefull_c0c255_20260705024742_summary.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_strongscale_64node_largefull_c0c255_20260705024742_summary.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_strongscale_64node_largefull_c0c255_20260705024742.txt",
+          "actual": "PASS",
+          "expected": "PASS",
+          "label": "statistics audit",
           "passed": true
         },
         {
           "actual": 3552,
           "expected": 3552,
-          "label": "summary_cases",
+          "label": "controlled records",
           "passed": true
         },
         {
-          "actual": 3552,
-          "expected": 3552,
-          "label": "csv_cases",
-          "passed": true
-        },
-        {
-          "actual": 7104,
-          "expected": 7104,
-          "label": "large_64_summary_cases",
-          "passed": true
-        },
-        {
-          "actual": 7104,
-          "expected": 7104,
-          "label": "large_64_csv_cases",
-          "passed": true
-        },
-        {
-          "actual": 3552,
-          "expected": 3552,
-          "label": "strong_64_summary_cases",
-          "passed": true
-        },
-        {
-          "actual": 3552,
-          "expected": 3552,
-          "label": "strong_64_csv_cases",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "accounting_completed",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "large_64_accounting_completed",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "strong_64_accounting_completed",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_55731013_scale_16n_64g_summary.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_55731013_scale_16n_64g_summary.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_55731013_scale_16n_64g.txt",
-          "passed": true
-        },
-        {
-          "actual": 1776,
-          "expected": 1776,
-          "label": "weak_16_summary_cases",
-          "passed": true
-        },
-        {
-          "actual": 1776,
-          "expected": 1776,
-          "label": "weak_16_csv_cases",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "weak_16_accounting_completed",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_55731014_scale_32n_128g_summary.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_55731014_scale_32n_128g_summary.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_55731014_scale_32n_128g.txt",
-          "passed": true
-        },
-        {
-          "actual": 3552,
-          "expected": 3552,
-          "label": "weak_32_summary_cases",
-          "passed": true
-        },
-        {
-          "actual": 3552,
-          "expected": 3552,
-          "label": "weak_32_csv_cases",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "weak_32_accounting_completed",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_55731015_scale_64n_256g_summary.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_55731015_scale_64n_256g_summary.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_55731015_scale_64n_256g.txt",
-          "passed": true
-        },
-        {
-          "actual": 7104,
-          "expected": 7104,
-          "label": "weak_64_summary_cases",
-          "passed": true
-        },
-        {
-          "actual": 7104,
-          "expected": 7104,
-          "label": "weak_64_csv_cases",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "weak_64_accounting_completed",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_direct32_strong_8n_32g_7104_20260711082639_summary.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_direct32_strong_8n_32g_7104_20260711082639_summary.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_direct32_strong_8n_32g_7104_20260711082639.txt",
-          "passed": true
-        },
-        {
-          "actual": 7104,
-          "expected": 7104,
-          "label": "strong_8_summary_cases",
-          "passed": true
-        },
-        {
-          "actual": 7104,
-          "expected": 7104,
-          "label": "strong_8_csv_cases",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "strong_8_accounting_completed",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_55731032_scale_16n_64g_summary.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_55731032_scale_16n_64g_summary.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_55731032_scale_16n_64g.txt",
-          "passed": true
-        },
-        {
-          "actual": 7104,
-          "expected": 7104,
-          "label": "strong_16_summary_cases",
-          "passed": true
-        },
-        {
-          "actual": 7104,
-          "expected": 7104,
-          "label": "strong_16_csv_cases",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "strong_16_accounting_completed",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_55731033_scale_32n_128g_summary.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_55731033_scale_32n_128g_summary.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_55731033_scale_32n_128g.txt",
-          "passed": true
-        },
-        {
-          "actual": 7104,
-          "expected": 7104,
-          "label": "strong_32_summary_cases",
-          "passed": true
-        },
-        {
-          "actual": 7104,
-          "expected": 7104,
-          "label": "strong_32_csv_cases",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "strong_32_accounting_completed",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_55731034_scale_64n_256g_summary.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_55731034_scale_64n_256g_summary.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_55731034_scale_64n_256g.txt",
-          "passed": true
-        },
-        {
-          "actual": 7104,
-          "expected": 7104,
-          "label": "strong_64_summary_cases",
-          "passed": true
-        },
-        {
-          "actual": 7104,
-          "expected": 7104,
-          "label": "strong_64_csv_cases",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "strong_64_accounting_completed",
-          "passed": true
-        },
-        {
-          "actual": 2048,
-          "expected": 2048,
-          "label": "ml_cases",
-          "passed": true
-        },
-        {
-          "actual": 224,
-          "expected": 224,
-          "label": "chemistry_cases",
-          "passed": true
-        },
-        {
-          "actual": 768,
-          "expected": 768,
-          "label": "optimization_cases",
-          "passed": true
-        },
-        {
-          "actual": 512,
-          "expected": 512,
-          "label": "simulation_cases",
-          "passed": true
-        }
-      ],
-      "claim": "3,552-case suite plus regular weak-scaling gates and direct 32/64/128/256-GPU fixed-work scaling anchors",
-      "evidence": [
-        "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.json",
-        "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv",
-        "data/raw/perlmutter/accounting/sacct_practical_suite_strongnative_32node_large128c0c127_20260704060230.txt"
-      ],
-      "name": "large_practical_suite",
-      "passed": true
-    },
-    {
-      "checks": [
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_taxonomy.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/workload_taxonomy.pdf",
-          "passed": true
-        },
-        {
-          "actual": 3552,
-          "expected": 3552,
-          "label": "taxonomy_cases",
-          "passed": true
-        },
-        {
-          "actual": 2048,
-          "expected": 2048,
-          "label": "ml_quality_limited",
-          "passed": true
-        },
-        {
-          "actual": 256,
-          "expected": 256,
-          "label": "simulation_speed_limited",
-          "passed": true
-        },
-        {
-          "actual": 48,
-          "expected": 48,
-          "label": "chemistry_speed_limited",
-          "passed": true
-        },
-        {
-          "actual": 176,
-          "expected": 176,
-          "label": "chemistry_quality_limited",
-          "passed": true
-        }
-      ],
-      "claim": "Bottleneck taxonomy over the 3,552-case strong-native suite",
-      "evidence": [
-        "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_taxonomy.json",
-        "paper/figures/workload_taxonomy.pdf"
-      ],
-      "name": "workload_taxonomy",
-      "passed": true
-    },
-    {
-      "checks": [
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_projection_scenarios.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/advantage_frontier.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/advantage_frontier_total.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/advantage_component_targets.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/advantage_frontier_chemistry.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/advantage_frontier_optimization.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/advantage_frontier_simulation.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/tolerance_sensitivity.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/ft_shot_sensitivity.pdf",
-          "passed": true
-        },
-        {
-          "actual": 3552,
-          "expected": 3552,
-          "label": "projection_cases",
-          "passed": true
-        },
-        {
-          "actual": 0.548828125,
-          "expected": 0.548828125,
-          "label": "simulation_1e4_90pct_recovery",
-          "passed": true,
-          "tolerance": 1e-06
-        },
-        {
-          "actual": 0.5714285714285714,
-          "expected": 0.5714285714285714,
-          "label": "chemistry_1e5_90pct_recovery",
-          "passed": true,
-          "tolerance": 1e-06
-        },
-        {
-          "actual": 3552,
-          "expected": 3552,
-          "label": "projection_scenario_cases",
-          "passed": true
-        },
-        {
-          "actual": 0.027233696161942635,
-          "expected": 0.027233696161942635,
-          "label": "projection_scenario_default_sim_ratio",
-          "passed": true,
-          "tolerance": 1e-06
-        },
-        {
-          "actual": 0.00146484375,
-          "expected": 0.00146484375,
-          "label": "projection_scenario_resource_ml_adv",
-          "passed": true,
-          "tolerance": 1e-06
-        }
-      ],
-      "claim": "Advantage fractions over projected speedup and quality-gap recovery",
-      "evidence": [
-        "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.json",
-        "data/processed/perlmutter/practical_suite_projection_scenarios.json",
-        "paper/figures/advantage_frontier.pdf",
-        "paper/figures/advantage_frontier_total.pdf",
-        "paper/figures/advantage_component_targets.pdf",
-        "paper/figures/advantage_frontier_chemistry.pdf",
-        "paper/figures/advantage_frontier_optimization.pdf",
-        "paper/figures/advantage_frontier_simulation.pdf",
-        "paper/figures/tolerance_sensitivity.pdf",
-        "paper/figures/ft_shot_sensitivity.pdf"
-      ],
-      "name": "advantage_projection",
-      "passed": true
-    },
-    {
-      "checks": [
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_chem_active_6q8q_1node_20260704233824_chemistry_coverage.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_chem_active_6q8q_1node_20260704233824.txt",
-          "passed": true
-        },
-        {
-          "actual": 104,
-          "expected": 104,
-          "label": "chemistry_cases",
-          "passed": true
-        },
-        {
-          "actual": 9,
-          "expected": 9,
-          "label": "chemistry_problem_count",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "accounting_completed",
-          "passed": true
-        }
-      ],
-      "claim": "104-case OpenFermion/PySCF chemistry coverage gate",
-      "evidence": [
-        "data/processed/perlmutter/practical_suite_chem_active_6q8q_1node_20260704233824_chemistry_coverage.json",
-        "data/raw/perlmutter/accounting/sacct_practical_suite_chem_active_6q8q_1node_20260704233824.txt"
-      ],
-      "name": "chemistry_active_space",
-      "passed": true
-    },
-    {
-      "checks": [
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/deployment_scale_proxy.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/deployment_scale_proxy.csv",
-          "passed": true
-        },
-        {
-          "actual": 4,
-          "expected": 4,
-          "label": "proxy_rows_json",
-          "passed": true
-        },
-        {
-          "actual": 4,
-          "expected": 4,
-          "label": "proxy_rows_csv",
-          "passed": true
-        },
-        {
-          "actual": {
-            "file": "paper/5.Discussion.tex",
-            "missing": []
-          },
-          "expected": {
-            "contains": [
-              "Deployment-Scale Proxy Boundary",
-              "Table~\\ref{tab:deployment-proxy}",
-              "20-node MaxCut QAOA stress case",
-              "12-qubit 16-step Heisenberg stress case",
-              "not a deployment-scale state-vector claim"
-            ]
-          },
-          "label": "discussion_deployment_proxy_boundary",
-          "passed": true
-        }
-      ],
-      "claim": "Deployment-scale proxy boundary keeps larger workload claims scoped to proxy records rather than full state-vector simulation",
-      "evidence": [
-        "data/processed/perlmutter/deployment_scale_proxy.json",
-        "data/processed/perlmutter/deployment_scale_proxy.csv",
-        "paper/5.Discussion.tex"
-      ],
-      "name": "deployment_proxy",
-      "passed": true
-    },
-    {
-      "checks": [
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/ml_strong_native_gate_latest.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/ml_strong_native_gate_latest.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/ml_strong_native_profile_latest.json",
-          "passed": true
-        },
-        {
-          "actual": 32,
-          "expected": 32,
-          "label": "ml_gate_cases",
-          "passed": true
-        },
-        {
-          "actual": 32,
-          "expected": 32,
-          "label": "ml_gate_csv_cases",
-          "passed": true
-        },
-        {
-          "actual": 8876.825399953243,
-          "expected": 8876.825399953243,
-          "label": "ml_previous_speedup_median",
-          "passed": true,
-          "tolerance": 1e-06
-        },
-        {
-          "actual": 8601.600644667848,
-          "expected": 8601.600644667848,
-          "label": "ml_combined_speedup_median",
-          "passed": true,
-          "tolerance": 1e-06
-        },
-        {
-          "actual": 49.267014250506136,
-          "expected": 49.267014250506136,
-          "label": "ml_production_speedup_median",
-          "passed": true,
-          "tolerance": 1e-06
-        },
-        {
-          "actual": 8,
-          "expected": 8,
-          "label": "ml_combined_torch_cnn_selected",
-          "passed": true
-        },
-        {
-          "actual": 25,
-          "expected": 25,
-          "label": "ml_production_cnn_selected",
+          "actual": 222,
+          "expected": 222,
+          "label": "structural configurations",
           "passed": true
         },
         {
           "actual": 16,
           "expected": 16,
-          "label": "nsys_tensor_kernel_rows",
-          "passed": true
-        },
-        {
-          "actual": 0.007982148769692417,
-          "expected": 0.007982148769692417,
-          "label": "nsys_gpu_kernel_fraction",
-          "passed": true,
-          "tolerance": 1e-06
-        },
-        {
-          "actual": 0.1520596245304038,
-          "expected": 0.1520596245304038,
-          "label": "nsys_tensor_kernel_fraction",
-          "passed": true,
-          "tolerance": 1e-06
-        },
-        {
-          "actual": false,
-          "expected": false,
-          "label": "ncu_counter_collection_succeeded",
-          "passed": true
-        },
-        {
-          "actual": 2.3,
-          "expected": 2.3,
-          "label": "dmon_sm_avg_pct",
-          "passed": true,
-          "tolerance": 1e-06
-        },
-        {
-          "actual": 33.0,
-          "expected": 33.0,
-          "label": "dmon_sm_max_pct",
-          "passed": true,
-          "tolerance": 1e-06
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 25430
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/ml_strong_native_gate.pdf",
+          "label": "seed values",
           "passed": true
         },
         {
           "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 29412
+            "chemistry": 224,
+            "ml": 2048,
+            "optimization": 768,
+            "simulation": 512
           },
           "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
+            "chemistry": 224,
+            "ml": 2048,
+            "optimization": 768,
+            "simulation": 512
           },
-          "label": "valid_pdf: paper/figures/ml_profile_breakdown.pdf",
+          "label": "family record counts",
           "passed": true
         },
         {
           "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 35722
+            "missing": []
           },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/ml_native_profile_combined.pdf",
+          "expected": [
+            "3,552 records",
+            "222 structural configurations",
+            "16 distinct seeds per configuration"
+          ],
+          "label": "paper distinguishes records, configurations, and seeds",
           "passed": true
         }
       ],
-      "claim": "Production-style ML native gate with PyTorch AMP CNN/MLP, XGBoost GPU-hist, and Nsight/dmon profiling evidence",
+      "claim": "The evidence set is 3,552 records from 222 structural configurations and 16 seeds per configuration.",
       "evidence": [
-        "data/processed/perlmutter/ml_strong_native_gate_latest.json",
-        "data/processed/perlmutter/ml_strong_native_gate_latest.csv",
-        "data/processed/perlmutter/ml_strong_native_profile_latest.json",
-        "paper/figures/ml_strong_native_gate.pdf",
-        "paper/figures/ml_profile_breakdown.pdf",
-        "paper/figures/ml_native_profile_combined.pdf"
+        "data/processed/perlmutter/statistical_robustness.json",
+        "paper/4.Evaluation.tex"
       ],
-      "name": "ml_strong_native_gate",
+      "name": "controlled_corpus",
       "passed": true
     },
     {
       "checks": [
         {
-          "actual": [
-            "paper/figures/advantage_component_targets.pdf",
-            "paper/figures/advantage_frontier.pdf",
-            "paper/figures/advantage_frontier_chemistry.pdf",
-            "paper/figures/advantage_frontier_optimization.pdf",
-            "paper/figures/advantage_frontier_simulation.pdf",
-            "paper/figures/advantage_frontier_total.pdf",
-            "paper/figures/architecture_focus_matrix.pdf",
-            "paper/figures/design_overview.pdf",
-            "paper/figures/design_projection_flow.pdf",
-            "paper/figures/digits_legend.pdf",
-            "paper/figures/digits_quality_speedup.pdf",
-            "paper/figures/digits_required_speedup.pdf",
-            "paper/figures/evaluation_evidence_flow.pdf",
-            "paper/figures/ft_shot_sensitivity.pdf",
-            "paper/figures/intro_comparison_paths.pdf",
-            "paper/figures/intro_threshold_summary.pdf",
-            "paper/figures/ml_native_profile_combined.pdf",
-            "paper/figures/ml_profile_breakdown.pdf",
-            "paper/figures/ml_strong_native_gate.pdf",
-            "paper/figures/practical_suite_cdf.pdf",
-            "paper/figures/practical_suite_legend.pdf",
-            "paper/figures/practical_suite_summary.pdf",
-            "paper/figures/projected_time_decomposition.pdf",
-            "paper/figures/quality_bottleneck_fraction.pdf",
-            "paper/figures/quality_gap_summary.pdf",
-            "paper/figures/strong_native_comparison.pdf",
-            "paper/figures/strong_native_legend.pdf",
-            "paper/figures/strong_native_quality_shift.pdf",
-            "paper/figures/strong_scaling.pdf",
-            "paper/figures/strong_scaling_speedup.pdf",
-            "paper/figures/threshold_tail_pressure.pdf",
-            "paper/figures/tolerance_sensitivity.pdf",
-            "paper/figures/weak_scaling.pdf",
-            "paper/figures/weak_scaling_efficiency.pdf",
-            "paper/figures/workload_growth_quality.pdf",
-            "paper/figures/workload_growth_time.pdf",
-            "paper/figures/workload_taxonomy.pdf"
-          ],
+          "actual": "PASS",
+          "expected": "PASS",
+          "label": "quality audit",
+          "passed": true
+        },
+        {
+          "actual": "PASS_WITH_RESTRICTED_ELIGIBLE_SUBSET",
+          "expected": "PASS_WITH_RESTRICTED_ELIGIBLE_SUBSET",
+          "label": "quality completion gate",
+          "passed": true
+        },
+        {
+          "actual": {
+            "chemistry": 48,
+            "ml": 0,
+            "optimization": 0,
+            "simulation": 256
+          },
+          "expected": {
+            "chemistry": 48,
+            "ml": 0,
+            "optimization": 0,
+            "simulation": 256
+          },
+          "label": "default noiseless pass counts",
+          "passed": true
+        },
+        {
+          "actual": {
+            "chemistry": 0,
+            "ml": 0,
+            "optimization": 0,
+            "simulation": 12
+          },
+          "expected": {
+            "chemistry": 0,
+            "ml": 0,
+            "optimization": 0,
+            "simulation": 12
+          },
+          "label": "default hardware eligible counts",
+          "passed": true
+        },
+        {
+          "actual": 10656,
+          "expected": 10656,
+          "label": "quality target CSV rows",
+          "passed": true
+        },
+        {
+          "actual": {
+            "missing": []
+          },
           "expected": [
-            "paper/figures/advantage_component_targets.pdf",
-            "paper/figures/advantage_frontier.pdf",
-            "paper/figures/advantage_frontier_chemistry.pdf",
-            "paper/figures/advantage_frontier_optimization.pdf",
-            "paper/figures/advantage_frontier_simulation.pdf",
-            "paper/figures/advantage_frontier_total.pdf",
-            "paper/figures/architecture_focus_matrix.pdf",
-            "paper/figures/design_overview.pdf",
-            "paper/figures/design_projection_flow.pdf",
-            "paper/figures/digits_legend.pdf",
-            "paper/figures/digits_quality_speedup.pdf",
-            "paper/figures/digits_required_speedup.pdf",
-            "paper/figures/evaluation_evidence_flow.pdf",
-            "paper/figures/ft_shot_sensitivity.pdf",
-            "paper/figures/intro_comparison_paths.pdf",
-            "paper/figures/intro_threshold_summary.pdf",
-            "paper/figures/ml_native_profile_combined.pdf",
-            "paper/figures/ml_profile_breakdown.pdf",
-            "paper/figures/ml_strong_native_gate.pdf",
-            "paper/figures/practical_suite_cdf.pdf",
-            "paper/figures/practical_suite_legend.pdf",
-            "paper/figures/practical_suite_summary.pdf",
-            "paper/figures/projected_time_decomposition.pdf",
-            "paper/figures/quality_bottleneck_fraction.pdf",
-            "paper/figures/quality_gap_summary.pdf",
-            "paper/figures/strong_native_comparison.pdf",
-            "paper/figures/strong_native_legend.pdf",
-            "paper/figures/strong_native_quality_shift.pdf",
-            "paper/figures/strong_scaling.pdf",
-            "paper/figures/strong_scaling_speedup.pdf",
-            "paper/figures/threshold_tail_pressure.pdf",
-            "paper/figures/tolerance_sensitivity.pdf",
-            "paper/figures/weak_scaling.pdf",
-            "paper/figures/weak_scaling_efficiency.pdf",
-            "paper/figures/workload_growth_quality.pdf",
-            "paper/figures/workload_growth_time.pdf",
-            "paper/figures/workload_taxonomy.pdf"
+            "Only the 12 Sim. cases",
+            "same-record, full-loop, quality-qualified hardware targets",
+            "explicitly conditional lower bounds"
           ],
-          "label": "all_generated_figures_audited",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 28623
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/intro_comparison_paths.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 28264
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/intro_threshold_summary.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 35583
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/design_overview.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 85803
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/design_projection_flow.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 12622
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/evaluation_evidence_flow.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 23644
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/weak_scaling.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 23178
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/weak_scaling_efficiency.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 43071
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/strong_scaling.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 31678
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/strong_scaling_speedup.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 29798
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/workload_growth_time.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 13865
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/workload_growth_quality.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 23403
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/strong_native_comparison.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 8335
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/strong_native_legend.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 11590
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/strong_native_quality_shift.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 25430
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/ml_strong_native_gate.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 29412
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/ml_profile_breakdown.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 35722
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/ml_native_profile_combined.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 24199
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/threshold_tail_pressure.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 12896
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/projected_time_decomposition.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 24535
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/architecture_focus_matrix.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 8322
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/practical_suite_legend.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 59351
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/practical_suite_summary.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 23996
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/practical_suite_cdf.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 18794
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/quality_gap_summary.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 24379
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/quality_bottleneck_fraction.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 7400
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/digits_legend.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 22157
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/digits_required_speedup.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 25939
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/digits_quality_speedup.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 29391
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/advantage_frontier.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 28260
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/advantage_frontier_total.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 26395
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/advantage_component_targets.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 9993
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/advantage_frontier_chemistry.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 28830
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/advantage_frontier_optimization.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 27727
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/advantage_frontier_simulation.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 29108
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/tolerance_sensitivity.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 34804
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/ft_shot_sensitivity.pdf",
-          "passed": true
-        },
-        {
-          "actual": {
-            "exists": true,
-            "header": "%PDF",
-            "size_bytes": 28553
-          },
-          "expected": {
-            "exists": true,
-            "header": "%PDF",
-            "min_bytes": 1024
-          },
-          "label": "valid_pdf: paper/figures/workload_taxonomy.pdf",
+          "label": "paper enforces quality-first eligibility",
           "passed": true
         }
       ],
-      "claim": "Generated paper figures are valid PDF artifacts for performance, scaling, quality, and frontier analysis",
+      "claim": "Only 12 same-record full-loop Sim cases at 10,000 shots receive application-level hardware targets.",
       "evidence": [
-        "paper/figures/intro_comparison_paths.pdf",
-        "paper/figures/intro_threshold_summary.pdf",
+        "data/processed/perlmutter/quality_qualified_target_map.json",
+        "paper/4.Evaluation.tex"
+      ],
+      "name": "quality_qualified_targets",
+      "passed": true
+    },
+    {
+      "checks": [
+        {
+          "actual": "PASS",
+          "expected": "PASS",
+          "label": "finite-shot audit",
+          "passed": true
+        },
+        {
+          "actual": 68,
+          "expected": 68,
+          "label": "selected source records",
+          "passed": true
+        },
+        {
+          "actual": [
+            1000,
+            10000,
+            100000
+          ],
+          "expected": [
+            1000,
+            10000,
+            100000
+          ],
+          "label": "shot grid",
+          "passed": true
+        },
+        {
+          "actual": 12,
+          "expected": 12,
+          "label": "replicates per case",
+          "passed": true
+        },
+        {
+          "actual": 204,
+          "expected": 204,
+          "label": "shot-level records",
+          "passed": true
+        },
+        {
+          "actual": {
+            "chemistry": 8,
+            "ml": 4,
+            "optimization": 24,
+            "simulation": 32
+          },
+          "expected": {
+            "chemistry": 8,
+            "ml": 4,
+            "optimization": 24,
+            "simulation": 32
+          },
+          "label": "10k selected records by family",
+          "passed": true
+        },
+        {
+          "actual": {
+            "chemistry": 0,
+            "ml": 0,
+            "optimization": 0,
+            "simulation": 12
+          },
+          "expected": {
+            "chemistry": 0,
+            "ml": 0,
+            "optimization": 0,
+            "simulation": 12
+          },
+          "label": "10k full-loop eligible records",
+          "passed": true
+        }
+      ],
+      "claim": "The direct finite-shot closure covers 68 selected records, three shot counts, and 12 replicates.",
+      "evidence": [
+        "data/processed/perlmutter/finite_shot_quality_sensitivity.json"
+      ],
+      "name": "finite_shot_quality",
+      "passed": true
+    },
+    {
+      "checks": [
+        {
+          "actual": "PASS",
+          "expected": "PASS",
+          "label": "schedule audit",
+          "passed": true
+        },
+        {
+          "actual": 3552,
+          "expected": 3552,
+          "label": "schedule records",
+          "passed": true
+        },
+        {
+          "actual": 224,
+          "expected": 224,
+          "label": "compiled waves",
+          "passed": true
+        },
+        {
+          "actual": 3040,
+          "expected": 3040,
+          "label": "source-audited static loops",
+          "passed": true
+        },
+        {
+          "actual": 512,
+          "expected": 512,
+          "label": "single-circuit schedules",
+          "passed": true
+        },
+        {
+          "actual": 0,
+          "expected": 0,
+          "label": "aggregate fallbacks",
+          "passed": true
+        },
+        {
+          "actual": 0,
+          "expected": 0,
+          "label": "adaptive traces claimed",
+          "passed": true
+        },
+        {
+          "actual": {
+            "chemistry": {
+              "by_mode": {
+                "aggregate_ready": "factory",
+                "group_wave_ready": "factory",
+                "serial_evaluation": "factory"
+              },
+              "scope": "conditional execution only; quality eligibility is audited separately",
+              "stable": true
+            },
+            "ml": {
+              "by_mode": {
+                "aggregate_ready": "factory",
+                "group_wave_ready": "factory",
+                "serial_evaluation": "factory"
+              },
+              "scope": "conditional execution only; quality eligibility is audited separately",
+              "stable": true
+            },
+            "optimization": {
+              "by_mode": {
+                "aggregate_ready": "factory",
+                "group_wave_ready": "factory",
+                "serial_evaluation": "factory"
+              },
+              "scope": "conditional execution only; quality eligibility is audited separately",
+              "stable": true
+            },
+            "simulation": {
+              "by_mode": {
+                "aggregate_ready": "factory",
+                "group_wave_ready": "factory",
+                "serial_evaluation": "factory"
+              },
+              "scope": "conditional execution only; quality eligibility is audited separately",
+              "stable": true
+            }
+          },
+          "expected": "all stable",
+          "label": "first target stable across implemented schedule modes",
+          "passed": true
+        }
+      ],
+      "claim": "Every retained record uses compiled or source-audited static scheduling, with no aggregate fallback.",
+      "evidence": [
+        "data/processed/perlmutter/dependency_schedule_coverage.json"
+      ],
+      "name": "dependency_schedule",
+      "passed": true
+    },
+    {
+      "checks": [
+        {
+          "actual": "PASS",
+          "expected": "PASS",
+          "label": "statistics audit",
+          "passed": true
+        },
+        {
+          "actual": 2000,
+          "expected": 2000,
+          "label": "bootstrap samples",
+          "passed": true
+        },
+        {
+          "actual": "structural workload configuration",
+          "expected": "structural workload configuration",
+          "label": "outer resampling unit",
+          "passed": true
+        },
+        {
+          "actual": "distinct seed within selected configuration",
+          "expected": "distinct seed within selected configuration",
+          "label": "inner resampling unit",
+          "passed": true
+        },
+        {
+          "actual": 0,
+          "expected": 0,
+          "label": "same-instance repeats in main corpus",
+          "passed": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "label": "repeat timing gate",
+          "passed": true
+        }
+      ],
+      "claim": "Hierarchical confidence intervals use configurations and seeds as distinct resampling levels.",
+      "evidence": [
+        "data/processed/perlmutter/statistical_robustness.json"
+      ],
+      "name": "statistical_robustness",
+      "passed": true
+    },
+    {
+      "checks": [
+        {
+          "actual": "PASS",
+          "expected": "PASS",
+          "label": "FT audit",
+          "passed": true
+        },
+        {
+          "actual": 12,
+          "expected": 12,
+          "label": "FT eligible records",
+          "passed": true
+        },
+        {
+          "actual": "PASS",
+          "expected": "PASS",
+          "label": "QDK distance cross-check",
+          "passed": true
+        },
+        {
+          "actual": 100,
+          "expected": 100,
+          "label": "QDK matched records",
+          "passed": true
+        },
+        {
+          "actual": [
+            13,
+            15
+          ],
+          "expected": [
+            13,
+            15
+          ],
+          "label": "eligible distances",
+          "passed": true
+        },
+        {
+          "actual": [
+            79,
+            82,
+            83,
+            86
+          ],
+          "expected": [
+            79,
+            82,
+            83,
+            86
+          ],
+          "label": "eligible T-state values",
+          "passed": true
+        },
+        {
+          "actual": [
+            39350.640625,
+            42960.953125
+          ],
+          "expected": [
+            39351,
+            42961
+          ],
+          "label": "eligible crossover rounds to manuscript range",
+          "passed": true
+        },
+        {
+          "actual": [
+            2518441,
+            2749501
+          ],
+          "expected": [
+            2518441,
+            2749501
+          ],
+          "label": "factory count rounds to manuscript range",
+          "passed": true
+        },
+        {
+          "actual": 0.5,
+          "expected": 0.5,
+          "label": "nonfactory parity fraction",
+          "passed": true
+        },
+        {
+          "actual": {
+            "missing": []
+          },
+          "expected": [
+            "distance 13--15",
+            "79--86 T states",
+            "39,351--42,961",
+            "2.52--2.75 million factories"
+          ],
+          "label": "paper reports reliability-qualified range",
+          "passed": true
+        }
+      ],
+      "claim": "Case-level reliability yields distance 13--15, 79--86 T states, and a 39,351--42,961x eligible crossover.",
+      "evidence": [
+        "data/processed/perlmutter/ft_reliability_and_space_budget.json"
+      ],
+      "name": "ft_reliability",
+      "passed": true
+    },
+    {
+      "checks": [
+        {
+          "actual": "PASS",
+          "expected": "PASS",
+          "label": "joint DSE audit",
+          "passed": true
+        },
+        {
+          "actual": 384,
+          "expected": 384,
+          "label": "joint scenarios",
+          "passed": true
+        },
+        {
+          "actual": 26112,
+          "expected": 26112,
+          "label": "joint case points",
+          "passed": true
+        },
+        {
+          "actual": false,
+          "expected": false,
+          "label": "probabilities not assigned",
+          "passed": true
+        },
+        {
+          "actual": "factory_supply",
+          "expected": "factory_supply",
+          "label": "stable first target",
+          "passed": true
+        },
+        {
+          "actual": 6,
+          "expected": 6,
+          "label": "stable low-supply cells",
+          "passed": true
+        },
+        {
+          "actual": {
+            "missing": []
+          },
+          "expected": [
+            "384 deterministic",
+            "1--100$\\times$",
+            "shot parallelism",
+            "logical-cycle"
+          ],
+          "label": "paper reports conditional phase transitions",
+          "passed": true
+        }
+      ],
+      "claim": "The joint sweep covers 384 scenarios and 26,112 evaluated case points with a stable factory-first low-supply region.",
+      "evidence": [
+        "data/processed/perlmutter/joint_bottleneck_phase_map.json"
+      ],
+      "name": "joint_dse",
+      "passed": true
+    },
+    {
+      "checks": [
+        {
+          "actual": "PASS",
+          "expected": "PASS",
+          "label": "replacement audit",
+          "passed": true
+        },
+        {
+          "actual": 12,
+          "expected": 12,
+          "label": "eligible replacement records",
+          "passed": true
+        },
+        {
+          "actual": 0,
+          "expected": 0,
+          "label": "point-SAM area wins",
+          "passed": true
+        },
+        {
+          "actual": 6,
+          "expected": 6,
+          "label": "baseline parity records",
+          "passed": true
+        },
+        {
+          "actual": 0,
+          "expected": 0,
+          "label": "lower movement parity records",
+          "passed": true
+        },
+        {
+          "actual": 0,
+          "expected": 0,
+          "label": "upper movement parity records",
+          "passed": true
+        },
+        {
+          "actual": 3.115300958273699,
+          "expected": 3.115300958273699,
+          "label": "lower movement median inflation",
+          "passed": true
+        },
+        {
+          "actual": 5.230601916547398,
+          "expected": 5.230601916547398,
+          "label": "upper movement median inflation",
+          "passed": true
+        },
+        {
+          "actual": 0,
+          "expected": 0,
+          "label": "standalone area wins",
+          "passed": true
+        },
+        {
+          "actual": {
+            "missing": []
+          },
+          "expected": [
+            "without borrowing its reported mean speedup",
+            "3.12$\\times$",
+            "5.23$\\times$",
+            "BOSS-compatible graph envelope"
+          ],
+          "label": "paper uses matched-event replacement",
+          "passed": true
+        }
+      ],
+      "claim": "Matched LSQCA movement removes all six baseline parity cases; BOSS remains a conditional graph envelope.",
+      "evidence": [
+        "data/processed/perlmutter/component_replacement_case_studies.json",
+        "data/processed/perlmutter/joint_bottleneck_phase_map.json"
+      ],
+      "name": "component_replacement",
+      "passed": true
+    },
+    {
+      "checks": [
+        {
+          "actual": "qsup.ml-cifar10-matched-comparison.v2",
+          "expected": "qsup.ml-cifar10-matched-comparison.v2",
+          "label": "CIFAR schema",
+          "passed": true
+        },
+        {
+          "actual": 0.8185,
+          "expected": 0.8185,
+          "label": "native accuracy",
+          "passed": true
+        },
+        {
+          "actual": 0.336,
+          "expected": 0.336,
+          "label": "quantum-feature accuracy",
+          "passed": true
+        },
+        {
+          "actual": 2.0374640841208773,
+          "expected": 2.0374640841208773,
+          "label": "runtime ratio",
+          "passed": true
+        },
+        {
+          "actual": 108,
+          "expected": 108,
+          "label": "same feature budget",
+          "passed": true
+        },
+        {
+          "actual": {
+            "missing": []
+          },
+          "expected": [
+            "same CIFAR-10 50,000/10,000 split",
+            "115.16~s",
+            "33.60\\%",
+            "Pool-108"
+          ],
+          "label": "paper reports matched CIFAR contract",
+          "passed": true
+        }
+      ],
+      "claim": "CIFAR-10 compares native and circuit features on the same split and exposes a deployment-facing native frontier.",
+      "evidence": [
+        "data/processed/perlmutter/ml_cifar10_matched_comparison.json"
+      ],
+      "name": "ml_cifar_matched_feature_proxy",
+      "passed": true
+    },
+    {
+      "checks": [
+        {
+          "actual": {
+            "missing": []
+          },
+          "expected": [
+            "Their performance is not future-QPU performance",
+            "Neither qubit count nor GPU count is treated as advantage evidence"
+          ],
+          "label": "HPC evidence is not QPU timing",
+          "passed": true
+        },
+        {
+          "actual": {
+            "missing": []
+          },
+          "expected": [
+            "Controlled 4--20-qubit records",
+            "Distributed 36--40-qubit state-vector runs establish HPC simulation capacity only"
+          ],
+          "label": "controlled and deployment evidence remain separate",
+          "passed": true
+        },
+        {
+          "actual": {
+            "missing": []
+          },
+          "expected": [
+            "uncompiled adaptive traces remain explicit unsupported flags",
+            "not presented as the full BOSS compiler"
+          ],
+          "label": "adaptive and factory-internal gaps are explicit",
+          "passed": true
+        },
+        {
+          "actual": {
+            "missing": []
+          },
+          "expected": [
+            "do not have a matched large-space VQE-quality closure",
+            "are not assigned a physical target"
+          ],
+          "label": "large Chem lacks matched VQE closure",
+          "passed": true
+        },
+        {
+          "actual": {
+            "missing": []
+          },
+          "expected": [
+            "no adaptive or mid-circuit dependency trace is claimed",
+            "measured QPU output"
+          ],
+          "label": "PPA and real-QPU limits are explicit",
+          "passed": true
+        },
+        {
+          "actual": {
+            "present": []
+          },
+          "expected": [],
+          "label": "no unsupported priority or novelty claims",
+          "passed": true
+        }
+      ],
+      "claim": "The manuscript states the controlled-scale, projection, adaptive-trace, large-Chem, PPA, and novelty boundaries at the point of use.",
+      "evidence": [
+        "paper/1.Introduction.tex",
+        "paper/2.Background.tex",
+        "paper/3.Design.tex",
+        "paper/4.Evaluation.tex",
+        "paper/5.Discussion.tex"
+      ],
+      "name": "review_risk_traceability",
+      "passed": true
+    },
+    {
+      "checks": [
+        {
+          "actual": {
+            "bytes": 16021,
+            "exists": true
+          },
+          "expected": {
+            "exists": true,
+            "min_bytes": 1024
+          },
+          "label": "file: paper/figures/chem_vqe_quality_cost_proxy.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "bytes": 27865,
+            "exists": true
+          },
+          "expected": {
+            "exists": true,
+            "min_bytes": 1024
+          },
+          "label": "file: paper/figures/design_overview.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "bytes": 16420,
+            "exists": true
+          },
+          "expected": {
+            "exists": true,
+            "min_bytes": 1024
+          },
+          "label": "file: paper/figures/ft_contract_parameters.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "bytes": 15581,
+            "exists": true
+          },
+          "expected": {
+            "exists": true,
+            "min_bytes": 1024
+          },
+          "label": "file: paper/figures/ft_reliability_target.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "bytes": 20449,
+            "exists": true
+          },
+          "expected": {
+            "exists": true,
+            "min_bytes": 1024
+          },
+          "label": "file: paper/figures/intro_threshold_summary.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "bytes": 21237,
+            "exists": true
+          },
+          "expected": {
+            "exists": true,
+            "min_bytes": 1024
+          },
+          "label": "file: paper/figures/joint_bottleneck_phase_map.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "bytes": 22417,
+            "exists": true
+          },
+          "expected": {
+            "exists": true,
+            "min_bytes": 1024
+          },
+          "label": "file: paper/figures/lsqca_matched_replacement.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "bytes": 13176,
+            "exists": true
+          },
+          "expected": {
+            "exists": true,
+            "min_bytes": 1024
+          },
+          "label": "file: paper/figures/ml_cifar10_accuracy.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "bytes": 10240,
+            "exists": true
+          },
+          "expected": {
+            "exists": true,
+            "min_bytes": 1024
+          },
+          "label": "file: paper/figures/ml_cifar10_legend.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "bytes": 11916,
+            "exists": true
+          },
+          "expected": {
+            "exists": true,
+            "min_bytes": 1024
+          },
+          "label": "file: paper/figures/ml_cifar10_runtime.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "bytes": 21066,
+            "exists": true
+          },
+          "expected": {
+            "exists": true,
+            "min_bytes": 1024
+          },
+          "label": "file: paper/figures/opt_qaoa_quality_proxy.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "bytes": 14391,
+            "exists": true
+          },
+          "expected": {
+            "exists": true,
+            "min_bytes": 1024
+          },
+          "label": "file: paper/figures/quality_finite_shot_gate.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "bytes": 14101,
+            "exists": true
+          },
+          "expected": {
+            "exists": true,
+            "min_bytes": 1024
+          },
+          "label": "file: paper/figures/quality_noiseless_gate.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "bytes": 18087,
+            "exists": true
+          },
+          "expected": {
+            "exists": true,
+            "min_bytes": 1024
+          },
+          "label": "file: paper/figures/resource_removal_ceiling.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "bytes": 16291,
+            "exists": true
+          },
+          "expected": {
+            "exists": true,
+            "min_bytes": 1024
+          },
+          "label": "file: paper/figures/roofline_deadline_shrink.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "bytes": 25600,
+            "exists": true
+          },
+          "expected": {
+            "exists": true,
+            "min_bytes": 1024
+          },
+          "label": "file: paper/figures/sim_hardware_modality_pivot.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "bytes": 15716,
+            "exists": true
+          },
+          "expected": {
+            "exists": true,
+            "min_bytes": 1024
+          },
+          "label": "file: paper/figures/sim_quality_cost_proxy.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "bytes": 15248,
+            "exists": true
+          },
+          "expected": {
+            "exists": true,
+            "min_bytes": 1024
+          },
+          "label": "file: paper/figures/strong_scaling.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "bytes": 16204,
+            "exists": true
+          },
+          "expected": {
+            "exists": true,
+            "min_bytes": 1024
+          },
+          "label": "file: paper/figures/trace_aware_logical_lower_bound.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "bytes": 14102,
+            "exists": true
+          },
+          "expected": {
+            "exists": true,
+            "min_bytes": 1024
+          },
+          "label": "file: paper/figures/weak_scaling.pdf",
+          "passed": true
+        },
+        {
+          "actual": 20,
+          "expected": 20,
+          "label": "included figure count",
+          "passed": true
+        },
+        {
+          "actual": 1,
+          "expected": 1,
+          "label": "only one two-column figure",
+          "passed": true
+        }
+      ],
+      "claim": "All and only manuscript-included PDF figures are present and nonempty.",
+      "evidence": [
+        "paper/figures/chem_vqe_quality_cost_proxy.pdf",
         "paper/figures/design_overview.pdf",
-        "paper/figures/design_projection_flow.pdf",
-        "paper/figures/evaluation_evidence_flow.pdf",
-        "paper/figures/weak_scaling.pdf",
-        "paper/figures/weak_scaling_efficiency.pdf",
+        "paper/figures/ft_contract_parameters.pdf",
+        "paper/figures/ft_reliability_target.pdf",
+        "paper/figures/intro_threshold_summary.pdf",
+        "paper/figures/joint_bottleneck_phase_map.pdf",
+        "paper/figures/lsqca_matched_replacement.pdf",
+        "paper/figures/ml_cifar10_accuracy.pdf",
+        "paper/figures/ml_cifar10_legend.pdf",
+        "paper/figures/ml_cifar10_runtime.pdf",
+        "paper/figures/opt_qaoa_quality_proxy.pdf",
+        "paper/figures/quality_finite_shot_gate.pdf",
+        "paper/figures/quality_noiseless_gate.pdf",
+        "paper/figures/resource_removal_ceiling.pdf",
+        "paper/figures/roofline_deadline_shrink.pdf",
+        "paper/figures/sim_hardware_modality_pivot.pdf",
+        "paper/figures/sim_quality_cost_proxy.pdf",
         "paper/figures/strong_scaling.pdf",
-        "paper/figures/strong_scaling_speedup.pdf",
-        "paper/figures/workload_growth_time.pdf",
-        "paper/figures/workload_growth_quality.pdf",
-        "paper/figures/strong_native_comparison.pdf",
-        "paper/figures/strong_native_legend.pdf",
-        "paper/figures/strong_native_quality_shift.pdf",
-        "paper/figures/ml_strong_native_gate.pdf",
-        "paper/figures/ml_profile_breakdown.pdf",
-        "paper/figures/ml_native_profile_combined.pdf",
-        "paper/figures/threshold_tail_pressure.pdf",
-        "paper/figures/projected_time_decomposition.pdf",
-        "paper/figures/architecture_focus_matrix.pdf",
-        "paper/figures/practical_suite_legend.pdf",
-        "paper/figures/practical_suite_summary.pdf",
-        "paper/figures/practical_suite_cdf.pdf",
-        "paper/figures/quality_gap_summary.pdf",
-        "paper/figures/quality_bottleneck_fraction.pdf",
-        "paper/figures/digits_legend.pdf",
-        "paper/figures/digits_required_speedup.pdf",
-        "paper/figures/digits_quality_speedup.pdf",
-        "paper/figures/advantage_frontier.pdf",
-        "paper/figures/advantage_frontier_total.pdf",
-        "paper/figures/advantage_component_targets.pdf",
-        "paper/figures/advantage_frontier_chemistry.pdf",
-        "paper/figures/advantage_frontier_optimization.pdf",
-        "paper/figures/advantage_frontier_simulation.pdf",
-        "paper/figures/tolerance_sensitivity.pdf",
-        "paper/figures/ft_shot_sensitivity.pdf",
-        "paper/figures/workload_taxonomy.pdf"
+        "paper/figures/trace_aware_logical_lower_bound.pdf",
+        "paper/figures/weak_scaling.pdf"
       ],
       "name": "paper_figures",
       "passed": true
@@ -1515,100 +1014,48 @@
       "checks": [
         {
           "actual": {
-            "file": "paper/0.Main.tex",
             "missing": []
           },
-          "expected": {
-            "contains": [
-              "160 cases",
-              "421.9$\\times$",
-              "64.9$\\times$",
-              "3,552-case",
-              "3,071.0$\\times$",
-              "287,045.6$\\times$",
-              "104-case OpenFermion/PySCF"
-            ]
-          },
-          "label": "abstract_core_numbers",
+          "expected": [
+            "only 12 simulation records",
+            "39,351--42,961",
+            "384 deterministic joint-design scenarios"
+          ],
+          "label": "abstract reports the restricted quality contract",
           "passed": true
         },
         {
           "actual": {
-            "file": "paper/4.Evaluation.tex",
             "missing": []
           },
-          "expected": {
-            "contains": [
-              "mean required speedup is 79,291$\\times$",
-              "median is 15,164$\\times$",
-              "3,726.4$\\times$ for ML",
-              "42,491.4$\\times$ for Chem",
-              "287,045.6$\\times$ for Opt.",
-              "3,071.0$\\times$ for Sim.",
-              "7,104-case larger-workload gate",
-              "completes 7,104 cases in 576 seconds",
-              "28 minutes 33 seconds",
-              "6 minutes 58 seconds",
-              "32-case production-style ML native gate",
-              "8,601.6$\\times$",
-              "49.3$\\times$",
-              "Tensor-family kernels account for 15.2\\%",
-              "GPU kernels occupy 0.8\\%"
-            ]
-          },
-          "label": "practical_suite_prose_numbers",
+          "expected": [
+            "12 same-record, full-loop Sim. targets",
+            "matched LSQCA movement",
+            "not a simulator speedup"
+          ],
+          "label": "conclusion preserves conditional scope",
           "passed": true
         },
         {
           "actual": {
-            "file": "paper/4.Evaluation.tex",
-            "missing": []
+            "present": []
           },
-          "expected": {
-            "contains": [
-              "Sim. reaches 55\\% of cases at $10^4\\times$",
-              "Chem reaches 57\\% at $10^5\\times$",
-              "Opt. remains at 23\\% even at $10^6\\times$"
-            ]
-          },
-          "label": "projection_numbers",
+          "expected": [],
+          "label": "obsolete physical headlines removed",
           "passed": true
         },
         {
-          "actual": {
-            "file": "paper/5.Discussion.tex",
-            "missing": []
-          },
-          "expected": {
-            "contains": [
-              "maximum quantum-runtime CV is 0.0400"
-            ]
-          },
-          "label": "repeat_numbers",
-          "passed": true
-        },
-        {
-          "actual": {
-            "file": "paper/6.Conclusion.tex",
-            "missing": []
-          },
-          "expected": {
-            "contains": [
-              "421.9$\\times$",
-              "64.9$\\times$",
-              "3,552 cases",
-              "54.9\\% of Sim. cases",
-              "57.1\\% of Chem cases"
-            ]
-          },
-          "label": "conclusion_frontier_numbers",
+          "actual": 94,
+          "expected": ">=30",
+          "label": "manuscript has quality-first vocabulary",
           "passed": true
         }
       ],
-      "claim": "Manuscript text contains the canonical evidence-backed numeric claims",
+      "claim": "The abstract, evaluation, discussion, and conclusion use the authoritative P0 scope and values.",
       "evidence": [
         "paper/0.Main.tex",
         "paper/4.Evaluation.tex",
+        "paper/5.Discussion.tex",
         "paper/6.Conclusion.tex"
       ],
       "name": "manuscript_claims",
@@ -1617,1283 +1064,116 @@
     {
       "checks": [
         {
+          "actual": "qarchgauge.strong-accept-manifest.v1",
+          "expected": "qarchgauge.strong-accept-manifest.v1",
+          "label": "manifest schema",
+          "passed": true
+        },
+        {
+          "actual": 13,
+          "expected": 13,
+          "label": "manifest package count",
+          "passed": true
+        },
+        {
           "actual": true,
           "expected": true,
-          "label": "exists: data/processed/perlmutter/paper_artifact_manifest.json",
+          "label": "manifest pass",
           "passed": true
         },
         {
           "actual": [
-            "advantage_projection",
-            "chemistry_active_space",
-            "deployment_proxy",
-            "expanded_digits",
-            "large_practical_suite",
-            "ml_strong_native_gate",
+            "controlled_corpus",
+            "quality_qualified_targets",
+            "finite_shot_quality",
+            "dependency_schedules",
+            "statistical_robustness",
+            "ft_reliability",
+            "joint_dse",
+            "matched_mechanism_replacement",
+            "deployment_native_frontier",
+            "physical_modality_replacement",
+            "low_gpu_timeout_censoring",
             "paper_figures",
-            "repeat_timing",
-            "submission_package",
-            "workload_taxonomy"
+            "submission_package"
           ],
-          "expected": [
-            "advantage_projection",
-            "chemistry_active_space",
-            "deployment_proxy",
-            "expanded_digits",
-            "large_practical_suite",
-            "ml_strong_native_gate",
-            "paper_figures",
-            "repeat_timing",
-            "submission_package",
-            "workload_taxonomy"
-          ],
-          "label": "manifest_claim_ids",
+          "expected": "unique",
+          "label": "manifest package IDs unique",
           "passed": true
         },
         {
-          "actual": true,
+          "actual": "resolved",
           "expected": true,
-          "label": "exists: jobs/perlmutter/digits_supremacy_expanded_1gpu_shared.sbatch",
+          "label": "all manifest files resolve",
           "passed": true
         },
         {
-          "actual": true,
-          "expected": true,
-          "label": "exists: jobs/perlmutter/digits_supremacy_expanded_4gpu_debug_remaining.sbatch",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: benchmarks/digits/run_digits_supremacy.py",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: scripts/materialize_sklearn_digits.py",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: scripts/generate_paper_figures.py",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/digits_expanded_55421321_55422142_summary.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/digits_expanded_55421321_55422142_summary.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/digits_legend.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/digits_required_speedup.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/digits_quality_speedup.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "audit_item_declared: expanded_digits",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: jobs/perlmutter/practical_suite_scale_nodes.sbatch",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: jobs/perlmutter/practical_suite_sweep_1gpu_shared.sbatch",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: benchmarks/workloads/run_practical_suite.py",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: benchmarks/workloads/summarize_practical_results.py",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: scripts/generate_paper_figures.py",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_strongnative_32node_large128c0c127_20260704060230.txt",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_strongnative_64node_large256c0c255_20260705024742_summary.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_strongnative_64node_large256c0c255_20260705024742_summary.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_strongnative_64node_large256c0c255_20260705024742.txt",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_strongscale_64node_largefull_c0c255_20260705024742_summary.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_strongscale_64node_largefull_c0c255_20260705024742_summary.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_strongscale_64node_largefull_c0c255_20260705024742.txt",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_55731013_scale_16n_64g_summary.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_55731013_scale_16n_64g_summary.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_55731013_scale_16n_64g.txt",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_55731014_scale_32n_128g_summary.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_55731014_scale_32n_128g_summary.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_55731014_scale_32n_128g.txt",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_55731015_scale_64n_256g_summary.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_55731015_scale_64n_256g_summary.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_55731015_scale_64n_256g.txt",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_direct32_strong_8n_32g_7104_20260711082639_summary.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_direct32_strong_8n_32g_7104_20260711082639_summary.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_direct32_strong_8n_32g_7104_20260711082639.txt",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_55731032_scale_16n_64g_summary.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_55731032_scale_16n_64g_summary.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_55731032_scale_16n_64g.txt",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_55731033_scale_32n_128g_summary.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_55731033_scale_32n_128g_summary.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_55731033_scale_32n_128g.txt",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_55731034_scale_64n_256g_summary.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_55731034_scale_64n_256g_summary.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_55731034_scale_64n_256g.txt",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/practical_suite_legend.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/practical_suite_summary.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/practical_suite_cdf.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/quality_gap_summary.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/quality_bottleneck_fraction.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/projected_time_decomposition.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/workload_growth_time.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/workload_growth_quality.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/weak_scaling.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/weak_scaling_efficiency.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/strong_scaling.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/strong_scaling_speedup.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/strong_native_comparison.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/strong_native_legend.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/strong_native_quality_shift.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/threshold_tail_pressure.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "audit_item_declared: large_practical_suite",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: jobs/perlmutter/ml_strong_native_profile_1gpu_debug.sbatch",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: benchmarks/workloads/run_ml_strong_native_gate.py",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: scripts/summarize_ml_native_profiles.py",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: scripts/generate_paper_figures.py",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/ml_strong_native_gate_latest.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/ml_strong_native_gate_latest.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/ml_strong_native_profile_latest.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/raw/perlmutter/ml_strong_native/ml_strong_native_manual_20260706034227.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/raw/perlmutter/profiles/ml_strong_native_manual_20260706034227_nsys_kernel_cuda_gpu_kern_sum.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/raw/perlmutter/profiles/ml_strong_native_manual_20260706034227_ncu.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/raw/perlmutter/profiles/ml_strong_native_manual_20260706034227_dmon.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/ml_strong_native_gate.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/ml_profile_breakdown.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/ml_native_profile_combined.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "audit_item_declared: ml_strong_native_gate",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: jobs/perlmutter/practical_suite_scale_nodes.sbatch",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: scripts/summarize_advantage_projection.py",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: scripts/summarize_projection_scenarios.py",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: scripts/generate_paper_figures.py",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_projection_scenarios.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/advantage_frontier.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/advantage_frontier_total.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/advantage_component_targets.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/advantage_frontier_chemistry.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/advantage_frontier_optimization.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/advantage_frontier_simulation.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/tolerance_sensitivity.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/ft_shot_sensitivity.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "audit_item_declared: advantage_projection",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: jobs/perlmutter/practical_suite_scale_nodes.sbatch",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: scripts/generate_workload_taxonomy.py",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: scripts/generate_paper_figures.py",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_taxonomy.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/quality_gap_summary.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/quality_bottleneck_fraction.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/workload_taxonomy.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "audit_item_declared: workload_taxonomy",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: jobs/perlmutter/practical_suite_scale_nodes.sbatch",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: jobs/perlmutter/practical_suite_sweep_1gpu_shared.sbatch",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: scripts/generate_openfermion_pyscf_hamiltonians.py",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: benchmarks/workloads/run_practical_suite.py",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: scripts/summarize_chemistry_coverage.py",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_chem_active_6q8q_1node_20260704233824_chemistry_coverage.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/raw/perlmutter/accounting/sacct_practical_suite_chem_active_6q8q_1node_20260704233824.txt",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/practical_suite_summary.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "audit_item_declared: chemistry_active_space",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: jobs/perlmutter/practical_suite_review_stress_1node.sbatch",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: scripts/audit_paper_evidence.py",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/deployment_scale_proxy.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/deployment_scale_proxy.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_55782694_review_stress_1n_4g_summary.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/practical_suite_55782694_review_stress_1n_4g_summary.csv",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "audit_item_declared: deployment_proxy",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: jobs/perlmutter/practical_suite_repeat_timing_gate.sbatch",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: benchmarks/workloads/run_practical_suite.py",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: scripts/summarize_repeat_timing_gate.py",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/repeat_timing_gate_latest.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/repeat_timing_gate_55516885_repeat_timing_gate.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "audit_item_declared: repeat_timing",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: scripts/generate_paper_figures.py",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/intro_comparison_paths.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/intro_threshold_summary.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/design_overview.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/design_projection_flow.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/evaluation_evidence_flow.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/weak_scaling.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/weak_scaling_efficiency.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/strong_scaling.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/strong_scaling_speedup.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/workload_growth_time.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/workload_growth_quality.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/strong_native_comparison.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/strong_native_legend.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/strong_native_quality_shift.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/ml_strong_native_gate.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/ml_profile_breakdown.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/ml_native_profile_combined.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/threshold_tail_pressure.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/projected_time_decomposition.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/architecture_focus_matrix.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/practical_suite_legend.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/practical_suite_summary.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/practical_suite_cdf.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/quality_gap_summary.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/quality_bottleneck_fraction.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/digits_legend.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/digits_required_speedup.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/digits_quality_speedup.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/advantage_frontier.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/advantage_frontier_total.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/advantage_component_targets.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/advantage_frontier_chemistry.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/advantage_frontier_optimization.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/advantage_frontier_simulation.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/tolerance_sensitivity.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/ft_shot_sensitivity.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/workload_taxonomy.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/intro_comparison_paths.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/intro_threshold_summary.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/design_overview.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/design_projection_flow.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/evaluation_evidence_flow.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/weak_scaling.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/weak_scaling_efficiency.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/strong_scaling.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/strong_scaling_speedup.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/workload_growth_time.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/workload_growth_quality.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/strong_native_comparison.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/strong_native_legend.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/strong_native_quality_shift.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/ml_strong_native_gate.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/ml_profile_breakdown.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/ml_native_profile_combined.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/threshold_tail_pressure.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/projected_time_decomposition.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/architecture_focus_matrix.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/practical_suite_legend.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/practical_suite_summary.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/practical_suite_cdf.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/quality_gap_summary.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/quality_bottleneck_fraction.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/digits_legend.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/digits_required_speedup.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/digits_quality_speedup.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/advantage_frontier.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/advantage_frontier_total.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/advantage_component_targets.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/advantage_frontier_chemistry.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/advantage_frontier_optimization.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/advantage_frontier_simulation.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/tolerance_sensitivity.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/ft_shot_sensitivity.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/figures/workload_taxonomy.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "audit_item_declared: paper_figures",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/Makefile",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: scripts/audit_paper_evidence.py",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: scripts/audit_submission_readiness.py",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: paper/main.pdf",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/paper_evidence_audit.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "exists: data/processed/perlmutter/submission_readiness_audit.json",
-          "passed": true
-        },
-        {
-          "actual": true,
-          "expected": true,
-          "label": "audit_item_declared: submission_package",
+          "actual": [],
+          "expected": [],
+          "label": "all manifest SHA-256 fingerprints match",
           "passed": true
         }
       ],
-      "claim": "Machine-readable manifest connects paper claims to jobs, scripts, artifacts, figures, and audit items",
+      "claim": "The generated manifest resolves every P0 evidence package to concrete files.",
       "evidence": [
         "data/processed/perlmutter/paper_artifact_manifest.json"
       ],
       "name": "artifact_manifest",
       "passed": true
+    },
+    {
+      "checks": [
+        {
+          "actual": {
+            "bytes": 586660,
+            "exists": true
+          },
+          "expected": {
+            "exists": true,
+            "min_bytes": 100000
+          },
+          "label": "file: paper/main.pdf",
+          "passed": true
+        },
+        {
+          "actual": {
+            "bytes": 30919,
+            "exists": true
+          },
+          "expected": {
+            "exists": true,
+            "min_bytes": 10000
+          },
+          "label": "file: paper/references.bib",
+          "passed": true
+        },
+        {
+          "actual": {
+            "missing": []
+          },
+          "expected": [
+            "audit_quality_qualified_targets.py",
+            "audit_dependency_schedule_coverage.py",
+            "audit_statistical_robustness.py",
+            "audit_ft_reliability_budget.py",
+            "audit_joint_dse.py",
+            "make -B -C paper audit"
+          ],
+          "label": "README reproduces all P0 audits",
+          "passed": true
+        }
+      ],
+      "claim": "The paper source, bibliography, PDF, README, and audit entry points are present.",
+      "evidence": [
+        "paper/main.pdf",
+        "README.md",
+        "paper/references.bib"
+      ],
+      "name": "submission_package",
+      "passed": true
     }
   ],
-  "passed": true
+  "passed": true,
+  "schema": "qarchgauge.paper-evidence-audit.v2",
+  "scope": "P0-A through P0-F evidence-to-paper contract"
 }

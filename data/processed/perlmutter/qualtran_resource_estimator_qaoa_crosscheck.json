@@ -1,0 +1,92 @@
+{
+  "schema": "qsup.qualtran-resource-estimator-crosscheck.v1",
+  "scope": "independent Qualtran surface-code cross-check using the matched logical rotation/measurement counts reported by QDK; one p=1 QAOA circuit per size, excluding shots, parameter search, host/control tails, and application-quality recovery",
+  "source_artifact": "data/processed/perlmutter/qdk_resource_estimator_qaoa_crosscheck.json",
+  "software": {
+    "qualtran": "0.7.0"
+  },
+  "data_code_distance": 25,
+  "records": [
+    {
+      "nodes_qubits": 50,
+      "density": 0.1,
+      "seed": 17,
+      "edges": 115,
+      "logical_input": {
+        "qubits": 50,
+        "t_count": 0,
+        "rotation_count": 165,
+        "rotation_depth": 24,
+        "measurement_count": 50
+      },
+      "models": {
+        "gidney_fowler_d25": {
+          "duration_hr": 5.082277777777778e-05,
+          "duration_sec": 0.182962,
+          "physical_qubits": 241654,
+          "estimated_failure_probability": 1.8564804560000016e-07
+        },
+        "beverland_d25": {
+          "duration_hr": 4.5375e-05,
+          "duration_sec": 0.16335,
+          "physical_qubits": 94896,
+          "estimated_failure_probability": 0.036905957092198016
+        }
+      }
+    },
+    {
+      "nodes_qubits": 75,
+      "density": 0.1,
+      "seed": 17,
+      "edges": 274,
+      "logical_input": {
+        "qubits": 75,
+        "t_count": 0,
+        "rotation_count": 349,
+        "rotation_depth": 42,
+        "measurement_count": 75
+      },
+      "models": {
+        "gidney_fowler_d25": {
+          "duration_hr": 0.00010746666666666667,
+          "duration_sec": 0.38688,
+          "physical_qubits": 289154,
+          "estimated_failure_probability": 5.395741440000004e-07
+        },
+        "beverland_d25": {
+          "duration_hr": 9.5975e-05,
+          "duration_sec": 0.34551,
+          "physical_qubits": 142396,
+          "estimated_failure_probability": 0.07806178953202944
+        }
+      }
+    },
+    {
+      "nodes_qubits": 100,
+      "density": 0.1,
+      "seed": 17,
+      "edges": 492,
+      "logical_input": {
+        "qubits": 100,
+        "t_count": 0,
+        "rotation_count": 592,
+        "rotation_depth": 51,
+        "measurement_count": 100
+      },
+      "models": {
+        "gidney_fowler_d25": {
+          "duration_hr": 0.00018224555555555557,
+          "duration_sec": 0.656084,
+          "physical_qubits": 335404,
+          "estimated_failure_probability": 1.157778899200001e-06
+        },
+        "beverland_d25": {
+          "duration_hr": 0.0001628,
+          "duration_sec": 0.58608,
+          "physical_qubits": 188646,
+          "estimated_failure_probability": 0.13241443026746197
+        }
+      }
+    }
+  ]
+}

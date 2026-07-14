@@ -1,128 +1,83 @@
 \section{Design}
 
-\noindent\emph{Overview of the Framework.}
-\SystemName answers one architecture task: identify which future quantum-system resource must improve before a quantum-circuit application can beat the native HPC application for the same task. It is not a new simulator, compiler, or quantum algorithm. It is a measurement and projection framework that keeps the input, quality target, native baseline, quantum-circuit path, and hardware projection in one auditable record.
-
-\subsection{Overall Procedure}
-
-The design has three duties. First, it makes the comparison fair: the native path and quantum-circuit path use the same input and quality metric. Second, it explains the gap: the record separates native time, circuit execution, repeated evaluations, measurement, quality loss, and simulator overhead. Third, it converts the gap into a hardware target: a case should say whether the next useful improvement is faster logical operations, more shots, lower decoder/control latency, better algorithmic quality, or a different accelerator style.
-
-These duties define the evaluation order. The controlled record supports the setup gate: every result must say which native application and which circuit application are being compared. The workload fields support the threshold gate: ML, Chem, Opt., and Sim. are not averaged into one number because each creates a different runtime-quality boundary. The Slurm and GPU fields support the scaling gate: scale-out results measure evidence-generation throughput and expose serial orchestration, not a fictional multi-GPU QPU. The quality fields support the application-quality gate: a noiseless circuit path can still lose through encoding, ansatz, Trotter, search, or native-baseline strength. The projection fields support the architecture gate: the final output is an amount, a location, and an actionability test for future hardware.
+\SystemName turns an application comparison into a replaceable architecture contract. Its invariant is that the input, native deadline, quality target, application loop, and provenance do not change when one QPU mechanism is improved.
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.94\linewidth]{figures/design_overview.pdf}
-    \Description{Block diagram of QArchGauge with shared workload control, native path execution, quantum path execution, measurement logging, architecture projection, and design guidance outputs.}
-    \caption{Architecture and procedure of \SystemName.}
+    \includegraphics[width=0.96\linewidth]{figures/design_overview.pdf}
+    \Description{Quality-first QArchGauge flow. A shared native and circuit record enters a finite-shot quality gate. Failing records receive an algorithm-first result and conditional physical timing; passing records receive a reliability contract and joint first-to-next architecture inversion.}
+    \caption{\SystemName's two-stage inversion. Solid arrows carry eligible evidence; the dashed branch retains quality failures as conditional lower bounds. Only a passing record receives a physical diagnosis: the best next upgrade, its required magnitude, the following bottleneck, and the maximum gain from each resource.}
     \label{fig:design-overview}
 \end{figure}
 
-\subsection{Shared Workload Control}
+\subsection{Paired Evidence Record}
 
-\noindent\emph{Shared input and quality.}
-Figure~\ref{fig:design-overview} shows the core rule. Before any path runs, \SystemName creates one configuration record with workload family, instance ID, random seed, feature transform, native candidates, circuit family, circuit depth, shot setting, and quality metric. The native path and the quantum path receive this same record and append path-specific measurements. This prevents a quantum circuit from being compared against a different split, feature dimension, molecule, graph, Hamiltonian, or quality target.
+Figure~\ref{fig:design-overview} begins with one concrete input/configuration tuple. Both paths receive the same instance identifier, seed, transform, molecule, graph, or Hamiltonian and the same natural-unit quality metric. The native path records every valid non-quantum candidate and selects the fastest one satisfying the native target. The circuit path records construction and simulator time, output quality, gates, measurement groups, shots, evaluations, and raw source. Failed candidates remain visible. A stronger native method simply replaces $T_{\mathrm{native}}$ and moves the boundary outward.
 
-\noindent\emph{Config Record.}
-The configuration record is the smallest unit that can support an advantage claim. It stores the instance identity, native-candidate list, quantum-circuit family, quality metric, tolerance, random seed, software versions, and Slurm/GPU context when available. The record is append-only: native execution adds native time and quality, quantum execution adds simulator time, circuit metadata, and quality, and projection adds future-hardware parameters. This structure makes later figure generation auditable because every plotted point can be traced back to one same-input record.
+Simulator execution recovers the exact circuit output and demand; it never sets a QPU latency. The record explicitly tags values as measured, modeled, stress, or future replacement. Controlled records provide paired quality; deployment-facing records strengthen only the native frontier; large distributed simulations provide only capacity evidence. This typing prevents a 256-GPU throughput result or a 40-qubit state-vector run from becoming a QPU-scaling claim.
 
-\subsection{Application Path Execution}
+Records are not independent applications. A structural configuration fixes the workload instance and algorithm settings; seeds and repeat rounds provide independent observations within that configuration. Family statistics therefore report records, structural configurations, independent instance/seed pairs, and repeats separately. Claim intervals use a hierarchical bootstrap over independent instance/seed units, and workload-balanced aggregates give each family equal weight.
 
-\noindent\emph{Native path.}
-The native path executes the best implemented non-quantum method for the same input. ML includes classical classifiers plus a production-native gate with PyTorch AMP CNN/MLP and XGBoost GPU-hist on the same measured digits configurations. Chemistry uses dense exact and sparse Lanczos/eigensolver baselines, optimization uses exact enumeration when feasible plus greedy, local-search, and annealing baselines, and simulation uses dense exact and sparse Krylov-style evolution. The threshold always uses the fastest valid native candidate that reaches the best native quality within a small tolerance, so adding a stronger native method can only make the quantum target harder.
+\subsection{Quality-First Physical Inversion}
 
-\noindent\emph{Quantum-circuit paths.}
-The quantum kernel path maps the same features into a quantum feature map, simulates the circuit evaluations needed to build a kernel matrix, and passes that matrix to a classical classifier. The QNN/VQC path maps the same features into a parameterized circuit and updates trainable parameters through a classical optimizer. \SystemName records application-level cost for both paths: encoding, circuit construction, \cuQuantum execution, kernel or observable extraction, optimizer iterations, classifier-head time, accuracy, gate counts, shots, and repeated evaluations. This makes repeated kernel entries and hybrid optimizer loops visible instead of reporting only one fast circuit kernel.
+The first stage partitions every record into a noiseless quality pass, a failure with a measured recovery ladder, or a failure without recovery evidence. Representative records are then replayed at $10^3$, $10^4$, and $10^5$ shots with independent sampling seeds. Hardware-target eligibility requires at least 0.9 replicate pass probability, a measurement contract for the same record, and coverage of the full application loop. A fixed selected VQE or QAOA parameter has useful output-quality evidence but does not close its outer optimizer. Such records and all other quality failures report \emph{algorithm/representation first}; their physical timing is retained only as a conditional execution lower bound.
 
-\subsection{Measurement and Threshold Analysis}
+For an eligible record, source or compiled schedules expose three ready-width bounds: all predeclared work ready, one measurement-group wave ready, and one evaluation ready. If $P_s$ shot lanes exist but only $P_{\mathrm{ready}}$ repetitions can issue, $P_s^{\mathrm{eff}}=\min(P_s,P_{\mathrm{ready}})$. We populate $P_{\mathrm{ready}}$ from compiled Chem. groups, source-audited static ML/Chem./Opt. loops, or the single Sim. circuit. No adaptive optimizer or mid-circuit branch is invented.
 
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=0.98\linewidth]{figures/design_projection_flow.pdf}
-    \Description{Projection flow from measured native and circuit paths to break-even search, frontier sweep, and bottleneck labels.}
-    \caption{Projection flow in \SystemName. Measurements are not the final answer; they are inverted into speed, quality, shot, and native-baseline requirements.}
-    \label{fig:design-projection-flow}
-\end{figure}
-
-\noindent\emph{Simulator-hardware separation.}
-The measured \cuQuantum runtime is not a physical quantum latency. It executes the quantum-circuit application path, produces output quality, and records circuit metadata. The projection then prices the same case under future logical-operation speed, effective shot parallelism, error/control overhead, and quality recovery. Thus Python orchestration, GPU setup time, and simulator state-vector behavior are measurement-stack evidence, not future-QPU schedule terms.
-
-\noindent\emph{Execution model.}
-Given the measured metadata, \SystemName estimates projected quantum execution time with a pipelined FT-style critical path:
+The strict reliability contract splits an application failure budget $\epsilon_a$ equally among logical, rotation-synthesis, and distillation faults. Routed logical locations and all finite-shot repetitions select $d$; the number and precision of arbitrary rotations select T states per rotation and a compatible QDK factory protocol. For distance $d$, physical syndrome round $\tau_s$, $N_T$ T states, $F$ factories, and $P_s^{\mathrm{eff}}$ lanes, the principal terms are
 \[
 \begin{aligned}
-T_{\mathrm{gate}} &=
-\frac{N_s(D_1t_1 + D_2t_2 + D_mt_m)}
-{P_{\mathrm{shots}}^{\mathrm{eff}}},\\
-T_{\mathrm{execute}} &=
-N_{\mathrm{eval}}\!\left[
-\alpha_R\max(T_{\mathrm{gate}},T_{\mathrm{decode}})
-+T_{\mathrm{io}}+T_{\mathrm{queue}}
-\right].
+T_{\mathrm{log}} &= W_{\mathrm{cyc}}d\tau_s/P_s^{\mathrm{eff}},\\
+T_{\mathrm{fac}} &= 15N_Td\tau_s/F,\\
+T_{\mathrm{dec}} &= N_{\mathrm{wave}}(L_{\mathrm{service}}+L_{\mathrm{comm}}).
 \end{aligned}
 \]
-where $N_s$ is shot count, $N_{\mathrm{eval}}$ is the measured number of circuit evaluations, $D_1$, $D_2$, and $D_m$ are one-qubit, two-qubit, and measurement depths per evaluation, $t_i$ are projected logical-operation times, and $P_{\mathrm{shots}}^{\mathrm{eff}}$ is useful shot parallelism. The $\max(\cdot)$ term models the fact that an FTQC controller can pipeline logical gate execution and syndrome decoding; decoding is hidden only when it is no slower than the logical critical path. Host--QPU data movement and queue/control feedback remain serial in this model because hybrid loops must return measurement summaries, update parameters, or launch the next batch.
-
-The recovery-cost factor $\alpha_R\geq 1$ couples quality recovery to runtime. The paper's default projection uses $\alpha_R=1$ as a lower-bound requirement axis rather than a measured mitigation result. Real mechanisms such as deeper ansatz circuits, higher Trotter order, extra Pauli measurements, zero-noise extrapolation, or repeated noisy optimization would increase $\alpha_R$, $N_s$, $D_i$, or $N_{\mathrm{eval}}$ and therefore move the frontier rightward.
-
-The non-overlapped terms are decomposed rather than hidden:
-\[
-\begin{aligned}
-T_{\mathrm{serial}} =
-&T_{\mathrm{compile}} + T_{\mathrm{map}} + T_{\mathrm{route}} +
-T_{\mathrm{ms}} \\
-&+ T_{\mathrm{io}} + T_{\mathrm{cq}} + T_{\mathrm{queue}} .
-\end{aligned}
-\]
-Likewise, useful parallel shots are bounded by the slowest system resource:
-\[
-P_{\mathrm{shots}}^{\mathrm{eff}} =
-\min(P_{\mathrm{device}}, P_{\mathrm{decode}}, P_{\mathrm{control}},
-P_{\mathrm{queue}}, N_s N_{\mathrm{eval}}).
-\]
-This form is the hook for architecture studies: a surface-code stack can plug in code distance, cycle time, decoder bandwidth, and magic-state throughput, while a control-system study can change host-I/O and feedback terms. Existing resource-estimation tools already expose hardware assumptions such as QEC scheme, magic-state factories, physical-qubit counts, runtime, and Pareto frontiers~\cite{azurequantumresourceestimatordocs,azureestimator}. \SystemName adds the application-side gate that those estimates alone do not answer: the measured native deadline and the measured quality gap for the same input.
-
-\noindent\emph{Illustrative FT-stack parameters.}
-The evaluation instantiates this interface with an intentionally optimistic, but physically anchored, surface-code-style stack. Surface-code and resource-estimation studies motivate exposing code distance, cycle time, logical-operation scheduling, magic-state throughput, decoder bandwidth, and control latency as first-class parameters~\cite{fowler2012surface,litinski2019game,webber2022impact,azureestimator}. Recent superconducting surface-code experiments report a 1.1~$\mu$s error-correction cycle and 63~$\mu$s average real-time decoder latency at distance five~\cite{googleqec2025belowthreshold}. Our default projection is not a measurement of such a deployed computer and is more optimistic: it uses $d=25$, $\tau_c=1\,\mu$s, $t_1=d\tau_c$, $t_2=4d\tau_c$, $t_m=d\tau_c$, $P_{\mathrm{shots}}^{\mathrm{eff}}=10^4$, a $5\,\mu$s pipelined decoder, $20\,\mu$s host--QPU I/O, and $30\,\mu$s queue/control feedback per circuit evaluation. These values are modeling knobs for sensitivity analysis, not claims about a quantum annealer or an existing gate-model QPU. A positive frontier under this default should be read as a lower-bound architecture target that must survive the conservative shot, host-I/O, queue/control, and recovery-cost sweeps in the evaluation.
+The model adds host-visible rounds and recomputes the overlap bracket from Section~II. Physical output includes data qubits, selected factory-protocol qubits, LSQCA's 176-cell supply envelope, syndrome bandwidth, and reaction-time correction storage. Factory-internal syndrome traffic, rotation anticommutation depth, and uncompiled adaptive traces remain explicit unsupported flags.
 
 \begin{table}[t]
-\caption{Default projection knobs and sensitivity role.}
+\caption{Inversion contract and replacement boundary.}
 \centering
-\scriptsize
-\renewcommand{\arraystretch}{1.12}
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{p{0.22\columnwidth}p{0.30\columnwidth}p{0.42\columnwidth}}
+\footnotesize
+\setlength{\tabcolsep}{3.0pt}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabular}{p{0.22\columnwidth}p{0.31\columnwidth}p{0.38\columnwidth}}
 \toprule
-\textbf{Knob} & \textbf{Default value} & \textbf{Role in the projection} \\
+\textbf{Term} & \textbf{Authoritative evidence} & \textbf{Allowed replacement} \\
 \midrule
-Code stack & $d=25$, $\tau_c=1\,\mu$s & Sets logical-operation scale; technology-specific studies can replace it with measured code distance, cycle time, and decoder bandwidth. \\
-Logical operations & $t_1=25\,\mu$s, $t_2=100\,\mu$s, $t_m=25\,\mu$s & Prices the measured 1Q, 2Q, and measurement depths; frontier plots vary effective execution improvement. \\
-Pipeline and serial floor & $5\,\mu$s decode, $20\,\mu$s host I/O, $30\,\mu$s queue/control & Decode can overlap gate execution; host--QPU data movement and feedback remain serial. Figure~\ref{fig:ft-shot-sensitivity} sweeps these bounds. \\
-Shot parallelism & $P_{\mathrm{shots}}^{\mathrm{eff}}=10^4$ & Models useful shot lanes after device, decoder, control, and queue limits; sensitivity sweeps conservative, resource-estimator-like, LDPC/future-like, and aggressive batched scenarios. \\
-Quality recovery & $R\in\{0,0.5,0.9,1.0\}$, $\alpha_R\geq1$ & Requirement axis for closing measured quality gaps; real recovery mechanisms can increase shots, depth, evaluations, or mitigation overhead. \\
+Quality & Natural-unit output; 12 finite-shot replicates & Measured richer encoding, depth, search, or mitigation output \\
+Ready width & Compiled group or source-audited static loop & Compatible dependency trace; no invented queue \\
+Reliability & 1\%/0.1\% application budget; QDK-aligned $d$ & QEC/logical-error model with equal or stricter scope \\
+Rotations & Emitted/reconstructed angles; precision-derived T count & Compatible synthesis or native rotation, including its success cost \\
+Factory/space & LSQCA throughput; QDK protocol footprint & Matched supply/layout events, not a reported mean speedup \\
+Decoder/control & Service plus 7.8-$\mu$s communication path & Measured reaction, bandwidth, storage, and tail trace \\
 \bottomrule
 \end{tabular}
-}
-\label{tab:projection-knobs}
+\label{tab:inversion-contract}
 \end{table}
 
-\noindent\emph{Advantage frontier.}
-\SystemName inverts the model instead of assuming speedup. It asks what logical speed, shot throughput, overhead, and quality recovery are required for $T_{\mathrm{qhw}}<T_{\mathrm{native}}$ at the same quality. A case is speed-limited when quality is close enough but runtime remains large; quality-limited when faster gates do not help until the output gap closes; shot- or encoding-limited when repeated evaluations or data movement dominate; and native-dominated when a stronger classical path moves the break-even target.
+\subsection{Joint Target and Mechanism Inversion}
 
-\noindent\emph{Architecture target map.}
-The projection output is intentionally phrased in architecture terms. If $D_2t_2$ dominates and the single-lever target is finite, the case points to logical two-qubit latency, coupling, routing, or magic-state throughput. If $P_{\mathrm{shots}}^{\mathrm{eff}}$ is the active term, the useful hardware is not only more devices but enough parallel readout, decoding, control bandwidth, and queueing to keep those shots independent. If the decoder sets the pipeline critical path, the target is real-time decoding; if $T_{\mathrm{io}}$ or $T_{\mathrm{queue}}$ dominates, the target is near-QPU control, host--QPU data movement, measurement aggregation, and hybrid-loop scheduling. If the quality inequality fails, the target is representation, ansatz/search structure, fidelity, mitigation, or Trotter order before speed. If the circuit family is an Ising/QUBO energy-minimization instance, annealing-style specialization may be a candidate; otherwise the same record points to gate-model or analog/digital execution. This target map is the reason the evaluation reports both required speedup and where that speedup must come from.
+For each eligible record and resource $j$, \SystemName recomputes the complete model after a 10$\times$ improvement and after making that resource non-limiting:
+\[
+G_j^{10}=T/T_j^{10},\qquad C_j=T/T_j^{\infty}.
+\]
+$G_j^{10}$ determines the first useful marginal target; $C_j$ is its Amdahl-style removal ceiling. The next target is computed only after removing the first and re-evaluating overlap, saturation, and feedback. This avoids ranking components by isolated bars that cannot execute concurrently. A record already satisfying quality, reliability, and runtime is labeled advantage-reached rather than assigned an unnecessary target.
 
-\subsection{Advantage Claim Checklist}
+One-factor results are insufficient when factory supply, useful lanes, logical cycle, decoder reaction, native deadlines, and overlap interact. The joint design therefore uses a deterministic, marginally balanced space-filling set over dependency mode, 0.5/1/2$\times$ tolerance, $10^3$--$10^5$ direct shots and useful lanes, fixed or precision-derived T counts, 1\%/0.1\% failure budgets, $10^{-3}/10^{-4}$ physical error, 1--50,000$\times$ factory supply, 0.1/0.4-$\mu$s syndrome rounds, 1/5/63-$\mu$s decoder service, 0.5/1/2$\times$ native deadlines, and $\rho=0/0.5/1$. These points measure design coverage, not probabilities of future technologies. A phase cell reports the first-target mode, agreement count, runtime-pass count, successor, and removal ceiling.
 
-\noindent\emph{Claim gates.}
-\SystemName reports a case as advantaged only after four checks hold in the same record. The native path must be the fastest valid implemented non-quantum candidate for the same input; the quantum-circuit path must use that input rather than an easier surrogate; the projected hardware terms must be named rather than hidden inside one speedup; and the output quality must satisfy the workload tolerance. If any check fails, the case remains useful evidence, but it is not an advantage claim. This checklist is what keeps simulator throughput, optimistic QPU projection, and application-level advantage from being confused.
+Published mechanisms use the same invariant. Our LSQCA replacement reconstructs each workload's ordered logical-operand events, applies a two-entry computation-register policy, and charges point-SAM's $7\sqrt{n}$-beat load and reverse store. Only core cells and matched movement change; quality, reliability, rotations, factory demand, and native time remain fixed. A separate BOSS-compatible envelope consumes direct Chem. and QAOA interaction graphs to bound shuttle, SWAP, recooling, and readout under locality-first and congestion-stressed policies. It is not presented as the full BOSS compiler or as a universal QCCD multiplier.
 
-\subsection{Workload Suite}
+\subsection{Typed Architecture Decision}
 
-\noindent\emph{Records and audits.}
-Every run emits JSON records with dataset metadata, model metadata, runtime breakdowns, quality, circuit qubits, depth, gate counts, shots, GPU metadata, and Slurm metadata where available. Summarizers validate case counts and write CSV/JSON artifacts used by the figures; audit scripts then compare manuscript claims against those artifacts. Login-node tests are correctness gates only, while performance evidence must come from completed Slurm jobs. This discipline also keeps the meaning of scaling explicit: the campaign may use hundreds of GPUs to collect cases, but the advantage test remains per same-input application case.
+The output is not a scalar speedup. For record $r$, \SystemName emits
+\[
+\mathcal{D}(r)=\langle e,j_1,x^*,j_2,\{C_j\},\pi\rangle,
+\]
+where $e$ is the evidence state, $j_1=\arg\max_j G_j^{10}$ is the first compatible resource, $x^*$ is its first crossover, $j_2$ is the target after that crossover, $C_j$ is each removal ceiling, and $\pi$ resolves every term to measured, modeled, stress, or replacement provenance. The evidence state is one of quality-blocked, loop-blocked, FT-invalid, hardware-target, or advantage-reached. A blocked record returns algorithm/representation or loop closure as $j_1$ and leaves physical $x^*$ undefined; it cannot inherit a component target from another record in the same family.
 
-\noindent\emph{Failure handling.}
-Failed paths remain measurement results. If a native candidate fails, the record keeps the error and continues with other candidates. If a quantum path fails, the record keeps available circuit metadata and marks the case as non-advantaged. This rule matters at scale because removing difficult cases would overstate the frontier.
+For a scalable resource, $x^*$ is the smallest tested or solved multiplier at which its first-target identity changes or complete runtime reaches native parity. The successor is then recomputed from the new operating point, not copied from the original component ranking. At family level we report the count and agreement fraction of record-level decisions. Agreement is deterministic design coverage, not a probability that a future machine will occupy that point. This typed output is what separates an architecture decision from a simulator benchmark: it states what is blocked now, what change is useful first, how much change is needed, and what becomes limiting next.
 
-\noindent\emph{Workload scope.}
-The controlled calibration workload is \texttt{sklearn digits}. The practical suite covers AI classification, VQE-style molecular energy estimation, QAOA-style optimization, and Hamiltonian simulation. These are the application classes where users often expect quantum advantage, but every row follows the same comparison discipline: same input, strongest auditable native path, measured quantum-circuit path, and explicit quality target.
+A proposed component is evaluated by replacing only the events it owns and regenerating $\mathcal{D}(r)$. The proposal earns application-level priority only if it changes $j_1$, reduces $x^*$, raises a runtime-and-quality pass, or exposes a new successor without violating reliability or adding unmatched costs. A large local speedup with unchanged $\mathcal{D}(r)$ is reported as low application-level leverage. This rule admits future measured QPU traces, native rotations, decoders, layouts, and HPC--QPU runtimes without changing the paired application contract.
+
+\noindent\textbf{Implementation and audits.}
+Perlmutter records capture Python/CUDA/library versions, Slurm provenance, seeds, failures, and raw timing. Qiskit compiles routing and commuting groups; QDK and Qualtran cross-check selected logical circuits. Independent audits verify quality eligibility, schedule provenance, reliability/space, statistical units, joint phase coverage, replacement invariants, measured-versus-modeled labels, and paper claims. Every retained result resolves to JSON/CSV evidence and a deterministic regeneration script.

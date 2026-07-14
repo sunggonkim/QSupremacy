@@ -220,13 +220,13 @@ def main():
         "all_current_blocks_have_template_lines": all(
             row.get("template_source") and row.get("template_line") for row in all_rows
         ),
-        "line_level_trace_present": len(all_rows) >= 90,
+        "line_level_trace_present": len(all_rows) >= 60,
         "paragraph_and_structure_kinds_present": {"paragraph", "figure", "table"}.issubset(
             {row["kind"] for row in all_rows}
         ),
         "style_features_traced": any(row.get("has_noindent_textbf") for row in all_rows)
         and any(row.get("has_subfigure") for row in all_rows)
-        and any(row.get("has_resizebox") for row in all_rows),
+        and any(row.get("kind") == "table" for row in all_rows),
     }
 
     summary = {

@@ -1,0 +1,1269 @@
+{
+  "schema": "qsup.chem-compiled-measurement-records.v1",
+  "scope": "compiled QWC measurement and routing attachment for executed hardware-efficient VQE ansatze; dense entanglers are an explicitly labeled routing stress and do not inherit the measured quality",
+  "quality_source": "data/processed/perlmutter/practical_suite_chem_active_6q8q_1node_20260704233824_summary.csv",
+  "shot_allocation": {
+    "method": "group coefficient L1 weight with a per-group minimum",
+    "target_total_shots_per_evaluation": 100000,
+    "minimum_shots_per_group": 100
+  },
+  "t_state_proxy": {
+    "status": "synthesis upper contract, not estimator output",
+    "epsilon": 1e-10,
+    "formula": "ceil(3*log2(1/epsilon)) T states per arbitrary rotation",
+    "t_states_per_rotation": 100
+  },
+  "software": {
+    "qiskit": "2.5.0"
+  },
+  "records": [
+    {
+      "fixture": "H2_minimal_2qubit",
+      "fixture_path": "benchmarks/workloads/hamiltonians/h2_minimal_2q.json",
+      "qubits": 2,
+      "pauli_terms_total": 5,
+      "pauli_terms_measured": 4,
+      "measurement_groups_per_eval": 2,
+      "group_basis": [
+        "XX",
+        "ZZ"
+      ],
+      "group_coefficient_l1_weights": [
+        0.18093119978423156,
+        0.8071549539425963
+      ],
+      "shots_by_group": [
+        18311,
+        81689
+      ],
+      "shot_executions_per_eval": 100000,
+      "layers": 1,
+      "ansatz_variant": "linear_executed",
+      "evidence_level": "compiled_executed_ansatz",
+      "mid_circuit_measurement": false,
+      "intra_circuit_feedforward": false,
+      "measured_quality": {
+        "cases": 4,
+        "median_absolute_energy_error_ha": 0.007499571627404555,
+        "best_absolute_energy_error_ha": 0.0033491111901404746
+      },
+      "arbitrary_rotations_per_group": 4,
+      "t_state_demand_proxy_per_eval": 800,
+      "topologies": [
+        {
+          "per_evaluation_group_sum": {
+            "one_qubit_gates": 24,
+            "two_qubit_gates": 2,
+            "measurement_ops": 4
+          },
+          "per_evaluation_shot_weighted": {
+            "one_qubit_gates": 946488,
+            "two_qubit_gates": 100000,
+            "measurement_ops": 200000
+          },
+          "max_group_depth": 12,
+          "max_group_two_qubit_depth": 1,
+          "groups": [
+            {
+              "group": 0,
+              "shots": 18311,
+              "depth": 12,
+              "two_qubit_depth": 1,
+              "one_qubit_gates": 16,
+              "two_qubit_gates": 1,
+              "measurement_ops": 2
+            },
+            {
+              "group": 1,
+              "shots": 81689,
+              "depth": 6,
+              "two_qubit_depth": 1,
+              "one_qubit_gates": 8,
+              "two_qubit_gates": 1,
+              "measurement_ops": 2
+            }
+          ],
+          "topology": "all_to_all",
+          "routing_multiplier_vs_all_to_all": 1.0
+        },
+        {
+          "per_evaluation_group_sum": {
+            "one_qubit_gates": 24,
+            "two_qubit_gates": 2,
+            "measurement_ops": 4
+          },
+          "per_evaluation_shot_weighted": {
+            "one_qubit_gates": 946488,
+            "two_qubit_gates": 100000,
+            "measurement_ops": 200000
+          },
+          "max_group_depth": 12,
+          "max_group_two_qubit_depth": 1,
+          "groups": [
+            {
+              "group": 0,
+              "shots": 18311,
+              "depth": 12,
+              "two_qubit_depth": 1,
+              "one_qubit_gates": 16,
+              "two_qubit_gates": 1,
+              "measurement_ops": 2
+            },
+            {
+              "group": 1,
+              "shots": 81689,
+              "depth": 6,
+              "two_qubit_depth": 1,
+              "one_qubit_gates": 8,
+              "two_qubit_gates": 1,
+              "measurement_ops": 2
+            }
+          ],
+          "topology": "line",
+          "routing_multiplier_vs_all_to_all": 1.0
+        },
+        {
+          "per_evaluation_group_sum": {
+            "one_qubit_gates": 24,
+            "two_qubit_gates": 2,
+            "measurement_ops": 4
+          },
+          "per_evaluation_shot_weighted": {
+            "one_qubit_gates": 946488,
+            "two_qubit_gates": 100000,
+            "measurement_ops": 200000
+          },
+          "max_group_depth": 12,
+          "max_group_two_qubit_depth": 1,
+          "groups": [
+            {
+              "group": 0,
+              "shots": 18311,
+              "depth": 12,
+              "two_qubit_depth": 1,
+              "one_qubit_gates": 16,
+              "two_qubit_gates": 1,
+              "measurement_ops": 2
+            },
+            {
+              "group": 1,
+              "shots": 81689,
+              "depth": 6,
+              "two_qubit_depth": 1,
+              "one_qubit_gates": 8,
+              "two_qubit_gates": 1,
+              "measurement_ops": 2
+            }
+          ],
+          "topology": "grid",
+          "routing_multiplier_vs_all_to_all": 1.0
+        }
+      ]
+    },
+    {
+      "fixture": "H2_minimal_2qubit",
+      "fixture_path": "benchmarks/workloads/hamiltonians/h2_minimal_2q.json",
+      "qubits": 2,
+      "pauli_terms_total": 5,
+      "pauli_terms_measured": 4,
+      "measurement_groups_per_eval": 2,
+      "group_basis": [
+        "XX",
+        "ZZ"
+      ],
+      "group_coefficient_l1_weights": [
+        0.18093119978423156,
+        0.8071549539425963
+      ],
+      "shots_by_group": [
+        18311,
+        81689
+      ],
+      "shot_executions_per_eval": 100000,
+      "layers": 1,
+      "ansatz_variant": "dense_entangler_stress",
+      "evidence_level": "routing_stress_only",
+      "mid_circuit_measurement": false,
+      "intra_circuit_feedforward": false,
+      "measured_quality": null,
+      "arbitrary_rotations_per_group": 4,
+      "t_state_demand_proxy_per_eval": 800,
+      "topologies": [
+        {
+          "per_evaluation_group_sum": {
+            "one_qubit_gates": 24,
+            "two_qubit_gates": 2,
+            "measurement_ops": 4
+          },
+          "per_evaluation_shot_weighted": {
+            "one_qubit_gates": 946488,
+            "two_qubit_gates": 100000,
+            "measurement_ops": 200000
+          },
+          "max_group_depth": 12,
+          "max_group_two_qubit_depth": 1,
+          "groups": [
+            {
+              "group": 0,
+              "shots": 18311,
+              "depth": 12,
+              "two_qubit_depth": 1,
+              "one_qubit_gates": 16,
+              "two_qubit_gates": 1,
+              "measurement_ops": 2
+            },
+            {
+              "group": 1,
+              "shots": 81689,
+              "depth": 6,
+              "two_qubit_depth": 1,
+              "one_qubit_gates": 8,
+              "two_qubit_gates": 1,
+              "measurement_ops": 2
+            }
+          ],
+          "topology": "all_to_all",
+          "routing_multiplier_vs_all_to_all": 1.0
+        },
+        {
+          "per_evaluation_group_sum": {
+            "one_qubit_gates": 24,
+            "two_qubit_gates": 2,
+            "measurement_ops": 4
+          },
+          "per_evaluation_shot_weighted": {
+            "one_qubit_gates": 946488,
+            "two_qubit_gates": 100000,
+            "measurement_ops": 200000
+          },
+          "max_group_depth": 12,
+          "max_group_two_qubit_depth": 1,
+          "groups": [
+            {
+              "group": 0,
+              "shots": 18311,
+              "depth": 12,
+              "two_qubit_depth": 1,
+              "one_qubit_gates": 16,
+              "two_qubit_gates": 1,
+              "measurement_ops": 2
+            },
+            {
+              "group": 1,
+              "shots": 81689,
+              "depth": 6,
+              "two_qubit_depth": 1,
+              "one_qubit_gates": 8,
+              "two_qubit_gates": 1,
+              "measurement_ops": 2
+            }
+          ],
+          "topology": "line",
+          "routing_multiplier_vs_all_to_all": 1.0
+        },
+        {
+          "per_evaluation_group_sum": {
+            "one_qubit_gates": 24,
+            "two_qubit_gates": 2,
+            "measurement_ops": 4
+          },
+          "per_evaluation_shot_weighted": {
+            "one_qubit_gates": 946488,
+            "two_qubit_gates": 100000,
+            "measurement_ops": 200000
+          },
+          "max_group_depth": 12,
+          "max_group_two_qubit_depth": 1,
+          "groups": [
+            {
+              "group": 0,
+              "shots": 18311,
+              "depth": 12,
+              "two_qubit_depth": 1,
+              "one_qubit_gates": 16,
+              "two_qubit_gates": 1,
+              "measurement_ops": 2
+            },
+            {
+              "group": 1,
+              "shots": 81689,
+              "depth": 6,
+              "two_qubit_depth": 1,
+              "one_qubit_gates": 8,
+              "two_qubit_gates": 1,
+              "measurement_ops": 2
+            }
+          ],
+          "topology": "grid",
+          "routing_multiplier_vs_all_to_all": 1.0
+        }
+      ]
+    },
+    {
+      "fixture": "H2_minimal_2qubit",
+      "fixture_path": "benchmarks/workloads/hamiltonians/h2_minimal_2q.json",
+      "qubits": 2,
+      "pauli_terms_total": 5,
+      "pauli_terms_measured": 4,
+      "measurement_groups_per_eval": 2,
+      "group_basis": [
+        "XX",
+        "ZZ"
+      ],
+      "group_coefficient_l1_weights": [
+        0.18093119978423156,
+        0.8071549539425963
+      ],
+      "shots_by_group": [
+        18311,
+        81689
+      ],
+      "shot_executions_per_eval": 100000,
+      "layers": 2,
+      "ansatz_variant": "linear_executed",
+      "evidence_level": "compiled_executed_ansatz",
+      "mid_circuit_measurement": false,
+      "intra_circuit_feedforward": false,
+      "measured_quality": {
+        "cases": 4,
+        "median_absolute_energy_error_ha": 0.020307038999396232,
+        "best_absolute_energy_error_ha": 0.020307038999395566
+      },
+      "arbitrary_rotations_per_group": 8,
+      "t_state_demand_proxy_per_eval": 1600,
+      "topologies": [
+        {
+          "per_evaluation_group_sum": {
+            "one_qubit_gates": 39,
+            "two_qubit_gates": 4,
+            "measurement_ops": 4
+          },
+          "per_evaluation_shot_weighted": {
+            "one_qubit_gates": 1791555,
+            "two_qubit_gates": 200000,
+            "measurement_ops": 200000
+          },
+          "max_group_depth": 16,
+          "max_group_two_qubit_depth": 2,
+          "groups": [
+            {
+              "group": 0,
+              "shots": 18311,
+              "depth": 16,
+              "two_qubit_depth": 2,
+              "one_qubit_gates": 22,
+              "two_qubit_gates": 2,
+              "measurement_ops": 2
+            },
+            {
+              "group": 1,
+              "shots": 81689,
+              "depth": 14,
+              "two_qubit_depth": 2,
+              "one_qubit_gates": 17,
+              "two_qubit_gates": 2,
+              "measurement_ops": 2
+            }
+          ],
+          "topology": "all_to_all",
+          "routing_multiplier_vs_all_to_all": 1.0
+        },
+        {
+          "per_evaluation_group_sum": {
+            "one_qubit_gates": 39,
+            "two_qubit_gates": 4,
+            "measurement_ops": 4
+          },
+          "per_evaluation_shot_weighted": {
+            "one_qubit_gates": 1791555,
+            "two_qubit_gates": 200000,
+            "measurement_ops": 200000
+          },
+          "max_group_depth": 16,
+          "max_group_two_qubit_depth": 2,
+          "groups": [
+            {
+              "group": 0,
+              "shots": 18311,
+              "depth": 16,
+              "two_qubit_depth": 2,
+              "one_qubit_gates": 22,
+              "two_qubit_gates": 2,
+              "measurement_ops": 2
+            },
+            {
+              "group": 1,
+              "shots": 81689,
+              "depth": 14,
+              "two_qubit_depth": 2,
+              "one_qubit_gates": 17,
+              "two_qubit_gates": 2,
+              "measurement_ops": 2
+            }
+          ],
+          "topology": "line",
+          "routing_multiplier_vs_all_to_all": 1.0
+        },
+        {
+          "per_evaluation_group_sum": {
+            "one_qubit_gates": 39,
+            "two_qubit_gates": 4,
+            "measurement_ops": 4
+          },
+          "per_evaluation_shot_weighted": {
+            "one_qubit_gates": 1791555,
+            "two_qubit_gates": 200000,
+            "measurement_ops": 200000
+          },
+          "max_group_depth": 16,
+          "max_group_two_qubit_depth": 2,
+          "groups": [
+            {
+              "group": 0,
+              "shots": 18311,
+              "depth": 16,
+              "two_qubit_depth": 2,
+              "one_qubit_gates": 22,
+              "two_qubit_gates": 2,
+              "measurement_ops": 2
+            },
+            {
+              "group": 1,
+              "shots": 81689,
+              "depth": 14,
+              "two_qubit_depth": 2,
+              "one_qubit_gates": 17,
+              "two_qubit_gates": 2,
+              "measurement_ops": 2
+            }
+          ],
+          "topology": "grid",
+          "routing_multiplier_vs_all_to_all": 1.0
+        }
+      ]
+    },
+    {
+      "fixture": "H2_minimal_2qubit",
+      "fixture_path": "benchmarks/workloads/hamiltonians/h2_minimal_2q.json",
+      "qubits": 2,
+      "pauli_terms_total": 5,
+      "pauli_terms_measured": 4,
+      "measurement_groups_per_eval": 2,
+      "group_basis": [
+        "XX",
+        "ZZ"
+      ],
+      "group_coefficient_l1_weights": [
+        0.18093119978423156,
+        0.8071549539425963
+      ],
+      "shots_by_group": [
+        18311,
+        81689
+      ],
+      "shot_executions_per_eval": 100000,
+      "layers": 2,
+      "ansatz_variant": "dense_entangler_stress",
+      "evidence_level": "routing_stress_only",
+      "mid_circuit_measurement": false,
+      "intra_circuit_feedforward": false,
+      "measured_quality": null,
+      "arbitrary_rotations_per_group": 8,
+      "t_state_demand_proxy_per_eval": 1600,
+      "topologies": [
+        {
+          "per_evaluation_group_sum": {
+            "one_qubit_gates": 39,
+            "two_qubit_gates": 4,
+            "measurement_ops": 4
+          },
+          "per_evaluation_shot_weighted": {
+            "one_qubit_gates": 1791555,
+            "two_qubit_gates": 200000,
+            "measurement_ops": 200000
+          },
+          "max_group_depth": 16,
+          "max_group_two_qubit_depth": 2,
+          "groups": [
+            {
+              "group": 0,
+              "shots": 18311,
+              "depth": 16,
+              "two_qubit_depth": 2,
+              "one_qubit_gates": 22,
+              "two_qubit_gates": 2,
+              "measurement_ops": 2
+            },
+            {
+              "group": 1,
+              "shots": 81689,
+              "depth": 14,
+              "two_qubit_depth": 2,
+              "one_qubit_gates": 17,
+              "two_qubit_gates": 2,
+              "measurement_ops": 2
+            }
+          ],
+          "topology": "all_to_all",
+          "routing_multiplier_vs_all_to_all": 1.0
+        },
+        {
+          "per_evaluation_group_sum": {
+            "one_qubit_gates": 39,
+            "two_qubit_gates": 4,
+            "measurement_ops": 4
+          },
+          "per_evaluation_shot_weighted": {
+            "one_qubit_gates": 1791555,
+            "two_qubit_gates": 200000,
+            "measurement_ops": 200000
+          },
+          "max_group_depth": 16,
+          "max_group_two_qubit_depth": 2,
+          "groups": [
+            {
+              "group": 0,
+              "shots": 18311,
+              "depth": 16,
+              "two_qubit_depth": 2,
+              "one_qubit_gates": 22,
+              "two_qubit_gates": 2,
+              "measurement_ops": 2
+            },
+            {
+              "group": 1,
+              "shots": 81689,
+              "depth": 14,
+              "two_qubit_depth": 2,
+              "one_qubit_gates": 17,
+              "two_qubit_gates": 2,
+              "measurement_ops": 2
+            }
+          ],
+          "topology": "line",
+          "routing_multiplier_vs_all_to_all": 1.0
+        },
+        {
+          "per_evaluation_group_sum": {
+            "one_qubit_gates": 39,
+            "two_qubit_gates": 4,
+            "measurement_ops": 4
+          },
+          "per_evaluation_shot_weighted": {
+            "one_qubit_gates": 1791555,
+            "two_qubit_gates": 200000,
+            "measurement_ops": 200000
+          },
+          "max_group_depth": 16,
+          "max_group_two_qubit_depth": 2,
+          "groups": [
+            {
+              "group": 0,
+              "shots": 18311,
+              "depth": 16,
+              "two_qubit_depth": 2,
+              "one_qubit_gates": 22,
+              "two_qubit_gates": 2,
+              "measurement_ops": 2
+            },
+            {
+              "group": 1,
+              "shots": 81689,
+              "depth": 14,
+              "two_qubit_depth": 2,
+              "one_qubit_gates": 17,
+              "two_qubit_gates": 2,
+              "measurement_ops": 2
+            }
+          ],
+          "topology": "grid",
+          "routing_multiplier_vs_all_to_all": 1.0
+        }
+      ]
+    },
+    {
+      "fixture": "molecular_chain_4q_surrogate",
+      "fixture_path": "benchmarks/workloads/hamiltonians/molecular_chain_4q.json",
+      "qubits": 4,
+      "pauli_terms_total": 14,
+      "pauli_terms_measured": 13,
+      "measurement_groups_per_eval": 3,
+      "group_basis": [
+        "XXXX",
+        "YYYY",
+        "ZZZZ"
+      ],
+      "group_coefficient_l1_weights": [
+        0.12,
+        0.08299999999999999,
+        0.88
+      ],
+      "shots_by_group": [
+        11080,
+        7664,
+        81256
+      ],
+      "shot_executions_per_eval": 100000,
+      "layers": 1,
+      "ansatz_variant": "linear_executed",
+      "evidence_level": "compiled_executed_ansatz",
+      "mid_circuit_measurement": false,
+      "intra_circuit_feedforward": false,
+      "measured_quality": {
+        "cases": 6,
+        "median_absolute_energy_error_ha": 0.4776292211315829,
+        "best_absolute_energy_error_ha": 0.3573581094580014
+      },
+      "arbitrary_rotations_per_group": 8,
+      "t_state_demand_proxy_per_eval": 2400,
+      "topologies": [
+        {
+          "per_evaluation_group_sum": {
+            "one_qubit_gates": 70,
+            "two_qubit_gates": 9,
+            "measurement_ops": 12
+          },
+          "per_evaluation_shot_weighted": {
+            "one_qubit_gates": 1806184,
+            "two_qubit_gates": 300000,
+            "measurement_ops": 400000
+          },
+          "max_group_depth": 11,
+          "max_group_two_qubit_depth": 3,
+          "groups": [
+            {
+              "group": 0,
+              "shots": 11080,
+              "depth": 11,
+              "two_qubit_depth": 3,
+              "one_qubit_gates": 27,
+              "two_qubit_gates": 3,
+              "measurement_ops": 4
+            },
+            {
+              "group": 1,
+              "shots": 7664,
+              "depth": 11,
+              "two_qubit_depth": 3,
+              "one_qubit_gates": 27,
+              "two_qubit_gates": 3,
+              "measurement_ops": 4
+            },
+            {
+              "group": 2,
+              "shots": 81256,
+              "depth": 8,
+              "two_qubit_depth": 3,
+              "one_qubit_gates": 16,
+              "two_qubit_gates": 3,
+              "measurement_ops": 4
+            }
+          ],
+          "topology": "all_to_all",
+          "routing_multiplier_vs_all_to_all": 1.0
+        },
+        {
+          "per_evaluation_group_sum": {
+            "one_qubit_gates": 70,
+            "two_qubit_gates": 9,
+            "measurement_ops": 12
+          },
+          "per_evaluation_shot_weighted": {
+            "one_qubit_gates": 1806184,
+            "two_qubit_gates": 300000,
+            "measurement_ops": 400000
+          },
+          "max_group_depth": 11,
+          "max_group_two_qubit_depth": 3,
+          "groups": [
+            {
+              "group": 0,
+              "shots": 11080,
+              "depth": 11,
+              "two_qubit_depth": 3,
+              "one_qubit_gates": 27,
+              "two_qubit_gates": 3,
+              "measurement_ops": 4
+            },
+            {
+              "group": 1,
+              "shots": 7664,
+              "depth": 11,
+              "two_qubit_depth": 3,
+              "one_qubit_gates": 27,
+              "two_qubit_gates": 3,
+              "measurement_ops": 4
+            },
+            {
+              "group": 2,
+              "shots": 81256,
+              "depth": 8,
+              "two_qubit_depth": 3,
+              "one_qubit_gates": 16,
+              "two_qubit_gates": 3,
+              "measurement_ops": 4
+            }
+          ],
+          "topology": "line",
+          "routing_multiplier_vs_all_to_all": 1.0
+        },
+        {
+          "per_evaluation_group_sum": {
+            "one_qubit_gates": 70,
+            "two_qubit_gates": 9,
+            "measurement_ops": 12
+          },
+          "per_evaluation_shot_weighted": {
+            "one_qubit_gates": 1806184,
+            "two_qubit_gates": 300000,
+            "measurement_ops": 400000
+          },
+          "max_group_depth": 11,
+          "max_group_two_qubit_depth": 3,
+          "groups": [
+            {
+              "group": 0,
+              "shots": 11080,
+              "depth": 11,
+              "two_qubit_depth": 3,
+              "one_qubit_gates": 27,
+              "two_qubit_gates": 3,
+              "measurement_ops": 4
+            },
+            {
+              "group": 1,
+              "shots": 7664,
+              "depth": 11,
+              "two_qubit_depth": 3,
+              "one_qubit_gates": 27,
+              "two_qubit_gates": 3,
+              "measurement_ops": 4
+            },
+            {
+              "group": 2,
+              "shots": 81256,
+              "depth": 8,
+              "two_qubit_depth": 3,
+              "one_qubit_gates": 16,
+              "two_qubit_gates": 3,
+              "measurement_ops": 4
+            }
+          ],
+          "topology": "grid",
+          "routing_multiplier_vs_all_to_all": 1.0
+        }
+      ]
+    },
+    {
+      "fixture": "molecular_chain_4q_surrogate",
+      "fixture_path": "benchmarks/workloads/hamiltonians/molecular_chain_4q.json",
+      "qubits": 4,
+      "pauli_terms_total": 14,
+      "pauli_terms_measured": 13,
+      "measurement_groups_per_eval": 3,
+      "group_basis": [
+        "XXXX",
+        "YYYY",
+        "ZZZZ"
+      ],
+      "group_coefficient_l1_weights": [
+        0.12,
+        0.08299999999999999,
+        0.88
+      ],
+      "shots_by_group": [
+        11080,
+        7664,
+        81256
+      ],
+      "shot_executions_per_eval": 100000,
+      "layers": 1,
+      "ansatz_variant": "dense_entangler_stress",
+      "evidence_level": "routing_stress_only",
+      "mid_circuit_measurement": false,
+      "intra_circuit_feedforward": false,
+      "measured_quality": null,
+      "arbitrary_rotations_per_group": 8,
+      "t_state_demand_proxy_per_eval": 2400,
+      "topologies": [
+        {
+          "per_evaluation_group_sum": {
+            "one_qubit_gates": 70,
+            "two_qubit_gates": 18,
+            "measurement_ops": 12
+          },
+          "per_evaluation_shot_weighted": {
+            "one_qubit_gates": 1806184,
+            "two_qubit_gates": 600000,
+            "measurement_ops": 400000
+          },
+          "max_group_depth": 13,
+          "max_group_two_qubit_depth": 5,
+          "groups": [
+            {
+              "group": 0,
+              "shots": 11080,
+              "depth": 13,
+              "two_qubit_depth": 5,
+              "one_qubit_gates": 27,
+              "two_qubit_gates": 6,
+              "measurement_ops": 4
+            },
+            {
+              "group": 1,
+              "shots": 7664,
+              "depth": 13,
+              "two_qubit_depth": 5,
+              "one_qubit_gates": 27,
+              "two_qubit_gates": 6,
+              "measurement_ops": 4
+            },
+            {
+              "group": 2,
+              "shots": 81256,
+              "depth": 10,
+              "two_qubit_depth": 5,
+              "one_qubit_gates": 16,
+              "two_qubit_gates": 6,
+              "measurement_ops": 4
+            }
+          ],
+          "topology": "all_to_all",
+          "routing_multiplier_vs_all_to_all": 1.0
+        },
+        {
+          "per_evaluation_group_sum": {
+            "one_qubit_gates": 127,
+            "two_qubit_gates": 33,
+            "measurement_ops": 12
+          },
+          "per_evaluation_shot_weighted": {
+            "one_qubit_gates": 3706184,
+            "two_qubit_gates": 1100000,
+            "measurement_ops": 400000
+          },
+          "max_group_depth": 31,
+          "max_group_two_qubit_depth": 10,
+          "groups": [
+            {
+              "group": 0,
+              "shots": 11080,
+              "depth": 31,
+              "two_qubit_depth": 10,
+              "one_qubit_gates": 46,
+              "two_qubit_gates": 11,
+              "measurement_ops": 4
+            },
+            {
+              "group": 1,
+              "shots": 7664,
+              "depth": 31,
+              "two_qubit_depth": 10,
+              "one_qubit_gates": 46,
+              "two_qubit_gates": 11,
+              "measurement_ops": 4
+            },
+            {
+              "group": 2,
+              "shots": 81256,
+              "depth": 28,
+              "two_qubit_depth": 10,
+              "one_qubit_gates": 35,
+              "two_qubit_gates": 11,
+              "measurement_ops": 4
+            }
+          ],
+          "topology": "line",
+          "routing_multiplier_vs_all_to_all": 1.8333333333333333
+        },
+        {
+          "per_evaluation_group_sum": {
+            "one_qubit_gates": 103,
+            "two_qubit_gates": 24,
+            "measurement_ops": 12
+          },
+          "per_evaluation_shot_weighted": {
+            "one_qubit_gates": 2906184,
+            "two_qubit_gates": 800000,
+            "measurement_ops": 400000
+          },
+          "max_group_depth": 23,
+          "max_group_two_qubit_depth": 8,
+          "groups": [
+            {
+              "group": 0,
+              "shots": 11080,
+              "depth": 23,
+              "two_qubit_depth": 8,
+              "one_qubit_gates": 38,
+              "two_qubit_gates": 8,
+              "measurement_ops": 4
+            },
+            {
+              "group": 1,
+              "shots": 7664,
+              "depth": 23,
+              "two_qubit_depth": 8,
+              "one_qubit_gates": 38,
+              "two_qubit_gates": 8,
+              "measurement_ops": 4
+            },
+            {
+              "group": 2,
+              "shots": 81256,
+              "depth": 20,
+              "two_qubit_depth": 8,
+              "one_qubit_gates": 27,
+              "two_qubit_gates": 8,
+              "measurement_ops": 4
+            }
+          ],
+          "topology": "grid",
+          "routing_multiplier_vs_all_to_all": 1.3333333333333333
+        }
+      ]
+    },
+    {
+      "fixture": "molecular_chain_4q_surrogate",
+      "fixture_path": "benchmarks/workloads/hamiltonians/molecular_chain_4q.json",
+      "qubits": 4,
+      "pauli_terms_total": 14,
+      "pauli_terms_measured": 13,
+      "measurement_groups_per_eval": 3,
+      "group_basis": [
+        "XXXX",
+        "YYYY",
+        "ZZZZ"
+      ],
+      "group_coefficient_l1_weights": [
+        0.12,
+        0.08299999999999999,
+        0.88
+      ],
+      "shots_by_group": [
+        11080,
+        7664,
+        81256
+      ],
+      "shot_executions_per_eval": 100000,
+      "layers": 2,
+      "ansatz_variant": "linear_executed",
+      "evidence_level": "compiled_executed_ansatz",
+      "mid_circuit_measurement": false,
+      "intra_circuit_feedforward": false,
+      "measured_quality": {
+        "cases": 6,
+        "median_absolute_energy_error_ha": 0.8054551606975007,
+        "best_absolute_energy_error_ha": 0.7998040669036782
+      },
+      "arbitrary_rotations_per_group": 16,
+      "t_state_demand_proxy_per_eval": 4800,
+      "topologies": [
+        {
+          "per_evaluation_group_sum": {
+            "one_qubit_gates": 123,
+            "two_qubit_gates": 18,
+            "measurement_ops": 12
+          },
+          "per_evaluation_shot_weighted": {
+            "one_qubit_gates": 3524928,
+            "two_qubit_gates": 600000,
+            "measurement_ops": 400000
+          },
+          "max_group_depth": 17,
+          "max_group_two_qubit_depth": 5,
+          "groups": [
+            {
+              "group": 0,
+              "shots": 11080,
+              "depth": 17,
+              "two_qubit_depth": 5,
+              "one_qubit_gates": 45,
+              "two_qubit_gates": 6,
+              "measurement_ops": 4
+            },
+            {
+              "group": 1,
+              "shots": 7664,
+              "depth": 17,
+              "two_qubit_depth": 5,
+              "one_qubit_gates": 45,
+              "two_qubit_gates": 6,
+              "measurement_ops": 4
+            },
+            {
+              "group": 2,
+              "shots": 81256,
+              "depth": 14,
+              "two_qubit_depth": 5,
+              "one_qubit_gates": 33,
+              "two_qubit_gates": 6,
+              "measurement_ops": 4
+            }
+          ],
+          "topology": "all_to_all",
+          "routing_multiplier_vs_all_to_all": 1.0
+        },
+        {
+          "per_evaluation_group_sum": {
+            "one_qubit_gates": 123,
+            "two_qubit_gates": 18,
+            "measurement_ops": 12
+          },
+          "per_evaluation_shot_weighted": {
+            "one_qubit_gates": 3524928,
+            "two_qubit_gates": 600000,
+            "measurement_ops": 400000
+          },
+          "max_group_depth": 17,
+          "max_group_two_qubit_depth": 5,
+          "groups": [
+            {
+              "group": 0,
+              "shots": 11080,
+              "depth": 17,
+              "two_qubit_depth": 5,
+              "one_qubit_gates": 45,
+              "two_qubit_gates": 6,
+              "measurement_ops": 4
+            },
+            {
+              "group": 1,
+              "shots": 7664,
+              "depth": 17,
+              "two_qubit_depth": 5,
+              "one_qubit_gates": 45,
+              "two_qubit_gates": 6,
+              "measurement_ops": 4
+            },
+            {
+              "group": 2,
+              "shots": 81256,
+              "depth": 14,
+              "two_qubit_depth": 5,
+              "one_qubit_gates": 33,
+              "two_qubit_gates": 6,
+              "measurement_ops": 4
+            }
+          ],
+          "topology": "line",
+          "routing_multiplier_vs_all_to_all": 1.0
+        },
+        {
+          "per_evaluation_group_sum": {
+            "one_qubit_gates": 123,
+            "two_qubit_gates": 18,
+            "measurement_ops": 12
+          },
+          "per_evaluation_shot_weighted": {
+            "one_qubit_gates": 3524928,
+            "two_qubit_gates": 600000,
+            "measurement_ops": 400000
+          },
+          "max_group_depth": 17,
+          "max_group_two_qubit_depth": 5,
+          "groups": [
+            {
+              "group": 0,
+              "shots": 11080,
+              "depth": 17,
+              "two_qubit_depth": 5,
+              "one_qubit_gates": 45,
+              "two_qubit_gates": 6,
+              "measurement_ops": 4
+            },
+            {
+              "group": 1,
+              "shots": 7664,
+              "depth": 17,
+              "two_qubit_depth": 5,
+              "one_qubit_gates": 45,
+              "two_qubit_gates": 6,
+              "measurement_ops": 4
+            },
+            {
+              "group": 2,
+              "shots": 81256,
+              "depth": 14,
+              "two_qubit_depth": 5,
+              "one_qubit_gates": 33,
+              "two_qubit_gates": 6,
+              "measurement_ops": 4
+            }
+          ],
+          "topology": "grid",
+          "routing_multiplier_vs_all_to_all": 1.0
+        }
+      ]
+    },
+    {
+      "fixture": "molecular_chain_4q_surrogate",
+      "fixture_path": "benchmarks/workloads/hamiltonians/molecular_chain_4q.json",
+      "qubits": 4,
+      "pauli_terms_total": 14,
+      "pauli_terms_measured": 13,
+      "measurement_groups_per_eval": 3,
+      "group_basis": [
+        "XXXX",
+        "YYYY",
+        "ZZZZ"
+      ],
+      "group_coefficient_l1_weights": [
+        0.12,
+        0.08299999999999999,
+        0.88
+      ],
+      "shots_by_group": [
+        11080,
+        7664,
+        81256
+      ],
+      "shot_executions_per_eval": 100000,
+      "layers": 2,
+      "ansatz_variant": "dense_entangler_stress",
+      "evidence_level": "routing_stress_only",
+      "mid_circuit_measurement": false,
+      "intra_circuit_feedforward": false,
+      "measured_quality": null,
+      "arbitrary_rotations_per_group": 16,
+      "t_state_demand_proxy_per_eval": 4800,
+      "topologies": [
+        {
+          "per_evaluation_group_sum": {
+            "one_qubit_gates": 117,
+            "two_qubit_gates": 36,
+            "measurement_ops": 12
+          },
+          "per_evaluation_shot_weighted": {
+            "one_qubit_gates": 3324928,
+            "two_qubit_gates": 1200000,
+            "measurement_ops": 400000
+          },
+          "max_group_depth": 21,
+          "max_group_two_qubit_depth": 9,
+          "groups": [
+            {
+              "group": 0,
+              "shots": 11080,
+              "depth": 21,
+              "two_qubit_depth": 9,
+              "one_qubit_gates": 43,
+              "two_qubit_gates": 12,
+              "measurement_ops": 4
+            },
+            {
+              "group": 1,
+              "shots": 7664,
+              "depth": 21,
+              "two_qubit_depth": 9,
+              "one_qubit_gates": 43,
+              "two_qubit_gates": 12,
+              "measurement_ops": 4
+            },
+            {
+              "group": 2,
+              "shots": 81256,
+              "depth": 18,
+              "two_qubit_depth": 9,
+              "one_qubit_gates": 31,
+              "two_qubit_gates": 12,
+              "measurement_ops": 4
+            }
+          ],
+          "topology": "all_to_all",
+          "routing_multiplier_vs_all_to_all": 1.0
+        },
+        {
+          "per_evaluation_group_sum": {
+            "one_qubit_gates": 120,
+            "two_qubit_gates": 84,
+            "measurement_ops": 12
+          },
+          "per_evaluation_shot_weighted": {
+            "one_qubit_gates": 3424928,
+            "two_qubit_gates": 2800000,
+            "measurement_ops": 400000
+          },
+          "max_group_depth": 43,
+          "max_group_two_qubit_depth": 23,
+          "groups": [
+            {
+              "group": 0,
+              "shots": 11080,
+              "depth": 43,
+              "two_qubit_depth": 23,
+              "one_qubit_gates": 44,
+              "two_qubit_gates": 28,
+              "measurement_ops": 4
+            },
+            {
+              "group": 1,
+              "shots": 7664,
+              "depth": 43,
+              "two_qubit_depth": 23,
+              "one_qubit_gates": 44,
+              "two_qubit_gates": 28,
+              "measurement_ops": 4
+            },
+            {
+              "group": 2,
+              "shots": 81256,
+              "depth": 40,
+              "two_qubit_depth": 23,
+              "one_qubit_gates": 32,
+              "two_qubit_gates": 28,
+              "measurement_ops": 4
+            }
+          ],
+          "topology": "line",
+          "routing_multiplier_vs_all_to_all": 2.3333333333333335
+        },
+        {
+          "per_evaluation_group_sum": {
+            "one_qubit_gates": 150,
+            "two_qubit_gates": 64,
+            "measurement_ops": 12
+          },
+          "per_evaluation_shot_weighted": {
+            "one_qubit_gates": 4424928,
+            "two_qubit_gates": 2037488,
+            "measurement_ops": 400000
+          },
+          "max_group_depth": 39,
+          "max_group_two_qubit_depth": 16,
+          "groups": [
+            {
+              "group": 0,
+              "shots": 11080,
+              "depth": 39,
+              "two_qubit_depth": 16,
+              "one_qubit_gates": 54,
+              "two_qubit_gates": 22,
+              "measurement_ops": 4
+            },
+            {
+              "group": 1,
+              "shots": 7664,
+              "depth": 39,
+              "two_qubit_depth": 16,
+              "one_qubit_gates": 54,
+              "two_qubit_gates": 22,
+              "measurement_ops": 4
+            },
+            {
+              "group": 2,
+              "shots": 81256,
+              "depth": 32,
+              "two_qubit_depth": 15,
+              "one_qubit_gates": 42,
+              "two_qubit_gates": 20,
+              "measurement_ops": 4
+            }
+          ],
+          "topology": "grid",
+          "routing_multiplier_vs_all_to_all": 1.7777777777777777
+        }
+      ]
+    }
+  ]
+}

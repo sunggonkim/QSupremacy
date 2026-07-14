@@ -8,141 +8,198 @@
       "severity": "error"
     },
     {
-      "detail": "PDF page count can be read",
-      "name": "page_count_known",
-      "passed": true,
-      "severity": "error"
-    },
-    {
-      "detail": "paper/main.pdf and paper/main.log are newer than paper sources and figures",
+      "detail": "PDF and log are newer than all included TeX, bibliography, and figure files",
       "name": "main_pdf_fresh",
       "passed": true,
       "severity": "error"
     },
     {
-      "detail": "references start on page 12",
-      "name": "page_count_hpca_body",
+      "detail": "PDF has 14 total pages",
+      "name": "page_count_known",
       "passed": true,
-      "severity": "warning"
+      "severity": "error"
     },
     {
-      "detail": "LaTeX log implies 12.00pt leading",
-      "name": "line_spacing_hpca",
+      "detail": "references begin on page 12; the manuscript must occupy body pages 1--11",
+      "name": "hpca_full_body_budget",
       "passed": true,
-      "severity": "warning"
+      "severity": "error"
     },
     {
-      "detail": "LaTeX log has no undefined references or citations",
+      "detail": "IEEEtran geometry is present without prohibited float-spacing compression",
+      "name": "official_template_dimensions",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "detail": "undefined references/citations: []",
       "name": "latex_no_undefined",
       "passed": true,
       "severity": "error"
     },
     {
-      "detail": "overfull hbox lines: none",
+      "detail": "overfull hboxes: 0",
       "name": "latex_no_overfull_hbox",
       "passed": true,
-      "severity": "warning"
+      "severity": "error"
     },
     {
-      "detail": "BibTeX log has no warnings",
+      "detail": "BibTeX has no warnings",
       "name": "bibtex_no_warnings",
       "passed": true,
       "severity": "error"
     },
     {
-      "detail": "paper TODO/TBD/placeholder hits: none",
-      "name": "paper_no_todos",
-      "passed": true,
-      "severity": "error"
-    },
-    {
-      "detail": "reviewer-sensitive shortcut hits: none",
-      "name": "paper_no_reviewer_sensitive_shortcuts",
-      "passed": true,
-      "severity": "error"
-    },
-    {
-      "detail": "paper evidence audit reports PASS",
-      "name": "evidence_audit_pass",
-      "passed": true,
-      "severity": "error"
-    },
-    {
-      "detail": "HPCA title-page banner and empty double-blind author block are present",
-      "name": "anonymous_submission",
-      "passed": true,
-      "severity": "warning"
-    },
-    {
-      "detail": "source anonymity hits: none",
-      "name": "paper_source_anonymity",
-      "passed": true,
-      "severity": "warning"
-    },
-    {
-      "detail": "PDF metadata anonymity hits: none",
-      "name": "pdf_metadata_anonymity",
-      "passed": true,
-      "severity": "warning"
-    },
-    {
-      "detail": "PDF text extracts clean system name and Fig. 5 precedes Fig. 6",
-      "name": "pdf_text_readability",
-      "passed": true,
-      "severity": "warning"
-    },
-    {
-      "detail": "HPCA-compatible IEEEtran layout markers are present",
-      "name": "target_template_selected",
-      "passed": true,
-      "severity": "warning"
-    },
-    {
-      "detail": "references contain no et al. shorthand",
+      "detail": "all-author policy violations: []",
       "name": "references_list_all_authors",
       "passed": true,
       "severity": "error"
     },
     {
-      "detail": "AI-use disclosure appendix is present after references",
-      "name": "ai_use_appendix",
+      "detail": "TODO/TBD markers: []",
+      "name": "paper_no_todos",
       "passed": true,
-      "severity": "warning"
+      "severity": "error"
     },
     {
-      "detail": "repeat timing gate passed with 12 measured cases",
-      "name": "repeated_hardware_trials",
+      "detail": "review-sensitive shortcuts: []",
+      "name": "paper_no_reviewer_shortcuts",
       "passed": true,
-      "severity": "warning"
+      "severity": "error"
     },
     {
-      "detail": "README files document paper-readiness audits and login smoke gate",
-      "name": "artifact_quickstart_documented",
+      "detail": "double-blind banner is present; source hits=[], metadata hits=[]",
+      "name": "anonymous_submission",
       "passed": true,
-      "severity": "warning"
+      "severity": "error"
     },
     {
-      "detail": "previous-paper section/role alignment JSON checks pass",
-      "name": "previous_paper_alignment_metrics",
+      "detail": "AI-use disclosure identifies tool, scope, author execution, and verification",
+      "name": "ai_use_disclosure",
       "passed": true,
-      "severity": "warning"
+      "severity": "error"
     },
     {
-      "detail": "previous-paper LaTeX style JSON audit passes",
-      "name": "previous_paper_style_audit",
+      "detail": "all 20 included assets resolve to their own legend, a shared legend, or direct labels; failures=[]",
+      "name": "figure_legend_or_direct_label_coverage",
       "passed": true,
-      "severity": "warning"
+      "severity": "error"
     },
     {
-      "detail": "previous-paper deep trace JSON covers all manuscript sections",
-      "name": "previous_paper_deep_trace",
+      "detail": "Type 3 font objects: []; audit error=None",
+      "name": "pdf_no_type3_fonts",
       "passed": true,
-      "severity": "warning"
+      "severity": "error"
+    },
+    {
+      "detail": "minimum effective embedded figure text is 8.06 pt",
+      "name": "figure_text_minimum_8pt",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "detail": "minimum caption text is 8.97 pt",
+      "name": "caption_text_minimum_9pt",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "detail": "Abstract through Conclusion frame QArchGauge as an HPC-driven inversion",
+      "name": "go_identity",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "detail": "only 12 direct finite-shot full-loop Sim records are hardware-target eligible",
+      "name": "go_quality_eligibility",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "detail": "all records have compiled/source-audited static semantics; no fallback or invented DAG",
+      "name": "go_trace_semantics",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "detail": "quality, shots, failure budget, distance, rotations, supply, space, and decoder form one contract",
+      "name": "go_ft_consistency",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "detail": "first, crossover, and next targets are reported from coupled deterministic regions",
+      "name": "go_joint_robustness",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "detail": "LSQCA is re-inverted with matched events and BOSS receives a bounded conditional hook",
+      "name": "go_architecture_depth",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "detail": "headlines expose denominators, hierarchical CIs, and workload-balanced weighting",
+      "name": "go_statistics",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "detail": "executed native paths, moving frontier, and stress-vs-measurement boundary are explicit",
+      "name": "go_native_frontier",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "detail": "benchmark, FT, trace/control, component, HPC runtime, and quality-mechanism neighbors have exact contrasts",
+      "name": "go_current_positioning",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "detail": "the paper states what improves now, by how much, when it changes, and where claims are conditional",
+      "name": "go_architecture_answer",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "detail": "20 included assets, one deliberate two-column figure, extractable captions, and style audit all pass",
+      "name": "go_presentation",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "detail": "P0 artifacts={'quality': 'PASS', 'finite_shot': 'PASS', 'schedule': 'PASS', 'statistics': 'PASS', 'ft': 'PASS', 'joint_dse': 'PASS', 'replacement': 'PASS'}, evidence=True, manifest=True, projection=True, alignment/style/trace=PASS",
+      "name": "go_reproducibility",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "detail": "real-QPU, large VQE, adaptive trace, and PPA/energy limits are explicit",
+      "name": "residual_limits_disclosed",
+      "passed": true,
+      "severity": "error"
     }
   ],
-  "line_spacing_points": 12.001982142857143,
+  "go_gate_count": 12,
+  "go_gate_pass_count": 12,
+  "graphics_audit": {
+    "available": true,
+    "error": null,
+    "figure_fonts": [
+      "LiberationSerif",
+      "LiberationSerif-Bold",
+      "STIXGeneral-Italic",
+      "STIXGeneral-Regular"
+    ],
+    "minimum_caption_text_pt": 8.966400146484375,
+    "minimum_figure_text_pt": 8.063948631286621,
+    "type3": []
+  },
   "page_count": 14,
   "references_start_page": 12,
+  "schema": "qarchgauge.submission-readiness.v2",
   "status": "SUBMISSION_READY",
   "warning_count": 0
 }

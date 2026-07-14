@@ -3,7 +3,7 @@
 # This is not the main scaling suite. It checks that the same-input record path
 # remains executable when the workload is pushed beyond the main exact sweep.
 
-#SBATCH -A m1248
+#SBATCH -A m5320
 #SBATCH -C gpu
 #SBATCH -q debug
 #SBATCH -t 00:30:00

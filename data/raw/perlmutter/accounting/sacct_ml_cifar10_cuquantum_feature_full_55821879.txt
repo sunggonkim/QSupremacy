@@ -1,0 +1,5 @@
+JobIDRaw|JobName|State|ExitCode|Elapsed|ElapsedRaw|AllocTRES|Start|End
+55821879|qsup-cifar-full|COMPLETED|0:0|00:03:16|196|billing=32,cpu=32,energy=134652,gres/gpu:a100=1,gres/gpu=1,mem=57472M,node=1|2026-07-12T08:36:22|2026-07-12T08:39:38
+55821879.batch|batch|COMPLETED|0:0|00:03:16|196|cpu=32,gres/gpu:a100=1,gres/gpu=1,mem=57472M,node=1|2026-07-12T08:36:22|2026-07-12T08:39:38
+55821879.extern|extern|COMPLETED|0:0|00:03:16|196|billing=32,cpu=32,gres/gpu:a100=1,gres/gpu=1,mem=57472M,node=1|2026-07-12T08:36:22|2026-07-12T08:39:38
+55821879.0|python|COMPLETED|0:0|00:03:12|192|cpu=32,gres/gpu:a100=1,gres/gpu=1,mem=57472M,node=1|2026-07-12T08:36:26|2026-07-12T08:39:38

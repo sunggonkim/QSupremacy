@@ -1,0 +1,144 @@
+{
+  "cases": [
+    {
+      "best_quality_combined": {
+        "device": "recorded",
+        "model": "suite_previous_selected",
+        "runtime_sec": 0.0001646980526857078,
+        "source": "practical_suite_summary",
+        "test_accuracy": 1.0,
+        "train_accuracy": null
+      },
+      "best_quality_production": {
+        "allow_tf32": true,
+        "amp": true,
+        "device": "NVIDIA A100-PCIE-40GB",
+        "max_cuda_memory_bytes": 24338432,
+        "model": "torch_cnn_amp_raw",
+        "parameters": 267459,
+        "runtime_sec": 0.8565832620370202,
+        "test_accuracy": 1.0,
+        "train_accuracy": 1.0
+      },
+      "case_id": "practical_strongnative_32node_large128c0c127_20260704060230_c0_ml_digits_c0v1v2_128s_4q_d1_r0_seed17.json",
+      "combined_required_speedup": 84063.85188678812,
+      "config": {
+        "digits_classes": "0,1,2",
+        "ml_depth": 1,
+        "ml_features": 4,
+        "ml_samples": 128,
+        "seed": 17
+      },
+      "fastest_combined": {
+        "device": "recorded",
+        "model": "suite_previous_selected",
+        "runtime_sec": 0.0001646980526857078,
+        "source": "practical_suite_summary",
+        "test_accuracy": 1.0,
+        "train_accuracy": null
+      },
+      "fastest_production": {
+        "allow_tf32": true,
+        "amp": true,
+        "device": "NVIDIA A100-PCIE-40GB",
+        "max_cuda_memory_bytes": 24338432,
+        "model": "torch_cnn_amp_raw",
+        "parameters": 267459,
+        "runtime_sec": 0.8565832620370202,
+        "test_accuracy": 1.0,
+        "train_accuracy": 1.0
+      },
+      "models": [
+        {
+          "device": "recorded",
+          "model": "suite_previous_selected",
+          "runtime_sec": 0.0001646980526857078,
+          "source": "practical_suite_summary",
+          "test_accuracy": 1.0,
+          "train_accuracy": null
+        },
+        {
+          "allow_tf32": true,
+          "amp": true,
+          "device": "NVIDIA A100-PCIE-40GB",
+          "max_cuda_memory_bytes": 17412096,
+          "model": "torch_mlp_amp_pca",
+          "parameters": 17539,
+          "runtime_sec": 2.471429238037672,
+          "test_accuracy": 1.0,
+          "train_accuracy": 1.0
+        },
+        {
+          "allow_tf32": true,
+          "amp": true,
+          "device": "NVIDIA A100-PCIE-40GB",
+          "max_cuda_memory_bytes": 24338432,
+          "model": "torch_cnn_amp_raw",
+          "parameters": 267459,
+          "runtime_sec": 0.8565832620370202,
+          "test_accuracy": 1.0,
+          "train_accuracy": 1.0
+        }
+      ],
+      "production_required_speedup": 16.1632305003123,
+      "reference": {
+        "previous_native_quality": 1.0,
+        "previous_native_runtime_sec": 0.0001646980526857078,
+        "previous_required_speedup": 84063.85188678812,
+        "previous_selected_model": "linear_ridge_numpy",
+        "quantum_quality": 0.6875,
+        "quantum_runtime_sec": 13.845152707013767
+      },
+      "selected_combined": {
+        "device": "recorded",
+        "model": "suite_previous_selected",
+        "runtime_sec": 0.0001646980526857078,
+        "source": "practical_suite_summary",
+        "test_accuracy": 1.0,
+        "train_accuracy": null
+      },
+      "selected_production": {
+        "allow_tf32": true,
+        "amp": true,
+        "device": "NVIDIA A100-PCIE-40GB",
+        "max_cuda_memory_bytes": 24338432,
+        "model": "torch_cnn_amp_raw",
+        "parameters": 267459,
+        "runtime_sec": 0.8565832620370202,
+        "test_accuracy": 1.0,
+        "train_accuracy": 1.0
+      }
+    }
+  ],
+  "metadata": {
+    "amp": true,
+    "cuda_visible_devices": "",
+    "cwd": "/pscratch/sd/s/sgkim/Skim-Qsupreme",
+    "digits_path": "data/datasets/sklearn_digits.npz",
+    "hostname": "login18",
+    "models": "torch_cnn_amp,torch_mlp_amp",
+    "platform": "Linux-6.4.0-150600.23.103_15.0.24-cray_shasta_c-x86_64-with-glibc2.38",
+    "runtime_sec": 6.0658429699833505,
+    "slurm_job_id": "",
+    "summary_csv": "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv"
+  },
+  "summary": {
+    "case_count": 1,
+    "combined_native_quality_median": 1.0,
+    "combined_native_runtime_sec_median": 0.0001646980526857078,
+    "combined_required_speedup_median": 84063.85188678812,
+    "model_failure_counts": {},
+    "previous_native_quality_median": 1.0,
+    "previous_native_runtime_sec_median": 0.0001646980526857078,
+    "previous_required_speedup_median": 84063.85188678812,
+    "production_native_quality_median": 1.0,
+    "production_native_runtime_sec_median": 0.8565832620370202,
+    "production_required_speedup_median": 16.1632305003123,
+    "selected_combined_counts": {
+      "suite_previous_selected": 1
+    },
+    "selected_production_counts": {
+      "torch_cnn_amp_raw": 1
+    }
+  }
+}

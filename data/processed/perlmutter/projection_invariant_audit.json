@@ -1,0 +1,116 @@
+{
+  "schema": "qsup.projection-invariant-audit.v3",
+  "input": "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv",
+  "cases": 3552,
+  "checks": [
+    {
+      "name": "nonnegative_components",
+      "passed": true,
+      "failure_count": 0,
+      "examples": []
+    },
+    {
+      "name": "component_accounting",
+      "passed": true,
+      "failure_count": 0,
+      "examples": []
+    },
+    {
+      "name": "ideal_overlap_exclusivity",
+      "passed": true,
+      "failure_count": 0,
+      "examples": []
+    },
+    {
+      "name": "overlap_endpoint_identity",
+      "passed": true,
+      "failure_count": 0,
+      "examples": []
+    },
+    {
+      "name": "overlap_serialization_monotonicity",
+      "passed": true,
+      "failure_count": 0,
+      "examples": []
+    },
+    {
+      "name": "shot_lane_monotonicity",
+      "passed": true,
+      "failure_count": 0,
+      "examples": []
+    },
+    {
+      "name": "shot_demand_monotonicity",
+      "passed": true,
+      "failure_count": 0,
+      "examples": []
+    },
+    {
+      "name": "decoder_shot_demand_monotonicity",
+      "passed": true,
+      "failure_count": 0,
+      "examples": []
+    },
+    {
+      "name": "measurement_group_demand_monotonicity",
+      "passed": true,
+      "failure_count": 0,
+      "examples": []
+    },
+    {
+      "name": "routing_dilation_monotonicity",
+      "passed": true,
+      "failure_count": 0,
+      "examples": []
+    },
+    {
+      "name": "factory_supply_monotonicity",
+      "passed": true,
+      "failure_count": 0,
+      "examples": []
+    },
+    {
+      "name": "total_shot_execution_identity",
+      "passed": true,
+      "failure_count": 0,
+      "examples": []
+    },
+    {
+      "name": "shot_lane_demand_cap",
+      "passed": true,
+      "failure_count": 0,
+      "examples": []
+    },
+    {
+      "name": "shot_lane_ready_cap",
+      "passed": true,
+      "failure_count": 0,
+      "examples": []
+    },
+    {
+      "name": "queue_service_monotonicity",
+      "passed": true,
+      "failure_count": 0,
+      "examples": []
+    },
+    {
+      "name": "batch_one_identity",
+      "passed": true,
+      "failure_count": 0,
+      "examples": []
+    },
+    {
+      "name": "batch_monotonicity",
+      "passed": true,
+      "failure_count": 0,
+      "examples": []
+    },
+    {
+      "name": "stronger_native_never_eases_deadline",
+      "passed": true,
+      "measured_deadline_sec": 1.0,
+      "stressed_deadline_sec": 0.1
+    }
+  ],
+  "passed": true
+}

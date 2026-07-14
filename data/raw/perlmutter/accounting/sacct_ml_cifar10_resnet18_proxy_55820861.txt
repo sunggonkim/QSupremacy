@@ -1,0 +1,4 @@
+JobID|JobName|State|ExitCode|Elapsed|AllocNodes|AllocTRES|Submit|Start|End
+55820861|qsup-mlproxy|COMPLETED|0:0|00:01:19|1|billing=32,cpu=32,energy=32451,gres/gpu:a100=1,gres/gpu=1,mem=57472M,node=1|2026-07-12T06:40:19|2026-07-12T06:44:16|2026-07-12T06:45:35
+55820861.batch|batch|COMPLETED|0:0|00:01:19|1|cpu=32,gres/gpu:a100=1,gres/gpu=1,mem=57472M,node=1|2026-07-12T06:44:16|2026-07-12T06:44:16|2026-07-12T06:45:35
+55820861.extern|extern|COMPLETED|0:0|00:01:19|1|billing=32,cpu=32,gres/gpu:a100=1,gres/gpu=1,mem=57472M,node=1|2026-07-12T06:44:16|2026-07-12T06:44:16|2026-07-12T06:45:35

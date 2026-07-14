@@ -1,0 +1,936 @@
+{
+  "schema": "qsup.chem-active-space-quality-closure.v1",
+  "status": "complete",
+  "scope": "same H8 STO-3G chain at 1.4 Angstrom with nested 2/4/6/8-spatial-orbital active spaces; exact CASCI/FCI native target, noiseless pair-UCC VQE-style statevector optimization, QWC grouping, and compiled topology cost; controlled scale evidence, not a deployment-scale molecular VQE claim",
+  "versions": {
+    "pyscf": "2.13.0",
+    "openfermion": "1.7.1",
+    "openfermionpyscf": "0.5",
+    "qiskit": "2.5.0",
+    "scipy": "1.17.1"
+  },
+  "host": "nid005952",
+  "slurm_job_id": "55845034",
+  "chain_atoms": 8,
+  "spacing_angstrom": 1.4,
+  "scf_energy_ha": -3.7878308687769557,
+  "scf_wall_sec": 0.2724335399980191,
+  "quality_target_ha": 0.01,
+  "optimizer": {
+    "name": "COBYLA",
+    "restarts": 2,
+    "evals_per_parameter": 2.0,
+    "minimum_evals": 60,
+    "maximum_evals": 220
+  },
+  "records": [
+    {
+      "active_spatial_orbitals": 2,
+      "active_electrons": 2,
+      "qubits": 4,
+      "occupied_indices": [
+        0,
+        1,
+        2
+      ],
+      "active_indices": [
+        3,
+        4
+      ],
+      "fixture": "benchmarks/workloads/hamiltonians/h8_sto3g_active_4q.json",
+      "fci_energy_ha": -3.8078513471912627,
+      "fci_wall_sec": 0.40036672999849543,
+      "hf_energy_ha": -3.7878308687769504,
+      "hf_error_ha": 0.020020478414312315,
+      "ansatz": "Jordan-Wigner pair-UCC occupied-to-virtual closed-shell excitations compiled as Pauli evolutions",
+      "ansatz_reps": 1,
+      "parameters": 1,
+      "max_evaluations_per_restart": 60,
+      "vqe_energy_ha": -3.8078513471882163,
+      "vqe_error_ha": 3.0464519795714295e-12,
+      "quality_pass_0p01_ha": true,
+      "optimization": {
+        "restart": 0,
+        "energy_ha": -3.8078513471882163,
+        "parameters": [
+          -0.23755071067811867
+        ],
+        "evaluations": 27,
+        "optimizer_success": true,
+        "optimizer_message": "Return from COBYLA because the trust region radius reaches its lower bound.",
+        "total_evaluations_all_restarts": 51,
+        "optimization_wall_sec": 0.2748833369987551
+      },
+      "measurement": {
+        "pauli_terms_total": 15,
+        "pauli_terms_measured": 14,
+        "qwc_groups": 5,
+        "largest_qwc_group": 10,
+        "coefficient_l1_measured": 0.6141891999158205,
+        "fixed_shot_budget": 100000,
+        "fixed_shots_allocated": 100001,
+        "state_independent_shot_bound_for_target_error": 3773,
+        "target_standard_error_ha": 0.01
+      },
+      "compiled": [
+        {
+          "topology": "all_to_all",
+          "depth": 71,
+          "two_qubit_depth": 34,
+          "one_qubit_gates": 106,
+          "two_qubit_gates": 34,
+          "measurement_ops": 4,
+          "gate_counts": {
+            "rz": 62,
+            "sx": 39,
+            "cx": 34,
+            "x": 5,
+            "measure": 4,
+            "barrier": 1
+          },
+          "routing_multiplier_vs_all_to_all": 1.0
+        },
+        {
+          "topology": "grid",
+          "depth": 71,
+          "two_qubit_depth": 34,
+          "one_qubit_gates": 106,
+          "two_qubit_gates": 34,
+          "measurement_ops": 4,
+          "gate_counts": {
+            "rz": 62,
+            "sx": 39,
+            "cx": 34,
+            "x": 5,
+            "measure": 4,
+            "barrier": 1
+          },
+          "routing_multiplier_vs_all_to_all": 1.0
+        },
+        {
+          "topology": "line",
+          "depth": 71,
+          "two_qubit_depth": 34,
+          "one_qubit_gates": 106,
+          "two_qubit_gates": 34,
+          "measurement_ops": 4,
+          "gate_counts": {
+            "rz": 62,
+            "sx": 39,
+            "cx": 34,
+            "x": 5,
+            "measure": 4,
+            "barrier": 1
+          },
+          "routing_multiplier_vs_all_to_all": 1.0
+        }
+      ]
+    },
+    {
+      "active_spatial_orbitals": 2,
+      "active_electrons": 2,
+      "qubits": 4,
+      "occupied_indices": [
+        0,
+        1,
+        2
+      ],
+      "active_indices": [
+        3,
+        4
+      ],
+      "fixture": "benchmarks/workloads/hamiltonians/h8_sto3g_active_4q.json",
+      "fci_energy_ha": -3.8078513471912627,
+      "fci_wall_sec": 0.40036672999849543,
+      "hf_energy_ha": -3.787830868776947,
+      "hf_error_ha": 0.020020478414315868,
+      "ansatz": "Jordan-Wigner pair-UCC occupied-to-virtual closed-shell excitations compiled as Pauli evolutions",
+      "ansatz_reps": 2,
+      "parameters": 2,
+      "max_evaluations_per_restart": 60,
+      "vqe_energy_ha": -3.807851347188212,
+      "vqe_error_ha": 3.05089287166993e-12,
+      "quality_pass_0p01_ha": true,
+      "optimization": {
+        "restart": 0,
+        "energy_ha": -3.807851347188212,
+        "parameters": [
+          -0.23755071067811867,
+          0.0
+        ],
+        "evaluations": 24,
+        "optimizer_success": true,
+        "optimizer_message": "Return from COBYLA because the trust region radius reaches its lower bound.",
+        "total_evaluations_all_restarts": 58,
+        "optimization_wall_sec": 0.4212541219894774
+      },
+      "measurement": {
+        "pauli_terms_total": 15,
+        "pauli_terms_measured": 14,
+        "qwc_groups": 5,
+        "largest_qwc_group": 10,
+        "coefficient_l1_measured": 0.6141891999158205,
+        "fixed_shot_budget": 100000,
+        "fixed_shots_allocated": 100001,
+        "state_independent_shot_bound_for_target_error": 3773,
+        "target_standard_error_ha": 0.01
+      },
+      "compiled": [
+        {
+          "topology": "all_to_all",
+          "depth": 78,
+          "two_qubit_depth": 34,
+          "one_qubit_gates": 111,
+          "two_qubit_gates": 34,
+          "measurement_ops": 4,
+          "gate_counts": {
+            "rz": 63,
+            "sx": 42,
+            "cx": 34,
+            "x": 6,
+            "measure": 4,
+            "barrier": 1
+          },
+          "routing_multiplier_vs_all_to_all": 1.0
+        },
+        {
+          "topology": "grid",
+          "depth": 78,
+          "two_qubit_depth": 34,
+          "one_qubit_gates": 111,
+          "two_qubit_gates": 34,
+          "measurement_ops": 4,
+          "gate_counts": {
+            "rz": 63,
+            "sx": 42,
+            "cx": 34,
+            "x": 6,
+            "measure": 4,
+            "barrier": 1
+          },
+          "routing_multiplier_vs_all_to_all": 1.0
+        },
+        {
+          "topology": "line",
+          "depth": 78,
+          "two_qubit_depth": 34,
+          "one_qubit_gates": 111,
+          "two_qubit_gates": 34,
+          "measurement_ops": 4,
+          "gate_counts": {
+            "rz": 63,
+            "sx": 42,
+            "cx": 34,
+            "x": 6,
+            "measure": 4,
+            "barrier": 1
+          },
+          "routing_multiplier_vs_all_to_all": 1.0
+        }
+      ]
+    },
+    {
+      "active_spatial_orbitals": 4,
+      "active_electrons": 4,
+      "qubits": 8,
+      "occupied_indices": [
+        0,
+        1
+      ],
+      "active_indices": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "fixture": "benchmarks/workloads/hamiltonians/h8_sto3g_active_8q.json",
+      "fci_energy_ha": -3.8640030565997048,
+      "fci_wall_sec": 0.015879458995186724,
+      "hf_energy_ha": -3.787830868776945,
+      "hf_error_ha": 0.0761721878227597,
+      "ansatz": "Jordan-Wigner pair-UCC occupied-to-virtual closed-shell excitations compiled as Pauli evolutions",
+      "ansatz_reps": 1,
+      "parameters": 4,
+      "max_evaluations_per_restart": 60,
+      "vqe_energy_ha": -3.8193544954848564,
+      "vqe_error_ha": 0.044648561114848384,
+      "quality_pass_0p01_ha": false,
+      "optimization": {
+        "restart": 0,
+        "energy_ha": -3.8193544954848564,
+        "parameters": [
+          -0.06611222957133517,
+          -0.07799551045488466,
+          -0.20095314740984246,
+          -0.05994837830131015
+        ],
+        "evaluations": 60,
+        "optimizer_success": false,
+        "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+        "total_evaluations_all_restarts": 120,
+        "optimization_wall_sec": 2.2375072369904956
+      },
+      "measurement": {
+        "pauli_terms_total": 185,
+        "pauli_terms_measured": 184,
+        "qwc_groups": 68,
+        "largest_qwc_group": 11,
+        "coefficient_l1_measured": 3.644604837514813,
+        "fixed_shot_budget": 100000,
+        "fixed_shots_allocated": 99997,
+        "state_independent_shot_bound_for_target_error": 132832,
+        "target_standard_error_ha": 0.01
+      },
+      "compiled": [
+        {
+          "topology": "all_to_all",
+          "depth": 202,
+          "two_qubit_depth": 100,
+          "one_qubit_gates": 412,
+          "two_qubit_gates": 136,
+          "measurement_ops": 8,
+          "gate_counts": {
+            "rz": 240,
+            "sx": 154,
+            "cx": 136,
+            "x": 18,
+            "measure": 8,
+            "barrier": 1
+          },
+          "routing_multiplier_vs_all_to_all": 1.0
+        },
+        {
+          "topology": "grid",
+          "depth": 202,
+          "two_qubit_depth": 100,
+          "one_qubit_gates": 412,
+          "two_qubit_gates": 136,
+          "measurement_ops": 8,
+          "gate_counts": {
+            "rz": 240,
+            "sx": 154,
+            "cx": 136,
+            "x": 18,
+            "measure": 8,
+            "barrier": 1
+          },
+          "routing_multiplier_vs_all_to_all": 1.0
+        },
+        {
+          "topology": "line",
+          "depth": 221,
+          "two_qubit_depth": 119,
+          "one_qubit_gates": 415,
+          "two_qubit_gates": 162,
+          "measurement_ops": 8,
+          "gate_counts": {
+            "rz": 241,
+            "cx": 162,
+            "sx": 156,
+            "x": 18,
+            "measure": 8,
+            "barrier": 1
+          },
+          "routing_multiplier_vs_all_to_all": 1.1911764705882353
+        }
+      ]
+    },
+    {
+      "active_spatial_orbitals": 4,
+      "active_electrons": 4,
+      "qubits": 8,
+      "occupied_indices": [
+        0,
+        1
+      ],
+      "active_indices": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "fixture": "benchmarks/workloads/hamiltonians/h8_sto3g_active_8q.json",
+      "fci_energy_ha": -3.8640030565997048,
+      "fci_wall_sec": 0.015879458995186724,
+      "hf_energy_ha": -3.78783086877694,
+      "hf_error_ha": 0.07617218782276458,
+      "ansatz": "Jordan-Wigner pair-UCC occupied-to-virtual closed-shell excitations compiled as Pauli evolutions",
+      "ansatz_reps": 2,
+      "parameters": 8,
+      "max_evaluations_per_restart": 60,
+      "vqe_energy_ha": -3.819354497873067,
+      "vqe_error_ha": 0.044648558726637866,
+      "quality_pass_0p01_ha": false,
+      "optimization": {
+        "restart": 0,
+        "energy_ha": -3.819354497873067,
+        "parameters": [
+          -0.06607904550469351,
+          -0.07800299229751768,
+          -0.20098256447246357,
+          -0.05995334118551495,
+          -6.063804879753805e-06,
+          -8.83036211164432e-07,
+          -4.665967070145879e-05,
+          -1.2034233574100942e-05
+        ],
+        "evaluations": 60,
+        "optimizer_success": false,
+        "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+        "total_evaluations_all_restarts": 120,
+        "optimization_wall_sec": 3.6259508010116406
+      },
+      "measurement": {
+        "pauli_terms_total": 185,
+        "pauli_terms_measured": 184,
+        "qwc_groups": 68,
+        "largest_qwc_group": 11,
+        "coefficient_l1_measured": 3.644604837514813,
+        "fixed_shot_budget": 100000,
+        "fixed_shots_allocated": 99997,
+        "state_independent_shot_bound_for_target_error": 132832,
+        "target_standard_error_ha": 0.01
+      },
+      "compiled": [
+        {
+          "topology": "all_to_all",
+          "depth": 211,
+          "two_qubit_depth": 100,
+          "one_qubit_gates": 422,
+          "two_qubit_gates": 136,
+          "measurement_ops": 8,
+          "gate_counts": {
+            "rz": 243,
+            "sx": 157,
+            "cx": 136,
+            "x": 22,
+            "measure": 8,
+            "barrier": 1
+          },
+          "routing_multiplier_vs_all_to_all": 1.0
+        },
+        {
+          "topology": "grid",
+          "depth": 211,
+          "two_qubit_depth": 100,
+          "one_qubit_gates": 422,
+          "two_qubit_gates": 136,
+          "measurement_ops": 8,
+          "gate_counts": {
+            "rz": 243,
+            "sx": 157,
+            "cx": 136,
+            "x": 22,
+            "measure": 8,
+            "barrier": 1
+          },
+          "routing_multiplier_vs_all_to_all": 1.0
+        },
+        {
+          "topology": "line",
+          "depth": 270,
+          "two_qubit_depth": 141,
+          "one_qubit_gates": 454,
+          "two_qubit_gates": 190,
+          "measurement_ops": 8,
+          "gate_counts": {
+            "rz": 262,
+            "cx": 190,
+            "sx": 171,
+            "x": 21,
+            "measure": 8,
+            "barrier": 1
+          },
+          "routing_multiplier_vs_all_to_all": 1.3970588235294117
+        }
+      ]
+    },
+    {
+      "active_spatial_orbitals": 6,
+      "active_electrons": 6,
+      "qubits": 12,
+      "occupied_indices": [
+        0
+      ],
+      "active_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "fixture": "benchmarks/workloads/hamiltonians/h8_sto3g_active_12q.json",
+      "fci_energy_ha": -3.9449380663798967,
+      "fci_wall_sec": 0.29093077100696974,
+      "hf_energy_ha": -3.7878308687769384,
+      "hf_error_ha": 0.15710719760295833,
+      "ansatz": "Jordan-Wigner pair-UCC occupied-to-virtual closed-shell excitations compiled as Pauli evolutions",
+      "ansatz_reps": 1,
+      "parameters": 9,
+      "max_evaluations_per_restart": 60,
+      "vqe_energy_ha": -3.828419073616562,
+      "vqe_error_ha": 0.11651899276333477,
+      "quality_pass_0p01_ha": false,
+      "optimization": {
+        "restart": 0,
+        "energy_ha": -3.828419073616562,
+        "parameters": [
+          -0.050670497432055345,
+          -0.03777739759354001,
+          -0.0379009167871115,
+          -0.051959245320992914,
+          -0.07560577044024677,
+          -0.03445276319579895,
+          -0.16748731659370164,
+          -0.05525152776573331,
+          -0.042956800490810465
+        ],
+        "evaluations": 60,
+        "optimizer_success": false,
+        "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+        "total_evaluations_all_restarts": 120,
+        "optimization_wall_sec": 9.444970271986676
+      },
+      "measurement": {
+        "pauli_terms_total": 919,
+        "pauli_terms_measured": 918,
+        "qwc_groups": 284,
+        "largest_qwc_group": 37,
+        "coefficient_l1_measured": 11.195961511224409,
+        "fixed_shot_budget": 100000,
+        "fixed_shots_allocated": 99982,
+        "state_independent_shot_bound_for_target_error": 1253496,
+        "target_standard_error_ha": 0.01
+      },
+      "compiled": [
+        {
+          "topology": "all_to_all",
+          "depth": 333,
+          "two_qubit_depth": 166,
+          "one_qubit_gates": 918,
+          "two_qubit_gates": 306,
+          "measurement_ops": 12,
+          "gate_counts": {
+            "rz": 534,
+            "sx": 345,
+            "cx": 306,
+            "x": 39,
+            "measure": 12,
+            "barrier": 1
+          },
+          "routing_multiplier_vs_all_to_all": 1.0
+        },
+        {
+          "topology": "grid",
+          "depth": 425,
+          "two_qubit_depth": 224,
+          "one_qubit_gates": 920,
+          "two_qubit_gates": 363,
+          "measurement_ops": 12,
+          "gate_counts": {
+            "rz": 536,
+            "cx": 363,
+            "sx": 345,
+            "x": 39,
+            "measure": 12,
+            "barrier": 1
+          },
+          "routing_multiplier_vs_all_to_all": 1.1862745098039216
+        },
+        {
+          "topology": "line",
+          "depth": 391,
+          "two_qubit_depth": 222,
+          "one_qubit_gates": 917,
+          "two_qubit_gates": 422,
+          "measurement_ops": 12,
+          "gate_counts": {
+            "rz": 533,
+            "cx": 422,
+            "sx": 345,
+            "x": 39,
+            "measure": 12,
+            "barrier": 1
+          },
+          "routing_multiplier_vs_all_to_all": 1.3790849673202614
+        }
+      ]
+    },
+    {
+      "active_spatial_orbitals": 6,
+      "active_electrons": 6,
+      "qubits": 12,
+      "occupied_indices": [
+        0
+      ],
+      "active_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "fixture": "benchmarks/workloads/hamiltonians/h8_sto3g_active_12q.json",
+      "fci_energy_ha": -3.9449380663798967,
+      "fci_wall_sec": 0.29093077100696974,
+      "hf_energy_ha": -3.787830868776919,
+      "hf_error_ha": 0.15710719760297787,
+      "ansatz": "Jordan-Wigner pair-UCC occupied-to-virtual closed-shell excitations compiled as Pauli evolutions",
+      "ansatz_reps": 2,
+      "parameters": 18,
+      "max_evaluations_per_restart": 60,
+      "vqe_energy_ha": -3.828567644030007,
+      "vqe_error_ha": 0.11637042234988959,
+      "quality_pass_0p01_ha": false,
+      "optimization": {
+        "restart": 0,
+        "energy_ha": -3.828567644030007,
+        "parameters": [
+          -0.05111196709378681,
+          -0.04158541529273725,
+          -0.03721446265260132,
+          -0.05928394919147086,
+          -0.0747750081522763,
+          -0.03650927748403068,
+          -0.17694316918452183,
+          -0.053021959453506365,
+          -0.041635952998875084,
+          0.003694231249321979,
+          0.005744059698466399,
+          0.0008614113397578002,
+          0.0023386520628090593,
+          0.0016779013741037479,
+          0.004942516265043499,
+          -0.009861932922798645,
+          0.001612627349957837,
+          0.00203289526457252
+        ],
+        "evaluations": 60,
+        "optimizer_success": false,
+        "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+        "total_evaluations_all_restarts": 120,
+        "optimization_wall_sec": 14.9194831999921
+      },
+      "measurement": {
+        "pauli_terms_total": 919,
+        "pauli_terms_measured": 918,
+        "qwc_groups": 284,
+        "largest_qwc_group": 37,
+        "coefficient_l1_measured": 11.195961511224409,
+        "fixed_shot_budget": 100000,
+        "fixed_shots_allocated": 99982,
+        "state_independent_shot_bound_for_target_error": 1253496,
+        "target_standard_error_ha": 0.01
+      },
+      "compiled": [
+        {
+          "topology": "all_to_all",
+          "depth": 534,
+          "two_qubit_depth": 268,
+          "one_qubit_gates": 1818,
+          "two_qubit_gates": 612,
+          "measurement_ops": 12,
+          "gate_counts": {
+            "rz": 1056,
+            "sx": 687,
+            "cx": 612,
+            "x": 75,
+            "measure": 12,
+            "barrier": 1
+          },
+          "routing_multiplier_vs_all_to_all": 1.0
+        },
+        {
+          "topology": "grid",
+          "depth": 785,
+          "two_qubit_depth": 419,
+          "one_qubit_gates": 1821,
+          "two_qubit_gates": 734,
+          "measurement_ops": 12,
+          "gate_counts": {
+            "rz": 1057,
+            "cx": 734,
+            "sx": 689,
+            "x": 75,
+            "measure": 12,
+            "barrier": 1
+          },
+          "routing_multiplier_vs_all_to_all": 1.1993464052287581
+        },
+        {
+          "topology": "line",
+          "depth": 816,
+          "two_qubit_depth": 455,
+          "one_qubit_gates": 1812,
+          "two_qubit_gates": 870,
+          "measurement_ops": 12,
+          "gate_counts": {
+            "rz": 1046,
+            "cx": 870,
+            "sx": 691,
+            "x": 75,
+            "measure": 12,
+            "barrier": 1
+          },
+          "routing_multiplier_vs_all_to_all": 1.4215686274509804
+        }
+      ]
+    },
+    {
+      "active_spatial_orbitals": 8,
+      "active_electrons": 8,
+      "qubits": 16,
+      "occupied_indices": [],
+      "active_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "fixture": "benchmarks/workloads/hamiltonians/h8_sto3g_active_16q.json",
+      "fci_energy_ha": -4.060728130125391,
+      "fci_wall_sec": 0.3236471940035699,
+      "hf_energy_ha": -3.7878308687769264,
+      "hf_error_ha": 0.27289726134846415,
+      "ansatz": "Jordan-Wigner pair-UCC occupied-to-virtual closed-shell excitations compiled as Pauli evolutions",
+      "ansatz_reps": 1,
+      "parameters": 16,
+      "max_evaluations_per_restart": 60,
+      "vqe_energy_ha": -3.834912918434278,
+      "vqe_error_ha": 0.22581521169111252,
+      "quality_pass_0p01_ha": false,
+      "optimization": {
+        "restart": 1,
+        "energy_ha": -3.834912918434278,
+        "parameters": [
+          -0.04984082614704713,
+          -0.022229801996632964,
+          -0.012138356446324142,
+          -0.023030165176090397,
+          -0.042438896377556795,
+          -0.03579371803829379,
+          -0.04441415513024688,
+          -0.00719834484067956,
+          -0.07341520162339887,
+          -0.05419642390358864,
+          -0.03456246370138185,
+          -0.016982380331775265,
+          -0.12426169086371903,
+          -0.06564552938690395,
+          -0.04188932684903693,
+          -0.039861765594917095
+        ],
+        "evaluations": 60,
+        "optimizer_success": false,
+        "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+        "total_evaluations_all_restarts": 120,
+        "optimization_wall_sec": 146.6639445119945
+      },
+      "measurement": {
+        "pauli_terms_total": 2913,
+        "pauli_terms_measured": 2912,
+        "qwc_groups": 850,
+        "largest_qwc_group": 79,
+        "coefficient_l1_measured": 28.445898400433496,
+        "fixed_shot_budget": 100000,
+        "fixed_shots_allocated": 100014,
+        "state_independent_shot_bound_for_target_error": 8091692,
+        "target_standard_error_ha": 0.01
+      },
+      "compiled": [
+        {
+          "topology": "all_to_all",
+          "depth": 464,
+          "two_qubit_depth": 232,
+          "one_qubit_gates": 1624,
+          "two_qubit_gates": 544,
+          "measurement_ops": 16,
+          "gate_counts": {
+            "rz": 944,
+            "sx": 612,
+            "cx": 544,
+            "x": 68,
+            "measure": 16,
+            "barrier": 1
+          },
+          "routing_multiplier_vs_all_to_all": 1.0
+        },
+        {
+          "topology": "grid",
+          "depth": 637,
+          "two_qubit_depth": 337,
+          "one_qubit_gates": 1620,
+          "two_qubit_gates": 653,
+          "measurement_ops": 16,
+          "gate_counts": {
+            "rz": 940,
+            "cx": 653,
+            "sx": 612,
+            "x": 68,
+            "measure": 16,
+            "barrier": 1
+          },
+          "routing_multiplier_vs_all_to_all": 1.2003676470588236
+        },
+        {
+          "topology": "line",
+          "depth": 552,
+          "two_qubit_depth": 319,
+          "one_qubit_gates": 1627,
+          "two_qubit_gates": 800,
+          "measurement_ops": 16,
+          "gate_counts": {
+            "rz": 945,
+            "cx": 800,
+            "sx": 614,
+            "x": 68,
+            "measure": 16,
+            "barrier": 1
+          },
+          "routing_multiplier_vs_all_to_all": 1.4705882352941178
+        }
+      ]
+    },
+    {
+      "active_spatial_orbitals": 8,
+      "active_electrons": 8,
+      "qubits": 16,
+      "occupied_indices": [],
+      "active_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "fixture": "benchmarks/workloads/hamiltonians/h8_sto3g_active_16q.json",
+      "fci_energy_ha": -4.060728130125391,
+      "fci_wall_sec": 0.3236471940035699,
+      "hf_energy_ha": -3.7878308687769007,
+      "hf_error_ha": 0.2728972613484899,
+      "ansatz": "Jordan-Wigner pair-UCC occupied-to-virtual closed-shell excitations compiled as Pauli evolutions",
+      "ansatz_reps": 2,
+      "parameters": 32,
+      "max_evaluations_per_restart": 64,
+      "vqe_energy_ha": -3.835262726450648,
+      "vqe_error_ha": 0.22546540367474277,
+      "quality_pass_0p01_ha": false,
+      "optimization": {
+        "restart": 0,
+        "energy_ha": -3.835262726450648,
+        "parameters": [
+          -0.04984082614704713,
+          -0.022229801996632964,
+          -0.012138356446324142,
+          -0.023030165176090397,
+          -0.042438896377556795,
+          -0.03579371803829379,
+          -0.04441415513024688,
+          -0.00719834484067956,
+          -0.07341520162339887,
+          -0.0620168883151679,
+          -0.03456246370138185,
+          -0.016982380331775265,
+          -0.1334983536904938,
+          -0.06564552938690395,
+          -0.04188932684903693,
+          -0.03602978701662658,
+          0.0,
+          0.0,
+          -1.5884755340523886e-18,
+          6.945967722397537e-19,
+          0.0,
+          0.0,
+          0.006232201568243945,
+          -2.0509511481969252e-19,
+          0.0,
+          0.0,
+          0.0,
+          4.101902296393848e-19,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "evaluations": 64,
+        "optimizer_success": false,
+        "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+        "total_evaluations_all_restarts": 128,
+        "optimization_wall_sec": 241.52902454399737
+      },
+      "measurement": {
+        "pauli_terms_total": 2913,
+        "pauli_terms_measured": 2912,
+        "qwc_groups": 850,
+        "largest_qwc_group": 79,
+        "coefficient_l1_measured": 28.445898400433496,
+        "fixed_shot_budget": 100000,
+        "fixed_shots_allocated": 100014,
+        "state_independent_shot_bound_for_target_error": 8091692,
+        "target_standard_error_ha": 0.01
+      },
+      "compiled": [
+        {
+          "topology": "all_to_all",
+          "depth": 486,
+          "two_qubit_depth": 234,
+          "one_qubit_gates": 1753,
+          "two_qubit_gates": 578,
+          "measurement_ops": 16,
+          "gate_counts": {
+            "rz": 1010,
+            "sx": 661,
+            "cx": 578,
+            "x": 82,
+            "measure": 16,
+            "barrier": 1
+          },
+          "routing_multiplier_vs_all_to_all": 1.0
+        },
+        {
+          "topology": "grid",
+          "depth": 661,
+          "two_qubit_depth": 349,
+          "one_qubit_gates": 1755,
+          "two_qubit_gates": 708,
+          "measurement_ops": 16,
+          "gate_counts": {
+            "rz": 1010,
+            "cx": 708,
+            "sx": 663,
+            "x": 82,
+            "measure": 16,
+            "barrier": 1
+          },
+          "routing_multiplier_vs_all_to_all": 1.2249134948096885
+        },
+        {
+          "topology": "line",
+          "depth": 801,
+          "two_qubit_depth": 432,
+          "one_qubit_gates": 1740,
+          "two_qubit_gates": 844,
+          "measurement_ops": 16,
+          "gate_counts": {
+            "rz": 996,
+            "cx": 844,
+            "sx": 664,
+            "x": 80,
+            "measure": 16,
+            "barrier": 1
+          },
+          "routing_multiplier_vs_all_to_all": 1.4602076124567474
+        }
+      ]
+    }
+  ]
+}

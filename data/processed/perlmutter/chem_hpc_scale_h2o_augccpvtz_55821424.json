@@ -1,0 +1,52 @@
+{
+  "schema": "qsup.chem-hpc-scale-proxy.v1",
+  "scope": "all-electron native chemistry scale extension; no matched large VQE execution or deployment-scale advantage is claimed",
+  "case_id": "h2o_augccpvtz",
+  "molecule": "H2O",
+  "basis": "aug-cc-pvtz",
+  "status": "complete",
+  "environment": {
+    "host": "nid004450",
+    "platform": "Linux-6.4.0-150600.23.103_15.0.25-cray_shasta_c-x86_64-with-glibc2.3.4",
+    "python": "3.6.15",
+    "threads": 64,
+    "omp_num_threads": "64",
+    "slurm_job_id": "55821424",
+    "slurm_cpus_per_task": "64"
+  },
+  "stages": {
+    "hf": {
+      "runtime_sec": 1.8324392630020157,
+      "energy_hartree": -76.06055880406585,
+      "converged": true
+    },
+    "mp2": {
+      "runtime_sec": 0.05213697999715805,
+      "energy_hartree": -76.34414656077509
+    },
+    "ccsd": {
+      "runtime_sec": 3.791478054015897,
+      "energy_hartree": -76.34875972539787,
+      "converged": true
+    },
+    "triples": {
+      "runtime_sec": 3.0034578730119392,
+      "correction_hartree": -0.00876966120938293,
+      "ccsdt_energy_hartree": -76.35752938660725
+    }
+  },
+  "atomic_orbitals": 92,
+  "electrons": 10,
+  "spin_orbital_qubits": 184,
+  "quantum_contract": {
+    "scope": "same-instance combinatorial upper contract; no integral pruning, Pauli grouping, circuit compilation, or VQE energy is claimed",
+    "occupied_spin_orbitals": 10,
+    "virtual_spin_orbitals": 174,
+    "uccsd_single_excitations": 1740,
+    "uccsd_double_excitations": 677295,
+    "unpruned_jw_pauli_worst_case": 2292474400
+  },
+  "occupied_spatial_orbitals": 5,
+  "virtual_spatial_orbitals": 87,
+  "total_native_runtime_sec": 8.67951217002701
+}

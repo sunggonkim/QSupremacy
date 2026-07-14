@@ -1,382 +1,995 @@
 {
-  "audits": {
-    "paper_evidence": "data/processed/perlmutter/paper_evidence_audit.json",
-    "submission_readiness": "data/processed/perlmutter/submission_readiness_audit.json"
-  },
-  "claims": [
+  "generated_utc": "2026-07-14T21:31:25.952232+00:00",
+  "packages": [
     {
       "artifacts": [
-        "data/processed/perlmutter/digits_expanded_55421321_55422142_summary.json",
-        "data/processed/perlmutter/digits_expanded_55421321_55422142_summary.csv"
+        "data/processed/perlmutter/quality_qualified_target_map.json",
+        "data/processed/perlmutter/statistical_robustness.json"
       ],
-      "audit_item": "expanded_digits",
-      "claim": "160-case digits calibration comparing native sklearn ML against quantum kernel and QNN/VQC circuit paths.",
-      "figures_tables": [
-        "paper/figures/digits_legend.pdf",
-        "paper/figures/digits_required_speedup.pdf",
-        "paper/figures/digits_quality_speedup.pdf"
+      "claim": "The controlled corpus contains 3,552 paired records from 222 structural configurations and 16 instance seeds per configuration.",
+      "figures": [
+        "paper/figures/intro_threshold_summary.pdf"
       ],
-      "id": "expanded_digits",
-      "paper_locations": [
-        "paper/0.Main.tex",
-        "paper/4.Evaluation.tex",
-        "paper/6.Conclusion.tex"
+      "files": [
+        {
+          "bytes": 10333,
+          "exists": true,
+          "path": "data/processed/perlmutter/quality_qualified_target_map.json",
+          "sha256": "f0ca41573791f771405e2418587c9bba05a562e067521881d1121c1d9dfe40a0"
+        },
+        {
+          "bytes": 13321,
+          "exists": true,
+          "path": "data/processed/perlmutter/statistical_robustness.json",
+          "sha256": "65768e1cab8912f298b1bc42ded6bb002957765a9706fdc00855e30ff540c269"
+        },
+        {
+          "bytes": 7994,
+          "exists": true,
+          "path": "paper/1.Introduction.tex",
+          "sha256": "a54deb630fd8ae066b251fe03b7320767a9a9207cfa04f278076599ccc6bed0a"
+        },
+        {
+          "bytes": 32857,
+          "exists": true,
+          "path": "paper/4.Evaluation.tex",
+          "sha256": "d4feae542415151a6accbe5e54574c51fa2cdb4457f656edbda7e92171bdf6f7"
+        },
+        {
+          "bytes": 20449,
+          "exists": true,
+          "path": "paper/figures/intro_threshold_summary.pdf",
+          "sha256": "a831619e4070c2e0164d1dc75171adc496c6ccbb5ba25d8b9a95c5f6d53c6519"
+        },
+        {
+          "bytes": 15293,
+          "exists": true,
+          "path": "scripts/audit_quality_qualified_targets.py",
+          "sha256": "28cdce2ae6f46c2b044fdcea79d32b561f65ed7e78e0dc6c0ba7cfe077f62077"
+        },
+        {
+          "bytes": 12825,
+          "exists": true,
+          "path": "scripts/audit_statistical_robustness.py",
+          "sha256": "e73cba3ea91644795a63146c2494198054b15c1373ee616a83c172d4efa3ce67"
+        }
       ],
-      "source_jobs": [
-        "jobs/perlmutter/digits_supremacy_expanded_1gpu_shared.sbatch",
-        "jobs/perlmutter/digits_supremacy_expanded_4gpu_debug_remaining.sbatch"
+      "id": "controlled_corpus",
+      "paper": [
+        "paper/1.Introduction.tex",
+        "paper/4.Evaluation.tex"
       ],
-      "source_scripts": [
-        "benchmarks/digits/run_digits_supremacy.py",
-        "scripts/materialize_sklearn_digits.py",
-        "scripts/generate_paper_figures.py"
-      ]
+      "scripts": [
+        "scripts/audit_quality_qualified_targets.py",
+        "scripts/audit_statistical_robustness.py"
+      ],
+      "status": "PASS"
     },
     {
       "artifacts": [
-        "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.json",
-        "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv",
-        "data/raw/perlmutter/accounting/sacct_practical_suite_strongnative_32node_large128c0c127_20260704060230.txt",
-        "data/processed/perlmutter/practical_suite_strongnative_64node_large256c0c255_20260705024742_summary.json",
-        "data/processed/perlmutter/practical_suite_strongnative_64node_large256c0c255_20260705024742_summary.csv",
-        "data/raw/perlmutter/accounting/sacct_practical_suite_strongnative_64node_large256c0c255_20260705024742.txt",
-        "data/processed/perlmutter/practical_suite_strongscale_64node_largefull_c0c255_20260705024742_summary.json",
-        "data/processed/perlmutter/practical_suite_strongscale_64node_largefull_c0c255_20260705024742_summary.csv",
-        "data/raw/perlmutter/accounting/sacct_practical_suite_strongscale_64node_largefull_c0c255_20260705024742.txt",
-        "data/processed/perlmutter/practical_suite_55731013_scale_16n_64g_summary.json",
-        "data/processed/perlmutter/practical_suite_55731013_scale_16n_64g_summary.csv",
-        "data/raw/perlmutter/accounting/sacct_practical_suite_55731013_scale_16n_64g.txt",
-        "data/processed/perlmutter/practical_suite_55731014_scale_32n_128g_summary.json",
-        "data/processed/perlmutter/practical_suite_55731014_scale_32n_128g_summary.csv",
-        "data/raw/perlmutter/accounting/sacct_practical_suite_55731014_scale_32n_128g.txt",
-        "data/processed/perlmutter/practical_suite_55731015_scale_64n_256g_summary.json",
-        "data/processed/perlmutter/practical_suite_55731015_scale_64n_256g_summary.csv",
-        "data/raw/perlmutter/accounting/sacct_practical_suite_55731015_scale_64n_256g.txt",
-        "data/processed/perlmutter/practical_suite_direct32_strong_8n_32g_7104_20260711082639_summary.json",
-        "data/processed/perlmutter/practical_suite_direct32_strong_8n_32g_7104_20260711082639_summary.csv",
-        "data/raw/perlmutter/accounting/sacct_practical_suite_direct32_strong_8n_32g_7104_20260711082639.txt",
-        "data/processed/perlmutter/practical_suite_55731032_scale_16n_64g_summary.json",
-        "data/processed/perlmutter/practical_suite_55731032_scale_16n_64g_summary.csv",
-        "data/raw/perlmutter/accounting/sacct_practical_suite_55731032_scale_16n_64g.txt",
-        "data/processed/perlmutter/practical_suite_55731033_scale_32n_128g_summary.json",
-        "data/processed/perlmutter/practical_suite_55731033_scale_32n_128g_summary.csv",
-        "data/raw/perlmutter/accounting/sacct_practical_suite_55731033_scale_32n_128g.txt",
-        "data/processed/perlmutter/practical_suite_55731034_scale_64n_256g_summary.json",
-        "data/processed/perlmutter/practical_suite_55731034_scale_64n_256g_summary.csv",
-        "data/raw/perlmutter/accounting/sacct_practical_suite_55731034_scale_64n_256g.txt"
+        "data/processed/perlmutter/quality_qualified_target_map.json",
+        "data/processed/perlmutter/quality_qualified_target_map.csv"
       ],
-      "audit_item": "large_practical_suite",
-      "claim": "3,552-case strong-native practical suite plus regular 16/32/64-node weak scaling and direct 32/64/128/256-GPU fixed-work scaling anchors across ML, chemistry, optimization, and simulation.",
-      "figures_tables": [
-        "paper/figures/practical_suite_legend.pdf",
-        "paper/figures/practical_suite_summary.pdf",
-        "paper/figures/practical_suite_cdf.pdf",
-        "paper/figures/quality_gap_summary.pdf",
-        "paper/figures/quality_bottleneck_fraction.pdf",
-        "paper/figures/projected_time_decomposition.pdf",
-        "paper/figures/workload_growth_time.pdf",
-        "paper/figures/workload_growth_quality.pdf",
-        "paper/figures/weak_scaling.pdf",
-        "paper/figures/weak_scaling_efficiency.pdf",
-        "paper/figures/strong_scaling.pdf",
-        "paper/figures/strong_scaling_speedup.pdf",
-        "paper/figures/strong_native_comparison.pdf",
-        "paper/figures/strong_native_legend.pdf",
-        "paper/figures/strong_native_quality_shift.pdf",
-        "paper/figures/threshold_tail_pressure.pdf"
+      "claim": "Hardware targets are restricted to the 12 same-record Sim cases that pass the full-loop finite-shot quality gate at 10,000 shots.",
+      "figures": [
+        "paper/figures/quality_noiseless_gate.pdf",
+        "paper/figures/quality_finite_shot_gate.pdf"
       ],
-      "id": "large_practical_suite",
-      "paper_locations": [
-        "paper/0.Main.tex",
-        "paper/4.Evaluation.tex",
-        "paper/6.Conclusion.tex"
+      "files": [
+        {
+          "bytes": 5881679,
+          "exists": true,
+          "path": "data/processed/perlmutter/quality_qualified_target_map.csv",
+          "sha256": "3d141ddc317330005eb79069d55fd339ed34a2ba631577d7a613f4f6118f741b"
+        },
+        {
+          "bytes": 10333,
+          "exists": true,
+          "path": "data/processed/perlmutter/quality_qualified_target_map.json",
+          "sha256": "f0ca41573791f771405e2418587c9bba05a562e067521881d1121c1d9dfe40a0"
+        },
+        {
+          "bytes": 10743,
+          "exists": true,
+          "path": "paper/3.Design.tex",
+          "sha256": "325cceae34107d252923797fa464e1ae3792b3967a854b8f106cfd176eb5f26e"
+        },
+        {
+          "bytes": 32857,
+          "exists": true,
+          "path": "paper/4.Evaluation.tex",
+          "sha256": "d4feae542415151a6accbe5e54574c51fa2cdb4457f656edbda7e92171bdf6f7"
+        },
+        {
+          "bytes": 14391,
+          "exists": true,
+          "path": "paper/figures/quality_finite_shot_gate.pdf",
+          "sha256": "5dcdc21ad26aeae968322d95a0d9e89cb03e63afcc6240566068797fffd854f2"
+        },
+        {
+          "bytes": 14101,
+          "exists": true,
+          "path": "paper/figures/quality_noiseless_gate.pdf",
+          "sha256": "d86a9eaef950601948517ba171765f7a2a100ccd67309a1e6a3292def318190f"
+        },
+        {
+          "bytes": 15293,
+          "exists": true,
+          "path": "scripts/audit_quality_qualified_targets.py",
+          "sha256": "28cdce2ae6f46c2b044fdcea79d32b561f65ed7e78e0dc6c0ba7cfe077f62077"
+        }
       ],
-      "source_jobs": [
-        "jobs/perlmutter/practical_suite_scale_nodes.sbatch",
-        "jobs/perlmutter/practical_suite_sweep_1gpu_shared.sbatch"
+      "id": "quality_qualified_targets",
+      "paper": [
+        "paper/3.Design.tex",
+        "paper/4.Evaluation.tex"
       ],
-      "source_scripts": [
-        "benchmarks/workloads/run_practical_suite.py",
-        "benchmarks/workloads/summarize_practical_results.py",
-        "scripts/generate_paper_figures.py"
-      ]
+      "scripts": [
+        "scripts/audit_quality_qualified_targets.py"
+      ],
+      "status": "PASS"
     },
     {
       "artifacts": [
-        "data/processed/perlmutter/ml_strong_native_gate_latest.json",
-        "data/processed/perlmutter/ml_strong_native_gate_latest.csv",
-        "data/processed/perlmutter/ml_strong_native_profile_latest.json",
-        "data/raw/perlmutter/ml_strong_native/ml_strong_native_manual_20260706034227.json",
-        "data/raw/perlmutter/profiles/ml_strong_native_manual_20260706034227_nsys_kernel_cuda_gpu_kern_sum.csv",
-        "data/raw/perlmutter/profiles/ml_strong_native_manual_20260706034227_ncu.csv",
-        "data/raw/perlmutter/profiles/ml_strong_native_manual_20260706034227_dmon.csv"
+        "data/processed/perlmutter/finite_shot_quality_sensitivity.json",
+        "data/processed/perlmutter/finite_shot_quality_sensitivity.csv"
       ],
-      "audit_item": "ml_strong_native_gate",
-      "claim": "Same-input ML production-native candidates and profiler evidence test whether PyTorch AMP and XGBoost GPU paths change the small-digits native baseline.",
-      "figures_tables": [
-        "paper/figures/ml_strong_native_gate.pdf",
-        "paper/figures/ml_profile_breakdown.pdf",
-        "paper/figures/ml_native_profile_combined.pdf"
+      "claim": "Representative ML, Chem, Opt, and Sim cases are sampled directly at 1,000, 10,000, and 100,000 shots with 12 repetitions.",
+      "figures": [
+        "paper/figures/quality_finite_shot_gate.pdf"
       ],
-      "id": "ml_strong_native_gate",
-      "paper_locations": [
+      "files": [
+        {
+          "bytes": 90498,
+          "exists": true,
+          "path": "data/processed/perlmutter/finite_shot_quality_sensitivity.csv",
+          "sha256": "20abe18a023c19c5e6cc4fcf925ba90fd5771fc950111d8d0147646955524e6f"
+        },
+        {
+          "bytes": 376586,
+          "exists": true,
+          "path": "data/processed/perlmutter/finite_shot_quality_sensitivity.json",
+          "sha256": "9323542ae9a5d19f88342eb1ebc749bc0331bd6245fd5ce06355b5e968c3fea4"
+        },
+        {
+          "bytes": 32857,
+          "exists": true,
+          "path": "paper/4.Evaluation.tex",
+          "sha256": "d4feae542415151a6accbe5e54574c51fa2cdb4457f656edbda7e92171bdf6f7"
+        },
+        {
+          "bytes": 14391,
+          "exists": true,
+          "path": "paper/figures/quality_finite_shot_gate.pdf",
+          "sha256": "5dcdc21ad26aeae968322d95a0d9e89cb03e63afcc6240566068797fffd854f2"
+        },
+        {
+          "bytes": 24055,
+          "exists": true,
+          "path": "scripts/run_finite_shot_quality_closure.py",
+          "sha256": "c3d5bfae942e36a37c389f10f3f8b9f6c82f0adcf3fa5edec63025475be62839"
+        }
+      ],
+      "id": "finite_shot_quality",
+      "paper": [
+        "paper/4.Evaluation.tex"
+      ],
+      "scripts": [
+        "scripts/run_finite_shot_quality_closure.py"
+      ],
+      "status": "PASS"
+    },
+    {
+      "artifacts": [
+        "data/processed/perlmutter/dependency_schedule_coverage.json",
+        "data/processed/perlmutter/dependency_schedule_projection_records.csv"
+      ],
+      "claim": "All 3,552 records use compiled or source-audited static dependency semantics with no aggregate-demand fallback.",
+      "figures": [
+        "paper/figures/trace_aware_logical_lower_bound.pdf"
+      ],
+      "files": [
+        {
+          "bytes": 9705,
+          "exists": true,
+          "path": "data/processed/perlmutter/dependency_schedule_coverage.json",
+          "sha256": "b01a0d9026da038b175edc139709559ffc973463c9133bd1d80a456d44c28810"
+        },
+        {
+          "bytes": 3076822,
+          "exists": true,
+          "path": "data/processed/perlmutter/dependency_schedule_projection_records.csv",
+          "sha256": "1e56e2162012c964a34ef05dbbed0ce79cf3de291858ae23c69d4701f133a091"
+        },
+        {
+          "bytes": 10743,
+          "exists": true,
+          "path": "paper/3.Design.tex",
+          "sha256": "325cceae34107d252923797fa464e1ae3792b3967a854b8f106cfd176eb5f26e"
+        },
+        {
+          "bytes": 32857,
+          "exists": true,
+          "path": "paper/4.Evaluation.tex",
+          "sha256": "d4feae542415151a6accbe5e54574c51fa2cdb4457f656edbda7e92171bdf6f7"
+        },
+        {
+          "bytes": 16204,
+          "exists": true,
+          "path": "paper/figures/trace_aware_logical_lower_bound.pdf",
+          "sha256": "e13d8e5a67f48d63231e822e389f40c122ab55f9e9fa78bf413431b884c19389"
+        },
+        {
+          "bytes": 19331,
+          "exists": true,
+          "path": "scripts/audit_dependency_schedule_coverage.py",
+          "sha256": "b4aeb593ed08df481eea62d384519d2a70217be1605ade8899a2f5f07ff81281"
+        }
+      ],
+      "id": "dependency_schedules",
+      "paper": [
+        "paper/3.Design.tex",
+        "paper/4.Evaluation.tex"
+      ],
+      "scripts": [
+        "scripts/audit_dependency_schedule_coverage.py"
+      ],
+      "status": "PASS"
+    },
+    {
+      "artifacts": [
+        "data/processed/perlmutter/statistical_robustness.json",
+        "data/processed/perlmutter/statistical_robustness.csv"
+      ],
+      "claim": "Hierarchical bootstrap confidence intervals resample structural configurations and instance seeds rather than treating all rows as independent applications.",
+      "figures": [],
+      "files": [
+        {
+          "bytes": 712,
+          "exists": true,
+          "path": "data/processed/perlmutter/statistical_robustness.csv",
+          "sha256": "f66c52f62d0f318241f644f10c3af6376826f61352791dd99770344243b8b3cd"
+        },
+        {
+          "bytes": 13321,
+          "exists": true,
+          "path": "data/processed/perlmutter/statistical_robustness.json",
+          "sha256": "65768e1cab8912f298b1bc42ded6bb002957765a9706fdc00855e30ff540c269"
+        },
+        {
+          "bytes": 32857,
+          "exists": true,
+          "path": "paper/4.Evaluation.tex",
+          "sha256": "d4feae542415151a6accbe5e54574c51fa2cdb4457f656edbda7e92171bdf6f7"
+        },
+        {
+          "bytes": 12825,
+          "exists": true,
+          "path": "scripts/audit_statistical_robustness.py",
+          "sha256": "e73cba3ea91644795a63146c2494198054b15c1373ee616a83c172d4efa3ce67"
+        }
+      ],
+      "id": "statistical_robustness",
+      "paper": [
+        "paper/4.Evaluation.tex"
+      ],
+      "scripts": [
+        "scripts/audit_statistical_robustness.py"
+      ],
+      "status": "PASS"
+    },
+    {
+      "artifacts": [
+        "data/processed/perlmutter/ft_reliability_and_space_budget.json",
+        "data/processed/perlmutter/ft_reliability_and_space_budget.csv"
+      ],
+      "claim": "The 12 eligible cases use case-level logical-error, code-distance, arbitrary-rotation, factory-space, decoder, and shot budgets.",
+      "figures": [
+        "paper/figures/ft_contract_parameters.pdf",
+        "paper/figures/ft_reliability_target.pdf"
+      ],
+      "files": [
+        {
+          "bytes": 56267256,
+          "exists": true,
+          "path": "data/processed/perlmutter/ft_reliability_and_space_budget.csv",
+          "sha256": "94c23400b4ade82f861f1e334dba4ee950873c32c0010d3e1a30eb8c54db9dab"
+        },
+        {
+          "bytes": 3585151,
+          "exists": true,
+          "path": "data/processed/perlmutter/ft_reliability_and_space_budget.json",
+          "sha256": "69bdc46dedc10aacb9047211e88a93e0dc88641b5d2278be821b90fedc334257"
+        },
+        {
+          "bytes": 4460,
+          "exists": true,
+          "path": "paper/2.Background.tex",
+          "sha256": "3ac1e04cb4b603200685a2fdb56a21da0515c9c49384dbe5fcd890ed297df4f2"
+        },
+        {
+          "bytes": 10743,
+          "exists": true,
+          "path": "paper/3.Design.tex",
+          "sha256": "325cceae34107d252923797fa464e1ae3792b3967a854b8f106cfd176eb5f26e"
+        },
+        {
+          "bytes": 32857,
+          "exists": true,
+          "path": "paper/4.Evaluation.tex",
+          "sha256": "d4feae542415151a6accbe5e54574c51fa2cdb4457f656edbda7e92171bdf6f7"
+        },
+        {
+          "bytes": 16420,
+          "exists": true,
+          "path": "paper/figures/ft_contract_parameters.pdf",
+          "sha256": "87f6eda74505c513dd647036777eac0ca6831d52906fd985244b235545389cc0"
+        },
+        {
+          "bytes": 15581,
+          "exists": true,
+          "path": "paper/figures/ft_reliability_target.pdf",
+          "sha256": "df743198275a3a0e363b68b3f432cba94fb7f8401a0e58205a47655f456e9c81"
+        },
+        {
+          "bytes": 45105,
+          "exists": true,
+          "path": "scripts/audit_ft_reliability_budget.py",
+          "sha256": "59443c4c300f9ab0943309b247a937c00a4b846144a1c6fe109cbc759fa67a2a"
+        }
+      ],
+      "id": "ft_reliability",
+      "paper": [
+        "paper/2.Background.tex",
+        "paper/3.Design.tex",
+        "paper/4.Evaluation.tex"
+      ],
+      "scripts": [
+        "scripts/audit_ft_reliability_budget.py"
+      ],
+      "status": "PASS"
+    },
+    {
+      "artifacts": [
+        "data/processed/perlmutter/joint_bottleneck_phase_map.json",
+        "data/processed/perlmutter/joint_bottleneck_phase_map.csv"
+      ],
+      "claim": "A deterministic 384-scenario joint design sweep evaluates 26,112 case points and exposes stable bottleneck regions.",
+      "figures": [
+        "paper/figures/joint_bottleneck_phase_map.pdf",
+        "paper/figures/resource_removal_ceiling.pdf"
+      ],
+      "files": [
+        {
+          "bytes": 13109343,
+          "exists": true,
+          "path": "data/processed/perlmutter/joint_bottleneck_phase_map.csv",
+          "sha256": "106d569c06314dd94ed7fa013efef2d31f4b8246295f064dab3730523af8a2b9"
+        },
+        {
+          "bytes": 742896,
+          "exists": true,
+          "path": "data/processed/perlmutter/joint_bottleneck_phase_map.json",
+          "sha256": "387527ef43d47d701136052ca885bbc18046c00d63e9638795241e1b308fbb91"
+        },
+        {
+          "bytes": 10743,
+          "exists": true,
+          "path": "paper/3.Design.tex",
+          "sha256": "325cceae34107d252923797fa464e1ae3792b3967a854b8f106cfd176eb5f26e"
+        },
+        {
+          "bytes": 32857,
+          "exists": true,
+          "path": "paper/4.Evaluation.tex",
+          "sha256": "d4feae542415151a6accbe5e54574c51fa2cdb4457f656edbda7e92171bdf6f7"
+        },
+        {
+          "bytes": 21237,
+          "exists": true,
+          "path": "paper/figures/joint_bottleneck_phase_map.pdf",
+          "sha256": "ca4817bdd4d487c5c648429fe73686e3e2c885367ddc323ff9d43dc44ab5a447"
+        },
+        {
+          "bytes": 18087,
+          "exists": true,
+          "path": "paper/figures/resource_removal_ceiling.pdf",
+          "sha256": "04f3168ac0bdd4a0b5426799fcba4c1f80ab04bf26c9a8e8e7c7cbc92a4bc700"
+        },
+        {
+          "bytes": 40500,
+          "exists": true,
+          "path": "scripts/audit_joint_dse.py",
+          "sha256": "4292079c5c85d86b296423c69447d59a79889612d8468ddb90878baa28908192"
+        }
+      ],
+      "id": "joint_dse",
+      "paper": [
+        "paper/3.Design.tex",
+        "paper/4.Evaluation.tex"
+      ],
+      "scripts": [
+        "scripts/audit_joint_dse.py"
+      ],
+      "status": "PASS"
+    },
+    {
+      "artifacts": [
+        "data/processed/perlmutter/component_replacement_case_studies.json",
+        "data/processed/perlmutter/joint_bottleneck_phase_map.json"
+      ],
+      "claim": "LSQCA and BOSS case studies consume matched event traces; published peak multipliers are not borrowed as application speedups.",
+      "figures": [
+        "paper/figures/lsqca_matched_replacement.pdf"
+      ],
+      "files": [
+        {
+          "bytes": 126258,
+          "exists": true,
+          "path": "data/processed/perlmutter/component_replacement_case_studies.json",
+          "sha256": "4b2d7538b8856b82a1ef18143ec2e5bcb183d32cc695d56d216b9fa89d7412de"
+        },
+        {
+          "bytes": 742896,
+          "exists": true,
+          "path": "data/processed/perlmutter/joint_bottleneck_phase_map.json",
+          "sha256": "387527ef43d47d701136052ca885bbc18046c00d63e9638795241e1b308fbb91"
+        },
+        {
+          "bytes": 10743,
+          "exists": true,
+          "path": "paper/3.Design.tex",
+          "sha256": "325cceae34107d252923797fa464e1ae3792b3967a854b8f106cfd176eb5f26e"
+        },
+        {
+          "bytes": 32857,
+          "exists": true,
+          "path": "paper/4.Evaluation.tex",
+          "sha256": "d4feae542415151a6accbe5e54574c51fa2cdb4457f656edbda7e92171bdf6f7"
+        },
+        {
+          "bytes": 6206,
+          "exists": true,
+          "path": "paper/5.Discussion.tex",
+          "sha256": "cb56bc94879821c74915c4bc05aa8816b052d7d0d37a94111c9ce19e27c86c8c"
+        },
+        {
+          "bytes": 22417,
+          "exists": true,
+          "path": "paper/figures/lsqca_matched_replacement.pdf",
+          "sha256": "3c03e00e43bfc134be266c034bda0cd78641645a1b84244e9513c9d645f122c3"
+        },
+        {
+          "bytes": 40500,
+          "exists": true,
+          "path": "scripts/audit_joint_dse.py",
+          "sha256": "4292079c5c85d86b296423c69447d59a79889612d8468ddb90878baa28908192"
+        },
+        {
+          "bytes": 19171,
+          "exists": true,
+          "path": "scripts/run_component_replacement_case_studies.py",
+          "sha256": "1c607024100a0d02e318bcf38155a585162bebea7d46cc1af658c5577cafa321"
+        }
+      ],
+      "id": "matched_mechanism_replacement",
+      "paper": [
         "paper/3.Design.tex",
         "paper/4.Evaluation.tex",
         "paper/5.Discussion.tex"
       ],
-      "source_jobs": [
-        "jobs/perlmutter/ml_strong_native_profile_1gpu_debug.sbatch"
+      "scripts": [
+        "scripts/run_component_replacement_case_studies.py",
+        "scripts/audit_joint_dse.py"
       ],
-      "source_scripts": [
-        "benchmarks/workloads/run_ml_strong_native_gate.py",
-        "scripts/summarize_ml_native_profiles.py",
-        "scripts/generate_paper_figures.py"
-      ]
+      "status": "PASS"
     },
     {
       "artifacts": [
-        "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_advantage_projection.json",
-        "data/processed/perlmutter/practical_suite_projection_scenarios.json"
+        "data/processed/perlmutter/ml_cifar10_matched_comparison.json",
+        "data/processed/perlmutter/chem_sim_native_proxies.json",
+        "data/processed/perlmutter/opt_native_proxy.json",
+        "data/processed/perlmutter/roofline_native_stress.json"
       ],
-      "audit_item": "advantage_projection",
-      "claim": "Projected advantage is reported as a frontier over quantum execution improvement and quality-gap recovery, not as a single yes/no result.",
-      "figures_tables": [
-        "paper/figures/advantage_frontier.pdf",
-        "paper/figures/advantage_frontier_total.pdf",
-        "paper/figures/advantage_component_targets.pdf",
-        "paper/figures/advantage_frontier_chemistry.pdf",
-        "paper/figures/advantage_frontier_optimization.pdf",
-        "paper/figures/advantage_frontier_simulation.pdf",
-        "paper/figures/tolerance_sensitivity.pdf",
-        "paper/figures/ft_shot_sensitivity.pdf"
+      "claim": "Deployment-facing native cases strengthen the moving native frontier without being pooled into controlled-corpus quality statistics.",
+      "figures": [
+        "paper/figures/ml_cifar10_runtime.pdf",
+        "paper/figures/ml_cifar10_accuracy.pdf",
+        "paper/figures/ml_cifar10_legend.pdf",
+        "paper/figures/roofline_deadline_shrink.pdf"
       ],
-      "id": "advantage_projection",
-      "paper_locations": [
-        "paper/4.Evaluation.tex",
-        "paper/6.Conclusion.tex"
+      "files": [
+        {
+          "bytes": 6274,
+          "exists": true,
+          "path": "data/processed/perlmutter/chem_sim_native_proxies.json",
+          "sha256": "691440c6963e7bc6b590f818cf3de22041605c04f67a5991c9d1444f68238bc4"
+        },
+        {
+          "bytes": 1859,
+          "exists": true,
+          "path": "data/processed/perlmutter/ml_cifar10_matched_comparison.json",
+          "sha256": "4f5f65f61f0ccbbbdb39ca6a908e01391084e1de15a9b53ca20db1a6f010b07f"
+        },
+        {
+          "bytes": 25972,
+          "exists": true,
+          "path": "data/processed/perlmutter/opt_native_proxy.json",
+          "sha256": "9eaf8be862f78b907972de0f9b0fe88b71a833de95c2dfd3ca5a84f7df64bb82"
+        },
+        {
+          "bytes": 5130,
+          "exists": true,
+          "path": "data/processed/perlmutter/roofline_native_stress.json",
+          "sha256": "ae560f3655a177c264652f929aac2809649a5f2982d9e6992c3b1a31298122d1"
+        },
+        {
+          "bytes": 32857,
+          "exists": true,
+          "path": "paper/4.Evaluation.tex",
+          "sha256": "d4feae542415151a6accbe5e54574c51fa2cdb4457f656edbda7e92171bdf6f7"
+        },
+        {
+          "bytes": 13176,
+          "exists": true,
+          "path": "paper/figures/ml_cifar10_accuracy.pdf",
+          "sha256": "1bf0da5774688c0e347a806eed0bcb46f1e9ab7db3e3c60ceb4d6c5714876758"
+        },
+        {
+          "bytes": 10240,
+          "exists": true,
+          "path": "paper/figures/ml_cifar10_legend.pdf",
+          "sha256": "6d7b32b9d5ba88a5a2931d7f9f196285e10a2c62788ee73c1093dbe4c09ba399"
+        },
+        {
+          "bytes": 11916,
+          "exists": true,
+          "path": "paper/figures/ml_cifar10_runtime.pdf",
+          "sha256": "dd6f0a91da8d62074b8590ac75f6ba075fc1cdd408fd52b8afa22b9d45b0d27b"
+        },
+        {
+          "bytes": 16291,
+          "exists": true,
+          "path": "paper/figures/roofline_deadline_shrink.pdf",
+          "sha256": "6b4f95396f49e261e0fd31c1e6c17e6f840631d46d4c5b502d1209549e4cefa0"
+        },
+        {
+          "bytes": 7741,
+          "exists": true,
+          "path": "scripts/run_chem_sim_native_proxies.py",
+          "sha256": "25b0346d0c19a430160fb8acb87d57bbb680444f37839e14cd2f4c27e8cca2da"
+        },
+        {
+          "bytes": 8385,
+          "exists": true,
+          "path": "scripts/run_opt_native_proxy.py",
+          "sha256": "549c3a225b8788cc4c39f3a5542f6a09f7f0efc02caafc68dc6962557ef711e9"
+        },
+        {
+          "bytes": 9547,
+          "exists": true,
+          "path": "scripts/summarize_ml_cifar10_matched_comparison.py",
+          "sha256": "360736b9ebebd231327e26b1256ef4469f1029d39222cd6da5f1a1e279244996"
+        },
+        {
+          "bytes": 12436,
+          "exists": true,
+          "path": "scripts/summarize_roofline_native_stress.py",
+          "sha256": "25764fdb96e73b0f77b4c07dff1aeebe7066b5d534ea602dfedf98ee5ba91101"
+        }
       ],
-      "source_jobs": [
-        "jobs/perlmutter/practical_suite_scale_nodes.sbatch"
+      "id": "deployment_native_frontier",
+      "paper": [
+        "paper/4.Evaluation.tex"
       ],
-      "source_scripts": [
-        "scripts/summarize_advantage_projection.py",
-        "scripts/summarize_projection_scenarios.py",
-        "scripts/generate_paper_figures.py"
-      ]
+      "scripts": [
+        "scripts/summarize_ml_cifar10_matched_comparison.py",
+        "scripts/run_chem_sim_native_proxies.py",
+        "scripts/run_opt_native_proxy.py",
+        "scripts/summarize_roofline_native_stress.py"
+      ],
+      "status": "PASS"
     },
     {
       "artifacts": [
-        "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_taxonomy.json"
+        "data/processed/perlmutter/native_rotation_platform_envelopes.json",
+        "data/processed/perlmutter/ft_reliability_and_space_budget.json"
       ],
-      "audit_item": "workload_taxonomy",
-      "claim": "The measured bottleneck taxonomy separates speed-limited cases from quality-limited cases by workload family.",
-      "figures_tables": [
-        "paper/figures/quality_gap_summary.pdf",
-        "paper/figures/quality_bottleneck_fraction.pdf",
-        "paper/figures/workload_taxonomy.pdf"
+      "claim": "The same 12 eligible Sim records are re-inverted under surface-code synthesis and two native-rotation execution envelopes without changing their native deadlines or quality gate.",
+      "figures": [
+        "paper/figures/sim_hardware_modality_pivot.pdf"
       ],
-      "id": "workload_taxonomy",
-      "paper_locations": [
+      "files": [
+        {
+          "bytes": 3585151,
+          "exists": true,
+          "path": "data/processed/perlmutter/ft_reliability_and_space_budget.json",
+          "sha256": "69bdc46dedc10aacb9047211e88a93e0dc88641b5d2278be821b90fedc334257"
+        },
+        {
+          "bytes": 12268,
+          "exists": true,
+          "path": "data/processed/perlmutter/native_rotation_platform_envelopes.json",
+          "sha256": "774cc889ca87778d77459a918725715f4991595da3221832d11f188e49c4b01c"
+        },
+        {
+          "bytes": 32857,
+          "exists": true,
+          "path": "paper/4.Evaluation.tex",
+          "sha256": "d4feae542415151a6accbe5e54574c51fa2cdb4457f656edbda7e92171bdf6f7"
+        },
+        {
+          "bytes": 6206,
+          "exists": true,
+          "path": "paper/5.Discussion.tex",
+          "sha256": "cb56bc94879821c74915c4bc05aa8816b052d7d0d37a94111c9ce19e27c86c8c"
+        },
+        {
+          "bytes": 25600,
+          "exists": true,
+          "path": "paper/figures/sim_hardware_modality_pivot.pdf",
+          "sha256": "d6c0326186ec150b00aa05b496613ca6d5232f7ac3c3b1cf18704a9e02fb630f"
+        },
+        {
+          "bytes": 11628,
+          "exists": true,
+          "path": "scripts/summarize_native_rotation_platforms.py",
+          "sha256": "41a004ee05aa86b2bbfcf9f54251bd64783824233762ac0a1b3bbf8d59635bca"
+        }
+      ],
+      "id": "physical_modality_replacement",
+      "paper": [
         "paper/4.Evaluation.tex",
         "paper/5.Discussion.tex"
       ],
-      "source_jobs": [
-        "jobs/perlmutter/practical_suite_scale_nodes.sbatch"
+      "scripts": [
+        "scripts/summarize_native_rotation_platforms.py"
       ],
-      "source_scripts": [
-        "scripts/generate_workload_taxonomy.py",
-        "scripts/generate_paper_figures.py"
-      ]
+      "status": "PASS"
     },
     {
       "artifacts": [
-        "data/processed/perlmutter/practical_suite_chem_active_6q8q_1node_20260704233824_chemistry_coverage.json",
-        "data/raw/perlmutter/accounting/sacct_practical_suite_chem_active_6q8q_1node_20260704233824.txt"
+        "data/processed/perlmutter/low_gpu_strong_scaling_timeout_audit.json",
+        "data/processed/perlmutter/low_gpu_strong_scaling_timeout_audit.csv",
+        "data/raw/perlmutter/accounting/sacct_practical_suite_direct4_strong_1n_4g_7104_20260712091240.txt",
+        "data/raw/perlmutter/accounting/sacct_practical_suite_direct8_strong_2n_8g_7104_20260712091240.txt",
+        "data/raw/perlmutter/accounting/sacct_practical_suite_direct16_strong_4n_16g_7104_20260712091240.txt"
       ],
-      "audit_item": "chemistry_active_space",
-      "claim": "OpenFermion/PySCF chemistry active-space coverage gate validates 104 chemistry cases up to 8 qubits.",
-      "figures_tables": [
-        "paper/figures/practical_suite_summary.pdf"
+      "claim": "The 4/8/16-GPU fixed-work attempts are preserved as timeout-censored artifacts and are not promoted to completed scaling measurements.",
+      "figures": [
+        "paper/figures/low_gpu_timeout_progress.pdf"
       ],
-      "id": "chemistry_active_space",
-      "paper_locations": [
-        "paper/0.Main.tex",
+      "files": [
+        {
+          "bytes": 1045,
+          "exists": true,
+          "path": "data/processed/perlmutter/low_gpu_strong_scaling_timeout_audit.csv",
+          "sha256": "2689792725c68fcf98bb24daf238955636de63f1da25d85206e82bcbca1b0e6a"
+        },
+        {
+          "bytes": 2708,
+          "exists": true,
+          "path": "data/processed/perlmutter/low_gpu_strong_scaling_timeout_audit.json",
+          "sha256": "582961f4f1b95c24fa9ab8aa5e18d7fafb163ee48241fb36b6baa80782906c34"
+        },
+        {
+          "bytes": 610,
+          "exists": true,
+          "path": "data/raw/perlmutter/accounting/sacct_practical_suite_direct16_strong_4n_16g_7104_20260712091240.txt",
+          "sha256": "fd2535c0e84b7367ff676fa0a822affa8373eaffc554889df1683fe1271f7ea8"
+        },
+        {
+          "bytes": 604,
+          "exists": true,
+          "path": "data/raw/perlmutter/accounting/sacct_practical_suite_direct4_strong_1n_4g_7104_20260712091240.txt",
+          "sha256": "c5336b0ccdda8806d7ffac3e7a40a15a3a1d7044544420c669dc604f97a408b6"
+        },
+        {
+          "bytes": 604,
+          "exists": true,
+          "path": "data/raw/perlmutter/accounting/sacct_practical_suite_direct8_strong_2n_8g_7104_20260712091240.txt",
+          "sha256": "3b347fbf25392026c749f536426dccd0d1a7feda2594b271fbe831b0e0829f6d"
+        },
+        {
+          "bytes": 32857,
+          "exists": true,
+          "path": "paper/4.Evaluation.tex",
+          "sha256": "d4feae542415151a6accbe5e54574c51fa2cdb4457f656edbda7e92171bdf6f7"
+        },
+        {
+          "bytes": 13916,
+          "exists": true,
+          "path": "paper/figures/low_gpu_timeout_progress.pdf",
+          "sha256": "1c2ce36d7812fd59a483fe89638cc3822a9409eef6018801d03581bd707ee6c2"
+        },
+        {
+          "bytes": 6919,
+          "exists": true,
+          "path": "scripts/summarize_low_gpu_timeout_runs.py",
+          "sha256": "f2247d34a463c71f8850f10c45666997770c545735a95e945a84b73ceb3f988a"
+        }
+      ],
+      "id": "low_gpu_timeout_censoring",
+      "paper": [
         "paper/4.Evaluation.tex"
       ],
-      "source_jobs": [
-        "jobs/perlmutter/practical_suite_scale_nodes.sbatch",
-        "jobs/perlmutter/practical_suite_sweep_1gpu_shared.sbatch"
+      "scripts": [
+        "scripts/summarize_low_gpu_timeout_runs.py"
       ],
-      "source_scripts": [
-        "scripts/generate_openfermion_pyscf_hamiltonians.py",
-        "benchmarks/workloads/run_practical_suite.py",
-        "scripts/summarize_chemistry_coverage.py"
-      ]
+      "status": "PASS"
     },
     {
-      "artifacts": [
-        "data/processed/perlmutter/deployment_scale_proxy.json",
-        "data/processed/perlmutter/deployment_scale_proxy.csv",
-        "data/processed/perlmutter/practical_suite_55782694_review_stress_1n_4g_summary.json",
-        "data/processed/perlmutter/practical_suite_55782694_review_stress_1n_4g_summary.csv"
-      ],
-      "audit_item": "deployment_proxy",
-      "claim": "Deployment-scale extensions are scoped as proxy records that preserve native deadline, circuit metadata, quality target, and projection knobs without claiming full state-vector simulation at deployment scale.",
-      "figures_tables": [],
-      "id": "deployment_proxy",
-      "paper_locations": [
-        "paper/5.Discussion.tex",
-        "data/processed/perlmutter/deployment_scale_proxy.json"
-      ],
-      "source_jobs": [
-        "jobs/perlmutter/practical_suite_review_stress_1node.sbatch"
-      ],
-      "source_scripts": [
-        "scripts/audit_paper_evidence.py"
-      ]
-    },
-    {
-      "artifacts": [
-        "data/processed/perlmutter/repeat_timing_gate_latest.json",
-        "data/processed/perlmutter/repeat_timing_gate_55516885_repeat_timing_gate.json"
-      ],
-      "audit_item": "submission_readiness.repeated_hardware_trials",
-      "claim": "A warmup-separated repeat timing gate checks that representative hardware timings are stable enough for submission.",
-      "figures_tables": [],
-      "id": "repeat_timing",
-      "paper_locations": [
-        "paper/4.Evaluation.tex",
-        "paper/README.md",
-        "README.md"
-      ],
-      "source_jobs": [
-        "jobs/perlmutter/practical_suite_repeat_timing_gate.sbatch"
-      ],
-      "source_scripts": [
-        "benchmarks/workloads/run_practical_suite.py",
-        "scripts/summarize_repeat_timing_gate.py"
-      ]
-    },
-    {
-      "artifacts": [
-        "paper/figures/intro_comparison_paths.pdf",
+      "artifacts": [],
+      "claim": "Every figure included by the manuscript is generated, nonempty, and audited as part of the submission package.",
+      "figures": [
         "paper/figures/intro_threshold_summary.pdf",
         "paper/figures/design_overview.pdf",
-        "paper/figures/design_projection_flow.pdf",
-        "paper/figures/evaluation_evidence_flow.pdf",
         "paper/figures/weak_scaling.pdf",
-        "paper/figures/weak_scaling_efficiency.pdf",
         "paper/figures/strong_scaling.pdf",
-        "paper/figures/strong_scaling_speedup.pdf",
-        "paper/figures/workload_growth_time.pdf",
-        "paper/figures/workload_growth_quality.pdf",
-        "paper/figures/strong_native_comparison.pdf",
-        "paper/figures/strong_native_legend.pdf",
-        "paper/figures/strong_native_quality_shift.pdf",
-        "paper/figures/ml_strong_native_gate.pdf",
-        "paper/figures/ml_profile_breakdown.pdf",
-        "paper/figures/ml_native_profile_combined.pdf",
-        "paper/figures/threshold_tail_pressure.pdf",
-        "paper/figures/projected_time_decomposition.pdf",
-        "paper/figures/architecture_focus_matrix.pdf",
-        "paper/figures/practical_suite_legend.pdf",
-        "paper/figures/practical_suite_summary.pdf",
-        "paper/figures/practical_suite_cdf.pdf",
-        "paper/figures/quality_gap_summary.pdf",
-        "paper/figures/quality_bottleneck_fraction.pdf",
-        "paper/figures/digits_legend.pdf",
-        "paper/figures/digits_required_speedup.pdf",
-        "paper/figures/digits_quality_speedup.pdf",
-        "paper/figures/advantage_frontier.pdf",
-        "paper/figures/advantage_frontier_total.pdf",
-        "paper/figures/advantage_component_targets.pdf",
-        "paper/figures/advantage_frontier_chemistry.pdf",
-        "paper/figures/advantage_frontier_optimization.pdf",
-        "paper/figures/advantage_frontier_simulation.pdf",
-        "paper/figures/tolerance_sensitivity.pdf",
-        "paper/figures/ft_shot_sensitivity.pdf",
-        "paper/figures/workload_taxonomy.pdf"
+        "paper/figures/ml_cifar10_legend.pdf",
+        "paper/figures/ml_cifar10_runtime.pdf",
+        "paper/figures/ml_cifar10_accuracy.pdf",
+        "paper/figures/opt_qaoa_quality_proxy.pdf",
+        "paper/figures/chem_vqe_quality_cost_proxy.pdf",
+        "paper/figures/sim_quality_cost_proxy.pdf",
+        "paper/figures/quality_noiseless_gate.pdf",
+        "paper/figures/quality_finite_shot_gate.pdf",
+        "paper/figures/roofline_deadline_shrink.pdf",
+        "paper/figures/trace_aware_logical_lower_bound.pdf",
+        "paper/figures/ft_contract_parameters.pdf",
+        "paper/figures/ft_reliability_target.pdf",
+        "paper/figures/joint_bottleneck_phase_map.pdf",
+        "paper/figures/resource_removal_ceiling.pdf",
+        "paper/figures/lsqca_matched_replacement.pdf",
+        "paper/figures/sim_hardware_modality_pivot.pdf"
       ],
-      "audit_item": "paper_figures",
-      "claim": "All main manuscript plots are generated PDF artifacts and are checked by the evidence audit.",
-      "figures_tables": [
-        "paper/figures/intro_comparison_paths.pdf",
-        "paper/figures/intro_threshold_summary.pdf",
-        "paper/figures/design_overview.pdf",
-        "paper/figures/design_projection_flow.pdf",
-        "paper/figures/evaluation_evidence_flow.pdf",
-        "paper/figures/weak_scaling.pdf",
-        "paper/figures/weak_scaling_efficiency.pdf",
-        "paper/figures/strong_scaling.pdf",
-        "paper/figures/strong_scaling_speedup.pdf",
-        "paper/figures/workload_growth_time.pdf",
-        "paper/figures/workload_growth_quality.pdf",
-        "paper/figures/strong_native_comparison.pdf",
-        "paper/figures/strong_native_legend.pdf",
-        "paper/figures/strong_native_quality_shift.pdf",
-        "paper/figures/ml_strong_native_gate.pdf",
-        "paper/figures/ml_profile_breakdown.pdf",
-        "paper/figures/ml_native_profile_combined.pdf",
-        "paper/figures/threshold_tail_pressure.pdf",
-        "paper/figures/projected_time_decomposition.pdf",
-        "paper/figures/architecture_focus_matrix.pdf",
-        "paper/figures/practical_suite_legend.pdf",
-        "paper/figures/practical_suite_summary.pdf",
-        "paper/figures/practical_suite_cdf.pdf",
-        "paper/figures/quality_gap_summary.pdf",
-        "paper/figures/quality_bottleneck_fraction.pdf",
-        "paper/figures/digits_legend.pdf",
-        "paper/figures/digits_required_speedup.pdf",
-        "paper/figures/digits_quality_speedup.pdf",
-        "paper/figures/advantage_frontier.pdf",
-        "paper/figures/advantage_frontier_total.pdf",
-        "paper/figures/advantage_component_targets.pdf",
-        "paper/figures/advantage_frontier_chemistry.pdf",
-        "paper/figures/advantage_frontier_optimization.pdf",
-        "paper/figures/advantage_frontier_simulation.pdf",
-        "paper/figures/tolerance_sensitivity.pdf",
-        "paper/figures/ft_shot_sensitivity.pdf",
-        "paper/figures/workload_taxonomy.pdf"
+      "files": [
+        {
+          "bytes": 4046,
+          "exists": true,
+          "path": "paper/0.Main.tex",
+          "sha256": "a985c5aa599abc4f606fb4a60ca15c2092a0928145cc3b1a8c0dd0e2ccd0fa33"
+        },
+        {
+          "bytes": 7994,
+          "exists": true,
+          "path": "paper/1.Introduction.tex",
+          "sha256": "a54deb630fd8ae066b251fe03b7320767a9a9207cfa04f278076599ccc6bed0a"
+        },
+        {
+          "bytes": 4460,
+          "exists": true,
+          "path": "paper/2.Background.tex",
+          "sha256": "3ac1e04cb4b603200685a2fdb56a21da0515c9c49384dbe5fcd890ed297df4f2"
+        },
+        {
+          "bytes": 10743,
+          "exists": true,
+          "path": "paper/3.Design.tex",
+          "sha256": "325cceae34107d252923797fa464e1ae3792b3967a854b8f106cfd176eb5f26e"
+        },
+        {
+          "bytes": 32857,
+          "exists": true,
+          "path": "paper/4.Evaluation.tex",
+          "sha256": "d4feae542415151a6accbe5e54574c51fa2cdb4457f656edbda7e92171bdf6f7"
+        },
+        {
+          "bytes": 6206,
+          "exists": true,
+          "path": "paper/5.Discussion.tex",
+          "sha256": "cb56bc94879821c74915c4bc05aa8816b052d7d0d37a94111c9ce19e27c86c8c"
+        },
+        {
+          "bytes": 2362,
+          "exists": true,
+          "path": "paper/5.RelatedWork.tex",
+          "sha256": "39f95bf750812e0c9504c5bfe7a64e242cf1566c13fdf150c83a2ca0c049b492"
+        },
+        {
+          "bytes": 840,
+          "exists": true,
+          "path": "paper/6.Conclusion.tex",
+          "sha256": "9517d99b312c4e7bc58d205fa2c5e5b49ef845580f79022b0cf4984df9782937"
+        },
+        {
+          "bytes": 16021,
+          "exists": true,
+          "path": "paper/figures/chem_vqe_quality_cost_proxy.pdf",
+          "sha256": "dad8eed3743bb12959742296e5a05ed209df9592f64fac64c17dd5943eefb59b"
+        },
+        {
+          "bytes": 27865,
+          "exists": true,
+          "path": "paper/figures/design_overview.pdf",
+          "sha256": "27c0cd4502d8117e4e486f2b95b57588eb948d1ffed13d1f37ddf000f0d9a9c6"
+        },
+        {
+          "bytes": 16420,
+          "exists": true,
+          "path": "paper/figures/ft_contract_parameters.pdf",
+          "sha256": "87f6eda74505c513dd647036777eac0ca6831d52906fd985244b235545389cc0"
+        },
+        {
+          "bytes": 15581,
+          "exists": true,
+          "path": "paper/figures/ft_reliability_target.pdf",
+          "sha256": "df743198275a3a0e363b68b3f432cba94fb7f8401a0e58205a47655f456e9c81"
+        },
+        {
+          "bytes": 20449,
+          "exists": true,
+          "path": "paper/figures/intro_threshold_summary.pdf",
+          "sha256": "a831619e4070c2e0164d1dc75171adc496c6ccbb5ba25d8b9a95c5f6d53c6519"
+        },
+        {
+          "bytes": 21237,
+          "exists": true,
+          "path": "paper/figures/joint_bottleneck_phase_map.pdf",
+          "sha256": "ca4817bdd4d487c5c648429fe73686e3e2c885367ddc323ff9d43dc44ab5a447"
+        },
+        {
+          "bytes": 22417,
+          "exists": true,
+          "path": "paper/figures/lsqca_matched_replacement.pdf",
+          "sha256": "3c03e00e43bfc134be266c034bda0cd78641645a1b84244e9513c9d645f122c3"
+        },
+        {
+          "bytes": 13176,
+          "exists": true,
+          "path": "paper/figures/ml_cifar10_accuracy.pdf",
+          "sha256": "1bf0da5774688c0e347a806eed0bcb46f1e9ab7db3e3c60ceb4d6c5714876758"
+        },
+        {
+          "bytes": 10240,
+          "exists": true,
+          "path": "paper/figures/ml_cifar10_legend.pdf",
+          "sha256": "6d7b32b9d5ba88a5a2931d7f9f196285e10a2c62788ee73c1093dbe4c09ba399"
+        },
+        {
+          "bytes": 11916,
+          "exists": true,
+          "path": "paper/figures/ml_cifar10_runtime.pdf",
+          "sha256": "dd6f0a91da8d62074b8590ac75f6ba075fc1cdd408fd52b8afa22b9d45b0d27b"
+        },
+        {
+          "bytes": 21066,
+          "exists": true,
+          "path": "paper/figures/opt_qaoa_quality_proxy.pdf",
+          "sha256": "330c86ee1fbb7493f3f287150696737fd4204e88ae5c75cad3f8bf3231c9a5e9"
+        },
+        {
+          "bytes": 14391,
+          "exists": true,
+          "path": "paper/figures/quality_finite_shot_gate.pdf",
+          "sha256": "5dcdc21ad26aeae968322d95a0d9e89cb03e63afcc6240566068797fffd854f2"
+        },
+        {
+          "bytes": 14101,
+          "exists": true,
+          "path": "paper/figures/quality_noiseless_gate.pdf",
+          "sha256": "d86a9eaef950601948517ba171765f7a2a100ccd67309a1e6a3292def318190f"
+        },
+        {
+          "bytes": 18087,
+          "exists": true,
+          "path": "paper/figures/resource_removal_ceiling.pdf",
+          "sha256": "04f3168ac0bdd4a0b5426799fcba4c1f80ab04bf26c9a8e8e7c7cbc92a4bc700"
+        },
+        {
+          "bytes": 16291,
+          "exists": true,
+          "path": "paper/figures/roofline_deadline_shrink.pdf",
+          "sha256": "6b4f95396f49e261e0fd31c1e6c17e6f840631d46d4c5b502d1209549e4cefa0"
+        },
+        {
+          "bytes": 25600,
+          "exists": true,
+          "path": "paper/figures/sim_hardware_modality_pivot.pdf",
+          "sha256": "d6c0326186ec150b00aa05b496613ca6d5232f7ac3c3b1cf18704a9e02fb630f"
+        },
+        {
+          "bytes": 15716,
+          "exists": true,
+          "path": "paper/figures/sim_quality_cost_proxy.pdf",
+          "sha256": "f1b478e095ed313e1486712b425fdba942843c018149566c3d92dbb38c9e6d5d"
+        },
+        {
+          "bytes": 15248,
+          "exists": true,
+          "path": "paper/figures/strong_scaling.pdf",
+          "sha256": "162f73e383819991b04b61b906b320ae4612cfa6ba83fed4070c757efece3960"
+        },
+        {
+          "bytes": 16204,
+          "exists": true,
+          "path": "paper/figures/trace_aware_logical_lower_bound.pdf",
+          "sha256": "e13d8e5a67f48d63231e822e389f40c122ab55f9e9fa78bf413431b884c19389"
+        },
+        {
+          "bytes": 14102,
+          "exists": true,
+          "path": "paper/figures/weak_scaling.pdf",
+          "sha256": "0504ebbc05ca85b6279919fb2f32eaf473e3adcbff0ca421507858a0886fe4a0"
+        },
+        {
+          "bytes": 146706,
+          "exists": true,
+          "path": "scripts/generate_paper_figures.py",
+          "sha256": "22dda11515f992a11bd8052ec0ad5e2d02f202860c3101aeb72c9b8b8920d964"
+        }
       ],
       "id": "paper_figures",
-      "paper_locations": [
+      "paper": [
+        "paper/0.Main.tex",
         "paper/1.Introduction.tex",
+        "paper/2.Background.tex",
         "paper/3.Design.tex",
-        "paper/4.Evaluation.tex"
+        "paper/4.Evaluation.tex",
+        "paper/5.Discussion.tex",
+        "paper/5.RelatedWork.tex",
+        "paper/6.Conclusion.tex"
       ],
-      "source_jobs": [],
-      "source_scripts": [
+      "scripts": [
         "scripts/generate_paper_figures.py"
-      ]
+      ],
+      "status": "PASS"
     },
     {
-      "artifacts": [
-        "paper/main.pdf",
-        "data/processed/perlmutter/paper_evidence_audit.json",
-        "data/processed/perlmutter/submission_readiness_audit.json"
+      "artifacts": [],
+      "claim": "The manuscript, bibliography, audit entry points, and PDF form a reproducible HPCA submission package.",
+      "figures": [],
+      "files": [
+        {
+          "bytes": 18348,
+          "exists": true,
+          "path": "README.md",
+          "sha256": "9bb2f45c129965160b40c4749c4cd840ae5e23b42659c7151e3420bdf844925b"
+        },
+        {
+          "bytes": 586660,
+          "exists": true,
+          "path": "paper/main.pdf",
+          "sha256": "9155cacae6ea8a9edc7d636b2e84e5f823ef03218ac1c772406e25fc57ffea32"
+        },
+        {
+          "bytes": 30919,
+          "exists": true,
+          "path": "paper/references.bib",
+          "sha256": "facc11ec42a3474940ecf316a48aba9748004e0232f25ad159a81b56e2311694"
+        },
+        {
+          "bytes": 25600,
+          "exists": true,
+          "path": "scripts/audit_paper_evidence.py",
+          "sha256": "f11b38d25958414511c89d85959bbcf8a12a996150d3da235ea2fa408889324e"
+        },
+        {
+          "bytes": 30296,
+          "exists": true,
+          "path": "scripts/audit_submission_readiness.py",
+          "sha256": "3523160345a39868051daeeb2b70c61d9500a17185f3251198759efcf91343d7"
+        }
       ],
-      "audit_item": "submission_readiness",
-      "claim": "The paper package builds to an HPCA 2027-style double-blind PDF with evidence/readiness checks passing, all-author references, and the remaining body-length warning recorded by the submission readiness audit.",
-      "figures_tables": [],
       "id": "submission_package",
-      "paper_locations": [
-        "paper/main.pdf",
-        "paper/README.md",
-        "README.md"
+      "paper": [
+        "README.md",
+        "paper/references.bib",
+        "paper/main.pdf"
       ],
-      "source_jobs": [],
-      "source_scripts": [
-        "paper/Makefile",
+      "scripts": [
         "scripts/audit_paper_evidence.py",
         "scripts/audit_submission_readiness.py"
-      ]
+      ],
+      "status": "PASS"
     }
   ],
-  "manifest_version": 1,
   "paper": {
     "pdf": "paper/main.pdf",
     "source_entry": "paper/0.Main.tex",
-    "target_style": "HPCA 2027 IEEEtran-style double-blind submission"
+    "target": "HPCA 2027 IEEEtran double-blind submission"
   },
-  "updated_utc": "2026-07-11"
+  "passed": true,
+  "schema": "qarchgauge.strong-accept-manifest.v1",
+  "scope": "P0-A through P0-F evidence and submission package"
 }

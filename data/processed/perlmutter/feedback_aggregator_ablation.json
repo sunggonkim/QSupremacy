@@ -1,0 +1,167 @@
+{
+  "schema": "qsup.feedback-aggregator-ablation.v1",
+  "scope": "analytic mechanism ablation over measured records; batches host-I/O, p99 queue, and host-context rounds only, while preserving gate, decoder, controller, native deadline, and quality costs",
+  "independence_assumption": "maximum available-independence envelope: every recorded circuit evaluation is eligible up to B; sequential dependency width is not measured",
+  "source_artifact": "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv",
+  "batch_sizes": [
+    1,
+    4,
+    16,
+    64
+  ],
+  "cases": 3552,
+  "by_workload": {
+    "ml": {
+      "cases": 2048,
+      "median_circuit_evaluations": 224.0,
+      "records": [
+        {
+          "batch_size": 1,
+          "median_projected_total_sec": 0.3473190835794414,
+          "median_projected_to_native": 216.61588718427868,
+          "median_mechanism_speedup": 1.0,
+          "runtime_pass_fraction": 0.0,
+          "median_host_rounds": 224.0
+        },
+        {
+          "batch_size": 4,
+          "median_projected_total_sec": 0.3196464580391306,
+          "median_projected_to_native": 203.5634420800542,
+          "median_mechanism_speedup": 1.0725127220803166,
+          "runtime_pass_fraction": 0.0,
+          "median_host_rounds": 56.0
+        },
+        {
+          "batch_size": 16,
+          "median_projected_total_sec": 0.3134570701657591,
+          "median_projected_to_native": 200.3003308039981,
+          "median_mechanism_speedup": 1.092337649541892,
+          "runtime_pass_fraction": 0.0,
+          "median_host_rounds": 14.0
+        },
+        {
+          "batch_size": 64,
+          "median_projected_total_sec": 0.3123759801124266,
+          "median_projected_to_native": 199.48455298498408,
+          "median_mechanism_speedup": 1.0974105399968566,
+          "runtime_pass_fraction": 0.0,
+          "median_host_rounds": 3.5
+        }
+      ]
+    },
+    "chemistry": {
+      "cases": 224,
+      "median_circuit_evaluations": 41.0,
+      "records": [
+        {
+          "batch_size": 1,
+          "median_projected_total_sec": 0.033785427092331205,
+          "median_projected_to_native": 203.9509161633552,
+          "median_mechanism_speedup": 1.0,
+          "runtime_pass_fraction": 0.0,
+          "median_host_rounds": 41.0
+        },
+        {
+          "batch_size": 4,
+          "median_projected_total_sec": 0.029462641597751398,
+          "median_projected_to_native": 171.92547755228298,
+          "median_mechanism_speedup": 1.2156703251278151,
+          "runtime_pass_fraction": 0.0,
+          "median_host_rounds": 11.0
+        },
+        {
+          "batch_size": 16,
+          "median_projected_total_sec": 0.02810231484403925,
+          "median_projected_to_native": 164.8943409008109,
+          "median_mechanism_speedup": 1.2878857485310136,
+          "runtime_pass_fraction": 0.0,
+          "median_host_rounds": 3.0
+        },
+        {
+          "batch_size": 64,
+          "median_projected_total_sec": 0.02767003686880002,
+          "median_projected_to_native": 163.08539433326163,
+          "median_mechanism_speedup": 1.3084285492717505,
+          "runtime_pass_fraction": 0.0,
+          "median_host_rounds": 1.0
+        }
+      ]
+    },
+    "optimization": {
+      "cases": 768,
+      "median_circuit_evaluations": 101.0,
+      "records": [
+        {
+          "batch_size": 1,
+          "median_projected_total_sec": 0.19189873615554826,
+          "median_projected_to_native": 7193.9947336411915,
+          "median_mechanism_speedup": 1.0,
+          "runtime_pass_fraction": 0.0,
+          "median_host_rounds": 101.0
+        },
+        {
+          "batch_size": 4,
+          "median_projected_total_sec": 0.18109114300503626,
+          "median_projected_to_native": 6807.379734347853,
+          "median_mechanism_speedup": 1.0558367286617414,
+          "runtime_pass_fraction": 0.0,
+          "median_host_rounds": 26.0
+        },
+        {
+          "batch_size": 16,
+          "median_projected_total_sec": 0.1781234427795249,
+          "median_projected_to_native": 6713.756872041135,
+          "median_mechanism_speedup": 1.0709012519276309,
+          "runtime_pass_fraction": 0.0,
+          "median_host_rounds": 7.0
+        },
+        {
+          "batch_size": 64,
+          "median_projected_total_sec": 0.17725885345404646,
+          "median_projected_to_native": 6694.1861573735605,
+          "median_mechanism_speedup": 1.075257491416564,
+          "runtime_pass_fraction": 0.0,
+          "median_host_rounds": 2.0
+        }
+      ]
+    },
+    "simulation": {
+      "cases": 512,
+      "median_circuit_evaluations": 1.0,
+      "records": [
+        {
+          "batch_size": 1,
+          "median_projected_total_sec": 0.013931683401514437,
+          "median_projected_to_native": 8.568061278735241,
+          "median_mechanism_speedup": 1.0,
+          "runtime_pass_fraction": 0.048828125,
+          "median_host_rounds": 1.0
+        },
+        {
+          "batch_size": 4,
+          "median_projected_total_sec": 0.013931683401514437,
+          "median_projected_to_native": 8.568061278735241,
+          "median_mechanism_speedup": 1.0,
+          "runtime_pass_fraction": 0.048828125,
+          "median_host_rounds": 1.0
+        },
+        {
+          "batch_size": 16,
+          "median_projected_total_sec": 0.013931683401514437,
+          "median_projected_to_native": 8.568061278735241,
+          "median_mechanism_speedup": 1.0,
+          "runtime_pass_fraction": 0.048828125,
+          "median_host_rounds": 1.0
+        },
+        {
+          "batch_size": 64,
+          "median_projected_total_sec": 0.013931683401514437,
+          "median_projected_to_native": 8.568061278735241,
+          "median_mechanism_speedup": 1.0,
+          "runtime_pass_fraction": 0.048828125,
+          "median_host_rounds": 1.0
+        }
+      ]
+    }
+  }
+}

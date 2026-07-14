@@ -182,9 +182,9 @@ def main():
             ),
         ),
         check(
-            "float_spacing_matches_previous_idiom",
-            current_metrics["caption_setup"] >= 1 and current_metrics["float_spacing"] >= 3,
-            "captionsetup={}, float spacing setlengths={}".format(
+            "float_spacing_uses_official_hpca_defaults",
+            current_metrics["caption_setup"] >= 1 and current_metrics["float_spacing"] == 0,
+            "captionsetup={}, prohibited float-spacing overrides={}".format(
                 current_metrics["caption_setup"], current_metrics["float_spacing"]
             ),
         ),
@@ -194,13 +194,17 @@ def main():
             "lowercase lead-ins: {}".format(current_metrics["lowercase_noindent_textbf"]),
         ),
         check(
-            "compact_visual_style_present",
-            current_metrics["subfigure_environment"] >= 12
-            and current_metrics["legend_subfigures"] >= 1
-            and current_metrics["vspace"] >= 4,
-            "subfigures={}, legend-only subfigures={}, vspace={}".format(
+            "subfigure_caption_font_is_not_tiny",
+            r"\captionsetup[subfigure]{font=small" in current_text
+            and r"\captionsetup[subfigure]{font=scriptsize" not in current_text,
+            "subfigure captions use the 9pt small style required for legibility",
+        ),
+        check(
+            "visual_composition_is_deliberate",
+            4 <= current_metrics["subfigure_environment"] <= 16
+            and current_metrics["vspace"] <= 8,
+            "subfigures={}, vspace={}".format(
                 current_metrics["subfigure_environment"],
-                current_metrics["legend_subfigures"],
                 current_metrics["vspace"],
             ),
         ),
@@ -220,13 +224,13 @@ def main():
             all(
                 needle in current_text
                 for needle in [
-                    r"\noindent\textbf{Hardware Specification.}",
-                    r"\noindent\textbf{Benchmark.}",
-                    r"\noindent\textbf{Baselines.}",
-                    r"\noindent\textbf{Feasibility.}",
+                    r"\noindent\textbf{Platform and evidence units.}",
+                    r"\noindent\textbf{Scale and provenance.}",
+                    r"\noindent\textbf{ML representation.}",
+                    r"\noindent\textbf{Quality costs beyond ML.}",
                 ]
             ),
-            "evaluation setup lead-ins match AURORA-Q title-case rhythm",
+            "evaluation lead-ins follow the accepted-paper title-case rhythm",
         ),
     ]
 

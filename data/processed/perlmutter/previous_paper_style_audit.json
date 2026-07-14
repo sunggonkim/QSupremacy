@@ -16,7 +16,7 @@
       "passed": true
     },
     {
-      "detail": "current subfigure environments: 15",
+      "detail": "current subfigure environments: 13",
       "name": "current_uses_subfigure_environment",
       "passed": true
     },
@@ -26,7 +26,7 @@
       "passed": true
     },
     {
-      "detail": "subfigures=15, captions=14, labels=14, legend-only=1",
+      "detail": "subfigures=13, captions=13, labels=13, legend-only=0",
       "name": "subfigures_have_caption_and_label",
       "passed": true
     },
@@ -36,8 +36,8 @@
       "passed": true
     },
     {
-      "detail": "captionsetup=2, float spacing setlengths=3",
-      "name": "float_spacing_matches_previous_idiom",
+      "detail": "captionsetup=2, prohibited float-spacing overrides=0",
+      "name": "float_spacing_uses_official_hpca_defaults",
       "passed": true
     },
     {
@@ -46,8 +46,13 @@
       "passed": true
     },
     {
-      "detail": "subfigures=15, legend-only subfigures=1, vspace=8",
-      "name": "compact_visual_style_present",
+      "detail": "subfigure captions use the 9pt small style required for legibility",
+      "name": "subfigure_caption_font_is_not_tiny",
+      "passed": true
+    },
+    {
+      "detail": "subfigures=13, vspace=5",
+      "name": "visual_composition_is_deliberate",
       "passed": true
     },
     {
@@ -56,7 +61,7 @@
       "passed": true
     },
     {
-      "detail": "evaluation setup lead-ins match AURORA-Q title-case rhythm",
+      "detail": "evaluation lead-ins follow the accepted-paper title-case rhythm",
       "name": "evaluation_setup_leadins_title_case",
       "passed": true
     }
@@ -66,23 +71,23 @@
     "booktabs_rules": 10,
     "caption_before_label_ratio": 1.0,
     "caption_setup": 2,
-    "figure": 12,
-    "figure_star": 0,
-    "float_spacing": 3,
+    "figure": 11,
+    "figure_star": 1,
+    "float_spacing": 0,
     "hline_rules": 0,
-    "legend_subfigures": 1,
+    "legend_subfigures": 0,
     "lowercase_noindent_textbf": [],
-    "noindent_textbf": 34,
-    "resizebox_column": 2,
-    "scriptsize": 3,
-    "subfigure_environment": 15,
-    "subfigures_with_caption": 14,
-    "subfigures_with_label": 14,
+    "noindent_textbf": 21,
+    "resizebox_column": 0,
+    "scriptsize": 0,
+    "subfigure_environment": 13,
+    "subfigures_with_caption": 13,
+    "subfigures_with_label": 13,
     "subfloat": 0,
     "table": 3,
     "table_star": 0,
-    "textbf": 56,
-    "vspace": 8
+    "textbf": 36,
+    "vspace": 5
   },
   "passed": true,
   "previous_metrics": {

@@ -1,0 +1,273 @@
+{
+  "schema": "qsup.native-rotation-platform-envelopes.v2",
+  "scope": "execution-only, literature-calibrated native-rotation envelopes over measured controlled-suite gate/evaluation/shot demand; count-based intra-circuit parallelism is optimistic, hardware noise and fault-tolerance overhead are omitted, and QCCD routing uses a compiled-extra-gate recooling lower bound rather than a full device schedule",
+  "input": "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv",
+  "cases": 3552,
+  "chem_attachment": {
+    "groups": 18.5,
+    "shots": 100011.0,
+    "routing": 1.0,
+    "qubits": 7.0,
+    "record_count": 8
+  },
+  "platforms": {
+    "neutral_atom_zoned": {
+      "parameters": {
+        "label": "Neutral atom (zoned)",
+        "oneq_sec": 5e-06,
+        "twoq_sec": 2.7e-07,
+        "readout_sec": 0.004,
+        "control_sec_per_evaluation": 0.0005,
+        "initialization_sec": 0.0,
+        "cooling_sec_per_routing_equivalent": 0.0,
+        "routing_mode": "reconfigurable connectivity; no SWAP charge",
+        "evidence": "Nature 649 (2026): about 5-us robust global rotations, 270-ns entangling gates, zoned arbitrary connectivity, and a 4-ms optimized readout/reuse cycle; 0.5-ms control is an optimistic per-evaluation lower-bound attachment"
+      },
+      "by_workload": {
+        "ml": {
+          "label": "ML",
+          "cases": 2048,
+          "median_component_fraction": {
+            "oneq": 0.0037336715496433595,
+            "twoq": 0.00016131513755725667,
+            "readout": 0.9960925621557724,
+            "movement_control": 1.2451157026947155e-05
+          },
+          "median_tenfold_utility": {
+            "oneq": 1.0033728923383354,
+            "twoq": 1.000145205999539,
+            "readout": 9.661468662796363,
+            "movement_control": 1.0000112061660604
+          },
+          "first_target": "readout",
+          "first_target_tenfold_speedup": 9.661468662796363,
+          "median_projected_native_ratio": 4900903.2357508,
+          "p90_projected_native_ratio": 59020739.37710846
+        },
+        "chemistry": {
+          "label": "Chem.",
+          "cases": 224,
+          "median_component_fraction": {
+            "oneq": 0.0014264204895869305,
+            "twoq": 4.493275014864982e-05,
+            "readout": 0.998505558858885,
+            "movement_control": 2.308790137945997e-05
+          },
+          "median_tenfold_utility": {
+            "oneq": 1.0012854286255886,
+            "twoq": 1.000040441109903,
+            "readout": 9.86728390403377,
+            "movement_control": 1.000020779542689
+          },
+          "first_target": "readout",
+          "first_target_tenfold_speedup": 9.86728390403377,
+          "median_projected_native_ratio": 102957828.22915313,
+          "p90_projected_native_ratio": 1775646184.500765
+        },
+        "optimization": {
+          "label": "Opt.",
+          "cases": 768,
+          "median_component_fraction": {
+            "oneq": 0.0038233563304515598,
+            "twoq": 0.0003360708018387651,
+            "readout": 0.9958281250161469,
+            "movement_control": 1.2447851562701836e-05
+          },
+          "median_tenfold_utility": {
+            "oneq": 1.0034528963333211,
+            "twoq": 1.000302554162032,
+            "readout": 9.637830137884219,
+            "movement_control": 1.0000112031522481
+          },
+          "first_target": "readout",
+          "first_target_tenfold_speedup": 9.637830137884219,
+          "median_projected_native_ratio": 165167793.80803835,
+          "p90_projected_native_ratio": 324150680.9326672
+        },
+        "simulation": {
+          "label": "Sim.",
+          "cases": 512,
+          "median_component_fraction": {
+            "oneq": 0.03364562962207107,
+            "twoq": 0.0025961920875589117,
+            "readout": 0.9637461314637268,
+            "movement_control": 1.2046826643296586e-05
+          },
+          "median_tenfold_utility": {
+            "oneq": 1.0313385216990425,
+            "twoq": 1.0023423343689557,
+            "readout": 7.587217404214201,
+            "movement_control": 1.0000108435922526
+          },
+          "first_target": "readout",
+          "first_target_tenfold_speedup": 7.587217404214201,
+          "median_projected_native_ratio": 22002.675349112844,
+          "p90_projected_native_ratio": 93177.19889386611
+        }
+      },
+      "quality_qualified_sim": {
+        "label": "Quality-qualified Sim.",
+        "cases": 12,
+        "record_ids": [
+          "practical_strongnative_32node_large128c0c127_20260704060230_c0_sim_tfim_4q_4steps_r0_seed23",
+          "practical_strongnative_32node_large128c0c127_20260704060230_c108_sim_tfim_7q_4steps_r0_seed17",
+          "practical_strongnative_32node_large128c0c127_20260704060230_c111_sim_tfim_7q_10steps_r0_seed17",
+          "practical_strongnative_32node_large128c0c127_20260704060230_c12_sim_tfim_7q_4steps_r0_seed23",
+          "practical_strongnative_32node_large128c0c127_20260704060230_c15_sim_tfim_7q_10steps_r0_seed23",
+          "practical_strongnative_32node_large128c0c127_20260704060230_c32_sim_tfim_4q_4steps_r0_seed31",
+          "practical_strongnative_32node_large128c0c127_20260704060230_c35_sim_tfim_4q_10steps_r0_seed31",
+          "practical_strongnative_32node_large128c0c127_20260704060230_c3_sim_tfim_4q_10steps_r0_seed23",
+          "practical_strongnative_32node_large128c0c127_20260704060230_c44_sim_tfim_7q_4steps_r0_seed31",
+          "practical_strongnative_32node_large128c0c127_20260704060230_c47_sim_tfim_7q_10steps_r0_seed31",
+          "practical_strongnative_32node_large128c0c127_20260704060230_c96_sim_tfim_4q_4steps_r0_seed17",
+          "practical_strongnative_32node_large128c0c127_20260704060230_c99_sim_tfim_4q_10steps_r0_seed17"
+        ],
+        "median_component_fraction": {
+          "oneq": 0.01527723262763104,
+          "twoq": 0.0015233073568818678,
+          "readout": 0.9831871701758599,
+          "movement_control": 1.2289839627198248e-05
+        },
+        "median_tenfold_utility": {
+          "oneq": 1.0139724784052118,
+          "twoq": 1.0013730267170806,
+          "readout": 8.708486342741121,
+          "movement_control": 1.0000110609780137
+        },
+        "first_target": "readout",
+        "first_target_tenfold_speedup": 8.708486342741121,
+        "median_projected_native_ratio": 42948.61551825383,
+        "p90_projected_native_ratio": 84341.01836701902
+      }
+    },
+    "trapped_ion_qccd": {
+      "parameters": {
+        "label": "Trapped ion (QCCD/TILT)",
+        "oneq_sec": 1e-05,
+        "twoq_sec": 4.8e-05,
+        "readout_sec": 0.00015,
+        "control_sec_per_evaluation": 0.0,
+        "initialization_sec": 0.01,
+        "cooling_sec_per_routing_equivalent": 4e-05,
+        "routing_mode": "compiled extra-2Q routing equivalents price a 40-us recooling lower bound; not a full QCCD schedule",
+        "evidence": "BOSS HPCA 2025: optimistic AM nearest-distance gate of about 48 us, about 40-us sympathetic recooling, and >150-us high-fidelity readout; 10-us 1Q is an explicit optimistic target"
+      },
+      "by_workload": {
+        "ml": {
+          "label": "ML",
+          "cases": 2048,
+          "median_component_fraction": {
+            "oneq": 0.09668302251242925,
+            "twoq": 0.38498680245410616,
+            "readout": 0.5183148309101069,
+            "movement_control": 1.5344123357731393e-05
+          },
+          "median_tenfold_utility": {
+            "oneq": 1.095256253569266,
+            "twoq": 1.5346539408411288,
+            "readout": 1.8951680539613613,
+            "movement_control": 1.0000137762435455
+          },
+          "first_target": "readout",
+          "first_target_tenfold_speedup": 1.8951680539613613,
+          "median_projected_native_ratio": 405943.8939656386,
+          "p90_projected_native_ratio": 4214375.101564068
+        },
+        "chemistry": {
+          "label": "Chem.",
+          "cases": 224,
+          "median_component_fraction": {
+            "oneq": 0.0569550817289565,
+            "twoq": 0.1658087589232545,
+            "readout": 0.7772253656970364,
+            "movement_control": 1.0793650752715779e-05
+          },
+          "median_tenfold_utility": {
+            "oneq": 1.0539053225809476,
+            "twoq": 1.1749374849127237,
+            "readout": 3.3104160860784058,
+            "movement_control": 1.000009692442645
+          },
+          "first_target": "readout",
+          "first_target_tenfold_speedup": 3.3104160860784058,
+          "median_projected_native_ratio": 5630651.6489978805,
+          "p90_projected_native_ratio": 76168138.73870613
+        },
+        "optimization": {
+          "label": "Opt.",
+          "cases": 768,
+          "median_component_fraction": {
+            "oneq": 0.07491734623681104,
+            "twoq": 0.5686170673792155,
+            "readout": 0.3564426524067091,
+            "movement_control": 2.2933977264455244e-05
+          },
+          "median_tenfold_utility": {
+            "oneq": 1.0724515807611859,
+            "twoq": 2.0523462429923693,
+            "readout": 1.4736670836281942,
+            "movement_control": 1.0000206810471526
+          },
+          "first_target": "twoq",
+          "first_target_tenfold_speedup": 2.0523462429923693,
+          "median_projected_native_ratio": 17677690.914543867,
+          "p90_projected_native_ratio": 34224203.17530648
+        },
+        "simulation": {
+          "label": "Sim.",
+          "cases": 512,
+          "median_component_fraction": {
+            "oneq": 0.11997442430445644,
+            "twoq": 0.8125235286393109,
+            "readout": 0.06705501363201931,
+            "movement_control": 0.00044703342421346216
+          },
+          "median_tenfold_utility": {
+            "oneq": 1.1203929552178369,
+            "twoq": 3.6406549774991848,
+            "readout": 1.0636685455372987,
+            "movement_control": 1.0003992093302798
+          },
+          "first_target": "twoq",
+          "first_target_tenfold_speedup": 3.6406549774991848,
+          "median_projected_native_ratio": 17301.30734952314,
+          "p90_projected_native_ratio": 82100.54539602659
+        }
+      },
+      "quality_qualified_sim": {
+        "label": "Quality-qualified Sim.",
+        "cases": 12,
+        "record_ids": [
+          "practical_strongnative_32node_large128c0c127_20260704060230_c0_sim_tfim_4q_4steps_r0_seed23",
+          "practical_strongnative_32node_large128c0c127_20260704060230_c108_sim_tfim_7q_4steps_r0_seed17",
+          "practical_strongnative_32node_large128c0c127_20260704060230_c111_sim_tfim_7q_10steps_r0_seed17",
+          "practical_strongnative_32node_large128c0c127_20260704060230_c12_sim_tfim_7q_4steps_r0_seed23",
+          "practical_strongnative_32node_large128c0c127_20260704060230_c15_sim_tfim_7q_10steps_r0_seed23",
+          "practical_strongnative_32node_large128c0c127_20260704060230_c32_sim_tfim_4q_4steps_r0_seed31",
+          "practical_strongnative_32node_large128c0c127_20260704060230_c35_sim_tfim_4q_10steps_r0_seed31",
+          "practical_strongnative_32node_large128c0c127_20260704060230_c3_sim_tfim_4q_10steps_r0_seed23",
+          "practical_strongnative_32node_large128c0c127_20260704060230_c44_sim_tfim_7q_4steps_r0_seed31",
+          "practical_strongnative_32node_large128c0c127_20260704060230_c47_sim_tfim_7q_10steps_r0_seed31",
+          "practical_strongnative_32node_large128c0c127_20260704060230_c96_sim_tfim_4q_4steps_r0_seed17",
+          "practical_strongnative_32node_large128c0c127_20260704060230_c99_sim_tfim_4q_10steps_r0_seed17"
+        ],
+        "median_component_fraction": {
+          "oneq": 0.08522188192966088,
+          "twoq": 0.7957921830242977,
+          "readout": 0.11819794872123325,
+          "movement_control": 0.0007879863248082218
+        },
+        "median_tenfold_utility": {
+          "oneq": 1.0829100619976233,
+          "twoq": 3.5227695595565574,
+          "readout": 1.1200307927872177,
+          "movement_control": 1.000708395781273
+        },
+        "first_target": "twoq",
+        "first_target_tenfold_speedup": 3.5227695595565574,
+        "median_projected_native_ratio": 9347.338987265412,
+        "p90_projected_native_ratio": 36255.983805007956
+      }
+    }
+  }
+}

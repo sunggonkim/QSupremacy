@@ -1,0 +1,62 @@
+{
+  "alloc_seconds": 0.001440401014406234,
+  "checksum_sample_real": -0.0312499962747097,
+  "cluster_state_bytes": 2199023255552,
+  "cluster_state_tib": 2.0,
+  "depth": 4,
+  "device_ordinal": 0,
+  "dtype": "complex64",
+  "elapsed_seconds": 30.453655546996742,
+  "gate_records": [
+    {
+      "gate": "H",
+      "gate_index": 0,
+      "local_target": 0,
+      "seconds": 29.812366023019422
+    },
+    {
+      "gate": "H",
+      "gate_index": 1,
+      "local_target": 4,
+      "seconds": 0.025129387009656057
+    },
+    {
+      "gate": "H",
+      "gate_index": 2,
+      "local_target": 8,
+      "seconds": 0.025121170008787885
+    },
+    {
+      "gate": "H",
+      "gate_index": 3,
+      "local_target": 12,
+      "seconds": 0.025137423013802618
+    }
+  ],
+  "gate_seconds_total": 29.88775400305167,
+  "gpu_device": 0,
+  "gpu_mem_free_after_gib": 23.07647705078125,
+  "gpu_mem_free_before_gib": 39.07647705078125,
+  "gpu_mem_total_gib": 39.4925537109375,
+  "host": "nid001789",
+  "init_seconds": 0.5640612679999322,
+  "interpretation": "capacity-boundary shard probe; local gate passes only; not a full cross-rank distributed simulator",
+  "job_id": "55831986",
+  "local_amplitudes": 2147483648,
+  "local_gate_targets": [
+    0,
+    4,
+    8,
+    12
+  ],
+  "local_rank": 0,
+  "local_state_bytes": 17179869184,
+  "local_state_gib": 16.0,
+  "qubits": 38,
+  "rank": 20,
+  "run_tag": "55831986_cap_38q_32n_128g",
+  "schema": "qarchgauge_statevector_capacity_boundary_v1",
+  "shard_bits": 31,
+  "visible_cuda_devices": 1,
+  "world_size": 128
+}

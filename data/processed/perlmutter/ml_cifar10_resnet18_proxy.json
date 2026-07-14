@@ -1,0 +1,104 @@
+{
+  "schema": "qsup.ml-native-proxy.v1",
+  "scope": "CIFAR-10 GPU-native frontier; no matched quantum-image model is claimed",
+  "dataset": "CIFAR-10",
+  "train_samples": 50000,
+  "test_samples": 10000,
+  "model": "ResNet-18 CIFAR stem",
+  "parameters": 11173962,
+  "epochs": 10,
+  "batch_size": 512,
+  "amp": true,
+  "tf32": true,
+  "total_runtime_sec": 56.522469924995676,
+  "final_test_accuracy": 0.8185,
+  "best_test_accuracy": 0.8185,
+  "median_train_images_per_sec": 14586.443359375,
+  "max_cuda_memory_bytes": 1460975616,
+  "gpu": "NVIDIA A100-SXM4-80GB",
+  "torch_version": "2.11.0+cu129",
+  "host": "nid008300",
+  "python": "3.12.13",
+  "epochs_detail": [
+    {
+      "epoch": 1,
+      "train_loss": 2.1806368563461302,
+      "train_runtime_sec": 17.986893563997,
+      "train_images_per_sec": 2779.801849724691,
+      "test_accuracy": 0.303,
+      "test_runtime_sec": 2.29119604601874
+    },
+    {
+      "epoch": 2,
+      "train_loss": 1.5489926596832275,
+      "train_runtime_sec": 3.7950385570002254,
+      "train_images_per_sec": 13175.096708245916,
+      "test_accuracy": 0.4541,
+      "test_runtime_sec": 0.9830809560080525
+    },
+    {
+      "epoch": 3,
+      "train_loss": 1.301625089073181,
+      "train_runtime_sec": 3.8183520869934,
+      "train_images_per_sec": 13094.654149447593,
+      "test_accuracy": 0.487,
+      "test_runtime_sec": 0.8398217830108479
+    },
+    {
+      "epoch": 4,
+      "train_loss": 1.0880839491271972,
+      "train_runtime_sec": 3.7942076530016493,
+      "train_images_per_sec": 13177.981959011737,
+      "test_accuracy": 0.6349,
+      "test_runtime_sec": 0.9330680179991759
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.9187714412307739,
+      "train_runtime_sec": 3.4278404520009644,
+      "train_images_per_sec": 14586.443184895916,
+      "test_accuracy": 0.6706,
+      "test_runtime_sec": 0.693948902975535
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.7759965303230285,
+      "train_runtime_sec": 3.223976778012002,
+      "train_images_per_sec": 15508.796571057022,
+      "test_accuracy": 0.6785,
+      "test_runtime_sec": 0.4262874999840278
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.6659085536575318,
+      "train_runtime_sec": 3.1911501979921013,
+      "train_images_per_sec": 15668.331760586017,
+      "test_accuracy": 0.7512,
+      "test_runtime_sec": 0.4234489889931865
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.5759888913345337,
+      "train_runtime_sec": 3.117822336993413,
+      "train_images_per_sec": 16036.834237391518,
+      "test_accuracy": 0.783,
+      "test_runtime_sec": 0.4302828549989499
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.5031820629692078,
+      "train_runtime_sec": 3.1459023549978156,
+      "train_images_per_sec": 15893.691017003837,
+      "test_accuracy": 0.8044,
+      "test_runtime_sec": 0.4113318839808926
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.45892561886787414,
+      "train_runtime_sec": 3.160301563999383,
+      "train_images_per_sec": 15821.274959825247,
+      "test_accuracy": 0.8185,
+      "test_runtime_sec": 0.42265251200296916
+    }
+  ]
+}

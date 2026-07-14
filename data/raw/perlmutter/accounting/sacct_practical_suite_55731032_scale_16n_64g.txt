@@ -1,5 +1,5 @@
 JobID|JobName|State|ExitCode|Elapsed|Submit|Start|End|AllocTRES
-55731032|qsup-prac-scale|RUNNING|0:0|00:28:32|2026-07-09T16:02:36|2026-07-10T00:05:09|Unknown|billing=2048,cpu=2048,gres/gpu:a100=64,gres/gpu=64,mem=3678432M,node=16
-55731032.batch|batch|RUNNING|0:0|00:28:32|2026-07-10T00:05:09|2026-07-10T00:05:09|Unknown|cpu=128,gres/gpu:a100=4,gres/gpu=4,mem=229902M,node=1
-55731032.extern|extern|RUNNING|0:0|00:28:32|2026-07-10T00:05:09|2026-07-10T00:05:09|Unknown|billing=2048,cpu=2048,gres/gpu:a100=64,gres/gpu=64,mem=3678432M,node=16
+55731032|qsup-prac-scale|COMPLETED|0:0|00:28:33|2026-07-09T16:02:36|2026-07-10T00:05:09|2026-07-10T00:33:42|billing=2048,cpu=2048,energy=11166997,gres/gpu:a100=64,gres/gpu=64,mem=3678432M,node=16
+55731032.batch|batch|COMPLETED|0:0|00:28:33|2026-07-10T00:05:09|2026-07-10T00:05:09|2026-07-10T00:33:42|cpu=128,gres/gpu:a100=4,gres/gpu=4,mem=229902M,node=1
+55731032.extern|extern|COMPLETED|0:0|00:28:33|2026-07-10T00:05:09|2026-07-10T00:05:09|2026-07-10T00:33:42|billing=2048,cpu=2048,gres/gpu:a100=64,gres/gpu=64,mem=3678432M,node=16
 55731032.0|bash|COMPLETED|0:0|00:28:22|2026-07-10T00:05:17|2026-07-10T00:05:17|2026-07-10T00:33:39|cpu=2048,gres/gpu:a100=64,gres/gpu=64,mem=3678432M,node=16

@@ -2,8 +2,10 @@
 """Summarize no-srun future-hardware projection scenarios.
 
 This script uses existing practical-suite CSV metadata. It does not consume GPU
-allocation time; it only changes projection knobs such as effective shot lanes,
-pipelined decode, host-I/O, queue/control floor, and logical-operation scale.
+allocation time; it changes projection knobs such as effective shot lanes,
+pipelined decode, payload-dependent host-I/O, analytical queue-tail pressure, and
+logical-operation scale. Quality is never recovered by a scalar: each case keeps
+its measured gap and passes only when that gap meets the workload tolerance.
 """
 
 import argparse
@@ -11,6 +13,8 @@ import csv
 import json
 import os
 from statistics import median
+
+from hpca_projection_model import as_float, projected_time_sec
 
 
 DEFAULT_TOLERANCES = {
@@ -28,20 +32,26 @@ SCENARIOS = [
         "cycle_sec": 1.0e-6,
         "shot_lanes": 1.0e2,
         "decoder_sec_per_eval": 63.0e-6,
-        "host_io_sec_per_eval": 60.0e-6,
-        "queue_sec_per_eval": 40.0e-6,
-        "description": "Small useful shot parallelism and larger real-time decode, host-I/O, and queue floor.",
+        "host_io_floor_sec_per_eval": 60.0e-6,
+        "queue_service_sec_per_eval": 40.0e-6,
+        "queue_utilization": 0.70,
+        "queue_tail_percentile": 0.99,
+        "evidence_level": "measured cycle/decoder scale plus conservative system assumptions",
+        "description": "Small useful shot parallelism with analytical queue-tail pressure and larger decode/host floors.",
     },
     {
-        "id": "resource_estimator_like",
-        "label": "Resource-estimator-like",
+        "id": "intermediate_surface",
+        "label": "Intermediate surface",
         "distance": 25.0,
         "cycle_sec": 1.0e-6,
         "shot_lanes": 1.0e3,
         "decoder_sec_per_eval": 20.0e-6,
-        "host_io_sec_per_eval": 50.0e-6,
-        "queue_sec_per_eval": 30.0e-6,
-        "description": "Moderate alternate FT resource-estimator point with constrained shot lanes.",
+        "host_io_floor_sec_per_eval": 50.0e-6,
+        "queue_service_sec_per_eval": 30.0e-6,
+        "queue_utilization": 0.55,
+        "queue_tail_percentile": 0.99,
+        "evidence_level": "interpolation stress point; not a resource-estimator output",
+        "description": "Moderate surface-code/control interpolation with constrained shot lanes and queue tails.",
     },
     {
         "id": "default_optimistic",
@@ -50,20 +60,26 @@ SCENARIOS = [
         "cycle_sec": 1.0e-6,
         "shot_lanes": 1.0e4,
         "decoder_sec_per_eval": 5.0e-6,
-        "host_io_sec_per_eval": 20.0e-6,
-        "queue_sec_per_eval": 30.0e-6,
-        "description": "Paper default lower-bound stack.",
+        "host_io_floor_sec_per_eval": 20.0e-6,
+        "queue_service_sec_per_eval": 30.0e-6,
+        "queue_utilization": 0.35,
+        "queue_tail_percentile": 0.99,
+        "evidence_level": "optimistic architecture target",
+        "description": "Paper default optimistic stack with an explicit analytical queue-tail hook.",
     },
     {
         "id": "ldpc_future_like",
-        "label": "LDPC/future-like",
+        "label": "Low-overhead code/control",
         "distance": 15.0,
         "cycle_sec": 1.0e-6,
         "shot_lanes": 1.0e5,
         "decoder_sec_per_eval": 5.0e-6,
-        "host_io_sec_per_eval": 5.0e-6,
-        "queue_sec_per_eval": 5.0e-6,
-        "description": "Future lower-overhead code/control point with larger useful batching.",
+        "host_io_floor_sec_per_eval": 5.0e-6,
+        "queue_service_sec_per_eval": 5.0e-6,
+        "queue_utilization": 0.20,
+        "queue_tail_percentile": 0.99,
+        "evidence_level": "generic overhead sensitivity; not a QLDPC implementation or hardware forecast",
+        "description": "Future lower-overhead code/control point with larger useful batching and lower queue load; QLDPC is one possible direction, not the modeled implementation.",
     },
     {
         "id": "aggressive_batched",
@@ -72,9 +88,12 @@ SCENARIOS = [
         "cycle_sec": 0.5e-6,
         "shot_lanes": 1.0e6,
         "decoder_sec_per_eval": 1.0e-6,
-        "host_io_sec_per_eval": 0.5e-6,
-        "queue_sec_per_eval": 0.5e-6,
-        "description": "Aggressive high-batching point for upper-bound sensitivity.",
+        "host_io_floor_sec_per_eval": 0.5e-6,
+        "queue_service_sec_per_eval": 0.5e-6,
+        "queue_utilization": 0.08,
+        "queue_tail_percentile": 0.99,
+        "evidence_level": "aggressive upper-bound sensitivity",
+        "description": "Aggressive high-batching point with low queue load for upper-bound sensitivity.",
     },
 ]
 
@@ -84,50 +103,16 @@ def read_rows(path):
         return list(csv.DictReader(f))
 
 
-def as_float(row, key, default=0.0):
-    value = row.get(key, "")
-    if value in ("", None):
-        return default
-    return float(value)
-
-
-def scenario_host_io_sec(scenario):
-    if "host_io_sec_per_eval" in scenario:
-        return scenario["host_io_sec_per_eval"]
-    return 0.5 * scenario.get("control_queue_sec_per_eval", 0.0)
-
-
-def scenario_queue_sec(scenario):
-    if "queue_sec_per_eval" in scenario:
-        return scenario["queue_sec_per_eval"]
-    return 0.5 * scenario.get("control_queue_sec_per_eval", 0.0)
-
-
 def projected_time(row, scenario):
-    distance = scenario["distance"]
-    cycle_sec = scenario["cycle_sec"]
-    evals = max(1.0, as_float(row, "circuit_evaluations", 1.0))
-    oneq = as_float(row, "one_qubit_gates")
-    twoq = as_float(row, "two_qubit_gates")
-    meas = as_float(row, "measurement_ops")
-    shot_lanes = max(1.0, scenario["shot_lanes"])
-
-    gate_depth_per_eval = (
-        oneq * distance * cycle_sec
-        + twoq * 4.0 * distance * cycle_sec
-        + meas * distance * cycle_sec
-    )
-    gate_pipeline_time = gate_depth_per_eval / shot_lanes
-    decode_pipeline_time = scenario["decoder_sec_per_eval"]
-    serial_time = evals * (scenario_host_io_sec(scenario) + scenario_queue_sec(scenario))
-    return evals * max(gate_pipeline_time, decode_pipeline_time) + serial_time
+    return projected_time_sec(row, scenario)
 
 
-def summarize(rows, recovery):
+def summarize(rows):
     workloads = sorted(set(row.get("workload", "unknown") for row in rows))
     result = {
+        "schema": "qsup.projection-scenarios.v2",
         "cases": len(rows),
-        "quality_recovery": recovery,
+        "quality_gate": "measured quality gap <= workload tolerance",
         "tolerances": DEFAULT_TOLERANCES,
         "scenarios": SCENARIOS,
         "by_scenario": {},
@@ -149,7 +134,7 @@ def summarize(rows, recovery):
                 projected = projected_time(row, scenario)
                 ratio = projected / native
                 passes_runtime = projected < native
-                passes_quality = gap * (1.0 - recovery) <= tolerance
+                passes_quality = gap <= tolerance
                 ratios.append(ratio)
                 runtime_pass.append(passes_runtime)
                 quality_pass.append(passes_quality)
@@ -175,17 +160,20 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--input-csv", required=True)
     parser.add_argument("--output-json", required=True)
-    parser.add_argument("--recovery", type=float, default=0.90)
     args = parser.parse_args()
 
-    summary = summarize(read_rows(args.input_csv), args.recovery)
+    summary = summarize(read_rows(args.input_csv))
     out_dir = os.path.dirname(args.output_json)
     if out_dir:
         os.makedirs(out_dir, exist_ok=True)
     with open(args.output_json, "w") as f:
         json.dump(summary, f, indent=2, sort_keys=True)
         f.write("\n")
-    print(json.dumps(summary, indent=2, sort_keys=True))
+    print(
+        "wrote {} scenarios for {} cases to {}".format(
+            len(SCENARIOS), summary["cases"], args.output_json
+        )
+    )
 
 
 if __name__ == "__main__":

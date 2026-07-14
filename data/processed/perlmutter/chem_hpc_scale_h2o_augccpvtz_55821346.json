@@ -1,0 +1,44 @@
+{
+  "schema": "qsup.chem-hpc-scale-proxy.v1",
+  "scope": "all-electron native chemistry scale extension; no matched large VQE execution or deployment-scale advantage is claimed",
+  "case_id": "h2o_augccpvtz",
+  "molecule": "H2O",
+  "basis": "aug-cc-pvtz",
+  "status": "complete",
+  "environment": {
+    "host": "nid004364",
+    "platform": "Linux-6.4.0-150600.23.103_15.0.25-cray_shasta_c-x86_64-with-glibc2.3.4",
+    "python": "3.6.15",
+    "threads": 64,
+    "omp_num_threads": "64",
+    "slurm_job_id": "55821346",
+    "slurm_cpus_per_task": "64"
+  },
+  "stages": {
+    "hf": {
+      "runtime_sec": 1.9646333270065952,
+      "energy_hartree": -76.06055880406579,
+      "converged": true
+    },
+    "mp2": {
+      "runtime_sec": 0.19620121701154858,
+      "energy_hartree": -76.34414656077502
+    },
+    "ccsd": {
+      "runtime_sec": 3.744229400996119,
+      "energy_hartree": -76.34875972539781,
+      "converged": true
+    },
+    "triples": {
+      "runtime_sec": 3.061359050014289,
+      "correction_hartree": -0.008769661209382681,
+      "ccsdt_energy_hartree": -76.3575293866072
+    }
+  },
+  "atomic_orbitals": 92,
+  "electrons": 10,
+  "spin_orbital_qubits": 184,
+  "occupied_spatial_orbitals": 5,
+  "virtual_spatial_orbitals": 87,
+  "total_native_runtime_sec": 8.966422995028552
+}

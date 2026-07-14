@@ -1,0 +1,415 @@
+{
+  "audit_status": "PASS",
+  "by_workload": {
+    "chemistry": {
+      "conditional_target_bootstrap": {
+        "group_wave_ready": {
+          "observed_target": "factory",
+          "projected_native_ratio_ci_95": [
+            4259048.517625105,
+            16993213.460360873
+          ],
+          "scope": "conditional execution target; not quality-qualified",
+          "selection_probability": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host_feedback": 0.0,
+            "logical_cycle": 0.0,
+            "shot_fabric": 0.0
+          },
+          "target_gain_ci_95": [
+            9.990181625337115,
+            9.990884116092383
+          ]
+        },
+        "serial_evaluation": {
+          "observed_target": "factory",
+          "projected_native_ratio_ci_95": [
+            4259048.517625105,
+            16993213.460360873
+          ],
+          "scope": "conditional execution target; not quality-qualified",
+          "selection_probability": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host_feedback": 0.0,
+            "logical_cycle": 0.0,
+            "shot_fabric": 0.0
+          },
+          "target_gain_ci_95": [
+            9.990181625337115,
+            9.990884116092383
+          ]
+        }
+      },
+      "confidence_intervals_95": {
+        "median_measured_simulator_speedup_required": [
+          40479.135508098516,
+          45087.271558553126
+        ],
+        "quality_pass_fraction": [
+          0.0,
+          0.42857142857142855
+        ]
+      },
+      "independent_instance_seed_pairs": 224,
+      "observed": {
+        "group_wave_ready": {
+          "conditional_first_target": "factory",
+          "conditional_first_target_gain": 9.990283486030743,
+          "median_conditional_projected_native_ratio": 5999232.206414205,
+          "median_marginal_utility": {
+            "decoder": 1.000002499766001,
+            "factory": 9.990283486030743,
+            "host_feedback": 1.00000025054573,
+            "logical_cycle": 1.0000927877561545,
+            "shot_fabric": 1.0000969555214714
+          }
+        },
+        "median_measured_simulator_speedup_required": 42491.43045400623,
+        "quality_pass_fraction": 0.21428571428571427,
+        "serial_evaluation": {
+          "conditional_first_target": "factory",
+          "conditional_first_target_gain": 9.990283486030743,
+          "median_conditional_projected_native_ratio": 5999232.206414205,
+          "median_marginal_utility": {
+            "decoder": 1.000002499766001,
+            "factory": 9.990283486030743,
+            "host_feedback": 1.00000025054573,
+            "logical_cycle": 1.0000927877561545,
+            "shot_fabric": 1.0000945056691108
+          }
+        }
+      },
+      "records": 224,
+      "seeds_per_configuration": [
+        16
+      ],
+      "structural_configurations": 14
+    },
+    "ml": {
+      "conditional_target_bootstrap": {
+        "group_wave_ready": {
+          "observed_target": "factory",
+          "projected_native_ratio_ci_95": [
+            440180.8133907496,
+            654713.0498695432
+          ],
+          "scope": "conditional execution target; not quality-qualified",
+          "selection_probability": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host_feedback": 0.0,
+            "logical_cycle": 0.0,
+            "shot_fabric": 0.0
+          },
+          "target_gain_ci_95": [
+            9.99230571717209,
+            9.99258576878413
+          ]
+        },
+        "serial_evaluation": {
+          "observed_target": "factory",
+          "projected_native_ratio_ci_95": [
+            440180.8133907496,
+            654713.0498695432
+          ],
+          "scope": "conditional execution target; not quality-qualified",
+          "selection_probability": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host_feedback": 0.0,
+            "logical_cycle": 0.0,
+            "shot_fabric": 0.0
+          },
+          "target_gain_ci_95": [
+            9.99230571717209,
+            9.99258576878413
+          ]
+        }
+      },
+      "confidence_intervals_95": {
+        "median_measured_simulator_speedup_required": [
+          3449.3802885783166,
+          4401.704300089917
+        ],
+        "quality_pass_fraction": [
+          0.0,
+          0.0
+        ]
+      },
+      "independent_instance_seed_pairs": 2048,
+      "observed": {
+        "group_wave_ready": {
+          "conditional_first_target": "factory",
+          "conditional_first_target_gain": 9.99244574297811,
+          "median_conditional_projected_native_ratio": 547314.2825409239,
+          "median_marginal_utility": {
+            "decoder": 1.0000011249002674,
+            "factory": 9.99244574297811,
+            "host_feedback": 1.0000011286435468,
+            "logical_cycle": 1.000072599323376,
+            "shot_fabric": 1.0000740992654555
+          }
+        },
+        "median_measured_simulator_speedup_required": 3726.3740353613653,
+        "quality_pass_fraction": 0.0,
+        "serial_evaluation": {
+          "conditional_first_target": "factory",
+          "conditional_first_target_gain": 9.99244574297811,
+          "median_conditional_projected_native_ratio": 547314.2825409239,
+          "median_marginal_utility": {
+            "decoder": 1.0000011249002674,
+            "factory": 9.99244574297811,
+            "host_feedback": 1.0000011286435468,
+            "logical_cycle": 1.000072599323376,
+            "shot_fabric": 1.0
+          }
+        }
+      },
+      "records": 2048,
+      "seeds_per_configuration": [
+        16
+      ],
+      "structural_configurations": 128
+    },
+    "optimization": {
+      "conditional_target_bootstrap": {
+        "group_wave_ready": {
+          "observed_target": "factory",
+          "projected_native_ratio_ci_95": [
+            22881392.762700185,
+            34453935.257083036
+          ],
+          "scope": "conditional execution target; not quality-qualified",
+          "selection_probability": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host_feedback": 0.0,
+            "logical_cycle": 0.0,
+            "shot_fabric": 0.0
+          },
+          "target_gain_ci_95": [
+            9.993991613360658,
+            9.994043597582397
+          ]
+        },
+        "serial_evaluation": {
+          "observed_target": "factory",
+          "projected_native_ratio_ci_95": [
+            22881392.762700185,
+            34453935.257083036
+          ],
+          "scope": "conditional execution target; not quality-qualified",
+          "selection_probability": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host_feedback": 0.0,
+            "logical_cycle": 0.0,
+            "shot_fabric": 0.0
+          },
+          "target_gain_ci_95": [
+            9.993991613360658,
+            9.994043597582397
+          ]
+        }
+      },
+      "confidence_intervals_95": {
+        "median_measured_simulator_speedup_required": [
+          263795.8232182278,
+          345499.5247490848
+        ],
+        "quality_pass_fraction": [
+          0.0,
+          0.0
+        ]
+      },
+      "independent_instance_seed_pairs": 768,
+      "observed": {
+        "group_wave_ready": {
+          "conditional_first_target": "factory",
+          "conditional_first_target_gain": 9.994034173743808,
+          "median_conditional_projected_native_ratio": 24293601.231740374,
+          "median_marginal_utility": {
+            "decoder": 1.000000655870476,
+            "factory": 9.994034173743808,
+            "host_feedback": 1.0000006577633793,
+            "logical_cycle": 1.0000581679739646,
+            "shot_fabric": 1.0000589311429704
+          }
+        },
+        "median_measured_simulator_speedup_required": 287045.64367355965,
+        "quality_pass_fraction": 0.0,
+        "serial_evaluation": {
+          "conditional_first_target": "factory",
+          "conditional_first_target_gain": 9.994034173743808,
+          "median_conditional_projected_native_ratio": 24293601.231740374,
+          "median_marginal_utility": {
+            "decoder": 1.000000655870476,
+            "factory": 9.994034173743808,
+            "host_feedback": 1.0000006577633793,
+            "logical_cycle": 1.0000581679739646,
+            "shot_fabric": 1.0
+          }
+        }
+      },
+      "records": 768,
+      "seeds_per_configuration": [
+        16
+      ],
+      "structural_configurations": 48
+    },
+    "simulation": {
+      "conditional_target_bootstrap": {
+        "group_wave_ready": {
+          "observed_target": "factory",
+          "projected_native_ratio_ci_95": [
+            18903.292437045686,
+            55227.80686495238
+          ],
+          "scope": "conditional execution target; not quality-qualified",
+          "selection_probability": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host_feedback": 0.0,
+            "logical_cycle": 0.0,
+            "shot_fabric": 0.0
+          },
+          "target_gain_ci_95": [
+            9.994086050283641,
+            9.995207244716166
+          ]
+        },
+        "serial_evaluation": {
+          "observed_target": "factory",
+          "projected_native_ratio_ci_95": [
+            18903.292437045686,
+            55227.80686495238
+          ],
+          "scope": "conditional execution target; not quality-qualified",
+          "selection_probability": {
+            "decoder": 0.0,
+            "factory": 1.0,
+            "host_feedback": 0.0,
+            "logical_cycle": 0.0,
+            "shot_fabric": 0.0
+          },
+          "target_gain_ci_95": [
+            9.994086050283641,
+            9.995207244716166
+          ]
+        }
+      },
+      "confidence_intervals_95": {
+        "median_measured_simulator_speedup_required": [
+          2569.797116237872,
+          9771.99012775094
+        ],
+        "quality_pass_fraction": [
+          0.34375,
+          0.6875
+        ]
+      },
+      "independent_instance_seed_pairs": 512,
+      "observed": {
+        "group_wave_ready": {
+          "conditional_first_target": "factory",
+          "conditional_first_target_gain": 9.994684728297946,
+          "median_conditional_projected_native_ratio": 32766.24491239866,
+          "median_marginal_utility": {
+            "decoder": 1.0000000850400124,
+            "factory": 9.994684728297946,
+            "host_feedback": 1.0000000852891324,
+            "logical_cycle": 1.0000529842883328,
+            "shot_fabric": 1.0
+          }
+        },
+        "median_measured_simulator_speedup_required": 3071.021150301259,
+        "quality_pass_fraction": 0.5,
+        "serial_evaluation": {
+          "conditional_first_target": "factory",
+          "conditional_first_target_gain": 9.994684728297946,
+          "median_conditional_projected_native_ratio": 32766.24491239866,
+          "median_marginal_utility": {
+            "decoder": 1.0000000850400124,
+            "factory": 9.994684728297946,
+            "host_feedback": 1.0000000852891324,
+            "logical_cycle": 1.0000529842883328,
+            "shot_fabric": 1.0
+          }
+        }
+      },
+      "records": 512,
+      "seeds_per_configuration": [
+        16
+      ],
+      "structural_configurations": 32
+    }
+  },
+  "corpus": {
+    "base_seed_values": [
+      17,
+      23,
+      31,
+      43
+    ],
+    "by_workload": {
+      "chemistry": 224,
+      "ml": 2048,
+      "optimization": 768,
+      "simulation": 512
+    },
+    "independent_instance_seed_pairs": 3552,
+    "records": 3552,
+    "round_values": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "seed_values": 16,
+    "structural_configurations": 222
+  },
+  "input_csv": "data/processed/perlmutter/practical_suite_strongnative_32node_large128c0c127_20260704060230_summary.csv",
+  "internal_errors": [],
+  "p0_completion_status": "PASS",
+  "projection_csv": "data/processed/perlmutter/dependency_schedule_projection_records.csv",
+  "resampling_contract": {
+    "bootstrap_samples": 2000,
+    "confidence_level": 0.95,
+    "inner_unit": "distinct seed within selected configuration",
+    "method": "hierarchical nonparametric bootstrap",
+    "note": "Filename rounds use shifted random seeds and are independent instance-seed records, not repeated timing trials.",
+    "outer_unit": "structural workload configuration",
+    "random_seed": 202707,
+    "same-instance_repeat_trials_in_main_corpus": 0
+  },
+  "schema": "qarchgauge.statistical-robustness.v1",
+  "timing_repeat_inventory": {
+    "available": true,
+    "max_quantum_runtime_cv": 0.040031922675556386,
+    "measured_trials": 12,
+    "passed_original_gate": true,
+    "path": "data/processed/perlmutter/repeat_timing_gate_latest.json",
+    "trials_per_workload": {
+      "chemistry": 3,
+      "ml": 3,
+      "optimization": 3,
+      "simulation": 3
+    },
+    "warmup_trials": 4
+  },
+  "workload_balanced": {
+    "definition": "Macro-average across four workload families; no family is weighted by its raw record count.",
+    "geomean_family_median_simulator_speedup_required_ci_95": [
+      18108.465018626914,
+      26829.20558844494
+    ],
+    "macro_quality_pass_fraction_ci_95": [
+      0.11160714285714285,
+      0.24776785714285715
+    ],
+    "observed_geomean_family_median_simulator_speedup_required": 19328.82219885109,
+    "observed_macro_quality_pass_fraction": 0.17857142857142858
+  }
+}

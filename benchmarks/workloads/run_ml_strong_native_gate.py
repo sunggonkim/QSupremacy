@@ -475,7 +475,7 @@ def write_csv(path, cases):
         "production_required_speedup",
     ]
     with open(path, "w", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=fields)
+        writer = csv.DictWriter(f, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         for c in cases:
             prod = c.get("selected_production") or {}

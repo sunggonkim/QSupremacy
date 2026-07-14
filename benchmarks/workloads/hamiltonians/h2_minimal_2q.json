@@ -1,0 +1,12 @@
+{
+  "name": "H2_minimal_2qubit",
+  "description": "Exact JSON form of the built-in tapered 2-qubit H2 Hamiltonian used by the controlled practical suite.",
+  "n_qubits": 2,
+  "terms": [
+    {"pauli": "II", "coefficient": -1.052373245772859},
+    {"pauli": "ZI", "coefficient": 0.39793742484318045},
+    {"pauli": "IZ", "coefficient": -0.39793742484318045},
+    {"pauli": "ZZ", "coefficient": -0.01128010425623538},
+    {"pauli": "XX", "coefficient": 0.18093119978423156}
+  ]
+}

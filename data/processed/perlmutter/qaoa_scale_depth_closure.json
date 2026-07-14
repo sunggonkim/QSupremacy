@@ -1,0 +1,4834 @@
+{
+  "schema": "qsup.qaoa-scale-depth-closure.v1",
+  "status": "complete",
+  "scope": "ideal statevector QAOA on exact weighted MaxCut instances through 20 qubits and p=5; p=1 uses a validated analytical global search, p>1 uses append-zero-preserving multi-start COBYLA; finite-shot resampling and compiled routing are attached, while the existing 4/6/8-qubit Aer sweep remains the explicitly synthetic noise study",
+  "software": {
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "qiskit": "2.5.0"
+  },
+  "host": "nid004337",
+  "slurm_job_id": "55844424",
+  "sizes_three_seeds": [
+    10,
+    14,
+    18
+  ],
+  "seeds": [
+    17,
+    31,
+    43
+  ],
+  "cap_case": {
+    "qubits": 20,
+    "seed": 17
+  },
+  "depths": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "shots": [
+    1024,
+    8192
+  ],
+  "optimizer": {
+    "p1": "257x129 analytical grid plus coordinate refinement",
+    "p_gt_1": "append-zero and interpolated starts with bounded COBYLA",
+    "restarts": 2,
+    "max_evaluations_base": 60
+  },
+  "case_results": [
+    {
+      "qubits": 10,
+      "seed": 17,
+      "density": 0.24,
+      "edges": 13,
+      "records": [
+        {
+          "qubits": 10,
+          "density": 0.24,
+          "seed": 17,
+          "edges": 13,
+          "depth_p": 1,
+          "exact_native_objective": 10.623683282189088,
+          "exact_native_scan_wall_sec": 0.0013401549949776381,
+          "optimized_expected_cut": 8.502730704119347,
+          "ideal_approximation_ratio": 0.8003561926939615,
+          "quality_gap": 0.19964380730603848,
+          "optimized_betas": [
+            -1.2180580594912815
+          ],
+          "optimized_gammas": [
+            0.5886577006327383
+          ],
+          "optimization": {
+            "selected_restart": "global_analytical_grid_plus_refinement",
+            "optimizer_success": true,
+            "optimizer_message": "validated p=1 analytical optimum search",
+            "parameter_evaluations_all_restarts": 33153,
+            "max_evaluations_per_restart": null,
+            "optimization_wall_sec": 0.01340809598332271,
+            "append_zero_baseline_cut": null
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 8.517893183015667,
+              "sampled_approximation_ratio": 0.8017834264031724
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 8.506930834570777,
+              "sampled_approximation_ratio": 0.8007515480843534
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 27,
+              "two_qubit_depth": 12,
+              "one_qubit_gates": 90,
+              "two_qubit_gates": 26,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 60,
+                "sx": 30,
+                "cx": 26,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 33,
+              "two_qubit_depth": 18,
+              "one_qubit_gates": 97,
+              "two_qubit_gates": 33,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 62,
+                "sx": 33,
+                "cx": 33,
+                "measure": 10,
+                "x": 2,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.2692307692307692
+            },
+            {
+              "topology": "line",
+              "depth": 51,
+              "two_qubit_depth": 25,
+              "one_qubit_gates": 102,
+              "two_qubit_gates": 46,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 64,
+                "cx": 46,
+                "sx": 36,
+                "measure": 10,
+                "x": 2,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.7692307692307692
+            }
+          ]
+        },
+        {
+          "qubits": 10,
+          "density": 0.24,
+          "seed": 17,
+          "edges": 13,
+          "depth_p": 2,
+          "exact_native_objective": 10.623683282189088,
+          "exact_native_scan_wall_sec": 0.0013401549949776381,
+          "optimized_expected_cut": 9.301320827634843,
+          "ideal_approximation_ratio": 0.8755269317213905,
+          "quality_gap": 0.12447306827860949,
+          "optimized_betas": [
+            -1.132017744732883,
+            -1.3239592661262565
+          ],
+          "optimized_gammas": [
+            0.4998986942839471,
+            0.9309596375670922
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 119,
+            "max_evaluations_per_restart": 84,
+            "optimization_wall_sec": 0.18860438899719156,
+            "append_zero_baseline_cut": 8.502730704119347
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 9.300276419609187,
+              "sampled_approximation_ratio": 0.875428622312317
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 9.2817829831423,
+              "sampled_approximation_ratio": 0.8736878478581414
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 47,
+              "two_qubit_depth": 22,
+              "one_qubit_gates": 150,
+              "two_qubit_gates": 52,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 100,
+                "cx": 52,
+                "sx": 50,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 73,
+              "two_qubit_depth": 37,
+              "one_qubit_gates": 159,
+              "two_qubit_gates": 66,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 106,
+                "cx": 66,
+                "sx": 53,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.2692307692307692
+            },
+            {
+              "topology": "line",
+              "depth": 83,
+              "two_qubit_depth": 41,
+              "one_qubit_gates": 185,
+              "two_qubit_gates": 91,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 116,
+                "cx": 91,
+                "sx": 67,
+                "measure": 10,
+                "x": 2,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.75
+            }
+          ]
+        },
+        {
+          "qubits": 10,
+          "density": 0.24,
+          "seed": 17,
+          "edges": 13,
+          "depth_p": 3,
+          "exact_native_objective": 10.623683282189088,
+          "exact_native_scan_wall_sec": 0.0013401549949776381,
+          "optimized_expected_cut": 9.806541335375222,
+          "ideal_approximation_ratio": 0.9230829906061085,
+          "quality_gap": 0.07691700939389146,
+          "optimized_betas": [
+            -1.073289253670555,
+            -1.248598055957975,
+            -1.3687036222283606
+          ],
+          "optimized_gammas": [
+            0.4503586182332464,
+            0.8638451127604264,
+            0.9491585342227452
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 193,
+            "max_evaluations_per_restart": 96,
+            "optimization_wall_sec": 0.30324109201319516,
+            "append_zero_baseline_cut": 9.301320827634843
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 9.789163390279299,
+              "sampled_approximation_ratio": 0.9214472165874066
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 9.810054336538279,
+              "sampled_approximation_ratio": 0.9234136669892182
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 67,
+              "two_qubit_depth": 32,
+              "one_qubit_gates": 210,
+              "two_qubit_gates": 78,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 140,
+                "cx": 78,
+                "sx": 70,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 112,
+              "two_qubit_depth": 56,
+              "one_qubit_gates": 225,
+              "two_qubit_gates": 102,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 150,
+                "cx": 102,
+                "sx": 74,
+                "measure": 10,
+                "x": 1,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.3076923076923077
+            },
+            {
+              "topology": "line",
+              "depth": 120,
+              "two_qubit_depth": 56,
+              "one_qubit_gates": 281,
+              "two_qubit_gates": 139,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 177,
+                "cx": 139,
+                "sx": 101,
+                "measure": 10,
+                "x": 3,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.7820512820512822
+            }
+          ]
+        },
+        {
+          "qubits": 10,
+          "density": 0.24,
+          "seed": 17,
+          "edges": 13,
+          "depth_p": 4,
+          "exact_native_objective": 10.623683282189088,
+          "exact_native_scan_wall_sec": 0.0013401549949776381,
+          "optimized_expected_cut": 10.098489239069444,
+          "ideal_approximation_ratio": 0.9505638459685496,
+          "quality_gap": 0.04943615403145041,
+          "optimized_betas": [
+            -1.0511513056419823,
+            -1.1971994134872905,
+            -1.3083550875609786,
+            -1.4122755371103095
+          ],
+          "optimized_gammas": [
+            0.38356141118112835,
+            0.772574166360331,
+            0.8902292217673368,
+            0.9477109514930528
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 217,
+            "max_evaluations_per_restart": 108,
+            "optimization_wall_sec": 0.3553236380103044,
+            "append_zero_baseline_cut": 9.806541335375222
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 10.078345966539322,
+              "sampled_approximation_ratio": 0.9486677735805585
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 10.098263361221141,
+              "sampled_approximation_ratio": 0.9505425842420558
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 87,
+              "two_qubit_depth": 42,
+              "one_qubit_gates": 270,
+              "two_qubit_gates": 104,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 180,
+                "cx": 104,
+                "sx": 90,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 129,
+              "two_qubit_depth": 61,
+              "one_qubit_gates": 322,
+              "two_qubit_gates": 134,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 212,
+                "cx": 134,
+                "sx": 109,
+                "measure": 10,
+                "x": 1,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.2884615384615385
+            },
+            {
+              "topology": "line",
+              "depth": 156,
+              "two_qubit_depth": 72,
+              "one_qubit_gates": 373,
+              "two_qubit_gates": 187,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 237,
+                "cx": 187,
+                "sx": 136,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.7980769230769231
+            }
+          ]
+        },
+        {
+          "qubits": 10,
+          "density": 0.24,
+          "seed": 17,
+          "edges": 13,
+          "depth_p": 5,
+          "exact_native_objective": 10.623683282189088,
+          "exact_native_scan_wall_sec": 0.0013401549949776381,
+          "optimized_expected_cut": 10.221643929754709,
+          "ideal_approximation_ratio": 0.9621563122925163,
+          "quality_gap": 0.0378436877074837,
+          "optimized_betas": [
+            -1.0292659326079319,
+            -1.1736572241197805,
+            -1.2610566903414258,
+            -1.353331293917613,
+            -1.4575792404789105
+          ],
+          "optimized_gammas": [
+            0.3203031833137771,
+            0.6730046269575967,
+            0.8026299726837077,
+            0.9040685296825018,
+            0.9437545648274976
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 241,
+            "max_evaluations_per_restart": 120,
+            "optimization_wall_sec": 0.48283026000717655,
+            "append_zero_baseline_cut": 10.098489239069444
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 10.19200861902627,
+              "sampled_approximation_ratio": 0.9593667608778838
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 10.212093928510537,
+              "sampled_approximation_ratio": 0.9612573772442377
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 107,
+              "two_qubit_depth": 52,
+              "one_qubit_gates": 330,
+              "two_qubit_gates": 130,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 220,
+                "cx": 130,
+                "sx": 110,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 148,
+              "two_qubit_depth": 75,
+              "one_qubit_gates": 399,
+              "two_qubit_gates": 168,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 259,
+                "cx": 168,
+                "sx": 137,
+                "measure": 10,
+                "x": 3,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.2923076923076924
+            },
+            {
+              "topology": "line",
+              "depth": 183,
+              "two_qubit_depth": 103,
+              "one_qubit_gates": 448,
+              "two_qubit_gates": 239,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 282,
+                "cx": 239,
+                "sx": 164,
+                "measure": 10,
+                "x": 2,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.8384615384615384
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "qubits": 10,
+      "seed": 31,
+      "density": 0.24,
+      "edges": 13,
+      "records": [
+        {
+          "qubits": 10,
+          "density": 0.24,
+          "seed": 31,
+          "edges": 13,
+          "depth_p": 1,
+          "exact_native_objective": 11.659640206941855,
+          "exact_native_scan_wall_sec": 0.0013491230201907456,
+          "optimized_expected_cut": 9.45654727686835,
+          "ideal_approximation_ratio": 0.8110496644002926,
+          "quality_gap": 0.18895033559970742,
+          "optimized_betas": [
+            -1.2140338215060653
+          ],
+          "optimized_gammas": [
+            0.5756795994184917
+          ],
+          "optimization": {
+            "selected_restart": "global_analytical_grid_plus_refinement",
+            "optimizer_success": true,
+            "optimizer_message": "validated p=1 analytical optimum search",
+            "parameter_evaluations_all_restarts": 33153,
+            "max_evaluations_per_restart": null,
+            "optimization_wall_sec": 0.013399410992860794,
+            "append_zero_baseline_cut": null
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 9.396188510445796,
+              "sampled_approximation_ratio": 0.8058729380732986
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 9.469124027465181,
+              "sampled_approximation_ratio": 0.8121283212347756
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 33,
+              "two_qubit_depth": 16,
+              "one_qubit_gates": 91,
+              "two_qubit_gates": 26,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 61,
+                "sx": 30,
+                "cx": 26,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 41,
+              "two_qubit_depth": 23,
+              "one_qubit_gates": 93,
+              "two_qubit_gates": 33,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 63,
+                "cx": 33,
+                "sx": 30,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.2692307692307692
+            },
+            {
+              "topology": "line",
+              "depth": 54,
+              "two_qubit_depth": 26,
+              "one_qubit_gates": 111,
+              "two_qubit_gates": 46,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 72,
+                "cx": 46,
+                "sx": 37,
+                "measure": 10,
+                "x": 2,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.7692307692307692
+            }
+          ]
+        },
+        {
+          "qubits": 10,
+          "density": 0.24,
+          "seed": 31,
+          "edges": 13,
+          "depth_p": 2,
+          "exact_native_objective": 11.659640206941855,
+          "exact_native_scan_wall_sec": 0.0013491230201907456,
+          "optimized_expected_cut": 10.072832670203983,
+          "ideal_approximation_ratio": 0.8639059603406006,
+          "quality_gap": 0.13609403965939937,
+          "optimized_betas": [
+            -1.1346947790184583,
+            -1.349571020066865
+          ],
+          "optimized_gammas": [
+            0.40027601954292125,
+            0.7945603632534717
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 119,
+            "max_evaluations_per_restart": 84,
+            "optimization_wall_sec": 0.19441274501150474,
+            "append_zero_baseline_cut": 9.45654727686835
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 10.118016812700127,
+              "sampled_approximation_ratio": 0.8677812207855363
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 10.067170810004306,
+              "sampled_approximation_ratio": 0.8634203655795971
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 56,
+              "two_qubit_depth": 28,
+              "one_qubit_gates": 152,
+              "two_qubit_gates": 52,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 102,
+                "cx": 52,
+                "sx": 50,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 83,
+              "two_qubit_depth": 43,
+              "one_qubit_gates": 155,
+              "two_qubit_gates": 71,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 105,
+                "cx": 71,
+                "sx": 50,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.3653846153846154
+            },
+            {
+              "topology": "line",
+              "depth": 118,
+              "two_qubit_depth": 57,
+              "one_qubit_gates": 193,
+              "two_qubit_gates": 101,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 127,
+                "cx": 101,
+                "sx": 65,
+                "measure": 10,
+                "x": 1,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.9423076923076923
+            }
+          ]
+        },
+        {
+          "qubits": 10,
+          "density": 0.24,
+          "seed": 31,
+          "edges": 13,
+          "depth_p": 3,
+          "exact_native_objective": 11.659640206941855,
+          "exact_native_scan_wall_sec": 0.0013491230201907456,
+          "optimized_expected_cut": 10.382258180335507,
+          "ideal_approximation_ratio": 0.890444130013049,
+          "quality_gap": 0.109555869986951,
+          "optimized_betas": [
+            -1.0727839547900737,
+            -1.2914762203601429,
+            -1.3987212700326799
+          ],
+          "optimized_gammas": [
+            0.35058896623744945,
+            0.6349231199110974,
+            0.7232187226890074
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 193,
+            "max_evaluations_per_restart": 96,
+            "optimization_wall_sec": 0.3116145259991754,
+            "append_zero_baseline_cut": 10.072832670203983
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 10.35098776419765,
+              "sampled_approximation_ratio": 0.8877621933852585
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 10.365342422747775,
+              "sampled_approximation_ratio": 0.8889933341662216
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 79,
+              "two_qubit_depth": 40,
+              "one_qubit_gates": 213,
+              "two_qubit_gates": 78,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 143,
+                "cx": 78,
+                "sx": 70,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 119,
+              "two_qubit_depth": 62,
+              "one_qubit_gates": 244,
+              "two_qubit_gates": 111,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 162,
+                "cx": 111,
+                "sx": 81,
+                "measure": 10,
+                "x": 1,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.4230769230769231
+            },
+            {
+              "topology": "line",
+              "depth": 173,
+              "two_qubit_depth": 88,
+              "one_qubit_gates": 277,
+              "two_qubit_gates": 157,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 183,
+                "cx": 157,
+                "sx": 93,
+                "measure": 10,
+                "x": 1,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.0128205128205128
+            }
+          ]
+        },
+        {
+          "qubits": 10,
+          "density": 0.24,
+          "seed": 31,
+          "edges": 13,
+          "depth_p": 4,
+          "exact_native_objective": 11.659640206941855,
+          "exact_native_scan_wall_sec": 0.0013491230201907456,
+          "optimized_expected_cut": 10.669131217714302,
+          "ideal_approximation_ratio": 0.915048065665197,
+          "quality_gap": 0.08495193433480297,
+          "optimized_betas": [
+            -1.0311444476950018,
+            -1.2048850236444864,
+            -1.327273941706077,
+            -1.3984193839638517
+          ],
+          "optimized_gammas": [
+            0.3568281188398431,
+            0.607388878019118,
+            0.6185672483222429,
+            0.7271166130613752
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 217,
+            "max_evaluations_per_restart": 108,
+            "optimization_wall_sec": 0.3673711700248532,
+            "append_zero_baseline_cut": 10.382258180335507
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 10.708829027028088,
+              "sampled_approximation_ratio": 0.9184527855887287
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 10.657806790160766,
+              "sampled_approximation_ratio": 0.914076815493447
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 102,
+              "two_qubit_depth": 52,
+              "one_qubit_gates": 274,
+              "two_qubit_gates": 104,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 184,
+                "cx": 104,
+                "sx": 90,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 178,
+              "two_qubit_depth": 88,
+              "one_qubit_gates": 290,
+              "two_qubit_gates": 151,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 196,
+                "cx": 151,
+                "sx": 93,
+                "measure": 10,
+                "x": 1,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.4519230769230769
+            },
+            {
+              "topology": "line",
+              "depth": 234,
+              "two_qubit_depth": 121,
+              "one_qubit_gates": 355,
+              "two_qubit_gates": 217,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 233,
+                "cx": 217,
+                "sx": 118,
+                "measure": 10,
+                "x": 4,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.0865384615384617
+            }
+          ]
+        },
+        {
+          "qubits": 10,
+          "density": 0.24,
+          "seed": 31,
+          "edges": 13,
+          "depth_p": 5,
+          "exact_native_objective": 11.659640206941855,
+          "exact_native_scan_wall_sec": 0.0013491230201907456,
+          "optimized_expected_cut": 10.925458303010512,
+          "ideal_approximation_ratio": 0.9370321990301013,
+          "quality_gap": 0.06296780096989874,
+          "optimized_betas": [
+            -1.0315473976711638,
+            -1.1717717274419426,
+            -1.256372867809022,
+            -1.3309569054717312,
+            -1.41124515250903
+          ],
+          "optimized_gammas": [
+            0.3418210327034642,
+            0.6028740494355399,
+            0.5989074508484383,
+            0.6335796615867341,
+            0.7200642959875015
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 241,
+            "max_evaluations_per_restart": 120,
+            "optimization_wall_sec": 0.4704131040198263,
+            "append_zero_baseline_cut": 10.669131217714302
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 10.928578992470797,
+              "sampled_approximation_ratio": 0.9372998478944656
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 10.926740545250071,
+              "sampled_approximation_ratio": 0.9371421717408198
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 125,
+              "two_qubit_depth": 64,
+              "one_qubit_gates": 335,
+              "two_qubit_gates": 130,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 225,
+                "cx": 130,
+                "sx": 110,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 219,
+              "two_qubit_depth": 110,
+              "one_qubit_gates": 360,
+              "two_qubit_gates": 191,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 242,
+                "cx": 191,
+                "sx": 118,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.4692307692307693
+            },
+            {
+              "topology": "line",
+              "depth": 291,
+              "two_qubit_depth": 151,
+              "one_qubit_gates": 420,
+              "two_qubit_gates": 279,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "cx": 279,
+                "rz": 277,
+                "sx": 142,
+                "measure": 10,
+                "x": 1,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.146153846153846
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "qubits": 10,
+      "seed": 43,
+      "density": 0.24,
+      "edges": 12,
+      "records": [
+        {
+          "qubits": 10,
+          "density": 0.24,
+          "seed": 43,
+          "edges": 12,
+          "depth_p": 1,
+          "exact_native_objective": 8.485076751418093,
+          "exact_native_scan_wall_sec": 0.0013471189886331558,
+          "optimized_expected_cut": 6.991258491013483,
+          "ideal_approximation_ratio": 0.8239475841918635,
+          "quality_gap": 0.17605241580813646,
+          "optimized_betas": [
+            -1.2196350394872315
+          ],
+          "optimized_gammas": [
+            0.6817157689424869
+          ],
+          "optimization": {
+            "selected_restart": "global_analytical_grid_plus_refinement",
+            "optimizer_success": true,
+            "optimizer_message": "validated p=1 analytical optimum search",
+            "parameter_evaluations_all_restarts": 33153,
+            "max_evaluations_per_restart": null,
+            "optimization_wall_sec": 0.01289353400352411,
+            "append_zero_baseline_cut": null
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 6.998388058879,
+              "sampled_approximation_ratio": 0.82478783208524
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 7.001006252942604,
+              "sampled_approximation_ratio": 0.8250963966557568
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 27,
+              "two_qubit_depth": 12,
+              "one_qubit_gates": 89,
+              "two_qubit_gates": 24,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 59,
+                "sx": 30,
+                "cx": 24,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 39,
+              "two_qubit_depth": 16,
+              "one_qubit_gates": 96,
+              "two_qubit_gates": 31,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 62,
+                "sx": 34,
+                "cx": 31,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.2916666666666667
+            },
+            {
+              "topology": "line",
+              "depth": 38,
+              "two_qubit_depth": 21,
+              "one_qubit_gates": 90,
+              "two_qubit_gates": 42,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 60,
+                "cx": 42,
+                "sx": 30,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.75
+            }
+          ]
+        },
+        {
+          "qubits": 10,
+          "density": 0.24,
+          "seed": 43,
+          "edges": 12,
+          "depth_p": 2,
+          "exact_native_objective": 8.485076751418093,
+          "exact_native_scan_wall_sec": 0.0013471189886331558,
+          "optimized_expected_cut": 7.602285833414518,
+          "ideal_approximation_ratio": 0.8959595836471325,
+          "quality_gap": 0.10404041635286754,
+          "optimized_betas": [
+            -1.1442422783262272,
+            -1.3477526089620677
+          ],
+          "optimized_gammas": [
+            0.5797861040423625,
+            1.148233900573204
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 169,
+            "max_evaluations_per_restart": 84,
+            "optimization_wall_sec": 0.2825882890028879,
+            "append_zero_baseline_cut": 6.991258491013483
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 7.615274524189433,
+              "sampled_approximation_ratio": 0.8974903524492819
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 7.602457009090479,
+              "sampled_approximation_ratio": 0.895979757380497
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 44,
+              "two_qubit_depth": 20,
+              "one_qubit_gates": 148,
+              "two_qubit_gates": 48,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 98,
+                "sx": 50,
+                "cx": 48,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 59,
+              "two_qubit_depth": 31,
+              "one_qubit_gates": 151,
+              "two_qubit_gates": 66,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 101,
+                "cx": 66,
+                "sx": 50,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.375
+            },
+            {
+              "topology": "line",
+              "depth": 66,
+              "two_qubit_depth": 34,
+              "one_qubit_gates": 160,
+              "two_qubit_gates": 91,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 106,
+                "cx": 91,
+                "sx": 54,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.8958333333333333
+            }
+          ]
+        },
+        {
+          "qubits": 10,
+          "density": 0.24,
+          "seed": 43,
+          "edges": 12,
+          "depth_p": 3,
+          "exact_native_objective": 8.485076751418093,
+          "exact_native_scan_wall_sec": 0.0013471189886331558,
+          "optimized_expected_cut": 7.880602692292199,
+          "ideal_approximation_ratio": 0.9287603310099853,
+          "quality_gap": 0.07123966899001466,
+          "optimized_betas": [
+            -1.0751796519176713,
+            -1.2780910878999294,
+            -1.4114577886033404
+          ],
+          "optimized_gammas": [
+            0.5055791044247392,
+            1.034189628857805,
+            1.1953055954480727
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 193,
+            "max_evaluations_per_restart": 96,
+            "optimization_wall_sec": 0.32270397897809744,
+            "append_zero_baseline_cut": 7.602285833414518
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 7.905185009941263,
+              "sampled_approximation_ratio": 0.9316574547920367
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 7.882981964854464,
+              "sampled_approximation_ratio": 0.9290407377325134
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 61,
+              "two_qubit_depth": 28,
+              "one_qubit_gates": 207,
+              "two_qubit_gates": 72,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 137,
+                "cx": 72,
+                "sx": 70,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 83,
+              "two_qubit_depth": 45,
+              "one_qubit_gates": 218,
+              "two_qubit_gates": 100,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 144,
+                "cx": 100,
+                "sx": 74,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.3888888888888888
+            },
+            {
+              "topology": "line",
+              "depth": 105,
+              "two_qubit_depth": 55,
+              "one_qubit_gates": 228,
+              "two_qubit_gates": 143,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 150,
+                "cx": 143,
+                "sx": 78,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.9861111111111112
+            }
+          ]
+        },
+        {
+          "qubits": 10,
+          "density": 0.24,
+          "seed": 43,
+          "edges": 12,
+          "depth_p": 4,
+          "exact_native_objective": 8.485076751418093,
+          "exact_native_scan_wall_sec": 0.0013471189886331558,
+          "optimized_expected_cut": 7.991132051815068,
+          "ideal_approximation_ratio": 0.941786655079994,
+          "quality_gap": 0.05821334492000596,
+          "optimized_betas": [
+            -1.0472460169046496,
+            -1.219924690408814,
+            -1.3520584446140342,
+            -1.4573942514228762
+          ],
+          "optimized_gammas": [
+            0.4131073822864135,
+            0.9028258755483498,
+            1.1000357982589486,
+            1.2295649918308529
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 217,
+            "max_evaluations_per_restart": 108,
+            "optimization_wall_sec": 0.37076288301614113,
+            "append_zero_baseline_cut": 7.880602692292199
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 7.986173252240063,
+              "sampled_approximation_ratio": 0.9412022408524885
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 7.9994374817138425,
+              "sampled_approximation_ratio": 0.9427654829848078
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 78,
+              "two_qubit_depth": 36,
+              "one_qubit_gates": 266,
+              "two_qubit_gates": 96,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 176,
+                "cx": 96,
+                "sx": 90,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 130,
+              "two_qubit_depth": 65,
+              "one_qubit_gates": 280,
+              "two_qubit_gates": 134,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 185,
+                "cx": 134,
+                "sx": 94,
+                "measure": 10,
+                "x": 1,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.3958333333333333
+            },
+            {
+              "topology": "line",
+              "depth": 152,
+              "two_qubit_depth": 79,
+              "one_qubit_gates": 295,
+              "two_qubit_gates": 195,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "cx": 195,
+                "rz": 193,
+                "sx": 102,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.03125
+            }
+          ]
+        },
+        {
+          "qubits": 10,
+          "density": 0.24,
+          "seed": 43,
+          "edges": 12,
+          "depth_p": 5,
+          "exact_native_objective": 8.485076751418093,
+          "exact_native_scan_wall_sec": 0.0013471189886331558,
+          "optimized_expected_cut": 8.056920772362805,
+          "ideal_approximation_ratio": 0.9495401171257841,
+          "quality_gap": 0.05045988287421588,
+          "optimized_betas": [
+            -1.0209971451553685,
+            -1.1905721557101685,
+            -1.296535377928758,
+            -1.399009102083355,
+            -1.4775522613028538
+          ],
+          "optimized_gammas": [
+            0.3898975927564472,
+            0.8195982667027807,
+            0.995469406798196,
+            1.149122681318423,
+            1.2374228284250637
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 241,
+            "max_evaluations_per_restart": 120,
+            "optimization_wall_sec": 0.49673650701879524,
+            "append_zero_baseline_cut": 7.991132051815068
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 8.051008099322246,
+              "sampled_approximation_ratio": 0.9488432851213393
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 8.05296642962655,
+              "sampled_approximation_ratio": 0.9490740821266791
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 95,
+              "two_qubit_depth": 44,
+              "one_qubit_gates": 325,
+              "two_qubit_gates": 120,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 215,
+                "cx": 120,
+                "sx": 110,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 145,
+              "two_qubit_depth": 70,
+              "one_qubit_gates": 392,
+              "two_qubit_gates": 161,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "rz": 251,
+                "cx": 161,
+                "sx": 138,
+                "measure": 10,
+                "x": 3,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.3416666666666666
+            },
+            {
+              "topology": "line",
+              "depth": 183,
+              "two_qubit_depth": 97,
+              "one_qubit_gates": 368,
+              "two_qubit_gates": 247,
+              "measurement_ops": 10,
+              "gate_counts": {
+                "cx": 247,
+                "rz": 242,
+                "sx": 126,
+                "measure": 10,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.058333333333333
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "qubits": 14,
+      "seed": 17,
+      "density": 0.17142857142857143,
+      "edges": 18,
+      "records": [
+        {
+          "qubits": 14,
+          "density": 0.17142857142857143,
+          "seed": 17,
+          "edges": 18,
+          "depth_p": 1,
+          "exact_native_objective": 15.960005893085178,
+          "exact_native_scan_wall_sec": 0.0018336169887334108,
+          "optimized_expected_cut": 11.722710383028712,
+          "ideal_approximation_ratio": 0.7345053918875861,
+          "quality_gap": 0.2654946081124139,
+          "optimized_betas": [
+            -1.197513234857965
+          ],
+          "optimized_gammas": [
+            0.5935483332425021
+          ],
+          "optimization": {
+            "selected_restart": "global_analytical_grid_plus_refinement",
+            "optimizer_success": true,
+            "optimizer_message": "validated p=1 analytical optimum search",
+            "parameter_evaluations_all_restarts": 33153,
+            "max_evaluations_per_restart": null,
+            "optimization_wall_sec": 0.018938686000183225,
+            "append_zero_baseline_cut": null
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 11.576494571905528,
+              "sampled_approximation_ratio": 0.7253440035959606
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 11.700144325000227,
+              "sampled_approximation_ratio": 0.7330914789993546
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 39,
+              "two_qubit_depth": 20,
+              "one_qubit_gates": 126,
+              "two_qubit_gates": 36,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 84,
+                "sx": 42,
+                "cx": 36,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 57,
+              "two_qubit_depth": 37,
+              "one_qubit_gates": 129,
+              "two_qubit_gates": 60,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 87,
+                "cx": 60,
+                "sx": 42,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.6666666666666667
+            },
+            {
+              "topology": "line",
+              "depth": 82,
+              "two_qubit_depth": 56,
+              "one_qubit_gates": 128,
+              "two_qubit_gates": 92,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "cx": 92,
+                "rz": 86,
+                "sx": 42,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.5555555555555554
+            }
+          ]
+        },
+        {
+          "qubits": 14,
+          "density": 0.17142857142857143,
+          "seed": 17,
+          "edges": 18,
+          "depth_p": 2,
+          "exact_native_objective": 15.960005893085178,
+          "exact_native_scan_wall_sec": 0.0018336169887334108,
+          "optimized_expected_cut": 12.99248691714476,
+          "ideal_approximation_ratio": 0.8140652957261048,
+          "quality_gap": 0.18593470427389525,
+          "optimized_betas": [
+            -1.1049607576888152,
+            -1.302643705575254
+          ],
+          "optimized_gammas": [
+            0.5044313795034779,
+            0.8609773398171375
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": true,
+            "optimizer_message": "Return from COBYLA because the trust region radius reaches its lower bound.",
+            "parameter_evaluations_all_restarts": 111,
+            "max_evaluations_per_restart": 84,
+            "optimization_wall_sec": 0.4639419009909034,
+            "append_zero_baseline_cut": 11.722710383028712
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 13.006671396704263,
+              "sampled_approximation_ratio": 0.8149540472500405
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 12.995462640719463,
+              "sampled_approximation_ratio": 0.814251744502793
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 65,
+              "two_qubit_depth": 34,
+              "one_qubit_gates": 210,
+              "two_qubit_gates": 72,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 140,
+                "cx": 72,
+                "sx": 70,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 97,
+              "two_qubit_depth": 50,
+              "one_qubit_gates": 222,
+              "two_qubit_gates": 113,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 148,
+                "cx": 113,
+                "sx": 73,
+                "measure": 14,
+                "x": 1,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.5694444444444444
+            },
+            {
+              "topology": "line",
+              "depth": 130,
+              "two_qubit_depth": 76,
+              "one_qubit_gates": 269,
+              "two_qubit_gates": 191,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "cx": 191,
+                "rz": 174,
+                "sx": 92,
+                "measure": 14,
+                "x": 3,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.6527777777777777
+            }
+          ]
+        },
+        {
+          "qubits": 14,
+          "density": 0.17142857142857143,
+          "seed": 17,
+          "edges": 18,
+          "depth_p": 3,
+          "exact_native_objective": 15.960005893085178,
+          "exact_native_scan_wall_sec": 0.0018336169887334108,
+          "optimized_expected_cut": 13.8182933061169,
+          "ideal_approximation_ratio": 0.8658075315688827,
+          "quality_gap": 0.13419246843111732,
+          "optimized_betas": [
+            -1.0468622472964146,
+            -1.208220226684176,
+            -1.3542104588858246
+          ],
+          "optimized_gammas": [
+            0.43036109695245517,
+            0.7895504821359146,
+            0.8464472829592417
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 146,
+            "max_evaluations_per_restart": 96,
+            "optimization_wall_sec": 0.7879781009978615,
+            "append_zero_baseline_cut": 12.99248691714476
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 13.76025085875867,
+              "sampled_approximation_ratio": 0.8621707880897731
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 13.845016648574003,
+              "sampled_approximation_ratio": 0.8674819258414238
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 91,
+              "two_qubit_depth": 48,
+              "one_qubit_gates": 294,
+              "two_qubit_gates": 108,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 196,
+                "cx": 108,
+                "sx": 98,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 144,
+              "two_qubit_depth": 83,
+              "one_qubit_gates": 312,
+              "two_qubit_gates": 193,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 209,
+                "cx": 193,
+                "sx": 102,
+                "measure": 14,
+                "x": 1,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.787037037037037
+            },
+            {
+              "topology": "line",
+              "depth": 185,
+              "two_qubit_depth": 117,
+              "one_qubit_gates": 348,
+              "two_qubit_gates": 304,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "cx": 304,
+                "rz": 232,
+                "sx": 113,
+                "measure": 14,
+                "x": 3,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.814814814814815
+            }
+          ]
+        },
+        {
+          "qubits": 14,
+          "density": 0.17142857142857143,
+          "seed": 17,
+          "edges": 18,
+          "depth_p": 4,
+          "exact_native_objective": 15.960005893085178,
+          "exact_native_scan_wall_sec": 0.0018336169887334108,
+          "optimized_expected_cut": 14.34475558518653,
+          "ideal_approximation_ratio": 0.8987938777266699,
+          "quality_gap": 0.10120612227333015,
+          "optimized_betas": [
+            -0.9986471689708006,
+            -1.1376933406148884,
+            -1.2558123398407086,
+            -1.3891239175430523
+          ],
+          "optimized_gammas": [
+            0.3773994805452463,
+            0.6981403645366328,
+            0.7944462781759428,
+            0.8536572836910955
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 217,
+            "max_evaluations_per_restart": 108,
+            "optimization_wall_sec": 1.4365818749938626,
+            "append_zero_baseline_cut": 13.8182933061169
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 14.310020116216984,
+              "sampled_approximation_ratio": 0.8966174707001163
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 14.338561316002195,
+              "sampled_approximation_ratio": 0.8984057657656951
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 117,
+              "two_qubit_depth": 62,
+              "one_qubit_gates": 378,
+              "two_qubit_gates": 144,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 252,
+                "cx": 144,
+                "sx": 126,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 200,
+              "two_qubit_depth": 114,
+              "one_qubit_gates": 401,
+              "two_qubit_gates": 244,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 267,
+                "cx": 244,
+                "sx": 134,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.6944444444444444
+            },
+            {
+              "topology": "line",
+              "depth": 245,
+              "two_qubit_depth": 165,
+              "one_qubit_gates": 425,
+              "two_qubit_gates": 420,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "cx": 420,
+                "rz": 285,
+                "sx": 140,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.9166666666666665
+            }
+          ]
+        },
+        {
+          "qubits": 14,
+          "density": 0.17142857142857143,
+          "seed": 17,
+          "edges": 18,
+          "depth_p": 5,
+          "exact_native_objective": 15.960005893085178,
+          "exact_native_scan_wall_sec": 0.0018336169887334108,
+          "optimized_expected_cut": 14.776299808305815,
+          "ideal_approximation_ratio": 0.9258329794669928,
+          "quality_gap": 0.07416702053300717,
+          "optimized_betas": [
+            -0.974377553045013,
+            -1.0820712820424692,
+            -1.1838581728066986,
+            -1.2867625338473585,
+            -1.4078030177149494
+          ],
+          "optimized_gammas": [
+            0.362071600296041,
+            0.6507060301914198,
+            0.7097297373246321,
+            0.8119433093734302,
+            0.8679650018437034
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 241,
+            "max_evaluations_per_restart": 120,
+            "optimization_wall_sec": 1.911742017022334,
+            "append_zero_baseline_cut": 14.34475558518653
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 14.733457359435358,
+              "sampled_approximation_ratio": 0.9231486164938552
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 14.779464380322018,
+              "sampled_approximation_ratio": 0.9260312608484286
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 143,
+              "two_qubit_depth": 76,
+              "one_qubit_gates": 462,
+              "two_qubit_gates": 180,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 308,
+                "cx": 180,
+                "sx": 154,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 270,
+              "two_qubit_depth": 161,
+              "one_qubit_gates": 491,
+              "two_qubit_gates": 318,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 326,
+                "cx": 318,
+                "sx": 165,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.7666666666666666
+            },
+            {
+              "topology": "line",
+              "depth": 298,
+              "two_qubit_depth": 216,
+              "one_qubit_gates": 533,
+              "two_qubit_gates": 529,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "cx": 529,
+                "rz": 352,
+                "sx": 179,
+                "measure": 14,
+                "x": 2,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.938888888888889
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "qubits": 14,
+      "seed": 31,
+      "density": 0.17142857142857143,
+      "edges": 14,
+      "records": [
+        {
+          "qubits": 14,
+          "density": 0.17142857142857143,
+          "seed": 31,
+          "edges": 14,
+          "depth_p": 1,
+          "exact_native_objective": 13.379688257099035,
+          "exact_native_scan_wall_sec": 0.0009948599908966571,
+          "optimized_expected_cut": 10.558544707342628,
+          "ideal_approximation_ratio": 0.7891472883712701,
+          "quality_gap": 0.21085271162872987,
+          "optimized_betas": [
+            -1.1893771587869593
+          ],
+          "optimized_gammas": [
+            0.6028627223439309
+          ],
+          "optimization": {
+            "selected_restart": "global_analytical_grid_plus_refinement",
+            "optimizer_success": true,
+            "optimizer_message": "validated p=1 analytical optimum search",
+            "parameter_evaluations_all_restarts": 33153,
+            "max_evaluations_per_restart": null,
+            "optimization_wall_sec": 0.023202512005809695,
+            "append_zero_baseline_cut": null
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 10.539759599154678,
+              "sampled_approximation_ratio": 0.7877432864373698
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 10.5156932362577,
+              "sampled_approximation_ratio": 0.7859445626977334
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 36,
+              "two_qubit_depth": 18,
+              "one_qubit_gates": 110,
+              "two_qubit_gates": 28,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 72,
+                "sx": 38,
+                "cx": 28,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 57,
+              "two_qubit_depth": 30,
+              "one_qubit_gates": 112,
+              "two_qubit_gates": 40,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 74,
+                "cx": 40,
+                "sx": 38,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.4285714285714286
+            },
+            {
+              "topology": "line",
+              "depth": 68,
+              "two_qubit_depth": 35,
+              "one_qubit_gates": 130,
+              "two_qubit_gates": 54,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 84,
+                "cx": 54,
+                "sx": 45,
+                "measure": 14,
+                "x": 1,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.9285714285714286
+            }
+          ]
+        },
+        {
+          "qubits": 14,
+          "density": 0.17142857142857143,
+          "seed": 31,
+          "edges": 14,
+          "depth_p": 2,
+          "exact_native_objective": 13.379688257099035,
+          "exact_native_scan_wall_sec": 0.0009948599908966571,
+          "optimized_expected_cut": 11.588598873490508,
+          "ideal_approximation_ratio": 0.8661336983947884,
+          "quality_gap": 0.13386630160521162,
+          "optimized_betas": [
+            -1.0780267356672653,
+            -1.3143349458840057
+          ],
+          "optimized_gammas": [
+            0.49788729959903005,
+            0.9130709537057409
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 169,
+            "max_evaluations_per_restart": 84,
+            "optimization_wall_sec": 0.6135332269768696,
+            "append_zero_baseline_cut": 10.558544707342628
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 11.591153651825053,
+              "sampled_approximation_ratio": 0.8663246429284317
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 11.581816785596455,
+              "sampled_approximation_ratio": 0.865626804081279
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 59,
+              "two_qubit_depth": 30,
+              "one_qubit_gates": 178,
+              "two_qubit_gates": 56,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 116,
+                "sx": 62,
+                "cx": 56,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 88,
+              "two_qubit_depth": 48,
+              "one_qubit_gates": 197,
+              "two_qubit_gates": 76,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 128,
+                "cx": 76,
+                "sx": 69,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.3571428571428572
+            },
+            {
+              "topology": "line",
+              "depth": 114,
+              "two_qubit_depth": 60,
+              "one_qubit_gates": 207,
+              "two_qubit_gates": 122,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 136,
+                "cx": 122,
+                "sx": 70,
+                "measure": 14,
+                "x": 1,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.1785714285714284
+            }
+          ]
+        },
+        {
+          "qubits": 14,
+          "density": 0.17142857142857143,
+          "seed": 31,
+          "edges": 14,
+          "depth_p": 3,
+          "exact_native_objective": 13.379688257099035,
+          "exact_native_scan_wall_sec": 0.0009948599908966571,
+          "optimized_expected_cut": 12.047137034214035,
+          "ideal_approximation_ratio": 0.9004049124853136,
+          "quality_gap": 0.09959508751468638,
+          "optimized_betas": [
+            -1.0319572885917216,
+            -1.2172517149913638,
+            -1.3963200855146243
+          ],
+          "optimized_gammas": [
+            0.4257498193001289,
+            0.8492106925388069,
+            1.0018673826831626
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 193,
+            "max_evaluations_per_restart": 96,
+            "optimization_wall_sec": 0.9554344710195437,
+            "append_zero_baseline_cut": 11.588598873490508
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 12.111110472166487,
+              "sampled_approximation_ratio": 0.9051862972771834
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 12.0565677327814,
+              "sampled_approximation_ratio": 0.9011097643761908
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 82,
+              "two_qubit_depth": 42,
+              "one_qubit_gates": 246,
+              "two_qubit_gates": 84,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 160,
+                "sx": 86,
+                "cx": 84,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 121,
+              "two_qubit_depth": 61,
+              "one_qubit_gates": 248,
+              "two_qubit_gates": 114,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 162,
+                "cx": 114,
+                "sx": 86,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.3571428571428572
+            },
+            {
+              "topology": "line",
+              "depth": 177,
+              "two_qubit_depth": 97,
+              "one_qubit_gates": 278,
+              "two_qubit_gates": 197,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "cx": 197,
+                "rz": 185,
+                "sx": 93,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.3452380952380953
+            }
+          ]
+        },
+        {
+          "qubits": 14,
+          "density": 0.17142857142857143,
+          "seed": 31,
+          "edges": 14,
+          "depth_p": 4,
+          "exact_native_objective": 13.379688257099035,
+          "exact_native_scan_wall_sec": 0.0009948599908966571,
+          "optimized_expected_cut": 12.35636061379903,
+          "ideal_approximation_ratio": 0.92351633134972,
+          "quality_gap": 0.07648366865028,
+          "optimized_betas": [
+            -1.0057929178074554,
+            -1.165692744486739,
+            -1.3034563353845503,
+            -1.4247620000018475
+          ],
+          "optimized_gammas": [
+            0.38084932243440633,
+            0.7637500359882561,
+            0.9322838367956713,
+            1.037706541527053
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 217,
+            "max_evaluations_per_restart": 108,
+            "optimization_wall_sec": 1.3419084240158554,
+            "append_zero_baseline_cut": 12.047137034214035
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 12.351689713986168,
+              "sampled_approximation_ratio": 0.9231672275647059
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 12.36358377266113,
+              "sampled_approximation_ratio": 0.9240561913765982
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 105,
+              "two_qubit_depth": 54,
+              "one_qubit_gates": 314,
+              "two_qubit_gates": 112,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 204,
+                "cx": 112,
+                "sx": 110,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 154,
+              "two_qubit_depth": 82,
+              "one_qubit_gates": 318,
+              "two_qubit_gates": 157,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 208,
+                "cx": 157,
+                "sx": 110,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.4017857142857142
+            },
+            {
+              "topology": "line",
+              "depth": 222,
+              "two_qubit_depth": 122,
+              "one_qubit_gates": 383,
+              "two_qubit_gates": 261,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "cx": 261,
+                "rz": 252,
+                "sx": 129,
+                "measure": 14,
+                "x": 2,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.330357142857143
+            }
+          ]
+        },
+        {
+          "qubits": 14,
+          "density": 0.17142857142857143,
+          "seed": 31,
+          "edges": 14,
+          "depth_p": 5,
+          "exact_native_objective": 13.379688257099035,
+          "exact_native_scan_wall_sec": 0.0009948599908966571,
+          "optimized_expected_cut": 12.549820947116656,
+          "ideal_approximation_ratio": 0.937975587021464,
+          "quality_gap": 0.062024412978536,
+          "optimized_betas": [
+            -1.0063613908404068,
+            -1.1470684584938238,
+            -1.2503400131948164,
+            -1.3404537990649048,
+            -1.4441477388294313
+          ],
+          "optimized_gammas": [
+            0.3459964865210449,
+            0.6896189812401472,
+            0.8249955938909317,
+            0.9765642801458642,
+            1.0238917173840167
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 241,
+            "max_evaluations_per_restart": 120,
+            "optimization_wall_sec": 1.8281996299920138,
+            "append_zero_baseline_cut": 12.35636061379903
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 12.52586550363764,
+              "sampled_approximation_ratio": 0.9361851534165325
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 12.553704389823354,
+              "sampled_approximation_ratio": 0.9382658361387883
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 128,
+              "two_qubit_depth": 66,
+              "one_qubit_gates": 382,
+              "two_qubit_gates": 140,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 248,
+                "cx": 140,
+                "sx": 134,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 167,
+              "two_qubit_depth": 88,
+              "one_qubit_gates": 397,
+              "two_qubit_gates": 198,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 258,
+                "cx": 198,
+                "sx": 138,
+                "measure": 14,
+                "x": 1,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.4142857142857144
+            },
+            {
+              "topology": "line",
+              "depth": 288,
+              "two_qubit_depth": 155,
+              "one_qubit_gates": 434,
+              "two_qubit_gates": 335,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "cx": 335,
+                "rz": 288,
+                "sx": 144,
+                "measure": 14,
+                "x": 2,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.392857142857143
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "qubits": 14,
+      "seed": 43,
+      "density": 0.17142857142857143,
+      "edges": 13,
+      "records": [
+        {
+          "qubits": 14,
+          "density": 0.17142857142857143,
+          "seed": 43,
+          "edges": 13,
+          "depth_p": 1,
+          "exact_native_objective": 9.686025580337851,
+          "exact_native_scan_wall_sec": 0.001068982994183898,
+          "optimized_expected_cut": 7.526174571106223,
+          "ideal_approximation_ratio": 0.7770136996524128,
+          "quality_gap": 0.22298630034758715,
+          "optimized_betas": [
+            -1.198680435450908
+          ],
+          "optimized_gammas": [
+            0.7773062414944535
+          ],
+          "optimization": {
+            "selected_restart": "global_analytical_grid_plus_refinement",
+            "optimizer_success": true,
+            "optimizer_message": "validated p=1 analytical optimum search",
+            "parameter_evaluations_all_restarts": 33153,
+            "max_evaluations_per_restart": null,
+            "optimization_wall_sec": 0.024983477022033185,
+            "append_zero_baseline_cut": null
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 7.534176427301741,
+              "sampled_approximation_ratio": 0.7778398234458253
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 7.531788159609754,
+              "sampled_approximation_ratio": 0.7775932550600432
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 30,
+              "two_qubit_depth": 14,
+              "one_qubit_gates": 113,
+              "two_qubit_gates": 26,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 75,
+                "sx": 38,
+                "cx": 26,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 41,
+              "two_qubit_depth": 21,
+              "one_qubit_gates": 114,
+              "two_qubit_gates": 36,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 76,
+                "sx": 38,
+                "cx": 36,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.3846153846153846
+            },
+            {
+              "topology": "line",
+              "depth": 47,
+              "two_qubit_depth": 26,
+              "one_qubit_gates": 113,
+              "two_qubit_gates": 56,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 75,
+                "cx": 56,
+                "sx": 38,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.1538461538461537
+            }
+          ]
+        },
+        {
+          "qubits": 14,
+          "density": 0.17142857142857143,
+          "seed": 43,
+          "edges": 13,
+          "depth_p": 2,
+          "exact_native_objective": 9.686025580337851,
+          "exact_native_scan_wall_sec": 0.001068982994183898,
+          "optimized_expected_cut": 8.21445563955668,
+          "ideal_approximation_ratio": 0.8480728830854645,
+          "quality_gap": 0.15192711691453553,
+          "optimized_betas": [
+            -1.1449062766496196,
+            -1.332259937785238
+          ],
+          "optimized_gammas": [
+            0.5753853109967235,
+            1.0315205527461386
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 169,
+            "max_evaluations_per_restart": 84,
+            "optimization_wall_sec": 0.6051720769901294,
+            "append_zero_baseline_cut": 7.526174571106223
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 8.21345817485107,
+              "sampled_approximation_ratio": 0.8479699033134891
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 8.21150008705745,
+              "sampled_approximation_ratio": 0.8477677473541249
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 53,
+              "two_qubit_depth": 26,
+              "one_qubit_gates": 184,
+              "two_qubit_gates": 52,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 122,
+                "sx": 62,
+                "cx": 52,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 72,
+              "two_qubit_depth": 40,
+              "one_qubit_gates": 192,
+              "two_qubit_gates": 76,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 126,
+                "cx": 76,
+                "sx": 66,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.4615384615384615
+            },
+            {
+              "topology": "line",
+              "depth": 106,
+              "two_qubit_depth": 76,
+              "one_qubit_gates": 208,
+              "two_qubit_gates": 126,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 137,
+                "cx": 126,
+                "sx": 70,
+                "measure": 14,
+                "x": 1,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.423076923076923
+            }
+          ]
+        },
+        {
+          "qubits": 14,
+          "density": 0.17142857142857143,
+          "seed": 43,
+          "edges": 13,
+          "depth_p": 3,
+          "exact_native_objective": 9.686025580337851,
+          "exact_native_scan_wall_sec": 0.001068982994183898,
+          "optimized_expected_cut": 8.675577467143706,
+          "ideal_approximation_ratio": 0.8956798012958684,
+          "quality_gap": 0.10432019870413156,
+          "optimized_betas": [
+            -1.0967413059757072,
+            -1.293417773919098,
+            -1.375381395156003
+          ],
+          "optimized_gammas": [
+            0.556508427614729,
+            0.9187190203945746,
+            0.9776270380383518
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 193,
+            "max_evaluations_per_restart": 96,
+            "optimization_wall_sec": 0.9245281089970376,
+            "append_zero_baseline_cut": 8.21445563955668
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 8.66157480736377,
+              "sampled_approximation_ratio": 0.8942341454214549
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 8.675314686750067,
+              "sampled_approximation_ratio": 0.8956526714487026
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 76,
+              "two_qubit_depth": 38,
+              "one_qubit_gates": 255,
+              "two_qubit_gates": 78,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 169,
+                "sx": 86,
+                "cx": 78,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 108,
+              "two_qubit_depth": 62,
+              "one_qubit_gates": 271,
+              "two_qubit_gates": 116,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 177,
+                "cx": 116,
+                "sx": 94,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.4871794871794872
+            },
+            {
+              "topology": "line",
+              "depth": 175,
+              "two_qubit_depth": 111,
+              "one_qubit_gates": 319,
+              "two_qubit_gates": 193,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 205,
+                "cx": 193,
+                "sx": 109,
+                "measure": 14,
+                "x": 5,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.4743589743589745
+            }
+          ]
+        },
+        {
+          "qubits": 14,
+          "density": 0.17142857142857143,
+          "seed": 43,
+          "edges": 13,
+          "depth_p": 4,
+          "exact_native_objective": 9.686025580337851,
+          "exact_native_scan_wall_sec": 0.001068982994183898,
+          "optimized_expected_cut": 8.992415952340872,
+          "ideal_approximation_ratio": 0.9283906879819755,
+          "quality_gap": 0.07160931201802445,
+          "optimized_betas": [
+            -1.0947031253277049,
+            -1.2484508156244853,
+            -1.342126463443971,
+            -1.4077817248326683
+          ],
+          "optimized_gammas": [
+            0.4958295371622954,
+            0.8701871620082412,
+            0.91404821161701,
+            0.9639670057067419
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 217,
+            "max_evaluations_per_restart": 108,
+            "optimization_wall_sec": 1.2696810250054114,
+            "append_zero_baseline_cut": 8.675577467143706
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 8.981914015331057,
+              "sampled_approximation_ratio": 0.9273064520461204
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 8.99211174174906,
+              "sampled_approximation_ratio": 0.9283592808181922
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 99,
+              "two_qubit_depth": 50,
+              "one_qubit_gates": 326,
+              "two_qubit_gates": 104,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 216,
+                "sx": 110,
+                "cx": 104,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 134,
+              "two_qubit_depth": 89,
+              "one_qubit_gates": 331,
+              "two_qubit_gates": 155,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 218,
+                "cx": 155,
+                "sx": 113,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.4903846153846154
+            },
+            {
+              "topology": "line",
+              "depth": 221,
+              "two_qubit_depth": 149,
+              "one_qubit_gates": 376,
+              "two_qubit_gates": 267,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "cx": 267,
+                "rz": 245,
+                "sx": 128,
+                "measure": 14,
+                "x": 3,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.5673076923076925
+            }
+          ]
+        },
+        {
+          "qubits": 14,
+          "density": 0.17142857142857143,
+          "seed": 43,
+          "edges": 13,
+          "depth_p": 5,
+          "exact_native_objective": 9.686025580337851,
+          "exact_native_scan_wall_sec": 0.001068982994183898,
+          "optimized_expected_cut": 9.179884376982443,
+          "ideal_approximation_ratio": 0.9477452130228884,
+          "quality_gap": 0.05225478697711161,
+          "optimized_betas": [
+            -1.0795027009534777,
+            -1.2485116494187083,
+            -1.3065082089067526,
+            -1.3757951329832085,
+            -1.4406097874464654
+          ],
+          "optimized_gammas": [
+            0.43044381137271315,
+            0.7830362053746835,
+            0.8481712067056442,
+            0.9091045311971382,
+            0.9450566396451648
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 241,
+            "max_evaluations_per_restart": 120,
+            "optimization_wall_sec": 1.779513766989112,
+            "append_zero_baseline_cut": 8.992415952340872
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 9.194311767127463,
+              "sampled_approximation_ratio": 0.9492347187056224
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 9.168130978701143,
+              "sampled_approximation_ratio": 0.9465317743236185
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 122,
+              "two_qubit_depth": 62,
+              "one_qubit_gates": 397,
+              "two_qubit_gates": 130,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 263,
+                "sx": 134,
+                "cx": 130,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 164,
+              "two_qubit_depth": 104,
+              "one_qubit_gates": 399,
+              "two_qubit_gates": 204,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "rz": 265,
+                "cx": 204,
+                "sx": 134,
+                "measure": 14,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.5692307692307692
+            },
+            {
+              "topology": "line",
+              "depth": 283,
+              "two_qubit_depth": 189,
+              "one_qubit_gates": 480,
+              "two_qubit_gates": 333,
+              "measurement_ops": 14,
+              "gate_counts": {
+                "cx": 333,
+                "rz": 313,
+                "sx": 163,
+                "measure": 14,
+                "x": 4,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.5615384615384613
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "qubits": 18,
+      "seed": 17,
+      "density": 0.13333333333333333,
+      "edges": 19,
+      "records": [
+        {
+          "qubits": 18,
+          "density": 0.13333333333333333,
+          "seed": 17,
+          "edges": 19,
+          "depth_p": 1,
+          "exact_native_objective": 15.98372401312609,
+          "exact_native_scan_wall_sec": 0.013861210987670347,
+          "optimized_expected_cut": 12.548432075047842,
+          "ideal_approximation_ratio": 0.7850756222231358,
+          "quality_gap": 0.21492437777686424,
+          "optimized_betas": [
+            0.3740606614922999
+          ],
+          "optimized_gammas": [
+            0.673526648540616
+          ],
+          "optimization": {
+            "selected_restart": "global_analytical_grid_plus_refinement",
+            "optimizer_success": true,
+            "optimizer_message": "validated p=1 analytical optimum search",
+            "parameter_evaluations_all_restarts": 33153,
+            "max_evaluations_per_restart": null,
+            "optimization_wall_sec": 0.015671943983761594,
+            "append_zero_baseline_cut": null
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 12.463419649155899,
+              "sampled_approximation_ratio": 0.7797569351748529
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 12.562300488066931,
+              "sampled_approximation_ratio": 0.7859432806616636
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 24,
+              "two_qubit_depth": 10,
+              "one_qubit_gates": 148,
+              "two_qubit_gates": 38,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 98,
+                "sx": 50,
+                "cx": 38,
+                "measure": 18,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 32,
+              "two_qubit_depth": 17,
+              "one_qubit_gates": 149,
+              "two_qubit_gates": 54,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 99,
+                "cx": 54,
+                "sx": 50,
+                "measure": 18,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.4210526315789473
+            },
+            {
+              "topology": "line",
+              "depth": 42,
+              "two_qubit_depth": 26,
+              "one_qubit_gates": 152,
+              "two_qubit_gates": 84,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 99,
+                "cx": 84,
+                "sx": 53,
+                "measure": 18,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.210526315789474
+            }
+          ]
+        },
+        {
+          "qubits": 18,
+          "density": 0.13333333333333333,
+          "seed": 17,
+          "edges": 19,
+          "depth_p": 2,
+          "exact_native_objective": 15.98372401312609,
+          "exact_native_scan_wall_sec": 0.013861210987670347,
+          "optimized_expected_cut": 13.678486901372995,
+          "ideal_approximation_ratio": 0.8557759687379489,
+          "quality_gap": 0.14422403126205108,
+          "optimized_betas": [
+            0.477244995445095,
+            0.2518094773540198
+          ],
+          "optimized_gammas": [
+            0.5211846018874134,
+            0.9923804594139576
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 119,
+            "max_evaluations_per_restart": 84,
+            "optimization_wall_sec": 6.661591805983335,
+            "append_zero_baseline_cut": 12.548432075047842
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 13.66482848603366,
+              "sampled_approximation_ratio": 0.854921448519249
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 13.701068904901499,
+              "sampled_approximation_ratio": 0.857188781140738
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 41,
+              "two_qubit_depth": 18,
+              "one_qubit_gates": 242,
+              "two_qubit_gates": 76,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 160,
+                "sx": 82,
+                "cx": 76,
+                "measure": 18,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 78,
+              "two_qubit_depth": 38,
+              "one_qubit_gates": 275,
+              "two_qubit_gates": 121,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 180,
+                "cx": 121,
+                "sx": 94,
+                "measure": 18,
+                "x": 1,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.5921052631578947
+            },
+            {
+              "topology": "line",
+              "depth": 78,
+              "two_qubit_depth": 47,
+              "one_qubit_gates": 286,
+              "two_qubit_gates": 184,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 185,
+                "cx": 184,
+                "sx": 100,
+                "measure": 18,
+                "x": 1,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.4210526315789473
+            }
+          ]
+        },
+        {
+          "qubits": 18,
+          "density": 0.13333333333333333,
+          "seed": 17,
+          "edges": 19,
+          "depth_p": 3,
+          "exact_native_objective": 15.98372401312609,
+          "exact_native_scan_wall_sec": 0.013861210987670347,
+          "optimized_expected_cut": 14.31658335719554,
+          "ideal_approximation_ratio": 0.8956976074811185,
+          "quality_gap": 0.10430239251888151,
+          "optimized_betas": [
+            0.5491943376392707,
+            0.36672804145526605,
+            0.20162981571798966
+          ],
+          "optimized_gammas": [
+            0.4851327977553117,
+            0.9160256764912548,
+            1.072446138430403
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 165,
+            "max_evaluations_per_restart": 96,
+            "optimization_wall_sec": 11.894003101013368,
+            "append_zero_baseline_cut": 13.678486901372995
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 14.30697725136585,
+              "sampled_approximation_ratio": 0.8950966145071532
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 14.306783468860377,
+              "sampled_approximation_ratio": 0.8950844907676971
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 58,
+              "two_qubit_depth": 26,
+              "one_qubit_gates": 336,
+              "two_qubit_gates": 114,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 222,
+                "sx": 114,
+                "cx": 114,
+                "measure": 18,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 89,
+              "two_qubit_depth": 47,
+              "one_qubit_gates": 360,
+              "two_qubit_gates": 175,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 236,
+                "cx": 175,
+                "sx": 124,
+                "measure": 18,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.5350877192982457
+            },
+            {
+              "topology": "line",
+              "depth": 126,
+              "two_qubit_depth": 71,
+              "one_qubit_gates": 407,
+              "two_qubit_gates": 291,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "cx": 291,
+                "rz": 261,
+                "sx": 143,
+                "measure": 18,
+                "x": 3,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.5526315789473686
+            }
+          ]
+        },
+        {
+          "qubits": 18,
+          "density": 0.13333333333333333,
+          "seed": 17,
+          "edges": 19,
+          "depth_p": 4,
+          "exact_native_objective": 15.98372401312609,
+          "exact_native_scan_wall_sec": 0.013861210987670347,
+          "optimized_expected_cut": 14.752244125168758,
+          "ideal_approximation_ratio": 0.9229541321568102,
+          "quality_gap": 0.07704586784318979,
+          "optimized_betas": [
+            0.5659613510766128,
+            0.4335361546228542,
+            0.3080095954581328,
+            0.1706462247032119
+          ],
+          "optimized_gammas": [
+            0.44340408820080074,
+            0.8604458075908147,
+            0.9846278639723964,
+            1.0850659912939018
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 217,
+            "max_evaluations_per_restart": 108,
+            "optimization_wall_sec": 24.692111976997694,
+            "append_zero_baseline_cut": 14.31658335719554
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 14.792549060226506,
+              "sampled_approximation_ratio": 0.9254757557174178
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 14.750789729079358,
+              "sampled_approximation_ratio": 0.9228631398393625
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 75,
+              "two_qubit_depth": 34,
+              "one_qubit_gates": 430,
+              "two_qubit_gates": 152,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 284,
+                "cx": 152,
+                "sx": 146,
+                "measure": 18,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 144,
+              "two_qubit_depth": 82,
+              "one_qubit_gates": 469,
+              "two_qubit_gates": 243,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 306,
+                "cx": 243,
+                "sx": 163,
+                "measure": 18,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.5986842105263157
+            },
+            {
+              "topology": "line",
+              "depth": 176,
+              "two_qubit_depth": 111,
+              "one_qubit_gates": 539,
+              "two_qubit_gates": 410,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "cx": 410,
+                "rz": 347,
+                "sx": 190,
+                "measure": 18,
+                "x": 2,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.6973684210526314
+            }
+          ]
+        },
+        {
+          "qubits": 18,
+          "density": 0.13333333333333333,
+          "seed": 17,
+          "edges": 19,
+          "depth_p": 5,
+          "exact_native_objective": 15.98372401312609,
+          "exact_native_scan_wall_sec": 0.013861210987670347,
+          "optimized_expected_cut": 15.048299170152657,
+          "ideal_approximation_ratio": 0.9414764142445623,
+          "quality_gap": 0.0585235857554377,
+          "optimized_betas": [
+            0.5733822861427784,
+            0.4468397419773531,
+            0.3675598956579087,
+            0.2721827359286988,
+            0.14539704188351754
+          ],
+          "optimized_gammas": [
+            0.3998926461890363,
+            0.7890935288566776,
+            0.9073381348405279,
+            1.0011859987753635,
+            1.0874455335009803
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 241,
+            "max_evaluations_per_restart": 120,
+            "optimization_wall_sec": 31.160855768976035,
+            "append_zero_baseline_cut": 14.752244125168758
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 15.069780861764947,
+              "sampled_approximation_ratio": 0.9428203871256412
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 15.049722149520731,
+              "sampled_approximation_ratio": 0.9415654410174787
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 92,
+              "two_qubit_depth": 42,
+              "one_qubit_gates": 524,
+              "two_qubit_gates": 190,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 346,
+                "cx": 190,
+                "sx": 178,
+                "measure": 18,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 147,
+              "two_qubit_depth": 78,
+              "one_qubit_gates": 571,
+              "two_qubit_gates": 306,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 376,
+                "cx": 306,
+                "sx": 194,
+                "measure": 18,
+                "x": 1,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.6105263157894736
+            },
+            {
+              "topology": "line",
+              "depth": 221,
+              "two_qubit_depth": 131,
+              "one_qubit_gates": 671,
+              "two_qubit_gates": 522,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "cx": 522,
+                "rz": 427,
+                "sx": 241,
+                "measure": 18,
+                "x": 3,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.7473684210526317
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "qubits": 18,
+      "seed": 31,
+      "density": 0.13333333333333333,
+      "edges": 23,
+      "records": [
+        {
+          "qubits": 18,
+          "density": 0.13333333333333333,
+          "seed": 31,
+          "edges": 23,
+          "depth_p": 1,
+          "exact_native_objective": 21.851481584870548,
+          "exact_native_scan_wall_sec": 0.011751730984542519,
+          "optimized_expected_cut": 16.75311450417305,
+          "ideal_approximation_ratio": 0.7666809428506903,
+          "quality_gap": 0.23331905714930967,
+          "optimized_betas": [
+            0.36895256062701226
+          ],
+          "optimized_gammas": [
+            0.48720933154642776
+          ],
+          "optimization": {
+            "selected_restart": "global_analytical_grid_plus_refinement",
+            "optimizer_success": true,
+            "optimizer_message": "validated p=1 analytical optimum search",
+            "parameter_evaluations_all_restarts": 33153,
+            "max_evaluations_per_restart": null,
+            "optimization_wall_sec": 0.02459937601815909,
+            "append_zero_baseline_cut": null
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 16.60763911737235,
+              "sampled_approximation_ratio": 0.7600234818343434
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 16.753228877925487,
+              "sampled_approximation_ratio": 0.7666861769924576
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 45,
+              "two_qubit_depth": 24,
+              "one_qubit_gates": 149,
+              "two_qubit_gates": 46,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 101,
+                "sx": 48,
+                "cx": 46,
+                "measure": 18,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 60,
+              "two_qubit_depth": 40,
+              "one_qubit_gates": 151,
+              "two_qubit_gates": 73,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 103,
+                "cx": 73,
+                "sx": 48,
+                "measure": 18,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.5869565217391304
+            },
+            {
+              "topology": "line",
+              "depth": 85,
+              "two_qubit_depth": 52,
+              "one_qubit_gates": 156,
+              "two_qubit_gates": 119,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "cx": 119,
+                "rz": 105,
+                "sx": 51,
+                "measure": 18,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.5869565217391304
+            }
+          ]
+        },
+        {
+          "qubits": 18,
+          "density": 0.13333333333333333,
+          "seed": 31,
+          "edges": 23,
+          "depth_p": 2,
+          "exact_native_objective": 21.851481584870548,
+          "exact_native_scan_wall_sec": 0.011751730984542519,
+          "optimized_expected_cut": 18.255450833717436,
+          "ideal_approximation_ratio": 0.8354330923884393,
+          "quality_gap": 0.16456690761156068,
+          "optimized_betas": [
+            0.49141429379417145,
+            0.2690185586483116
+          ],
+          "optimized_gammas": [
+            0.3793597577383199,
+            0.7051140180338294
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 121,
+            "max_evaluations_per_restart": 84,
+            "optimization_wall_sec": 6.552709161012899,
+            "append_zero_baseline_cut": 16.75311450417305
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 18.164958543285103,
+              "sampled_approximation_ratio": 0.8312918496044722
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 18.251151972424417,
+              "sampled_approximation_ratio": 0.8352363615042508
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 71,
+              "two_qubit_depth": 38,
+              "one_qubit_gates": 244,
+              "two_qubit_gates": 92,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 166,
+                "cx": 92,
+                "sx": 78,
+                "measure": 18,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 96,
+              "two_qubit_depth": 66,
+              "one_qubit_gates": 255,
+              "two_qubit_gates": 151,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 172,
+                "cx": 151,
+                "sx": 81,
+                "measure": 18,
+                "x": 2,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.641304347826087
+            },
+            {
+              "topology": "line",
+              "depth": 155,
+              "two_qubit_depth": 108,
+              "one_qubit_gates": 257,
+              "two_qubit_gates": 297,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "cx": 297,
+                "rz": 175,
+                "sx": 82,
+                "measure": 18,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 3.2282608695652173
+            }
+          ]
+        },
+        {
+          "qubits": 18,
+          "density": 0.13333333333333333,
+          "seed": 31,
+          "edges": 23,
+          "depth_p": 3,
+          "exact_native_objective": 21.851481584870548,
+          "exact_native_scan_wall_sec": 0.011751730984542519,
+          "optimized_expected_cut": 19.06596275499332,
+          "ideal_approximation_ratio": 0.8725249444044171,
+          "quality_gap": 0.12747505559558292,
+          "optimized_betas": [
+            0.5338133211429481,
+            0.37553954794183175,
+            0.20119567182923603
+          ],
+          "optimized_gammas": [
+            0.3339457191786625,
+            0.6204417440042489,
+            0.7287118661208383
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 193,
+            "max_evaluations_per_restart": 96,
+            "optimization_wall_sec": 13.99403209501179,
+            "append_zero_baseline_cut": 18.255450833717436
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 19.079417481811934,
+              "sampled_approximation_ratio": 0.8731406796243085
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 19.07965466599636,
+              "sampled_approximation_ratio": 0.8731515339997205
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 97,
+              "two_qubit_depth": 52,
+              "one_qubit_gates": 339,
+              "two_qubit_gates": 138,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 231,
+                "cx": 138,
+                "sx": 108,
+                "measure": 18,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 168,
+              "two_qubit_depth": 100,
+              "one_qubit_gates": 388,
+              "two_qubit_gates": 241,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 258,
+                "cx": 241,
+                "sx": 126,
+                "measure": 18,
+                "x": 4,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.7463768115942029
+            },
+            {
+              "topology": "line",
+              "depth": 207,
+              "two_qubit_depth": 143,
+              "one_qubit_gates": 380,
+              "two_qubit_gates": 425,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "cx": 425,
+                "rz": 255,
+                "sx": 122,
+                "measure": 18,
+                "x": 3,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 3.079710144927536
+            }
+          ]
+        },
+        {
+          "qubits": 18,
+          "density": 0.13333333333333333,
+          "seed": 31,
+          "edges": 23,
+          "depth_p": 4,
+          "exact_native_objective": 21.851481584870548,
+          "exact_native_scan_wall_sec": 0.011751730984542519,
+          "optimized_expected_cut": 19.62649092182811,
+          "ideal_approximation_ratio": 0.8981766680487712,
+          "quality_gap": 0.10182333195122883,
+          "optimized_betas": [
+            0.5641993943036541,
+            0.4379700128847319,
+            0.32284509219634083,
+            0.18234666331364968
+          ],
+          "optimized_gammas": [
+            0.30094516132636356,
+            0.5742105108749838,
+            0.6545282125673524,
+            0.7409348965858984
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 217,
+            "max_evaluations_per_restart": 108,
+            "optimization_wall_sec": 22.54557587299496,
+            "append_zero_baseline_cut": 19.06596275499332
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 19.59203694747103,
+              "sampled_approximation_ratio": 0.8965999340308392
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 19.626383036724878,
+              "sampled_approximation_ratio": 0.8981717308502195
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 123,
+              "two_qubit_depth": 66,
+              "one_qubit_gates": 434,
+              "two_qubit_gates": 184,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 296,
+                "cx": 184,
+                "sx": 138,
+                "measure": 18,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 208,
+              "two_qubit_depth": 126,
+              "one_qubit_gates": 494,
+              "two_qubit_gates": 323,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 326,
+                "cx": 323,
+                "sx": 163,
+                "measure": 18,
+                "x": 5,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.7554347826086956
+            },
+            {
+              "topology": "line",
+              "depth": 261,
+              "two_qubit_depth": 179,
+              "one_qubit_gates": 498,
+              "two_qubit_gates": 573,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "cx": 573,
+                "rz": 333,
+                "sx": 163,
+                "measure": 18,
+                "x": 2,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 3.114130434782609
+            }
+          ]
+        },
+        {
+          "qubits": 18,
+          "density": 0.13333333333333333,
+          "seed": 31,
+          "edges": 23,
+          "depth_p": 5,
+          "exact_native_objective": 21.851481584870548,
+          "exact_native_scan_wall_sec": 0.011751730984542519,
+          "optimized_expected_cut": 20.042673628118095,
+          "ideal_approximation_ratio": 0.91722264004264,
+          "quality_gap": 0.08277735995736002,
+          "optimized_betas": [
+            0.5815872807322173,
+            0.46873356035935476,
+            0.3896447957388445,
+            0.31123395423741584,
+            0.16567668532307644
+          ],
+          "optimized_gammas": [
+            0.27981225081490635,
+            0.5275191051519946,
+            0.5967774745824744,
+            0.6593885688163813,
+            0.7309905496847074
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 241,
+            "max_evaluations_per_restart": 120,
+            "optimization_wall_sec": 30.77286461199401,
+            "append_zero_baseline_cut": 19.62649092182811
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 20.077208938613985,
+              "sampled_approximation_ratio": 0.9188030962859275
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 20.041385421041134,
+              "sampled_approximation_ratio": 0.9171636871944334
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 149,
+              "two_qubit_depth": 80,
+              "one_qubit_gates": 529,
+              "two_qubit_gates": 230,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 361,
+                "cx": 230,
+                "sx": 168,
+                "measure": 18,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 272,
+              "two_qubit_depth": 156,
+              "one_qubit_gates": 621,
+              "two_qubit_gates": 416,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "cx": 416,
+                "rz": 409,
+                "sx": 206,
+                "measure": 18,
+                "x": 6,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.808695652173913
+            },
+            {
+              "topology": "line",
+              "depth": 370,
+              "two_qubit_depth": 249,
+              "one_qubit_gates": 659,
+              "two_qubit_gates": 767,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "cx": 767,
+                "rz": 438,
+                "sx": 219,
+                "measure": 18,
+                "x": 2,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 3.3347826086956522
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "qubits": 18,
+      "seed": 43,
+      "density": 0.13333333333333333,
+      "edges": 17,
+      "records": [
+        {
+          "qubits": 18,
+          "density": 0.13333333333333333,
+          "seed": 43,
+          "edges": 17,
+          "depth_p": 1,
+          "exact_native_objective": 14.628559958437243,
+          "exact_native_scan_wall_sec": 0.00951730998349376,
+          "optimized_expected_cut": 11.097957789905674,
+          "ideal_approximation_ratio": 0.7586500531451669,
+          "quality_gap": 0.24134994685483313,
+          "optimized_betas": [
+            -1.1877768823817336
+          ],
+          "optimized_gammas": [
+            0.7339581714940979
+          ],
+          "optimization": {
+            "selected_restart": "global_analytical_grid_plus_refinement",
+            "optimizer_success": true,
+            "optimizer_message": "validated p=1 analytical optimum search",
+            "parameter_evaluations_all_restarts": 33153,
+            "max_evaluations_per_restart": null,
+            "optimization_wall_sec": 0.018658765009604394,
+            "append_zero_baseline_cut": null
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 11.063979596560314,
+              "sampled_approximation_ratio": 0.7563273232632167
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 11.113841811458531,
+              "sampled_approximation_ratio": 0.7597358757823907
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 36,
+              "two_qubit_depth": 18,
+              "one_qubit_gates": 139,
+              "two_qubit_gates": 34,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 90,
+                "sx": 48,
+                "cx": 34,
+                "measure": 18,
+                "x": 1,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 62,
+              "two_qubit_depth": 33,
+              "one_qubit_gates": 149,
+              "two_qubit_gates": 57,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 96,
+                "cx": 57,
+                "sx": 51,
+                "measure": 18,
+                "x": 2,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.6764705882352942
+            },
+            {
+              "topology": "line",
+              "depth": 81,
+              "two_qubit_depth": 43,
+              "one_qubit_gates": 172,
+              "two_qubit_gates": 76,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 109,
+                "cx": 76,
+                "sx": 61,
+                "measure": 18,
+                "x": 2,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.235294117647059
+            }
+          ]
+        },
+        {
+          "qubits": 18,
+          "density": 0.13333333333333333,
+          "seed": 43,
+          "edges": 17,
+          "depth_p": 2,
+          "exact_native_objective": 14.628559958437243,
+          "exact_native_scan_wall_sec": 0.00951730998349376,
+          "optimized_expected_cut": 12.169570942239275,
+          "ideal_approximation_ratio": 0.8319049159189651,
+          "quality_gap": 0.1680950840810349,
+          "optimized_betas": [
+            -1.1452861037777369,
+            -1.330682735198301
+          ],
+          "optimized_gammas": [
+            0.5430755637629978,
+            0.9379978563758553
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 120,
+            "max_evaluations_per_restart": 84,
+            "optimization_wall_sec": 6.472254644992063,
+            "append_zero_baseline_cut": 11.097957789905674
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 12.196863265405176,
+              "sampled_approximation_ratio": 0.8337706035357534
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 12.154300293671849,
+              "sampled_approximation_ratio": 0.830861023108544
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 59,
+              "two_qubit_depth": 30,
+              "one_qubit_gates": 220,
+              "two_qubit_gates": 66,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 144,
+                "sx": 76,
+                "cx": 66,
+                "measure": 18,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 82,
+              "two_qubit_depth": 51,
+              "one_qubit_gates": 238,
+              "two_qubit_gates": 111,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 154,
+                "cx": 111,
+                "sx": 83,
+                "measure": 18,
+                "x": 1,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.6818181818181819
+            },
+            {
+              "topology": "line",
+              "depth": 154,
+              "two_qubit_depth": 91,
+              "one_qubit_gates": 259,
+              "two_qubit_gates": 179,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "cx": 179,
+                "rz": 170,
+                "sx": 88,
+                "measure": 18,
+                "x": 1,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.712121212121212
+            }
+          ]
+        },
+        {
+          "qubits": 18,
+          "density": 0.13333333333333333,
+          "seed": 43,
+          "edges": 17,
+          "depth_p": 3,
+          "exact_native_objective": 14.628559958437243,
+          "exact_native_scan_wall_sec": 0.00951730998349376,
+          "optimized_expected_cut": 12.788145927950872,
+          "ideal_approximation_ratio": 0.8741903484884795,
+          "quality_gap": 0.12580965151152046,
+          "optimized_betas": [
+            -1.0945983764013607,
+            -1.3093565174784147,
+            -1.3861985717608167
+          ],
+          "optimized_gammas": [
+            0.47546579587240995,
+            0.785914295718705,
+            0.7991177299534624
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 193,
+            "max_evaluations_per_restart": 96,
+            "optimization_wall_sec": 14.021049776987638,
+            "append_zero_baseline_cut": 12.169570942239275
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 12.754335101377407,
+              "sampled_approximation_ratio": 0.8718790597034229
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 12.808637465603237,
+              "sampled_approximation_ratio": 0.8755911382935312
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 82,
+              "two_qubit_depth": 42,
+              "one_qubit_gates": 297,
+              "two_qubit_gates": 98,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 195,
+                "sx": 102,
+                "cx": 98,
+                "measure": 18,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 151,
+              "two_qubit_depth": 84,
+              "one_qubit_gates": 310,
+              "two_qubit_gates": 170,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 203,
+                "cx": 170,
+                "sx": 106,
+                "measure": 18,
+                "x": 1,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.7346938775510203
+            },
+            {
+              "topology": "line",
+              "depth": 213,
+              "two_qubit_depth": 132,
+              "one_qubit_gates": 361,
+              "two_qubit_gates": 267,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "cx": 267,
+                "rz": 236,
+                "sx": 125,
+                "measure": 18,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.7244897959183674
+            }
+          ]
+        },
+        {
+          "qubits": 18,
+          "density": 0.13333333333333333,
+          "seed": 43,
+          "edges": 17,
+          "depth_p": 4,
+          "exact_native_objective": 14.628559958437243,
+          "exact_native_scan_wall_sec": 0.00951730998349376,
+          "optimized_expected_cut": 13.218810634620095,
+          "ideal_approximation_ratio": 0.9036303417545857,
+          "quality_gap": 0.09636965824541432,
+          "optimized_betas": [
+            -1.03684251255391,
+            -1.23804978066213,
+            -1.3608583507529135,
+            -1.417423626019941
+          ],
+          "optimized_gammas": [
+            0.42017490209492764,
+            0.744496576028542,
+            0.7450507048682274,
+            0.7879301521001068
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 217,
+            "max_evaluations_per_restart": 108,
+            "optimization_wall_sec": 22.48806786799105,
+            "append_zero_baseline_cut": 12.788145927950872
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 13.20005812532209,
+              "sampled_approximation_ratio": 0.9023484309341575
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 13.208047983329513,
+              "sampled_approximation_ratio": 0.9028946130621402
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 105,
+              "two_qubit_depth": 54,
+              "one_qubit_gates": 374,
+              "two_qubit_gates": 130,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 246,
+                "cx": 130,
+                "sx": 128,
+                "measure": 18,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 191,
+              "two_qubit_depth": 107,
+              "one_qubit_gates": 402,
+              "two_qubit_gates": 226,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 266,
+                "cx": 226,
+                "sx": 136,
+                "measure": 18,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.7384615384615385
+            },
+            {
+              "topology": "line",
+              "depth": 277,
+              "two_qubit_depth": 175,
+              "one_qubit_gates": 419,
+              "two_qubit_gates": 378,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "cx": 378,
+                "rz": 277,
+                "sx": 142,
+                "measure": 18,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.9076923076923076
+            }
+          ]
+        },
+        {
+          "qubits": 18,
+          "density": 0.13333333333333333,
+          "seed": 43,
+          "edges": 17,
+          "depth_p": 5,
+          "exact_native_objective": 14.628559958437243,
+          "exact_native_scan_wall_sec": 0.00951730998349376,
+          "optimized_expected_cut": 13.504739256704621,
+          "ideal_approximation_ratio": 0.9231762589806769,
+          "quality_gap": 0.0768237410193231,
+          "optimized_betas": [
+            -1.0101556330253614,
+            -1.1856592634402596,
+            -1.29439589545646,
+            -1.3878002830223448,
+            -1.443220798230802
+          ],
+          "optimized_gammas": [
+            0.3831125618446603,
+            0.6769653128390347,
+            0.7165902661342051,
+            0.7561405528330202,
+            0.7832476160996034
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 241,
+            "max_evaluations_per_restart": 120,
+            "optimization_wall_sec": 28.16753039098694,
+            "append_zero_baseline_cut": 13.218810634620095
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 13.551237797767627,
+              "sampled_approximation_ratio": 0.9263548726784788
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 13.495468546972717,
+              "sampled_approximation_ratio": 0.9225425185606873
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 128,
+              "two_qubit_depth": 66,
+              "one_qubit_gates": 451,
+              "two_qubit_gates": 162,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 297,
+                "cx": 162,
+                "sx": 154,
+                "measure": 18,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 205,
+              "two_qubit_depth": 114,
+              "one_qubit_gates": 510,
+              "two_qubit_gates": 264,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "rz": 334,
+                "cx": 264,
+                "sx": 176,
+                "measure": 18,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.6296296296296295
+            },
+            {
+              "topology": "line",
+              "depth": 336,
+              "two_qubit_depth": 212,
+              "one_qubit_gates": 549,
+              "two_qubit_gates": 474,
+              "measurement_ops": 18,
+              "gate_counts": {
+                "cx": 474,
+                "rz": 357,
+                "sx": 192,
+                "measure": 18,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.925925925925926
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "qubits": 20,
+      "seed": 17,
+      "density": 0.12,
+      "edges": 24,
+      "records": [
+        {
+          "qubits": 20,
+          "density": 0.12,
+          "seed": 17,
+          "edges": 24,
+          "depth_p": 1,
+          "exact_native_objective": 20.452300484147386,
+          "exact_native_scan_wall_sec": 0.1369896390242502,
+          "optimized_expected_cut": 15.341626561930632,
+          "ideal_approximation_ratio": 0.7501174048279778,
+          "quality_gap": 0.24988259517202216,
+          "optimized_betas": [
+            -1.181851355035193
+          ],
+          "optimized_gammas": [
+            0.581970588153963
+          ],
+          "optimization": {
+            "selected_restart": "global_analytical_grid_plus_refinement",
+            "optimizer_success": true,
+            "optimizer_message": "validated p=1 analytical optimum search",
+            "parameter_evaluations_all_restarts": 33153,
+            "max_evaluations_per_restart": null,
+            "optimization_wall_sec": 0.022202683001523837,
+            "append_zero_baseline_cut": null
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 15.372008363822955,
+              "sampled_approximation_ratio": 0.7516029004041783
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 15.360340082487895,
+              "sampled_approximation_ratio": 0.7510323884784365
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 36,
+              "two_qubit_depth": 18,
+              "one_qubit_gates": 163,
+              "two_qubit_gates": 48,
+              "measurement_ops": 20,
+              "gate_counts": {
+                "rz": 109,
+                "sx": 54,
+                "cx": 48,
+                "measure": 20,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 73,
+              "two_qubit_depth": 43,
+              "one_qubit_gates": 177,
+              "two_qubit_gates": 82,
+              "measurement_ops": 20,
+              "gate_counts": {
+                "rz": 115,
+                "cx": 82,
+                "sx": 60,
+                "measure": 20,
+                "x": 2,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.7083333333333333
+            },
+            {
+              "topology": "line",
+              "depth": 89,
+              "two_qubit_depth": 48,
+              "one_qubit_gates": 212,
+              "two_qubit_gates": 144,
+              "measurement_ops": 20,
+              "gate_counts": {
+                "cx": 144,
+                "rz": 136,
+                "sx": 73,
+                "measure": 20,
+                "x": 3,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 3.0
+            }
+          ]
+        },
+        {
+          "qubits": 20,
+          "density": 0.12,
+          "seed": 17,
+          "edges": 24,
+          "depth_p": 2,
+          "exact_native_objective": 20.452300484147386,
+          "exact_native_scan_wall_sec": 0.1369896390242502,
+          "optimized_expected_cut": 16.861185939780263,
+          "ideal_approximation_ratio": 0.8244151288921947,
+          "quality_gap": 0.1755848711078053,
+          "optimized_betas": [
+            -1.078622731206831,
+            -1.29246379996218
+          ],
+          "optimized_gammas": [
+            0.43854196482138846,
+            0.7757261212387639
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 169,
+            "max_evaluations_per_restart": 84,
+            "optimization_wall_sec": 52.370271591003984,
+            "append_zero_baseline_cut": 15.341626561930632
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 16.83808857605894,
+              "sampled_approximation_ratio": 0.8232858004951654
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 16.922672633756697,
+              "sampled_approximation_ratio": 0.8274214750009903
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 59,
+              "two_qubit_depth": 30,
+              "one_qubit_gates": 266,
+              "two_qubit_gates": 96,
+              "measurement_ops": 20,
+              "gate_counts": {
+                "rz": 178,
+                "cx": 96,
+                "sx": 88,
+                "measure": 20,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 121,
+              "two_qubit_depth": 68,
+              "one_qubit_gates": 329,
+              "two_qubit_gates": 179,
+              "measurement_ops": 20,
+              "gate_counts": {
+                "rz": 217,
+                "cx": 179,
+                "sx": 112,
+                "measure": 20,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.8645833333333333
+            },
+            {
+              "topology": "line",
+              "depth": 177,
+              "two_qubit_depth": 123,
+              "one_qubit_gates": 336,
+              "two_qubit_gates": 328,
+              "measurement_ops": 20,
+              "gate_counts": {
+                "cx": 328,
+                "rz": 224,
+                "sx": 112,
+                "measure": 20,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 3.4166666666666665
+            }
+          ]
+        },
+        {
+          "qubits": 20,
+          "density": 0.12,
+          "seed": 17,
+          "edges": 24,
+          "depth_p": 3,
+          "exact_native_objective": 20.452300484147386,
+          "exact_native_scan_wall_sec": 0.1369896390242502,
+          "optimized_expected_cut": 17.77225908728236,
+          "ideal_approximation_ratio": 0.8689613719032571,
+          "quality_gap": 0.13103862809674294,
+          "optimized_betas": [
+            -1.0200229041934983,
+            -1.188999995614529,
+            -1.3555710515248485
+          ],
+          "optimized_gammas": [
+            0.3804489650875026,
+            0.6847393890345599,
+            0.7890663103628306
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 146,
+            "max_evaluations_per_restart": 96,
+            "optimization_wall_sec": 65.84167733500362,
+            "append_zero_baseline_cut": 16.861185939780263
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 17.651077910398563,
+              "sampled_approximation_ratio": 0.8630363085111107
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 17.782921918425703,
+              "sampled_approximation_ratio": 0.8694827230906996
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 82,
+              "two_qubit_depth": 42,
+              "one_qubit_gates": 369,
+              "two_qubit_gates": 144,
+              "measurement_ops": 20,
+              "gate_counts": {
+                "rz": 247,
+                "cx": 144,
+                "sx": 122,
+                "measure": 20,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 202,
+              "two_qubit_depth": 124,
+              "one_qubit_gates": 428,
+              "two_qubit_gates": 295,
+              "measurement_ops": 20,
+              "gate_counts": {
+                "cx": 295,
+                "rz": 284,
+                "sx": 141,
+                "measure": 20,
+                "x": 3,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.048611111111111
+            },
+            {
+              "topology": "line",
+              "depth": 254,
+              "two_qubit_depth": 173,
+              "one_qubit_gates": 483,
+              "two_qubit_gates": 524,
+              "measurement_ops": 20,
+              "gate_counts": {
+                "cx": 524,
+                "rz": 315,
+                "sx": 165,
+                "measure": 20,
+                "x": 3,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 3.638888888888889
+            }
+          ]
+        },
+        {
+          "qubits": 20,
+          "density": 0.12,
+          "seed": 17,
+          "edges": 24,
+          "depth_p": 4,
+          "exact_native_objective": 20.452300484147386,
+          "exact_native_scan_wall_sec": 0.1369896390242502,
+          "optimized_expected_cut": 18.3826334412159,
+          "ideal_approximation_ratio": 0.8988051713529396,
+          "quality_gap": 0.10119482864706042,
+          "optimized_betas": [
+            -0.9910140637500938,
+            -1.1158143437916472,
+            -1.2481402496776222,
+            -1.3894871691056934
+          ],
+          "optimized_gammas": [
+            0.34706365743005313,
+            0.6252649313914649,
+            0.7225590548425201,
+            0.7859157297395007
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 217,
+            "max_evaluations_per_restart": 108,
+            "optimization_wall_sec": 119.93519491900224,
+            "append_zero_baseline_cut": 17.77225908728236
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 18.28816839878617,
+              "sampled_approximation_ratio": 0.8941863734576636
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 18.36189080510978,
+              "sampled_approximation_ratio": 0.8977909756089353
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 105,
+              "two_qubit_depth": 54,
+              "one_qubit_gates": 472,
+              "two_qubit_gates": 192,
+              "measurement_ops": 20,
+              "gate_counts": {
+                "rz": 316,
+                "cx": 192,
+                "sx": 156,
+                "measure": 20,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 231,
+              "two_qubit_depth": 141,
+              "one_qubit_gates": 545,
+              "two_qubit_gates": 403,
+              "measurement_ops": 20,
+              "gate_counts": {
+                "cx": 403,
+                "rz": 364,
+                "sx": 179,
+                "measure": 20,
+                "x": 2,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.0989583333333335
+            },
+            {
+              "topology": "line",
+              "depth": 352,
+              "two_qubit_depth": 242,
+              "one_qubit_gates": 633,
+              "two_qubit_gates": 704,
+              "measurement_ops": 20,
+              "gate_counts": {
+                "cx": 704,
+                "rz": 417,
+                "sx": 212,
+                "measure": 20,
+                "x": 4,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 3.6666666666666665
+            }
+          ]
+        },
+        {
+          "qubits": 20,
+          "density": 0.12,
+          "seed": 17,
+          "edges": 24,
+          "depth_p": 5,
+          "exact_native_objective": 20.452300484147386,
+          "exact_native_scan_wall_sec": 0.1369896390242502,
+          "optimized_expected_cut": 18.82166115483717,
+          "ideal_approximation_ratio": 0.9202711044376584,
+          "quality_gap": 0.07972889556234164,
+          "optimized_betas": [
+            -0.986697262727376,
+            -1.096012858784036,
+            -1.1866869713996349,
+            -1.2930457592534372,
+            -1.4210551010656314
+          ],
+          "optimized_gammas": [
+            0.3215427629288802,
+            0.5837749454020646,
+            0.6482804282128093,
+            0.7250818474962039,
+            0.7904308932646504
+          ],
+          "optimization": {
+            "selected_restart": 1,
+            "optimizer_success": false,
+            "optimizer_message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+            "parameter_evaluations_all_restarts": 241,
+            "max_evaluations_per_restart": 120,
+            "optimization_wall_sec": 180.58027244798723,
+            "append_zero_baseline_cut": 18.3826334412159
+          },
+          "finite_shot_resampling": [
+            {
+              "shots": 1024,
+              "sampled_expected_cut": 18.867882281822254,
+              "sampled_approximation_ratio": 0.9225310520176829
+            },
+            {
+              "shots": 8192,
+              "sampled_expected_cut": 18.811264655705532,
+              "sampled_approximation_ratio": 0.9197627753555732
+            }
+          ],
+          "compiled": [
+            {
+              "topology": "all_to_all",
+              "depth": 128,
+              "two_qubit_depth": 66,
+              "one_qubit_gates": 575,
+              "two_qubit_gates": 240,
+              "measurement_ops": 20,
+              "gate_counts": {
+                "rz": 385,
+                "cx": 240,
+                "sx": 190,
+                "measure": 20,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 1.0
+            },
+            {
+              "topology": "grid",
+              "depth": 315,
+              "two_qubit_depth": 174,
+              "one_qubit_gates": 710,
+              "two_qubit_gates": 499,
+              "measurement_ops": 20,
+              "gate_counts": {
+                "cx": 499,
+                "rz": 465,
+                "sx": 238,
+                "measure": 20,
+                "x": 7,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 2.0791666666666666
+            },
+            {
+              "topology": "line",
+              "depth": 437,
+              "two_qubit_depth": 303,
+              "one_qubit_gates": 848,
+              "two_qubit_gates": 898,
+              "measurement_ops": 20,
+              "gate_counts": {
+                "cx": 898,
+                "rz": 547,
+                "sx": 292,
+                "measure": 20,
+                "x": 9,
+                "barrier": 1
+              },
+              "routing_multiplier_vs_all_to_all": 3.7416666666666667
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "record_count": 50
+}

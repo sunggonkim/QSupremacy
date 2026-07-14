@@ -1,0 +1,76 @@
+{
+  "schema": "qsup.ml-cifar10-cuquantum-feature-proxy.v1",
+  "scope": "same CIFAR-10 split quantum-feature quality gate; direct amplitude state upload is executed, while generic gate-based state preparation remains a separate upper contract; this is not end-to-end QNN training",
+  "environment": {
+    "host": "nid008588",
+    "platform": "Linux-6.4.0-150600.23.103_15.0.25-cray_shasta_c-x86_64-with-glibc2.38",
+    "python": "3.11.14",
+    "slurm_job_id": "55821623"
+  },
+  "dataset": {
+    "root": "/pscratch/sd/s/sgkim/qsup_datasets/cifar10",
+    "train_samples": 100,
+    "test_samples": 100,
+    "raw_features": 3072,
+    "classes": [
+      "airplane",
+      "automobile",
+      "bird",
+      "cat",
+      "deer",
+      "dog",
+      "frog",
+      "horse",
+      "ship",
+      "truck"
+    ]
+  },
+  "encoding": {
+    "method": "mean-centered amplitude encoding by direct state upload",
+    "qubits": 12,
+    "state_dimension": 4096,
+    "generic_exact_state_preparation_rotation_upper_per_image": 4095,
+    "generic_exact_state_preparation_executed": false
+  },
+  "train_circuit": {
+    "runtime_sec": 1.3616375240089837,
+    "samples": 100,
+    "qubits": 12,
+    "layers": 3,
+    "features": 108,
+    "executed_one_qubit_gates": 7200,
+    "executed_two_qubit_gates": 3600,
+    "circuit_evaluations": 100,
+    "cuquantum_version": "26.01.0",
+    "cupy_version": "13.6.0",
+    "device": 0,
+    "loaded_from_checkpoint": false
+  },
+  "test_circuit": {
+    "runtime_sec": 0.18319842699565925,
+    "samples": 100,
+    "qubits": 12,
+    "layers": 3,
+    "features": 108,
+    "executed_one_qubit_gates": 7200,
+    "executed_two_qubit_gates": 3600,
+    "circuit_evaluations": 100,
+    "cuquantum_version": "26.01.0",
+    "cupy_version": "13.6.0",
+    "device": 0,
+    "loaded_from_checkpoint": false
+  },
+  "classifier": {
+    "model": "standardized_ridge_head",
+    "regularization": 0.01,
+    "runtime_sec": 0.0008963590080384165,
+    "train_accuracy": 1.0,
+    "test_accuracy": 0.11
+  },
+  "resnet18_reference": {
+    "artifact": "data/processed/perlmutter/ml_cifar10_resnet18_proxy.json",
+    "best_test_accuracy": 0.8185
+  },
+  "quality_gap_to_resnet18": 0.7085,
+  "total_runtime_sec": 22.737070088012842
+}
